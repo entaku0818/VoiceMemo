@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "E1351C7E-E722-4C07-BBE6-C6A22E962568"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2032E7C0-2016-4EC7-9B8C-52BC284E0057"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiceMemo/VoiceMemo.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "2032E7C0-2016-4EC7-9B8C-52BC284E0057 - 715a1438356b352c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "1056">
+               </Location>
+               <Location
+                  uuid = "2032E7C0-2016-4EC7-9B8C-52BC284E0057 - 715a1438356b352c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "1104">
+               </Location>
+               <Location
+                  uuid = "2032E7C0-2016-4EC7-9B8C-52BC284E0057 - 6a93f30696d14c51"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () async -&gt; VoiceMemo.RecordingMemoAction in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "2032E7C0-2016-4EC7-9B8C-52BC284E0057 - b5c0f080a9da2c72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; VoiceMemo.RecordingMemoAction in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14E6A8F7-D4D8-4F9B-8E63-92E0B2AF316A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiceMemo/VoiceMemo.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "14E6A8F7-D4D8-4F9B-8E63-92E0B2AF316A - 715a1438356b3281"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "1508">
+               </Location>
+               <Location
+                  uuid = "14E6A8F7-D4D8-4F9B-8E63-92E0B2AF316A - 79549ed681d895ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 @Sendable () async -&gt; VoiceMemo.RecordingMemoAction in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "14E6A8F7-D4D8-4F9B-8E63-92E0B2AF316A - b5c0f080a9da2bdf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 @Sendable () async -&gt; VoiceMemo.RecordingMemoAction in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiceMemo/VoiceMemo.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - da966979781704e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - 62598cb2ad825504"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - 441c73e7545f2c40"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - ffd5f98efbfff25d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - 928f0036191c985a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - 3ecdda62c5b85f15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () async throws -&gt; Swift.Bool in implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - 368d8adf3ac3549e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; Swift.Bool in implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - aedb919c2022a28c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 @Sendable () async throws -&gt; Swift.Bool in implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - c32aedf8553a1098"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async throws -&gt; Swift.Bool in implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "74ACBABF-A414-4837-9A6A-DB89F2B59871 - a5f95e882709be99"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async throws -&gt; Swift.Bool in implicit closure #1 @Sendable () async -&gt; () in closure #5 @Sendable (ComposableArchitecture.Send&lt;VoiceMemo.RecordingMemoAction&gt;) async -&gt; () in closure #1 (inout VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment) -&gt; ComposableArchitecture.Effect&lt;VoiceMemo.RecordingMemoAction, Swift.Never&gt; in variable initialization expression of VoiceMemo.recordingMemoReducer : ComposableArchitecture.Reducer&lt;VoiceMemo.RecordingMemoState, VoiceMemo.RecordingMemoAction, VoiceMemo.RecordingMemoEnvironment&gt;"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E1DD3754-A686-42EA-9E00-10CC5F686375"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiceMemo/AudioRecoder.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "start(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1EB8DDED-680F-4F99-AAB9-C690E2654952"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiceMemo/AudioRecoder.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "start(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

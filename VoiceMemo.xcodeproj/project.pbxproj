@@ -1,0 +1,674 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619799E528C34A2500169FB6 /* VoiceMemoApp.swift */; };
+		619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799E928C34A2500169FB6 /* Assets.xcassets */; };
+		619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799ED28C34A2500169FB6 /* Preview Assets.xcassets */; };
+		619799F828C34A2600169FB6 /* VoiceMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619799F728C34A2600169FB6 /* VoiceMemoTests.swift */; };
+		61979A0228C34A2600169FB6 /* VoiceMemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A0128C34A2600169FB6 /* VoiceMemoUITests.swift */; };
+		61979A0428C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */; };
+		61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61979A1328C34F5C00169FB6 /* ComposableArchitecture */; };
+		61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1528C3510000169FB6 /* VoiceMemo.swift */; };
+		61979A1828C35BF000169FB6 /* scrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1728C35BF000169FB6 /* scrollView.swift */; };
+		61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1928C44D8F00169FB6 /* AudioRecoder.swift */; };
+		61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1E28C4646200169FB6 /* VoiceList.swift */; };
+		61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2028C466C500169FB6 /* VoicyListView.swift */; };
+		61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2228C466E800169FB6 /* AudioPlayer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		619799F428C34A2600169FB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 619799DA28C34A2500169FB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 619799E128C34A2500169FB6;
+			remoteInfo = VoiceMemo;
+		};
+		619799FE28C34A2600169FB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 619799DA28C34A2500169FB6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 619799E128C34A2500169FB6;
+			remoteInfo = VoiceMemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		619799E228C34A2500169FB6 /* VoiceMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		619799E528C34A2500169FB6 /* VoiceMemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoApp.swift; sourceTree = "<group>"; };
+		619799E928C34A2500169FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		619799EB28C34A2500169FB6 /* VoiceMemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VoiceMemo.entitlements; sourceTree = "<group>"; };
+		619799ED28C34A2500169FB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		619799F328C34A2600169FB6 /* VoiceMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		619799F728C34A2600169FB6 /* VoiceMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoTests.swift; sourceTree = "<group>"; };
+		619799FD28C34A2600169FB6 /* VoiceMemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceMemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61979A0128C34A2600169FB6 /* VoiceMemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoUITests.swift; sourceTree = "<group>"; };
+		61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		61979A1528C3510000169FB6 /* VoiceMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemo.swift; sourceTree = "<group>"; };
+		61979A1728C35BF000169FB6 /* scrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scrollView.swift; sourceTree = "<group>"; };
+		61979A1928C44D8F00169FB6 /* AudioRecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecoder.swift; sourceTree = "<group>"; };
+		61979A1D28C45AA000169FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		61979A1E28C4646200169FB6 /* VoiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceList.swift; sourceTree = "<group>"; };
+		61979A2028C466C500169FB6 /* VoicyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicyListView.swift; sourceTree = "<group>"; };
+		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		619799DF28C34A2500169FB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		619799F028C34A2600169FB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		619799FA28C34A2600169FB6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		619799D928C34A2500169FB6 = {
+			isa = PBXGroup;
+			children = (
+				619799E428C34A2500169FB6 /* VoiceMemo */,
+				619799F628C34A2600169FB6 /* VoiceMemoTests */,
+				61979A0028C34A2600169FB6 /* VoiceMemoUITests */,
+				619799E328C34A2500169FB6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		619799E328C34A2500169FB6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				619799E228C34A2500169FB6 /* VoiceMemo.app */,
+				619799F328C34A2600169FB6 /* VoiceMemoTests.xctest */,
+				619799FD28C34A2600169FB6 /* VoiceMemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		619799E428C34A2500169FB6 /* VoiceMemo */ = {
+			isa = PBXGroup;
+			children = (
+				61979A1D28C45AA000169FB6 /* Info.plist */,
+				619799E528C34A2500169FB6 /* VoiceMemoApp.swift */,
+				619799E928C34A2500169FB6 /* Assets.xcassets */,
+				619799EB28C34A2500169FB6 /* VoiceMemo.entitlements */,
+				61979A1528C3510000169FB6 /* VoiceMemo.swift */,
+				61979A1E28C4646200169FB6 /* VoiceList.swift */,
+				61979A2028C466C500169FB6 /* VoicyListView.swift */,
+				61979A1728C35BF000169FB6 /* scrollView.swift */,
+				619799EC28C34A2500169FB6 /* Preview Content */,
+				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
+				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
+			);
+			path = VoiceMemo;
+			sourceTree = "<group>";
+		};
+		619799EC28C34A2500169FB6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				619799ED28C34A2500169FB6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		619799F628C34A2600169FB6 /* VoiceMemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				619799F728C34A2600169FB6 /* VoiceMemoTests.swift */,
+			);
+			path = VoiceMemoTests;
+			sourceTree = "<group>";
+		};
+		61979A0028C34A2600169FB6 /* VoiceMemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				61979A0128C34A2600169FB6 /* VoiceMemoUITests.swift */,
+				61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */,
+			);
+			path = VoiceMemoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		619799E128C34A2500169FB6 /* VoiceMemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61979A0728C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemo" */;
+			buildPhases = (
+				619799DE28C34A2500169FB6 /* Sources */,
+				619799DF28C34A2500169FB6 /* Frameworks */,
+				619799E028C34A2500169FB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VoiceMemo;
+			packageProductDependencies = (
+				61979A1328C34F5C00169FB6 /* ComposableArchitecture */,
+			);
+			productName = VoiceMemo;
+			productReference = 619799E228C34A2500169FB6 /* VoiceMemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		619799F228C34A2600169FB6 /* VoiceMemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61979A0A28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoTests" */;
+			buildPhases = (
+				619799EF28C34A2600169FB6 /* Sources */,
+				619799F028C34A2600169FB6 /* Frameworks */,
+				619799F128C34A2600169FB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				619799F528C34A2600169FB6 /* PBXTargetDependency */,
+			);
+			name = VoiceMemoTests;
+			productName = VoiceMemoTests;
+			productReference = 619799F328C34A2600169FB6 /* VoiceMemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		619799FC28C34A2600169FB6 /* VoiceMemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 61979A0D28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoUITests" */;
+			buildPhases = (
+				619799F928C34A2600169FB6 /* Sources */,
+				619799FA28C34A2600169FB6 /* Frameworks */,
+				619799FB28C34A2600169FB6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				619799FF28C34A2600169FB6 /* PBXTargetDependency */,
+			);
+			name = VoiceMemoUITests;
+			productName = VoiceMemoUITests;
+			productReference = 619799FD28C34A2600169FB6 /* VoiceMemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		619799DA28C34A2500169FB6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					619799E128C34A2500169FB6 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+					619799F228C34A2600169FB6 = {
+						CreatedOnToolsVersion = 14.0;
+						TestTargetID = 619799E128C34A2500169FB6;
+					};
+					619799FC28C34A2600169FB6 = {
+						CreatedOnToolsVersion = 14.0;
+						TestTargetID = 619799E128C34A2500169FB6;
+					};
+				};
+			};
+			buildConfigurationList = 619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiceMemo" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 619799D928C34A2500169FB6;
+			packageReferences = (
+				61979A1228C34F5C00169FB6 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
+			productRefGroup = 619799E328C34A2500169FB6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				619799E128C34A2500169FB6 /* VoiceMemo */,
+				619799F228C34A2600169FB6 /* VoiceMemoTests */,
+				619799FC28C34A2600169FB6 /* VoiceMemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		619799E028C34A2500169FB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */,
+				619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		619799F128C34A2600169FB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		619799FB28C34A2600169FB6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		619799DE28C34A2500169FB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61979A1828C35BF000169FB6 /* scrollView.swift in Sources */,
+				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
+				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
+				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
+				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
+				61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */,
+				61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		619799EF28C34A2600169FB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				619799F828C34A2600169FB6 /* VoiceMemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		619799F928C34A2600169FB6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61979A0228C34A2600169FB6 /* VoiceMemoUITests.swift in Sources */,
+				61979A0428C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		619799F528C34A2600169FB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 619799E128C34A2500169FB6 /* VoiceMemo */;
+			targetProxy = 619799F428C34A2600169FB6 /* PBXContainerItemProxy */;
+		};
+		619799FF28C34A2600169FB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 619799E128C34A2500169FB6 /* VoiceMemo */;
+			targetProxy = 619799FE28C34A2600169FB6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		61979A0528C34A2600169FB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		61979A0628C34A2600169FB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		61979A0828C34A2600169FB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VoiceMemo/VoiceMemo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VoiceMemo/Preview Content\"";
+				DEVELOPMENT_TEAM = 4YZQY4C47E;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VoiceMemo/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクの許可";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		61979A0928C34A2600169FB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = VoiceMemo/VoiceMemo.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"VoiceMemo/Preview Content\"";
+				DEVELOPMENT_TEAM = 4YZQY4C47E;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VoiceMemo/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクの許可";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		61979A0B28C34A2600169FB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YZQY4C47E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceMemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceMemo";
+			};
+			name = Debug;
+		};
+		61979A0C28C34A2600169FB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YZQY4C47E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceMemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceMemo";
+			};
+			name = Release;
+		};
+		61979A0E28C34A2600169FB6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YZQY4C47E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VoiceMemo;
+			};
+			name = Debug;
+		};
+		61979A0F28C34A2600169FB6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4YZQY4C47E;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VoiceMemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiceMemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61979A0528C34A2600169FB6 /* Debug */,
+				61979A0628C34A2600169FB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61979A0728C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61979A0828C34A2600169FB6 /* Debug */,
+				61979A0928C34A2600169FB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61979A0A28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61979A0B28C34A2600169FB6 /* Debug */,
+				61979A0C28C34A2600169FB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		61979A0D28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				61979A0E28C34A2600169FB6 /* Debug */,
+				61979A0F28C34A2600169FB6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		61979A1228C34F5C00169FB6 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		61979A1328C34F5C00169FB6 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61979A1228C34F5C00169FB6 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 619799DA28C34A2500169FB6 /* Project object */;
+}
