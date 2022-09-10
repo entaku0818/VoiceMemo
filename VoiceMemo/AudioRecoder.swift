@@ -14,6 +14,7 @@ struct AudioRecorderClient {
   var requestRecordPermission: @Sendable () async -> Bool
   var startRecording: @Sendable (URL) async throws -> Bool
   var stopRecording: @Sendable () async -> Void
+  var volumes: @Sendable () async -> Float
 }
 
 
@@ -24,18 +25,10 @@ extension AudioRecorderClient {
       currentTime: { await audioRecorder.currentTime },
       requestRecordPermission: { await AudioRecorder.requestPermission() },
       startRecording: { url in try await audioRecorder.start(url: url) },
-      stopRecording: { await audioRecorder.stop() }
+      stopRecording: { await audioRecorder.stop() },
+      volumes: { await audioRecorder.amplitude() }
     )
   }
-    static var stop: Self {
-      let audioRecorder = AudioRecorder()
-      return Self(
-        currentTime: { await audioRecorder.currentTime },
-        requestRecordPermission: { await AudioRecorder.requestPermission() },
-        startRecording: { _ in false },
-        stopRecording: { false }
-      )
-    }
 }
 
 private actor AudioRecorder {
@@ -65,7 +58,7 @@ private actor AudioRecorder {
 
   func start(url: URL) async throws -> Bool {
     self.stop()
-
+    recorder?.isMeteringEnabled = true
     let stream = AsyncThrowingStream<Bool, Error> { continuation in
       do {
         self.delegate = Delegate(
@@ -94,7 +87,7 @@ private actor AudioRecorder {
           recorder.wrappedValue.stop()
         }
 
-          try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+        try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
         try AVAudioSession.sharedInstance().setActive(true)
         self.recorder?.record()
       } catch {
@@ -106,6 +99,14 @@ private actor AudioRecorder {
     else { throw CancellationError() }
     return action
   }
+    
+    func amplitude() -> Float {
+        self.recorder?.updateMeters()
+        let decibel = recorder?.averagePower(forChannel: 0) ?? 0
+        // デシベルから振幅を取得する
+         
+        return (decibel + 160) / 320
+    }
 }
 
 private final class Delegate: NSObject, AVAudioRecorderDelegate, Sendable {
@@ -119,6 +120,8 @@ private final class Delegate: NSObject, AVAudioRecorderDelegate, Sendable {
     self.didFinishRecording = didFinishRecording
     self.encodeErrorDidOccur = encodeErrorDidOccur
   }
+    
+    
 
   func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
     self.didFinishRecording(flag)

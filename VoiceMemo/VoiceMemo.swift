@@ -6,6 +6,7 @@ struct RecordingMemoFailed: Equatable, Error {}
 struct RecordingMemoState: Equatable {
   var date: Date
   var duration: TimeInterval = 0
+    var volumes: [Float] = []
   var mode: Mode = .recording
   var url: URL
 
@@ -21,6 +22,8 @@ enum RecordingMemoAction: Equatable {
   case finalRecordingTime(TimeInterval)
   case task
   case timerUpdated
+    case getVolumes
+  case updateVolumes(Float)
   case stopButtonTapped
 
   enum DelegateAction: Equatable {
@@ -74,18 +77,28 @@ let recordingMemoReducer = Reducer<
 
       for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
         await send(.timerUpdated)
+        await send(.getVolumes)
       }
     }
 
   case .timerUpdated:
     state.duration += 1
     return .none
+  case let .updateVolumes(volume):
+    state.volumes.append(volume)
+    return .none
+  case .getVolumes:
+      return .run { send in
+    let volume = await environment.audioRecorder.volumes()
+          await send(.updateVolumes(volume))
+  }
   }
 }
 
 struct RecordingMemoView: View {
   let store: Store<RecordingMemoState, RecordingMemoAction>
     @State var value: CGFloat = 0.0
+    @State var bottomID = UUID()
     
   var body: some View {
     WithViewStore(self.store) { viewStore in
@@ -96,7 +109,7 @@ struct RecordingMemoView: View {
               RingProgressView(value: value)
                   .frame(width: 150, height: 150)
                   .onAppear {
-                      withAnimation(.linear(duration: 5)) {
+                      withAnimation(.linear(duration: 600)) {
                           self.value = 1.0
                       }
                   }
@@ -104,7 +117,7 @@ struct RecordingMemoView: View {
                   Text("Recording")
                       .font(.title)
                       .colorMultiply(Color(Int(viewStore.duration).isMultiple(of: 2) ? .systemRed : .label))
-                      .animation(.easeInOut(duration: 0.5), value: viewStore.duration)
+                      .animation(.easeInOut(duration: 1), value: viewStore.duration)
                   if let formattedDuration = dateComponentsFormatter.string(from: viewStore.duration) {
                       Text(formattedDuration)
                           .font(.body.monospacedDigit().bold())
@@ -113,8 +126,33 @@ struct RecordingMemoView: View {
                   
               }
           }
+          VStack {
+              ScrollViewReader { reader in
+                  ScrollView(.horizontal, showsIndicators: false) {
+                      HStack(spacing: 2) {
 
-          scrollView()
+                          ForEach(viewStore.volumes, id: \.self) { volume in
+                              let height:CGFloat = CGFloat(volume * 50) + 1
+                              Rectangle()
+                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
+                                  .frame(width:3, height: height)
+                          }
+                          Button("") {
+                          }.id(bottomID)
+                      }
+                      
+                       
+                  }.onChange(of: viewStore.volumes) { _ in
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                          reader.scrollTo(bottomID)
+                      }
+                          
+                      
+                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60,alignment: .leading)
+                  .padding(.trailing, UIScreen.main.bounds.width / 2)
+              }
+          }
+
 
 
         ZStack {
@@ -133,7 +171,7 @@ struct RecordingMemoView: View {
       .task {
         await viewStore.send(.task).finish()
       }
-    }.navigationBarTitle("ChildView", displayMode: .inline)
+    }.navigationBarTitle("Recording", displayMode: .inline)
   }
 }
 
@@ -165,6 +203,7 @@ extension AudioRecorderClient {
   static var mock: Self {
     let isRecording = ActorIsolated(false)
     let currentTime = ActorIsolated(0.0)
+      let volumes = ActorIsolated(Float(1.0))
 
     return Self(
       currentTime: { await currentTime.value },
@@ -180,6 +219,8 @@ extension AudioRecorderClient {
       stopRecording: {
         await isRecording.setValue(false)
         await currentTime.setValue(0)
+      }, volumes: {
+          return await volumes.value
       }
     )
   }

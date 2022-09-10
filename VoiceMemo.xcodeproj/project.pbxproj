@@ -15,7 +15,6 @@
 		61979A0428C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */; };
 		61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61979A1328C34F5C00169FB6 /* ComposableArchitecture */; };
 		61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1528C3510000169FB6 /* VoiceMemo.swift */; };
-		61979A1828C35BF000169FB6 /* scrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1728C35BF000169FB6 /* scrollView.swift */; };
 		61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1928C44D8F00169FB6 /* AudioRecoder.swift */; };
 		61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1E28C4646200169FB6 /* VoiceList.swift */; };
 		61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2028C466C500169FB6 /* VoicyListView.swift */; };
@@ -51,7 +50,6 @@
 		61979A0128C34A2600169FB6 /* VoiceMemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoUITests.swift; sourceTree = "<group>"; };
 		61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		61979A1528C3510000169FB6 /* VoiceMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemo.swift; sourceTree = "<group>"; };
-		61979A1728C35BF000169FB6 /* scrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scrollView.swift; sourceTree = "<group>"; };
 		61979A1928C44D8F00169FB6 /* AudioRecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecoder.swift; sourceTree = "<group>"; };
 		61979A1D28C45AA000169FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		61979A1E28C4646200169FB6 /* VoiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceList.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 				61979A1528C3510000169FB6 /* VoiceMemo.swift */,
 				61979A1E28C4646200169FB6 /* VoiceList.swift */,
 				61979A2028C466C500169FB6 /* VoicyListView.swift */,
-				61979A1728C35BF000169FB6 /* scrollView.swift */,
 				619799EC28C34A2500169FB6 /* Preview Content */,
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
 				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
@@ -284,7 +281,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61979A1828C35BF000169FB6 /* scrollView.swift in Sources */,
 				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
