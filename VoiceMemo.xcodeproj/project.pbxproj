@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6104770628DDD13100141042 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6104770428DDD13100141042 /* Model.xcdatamodeld */; };
+		613FC7F528DE28AD0014E4B2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* File.swift */; };
 		619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619799E528C34A2500169FB6 /* VoiceMemoApp.swift */; };
 		619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799E928C34A2500169FB6 /* Assets.xcassets */; };
 		619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799ED28C34A2500169FB6 /* Preview Assets.xcassets */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		613FC7F428DE28AD0014E4B2 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		619799E228C34A2500169FB6 /* VoiceMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		619799E528C34A2500169FB6 /* VoiceMemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoApp.swift; sourceTree = "<group>"; };
 		619799E928C34A2500169FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +87,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6104770728DDD30600141042 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				6104770428DDD13100141042 /* Model.xcdatamodeld */,
+				613FC7F428DE28AD0014E4B2 /* File.swift */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
 		619799D928C34A2500169FB6 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +119,7 @@
 		619799E428C34A2500169FB6 /* VoiceMemo */ = {
 			isa = PBXGroup;
 			children = (
+				6104770728DDD30600141042 /* data */,
 				61979A1D28C45AA000169FB6 /* Info.plist */,
 				619799E528C34A2500169FB6 /* VoiceMemoApp.swift */,
 				619799E928C34A2500169FB6 /* Assets.xcassets */,
@@ -284,7 +298,9 @@
 				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
+				6104770628DDD13100141042 /* Model.xcdatamodeld in Sources */,
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
+				613FC7F528DE28AD0014E4B2 /* File.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */,
 				61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */,
 			);
@@ -665,6 +681,19 @@
 			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		6104770428DDD13100141042 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6104770528DDD13100141042 /* Model.xcdatamodel */,
+			);
+			currentVersion = 6104770528DDD13100141042 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 619799DA28C34A2500169FB6 /* Project object */;
 }
