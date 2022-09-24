@@ -8,6 +8,7 @@
 import AVFoundation
 import ComposableArchitecture
 import Foundation
+import Speech
 
 struct AudioRecorderClient {
   var currentTime: @Sendable () async -> TimeInterval?
@@ -15,6 +16,7 @@ struct AudioRecorderClient {
   var startRecording: @Sendable (URL) async throws -> Bool
   var stopRecording: @Sendable () async -> Void
   var volumes: @Sendable () async -> Float
+  var resultText: @Sendable () async -> String
 }
 
 
@@ -26,7 +28,8 @@ extension AudioRecorderClient {
       requestRecordPermission: { await AudioRecorder.requestPermission() },
       startRecording: { url in try await audioRecorder.start(url: url) },
       stopRecording: { await audioRecorder.stop() },
-      volumes: { await audioRecorder.amplitude() }
+      volumes: { await audioRecorder.amplitude() },
+      resultText: { await audioRecorder.fetchResultText() }
     )
   }
 }
@@ -34,6 +37,12 @@ extension AudioRecorderClient {
 private actor AudioRecorder {
   var delegate: Delegate?
   var recorder: AVAudioRecorder?
+    var speechRecognizer:SFSpeechRecognizer?
+    var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    var recognitionTask: SFSpeechRecognitionTask?
+    var audioEngine:AVAudioEngine?
+    var inputNode:AVAudioInputNode?
+    var resultText:String = ""
 
   var currentTime: TimeInterval? {
     guard
@@ -48,57 +57,102 @@ private actor AudioRecorder {
       AVAudioSession.sharedInstance().requestRecordPermission { granted in
         continuation.resume(returning: granted)
       }
+        SFSpeechRecognizer.requestAuthorization { authStatus in
+            
+        }
     }
   }
 
   func stop() {
-    self.recorder?.stop()
+      audioEngine?.stop()
+      self.inputNode?.removeTap(onBus: 0)
+      self.recognitionTask?.cancel()
+      self.recognitionTask = nil
     try? AVAudioSession.sharedInstance().setActive(false)
   }
 
-  func start(url: URL) async throws -> Bool {
-    self.stop()
-    recorder?.isMeteringEnabled = true
-    let stream = AsyncThrowingStream<Bool, Error> { continuation in
-      do {
-        self.delegate = Delegate(
-          didFinishRecording: { flag in
-            continuation.yield(flag)
-            continuation.finish()
-            try? AVAudioSession.sharedInstance().setActive(false)
-          },
-          encodeErrorDidOccur: { error in
-            continuation.finish(throwing: error)
-            try? AVAudioSession.sharedInstance().setActive(false)
-          }
-        )
-        let recorder = try AVAudioRecorder(
-          url: url,
-          settings: [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 44100,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue,
-          ])
-        self.recorder = recorder
-        recorder.delegate = self.delegate
+    func start(url: URL) async throws -> Bool {
+      self.stop()
 
-        continuation.onTermination = { [recorder = UncheckedSendable(recorder)] _ in
-          recorder.wrappedValue.stop()
+      let stream = AsyncThrowingStream<Bool, Error> { continuation in
+        do {
+            speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
+              audioEngine = AVAudioEngine()
+
+                  inputNode = audioEngine?.inputNode
+
+              
+              recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+              guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
+              recognitionRequest.shouldReportPartialResults = true // 発話ごとに中間結果を返すかどうか
+                      
+              // requiresOnDeviceRecognition を true に設定すると、音声データがネットワークで送られない
+              // ただし精度は下がる
+              recognitionRequest.requiresOnDeviceRecognition = false
+              
+
+
+              self.recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
+
+                  // 取得した認識結の処理
+
+                  var isFinal = false
+                          
+                  if let result = result {
+                      isFinal = result.isFinal
+                      // 認識結果をプリント
+                      print("RecognizedText: \(result.bestTranscription.formattedString)")
+                      self.resultText = result.bestTranscription.formattedString
+                  }
+                          
+                  if error != nil {
+                      continuation.finish(throwing: error)
+                  }
+                  if isFinal {
+                   
+                              
+                      self.recognitionTask = nil
+                      continuation.yield(true)
+                      continuation.finish()
+
+                  }
+                  
+              }
+                  // オーディオファイル
+              let audioFile = try AVAudioFile(forWriting: url, settings: AVAudioFormat(commonFormat: .pcmFormatFloat32  , sampleRate: 44100, channels: 1 , interleaved: true)!.settings)
+                 
+              inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+                // 音声を取得したら
+                  self.recognitionRequest?.append(buffer) // 認識リクエストに取得した音声を加える
+                  do {
+                    // audioFileにバッファを書き込む
+                    try audioFile.write(from: buffer)
+                  } catch let error {
+                    print("audioFile.writeFromBuffer error:", error)
+                    continuation.finish(throwing: error)
+                  }
+              }
+              
+              audioEngine?.prepare()
+              try audioEngine?.start()
+
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+        } catch {
+          continuation.finish(throwing: error)
         }
-
-        try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-        try AVAudioSession.sharedInstance().setActive(true)
-        self.recorder?.record()
-      } catch {
-        continuation.finish(throwing: error)
       }
-    }
 
-    guard let action = try await stream.first(where: { @Sendable _ in true })
-    else { throw CancellationError() }
-    return action
-  }
+      guard let action = try await stream.first(where: { @Sendable _ in true })
+      else { throw CancellationError() }
+      return action
+    }
+    
+    
+ 
+
+
     
     func amplitude() -> Float {
         self.recorder?.updateMeters()
@@ -107,6 +161,12 @@ private actor AudioRecorder {
          
         return (decibel + 160) / 320
     }
+    func fetchResultText() -> String {
+
+         
+        return resultText
+    }
+
 }
 
 private final class Delegate: NSObject, AVAudioRecorderDelegate, Sendable {

@@ -6,7 +6,8 @@ struct RecordingMemoFailed: Equatable, Error {}
 struct RecordingMemoState: Equatable {
   var date: Date
   var duration: TimeInterval = 0
-    var volumes: [Float] = []
+  var volumes: [Float] = []
+  var resultText: String = ""
   var mode: Mode = .recording
   var url: URL
 
@@ -23,7 +24,9 @@ enum RecordingMemoAction: Equatable {
   case task
   case timerUpdated
     case getVolumes
+    case getResultText
   case updateVolumes(Float)
+    case updateResultText(String)
   case stopButtonTapped
 
   enum DelegateAction: Equatable {
@@ -78,6 +81,7 @@ let recordingMemoReducer = Reducer<
       for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
         await send(.timerUpdated)
         await send(.getVolumes)
+          await send(.getResultText)
       }
     }
 
@@ -87,12 +91,21 @@ let recordingMemoReducer = Reducer<
   case let .updateVolumes(volume):
     state.volumes.append(volume)
     return .none
+  case let .updateResultText(text):
+    state.resultText = text
+    return .none
   case .getVolumes:
+    return .run { send in
+        let volume = await environment.audioRecorder.volumes()
+        await send(.updateVolumes(volume))
+    }
+  case .getResultText:
       return .run { send in
-    let volume = await environment.audioRecorder.volumes()
-          await send(.updateVolumes(volume))
+          let text = await environment.audioRecorder.resultText()
+          await send(.updateResultText(text))
+      }
   }
-  }
+
 }
 
 struct RecordingMemoView: View {
@@ -151,6 +164,10 @@ struct RecordingMemoView: View {
                   }.frame(width: UIScreen.main.bounds.width / 2, height: 60,alignment: .leading)
                   .padding(.trailing, UIScreen.main.bounds.width / 2)
               }
+              Text(viewStore.resultText)
+                  .foregroundColor(.black)
+                  .fixedSize(horizontal: false, vertical: true)
+   
           }
 
 
@@ -166,6 +183,7 @@ struct RecordingMemoView: View {
               .padding(17)
           }
           .frame(width: 70, height: 70)
+
         }
       }
       .task {
@@ -204,6 +222,7 @@ extension AudioRecorderClient {
     let isRecording = ActorIsolated(false)
     let currentTime = ActorIsolated(0.0)
       let volumes = ActorIsolated(Float(1.0))
+      let resultText = String("おはよう")
 
     return Self(
       currentTime: { await currentTime.value },
@@ -221,6 +240,8 @@ extension AudioRecorderClient {
         await currentTime.setValue(0)
       }, volumes: {
           return await volumes.value
+      }, resultText: {
+          return  resultText
       }
     )
   }
