@@ -66,9 +66,7 @@ class VoiceMemoRepository: NSObject {
     }
     
     
-    //データ検索処理
-    //全件データを読み込んで表示
-    //こちらも削除のNSPredicateを参考にして、検索処理は実装する
+
     func selectAllData() -> [VoiceMemoState] {
         var memoGroups: [Voice] = []
         

@@ -12,7 +12,7 @@
 		619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619799E528C34A2500169FB6 /* VoiceMemoApp.swift */; };
 		619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799E928C34A2500169FB6 /* Assets.xcassets */; };
 		619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799ED28C34A2500169FB6 /* Preview Assets.xcassets */; };
-		619799F828C34A2600169FB6 /* VoiceMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619799F728C34A2600169FB6 /* VoiceMemoTests.swift */; };
+		619799F828C34A2600169FB6 /* VoiLogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619799F728C34A2600169FB6 /* VoiLogTests.swift */; };
 		61979A0228C34A2600169FB6 /* VoiceMemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A0128C34A2600169FB6 /* VoiceMemoUITests.swift */; };
 		61979A0428C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */; };
 		61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 61979A1328C34F5C00169FB6 /* ComposableArchitecture */; };
@@ -43,14 +43,14 @@
 /* Begin PBXFileReference section */
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
-		619799E228C34A2500169FB6 /* VoiceMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		619799E228C34A2500169FB6 /* VoiLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		619799E528C34A2500169FB6 /* VoiceMemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoApp.swift; sourceTree = "<group>"; };
 		619799E928C34A2500169FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		619799EB28C34A2500169FB6 /* VoiceMemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VoiceMemo.entitlements; sourceTree = "<group>"; };
 		619799ED28C34A2500169FB6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		619799F328C34A2600169FB6 /* VoiceMemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceMemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		619799F728C34A2600169FB6 /* VoiceMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoTests.swift; sourceTree = "<group>"; };
-		619799FD28C34A2600169FB6 /* VoiceMemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceMemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		619799F328C34A2600169FB6 /* VoiLogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiLogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		619799F728C34A2600169FB6 /* VoiLogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiLogTests.swift; sourceTree = "<group>"; };
+		619799FD28C34A2600169FB6 /* VoiLogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiLogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61979A0128C34A2600169FB6 /* VoiceMemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoUITests.swift; sourceTree = "<group>"; };
 		61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		61979A1528C3510000169FB6 /* VoiceMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemo.swift; sourceTree = "<group>"; };
@@ -99,9 +99,9 @@
 		619799D928C34A2500169FB6 = {
 			isa = PBXGroup;
 			children = (
-				619799E428C34A2500169FB6 /* VoiceMemo */,
-				619799F628C34A2600169FB6 /* VoiceMemoTests */,
-				61979A0028C34A2600169FB6 /* VoiceMemoUITests */,
+				619799E428C34A2500169FB6 /* VoiLog */,
+				619799F628C34A2600169FB6 /* VoiLogTests */,
+				61979A0028C34A2600169FB6 /* VoiLogUITests */,
 				619799E328C34A2500169FB6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,14 +109,14 @@
 		619799E328C34A2500169FB6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				619799E228C34A2500169FB6 /* VoiceMemo.app */,
-				619799F328C34A2600169FB6 /* VoiceMemoTests.xctest */,
-				619799FD28C34A2600169FB6 /* VoiceMemoUITests.xctest */,
+				619799E228C34A2500169FB6 /* VoiLog.app */,
+				619799F328C34A2600169FB6 /* VoiLogTests.xctest */,
+				619799FD28C34A2600169FB6 /* VoiLogUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		619799E428C34A2500169FB6 /* VoiceMemo */ = {
+		619799E428C34A2500169FB6 /* VoiLog */ = {
 			isa = PBXGroup;
 			children = (
 				6104770728DDD30600141042 /* data */,
@@ -131,7 +131,7 @@
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
 				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
 			);
-			path = VoiceMemo;
+			path = VoiLog;
 			sourceTree = "<group>";
 		};
 		619799EC28C34A2500169FB6 /* Preview Content */ = {
@@ -142,29 +142,29 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		619799F628C34A2600169FB6 /* VoiceMemoTests */ = {
+		619799F628C34A2600169FB6 /* VoiLogTests */ = {
 			isa = PBXGroup;
 			children = (
-				619799F728C34A2600169FB6 /* VoiceMemoTests.swift */,
+				619799F728C34A2600169FB6 /* VoiLogTests.swift */,
 			);
-			path = VoiceMemoTests;
+			path = VoiLogTests;
 			sourceTree = "<group>";
 		};
-		61979A0028C34A2600169FB6 /* VoiceMemoUITests */ = {
+		61979A0028C34A2600169FB6 /* VoiLogUITests */ = {
 			isa = PBXGroup;
 			children = (
 				61979A0128C34A2600169FB6 /* VoiceMemoUITests.swift */,
 				61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */,
 			);
-			path = VoiceMemoUITests;
+			path = VoiLogUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		619799E128C34A2500169FB6 /* VoiceMemo */ = {
+		619799E128C34A2500169FB6 /* VoiLog */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61979A0728C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemo" */;
+			buildConfigurationList = 61979A0728C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiLog" */;
 			buildPhases = (
 				619799DE28C34A2500169FB6 /* Sources */,
 				619799DF28C34A2500169FB6 /* Frameworks */,
@@ -174,17 +174,17 @@
 			);
 			dependencies = (
 			);
-			name = VoiceMemo;
+			name = VoiLog;
 			packageProductDependencies = (
 				61979A1328C34F5C00169FB6 /* ComposableArchitecture */,
 			);
 			productName = VoiceMemo;
-			productReference = 619799E228C34A2500169FB6 /* VoiceMemo.app */;
+			productReference = 619799E228C34A2500169FB6 /* VoiLog.app */;
 			productType = "com.apple.product-type.application";
 		};
-		619799F228C34A2600169FB6 /* VoiceMemoTests */ = {
+		619799F228C34A2600169FB6 /* VoiLogTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61979A0A28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoTests" */;
+			buildConfigurationList = 61979A0A28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiLogTests" */;
 			buildPhases = (
 				619799EF28C34A2600169FB6 /* Sources */,
 				619799F028C34A2600169FB6 /* Frameworks */,
@@ -195,14 +195,14 @@
 			dependencies = (
 				619799F528C34A2600169FB6 /* PBXTargetDependency */,
 			);
-			name = VoiceMemoTests;
+			name = VoiLogTests;
 			productName = VoiceMemoTests;
-			productReference = 619799F328C34A2600169FB6 /* VoiceMemoTests.xctest */;
+			productReference = 619799F328C34A2600169FB6 /* VoiLogTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		619799FC28C34A2600169FB6 /* VoiceMemoUITests */ = {
+		619799FC28C34A2600169FB6 /* VoiLogUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61979A0D28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoUITests" */;
+			buildConfigurationList = 61979A0D28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiLogUITests" */;
 			buildPhases = (
 				619799F928C34A2600169FB6 /* Sources */,
 				619799FA28C34A2600169FB6 /* Frameworks */,
@@ -213,9 +213,9 @@
 			dependencies = (
 				619799FF28C34A2600169FB6 /* PBXTargetDependency */,
 			);
-			name = VoiceMemoUITests;
+			name = VoiLogUITests;
 			productName = VoiceMemoUITests;
-			productReference = 619799FD28C34A2600169FB6 /* VoiceMemoUITests.xctest */;
+			productReference = 619799FD28C34A2600169FB6 /* VoiLogUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -241,7 +241,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiceMemo" */;
+			buildConfigurationList = 619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiLog" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -257,9 +257,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				619799E128C34A2500169FB6 /* VoiceMemo */,
-				619799F228C34A2600169FB6 /* VoiceMemoTests */,
-				619799FC28C34A2600169FB6 /* VoiceMemoUITests */,
+				619799E128C34A2500169FB6 /* VoiLog */,
+				619799F228C34A2600169FB6 /* VoiLogTests */,
+				619799FC28C34A2600169FB6 /* VoiLogUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -310,7 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				619799F828C34A2600169FB6 /* VoiceMemoTests.swift in Sources */,
+				619799F828C34A2600169FB6 /* VoiLogTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,12 +328,12 @@
 /* Begin PBXTargetDependency section */
 		619799F528C34A2600169FB6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 619799E128C34A2500169FB6 /* VoiceMemo */;
+			target = 619799E128C34A2500169FB6 /* VoiLog */;
 			targetProxy = 619799F428C34A2600169FB6 /* PBXContainerItemProxy */;
 		};
 		619799FF28C34A2600169FB6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 619799E128C34A2500169FB6 /* VoiceMemo */;
+			target = 619799E128C34A2500169FB6 /* VoiLog */;
 			targetProxy = 619799FE28C34A2600169FB6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -453,15 +453,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VoiceMemo/VoiceMemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VoiceMemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VoiceMemo/Info.plist;
+				INFOPLIST_FILE = VoiLog/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクの許可";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -478,8 +479,9 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -495,15 +497,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VoiceMemo/VoiceMemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"VoiceMemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VoiceMemo/Info.plist;
+				INFOPLIST_FILE = VoiLog/Info.plist;
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクの許可";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -520,8 +523,9 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -551,7 +555,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceMemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceMemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiLog.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiLog";
 			};
 			name = Debug;
 		};
@@ -574,7 +578,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiceMemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiceMemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VoiLog.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VoiLog";
 			};
 			name = Release;
 		};
@@ -625,7 +629,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiceMemo" */ = {
+		619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiLog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61979A0528C34A2600169FB6 /* Debug */,
@@ -634,7 +638,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61979A0728C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemo" */ = {
+		61979A0728C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiLog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61979A0828C34A2600169FB6 /* Debug */,
@@ -643,7 +647,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61979A0A28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoTests" */ = {
+		61979A0A28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiLogTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61979A0B28C34A2600169FB6 /* Debug */,
@@ -652,7 +656,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61979A0D28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiceMemoUITests" */ = {
+		61979A0D28C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiLogUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61979A0E28C34A2600169FB6 /* Debug */,
