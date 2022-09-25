@@ -78,7 +78,7 @@ class VoiceMemoRepository: NSObject {
             print(error.localizedDescription)
         }
         let voiceMemoStates = memoGroups.map { voiceMemo in
-            VoiceMemoState(uuid:UUID(), date:voiceMemo.createdAt ?? Date(),duration: voiceMemo.duration, title: "",url:voiceMemo.url!, text: voiceMemo.text ?? "")
+            VoiceMemoState(uuid:voiceMemo.id ?? UUID(), date:voiceMemo.createdAt ?? Date(),duration: voiceMemo.duration, title: voiceMemo.title ?? "",url:voiceMemo.url!, text: voiceMemo.text ?? "")
             
         }
         return voiceMemoStates
