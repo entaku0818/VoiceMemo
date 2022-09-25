@@ -86,11 +86,16 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
 
     case let .recordingMemo(.delegate(.didFinish(.success(recordingMemo)))):
       state.recordingMemo = nil
+      
+      let voiceRepository = VoiceMemoRepository()
+        voiceRepository.insert(state: recordingMemo)
       state.voiceMemos.insert(
         VoiceMemoState(
-          date: recordingMemo.date,
+            uuid: recordingMemo.uuid,
+            date: recordingMemo.date,
           duration: recordingMemo.duration,
-          url: recordingMemo.url
+          url: recordingMemo.url,
+          text: recordingMemo.resultText
         ),
         at: 0
       )
@@ -225,18 +230,21 @@ struct VoiceMemos_Previews: PreviewProvider {
         initialState: VoiceMemosState(
           voiceMemos: [
             VoiceMemoState(
+                uuid: UUID(),
               date: Date(),
               duration: 5,
               mode: .notPlaying,
               title: "Functions",
-              url: URL(string: "https://www.pointfree.co/functions")!
+                url: URL(string: "https://www.pointfree.co/functions")!, text: ""
             ),
             VoiceMemoState(
-              date: Date(),
+                uuid: UUID(),
+                date: Date(),
               duration: 5,
               mode: .notPlaying,
               title: "",
-              url: URL(string: "https://www.pointfree.co/untitled")!
+              url: URL(string: "https://www.pointfree.co/untitled")!,
+              text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             ),
           ]
         ),

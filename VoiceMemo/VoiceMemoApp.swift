@@ -10,6 +10,11 @@ import ComposableArchitecture
 
 @main
 struct VoiceMemoApp: App {
+    var voiceMemos:[VoiceMemoState] = []
+    init() {
+        let voiceMemoRepository = VoiceMemoRepository()
+        voiceMemos = voiceMemoRepository.selectAllData()
+    }
     var body: some Scene {
         WindowGroup {
 //            RecordingMemoView(store: Store(initialState: RecordingMemoState(
@@ -25,7 +30,7 @@ struct VoiceMemoApp: App {
 //            ))
             VoiceMemosView(
               store: Store(
-                initialState: VoiceMemosState(),
+                initialState: VoiceMemosState(voiceMemos:IdentifiedArrayOf(uniqueElements: voiceMemos)),
                 reducer:
                   voiceMemosReducer
                   .debug(),
@@ -45,4 +50,8 @@ struct VoiceMemoApp: App {
             )
         }
     }
+    
+    
+    
+    
 }

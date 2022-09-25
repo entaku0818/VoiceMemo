@@ -4,7 +4,8 @@ import SwiftUI
 struct RecordingMemoFailed: Equatable, Error {}
 
 struct RecordingMemoState: Equatable {
-  var date: Date
+  var uuid = UUID()
+    var date: Date
   var duration: TimeInterval = 0
   var volumes: [Float] = []
   var resultText: String = ""

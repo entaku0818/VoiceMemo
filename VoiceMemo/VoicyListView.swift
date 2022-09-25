@@ -10,11 +10,13 @@ import Foundation
 import SwiftUI
 
 struct VoiceMemoState: Equatable, Identifiable {
+  var uuid:UUID
   var date: Date
   var duration: TimeInterval
   var mode = Mode.notPlaying
   var title = ""
   var url: URL
+    var text:String
 
   var id: URL { self.url }
 
@@ -102,6 +104,7 @@ let voiceMemoReducer = Reducer<
 
 struct VoiceMemoView: View {
   let store: Store<VoiceMemoState, VoiceMemoAction>
+  @State private var showingModal = false
 
   var body: some View {
     WithViewStore(store) { viewStore in
@@ -125,6 +128,12 @@ struct VoiceMemoView: View {
           Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
             .font(.system(size: 22))
         }
+          Button(action: { self.showingModal.toggle() }) {
+            Image(systemName: "chevron.right")
+              .font(.system(size: 22))
+          }.sheet(isPresented: $showingModal) {
+              VoiceMemoDetail(store: store)
+          }
       }
       .buttonStyle(.borderless)
       .frame(maxHeight: .infinity, alignment: .center)
@@ -141,5 +150,57 @@ struct VoiceMemoView: View {
         alignment: .leading
       )
     }
+  }
+}
+
+
+struct VoiceMemoDetail: View {
+  let store: Store<VoiceMemoState, VoiceMemoAction>
+
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      let currentTime =
+        viewStore.mode.progress.map { $0 * viewStore.duration } ?? viewStore.duration
+        VStack{
+            HStack {
+              TextField(
+                "Untitled, \(viewStore.date.formatted(date: .numeric, time: .shortened))",
+                text: viewStore.binding(get: \.title, send: { .titleTextFieldChanged($0) })
+              )
+
+              Spacer()
+
+              dateComponentsFormatter.string(from: currentTime).map {
+                Text($0)
+                  .font(.footnote.monospacedDigit())
+                  .foregroundColor(Color(.systemGray))
+              }
+
+              Button(action: { viewStore.send(.playButtonTapped) }) {
+                Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
+                  .font(.system(size: 22))
+              }
+            }
+            .buttonStyle(.borderless)
+            .frame(maxHeight: .infinity, alignment: .center)
+            .padding(.horizontal)
+            .listRowBackground(viewStore.mode.isPlaying ? Color(.systemGray6) : .clear)
+            .listRowInsets(EdgeInsets())
+            .background(
+              Color(.systemGray5)
+                .frame(maxWidth: viewStore.mode.isPlaying ? .infinity : 0)
+                .animation(
+                  viewStore.mode.isPlaying ? .linear(duration: viewStore.duration) : nil,
+                  value: viewStore.mode.isPlaying
+                ),
+              alignment: .leading
+            )
+          }.frame(minHeight: 50, maxHeight: 50)
+            ScrollView{
+                Text(viewStore.text)
+            }.frame(minHeight: 50, maxHeight: 200)
+            .padding(16)
+        }
+     
   }
 }

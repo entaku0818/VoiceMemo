@@ -14,8 +14,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "unknown"
             landmarkType = "0">
             <Locations>
@@ -92,8 +92,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -108,8 +108,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "unknown"
             landmarkType = "0">
             <Locations>
@@ -388,8 +388,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "unknown"
             landmarkType = "0">
             <Locations>
@@ -482,8 +482,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -498,8 +498,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -546,8 +546,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -562,8 +562,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -610,8 +610,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -626,8 +626,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -642,13 +642,13 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "mock"
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "7A88A640-0285-4774-925A-A8EBCE92FE63 - 922eb031c37d8edf"
+                  uuid = "7A88A640-0285-4774-925A-A8EBCE92FE63 - 922eb031c37d8ebc"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -658,12 +658,12 @@
                   urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "239"
-                  endingLineNumber = "239"
+                  startingLineNumber = "240"
+                  endingLineNumber = "240"
                   offsetFromSymbolStart = "88">
                </Location>
                <Location
-                  uuid = "7A88A640-0285-4774-925A-A8EBCE92FE63 - 3a204a95163c39d5"
+                  uuid = "7A88A640-0285-4774-925A-A8EBCE92FE63 - 3a204a95163c39b6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -673,12 +673,12 @@
                   urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "239"
-                  endingLineNumber = "239"
+                  startingLineNumber = "240"
+                  endingLineNumber = "240"
                   offsetFromSymbolStart = "20">
                </Location>
                <Location
-                  uuid = "7A88A640-0285-4774-925A-A8EBCE92FE63 - 57d1987b610b9bd6"
+                  uuid = "7A88A640-0285-4774-925A-A8EBCE92FE63 - 57d1987b610b9bb5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -688,8 +688,8 @@
                   urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/VoiceMemo.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "239"
-                  endingLineNumber = "239"
+                  startingLineNumber = "240"
+                  endingLineNumber = "240"
                   offsetFromSymbolStart = "20">
                </Location>
             </Locations>
@@ -721,8 +721,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -769,8 +769,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
             landmarkName = "unknown"
             landmarkType = "0">
             <Locations>
@@ -847,8 +847,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "unknown"
             landmarkType = "0">
             <Locations>
@@ -910,8 +910,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -926,8 +926,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "unknown"
             landmarkType = "0">
             <Locations>
@@ -989,8 +989,8 @@
             filePath = "VoiceMemo/VoiceMemo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1089,6 +1089,70 @@
             endingLineNumber = "125"
             landmarkName = "start(url:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3EA93C89-098A-4B17-9A43-F5070D0CDD5E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiceMemo/data/VoiceMemoRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "init()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3B076F4F-AE9A-477C-95FF-34CC40AAE619"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiceMemo/data/VoiceMemoRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3B076F4F-AE9A-477C-95FF-34CC40AAE619 - bccf81563ce3935e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VoiceMemo.VoiceMemoRepository.init() -&gt; VoiceMemo.VoiceMemoRepository"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/data/VoiceMemoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "376">
+               </Location>
+               <Location
+                  uuid = "3B076F4F-AE9A-477C-95FF-34CC40AAE619 - 8f14f87b7efe18dc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.NSPersistentStoreDescription, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in VoiceMemo.VoiceMemoRepository.init() -&gt; VoiceMemo.VoiceMemoRepository"
+                  moduleName = "VoiceMemo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiceMemo/VoiceMemo/data/VoiceMemoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
