@@ -35,7 +35,6 @@ extension AudioRecorderClient {
 }
 
 private actor AudioRecorder {
-  var delegate: Delegate?
   var recorder: AVAudioRecorder?
     var speechRecognizer:SFSpeechRecognizer?
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -105,8 +104,13 @@ private actor AudioRecorder {
                       self.resultText = result.bestTranscription.formattedString
                   }
                           
-                  if error != nil {
+                  // 音声認識できない場合のエラー
+                  // 一言も発しない場合もエラーとなるので、認識結果が0件の場合はエラーを投げない
+                  if error != nil && result != nil  {
                       continuation.finish(throwing: error)
+                  }else{
+                      continuation.yield(true)
+                      continuation.finish()
                   }
                   if isFinal {
                    
@@ -132,6 +136,7 @@ private actor AudioRecorder {
                     continuation.finish(throwing: error)
                   }
               }
+            
               
               audioEngine?.prepare()
               try audioEngine?.start()
@@ -143,7 +148,7 @@ private actor AudioRecorder {
           continuation.finish(throwing: error)
         }
       }
-
+     
       guard let action = try await stream.first(where: { @Sendable _ in true })
       else { throw CancellationError() }
       return action
@@ -169,25 +174,3 @@ private actor AudioRecorder {
 
 }
 
-private final class Delegate: NSObject, AVAudioRecorderDelegate, Sendable {
-  let didFinishRecording: @Sendable (Bool) -> Void
-  let encodeErrorDidOccur: @Sendable (Error?) -> Void
-
-  init(
-    didFinishRecording: @escaping @Sendable (Bool) -> Void,
-    encodeErrorDidOccur: @escaping @Sendable (Error?) -> Void
-  ) {
-    self.didFinishRecording = didFinishRecording
-    self.encodeErrorDidOccur = encodeErrorDidOccur
-  }
-    
-    
-
-  func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-    self.didFinishRecording(flag)
-  }
-
-  func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-    self.encodeErrorDidOccur(error)
-  }
-}
