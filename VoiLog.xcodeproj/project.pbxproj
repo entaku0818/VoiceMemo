@@ -55,7 +55,6 @@
 		61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		61979A1528C3510000169FB6 /* VoiceMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemo.swift; sourceTree = "<group>"; };
 		61979A1928C44D8F00169FB6 /* AudioRecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecoder.swift; sourceTree = "<group>"; };
-		61979A1D28C45AA000169FB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		61979A1E28C4646200169FB6 /* VoiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceList.swift; sourceTree = "<group>"; };
 		61979A2028C466C500169FB6 /* VoicyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicyListView.swift; sourceTree = "<group>"; };
 		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -120,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				6104770728DDD30600141042 /* data */,
-				61979A1D28C45AA000169FB6 /* Info.plist */,
 				619799E528C34A2500169FB6 /* VoiceMemoApp.swift */,
 				619799E928C34A2500169FB6 /* Assets.xcassets */,
 				619799EB28C34A2500169FB6 /* VoiceMemo.entitlements */,
@@ -463,7 +461,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクの許可";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "あなたの言葉を文字にして記録いたします。";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -507,7 +506,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "マイクの許可";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "あなたの言葉を文字にして記録いたします。";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
