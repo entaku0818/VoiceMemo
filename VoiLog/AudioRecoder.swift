@@ -42,6 +42,7 @@ private actor AudioRecorder {
     var audioEngine:AVAudioEngine?
     var inputNode:AVAudioInputNode?
     var resultText:String = ""
+    var isFinal = false
 
   var currentTime: TimeInterval? {
     guard
@@ -66,7 +67,7 @@ private actor AudioRecorder {
       audioEngine?.stop()
       self.inputNode?.removeTap(onBus: 0)
       self.recognitionTask?.cancel()
-      self.recognitionTask = nil
+      isFinal = true
     try? AVAudioSession.sharedInstance().setActive(false)
   }
 
@@ -95,10 +96,10 @@ private actor AudioRecorder {
 
                   // 取得した認識結の処理
 
-                  var isFinal = false
+
                           
                   if let result = result {
-                      isFinal = result.isFinal
+                      self.isFinal = result.isFinal
                       // 認識結果をプリント
                       print("RecognizedText: \(result.bestTranscription.formattedString)")
                       self.resultText = result.bestTranscription.formattedString
@@ -106,19 +107,14 @@ private actor AudioRecorder {
                           
                   // 音声認識できない場合のエラー
                   // 一言も発しない場合もエラーとなるので、認識結果が0件の場合はエラーを投げない
-                  if error != nil && result != nil  {
+                  if error != nil{
                       continuation.finish(throwing: error)
-                  }else{
-                      continuation.yield(true)
-                      continuation.finish()
                   }
-                  if isFinal {
+                  if self.isFinal {
                    
-                              
                       self.recognitionTask = nil
                       continuation.yield(true)
                       continuation.finish()
-
                   }
                   
               }
