@@ -95,9 +95,6 @@ private actor AudioRecorder {
               self.recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
 
                   // 取得した認識結の処理
-
-
-                          
                   if let result = result {
                       self.isFinal = result.isFinal
                       // 認識結果をプリント
@@ -106,9 +103,14 @@ private actor AudioRecorder {
                   }
                           
                   // 音声認識できない場合のエラー
-                  // 一言も発しない場合もエラーとなるので、認識結果が0件の場合はエラーを投げない
-                  if error != nil{
-                      continuation.finish(throwing: error)
+                  if let error = error as? NSError{
+                      // 一言も発しない場合もエラーとなるので、認識結果が0件の場合はエラーを投げない
+                      if error.code == 1110 {
+                          continuation.yield(true)
+                          continuation.finish()
+                      }else{
+                          continuation.finish(throwing: error)
+                      }
                   }
                   if self.isFinal {
                    
