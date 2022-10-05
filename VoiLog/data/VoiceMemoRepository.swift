@@ -85,6 +85,22 @@ class VoiceMemoRepository: NSObject {
 
     }
     
-    
+    func delete(id:UUID) -> Void {
+        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+        //条件指定
+        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
+
+        do {
+            let myResults = try managedContext.fetch(fetchRequest)
+            for myData in myResults {
+                managedContext.delete(myData)
+            }
+
+            try managedContext.save()
+        } catch let error as NSError {
+            print("\(error), \(error.userInfo)")
+        }
+    }
+
    
 }

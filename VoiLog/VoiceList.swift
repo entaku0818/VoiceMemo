@@ -129,7 +129,11 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
       return .none
 
     case let .voiceMemo(id: id, action: .delete):
+        if let uuid = state.voiceMemos[id:id]?.uuid {
+            VoiceMemoRepository.shared.delete(id: uuid)
+        }
       state.voiceMemos.remove(id: id)
+
       return .none
 
     case let .voiceMemo(id: tappedId, action: .playButtonTapped):
