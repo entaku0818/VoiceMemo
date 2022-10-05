@@ -27,6 +27,7 @@ extension AudioPlayerClient {
           },
           decodeErrorDidOccur: { error in
             continuation.finish(throwing: error)
+              debugPrint(error?.localizedDescription)
           }
         )
         delegate.player.play()
@@ -35,6 +36,7 @@ extension AudioPlayerClient {
         }
       } catch {
         continuation.finish(throwing: error)
+          debugPrint(error.localizedDescription)
       }
     }
     return try await stream.first(where: { _ in true }) ?? false

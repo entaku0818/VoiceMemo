@@ -35,7 +35,6 @@ extension AudioRecorderClient {
 }
 
 private actor AudioRecorder {
-  var recorder: AVAudioRecorder?
     var speechRecognizer:SFSpeechRecognizer?
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
@@ -43,14 +42,9 @@ private actor AudioRecorder {
     var inputNode:AVAudioInputNode?
     var resultText:String = ""
     var isFinal = false
+    let sampleRate:Double = 44100
 
-  var currentTime: TimeInterval? {
-    guard
-      let recorder = self.recorder,
-      recorder.isRecording
-    else { return nil }
-    return recorder.currentTime
-  }
+    var currentTime: TimeInterval = 0
 
   static func requestPermission() async -> Bool {
     await withUnsafeContinuation { continuation in
@@ -64,10 +58,12 @@ private actor AudioRecorder {
   }
 
   func stop() {
+      if currentTime ?? 0 < 2 {return}
       audioEngine?.stop()
       self.inputNode?.removeTap(onBus: 0)
       self.recognitionTask?.cancel()
       isFinal = true
+      resultText = ""
     try? AVAudioSession.sharedInstance().setActive(false)
   }
 
@@ -105,12 +101,9 @@ private actor AudioRecorder {
                   // 音声認識できない場合のエラー
                   if let error = error as? NSError{
                       // 一言も発しない場合もエラーとなるので、認識結果が0件の場合はエラーを投げない
-                      if error.code == 1110 {
-                          continuation.yield(true)
-                          continuation.finish()
-                      }else{
-                          continuation.finish(throwing: error)
-                      }
+
+                      continuation.yield(true)
+                      continuation.finish()
                   }
                   if self.isFinal {
                    
@@ -121,10 +114,12 @@ private actor AudioRecorder {
                   
               }
                   // オーディオファイル
-              let audioFile = try AVAudioFile(forWriting: url, settings: AVAudioFormat(commonFormat: .pcmFormatFloat32  , sampleRate: 44100, channels: 1 , interleaved: true)!.settings)
+              let audioFile = try AVAudioFile(forWriting: url, settings: AVAudioFormat(commonFormat: .pcmFormatFloat32  , sampleRate: sampleRate, channels: 1 , interleaved: true)!.settings)
                  
               inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
                 // 音声を取得したら
+                  self.currentTime = Double(audioFile.length) / self.sampleRate
+                  
                   self.recognitionRequest?.append(buffer) // 認識リクエストに取得した音声を加える
                   do {
                     // audioFileにバッファを書き込む
@@ -158,11 +153,9 @@ private actor AudioRecorder {
 
     
     func amplitude() -> Float {
-        self.recorder?.updateMeters()
-        let decibel = recorder?.averagePower(forChannel: 0) ?? 0
         // デシベルから振幅を取得する
          
-        return (decibel + 160) / 320
+        return 0
     }
     func fetchResultText() -> String {
 

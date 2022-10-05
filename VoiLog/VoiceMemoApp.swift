@@ -11,6 +11,7 @@ import ComposableArchitecture
 @main
 struct VoiceMemoApp: App {
     var voiceMemos:[VoiceMemoState] = []
+    let DocumentsPath = NSHomeDirectory() + "/Documents"
     init() {
         let voiceMemoRepository = VoiceMemoRepository()
         voiceMemos = voiceMemoRepository.selectAllData()
@@ -43,7 +44,7 @@ struct VoiceMemoApp: App {
                       UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                     }
                   },
-                  temporaryDirectory: { URL(fileURLWithPath: NSTemporaryDirectory()) },
+                  temporaryDirectory: { URL(fileURLWithPath: DocumentsPath) },
                   uuid: { UUID() }
                 )
               )
