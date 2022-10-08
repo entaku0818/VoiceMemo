@@ -30,6 +30,7 @@ extension AudioPlayerClient {
               debugPrint(error?.localizedDescription)
           }
         )
+
         delegate.player.play()
         continuation.onTermination = { _ in
           delegate.player.stop()
@@ -53,9 +54,13 @@ private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
     didFinishPlaying: @escaping @Sendable (Bool) -> Void,
     decodeErrorDidOccur: @escaping @Sendable (Error?) -> Void
   ) throws {
+      try AVAudioSession.sharedInstance().setActive(true)
+      try AVAudioSession.sharedInstance().setCategory(.playback)
     self.didFinishPlaying = didFinishPlaying
     self.decodeErrorDidOccur = decodeErrorDidOccur
-    self.player = try AVAudioPlayer(contentsOf: url)
+      let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
+      
+    self.player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: documentsPath))
     super.init()
     self.player.delegate = self
   }

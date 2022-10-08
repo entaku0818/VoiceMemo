@@ -69,7 +69,8 @@ private actor AudioRecorder {
 
     func start(url: URL) async throws -> Bool {
       self.stop()
-
+        try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+        try AVAudioSession.sharedInstance().setActive(true)
       let stream = AsyncThrowingStream<Bool, Error> { continuation in
         do {
             speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
@@ -134,8 +135,7 @@ private actor AudioRecorder {
               audioEngine?.prepare()
               try audioEngine?.start()
 
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-            try AVAudioSession.sharedInstance().setActive(true)
+
 
         } catch {
           continuation.finish(throwing: error)
