@@ -10,13 +10,13 @@ import Foundation
 import SwiftUI
 
 struct VoiceMemoState: Equatable, Identifiable {
-  var uuid:UUID
+  var uuid: UUID
   var date: Date
   var duration: TimeInterval
   var mode = Mode.notPlaying
   var title = ""
   var url: URL
-    var text:String
+    var text: String
 
   var id: URL { self.url }
 
@@ -153,7 +153,6 @@ struct VoiceMemoView: View {
   }
 }
 
-
 struct VoiceMemoDetail: View {
   let store: Store<VoiceMemoState, VoiceMemoAction>
 
@@ -161,7 +160,7 @@ struct VoiceMemoDetail: View {
     WithViewStore(store) { viewStore in
       let currentTime =
         viewStore.mode.progress.map { $0 * viewStore.duration } ?? viewStore.duration
-        VStack{
+        VStack {
             HStack {
               TextField(
                 "Untitled, \(viewStore.date.formatted(date: .numeric, time: .shortened))",
@@ -196,11 +195,11 @@ struct VoiceMemoDetail: View {
               alignment: .leading
             )
           }.frame(minHeight: 50, maxHeight: 50)
-            ScrollView{
+            ScrollView {
                 Text(viewStore.text)
             }.frame(minHeight: 50, maxHeight: 200)
             .padding(16)
         }
-     
+
   }
 }

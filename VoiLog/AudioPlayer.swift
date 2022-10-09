@@ -5,15 +5,12 @@
 //  Created by 遠藤拓弥 on 4.9.2022.
 //
 
-
 @preconcurrency import AVFoundation
 import ComposableArchitecture
-
 
 struct AudioPlayerClient {
   var play: @Sendable (URL) async throws -> Bool
 }
-
 
 extension AudioPlayerClient {
   static let live = Self { url in
@@ -59,7 +56,7 @@ private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
     self.didFinishPlaying = didFinishPlaying
     self.decodeErrorDidOccur = decodeErrorDidOccur
       let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
-      
+
     self.player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: documentsPath))
     super.init()
     self.player.delegate = self

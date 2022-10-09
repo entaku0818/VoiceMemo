@@ -9,19 +9,19 @@ import Foundation
 import CoreData
 
 class VoiceMemoRepository: NSObject {
-    
+
     static let shared = VoiceMemoRepository()
 
     let container: NSPersistentContainer
     var managedContext: NSManagedObjectContext
     var entity: NSEntityDescription?
-    
+
     var entityName: String = "Voice"
-    
-    override init(){
+
+    override init() {
 
         container = NSPersistentContainer(name: entityName)
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -38,25 +38,23 @@ class VoiceMemoRepository: NSObject {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
-        
+
         self.managedContext = container.viewContext
-        if let localEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext)
-        {
+        if let localEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
             self.entity = localEntity
         }
     }
-    
 
-    func insert(state:RecordingMemoState){
+    func insert(state: RecordingMemoState) {
         if let voice = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
-            
+
             voice.title = ""
             voice.url = state.url
             voice.id = state.uuid
             voice.text = state.resultText
             voice.createdAt = state.date
             voice.duration = state.duration
-                        
+
             do {
                 try managedContext.save()
             } catch let error {
@@ -64,12 +62,10 @@ class VoiceMemoRepository: NSObject {
             }
         }
     }
-    
-    
 
     func selectAllData() -> [VoiceMemoState] {
         var memoGroups: [Voice] = []
-        
+
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
 
         do {
@@ -78,16 +74,16 @@ class VoiceMemoRepository: NSObject {
             print(error.localizedDescription)
         }
         let voiceMemoStates = memoGroups.map { voiceMemo in
-            VoiceMemoState(uuid:voiceMemo.id ?? UUID(), date:voiceMemo.createdAt ?? Date(),duration: voiceMemo.duration, title: voiceMemo.title ?? "",url:voiceMemo.url!, text: voiceMemo.text ?? "")
-            
+            VoiceMemoState(uuid: voiceMemo.id ?? UUID(), date: voiceMemo.createdAt ?? Date(), duration: voiceMemo.duration, title: voiceMemo.title ?? "", url: voiceMemo.url!, text: voiceMemo.text ?? "")
+
         }
         return voiceMemoStates
 
     }
-    
-    func delete(id:UUID) -> Void {
+
+    func delete(id: UUID) {
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
-        //条件指定
+        // 条件指定
         fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
 
         do {
@@ -102,5 +98,4 @@ class VoiceMemoRepository: NSObject {
         }
     }
 
-   
 }

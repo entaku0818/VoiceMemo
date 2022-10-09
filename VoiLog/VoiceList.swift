@@ -86,7 +86,7 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
 
     case let .recordingMemo(.delegate(.didFinish(.success(recordingMemo)))):
       state.recordingMemo = nil
-      
+
       let voiceRepository = VoiceMemoRepository()
         voiceRepository.insert(state: recordingMemo)
       state.voiceMemos.insert(
@@ -129,7 +129,7 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
       return .none
 
     case let .voiceMemo(id: id, action: .delete):
-        if let uuid = state.voiceMemos[id:id]?.uuid {
+        if let uuid = state.voiceMemos[id: id]?.uuid {
             VoiceMemoRepository.shared.delete(id: uuid)
         }
       state.voiceMemos.remove(id: id)
@@ -249,7 +249,7 @@ struct VoiceMemos_Previews: PreviewProvider {
               title: "",
               url: URL(string: "https://www.pointfree.co/untitled")!,
               text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            ),
+            )
           ]
         ),
         reducer: voiceMemosReducer,

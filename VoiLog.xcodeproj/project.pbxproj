@@ -173,6 +173,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61979A0728C34A2600169FB6 /* Build configuration list for PBXNativeTarget "VoiLog" */;
 			buildPhases = (
+				6194408D28F30B4700BF337E /* SwiftLint */,
 				619799DE28C34A2500169FB6 /* Sources */,
 				619799DF28C34A2500169FB6 /* Frameworks */,
 				619799E028C34A2500169FB6 /* Resources */,
@@ -301,6 +302,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6194408D28F30B4700BF337E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint --fix --format # 自動修正の有効化\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		619799DE28C34A2500169FB6 /* Sources */ = {

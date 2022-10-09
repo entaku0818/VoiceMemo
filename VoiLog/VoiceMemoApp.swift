@@ -9,10 +9,9 @@ import SwiftUI
 import ComposableArchitecture
 import FirebaseCore
 
-
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
     FirebaseApp.configure()
 
     return true
@@ -22,7 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    var voiceMemos:[VoiceMemoState] = []
+    var voiceMemos: [VoiceMemoState] = []
     let DocumentsPath = NSHomeDirectory() + "/Documents"
     init() {
         let voiceMemoRepository = VoiceMemoRepository()
@@ -43,7 +42,7 @@ struct VoiceMemoApp: App {
 //            ))
             VoiceMemosView(
               store: Store(
-                initialState: VoiceMemosState(voiceMemos:IdentifiedArrayOf(uniqueElements: voiceMemos)),
+                initialState: VoiceMemosState(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos)),
                 reducer:
                   voiceMemosReducer
                   .debug(),
@@ -63,8 +62,5 @@ struct VoiceMemoApp: App {
             )
         }
     }
-    
-    
-    
-    
+
 }

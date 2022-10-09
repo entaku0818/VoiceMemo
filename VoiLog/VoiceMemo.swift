@@ -113,13 +113,12 @@ struct RecordingMemoView: View {
   let store: Store<RecordingMemoState, RecordingMemoAction>
     @State var value: CGFloat = 0.0
     @State var bottomID = UUID()
-    
+
   var body: some View {
     WithViewStore(self.store) { viewStore in
 
-       
       VStack(spacing: 12) {
-          ZStack{
+          ZStack {
               RingProgressView(value: value)
                   .frame(width: 150, height: 150)
                   .onAppear {
@@ -137,7 +136,7 @@ struct RecordingMemoView: View {
                           .font(.body.monospacedDigit().bold())
                           .foregroundColor(.black)
                   }
-                  
+
               }
           }
           VStack {
@@ -146,32 +145,28 @@ struct RecordingMemoView: View {
                       HStack(spacing: 2) {
 
                           ForEach(viewStore.volumes, id: \.self) { volume in
-                              let height:CGFloat = CGFloat(volume * 50) + 1
+                              let height: CGFloat = CGFloat(volume * 50) + 1
                               Rectangle()
                                   .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
-                                  .frame(width:3, height: height)
+                                  .frame(width: 3, height: height)
                           }
                           Button("") {
                           }.id(bottomID)
                       }
-                      
-                       
+
                   }.onChange(of: viewStore.volumes) { _ in
                       DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                           reader.scrollTo(bottomID)
                       }
-                          
-                      
-                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60,alignment: .leading)
+
+                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
                   .padding(.trailing, UIScreen.main.bounds.width / 2)
               }
               Text(viewStore.resultText)
                   .foregroundColor(.black)
                   .fixedSize(horizontal: false, vertical: true)
-   
+
           }
-
-
 
         ZStack {
           Circle()
@@ -202,18 +197,15 @@ struct RecordingMemoView_Previews: PreviewProvider {
             mode: .recording,
             url: URL(string: "https://www.pointfree.co/functions")!
         ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
-          
+
           )
         ))
     }
 }
 
-
-
-
 let dateComponentsFormatter: DateComponentsFormatter = {
   let formatter = DateComponentsFormatter()
-    formatter.allowedUnits = [.minute, .second,.nanosecond]
+    formatter.allowedUnits = [.minute, .second, .nanosecond]
   formatter.zeroFormattingBehavior = .pad
   return formatter
 }()
@@ -247,7 +239,6 @@ extension AudioRecorderClient {
     )
   }
 }
-
 
 struct RingProgressView: View {
 
