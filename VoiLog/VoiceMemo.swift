@@ -11,6 +11,7 @@ struct RecordingMemoState: Equatable {
   var resultText: String = ""
   var mode: Mode = .recording
   var url: URL
+    var themaText:String = ThemaRepository.shared.select()
 
   enum Mode {
     case recording
@@ -118,6 +119,8 @@ struct RecordingMemoView: View {
     WithViewStore(self.store) { viewStore in
 
       VStack(spacing: 12) {
+          Text(viewStore.themaText)
+              .font(.largeTitle)
           ZStack {
               RingProgressView(value: value)
                   .frame(width: 150, height: 150)
@@ -127,6 +130,7 @@ struct RecordingMemoView: View {
                       }
                   }
               VStack(spacing: 12) {
+
                   Text("Recording")
                       .font(.title)
                       .colorMultiply(Color(Int(viewStore.duration).isMultiple(of: 2) ? .systemRed : .label))
@@ -195,7 +199,8 @@ struct RecordingMemoView_Previews: PreviewProvider {
             date: Date(),
             duration: 5,
             mode: .recording,
-            url: URL(string: "https://www.pointfree.co/functions")!
+            url: URL(string: "https://www.pointfree.co/functions")!,
+            themaText: "個人開発どうですか？"
         ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
 
           )
@@ -215,7 +220,7 @@ extension AudioRecorderClient {
     let isRecording = ActorIsolated(false)
     let currentTime = ActorIsolated(0.0)
       let volumes = ActorIsolated(Float(1.0))
-      let resultText = String("おはよう")
+      let resultText = String("進捗ダメです。")
 
     return Self(
       currentTime: { await currentTime.value },

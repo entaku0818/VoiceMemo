@@ -6,19 +6,21 @@
 //
 
 import SwiftUI
+import ComposableArchitecture
 
 struct SettingView: View {
     var body: some View {
         List {
             NavigationLink {
-                SettingVoiceQuestionView()
-            } label: {
-                Text("質問の設定")
-            }
-            NavigationLink {
+                SettingVoiceQuestionView(store:
+                    Store(initialState: SettingVoiceQuestionViewState(text: ""),
+                          reducer:
+                            SettingVoiceQuestionReducer
+                        .debug(), environment: SettingVoiceQuestionEnvironment()
+                          ))
                 
             } label: {
-                Text("通知の時間")
+                Text("質問の設定")
             }
         }.navigationTitle("setting")
     }
