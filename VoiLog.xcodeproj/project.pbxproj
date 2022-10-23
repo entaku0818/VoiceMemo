@@ -16,6 +16,8 @@
 		619440C92904014800BF337E /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619440C82904014800BF337E /* SettingView.swift */; };
 		619440CC290404BD00BF337E /* SettingVoiceQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */; };
 		619440CE2904DB2B00BF337E /* SettingNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619440CD2904DB2B00BF337E /* SettingNotification.swift */; };
+		619440D32905914800BF337E /* ThemaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619440D22905914800BF337E /* ThemaRepository.swift */; };
+		619440D529059C4000BF337E /* Thema.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 619440D429059C4000BF337E /* Thema.xcdatamodel */; };
 		619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619799E528C34A2500169FB6 /* VoiceMemoApp.swift */; };
 		619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799E928C34A2500169FB6 /* Assets.xcassets */; };
 		619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 619799ED28C34A2500169FB6 /* Preview Assets.xcassets */; };
@@ -54,6 +56,8 @@
 		619440C82904014800BF337E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVoiceQuestionView.swift; sourceTree = "<group>"; };
 		619440CD2904DB2B00BF337E /* SettingNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingNotification.swift; sourceTree = "<group>"; };
+		619440D22905914800BF337E /* ThemaRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemaRepository.swift; sourceTree = "<group>"; };
+		619440D429059C4000BF337E /* Thema.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Thema.xcdatamodel; sourceTree = "<group>"; };
 		619799E228C34A2500169FB6 /* VoiLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		619799E528C34A2500169FB6 /* VoiceMemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoApp.swift; sourceTree = "<group>"; };
 		619799E928C34A2500169FB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,7 +108,9 @@
 			isa = PBXGroup;
 			children = (
 				6104770428DDD13100141042 /* Voice.xcdatamodeld */,
+				619440D429059C4000BF337E /* Thema.xcdatamodel */,
 				613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */,
+				619440D22905914800BF337E /* ThemaRepository.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
+				619440D529059C4000BF337E /* Thema.xcdatamodel in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
 				619440C92904014800BF337E /* SettingView.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
@@ -357,6 +364,7 @@
 				619440CE2904DB2B00BF337E /* SettingNotification.swift in Sources */,
 				619440CC290404BD00BF337E /* SettingVoiceQuestionView.swift in Sources */,
 				61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */,
+				619440D32905914800BF337E /* ThemaRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
