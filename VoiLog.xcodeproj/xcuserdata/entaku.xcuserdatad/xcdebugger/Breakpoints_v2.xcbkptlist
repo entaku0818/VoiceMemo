@@ -1169,6 +1169,53 @@
             endingLineNumber = "141"
             landmarkName = "start(url:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7763B90E-A048-4AED-BC0A-A1EDB0305C5B - b69ad1e981b0e8ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for VoiLog.AudioRecorder.start(url: Foundation.URL) async throws -&gt; Swift.Bool"
+                  moduleName = "VoiLog"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiLog/VoiLog/AudioRecoder.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "1148">
+               </Location>
+               <Location
+                  uuid = "7763B90E-A048-4AED-BC0A-A1EDB0305C5B - 9e70aaab5b8e34a9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for VoiLog.AudioRecorder.start(url: Foundation.URL) async throws -&gt; Swift.Bool"
+                  moduleName = "VoiLog"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiLog/VoiLog/AudioRecoder.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "424">
+               </Location>
+               <Location
+                  uuid = "7763B90E-A048-4AED-BC0A-A1EDB0305C5B - 89dd78ca36f6d6a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for VoiLog.AudioRecorder.start(url: Foundation.URL) async throws -&gt; Swift.Bool"
+                  moduleName = "VoiLog"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/Desktop/VoiLog/VoiLog/AudioRecoder.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "141"
+                  endingLineNumber = "141"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

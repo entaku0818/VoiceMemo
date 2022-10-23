@@ -188,6 +188,16 @@ struct VoiceMemosView: View {
           dismiss: .alertDismissed
         )
         .navigationTitle("VoiLog")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                     SettingView()
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                }
+
+            }
+        }
       }
       .navigationViewStyle(.stack)
     }

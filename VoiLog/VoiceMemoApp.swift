@@ -13,9 +13,26 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
     FirebaseApp.configure()
-
+      UNUserNotificationCenter.current().requestAuthorization(
+      options: [.alert, .sound, .badge]){
+          (granted, _) in
+          if granted{
+              UNUserNotificationCenter.current().delegate = self
+          }
+      }
     return true
   }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        // アプリ起動時も通知を行う
+        completionHandler([ .badge, .sound ])
+    }
 }
 
 @main
