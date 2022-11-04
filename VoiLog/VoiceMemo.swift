@@ -1,14 +1,16 @@
 import ComposableArchitecture
 import SwiftUI
+import Photos
 
 struct RecordingMemoFailed: Equatable, Error {}
 
 struct RecordingMemoState: Equatable {
   var uuid = UUID()
-    var date: Date
+  var date: Date
   var duration: TimeInterval = 0
   var volumes: [Float] = []
   var resultText: String = ""
+    var images:[UIImage] = []
   var mode: Mode = .recording
   var url: URL
     var themaText:String = ThemaRepository.shared.select()
@@ -24,6 +26,7 @@ enum RecordingMemoAction: Equatable {
   case delegate(DelegateAction)
   case finalRecordingTime(TimeInterval)
   case task
+  case photos
   case timerUpdated
     case getVolumes
     case getResultText
@@ -79,6 +82,7 @@ let recordingMemoReducer = Reducer<
           TaskResult { try await environment.audioRecorder.startRecording(url) }
         )
       )
+        await send(.photos)
 
       for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
         await send(.timerUpdated)
@@ -106,6 +110,30 @@ let recordingMemoReducer = Reducer<
           let text = await environment.audioRecorder.resultText()
           await send(.updateResultText(text))
       }
+  case .photos:
+      var photoAssets: Array! = [PHAsset]()
+      let assets: PHFetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+      var images:[UIImage] = []
+      assets.enumerateObjects({ (asset, index, stop) -> Void in
+          let manager = PHImageManager()
+          let options = PHImageRequestOptions()
+          options.deliveryMode = .opportunistic
+          options.resizeMode = .fast
+          options.isSynchronous = true
+          options.isNetworkAccessAllowed = true
+          manager.requestImage(for: asset,
+                                  targetSize: CGSize(width: 100, height: 100),
+                                  contentMode: .aspectFill,
+                                  options: options,
+                                  resultHandler: { (image, info) in
+              if let image = image {
+                images.append(image)
+              }
+          })
+      })
+      state.images = images
+      
+      return .none
   }
 
 }
@@ -143,6 +171,7 @@ struct RecordingMemoView: View {
 
               }
           }
+          CarouselView(images: viewStore.images)
           VStack {
               ScrollViewReader { reader in
                   ScrollView(.horizontal, showsIndicators: false) {
@@ -198,9 +227,10 @@ struct RecordingMemoView_Previews: PreviewProvider {
         RecordingMemoView(store: Store(initialState: RecordingMemoState(
             date: Date(),
             duration: 5,
-            mode: .recording,
+            images: [UIImage(systemName: "house.fill")!,], mode: .recording,
             url: URL(string: "https://www.pointfree.co/functions")!,
             themaText: "個人開発どうですか？"
+            
         ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
 
           )
@@ -220,7 +250,7 @@ extension AudioRecorderClient {
     let isRecording = ActorIsolated(false)
     let currentTime = ActorIsolated(0.0)
       let volumes = ActorIsolated(Float(1.0))
-      let resultText = String("進捗ダメです。")
+      let resultText = String("進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。")
 
     return Self(
       currentTime: { await currentTime.value },
@@ -271,4 +301,66 @@ struct RingProgressView: View {
         }
         .padding(.all, self.lineWidth / 2)
     }
+}
+
+
+
+
+struct CarouselView: View {
+   
+   @State private var currentIndex = 0
+   @GestureState private var dragOffset: CGFloat = 0
+    @State  var examples:[UIImage] = [UIImage(systemName: "house.fill")!]
+   
+   let itemPadding: CGFloat = 20
+   
+    init(images:[UIImage]){
+        _examples = State(initialValue: images)
+    }
+   
+   var body: some View {
+       GeometryReader { bodyView in
+           LazyHStack(spacing: itemPadding) {
+               ForEach(examples.indices, id: \.self) { index in
+                   // カルーセル対象のView
+                   Image(uiImage: examples[index])
+                       .frame(width: bodyView.size.width * 0.8, height: 200)
+                       .background(Color.gray)
+                       .padding(.leading, index == 0 ? bodyView.size.width * 0.1 : 0)
+               }
+           }
+           .offset(x: self.dragOffset)
+           .offset(x: -CGFloat(self.currentIndex) * (bodyView.size.width * 0.8 + itemPadding))
+           .gesture(
+               DragGesture()
+                   .updating(self.$dragOffset, body: { (value, state, _) in
+                       // 先頭・末尾ではスクロールする必要がないので、画面サイズの1/5までドラッグで制御する
+                       if self.currentIndex == 0, value.translation.width > 0 {
+                           state = value.translation.width / 5
+                       } else if self.currentIndex == (self.examples.count - 1), value.translation.width < 0 {
+                           state = value.translation.width / 5
+                       } else {
+                           state = value.translation.width
+                       }
+                   })
+                   .onEnded({ value in
+                       var newIndex = self.currentIndex
+                       // ドラッグ幅からページングを判定
+                       if abs(value.translation.width) > bodyView.size.width * 0.3 {
+                           newIndex = value.translation.width > 0 ? self.currentIndex - 1 : self.currentIndex + 1
+                       }
+                       
+                       // 最小ページ、最大ページを超えないようチェック
+                       if newIndex < 0 {
+                           newIndex = 0
+                       } else if newIndex > (self.examples.count - 1) {
+                           newIndex = self.examples.count - 1
+                       }
+                       
+                       self.currentIndex = newIndex
+                   })
+           )
+       }
+       .animation(.interpolatingSpring(mass: 0.6, stiffness: 150, damping: 80, initialVelocity: 0.1))
+   }
 }

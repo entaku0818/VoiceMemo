@@ -527,6 +527,7 @@
 				INFOPLIST_FILE = VoiLog/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "あなたの言葉を文字にして記録します。";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -573,6 +574,7 @@
 				INFOPLIST_FILE = VoiLog/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "あなたの言葉を文字にして記録します。";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
