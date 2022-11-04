@@ -22,6 +22,16 @@ struct SettingView: View {
             } label: {
                 Text("質問の設定")
             }
+            NavigationLink {
+                SettingNotification(
+                    store: Store(initialState:
+                                    NotificationViewState(text: ""),
+                                 reducer: NotificationReducer.debug(),
+                                 environment: NotificationEnvironment()
+                         ))
+            } label: {
+                Text("通知の設定")
+            }
         }.navigationTitle("setting")
     }
 }
