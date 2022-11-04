@@ -9,9 +9,8 @@ import SwiftUI
 import ComposableArchitecture
 
 struct SettingNotification: View {
-    @State private var text = """
-    
-"""
+    @State  var isAlert:Bool = false
+
     let store: Store<NotificationViewState, NotificationAction>
     var body: some View {
         VStack{
@@ -27,7 +26,40 @@ struct SettingNotification: View {
                 }){
                     Text("localpush")
                 }
+                Button(action: {
+                    let dateComponents = DateComponents(
+                        calendar: Calendar.current,
+                        timeZone: TimeZone.current,
+                        hour: 9,
+                        minute: 0
+                    )
+                    let trigger = UNCalendarNotificationTrigger(
+                        dateMatching: dateComponents,
+                        repeats: true
+                    )
+                    let content = UNMutableNotificationContent()
+                    content.title = "お知らせ"
+                    content.body = "通知です"
+                    content.sound = UNNotificationSound.default
 
+
+                    let request = UNNotificationRequest(identifier: "immediately", content: content, trigger: trigger)
+                    UNUserNotificationCenter.current().add(request) { error in
+                          if let error = error {
+                               // Do something with error
+                               print(error.localizedDescription)
+                          } else {
+                              isAlert = true
+                               print("adding \((request.trigger as! UNCalendarNotificationTrigger).dateComponents.date)")
+                          }
+                     }
+                }){
+                    Text("30分で通知")
+                }.alert(isPresented: $isAlert) {
+                    Alert(title: Text("毎朝9時に設定しました"),
+                          message: Text("ここはメッセージです。"),
+                          dismissButton: .default(Text("OK")))
+                }
             }
         }.navigationTitle("通知の設定")
     }
