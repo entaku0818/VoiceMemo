@@ -26,11 +26,14 @@ struct SettingVoiceQuestionView: View {
 
 struct SettingVoiceQuestionView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingVoiceQuestionView(store:             Store(initialState: SettingVoiceQuestionViewState(text: ThemaRepository.shared.select()),
-                                                          reducer:
-                                                            SettingVoiceQuestionReducer
-                                                        .debug(), environment: SettingVoiceQuestionEnvironment()
-                                                          ))
+        SettingVoiceQuestionView(store:
+        Store(initialState:
+                SettingVoiceQuestionViewState(
+                    text:ThemaRepository.shared.select()
+                ),
+                reducer: SettingVoiceQuestionReducer.debug(),
+                environment: SettingVoiceQuestionEnvironment()
+        ))
     }
 }
 
