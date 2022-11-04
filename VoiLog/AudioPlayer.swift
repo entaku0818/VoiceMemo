@@ -51,11 +51,11 @@ private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
     didFinishPlaying: @escaping @Sendable (Bool) -> Void,
     decodeErrorDidOccur: @escaping @Sendable (Error?) -> Void
   ) throws {
-      try AVAudioSession.sharedInstance().setActive(true)
-      try AVAudioSession.sharedInstance().setCategory(.playback)
+    try AVAudioSession.sharedInstance().setActive(true)
+    try AVAudioSession.sharedInstance().setCategory(.playback)
     self.didFinishPlaying = didFinishPlaying
     self.decodeErrorDidOccur = decodeErrorDidOccur
-      let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
+    let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
 
     self.player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: documentsPath))
     super.init()
