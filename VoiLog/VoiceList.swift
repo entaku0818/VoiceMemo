@@ -77,7 +77,7 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
       case .allowed:
         state.recordingMemo = RecordingMemoState(
           date: environment.mainRunLoop.now.date,
-          url: environment.temporaryDirectory()
+           url: environment.temporaryDirectory()
             .appendingPathComponent(environment.uuid().uuidString)
             .appendingPathExtension("m4a"),
           themaText: ThemaRepository.shared.select()
@@ -115,7 +115,7 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
       if permission {
         state.recordingMemo = RecordingMemoState(
           date: environment.mainRunLoop.now.date,
-          url: environment.temporaryDirectory()
+           url: environment.temporaryDirectory()
             .appendingPathComponent(environment.uuid().uuidString)
             .appendingPathExtension("m4a"), themaText: ThemaRepository.shared.select()
         )
@@ -172,7 +172,9 @@ struct VoiceMemosView: View {
           IfLetStore(
             self.store.scope(state: \.recordingMemo, action: { .recordingMemo($0) })
           ) { store in
-            RecordingMemoView(store: store)
+                  RecordingMemoView(store: store)
+                  
+
           } else: {
             RecordButton(permission: viewStore.audioRecorderPermission) {
               viewStore.send(.recordButtonTapped, animation: .spring())
