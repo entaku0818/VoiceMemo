@@ -172,7 +172,7 @@ struct VoiceMemosView: View {
           IfLetStore(
             self.store.scope(state: \.recordingMemo, action: { .recordingMemo($0) })
           ) { store in
-                  RecordingMemoView(store: store)
+              RecordingMemoView(store: store).frame(height:UIScreen.main.bounds.size.height)
                   
 
           } else: {
