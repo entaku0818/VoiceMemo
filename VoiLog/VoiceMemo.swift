@@ -10,7 +10,7 @@ struct RecordingMemoState: Equatable {
   var duration: TimeInterval = 0
   var volumes: [Float] = []
   var resultText: String = ""
-    var images:[PHAsset] = []
+    var images:[UIImage] = []
   var mode: Mode = .recording
   var url: URL
     var themaText:String = ThemaRepository.shared.select()
@@ -82,6 +82,8 @@ let recordingMemoReducer = Reducer<
           TaskResult { try await environment.audioRecorder.startRecording(url) }
         )
       )
+        await send(.photos)
+
       for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
         await send(.timerUpdated)
         await send(.getVolumes)
@@ -109,7 +111,27 @@ let recordingMemoReducer = Reducer<
           await send(.updateResultText(text))
       }
   case .photos:
-
+      var photoAssets: Array! = [PHAsset]()
+      let assets: PHFetchResult = PHAsset.fetchAssets(with: .image, options: nil)
+      var images:[UIImage] = []
+      assets.enumerateObjects({ (asset, index, stop) -> Void in
+          let manager = PHImageManager()
+          let options = PHImageRequestOptions()
+          options.deliveryMode = .opportunistic
+          options.resizeMode = .fast
+          options.isSynchronous = true
+          options.isNetworkAccessAllowed = true
+          manager.requestImage(for: asset,
+                                  targetSize: CGSize(width: 100, height: 100),
+                                  contentMode: .aspectFill,
+                                  options: options,
+                                  resultHandler: { (image, info) in
+              if let image = image {
+                images.append(image)
+              }
+          })
+      })
+      state.images = images
       
       return .none
   }
@@ -122,93 +144,80 @@ struct RecordingMemoView: View {
     @State var bottomID = UUID()
 
   var body: some View {
-  
-        ScrollView {
-            VStack(spacing: 12) {
-                WithViewStore(self.store) { viewStore in
-                    Text(viewStore.themaText)
-                        .font(.largeTitle)
-                    ZStack {
-                        RingProgressView(value: value)
-                            .frame(width: 150, height: 150)
-                            .onAppear {
-                                withAnimation(.linear(duration: 600)) {
-                                    self.value = 1.0
-                                }
-                            }
-                        VStack(spacing: 12) {
-                            
-                            Text("Recording")
-                                .font(.title)
-                                .colorMultiply(Color(Int(viewStore.duration).isMultiple(of: 2) ? .systemRed : .label))
-                                .animation(.easeInOut(duration: 1), value: viewStore.duration)
-                            if let formattedDuration = dateComponentsFormatter.string(from: viewStore.duration) {
-                                Text(formattedDuration)
-                                    .font(.body.monospacedDigit().bold())
-                                    .foregroundColor(.black)
-                            }
-                            
-                        }
-                    }
-                    
-                }
-                VStack{
-                    Text("写真を見ながら話そう！")
-                    CarouselView()
-                }.frame(height: 300)
+    WithViewStore(self.store) { viewStore in
 
-//                VStack {
-//                    ScrollViewReader { reader in
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//                            HStack(spacing: 2) {
-//
-//                                ForEach(viewStore.volumes, id: \.self) { volume in
-//                                    let height: CGFloat = CGFloat(volume * 50) + 1
-//                                    Rectangle()
-//                                        .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
-//                                        .frame(width: 3, height: height)
-//                                }
-//                                Button("") {
-//                                }.id(bottomID)
-//                            }
-//
-//                        }.onChange(of: viewStore.volumes) { _ in
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                                reader.scrollTo(bottomID)
-//                            }
-//
-//                        }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
-//                        .padding(.trailing, UIScreen.main.bounds.width / 2)
-//                    }
-//                    ScrollView {
-//                        Text(viewStore.resultText)
-//                            .foregroundColor(.black)
-//                            .fixedSize(horizontal: false, vertical: true)
-//                    }.frame(height: 100)
-//
-//
-//                }
-                WithViewStore(self.store) { viewStore in
-                    
-                    ZStack {
-                        Circle()
-                            .foregroundColor(Color(.label))
-                            .frame(width: 74, height: 74)
-                        
-                        Button(action: { viewStore.send(.stopButtonTapped, animation: .default) }) {
-                            RoundedRectangle(cornerRadius: 4)
-                                .foregroundColor(Color(.systemRed))
-                                .padding(17)
-                        }
-                        .frame(width: 70, height: 70)
-                        
-                    }.task {
-                        await viewStore.send(.task).finish()
-                    }
-                    
-                }
-            }
-      
+      VStack(spacing: 12) {
+          Text(viewStore.themaText)
+              .font(.largeTitle)
+          ZStack {
+              RingProgressView(value: value)
+                  .frame(width: 150, height: 150)
+                  .onAppear {
+                      withAnimation(.linear(duration: 600)) {
+                          self.value = 1.0
+                      }
+                  }
+              VStack(spacing: 12) {
+
+                  Text("Recording")
+                      .font(.title)
+                      .colorMultiply(Color(Int(viewStore.duration).isMultiple(of: 2) ? .systemRed : .label))
+                      .animation(.easeInOut(duration: 1), value: viewStore.duration)
+                  if let formattedDuration = dateComponentsFormatter.string(from: viewStore.duration) {
+                      Text(formattedDuration)
+                          .font(.body.monospacedDigit().bold())
+                          .foregroundColor(.black)
+                  }
+
+              }
+          }
+          CarouselView(images: viewStore.images)
+          VStack {
+              ScrollViewReader { reader in
+                  ScrollView(.horizontal, showsIndicators: false) {
+                      HStack(spacing: 2) {
+
+                          ForEach(viewStore.volumes, id: \.self) { volume in
+                              let height: CGFloat = CGFloat(volume * 50) + 1
+                              Rectangle()
+                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
+                                  .frame(width: 3, height: height)
+                          }
+                          Button("") {
+                          }.id(bottomID)
+                      }
+
+                  }.onChange(of: viewStore.volumes) { _ in
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                          reader.scrollTo(bottomID)
+                      }
+
+                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
+                  .padding(.trailing, UIScreen.main.bounds.width / 2)
+              }
+              Text(viewStore.resultText)
+                  .foregroundColor(.black)
+                  .fixedSize(horizontal: false, vertical: true)
+
+          }
+
+        ZStack {
+          Circle()
+            .foregroundColor(Color(.label))
+            .frame(width: 74, height: 74)
+
+          Button(action: { viewStore.send(.stopButtonTapped, animation: .default) }) {
+            RoundedRectangle(cornerRadius: 4)
+              .foregroundColor(Color(.systemRed))
+              .padding(17)
+          }
+          .frame(width: 70, height: 70)
+
+        }
+      }
+      .task {
+        await viewStore.send(.task).finish()
+      }
     }.navigationBarTitle("Recording", displayMode: .inline)
   }
 }
@@ -218,7 +227,7 @@ struct RecordingMemoView_Previews: PreviewProvider {
         RecordingMemoView(store: Store(initialState: RecordingMemoState(
             date: Date(),
             duration: 5,
-            images: [], mode: .recording,
+            images: [UIImage(systemName: "house.fill")!,], mode: .recording,
             url: URL(string: "https://www.pointfree.co/functions")!,
             themaText: "個人開発どうですか？"
             
@@ -301,38 +310,12 @@ struct CarouselView: View {
    
    @State private var currentIndex = 0
    @GestureState private var dragOffset: CGFloat = 0
-  var examples:[UIImage] = []
+    @State  var examples:[UIImage] = [UIImage(systemName: "house.fill")!]
    
    let itemPadding: CGFloat = 20
    
-    init(){
-        var photoAssets: Array! = [PHAsset]()
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.fetchLimit = 100 // 一度に取得するアセットの数
-        fetchOptions.predicate = NSPredicate(format: "mediaType == %d || mediaType == %d",
-                                              PHAssetMediaType.image.rawValue,
-                                              PHAssetMediaType.video.rawValue) // imageとvideoのみ取得
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let assets: PHFetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        var images:[UIImage] = []
-        assets.enumerateObjects({ (asset, index, stop) -> Void in
-            let manager = PHImageManager()
-            let options = PHImageRequestOptions()
-            options.deliveryMode = .opportunistic
-            options.resizeMode = .fast
-            options.isSynchronous = true
-            options.isNetworkAccessAllowed = true
-            manager.requestImage(for: asset,
-                                    targetSize: CGSize(width: 200, height: 200),
-                                    contentMode: .aspectFill,
-                                    options: options,
-                                 resultHandler: { (image, _) in
-                if let image = image {
-                    images.append(image)
-                }
-            })
-        })
-        examples = images
+    init(images:[UIImage]){
+        _examples = State(initialValue: images)
     }
    
    var body: some View {
@@ -342,6 +325,7 @@ struct CarouselView: View {
                    // カルーセル対象のView
                    Image(uiImage: examples[index])
                        .frame(width: bodyView.size.width * 0.8, height: 200)
+                       .background(Color.gray)
                        .padding(.leading, index == 0 ? bodyView.size.width * 0.1 : 0)
                }
            }
