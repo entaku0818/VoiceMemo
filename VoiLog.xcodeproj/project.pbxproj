@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6104770628DDD13100141042 /* Voice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6104770428DDD13100141042 /* Voice.xcdatamodeld */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */; };
-		6194408528F3068A00BF337E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6194408428F3068A00BF337E /* GoogleService-Info.plist */; };
 		6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408728F308C400BF337E /* FirebaseAnalytics */; };
 		6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408928F308C400BF337E /* FirebaseAnalyticsSwift */; };
 		6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408B28F308C400BF337E /* FirebaseCrashlytics */; };
@@ -30,6 +29,7 @@
 		61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1E28C4646200169FB6 /* VoiceList.swift */; };
 		61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2028C466C500169FB6 /* VoicyListView.swift */; };
 		61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2228C466E800169FB6 /* AudioPlayer.swift */; };
+		61C577C12A2D57450054896A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61C577C02A2D57450054896A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,6 @@
 /* Begin PBXFileReference section */
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
-		6194408428F3068A00BF337E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		619440C82904014800BF337E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVoiceQuestionView.swift; sourceTree = "<group>"; };
 		619440CD2904DB2B00BF337E /* SettingNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingNotification.swift; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		61979A1E28C4646200169FB6 /* VoiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceList.swift; sourceTree = "<group>"; };
 		61979A2028C466C500169FB6 /* VoicyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicyListView.swift; sourceTree = "<group>"; };
 		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		61C577C02A2D57450054896A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +148,7 @@
 		619799E428C34A2500169FB6 /* VoiLog */ = {
 			isa = PBXGroup;
 			children = (
-				6194408428F3068A00BF337E /* GoogleService-Info.plist */,
+				61C577C02A2D57450054896A /* GoogleService-Info.plist */,
 				6104770728DDD30600141042 /* data */,
 				619799E528C34A2500169FB6 /* VoiceMemoApp.swift */,
 				619799E928C34A2500169FB6 /* Assets.xcassets */,
@@ -306,7 +306,7 @@
 			files = (
 				619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */,
 				619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */,
-				6194408528F3068A00BF337E /* GoogleService-Info.plist in Resources */,
+				61C577C12A2D57450054896A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,7 +543,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -590,7 +590,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

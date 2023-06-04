@@ -190,17 +190,17 @@ struct VoiceMemosView: View {
           self.store.scope(state: \.alert),
           dismiss: .alertDismissed
         )
-        .navigationTitle("VoiLog")
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                     SettingView()
-                } label: {
-                    Image(systemName: "gearshape.fill")
-                }
-
-            }
-        }
+        .navigationTitle("シンプル録音")
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                NavigationLink {
+//                     SettingView()
+//                } label: {
+//                    Image(systemName: "gearshape.fill")
+//                }
+//
+//            }
+//        }
       }
       .navigationViewStyle(.stack)
     }
