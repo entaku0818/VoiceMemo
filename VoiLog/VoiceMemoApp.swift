@@ -8,11 +8,14 @@
 import SwiftUI
 import ComposableArchitecture
 import FirebaseCore
+import GoogleMobileAds
+
 
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-    FirebaseApp.configure()
+      FirebaseApp.configure()
+      GADMobileAds.sharedInstance().start(completionHandler: nil)
 
       UNUserNotificationCenter.current().requestAuthorization(
       options: [.alert, .sound, .badge]){
@@ -21,7 +24,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
               UNUserNotificationCenter.current().delegate = self
           }
       }
-    return true
+      return true
   }
 }
 
