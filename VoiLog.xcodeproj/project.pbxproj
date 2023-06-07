@@ -29,6 +29,7 @@
 		61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1E28C4646200169FB6 /* VoiceList.swift */; };
 		61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2028C466C500169FB6 /* VoicyListView.swift */; };
 		61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2228C466E800169FB6 /* AudioPlayer.swift */; };
+		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
 		61C577C12A2D57450054896A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61C577C02A2D57450054896A /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 			files = (
 				6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */,
 				6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */,
+				61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */,
 				6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */,
 				61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */,
 			);
@@ -211,6 +213,7 @@
 				6194408728F308C400BF337E /* FirebaseAnalytics */,
 				6194408928F308C400BF337E /* FirebaseAnalyticsSwift */,
 				6194408B28F308C400BF337E /* FirebaseCrashlytics */,
+				61A8818C2A30015500A4189C /* GoogleMobileAds */,
 			);
 			productName = VoiceMemo;
 			productReference = 619799E228C34A2500169FB6 /* VoiLog.app */;
@@ -287,6 +290,7 @@
 			packageReferences = (
 				61979A1228C34F5C00169FB6 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				6194408628F308C400BF337E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = 619799E328C34A2500169FB6 /* Products */;
 			projectDirPath = "";
@@ -518,13 +522,14 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "シンプル録音";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
@@ -565,13 +570,14 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "シンプル録音";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
@@ -752,6 +758,14 @@
 				minimumVersion = 0.9.0;
 			};
 		};
+		61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -774,6 +788,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61979A1228C34F5C00169FB6 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
+		};
+		61A8818C2A30015500A4189C /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 /* End XCSwiftPackageProductDependency section */
 
