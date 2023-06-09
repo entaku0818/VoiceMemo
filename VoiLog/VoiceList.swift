@@ -168,6 +168,7 @@ struct VoiceMemosView: View {
               }
             }
           }
+          AdmobBannerView().frame(width: .infinity, height: 50)
 
           IfLetStore(
             self.store.scope(state: \.recordingMemo, action: { .recordingMemo($0) })
@@ -206,6 +207,9 @@ struct VoiceMemosView: View {
     }
   }
 }
+
+
+
 
 struct RecordButton: View {
   let permission: VoiceMemosState.RecorderPermission
