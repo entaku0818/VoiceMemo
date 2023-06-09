@@ -30,7 +30,8 @@
 		61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2028C466C500169FB6 /* VoicyListView.swift */; };
 		61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2228C466E800169FB6 /* AudioPlayer.swift */; };
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
-		61C577C12A2D57450054896A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61C577C02A2D57450054896A /* GoogleService-Info.plist */; };
+		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
+		61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +74,8 @@
 		61979A1E28C4646200169FB6 /* VoiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceList.swift; sourceTree = "<group>"; };
 		61979A2028C466C500169FB6 /* VoicyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicyListView.swift; sourceTree = "<group>"; };
 		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
-		61C577C02A2D57450054896A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobBannerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,13 +152,14 @@
 		619799E428C34A2500169FB6 /* VoiLog */ = {
 			isa = PBXGroup;
 			children = (
-				61C577C02A2D57450054896A /* GoogleService-Info.plist */,
 				6104770728DDD30600141042 /* data */,
 				619799E528C34A2500169FB6 /* VoiceMemoApp.swift */,
 				619799E928C34A2500169FB6 /* Assets.xcassets */,
 				619799EB28C34A2500169FB6 /* VoiceMemo.entitlements */,
+				61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */,
 				61979A1528C3510000169FB6 /* VoiceMemo.swift */,
 				61979A1E28C4646200169FB6 /* VoiceList.swift */,
+				61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */,
 				61979A2028C466C500169FB6 /* VoicyListView.swift */,
 				619440CA2904049800BF337E /* Setting */,
 				619799EC28C34A2500169FB6 /* Preview Content */,
@@ -310,7 +313,7 @@
 			files = (
 				619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */,
 				619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */,
-				61C577C12A2D57450054896A /* GoogleService-Info.plist in Resources */,
+				61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +361,7 @@
 			files = (
 				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
 				619440D529059C4000BF337E /* Thema.xcdatamodel in Sources */,
+				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
 				619440C92904014800BF337E /* SettingView.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
