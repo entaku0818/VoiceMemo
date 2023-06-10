@@ -10,10 +10,8 @@ struct RecordingMemoState: Equatable {
   var duration: TimeInterval = 0
   var volumes: [Float] = []
   var resultText: String = ""
-    var images:[UIImage] = []
   var mode: Mode = .recording
   var url: URL
-    var themaText:String = ThemaRepository.shared.select()
 
   enum Mode {
     case recording
@@ -26,7 +24,6 @@ enum RecordingMemoAction: Equatable {
   case delegate(DelegateAction)
   case finalRecordingTime(TimeInterval)
   case task
-  case photos
   case timerUpdated
     case getVolumes
     case getResultText
@@ -82,12 +79,11 @@ let recordingMemoReducer = Reducer<
           TaskResult { try await environment.audioRecorder.startRecording(url) }
         )
       )
-        await send(.photos)
 
       for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
         await send(.timerUpdated)
         await send(.getVolumes)
-          await send(.getResultText)
+        await send(.getResultText)
       }
     }
 
@@ -110,29 +106,7 @@ let recordingMemoReducer = Reducer<
           let text = await environment.audioRecorder.resultText()
           await send(.updateResultText(text))
       }
-  case .photos:
-      var photoAssets: Array! = [PHAsset]()
-      let assets: PHFetchResult = PHAsset.fetchAssets(with: .image, options: nil)
-      var images:[UIImage] = []
-      assets.enumerateObjects({ (asset, index, stop) -> Void in
-          let manager = PHImageManager()
-          let options = PHImageRequestOptions()
-          options.deliveryMode = .opportunistic
-          options.resizeMode = .fast
-          options.isSynchronous = true
-          options.isNetworkAccessAllowed = true
-          manager.requestImage(for: asset,
-                                  targetSize: CGSize(width: 100, height: 100),
-                                  contentMode: .aspectFill,
-                                  options: options,
-                                  resultHandler: { (image, info) in
-              if let image = image {
-                images.append(image)
-              }
-          })
-      })
-      state.images = images
-      
+
       return .none
   }
 
@@ -147,8 +121,7 @@ struct RecordingMemoView: View {
     WithViewStore(self.store) { viewStore in
 
       VStack(spacing: 12) {
-          Text(viewStore.themaText)
-              .font(.largeTitle)
+
           ZStack {
               RingProgressView(value: value)
                   .frame(width: 150, height: 150)
@@ -171,7 +144,6 @@ struct RecordingMemoView: View {
 
               }
           }
-          CarouselView(images: viewStore.images)
           VStack {
               ScrollViewReader { reader in
                   ScrollView(.horizontal, showsIndicators: false) {
@@ -227,10 +199,8 @@ struct RecordingMemoView_Previews: PreviewProvider {
         RecordingMemoView(store: Store(initialState: RecordingMemoState(
             date: Date(),
             duration: 5,
-            images: [UIImage(systemName: "house.fill")!,], mode: .recording,
-            url: URL(string: "https://www.pointfree.co/functions")!,
-            themaText: "個人開発どうですか？"
-            
+            url: URL(string: "https://www.pointfree.co/functions")!
+
         ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
 
           )

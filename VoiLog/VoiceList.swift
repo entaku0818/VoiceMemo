@@ -79,8 +79,7 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
           date: environment.mainRunLoop.now.date,
            url: environment.temporaryDirectory()
             .appendingPathComponent(environment.uuid().uuidString)
-            .appendingPathExtension("m4a"),
-          themaText: ThemaRepository.shared.select()
+            .appendingPathExtension("m4a")
         )
         return .none
       }
@@ -117,7 +116,7 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
           date: environment.mainRunLoop.now.date,
            url: environment.temporaryDirectory()
             .appendingPathComponent(environment.uuid().uuidString)
-            .appendingPathExtension("m4a"), themaText: ThemaRepository.shared.select()
+            .appendingPathExtension("m4a")
         )
         return .none
       } else {

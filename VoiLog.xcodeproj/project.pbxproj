@@ -32,6 +32,7 @@
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
 		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
 		61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */; };
+		61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD32A33EFF50006A9D2 /* Logger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobBannerView.swift; sourceTree = "<group>"; };
+		61E43AD32A33EFF50006A9D2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				619440CA2904049800BF337E /* Setting */,
 				619799EC28C34A2500169FB6 /* Preview Content */,
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
+				61E43AD32A33EFF50006A9D2 /* Logger.swift */,
 				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
 			);
 			path = VoiLog;
@@ -369,6 +372,7 @@
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
 				613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */,
+				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
 				619440CE2904DB2B00BF337E /* SettingNotification.swift in Sources */,
 				619440CC290404BD00BF337E /* SettingVoiceQuestionView.swift in Sources */,
 				61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */,

@@ -35,6 +35,7 @@ class VoiceMemoRepository: NSObject {
                  Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
+                Logger.shared.logError("VoiceMemoRepository:" + error.localizedDescription)
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
@@ -72,6 +73,7 @@ class VoiceMemoRepository: NSObject {
             memoGroups = try managedContext.fetch(fetchRequest)
         } catch let error {
             print(error.localizedDescription)
+            Logger.shared.logError("selectAllData:" + error.localizedDescription)
         }
         let voiceMemoStates = memoGroups.map { voiceMemo in
             VoiceMemoState(uuid: voiceMemo.id ?? UUID(), date: voiceMemo.createdAt ?? Date(), duration: voiceMemo.duration, title: voiceMemo.title ?? "", url: voiceMemo.url!, text: voiceMemo.text ?? "")
@@ -95,6 +97,8 @@ class VoiceMemoRepository: NSObject {
             try managedContext.save()
         } catch let error as NSError {
             print("\(error), \(error.userInfo)")
+            Logger.shared.logError("delete:" + "\(error.localizedDescription), \(error.userInfo)")
+
         }
     }
 

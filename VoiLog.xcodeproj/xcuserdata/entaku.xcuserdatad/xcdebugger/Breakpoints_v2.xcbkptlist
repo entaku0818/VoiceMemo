@@ -1159,63 +1159,16 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7763B90E-A048-4AED-BC0A-A1EDB0305C5B"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "start(url:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "7763B90E-A048-4AED-BC0A-A1EDB0305C5B - b69ad1e981b0e8ab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for VoiLog.AudioRecorder.start(url: Foundation.URL) async throws -&gt; Swift.Bool"
-                  moduleName = "VoiLog"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/entaku/Desktop/VoiLog/VoiLog/AudioRecoder.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "141"
-                  endingLineNumber = "141"
-                  offsetFromSymbolStart = "1148">
-               </Location>
-               <Location
-                  uuid = "7763B90E-A048-4AED-BC0A-A1EDB0305C5B - 9e70aaab5b8e34a9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for VoiLog.AudioRecorder.start(url: Foundation.URL) async throws -&gt; Swift.Bool"
-                  moduleName = "VoiLog"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/entaku/Desktop/VoiLog/VoiLog/AudioRecoder.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "141"
-                  endingLineNumber = "141"
-                  offsetFromSymbolStart = "424">
-               </Location>
-               <Location
-                  uuid = "7763B90E-A048-4AED-BC0A-A1EDB0305C5B - 89dd78ca36f6d6a8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for VoiLog.AudioRecorder.start(url: Foundation.URL) async throws -&gt; Swift.Bool"
-                  moduleName = "VoiLog"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/entaku/Desktop/VoiLog/VoiLog/AudioRecoder.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "141"
-                  endingLineNumber = "141"
-                  offsetFromSymbolStart = "144">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1228,8 +1181,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1244,8 +1197,8 @@
             filePath = "VoiLog/VoiceList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1254,6 +1207,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A5B76181-0723-4C6A-9ED2-821A701ACB8A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VoiLog/AudioRecoder.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "start(url:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "01F2730A-9A15-419D-B2FD-079CBC36C8ED"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1269,22 +1238,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "01F2730A-9A15-419D-B2FD-079CBC36C8ED"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VoiLog/AudioRecoder.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "start(url:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "32BF5902-B7A3-4CE4-BDCB-E8FA1A6A459B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1292,8 +1245,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1308,8 +1261,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1324,8 +1277,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "stop()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1356,8 +1309,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "stop()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1372,8 +1325,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1388,8 +1341,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "stop()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1468,8 +1421,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "start(url:)"
             landmarkType = "7">
             <Locations>
@@ -1516,8 +1469,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "stop()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1532,8 +1485,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1548,10 +1501,42 @@
             filePath = "VoiLog/data/VoiceMemoRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "delete(id:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8920AE12-995D-49BC-92CA-4FE17B855E18 - 8161308d606193cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VoiLog.VoiceMemoRepository.delete(id: Foundation.UUID) -&gt; ()"
+                  moduleName = "VoiLog"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/VoiceMemo/VoiLog/data/VoiceMemoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "1316">
+               </Location>
+               <Location
+                  uuid = "8920AE12-995D-49BC-92CA-4FE17B855E18 - 8161308d606193cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VoiLog.VoiceMemoRepository.delete(id: Foundation.UUID) -&gt; ()"
+                  moduleName = "VoiLog"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/VoiceMemo/VoiLog/data/VoiceMemoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "1344">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1564,8 +1549,8 @@
             filePath = "VoiLog/VoiceList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1580,10 +1565,42 @@
             filePath = "VoiLog/data/VoiceMemoRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "delete(id:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "770B374C-99B3-434F-B328-116ADC8CCB86 - 8161308d60619513"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VoiLog.VoiceMemoRepository.delete(id: Foundation.UUID) -&gt; ()"
+                  moduleName = "VoiLog"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/VoiceMemo/VoiLog/data/VoiceMemoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "840">
+               </Location>
+               <Location
+                  uuid = "770B374C-99B3-434F-B328-116ADC8CCB86 - 8161308d60619513"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VoiLog.VoiceMemoRepository.delete(id: Foundation.UUID) -&gt; ()"
+                  moduleName = "VoiLog"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/entaku/VoiceMemo/VoiLog/data/VoiceMemoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "868">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1596,8 +1613,8 @@
             filePath = "VoiLog/VoiceList.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1852,8 +1869,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1868,8 +1885,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1884,8 +1901,8 @@
             filePath = "VoiLog/AudioRecoder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "start(url:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1894,14 +1911,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2CB812B6-ED57-4793-A5C2-5DB494026732"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VoiLog/data/ThemaRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "select()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1916,8 +1933,8 @@
             filePath = "VoiLog/data/ThemaRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "insert(state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1932,8 +1949,8 @@
             filePath = "VoiLog/data/ThemaRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "insert(state:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1964,8 +1981,8 @@
             filePath = "VoiLog/data/ThemaRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "insert(state:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -35,6 +35,8 @@ class ThemaRepository: NSObject {
                  Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
+                Logger.shared.logError("ThemaRepository:" + error.localizedDescription)
+
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
@@ -71,6 +73,7 @@ class ThemaRepository: NSObject {
                 }
             }
         } catch let error {
+            Logger.shared.logError("ThemaRepository: insert" + error.localizedDescription)
             print(error.localizedDescription)
         }
 
@@ -86,6 +89,7 @@ class ThemaRepository: NSObject {
             text = try managedContext.fetch(fetchRequest).first?.text ?? ""
         } catch let error {
             print(error.localizedDescription)
+            Logger.shared.logError("ThemaRepository: select" + error.localizedDescription)
         }
 
         return text

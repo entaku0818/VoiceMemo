@@ -9,6 +9,8 @@ import SwiftUI
 import ComposableArchitecture
 import FirebaseCore
 import GoogleMobileAds
+import FirebaseCrashlytics
+
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -16,6 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
       FirebaseApp.configure()
       GADMobileAds.sharedInstance().start(completionHandler: nil)
+      Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
       UNUserNotificationCenter.current().requestAuthorization(
       options: [.alert, .sound, .badge]){
