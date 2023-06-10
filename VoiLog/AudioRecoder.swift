@@ -9,6 +9,8 @@ import AVFoundation
 import ComposableArchitecture
 import Foundation
 import Speech
+import FirebaseCrashlytics
+
 
 struct AudioRecorderClient {
   var currentTime: @Sendable () async -> TimeInterval?
@@ -75,8 +77,8 @@ private actor AudioRecorder {
             speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
               audioEngine = AVAudioEngine()
 
-                  inputNode = audioEngine?.inputNode
 
+                inputNode = audioEngine?.inputNode
               recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
               guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
               recognitionRequest.shouldReportPartialResults = true // 発話ごとに中間結果を返すかどうか
@@ -122,6 +124,7 @@ private actor AudioRecorder {
                     // audioFileにバッファを書き込む
                     try audioFile.write(from: buffer)
                   } catch let error {
+                      Logger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
                     print("audioFile.writeFromBuffer error:", error)
                     continuation.finish(throwing: error)
                   }
@@ -131,12 +134,15 @@ private actor AudioRecorder {
               try audioEngine?.start()
 
         } catch {
+            Logger.shared.logError(error.localizedDescription)
           continuation.finish(throwing: error)
         }
       }
 
       guard let action = try await stream.first(where: { @Sendable _ in true })
-      else { throw CancellationError() }
+      else {
+          throw CancellationError()
+      }
       return action
     }
 
