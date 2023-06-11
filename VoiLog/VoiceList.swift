@@ -191,16 +191,20 @@ struct VoiceMemosView: View {
           dismiss: .alertDismissed
         )
         .navigationTitle("シンプル録音")
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                NavigationLink {
-//                     SettingView()
-//                } label: {
-//                    Image(systemName: "gearshape.fill")
-//                }
-//
-//            }
-//        }
+        .toolbar {
+            #if DEBUG
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationLink {
+                     SettingView()
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                }
+
+            }
+    
+            #endif
+
+        }
       }
       .navigationViewStyle(.stack)
     }
@@ -228,6 +232,8 @@ struct RecordButton: View {
             .padding(2)
         }
         .frame(width: 70, height: 70)
+
+
       }
       .opacity(self.permission == .denied ? 0.1 : 1)
 
