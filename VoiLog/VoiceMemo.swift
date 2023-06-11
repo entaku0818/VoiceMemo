@@ -70,6 +70,8 @@ let recordingMemoReducer = Reducer<
         await send(.finalRecordingTime(currentTime))
       }
       await environment.audioRecorder.stopRecording()
+      Logger.shared.logInfo("record stop")
+
     }
 
   case .task:
@@ -79,6 +81,8 @@ let recordingMemoReducer = Reducer<
           TaskResult { try await environment.audioRecorder.startRecording(url) }
         )
       )
+        Logger.shared.logInfo("record stert")
+
 
       for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
         await send(.timerUpdated)
@@ -89,6 +93,7 @@ let recordingMemoReducer = Reducer<
 
   case .timerUpdated:
     state.duration += 1
+
     return .none
   case let .updateVolumes(volume):
     state.volumes.append(volume)

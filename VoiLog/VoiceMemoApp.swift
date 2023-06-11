@@ -10,7 +10,7 @@ import ComposableArchitecture
 import FirebaseCore
 import GoogleMobileAds
 import FirebaseCrashlytics
-
+import RollbarNotifier
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {

@@ -22,6 +22,9 @@ struct SettingView: View {
             } label: {
                 Text("質問の設定")
             }
+            Button("Crash") {
+                  fatalError("Crash was triggered")
+            }
             NavigationLink {
                 SettingNotification(
                     store: Store(initialState:
