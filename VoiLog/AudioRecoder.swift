@@ -113,7 +113,13 @@ private actor AudioRecorder {
 
               }
                   // オーディオファイル
-              let audioFile = try AVAudioFile(forWriting: url, settings: AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: sampleRate, channels: 1, interleaved: true)!.settings)
+              let audioFile = try AVAudioFile(forWriting: url,
+                      settings: [
+                        AVFormatIDKey: kAudioFormatMPEG4AAC, // フォーマットをM4Aに指定
+                        AVSampleRateKey: 44100.0, // サンプルレート
+                        AVNumberOfChannelsKey: 2, // チャンネル数
+                        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue // 音質
+                    ])
 
               inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
                 // 音声を取得したら
