@@ -48,7 +48,10 @@ struct SettingView: View {
                     }
                 }
 
-                // ...
+            #if DEBUG
+
+            #endif
+
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("setting")
@@ -58,6 +61,7 @@ struct SettingView: View {
 
 struct FileFormatView: View {
     let store: Store<SettingViewState, SettingViewAction>
+    @Environment(\.presentationMode) var presentationMode // 追加
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -65,8 +69,17 @@ struct FileFormatView: View {
                 ForEach(Constants.FileFormat.allCases, id: \.self) { format in
                     Button(action: {
                         viewStore.send(.selectFileFormat(format.rawValue))
+                        self.presentationMode.wrappedValue.dismiss() // ボタンがクリックされたら画面を閉じる
+
                     }) {
-                        Text("\(format.rawValue)")
+                        HStack {
+                               Text("\(format.rawValue)")
+                               Spacer()
+                               if format.rawValue == viewStore.selectedFileFormat {
+                                   Image(systemName: "checkmark")
+                               }
+                           }
+
                     }
                 }
             }
@@ -75,3 +88,5 @@ struct FileFormatView: View {
         }
     }
 }
+
+
