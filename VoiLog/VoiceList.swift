@@ -195,7 +195,9 @@ struct VoiceMemosView: View {
             #if DEBUG
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
-                     SettingView()
+                    SettingView(store: Store(initialState:SettingViewState.initial,
+                                             reducer: settingViewReducer,
+                                             environment:SettingViewEnvironment()))
                 } label: {
                     Image(systemName: "gearshape.fill")
                 }
