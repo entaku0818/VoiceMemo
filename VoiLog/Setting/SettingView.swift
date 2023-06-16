@@ -9,13 +9,13 @@ import SwiftUI
 import ComposableArchitecture
 struct SettingViewState: Equatable {
     var selectedFileFormat: String
-    var samplingFrequency: Int
+    var samplingFrequency: Double
     var quantizationBitDepth:Int
 }
 
 enum SettingViewAction {
     case selectFileFormat(String)
-    case samplingFrequency(Int)
+    case samplingFrequency(Double)
     case quantizationBitDepth(Int)
 }
 
@@ -68,7 +68,7 @@ struct SettingView: View {
                     HStack {
                         Text("サンプリング周波数")
                         Spacer()
-                        Text("\(viewStore.samplingFrequency)Hz")
+                        Text("\(String(viewStore.samplingFrequency))Hz")
                     }
                 }
 

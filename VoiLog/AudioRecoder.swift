@@ -43,8 +43,9 @@ private actor AudioRecorder {
     var inputNode: AVAudioInputNode?
     var resultText: String = ""
     var isFinal = false
-    let sampleRate: Double = 44100
+    let sampleRate: Double = UserDefaultsManager.shared.samplingFrequency
 
+    
     var currentTime: TimeInterval = 0
 
   static func requestPermission() async -> Bool {
@@ -65,13 +66,13 @@ private actor AudioRecorder {
       self.recognitionTask?.cancel()
       isFinal = true
       resultText = ""
-    try? AVAudioSession.sharedInstance().setActive(false)
+      try? AVAudioSession.sharedInstance().setActive(false)
   }
 
     func start(url: URL) async throws -> Bool {
       self.stop()
-        try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-        try AVAudioSession.sharedInstance().setActive(true)
+      try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+      try AVAudioSession.sharedInstance().setActive(true)
       let stream = AsyncThrowingStream<Bool, Error> { continuation in
         do {
             speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
@@ -86,6 +87,7 @@ private actor AudioRecorder {
               // requiresOnDeviceRecognition を true に設定すると、音声データがネットワークで送られない
               // ただし精度は下がる
               recognitionRequest.requiresOnDeviceRecognition = false
+
 
               self.recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
 
@@ -112,13 +114,16 @@ private actor AudioRecorder {
                   }
 
               }
+            let fileFormat:AudioFormatID = Constants.FileFormat.init(rawValue: UserDefaultsManager.shared.selectedFileFormat)?.audioId ?? kAudioFormatMPEG4AAC
+            let quantizationBitDepth:Int = UserDefaultsManager.shared.quantizationBitDepth
                   // オーディオファイル
               let audioFile = try AVAudioFile(forWriting: url,
                       settings: [
-                        AVFormatIDKey: kAudioFormatMPEG4AAC, // フォーマットをM4Aに指定
-                        AVSampleRateKey: 44100.0, // サンプルレート
+                        AVFormatIDKey: fileFormat, // フォーマットをM4Aに指定
+                        AVSampleRateKey: self.sampleRate, // サンプルレート
                         AVNumberOfChannelsKey: 2, // チャンネル数
-                        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue // 音質
+                        AVLinearPCMBitDepthKey: quantizationBitDepth,
+                        AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue // 音質
                     ])
 
               inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
