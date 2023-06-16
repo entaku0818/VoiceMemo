@@ -33,4 +33,13 @@ class UserDefaultsManager {
         }
     }
 
+    var quantizationBitDepth: Int {
+        get {
+            return defaults.integer(forKey: "QuantizationBitDepth")
+        }
+        set {
+            defaults.set(newValue, forKey: "QuantizationBitDepth")
+        }
+    }
+
 }

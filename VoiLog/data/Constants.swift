@@ -34,4 +34,27 @@ class Constants {
         }
     }
 
+
+    enum QuantizationBitDepth: Int, CaseIterable {
+        case bit8 = 8
+        case bit16 = 16
+        case bit24 = 24
+        case bit32 = 32
+
+        var stringValue: String {
+            switch self {
+
+            case .bit8:
+                return "8bit"
+            case .bit16:
+                return "16bit"
+            case .bit24:
+                return "24bit"
+            case .bit32:
+                return "32bit"
+            }
+        }
+    }
+    
+
 }
