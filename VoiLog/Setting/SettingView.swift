@@ -9,14 +9,20 @@ import SwiftUI
 import ComposableArchitecture
 struct SettingViewState: Equatable {
     var selectedFileFormat: String
+    var samplingFrequency: Int
+
 }
 
 enum SettingViewAction {
     case selectFileFormat(String)
+    case samplingFrequency(Int)
 }
 
 extension SettingViewState {
-    static let initial = SettingViewState(selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat)
+    static let initial = SettingViewState(
+        selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
+        samplingFrequency: UserDefaultsManager.shared.samplingFrequency
+    )
 }
 
 struct SettingViewEnvironment {
@@ -28,6 +34,10 @@ let settingViewReducer = Reducer<SettingViewState, SettingViewAction, SettingVie
     case let .selectFileFormat(fileFormat):
         state.selectedFileFormat = fileFormat
         UserDefaultsManager.shared.selectedFileFormat = fileFormat
+        return .none
+    case let .samplingFrequency(rate):
+        state.samplingFrequency = rate
+        UserDefaultsManager.shared.samplingFrequency = rate
         return .none
     }
 }
@@ -45,6 +55,14 @@ struct SettingView: View {
                         Text("ファイル形式")
                         Spacer()
                         Text("\(viewStore.selectedFileFormat)")
+                    }
+                }
+
+                NavigationLink(destination: SamplingFrequencyView(store: self.store)) {
+                    HStack {
+                        Text("サンプリング周波数")
+                        Spacer()
+                        Text("\(viewStore.samplingFrequency)")
                     }
                 }
 
@@ -90,3 +108,32 @@ struct FileFormatView: View {
 }
 
 
+struct SamplingFrequencyView: View {
+    let store: Store<SettingViewState, SettingViewAction>
+    @Environment(\.presentationMode) var presentationMode // 追加
+
+    var body: some View {
+        WithViewStore(self.store) { viewStore in
+            List {
+                ForEach(Constants.SamplingFrequency.allCases, id: \.self) { rate in
+                    Button(action: {
+                        viewStore.send(.samplingFrequency(rate.rawValue))
+                        self.presentationMode.wrappedValue.dismiss() // ボタンがクリックされたら画面を閉じる
+
+                    }) {
+                        HStack {
+                            Text("\(rate.stringValue)")
+                               Spacer()
+                               if rate.rawValue == viewStore.samplingFrequency {
+                                   Image(systemName: "checkmark")
+                               }
+                           }
+
+                    }
+                }
+            }
+            .listStyle(GroupedListStyle())
+            .navigationTitle("サンプリング周波数")
+        }
+    }
+}
