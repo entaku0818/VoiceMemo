@@ -9,7 +9,9 @@ import Foundation
 import CoreAudioTypes
 
 class Constants {
-
+    static let defaultFileFormat: FileFormat = .WAV
+    static let defaultSamplingFrequency: SamplingFrequency = .hz44100
+    static let defaultQuantizationBitDepth: QuantizationBitDepth = .bit16
 
     enum FileFormat: String, CaseIterable {
         case WAV
@@ -45,7 +47,6 @@ class Constants {
         }
     }
 
-
     enum QuantizationBitDepth: Int, CaseIterable {
         case bit8 = 8
         case bit16 = 16
@@ -65,6 +66,4 @@ class Constants {
             }
         }
     }
-    
-
 }

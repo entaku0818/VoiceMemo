@@ -18,7 +18,7 @@ class UserDefaultsManager {
     // ファイル形式の設定値を保存するプロパティ
     var selectedFileFormat: String {
         get {
-            return defaults.string(forKey: "SelectedFileFormat") ?? ""
+            return defaults.string(forKey: "SelectedFileFormat") ?? Constants.defaultFileFormat.rawValue
         }
         set {
             defaults.set(newValue, forKey: "SelectedFileFormat")
@@ -27,7 +27,7 @@ class UserDefaultsManager {
     
     var samplingFrequency: Double {
         get {
-            return defaults.double(forKey: "SamplingFrequency")
+            return defaults.double(forKey: "SamplingFrequency") ?? Constants.defaultSamplingFrequency.rawValue
         }
         set {
             defaults.set(newValue, forKey: "SamplingFrequency")
@@ -36,7 +36,7 @@ class UserDefaultsManager {
     
     var quantizationBitDepth: Int {
         get {
-            return defaults.integer(forKey: "QuantizationBitDepth")
+            return defaults.integer(forKey: "QuantizationBitDepth") ?? Constants.defaultQuantizationBitDepth.rawValue
         }
         set {
             defaults.set(newValue, forKey: "QuantizationBitDepth")
