@@ -192,7 +192,6 @@ struct VoiceMemosView: View {
         )
         .navigationTitle("シンプル録音")
         .toolbar {
-            #if DEBUG
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
                     SettingView(store: Store(initialState:SettingViewState.initial,
@@ -203,8 +202,7 @@ struct VoiceMemosView: View {
                 }
 
             }
-    
-            #endif
+
 
         }
       }
