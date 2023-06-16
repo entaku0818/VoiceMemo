@@ -6,15 +6,26 @@
 //
 
 import Foundation
+import CoreAudioTypes
+
 class Constants {
 
 
     enum FileFormat: String, CaseIterable {
         case WAV
         case AAC
+        
+        var audioId: AudioFormatID {
+            switch self {
+            case .WAV:
+                return kAudioFormatLinearPCM
+            case .AAC:
+                return kAudioFormatMPEG4AAC
+            }
+        }
     }
 
-    enum SamplingFrequency: Int, CaseIterable {
+    enum SamplingFrequency: Double, CaseIterable {
         case hz11000 = 11000
         case hz22000 = 22000
         case hz44100 = 44100
@@ -43,7 +54,6 @@ class Constants {
 
         var stringValue: String {
             switch self {
-
             case .bit8:
                 return "8bit"
             case .bit16:

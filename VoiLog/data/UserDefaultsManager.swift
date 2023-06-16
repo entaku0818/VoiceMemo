@@ -24,15 +24,16 @@ class UserDefaultsManager {
             defaults.set(newValue, forKey: "SelectedFileFormat")
         }
     }
-    var samplingFrequency: Int {
+    
+    var samplingFrequency: Double {
         get {
-            return defaults.integer(forKey: "SamplingFrequency")
+            return defaults.double(forKey: "SamplingFrequency")
         }
         set {
             defaults.set(newValue, forKey: "SamplingFrequency")
         }
     }
-
+    
     var quantizationBitDepth: Int {
         get {
             return defaults.integer(forKey: "QuantizationBitDepth")
