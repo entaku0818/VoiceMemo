@@ -10,18 +10,20 @@ import ComposableArchitecture
 struct SettingViewState: Equatable {
     var selectedFileFormat: String
     var samplingFrequency: Int
-
+    var quantizationBitDepth:Int
 }
 
 enum SettingViewAction {
     case selectFileFormat(String)
     case samplingFrequency(Int)
+    case quantizationBitDepth(Int)
 }
 
 extension SettingViewState {
     static let initial = SettingViewState(
         selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
-        samplingFrequency: UserDefaultsManager.shared.samplingFrequency
+        samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
+        quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth
     )
 }
 
@@ -38,6 +40,10 @@ let settingViewReducer = Reducer<SettingViewState, SettingViewAction, SettingVie
     case let .samplingFrequency(rate):
         state.samplingFrequency = rate
         UserDefaultsManager.shared.samplingFrequency = rate
+        return .none
+    case let .quantizationBitDepth(bit):
+        state.quantizationBitDepth = bit
+        UserDefaultsManager.shared.quantizationBitDepth = bit
         return .none
     }
 }
@@ -62,7 +68,15 @@ struct SettingView: View {
                     HStack {
                         Text("サンプリング周波数")
                         Spacer()
-                        Text("\(viewStore.samplingFrequency)")
+                        Text("\(viewStore.samplingFrequency)Hz")
+                    }
+                }
+
+                NavigationLink(destination: QuantizationBitDepthView(store: self.store)) {
+                    HStack {
+                        Text("量子化ビット数")
+                        Spacer()
+                        Text("\(viewStore.quantizationBitDepth)bit")
                     }
                 }
 
@@ -125,6 +139,36 @@ struct SamplingFrequencyView: View {
                             Text("\(rate.stringValue)")
                                Spacer()
                                if rate.rawValue == viewStore.samplingFrequency {
+                                   Image(systemName: "checkmark")
+                               }
+                           }
+
+                    }
+                }
+            }
+            .listStyle(GroupedListStyle())
+            .navigationTitle("サンプリング周波数")
+        }
+    }
+}
+
+struct QuantizationBitDepthView: View {
+    let store: Store<SettingViewState, SettingViewAction>
+    @Environment(\.presentationMode) var presentationMode // 追加
+
+    var body: some View {
+        WithViewStore(self.store) { viewStore in
+            List {
+                ForEach(Constants.QuantizationBitDepth.allCases, id: \.self) { bit in
+                    Button(action: {
+                        viewStore.send(.quantizationBitDepth(bit.rawValue))
+                        self.presentationMode.wrappedValue.dismiss() // ボタンがクリックされたら画面を閉じる
+
+                    }) {
+                        HStack {
+                            Text("\(bit.stringValue)")
+                               Spacer()
+                            if bit.rawValue == viewStore.quantizationBitDepth {
                                    Image(systemName: "checkmark")
                                }
                            }
