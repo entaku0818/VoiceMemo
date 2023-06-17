@@ -117,11 +117,13 @@ private actor AudioRecorder {
             let fileFormat:AudioFormatID = Constants.FileFormat.init(rawValue: UserDefaultsManager.shared.selectedFileFormat)?.audioId ?? kAudioFormatMPEG4AAC
             let quantizationBitDepth:Int = UserDefaultsManager.shared.quantizationBitDepth
             let sampleRate: Double = UserDefaultsManager.shared.samplingFrequency
+            let numberOfChannels: Int = UserDefaultsManager.shared.numberOfChannels
+
                   // オーディオファイル
-            let audioFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: sampleRate, channels: 1, interleaved: true)
+
             let settings = [
                 AVFormatIDKey: fileFormat,
-                AVNumberOfChannelsKey: audioFormat!.channelCount,
+                AVNumberOfChannelsKey: numberOfChannels,
                 AVSampleRateKey: sampleRate,
                 AVLinearPCMBitDepthKey: quantizationBitDepth,  // 16-bit quantization
             ]
