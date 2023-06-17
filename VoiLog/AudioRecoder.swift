@@ -43,7 +43,7 @@ private actor AudioRecorder {
     var inputNode: AVAudioInputNode?
     var resultText: String = ""
     var isFinal = false
-    let sampleRate: Double = UserDefaultsManager.shared.samplingFrequency
+
 
     
     var currentTime: TimeInterval = 0
@@ -116,19 +116,22 @@ private actor AudioRecorder {
               }
             let fileFormat:AudioFormatID = Constants.FileFormat.init(rawValue: UserDefaultsManager.shared.selectedFileFormat)?.audioId ?? kAudioFormatMPEG4AAC
             let quantizationBitDepth:Int = UserDefaultsManager.shared.quantizationBitDepth
+            let sampleRate: Double = UserDefaultsManager.shared.samplingFrequency
                   // オーディオファイル
-              let audioFile = try AVAudioFile(forWriting: url,
-                      settings: [
-                        AVFormatIDKey: fileFormat, // フォーマットをM4Aに指定
-                        AVSampleRateKey: self.sampleRate, // サンプルレート
-                        AVNumberOfChannelsKey: 2, // チャンネル数
-                        AVLinearPCMBitDepthKey: quantizationBitDepth,
-                        AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue // 音質
-                    ])
+            let audioFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: sampleRate, channels: 1, interleaved: true)
+            let settings = [
+                AVFormatIDKey: fileFormat,
+                AVNumberOfChannelsKey: audioFormat!.channelCount,
+                AVSampleRateKey: sampleRate,
+                AVLinearPCMBitDepthKey: quantizationBitDepth,  // 16-bit quantization
+            ]
+
+            let audioFile = try AVAudioFile(forWriting: url, settings: settings)
+
 
               inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
                 // 音声を取得したら
-                  self.currentTime = Double(audioFile.length) / self.sampleRate
+                  self.currentTime = Double(audioFile.length) / sampleRate
 
                   self.recognitionRequest?.append(buffer) // 認識リクエストに取得した音声を加える
                   do {
