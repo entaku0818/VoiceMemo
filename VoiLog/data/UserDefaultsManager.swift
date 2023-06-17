@@ -1,5 +1,5 @@
 //
-//  UserDe.swift
+//  UserDefaultsManager.swift
 //  VoiLog
 //
 //  Created by 遠藤拓弥 on 15.6.2023.
@@ -27,7 +27,8 @@ class UserDefaultsManager {
     
     var samplingFrequency: Double {
         get {
-            return defaults.double(forKey: "SamplingFrequency") ?? Constants.defaultSamplingFrequency.rawValue
+            let value = defaults.double(forKey: "SamplingFrequency")
+            return value == 0 ? Constants.defaultSamplingFrequency.rawValue : value
         }
         set {
             defaults.set(newValue, forKey: "SamplingFrequency")
@@ -36,10 +37,20 @@ class UserDefaultsManager {
     
     var quantizationBitDepth: Int {
         get {
-            return defaults.integer(forKey: "QuantizationBitDepth") ?? Constants.defaultQuantizationBitDepth.rawValue
+            let value = defaults.integer(forKey: "QuantizationBitDepth")
+            return value == 0 ? Constants.defaultQuantizationBitDepth.rawValue : value
         }
         set {
             defaults.set(newValue, forKey: "QuantizationBitDepth")
+        }
+    }
+    var numberOfChannels: Int {
+        get {
+            let value = defaults.integer(forKey: "NumberOfChannels")
+            return value == 0 ? Constants.defaultNumberOfChannels.rawValue : value
+        }
+        set {
+            defaults.set(newValue, forKey: "NumberOfChannels")
         }
     }
 

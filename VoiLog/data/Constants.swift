@@ -12,6 +12,8 @@ class Constants {
     static let defaultFileFormat: FileFormat = .WAV
     static let defaultSamplingFrequency: SamplingFrequency = .hz44100
     static let defaultQuantizationBitDepth: QuantizationBitDepth = .bit16
+    static let defaultNumberOfChannels: NumberOfChannels = .one
+
 
     enum FileFormat: String, CaseIterable {
         case WAV
@@ -31,7 +33,7 @@ class Constants {
         case hz11000 = 11000
         case hz22000 = 22000
         case hz44100 = 44100
-        case hz88200 = 88200
+        case hz48000 = 48000
 
         var stringValue: String {
             switch self {
@@ -41,8 +43,8 @@ class Constants {
                 return "22,000Hz"
             case .hz44100:
                 return "44,100Hz"
-            case .hz88200:
-                return "88,200Hz"
+            case .hz48000:
+                return "48,000Hz"
             }
         }
     }
@@ -65,5 +67,9 @@ class Constants {
                 return "32bit"
             }
         }
+    }
+    enum NumberOfChannels: Int, CaseIterable {
+        case one = 1
+        case two
     }
 }
