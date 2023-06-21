@@ -11,19 +11,22 @@ struct SettingViewState: Equatable {
     var selectedFileFormat: String
     var samplingFrequency: Double
     var quantizationBitDepth:Int
+    var numberOfChannels:Int
 }
 
 enum SettingViewAction {
     case selectFileFormat(String)
     case samplingFrequency(Double)
     case quantizationBitDepth(Int)
+    case numberOfChannels(Int)
 }
 
 extension SettingViewState {
     static let initial = SettingViewState(
         selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
         samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
-        quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth
+        quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
+        numberOfChannels: UserDefaultsManager.shared.numberOfChannels
     )
 }
 
@@ -45,6 +48,10 @@ let settingViewReducer = Reducer<SettingViewState, SettingViewAction, SettingVie
         state.quantizationBitDepth = bit
         UserDefaultsManager.shared.quantizationBitDepth = bit
         return .none
+    case let .numberOfChannels(number):
+        state.numberOfChannels = number
+        UserDefaultsManager.shared.numberOfChannels = number
+        return .none
     }
 }
 
@@ -54,6 +61,7 @@ struct SettingView: View {
     var body: some View {
         WithViewStore(self.store) { viewStore in
             List {
+                // ...
                 // ...
 
                 NavigationLink(destination: FileFormatView(store: self.store)) {
@@ -79,8 +87,16 @@ struct SettingView: View {
                         Text("\(viewStore.quantizationBitDepth)bit")
                     }
                 }
-
             #if DEBUG
+
+                NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
+                    HStack {
+                        Text("チャネル")
+                        Spacer()
+                        Text("\(viewStore.numberOfChannels)")
+                    }
+                }
+
 
             #endif
 
@@ -116,7 +132,7 @@ struct FileFormatView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationTitle("File Format")
+            .navigationTitle("ファイル形式")
         }
     }
 }
@@ -177,7 +193,37 @@ struct QuantizationBitDepthView: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationTitle("サンプリング周波数")
+            .navigationTitle("量子化ビット数")
+        }
+    }
+}
+
+struct NumberOfChannelsView: View {
+    let store: Store<SettingViewState, SettingViewAction>
+    @Environment(\.presentationMode) var presentationMode // 追加
+
+    var body: some View {
+        WithViewStore(self.store) { viewStore in
+            List {
+                ForEach(Constants.NumberOfChannels.allCases, id: \.self) { number in
+                    Button(action: {
+                        viewStore.send(.numberOfChannels(number.rawValue))
+                        self.presentationMode.wrappedValue.dismiss() // ボタンがクリックされたら画面を閉じる
+
+                    }) {
+                        HStack {
+                            Text("\(number.rawValue)")
+                               Spacer()
+                            if number.rawValue == viewStore.numberOfChannels {
+                                   Image(systemName: "checkmark")
+                               }
+                           }
+
+                    }
+                }
+            }
+            .listStyle(GroupedListStyle())
+            .navigationTitle("チャネル")
         }
     }
 }

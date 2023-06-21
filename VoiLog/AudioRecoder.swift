@@ -117,7 +117,7 @@ private actor AudioRecorder {
             let fileFormat:AudioFormatID = Constants.FileFormat.init(rawValue: UserDefaultsManager.shared.selectedFileFormat)?.audioId ?? kAudioFormatMPEG4AAC
             let quantizationBitDepth:Int = UserDefaultsManager.shared.quantizationBitDepth
             let sampleRate: Double = UserDefaultsManager.shared.samplingFrequency
-            let numberOfChannels: Int = UserDefaultsManager.shared.numberOfChannels
+            let numberOfChannels: Int = 1
 
                   // オーディオファイル
 
