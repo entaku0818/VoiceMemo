@@ -108,7 +108,8 @@ struct VoiceMemoView: View {
 
   var body: some View {
     WithViewStore(store) { viewStore in
-
+            let currentTime =
+              viewStore.mode.progress.map { $0 * viewStore.duration } ?? viewStore.duration
             NavigationLink {
                 VoiceMemoDetail(store: store)
             } label: {
@@ -125,9 +126,12 @@ struct VoiceMemoView: View {
                       .foregroundColor(Color(.systemGray))
                   }
 
-                Image(systemName:"play.circle")
+                Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
                   .font(.system(size: 22))
-                  .foregroundColor(Color.blue)
+                  .foregroundColor(Color.accentColor)
+
+
+
 
 
 
