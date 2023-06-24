@@ -2,6 +2,9 @@ import AVFoundation
 import ComposableArchitecture
 import Foundation
 import SwiftUI
+import AppTrackingTransparency
+import GoogleMobileAds
+
 
 struct VoiceMemosState: Equatable {
   var alert: AlertState<VoiceMemosAction>?
@@ -151,6 +154,11 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
 struct VoiceMemosView: View {
   let store: Store<VoiceMemosState, VoiceMemosAction>
 
+    init(store: Store<VoiceMemosState, VoiceMemosAction>) {
+        self.store = store
+        checkTrackingAuthorizationStatus()
+    }
+
   var body: some View {
     WithViewStore(self.store) { viewStore in
       NavigationView {
@@ -209,6 +217,33 @@ struct VoiceMemosView: View {
       .navigationViewStyle(.stack)
     }
   }
+
+
+    func checkTrackingAuthorizationStatus() {
+        switch ATTrackingManager.trackingAuthorizationStatus {
+        case .notDetermined:
+            requestTrackingAuthorization()
+        case .restricted:  break
+        case .denied:  break
+        case .authorized:  break
+        @unknown default:  break
+            fatalError()
+        }
+    }
+
+    func requestTrackingAuthorization() {
+        ATTrackingManager.requestTrackingAuthorization { status in
+            switch status {
+            case .notDetermined: break
+            case .restricted:  break
+            case .denied:  break
+            case .authorized:  break
+            @unknown default:  break
+                fatalError()
+            }
+        }
+    }
+
 }
 
 
