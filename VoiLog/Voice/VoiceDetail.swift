@@ -54,6 +54,15 @@ struct VoiceMemoDetail: View {
                 Text(viewStore.text)
             }.frame(minHeight: 50, maxHeight: 200)
             .padding(16)
+            Spacer()
+
+            #if DEBUG
+                NavigationLink {
+                    AudioEditingView(audioURL: viewStore.url)
+                } label: {
+                    Text("詳細")
+                }
+            #endif
         }
 
   }
