@@ -82,7 +82,7 @@ private actor AudioRecorder {
 
             guard let inputNode = inputNode else {return}
 
-            inputNode.volume = UserDefaultsManager.shared.microphonesVolume
+            inputNode.volume = Float(UserDefaultsManager.shared.microphonesVolume)
 
 
 
