@@ -54,4 +54,15 @@ class UserDefaultsManager {
         }
     }
 
+    var microphonesVolume: Double {
+        get {
+            let value = defaults.double(forKey: "MicrophonesVolume")
+            return value == 0 ? Constants.defaultMicrophonesVolume.rawValue : value
+        }
+        set {
+            defaults.set(newValue, forKey: "MicrophonesVolume")
+        }
+    }
+
+
 }

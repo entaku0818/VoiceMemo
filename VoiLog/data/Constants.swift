@@ -13,6 +13,7 @@ class Constants {
     static let defaultSamplingFrequency: SamplingFrequency = .hz44100
     static let defaultQuantizationBitDepth: QuantizationBitDepth = .bit16
     static let defaultNumberOfChannels: NumberOfChannels = .one
+    static let defaultMicrophonesVolume: MicrophonesVolume = .one
 
 
     enum FileFormat: String, CaseIterable {
@@ -71,5 +72,12 @@ class Constants {
     enum NumberOfChannels: Int, CaseIterable {
         case one = 1
         case two
+    }
+
+    enum MicrophonesVolume: Double, CaseIterable {
+        case one = 1
+        case ten = 10
+        case fifty = 50
+        case hundred = 100
     }
 }

@@ -12,6 +12,7 @@ struct SettingViewState: Equatable {
     var samplingFrequency: Double
     var quantizationBitDepth:Int
     var numberOfChannels:Int
+    var microphonesVolume:Double
 }
 
 enum SettingViewAction {
@@ -19,6 +20,7 @@ enum SettingViewAction {
     case samplingFrequency(Double)
     case quantizationBitDepth(Int)
     case numberOfChannels(Int)
+    case microphonesVolume(Double)
 }
 
 extension SettingViewState {
@@ -26,7 +28,8 @@ extension SettingViewState {
         selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
         samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
         quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
-        numberOfChannels: UserDefaultsManager.shared.numberOfChannels
+        numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
+        microphonesVolume: UserDefaultsManager.shared.microphonesVolume
     )
 }
 
@@ -51,6 +54,10 @@ let settingViewReducer = Reducer<SettingViewState, SettingViewAction, SettingVie
     case let .numberOfChannels(number):
         state.numberOfChannels = number
         UserDefaultsManager.shared.numberOfChannels = number
+        return .none
+    case let .microphonesVolume(volume):
+        state.microphonesVolume = volume
+        UserDefaultsManager.shared.microphonesVolume = volume
         return .none
     }
 }
@@ -99,6 +106,14 @@ struct SettingView: View {
 
 
             #endif
+
+                NavigationLink(destination: MicrophonesVolumeView(store: self.store)) {
+                    HStack {
+                        Text("マイクの音量")
+                        Spacer()
+                        Text("\(Int(viewStore.microphonesVolume))")
+                    }
+                }
 
             }
             .listStyle(GroupedListStyle())
@@ -226,4 +241,34 @@ struct NumberOfChannelsView: View {
             .navigationTitle("チャネル")
         }
     }
+}
+
+struct MicrophonesVolumeView: View {
+    let store: Store<SettingViewState, SettingViewAction>
+    @Environment(\.presentationMode) var presentationMode // 追加
+
+
+    var body: some View {
+        WithViewStore(self.store) { viewStore in
+
+            List(Constants.MicrophonesVolume.allCases, id: \.self) { volumeOption in
+                Button(action: {
+                    viewStore.send(.microphonesVolume(volumeOption.rawValue))
+                    self.presentationMode.wrappedValue.dismiss() // ボタンがクリックされたら画面を閉じる
+                }) {
+                    HStack {
+                        Text("\(Int(volumeOption.rawValue))")
+                        Spacer()
+                        if volumeOption.rawValue == viewStore.microphonesVolume {
+                            Image(systemName: "checkmark")
+                        }
+                    }
+                }
+            }
+            .listStyle(GroupedListStyle())
+            .navigationTitle("マイクの音量")
+        }
+    }
+
+
 }

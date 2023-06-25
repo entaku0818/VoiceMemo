@@ -5,16 +5,130 @@
 //  Created by 遠藤拓弥 on 25.6.2023.
 //
 
+
 import SwiftUI
+import AVFoundation
+import Accelerate
+
 
 struct AudioEditingView: View {
+    @State private var audioPlayer: AVAudioPlayer?
+    @State private var waveformData: [Float] = []
+    @State var audioURL: URL?
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            WaveformView(waveformData: waveformData, waveformColor: .black)
+                .frame(height: 200)
+
+            Button(action: {
+                playAudio()
+            }) {
+                Text("Play")
+            }
+        }
+        .onAppear {
+            loadWaveformData()
+        }
+    }
+
+    func loadWaveformData() {
+        if let audioURL = audioURL {
+            let audioAsset = AVURLAsset(url: audioURL)
+            let waveformAnalyzer = WaveformAnalyzer(audioAsset: audioAsset)
+            waveformData = waveformAnalyzer.analyze()
+        }
+    }
+
+    func playAudio() {
+        guard let audioURL = Bundle.main.url(forResource: "audio", withExtension: "mp3") else {
+            return
+        }
+
+        do {
+            let audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
+            self.audioPlayer = audioPlayer
+            audioPlayer.play()
+        } catch {
+            print("Failed to play audio: \(error.localizedDescription)")
+        }
     }
 }
 
+struct WaveformView: View {
+    var waveformData: [Float]
+    var waveformColor: Color
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                // 背景
+                Rectangle()
+                    .fill(Color.gray)
+
+                // 波形描画
+                Path { path in
+                    let width = geometry.size.width
+                    let height = geometry.size.height
+
+                    // 波形の描画
+                    let stepX = width / CGFloat(waveformData.count)
+                    let halfHeight = height / 2.0
+                    let centerY = height - halfHeight
+
+                    path.move(to: CGPoint(x: 0, y: centerY))
+
+                    for (index, value) in waveformData.enumerated() {
+                        let x = CGFloat(index) * stepX
+                        let y = centerY + CGFloat(value) * halfHeight
+                        path.addLine(to: CGPoint(x: x, y: y))
+                    }
+                }
+                .stroke(waveformColor, lineWidth: 2)
+
+                // 基準線
+                Path { path in
+                    let height = geometry.size.height
+                    let centerY = height / 2.0
+
+                    path.move(to: CGPoint(x: 0, y: centerY))
+                    path.addLine(to: CGPoint(x: geometry.size.width, y: centerY))
+                }
+                .stroke(Color.white, lineWidth: 1)
+            }
+        }
+    }
+}
+
+
+
+struct WaveformAnalyzer {
+    let audioAsset: AVURLAsset
+
+    func analyze() -> [Float] {
+        let audioFile = try? AVAudioFile(forReading: audioAsset.url)
+        let audioFormat = audioFile?.processingFormat
+        let audioFrameCount = UInt32(audioFile?.length ?? 0)
+
+        let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat!, frameCapacity: audioFrameCount)
+        try? audioFile?.read(into: buffer!)
+
+        let channelData = buffer?.floatChannelData?[0]
+        let channelDataArray = Array(UnsafeBufferPointer(start: channelData, count: Int(audioFrameCount)))
+
+        var normalizedData = [Float]()
+        for sampleValue in channelDataArray {
+            let normalizedValue = sampleValue / Float(UInt16.max)
+            normalizedData.append(normalizedValue)
+        }
+
+        return normalizedData
+    }
+}
+
+
 struct AudioEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        AudioEditingView()
+        AudioEditingView(audioURL: nil)
     }
 }

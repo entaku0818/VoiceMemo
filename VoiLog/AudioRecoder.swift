@@ -71,15 +71,21 @@ private actor AudioRecorder {
 
     func start(url: URL) async throws -> Bool {
       self.stop()
-      try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
-      try AVAudioSession.sharedInstance().setActive(true)
+        setupAVAudioSession()
       let stream = AsyncThrowingStream<Bool, Error> { continuation in
         do {
             speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
               audioEngine = AVAudioEngine()
 
 
-                inputNode = audioEngine?.inputNode
+            inputNode = audioEngine?.inputNode
+
+            guard let inputNode = inputNode else {return}
+
+            inputNode.volume = UserDefaultsManager.shared.microphonesVolume
+
+
+
               recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
               guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
               recognitionRequest.shouldReportPartialResults = true // 発話ごとに中間結果を返すかどうか
@@ -131,11 +137,12 @@ private actor AudioRecorder {
             let audioFile = try AVAudioFile(forWriting: url, settings: settings)
 
 
-              inputNode?.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
+              inputNode.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
                 // 音声を取得したら
                   self.currentTime = Double(audioFile.length) / sampleRate
 
                   self.recognitionRequest?.append(buffer) // 認識リクエストに取得した音声を加える
+
                   do {
                     // audioFileにバッファを書き込む
                     try audioFile.write(from: buffer)
@@ -160,6 +167,15 @@ private actor AudioRecorder {
           throw CancellationError()
       }
       return action
+    }
+
+    private func setupAVAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("マイクの音量を設定できませんでした。エラー: \(error.localizedDescription)")
+        }
     }
 
     func amplitude() -> Float {
