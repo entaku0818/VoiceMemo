@@ -5,19 +5,19 @@
 //  Created by 遠藤拓弥 on 9.6.2023.
 //
 
-import GoogleMobileAds
 import UIKit
 import SwiftUI
+
+import GoogleMobileAds
+
 
 struct AdmobBannerView: UIViewRepresentable {
     func makeUIView(context: Context) -> GADBannerView {
         let adSize = GADAdSizeFromCGSize(CGSize(width: 300, height: 50))
         let view = GADBannerView(adSize: adSize)
-        #if DEBUG
-        view.adUnitID = "ca-app-pub-3940256099942544/2934735716"
-        #else
-        view.adUnitID = ""
-        #endif
+        if let variableValue = EnvironmentProcess.getEnvironmentVariable("ADMOB_UNIT_ID") {
+            view.adUnitID = variableValue
+        }
         view.rootViewController = UIApplication.shared.windows.first?.rootViewController
         view.load(GADRequest())
         return view
