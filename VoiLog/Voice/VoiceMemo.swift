@@ -27,7 +27,7 @@ enum RecordingMemoAction: Equatable {
   case timerUpdated
     case getVolumes
     case getResultText
-  case updateVolumes(Float)
+  case updateVolumes([Float])
     case updateResultText(String)
   case stopButtonTapped
 
@@ -95,8 +95,8 @@ let recordingMemoReducer = Reducer<
     state.duration += 1
 
     return .none
-  case let .updateVolumes(volume):
-    state.volumes.append(volume)
+  case let .updateVolumes(volumes):
+      state.volumes = volumes 
     return .none
   case let .updateResultText(text):
     state.resultText = text
@@ -224,7 +224,7 @@ extension AudioRecorderClient {
   static var mock: Self {
     let isRecording = ActorIsolated(false)
     let currentTime = ActorIsolated(0.0)
-      let volumes = ActorIsolated(Float(1.0))
+      let volumes = ActorIsolated([Float(1.0),Float(1.0)])
       let resultText = String("進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。")
 
     return Self(

@@ -35,6 +35,7 @@
 		61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2228C466E800169FB6 /* AudioPlayer.swift */; };
 		61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */ = {isa = PBXBuildFile; productRef = 61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */; };
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
+		61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */; };
 		61C677542A4D01EF00C53FA6 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C677532A4D01EF00C53FA6 /* Environment.swift */; };
 		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
 		61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */; };
@@ -85,6 +86,7 @@
 		61979A1E28C4646200169FB6 /* VoiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceList.swift; sourceTree = "<group>"; };
 		61979A2028C466C500169FB6 /* VoicyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicyListView.swift; sourceTree = "<group>"; };
 		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioPCMBuffer+Extention.swift"; sourceTree = "<group>"; };
 		61C677532A4D01EF00C53FA6 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobBannerView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 		619799E428C34A2500169FB6 /* VoiLog */ = {
 			isa = PBXGroup;
 			children = (
+				61B70F572A51008900740093 /* Extention */,
 				6104770728DDD30600141042 /* data */,
 				619799E528C34A2500169FB6 /* VoiceMemoApp.swift */,
 				619799E928C34A2500169FB6 /* Assets.xcassets */,
@@ -220,6 +223,14 @@
 				61979A0328C34A2600169FB6 /* VoiceMemoUITestsLaunchTests.swift */,
 			);
 			path = VoiLogUITests;
+			sourceTree = "<group>";
+		};
+		61B70F572A51008900740093 /* Extention */ = {
+			isa = PBXGroup;
+			children = (
+				61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */,
+			);
+			path = Extention;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +414,7 @@
 				610A144E2A46EB0F00CB88AA /* VoiceDetail.swift in Sources */,
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
 				613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */,
+				61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoicyListView.swift in Sources */,
 				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
 				619440CE2904DB2B00BF337E /* SettingNotification.swift in Sources */,
