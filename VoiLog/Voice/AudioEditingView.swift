@@ -34,8 +34,7 @@ struct AudioEditingView: View {
 
     func loadWaveformData() {
         if let audioURL = audioURL {
-            let audioAsset = AVURLAsset(url: audioURL)
-            let waveformAnalyzer = WaveformAnalyzer(audioAsset: audioAsset)
+            let waveformAnalyzer = WaveformAnalyzer(audioURL: audioURL)
             waveformData = waveformAnalyzer.analyze()
         }
     }
@@ -103,27 +102,32 @@ struct WaveformView: View {
 
 
 struct WaveformAnalyzer {
-    let audioAsset: AVURLAsset
+    let audioURL: URL
 
     func analyze() -> [Float] {
-        let audioFile = try? AVAudioFile(forReading: audioAsset.url)
-        let audioFormat = audioFile?.processingFormat
-        let audioFrameCount = UInt32(audioFile?.length ?? 0)
 
-        let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat!, frameCapacity: audioFrameCount)
-        try? audioFile?.read(into: buffer!)
 
-        let channelData = buffer?.floatChannelData?[0]
-        let channelDataArray = Array(UnsafeBufferPointer(start: channelData, count: Int(audioFrameCount)))
+          do {
+              let audioFile = try AVAudioFile(forReading: audioURL, commonFormat: .pcmFormatFloat32, interleaved: false)
+              let format = audioFile.processingFormat
+              let frameCount = UInt32(audioFile.length)
 
-        var normalizedData = [Float]()
-        for sampleValue in channelDataArray {
-            let normalizedValue = sampleValue / Float(UInt16.max)
-            normalizedData.append(normalizedValue)
-        }
+              guard let audioBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
+                  return []
+              }
+              try audioFile.read(into: audioBuffer)
+              let channelData = UnsafeBufferPointer(start: audioBuffer.floatChannelData?[0], count:Int(audioBuffer.frameLength))
+              let waveformData = Array(channelData)
+              return waveformData
 
-        return normalizedData
-    }
+          } catch {
+              print("Failed to read audio file: \(error.localizedDescription)")
+              return []
+          }
+
+
+
+      }
 }
 
 
