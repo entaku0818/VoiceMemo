@@ -17,7 +17,7 @@ struct AudioRecorderClient {
   var requestRecordPermission: @Sendable () async -> Bool
   var startRecording: @Sendable (URL) async throws -> Bool
   var stopRecording: @Sendable () async -> Void
-  var volumes: @Sendable () async -> Float
+  var volumes: @Sendable () async -> [Float]
   var resultText: @Sendable () async -> String
 }
 
@@ -42,6 +42,8 @@ private actor AudioRecorder {
     var audioEngine: AVAudioEngine?
     var inputNode: AVAudioInputNode?
     var resultText: String = ""
+    var buffers: [AVAudioPCMBuffer] = []
+    var waveFormHeights:[CGFloat] = []
     var isFinal = false
 
 
@@ -143,6 +145,9 @@ private actor AudioRecorder {
 
                   self.recognitionRequest?.append(buffer) // 認識リクエストに取得した音声を加える
 
+                  self.buffers.append(buffer)
+                  self.waveFormHeights.append(buffer.waveFormHeight)
+
                   do {
                     // audioFileにバッファを書き込む
                     try audioFile.write(from: buffer)
@@ -178,10 +183,14 @@ private actor AudioRecorder {
         }
     }
 
-    func amplitude() -> Float {
-        // デシベルから振幅を取得する
+    func amplitude() -> [Float] {
 
-        return 0
+        #if DEBUG
+        debugPrint("waveFormHeights\(waveFormHeights)")
+        return waveFormHeights.map { Float($0) }
+        #else
+        return []
+        #endif
     }
     func fetchResultText() -> String {
 
