@@ -131,10 +131,6 @@ struct VoiceMemoView: View {
                   .foregroundColor(Color.accentColor)
 
 
-
-
-
-
                 }
             }
             .buttonStyle(.borderless)
