@@ -65,26 +65,19 @@ struct WaveformView: View {
                 Rectangle()
                     .fill(Color.gray)
 
-                // 波形描画
-                Path { path in
-                    let width = geometry.size.width
-                    let height = geometry.size.height
 
-                    // 波形の描画
-                    let stepX = width / CGFloat(waveformData.count)
-                    let halfHeight = height / 2.0
-                    let centerY = height - halfHeight
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 2) {
 
-                    path.move(to: CGPoint(x: 0, y: centerY))
-
-                    for (index, value) in waveformData.enumerated() {
-                        let x = CGFloat(index) * stepX
-                        let y = centerY + CGFloat(value) * halfHeight
-                        path.addLine(to: CGPoint(x: x, y: y))
+                        ForEach(waveformData, id: \.self) { volume in
+                            let height: CGFloat = CGFloat(volume * 50) + 1
+                            Rectangle()
+                                .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
+                                .frame(width: 3, height: height)
+                        }
                     }
-                }
-                .stroke(waveformColor, lineWidth: 2)
 
+                }
                 // 基準線
                 Path { path in
                     let height = geometry.size.height
@@ -105,8 +98,6 @@ struct WaveformAnalyzer {
     let audioURL: URL
 
     func analyze() -> [Float] {
-
-
           do {
               let audioFile = try AVAudioFile(forReading: audioURL, commonFormat: .pcmFormatFloat32, interleaved: false)
               let format = audioFile.processingFormat
@@ -117,17 +108,14 @@ struct WaveformAnalyzer {
               }
               try audioFile.read(into: audioBuffer)
               let channelData = UnsafeBufferPointer(start: audioBuffer.floatChannelData?[0], count:Int(audioBuffer.frameLength))
-              let waveformData = Array(channelData)
-              return waveformData
+              let waveformData = Array(channelData.prefix(10))
 
+              return waveformData
           } catch {
               print("Failed to read audio file: \(error.localizedDescription)")
               return []
           }
-
-
-
-      }
+    }
 }
 
 
