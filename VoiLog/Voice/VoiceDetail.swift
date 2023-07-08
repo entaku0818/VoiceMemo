@@ -58,7 +58,7 @@ struct VoiceMemoDetail: View {
 
             #if DEBUG
                 NavigationLink {
-                    AudioEditingView(audioURL: viewStore.url)
+                    AudioEditingView(waveformData: [],audioURL: viewStore.url)
                 } label: {
                     Text("詳細")
                 }
