@@ -9,37 +9,96 @@
 import SwiftUI
 import AVFoundation
 import Accelerate
+import ComposableArchitecture
 
 
 struct AudioEditingView: View {
+    let store: Store<VoiceMemoState, VoiceMemoAction>
+
     @State private var waveformData: [Float]
+    @State private var totalDuration: Double
     var audioURL: URL?
 
-    init(waveformData: [Float], audioURL: URL?) {
-        self._waveformData = State(initialValue: waveformData)
+    init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?) {
+        self.store = store
+        self._waveformData = State(initialValue: [])
+        self._totalDuration = State(initialValue: 0.0)
         self.audioURL = audioURL
     }
 
     var body: some View {
-        VStack {
-            WaveformView(waveformData: waveformData)
-                .frame(height: 200)
-            Button(action: {
+        WithViewStore(store) { viewStore in
+            VStack {
+                ScrollViewReader { scrollViewProxy in
 
-            }) {
-                Text("Play")
+                    GeometryReader { geometry in
+                    ZStack(alignment: .bottom) {
+                        // 背景
+                        Rectangle()
+                            .fill(Color.gray)
+
+                        VStack{
+                            Spacer()
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 2) {
+                                        ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
+                                            let height: CGFloat = CGFloat(volume * 30) + 1
+                                            Rectangle()
+                                                .fill(Color.pink)
+                                                .frame(width: 3, height: height)
+                                                .id(index)
+                                        }
+                                    }
+                                    .onChange(of: viewStore.time) { _ in
+                                        DispatchQueue.main.async {
+                                            let waveformDatalength = CGFloat(waveformData.count)
+                                            let targetOffset = Int((viewStore.time / viewStore.duration) * waveformDatalength)
+                                            withAnimation(.easeInOut(duration: 0.1)) {
+
+                                                scrollViewProxy.scrollTo(targetOffset)
+                                            }
+                                        }
+                                    }
+                                }
+
+                            Spacer()
+                        }
+
+                        // 基準線
+                        Path { path in
+                            let height = geometry.size.height
+                            let centerY = height / 2.0
+
+                            path.move(to: CGPoint(x: 0, y: centerY))
+                            path.addLine(to: CGPoint(x: geometry.size.width, y: centerY))
+                        }
+                        .stroke(Color.white, lineWidth: 1)
+                    }
+
+
+                }
+                    Button(action: {
+                        scrollViewProxy.scrollTo(0)
+                        viewStore.send(.playButtonTapped)
+                    }) {
+                        Text("Play")
+                    }
+                }
+                #if DEBUG
+                #endif 
+                Text(String(audioURL?.absoluteString ?? ""))
             }
-            Text(String(audioURL?.absoluteString ?? ""))
-        }
-        .onAppear {
-            loadWaveformData()
+            .onAppear {
+                loadWaveformData()
+            }
         }
     }
 
     func loadWaveformData() {
         if let audioURL = audioURL {
             let waveformAnalyzer = WaveformAnalyzer(audioURL: audioURL)
-            waveformData = waveformAnalyzer.analyze()
+            waveformData = waveformAnalyzer.analyze().0
+            totalDuration =  waveformAnalyzer.analyze().1
         }
     }
 
@@ -57,24 +116,36 @@ class WaveformAnalyzer {
         self.audioURL = audioURL
     }
 
-    func analyze() -> [Float] {
+    func analyze() -> ([Float], Double){
 
         let buffers = loadAudioFile(audioURL)
         var volumes:[Float] = []
 
-        buffers.forEach { buffer in
+        buffers.0.forEach { buffer in
             volumes.append(Float(buffer.waveFormHeight))
         }
 
-        return volumes
+        return (volumes, buffers.1)
     }
 
-    func loadAudioFile(_ fileUrl: URL) -> [AVAudioPCMBuffer] {
+    func loadAudioFile(_ fileUrl: URL) -> ([AVAudioPCMBuffer], Double) {
         var buffers: [AVAudioPCMBuffer] = []
-        guard let file = try? AVAudioFile(forReading: fileUrl,
-                                          commonFormat: .pcmFormatFloat32,
-                                          interleaved: false) else {
-            return []
+        var duration: Double = 0.0
+
+        var file:AVAudioFile?
+
+        let documentsPath = NSHomeDirectory() + "/Documents/" + fileUrl.lastPathComponent
+
+        do {
+            file = try AVAudioFile(forReading: URL(fileURLWithPath: documentsPath),
+                                                commonFormat: .pcmFormatFloat32,
+                                              interleaved: false)
+        }catch{
+            print("Failed to load audio file: \(error.localizedDescription)")
+            return (buffers,duration)
+        }
+        guard let file = file else {
+            return (buffers,duration)
         }
         let correctLength = AVAudioFrameCount(file.length)
 
@@ -82,7 +153,7 @@ class WaveformAnalyzer {
         var prevFramePosition = file.framePosition
         while file.framePosition < correctLength {
             guard let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: blockCount) else {
-                return []
+                return (buffers,duration)
             }
             try? file.read(into: buffer, frameCount: blockCount)
             if file.framePosition == prevFramePosition {
@@ -121,7 +192,11 @@ class WaveformAnalyzer {
             }
         }
 
-        return buffers
+        let sampleRate = Double(file.fileFormat.sampleRate)
+        let frameLength = Double(file.length)
+        duration = frameLength / sampleRate
+
+        return (buffers, duration)
     }
 
 
@@ -133,9 +208,24 @@ class WaveformAnalyzer {
 
 struct AudioEditingView_Previews: PreviewProvider {
     static var previews: some View {
+        let store = Store(initialState: VoiceMemoState(
+                            uuid: UUID(),
+                            date: Date(),
+                            duration: 180,
+                            time: 0,
+                            mode: .notPlaying,
+                            title: "Untitled",
+                            url: URL(fileURLWithPath: ""),
+                            text: ""
+                        ),
+                        reducer: voiceMemoReducer,
+                        environment: VoiceMemoEnvironment(
+                            audioPlayer: .mock,
+                            mainRunLoop: .main
+                        )
+                    )
 
-
-        return AudioEditingView(waveformData: [0.2, 0.5, 0.8, 0.3, 0.6], audioURL: nil)
+        return AudioEditingView(store: store, audioURL: nil)
 
     }
 }

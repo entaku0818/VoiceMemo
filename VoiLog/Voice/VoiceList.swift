@@ -96,7 +96,7 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
         VoiceMemoState(
             uuid: recordingMemo.uuid,
             date: recordingMemo.date,
-          duration: recordingMemo.duration,
+            duration: recordingMemo.duration, time: 0,
           url: recordingMemo.url,
           text: recordingMemo.resultText
         ),
@@ -293,7 +293,7 @@ struct VoiceMemos_Previews: PreviewProvider {
             VoiceMemoState(
                 uuid: UUID(),
               date: Date(),
-              duration: 5,
+                duration: 5, time: 0,
               mode: .notPlaying,
               title: "Functions",
                 url: URL(string: "https://www.pointfree.co/functions")!, text: ""
@@ -301,7 +301,7 @@ struct VoiceMemos_Previews: PreviewProvider {
             VoiceMemoState(
                 uuid: UUID(),
                 date: Date(),
-              duration: 5,
+                duration: 5, time: 0,
               mode: .notPlaying,
               title: "",
               url: URL(string: "https://www.pointfree.co/untitled")!,
