@@ -12,20 +12,24 @@ import Accelerate
 
 
 struct AudioEditingView: View {
-    @State private var audioPlayer: AVAudioPlayer?
-    @State private var waveformData: [Float] = []
-    @State var audioURL: URL?
+    @State private var waveformData: [Float]
+    var audioURL: URL?
+
+    init(waveformData: [Float], audioURL: URL?) {
+        self._waveformData = State(initialValue: waveformData)
+        self.audioURL = audioURL
+    }
 
     var body: some View {
         VStack {
-            WaveformView(waveformData: waveformData, waveformColor: .black)
+            WaveformView(waveformData: waveformData)
                 .frame(height: 200)
-
             Button(action: {
-                playAudio()
+
             }) {
                 Text("Play")
             }
+            Text(String(audioURL?.absoluteString ?? ""))
         }
         .onAppear {
             loadWaveformData()
@@ -39,88 +43,101 @@ struct AudioEditingView: View {
         }
     }
 
-    func playAudio() {
-        guard let audioURL = Bundle.main.url(forResource: "audio", withExtension: "mp3") else {
-            return
-        }
-
-        do {
-            let audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
-            self.audioPlayer = audioPlayer
-            audioPlayer.play()
-        } catch {
-            print("Failed to play audio: \(error.localizedDescription)")
-        }
-    }
-}
-
-struct WaveformView: View {
-    var waveformData: [Float]
-    var waveformColor: Color
-
-    var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
-                // 背景
-                Rectangle()
-                    .fill(Color.gray)
-
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 2) {
-
-                        ForEach(waveformData, id: \.self) { volume in
-                            let height: CGFloat = CGFloat(volume * 50) + 1
-                            Rectangle()
-                                .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
-                                .frame(width: 3, height: height)
-                        }
-                    }
-
-                }
-                // 基準線
-                Path { path in
-                    let height = geometry.size.height
-                    let centerY = height / 2.0
-
-                    path.move(to: CGPoint(x: 0, y: centerY))
-                    path.addLine(to: CGPoint(x: geometry.size.width, y: centerY))
-                }
-                .stroke(Color.white, lineWidth: 1)
-            }
-        }
-    }
 }
 
 
 
-struct WaveformAnalyzer {
+
+import AVFoundation
+
+class WaveformAnalyzer {
     let audioURL: URL
 
-    func analyze() -> [Float] {
-          do {
-              let audioFile = try AVAudioFile(forReading: audioURL, commonFormat: .pcmFormatFloat32, interleaved: false)
-              let format = audioFile.processingFormat
-              let frameCount = UInt32(audioFile.length)
-
-              guard let audioBuffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
-                  return []
-              }
-              try audioFile.read(into: audioBuffer)
-              let channelData = UnsafeBufferPointer(start: audioBuffer.floatChannelData?[0], count:Int(audioBuffer.frameLength))
-              let waveformData = Array(channelData.prefix(10))
-
-              return waveformData
-          } catch {
-              print("Failed to read audio file: \(error.localizedDescription)")
-              return []
-          }
+    init(audioURL: URL) {
+        self.audioURL = audioURL
     }
+
+    func analyze() -> [Float] {
+
+        let buffers = loadAudioFile(audioURL)
+        var volumes:[Float] = []
+
+        buffers.forEach { buffer in
+            volumes.append(Float(buffer.waveFormHeight))
+        }
+
+        return volumes
+    }
+
+    func loadAudioFile(_ fileUrl: URL) -> [AVAudioPCMBuffer] {
+        var buffers: [AVAudioPCMBuffer] = []
+        guard let file = try? AVAudioFile(forReading: fileUrl,
+                                          commonFormat: .pcmFormatFloat32,
+                                          interleaved: false) else {
+            return []
+        }
+        let correctLength = AVAudioFrameCount(file.length)
+
+        let blockCount = AVAudioFrameCount(1024)
+        var prevFramePosition = file.framePosition
+        while file.framePosition < correctLength {
+            guard let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: blockCount) else {
+                return []
+            }
+            try? file.read(into: buffer, frameCount: blockCount)
+            if file.framePosition == prevFramePosition {
+                // There are error happened with the file
+                break
+            }
+            prevFramePosition = file.framePosition
+            buffers.append(buffer)
+            buffer.frameLength = buffer.frameCapacity
+            if file.framePosition == file.length && file.framePosition < correctLength {
+                let delta = Int64(correctLength) - file.framePosition
+                /// emptyBufferって何？それを使って何をしようとしているのか？
+                let emptyBufferAmount = delta / Int64(blockCount)
+                if emptyBufferAmount > 0 {
+                    let emptyBuffers = [Int](repeating: 0, count: Int(emptyBufferAmount))
+                        .compactMap { _ -> AVAudioPCMBuffer? in
+                            let buffer = AVAudioPCMBuffer(pcmFormat: file.processingFormat, frameCapacity: blockCount)
+                            buffer?.frameLength = buffer?.frameCapacity ?? 0
+                            return buffer
+                    }
+                    if let lastEmptyBuffer = emptyBuffers.last {
+                        lastEmptyBuffer.frameLength = AVAudioFrameCount(delta % Int64(blockCount))
+                        buffers.append(contentsOf: emptyBuffers)
+                    }
+                    break
+                } else {
+                    buffer.frameLength = AVAudioFrameCount(delta)
+                    break
+                }
+            }
+            /// このコードブロックはどういう処理？
+            if file.framePosition >= correctLength {
+                let delta = file.framePosition - Int64(correctLength)
+                buffer.frameLength = buffer.frameCapacity - UInt32(delta)
+                break
+            }
+        }
+
+        return buffers
+    }
+
+
+
+
 }
+
 
 
 struct AudioEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        AudioEditingView(audioURL: nil)
+
+
+        return AudioEditingView(waveformData: [0.2, 0.5, 0.8, 0.3, 0.6], audioURL: nil)
+
     }
 }
+
+
