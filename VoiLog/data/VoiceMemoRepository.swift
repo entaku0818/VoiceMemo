@@ -76,7 +76,7 @@ class VoiceMemoRepository: NSObject {
             Logger.shared.logError("selectAllData:" + error.localizedDescription)
         }
         let voiceMemoStates = memoGroups.map { voiceMemo in
-            VoiceMemoState(uuid: voiceMemo.id ?? UUID(), date: voiceMemo.createdAt ?? Date(), duration: voiceMemo.duration, title: voiceMemo.title ?? "", url: voiceMemo.url!, text: voiceMemo.text ?? "")
+            VoiceMemoState(uuid: voiceMemo.id ?? UUID(), date: voiceMemo.createdAt ?? Date(), duration: voiceMemo.duration, time: 0, title: voiceMemo.title ?? "", url: voiceMemo.url!, text: voiceMemo.text ?? "")
 
         }
         return voiceMemoStates

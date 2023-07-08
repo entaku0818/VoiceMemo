@@ -10,12 +10,16 @@ import Foundation
 import SwiftUI
 
 struct VoiceMemoState: Equatable, Identifiable {
-  var uuid: UUID
-  var date: Date
-  var duration: TimeInterval
-  var mode = Mode.notPlaying
-  var title = ""
-  var url: URL
+    var uuid: UUID
+    var date: Date
+
+    /// 音声のトータル時間
+    var duration: TimeInterval
+    /// 再生時間
+    var time: TimeInterval
+    var mode = Mode.notPlaying
+    var title = ""
+    var url: URL
     var text: String
 
   var id: URL { self.url }
@@ -76,7 +80,7 @@ let voiceMemoReducer = Reducer<
           .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url) })
         )
 
-        for try await tick in environment.mainRunLoop.timer(interval: 0.5) {
+        for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
           await send(.timerUpdated(tick.date.timeIntervalSince(start.date)))
         }
       }
@@ -93,6 +97,7 @@ let voiceMemoReducer = Reducer<
       break
     case let .playing(progress: progress):
       state.mode = .playing(progress: time / state.duration)
+        state.time = time
     }
     return .none
 
@@ -145,3 +150,23 @@ struct VoiceMemoView: View {
 }
 
 
+struct VoiceMemoView_Previews: PreviewProvider {
+  static var previews: some View {
+    let store = Store(initialState: VoiceMemoState(
+                        uuid: UUID(),
+                        date: Date(),
+                        duration: 180, time: 0,
+                        mode: .notPlaying,
+                        title: "Untitled",
+                        url: URL(fileURLWithPath: ""),
+                        text: ""
+                    ),
+                    reducer: voiceMemoReducer,
+                    environment: VoiceMemoEnvironment(
+                        audioPlayer: .mock,
+                        mainRunLoop: .main
+                    )
+                )
+    return VoiceMemoView(store: store)
+  }
+}
