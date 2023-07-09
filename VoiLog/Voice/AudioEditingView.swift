@@ -26,21 +26,31 @@ struct AudioEditingView: View {
         self.audioURL = audioURL
     }
 
+    init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?,waveformData: [Float]) {
+        self.store = store
+        self._waveformData = State(initialValue: waveformData)
+        self._totalDuration = State(initialValue: 0.0)
+        self.audioURL = audioURL
+    }
+
     var body: some View {
+        
         WithViewStore(store) { viewStore in
             VStack {
                 ScrollViewReader { scrollViewProxy in
 
                     GeometryReader { geometry in
-                    ZStack(alignment: .bottom) {
-                        // 背景
-                        Rectangle()
-                            .fill(Color.gray)
+                        ZStack(alignment: .bottom) {
+                            // 背景
+                            Rectangle()
+                                .fill(Color.gray)
 
-                        VStack{
-                            Spacer()
+                            VStack{
+                                Spacer()
                                 ScrollView(.horizontal, showsIndicators: false) {
+
                                     HStack(spacing: 2) {
+                                        Spacer().frame(width: geometry.size.width / 2)
                                         ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
                                             let height: CGFloat = CGFloat(volume * 30) + 1
                                             Rectangle()
@@ -48,6 +58,7 @@ struct AudioEditingView: View {
                                                 .frame(width: 3, height: height)
                                                 .id(index)
                                         }
+                                        Spacer().frame(width:  geometry.size.width / 2)
                                     }
                                     .onChange(of: viewStore.time) { _ in
                                         DispatchQueue.main.async {
@@ -55,33 +66,26 @@ struct AudioEditingView: View {
                                             let targetOffset = Int((viewStore.time / viewStore.duration) * waveformDatalength)
                                             withAnimation(.easeInOut(duration: 0.1)) {
 
-                                                scrollViewProxy.scrollTo(targetOffset)
+                                                scrollViewProxy.scrollTo(targetOffset, anchor: .center)
                                             }
                                         }
                                     }
                                 }
 
-                            Spacer()
+                                Spacer()
+                            }
+
+                            // 基準線
+                            Path { path in
+                                let height = geometry.size.height
+                                let centerY = height / 2.0
+
+                                path.move(to: CGPoint(x: 0, y: centerY))
+                                path.addLine(to: CGPoint(x: geometry.size.width, y: centerY))
+                            }
+                            .stroke(Color.white, lineWidth: 1)
                         }
 
-                        // 基準線
-                        Path { path in
-                            let height = geometry.size.height
-                            let centerY = height / 2.0
-
-                            path.move(to: CGPoint(x: 0, y: centerY))
-                            path.addLine(to: CGPoint(x: geometry.size.width, y: centerY))
-                        }
-                        .stroke(Color.white, lineWidth: 1)
-                    }
-
-
-                }
-                    Button(action: {
-                        scrollViewProxy.scrollTo(0)
-                        viewStore.send(.playButtonTapped)
-                    }) {
-                        Text("Play")
                     }
                 }
                 #if DEBUG
@@ -225,7 +229,12 @@ struct AudioEditingView_Previews: PreviewProvider {
                         )
                     )
 
-        return AudioEditingView(store: store, audioURL: nil)
+        var randomArray: [Float] = []
+        for _ in 0..<1000 {
+            let randomValue = Float.random(in: 0...10)
+            randomArray.append(randomValue)
+        }
+        return AudioEditingView(store: store, audioURL: nil,waveformData: randomArray)
 
     }
 }

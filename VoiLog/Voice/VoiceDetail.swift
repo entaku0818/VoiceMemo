@@ -50,20 +50,15 @@ struct VoiceMemoDetail: View {
               alignment: .leading
             )
           }.frame(minHeight: 50, maxHeight: 50)
+
+            AudioEditingView(store: store,audioURL: viewStore.url)
+
             ScrollView {
                 Text(viewStore.text)
             }.frame(minHeight: 50, maxHeight: 200)
             .padding(16)
             Spacer()
 
-            #if DEBUG
-                NavigationLink {
-                    
-                    AudioEditingView(store: store,audioURL: viewStore.url)
-                } label: {
-                    Text("詳細")
-                }
-            #endif
         }
 
   }

@@ -12,7 +12,6 @@
 		610A144E2A46EB0F00CB88AA /* VoiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */; };
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
-		614AB0EC2A591D150033F6CB /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AB0EB2A591D150033F6CB /* WaveformView.swift */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
 		614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */; };
 		6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408728F308C400BF337E /* FirebaseAnalytics */; };
@@ -67,7 +66,6 @@
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
-		614AB0EB2A591D150033F6CB /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		619440C82904014800BF337E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				61979A2028C466C500169FB6 /* VoicyListView.swift */,
 				610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */,
 				61037A122A47F05800BD196D /* AudioEditingView.swift */,
-				614AB0EB2A591D150033F6CB /* WaveformView.swift */,
 			);
 			path = Voice;
 			sourceTree = "<group>";
@@ -408,7 +405,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
-				614AB0EC2A591D150033F6CB /* WaveformView.swift in Sources */,
 				619440D529059C4000BF337E /* Thema.xcdatamodel in Sources */,
 				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
 				614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */,
