@@ -88,9 +88,6 @@ struct AudioEditingView: View {
 
                     }
                 }
-                #if DEBUG
-                #endif 
-                Text(String(audioURL?.absoluteString ?? ""))
             }
             .onAppear {
                 loadWaveformData()
