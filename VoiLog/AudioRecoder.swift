@@ -19,6 +19,7 @@ struct AudioRecorderClient {
   var stopRecording: @Sendable () async -> Void
   var volumes: @Sendable () async -> [Float]
   var resultText: @Sendable () async -> String
+    var insertAudio: @Sendable (TimeInterval, URL) async throws -> Void
 }
 
 extension AudioRecorderClient {
@@ -30,7 +31,8 @@ extension AudioRecorderClient {
       startRecording: { url in try await audioRecorder.start(url: url) },
       stopRecording: { await audioRecorder.stop() },
       volumes: { await audioRecorder.amplitude() },
-      resultText: { await audioRecorder.fetchResultText() }
+      resultText: { await audioRecorder.fetchResultText() },
+      insertAudio: { insertTime, newAudioURL in try await audioRecorder.insertAudio(at: insertTime, newAudioURL: newAudioURL) }
     )
   }
 }
@@ -195,6 +197,80 @@ private actor AudioRecorder {
     func fetchResultText() -> String {
 
         return resultText
+    }
+
+
+    func insertAudio(at insertTime: TimeInterval, newAudioURL: URL) async throws {
+      // 新しい音声ファイルを読み込む
+      let newAudioFile = try AVAudioFile(forReading: newAudioURL)
+
+      // 保存する新しい音声ファイルのURLを作成
+      let saveURL = generateSaveURL()
+
+      // 保存するオーディオフォーマットを設定
+      let fileFormat = AVFileType.caf
+
+      // オーディオファイルを作成し、新しい音声ファイルのデータを書き込む
+      let audioFile = try AVAudioFile(forWriting: saveURL, settings: newAudioFile.fileFormat.settings)
+      let buffer = AVAudioPCMBuffer(pcmFormat: newAudioFile.processingFormat, frameCapacity: AVAudioFrameCount(newAudioFile.length))
+      try newAudioFile.read(into: buffer!)
+      try audioFile.write(from: buffer!)
+
+      // 既存の音声ファイルの再生が終了してから新しい音声ファイルを挿入するようにスケジュール
+      existingPlayerNode.completionHandler = { [weak self] in
+        guard let self = self else { return }
+
+        // 挿入する位置をフレーム単位で計算
+        let insertFramePosition = AVAudioFramePosition(insertTime * self.audioFile.processingFormat.sampleRate)
+
+        // 新しい音声ファイルのデータを読み込む
+        let buffer = AVAudioPCMBuffer(pcmFormat: newAudioFile.processingFormat, frameCapacity: AVAudioFrameCount(newAudioFile.length))
+        try! newAudioFile.read(into: buffer!)
+
+        // ミキサーノードに新しい音声ファイルを挿入
+        self.audioEngine.mainMixerNode.installTap(onBus: 0, bufferSize: AVAudioFrameCount(buffer!.frameLength), format: self.audioEngine.mainMixerNode.outputFormat(forBus: 0)) { (buffer, time) in
+          if time.sampleTime >= insertFramePosition {
+            // 指定位置以降のフレームであれば、新しい音声ファイルのデータを使用する
+            buffer.copy(from: buffer)
+          } else {
+            // 指定位置より前のフレームであれば、既存の音声ファイルのデータを使用する
+            try! self.audioFile.read(into: buffer)
+          }
+        }
+
+        // プレイヤーノードとミキサーノードを切断
+        self.audioEngine.disconnectNodeOutput(self.playerNode)
+        self.audioEngine.disconnectNodeOutput(self.mixerNode)
+
+        // プレイヤーノードをミキサーノードに接続
+        self.audioEngine.connect(self.playerNode, to: self.mixerNode, format: self.audioFile.processingFormat)
+
+        // 新しい音声ファイルをミキサーノードに接続
+        self.audioEngine.connect(self.newPlayerNode, to: self.mixerNode, format: newAudioFile.processingFormat)
+
+        // プレイヤーノードとミキサーノードの出力をメインミキサーノードに接続
+        self.audioEngine.connect(self.mixerNode, to: self.audioEngine.mainMixerNode, format: self.audioFile.processingFormat)
+
+        // プレイヤーノードを再生
+        self.playerNode.play()
+      }
+
+      // 新しい音声ファイルを再生
+      newPlayerNode.scheduleFile(newAudioFile, at: nil)
+      newPlayerNode.play()
+    }
+
+    func generateSaveURL() -> URL {
+      // ドキュメントディレクトリのURLを取得
+      let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+      // 保存するファイル名を作成（一意の名前となるようにタイムスタンプを使用）
+      let fileName = "\(UUID().uuidString).caf"
+
+      // 保存するファイルのURLを作成
+      let saveURL = documentDirectoryURL.appendingPathComponent(fileName)
+
+      return saveURL
     }
 
 }
