@@ -186,13 +186,8 @@ private actor AudioRecorder {
     }
 
     func amplitude() -> [Float] {
-
-        #if DEBUG
         debugPrint("waveFormHeights\(waveFormHeights)")
         return waveFormHeights.map { Float($0) }
-        #else
-        return []
-        #endif
     }
     func fetchResultText() -> String {
 
