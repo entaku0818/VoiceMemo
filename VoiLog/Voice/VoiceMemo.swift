@@ -5,35 +5,38 @@ import Photos
 struct RecordingMemoFailed: Equatable, Error {}
 
 struct RecordingMemoState: Equatable {
-  var uuid = UUID()
-  var date: Date
-  var duration: TimeInterval = 0
-  var volumes: [Float] = []
-  var resultText: String = ""
-  var mode: Mode = .recording
-  var url: URL
+    var uuid = UUID()
+    var date: Date
+    var duration: TimeInterval = 0
+    var volumes: [Float] = []
+    var resultText: String = ""
+    var mode: Mode = .recording
+    var url: URL
+    var newUrl: URL?
+    var startTime: TimeInterval = 0
 
-  enum Mode {
-    case recording
-    case encoding
-  }
+    enum Mode {
+        case recording
+        case encoding
+    }
 }
 
 enum RecordingMemoAction: Equatable {
-  case audioRecorderDidFinish(TaskResult<Bool>)
-  case delegate(DelegateAction)
-  case finalRecordingTime(TimeInterval)
-  case task
-  case timerUpdated
+    case audioRecorderDidFinish(TaskResult<Bool>)
+    case delegate(DelegateAction)
+    case finalRecordingTime(TimeInterval)
+    case task
+    case timerUpdated
     case getVolumes
     case getResultText
-  case updateVolumes([Float])
+    case updateVolumes([Float])
     case updateResultText(String)
-  case stopButtonTapped
+    case insertAudio
+    case stopButtonTapped
 
-  enum DelegateAction: Equatable {
-    case didFinish(TaskResult<RecordingMemoState>)
-  }
+    enum DelegateAction: Equatable {
+        case didFinish(TaskResult<RecordingMemoState>)
+    }
 }
 
 struct RecordingMemoEnvironment {
@@ -90,6 +93,28 @@ let recordingMemoReducer = Reducer<
         await send(.getResultText)
       }
     }
+  case .insertAudio:
+      return .run { [url = state.url,startTime = state.startTime,newUrl = state.newUrl] send in
+        async let startRecording: Void = send(
+          .audioRecorderDidFinish(
+            TaskResult {
+                try await environment.audioRecorder.insertAudio(
+                    startTime,
+                    url,
+                    newUrl!
+                )
+            }
+          )
+        )
+          Logger.shared.logInfo("record stert")
+
+
+        for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
+          await send(.timerUpdated)
+          await send(.getVolumes)
+          await send(.getResultText)
+        }
+      }
 
   case .timerUpdated:
     state.duration += 1
@@ -113,6 +138,7 @@ let recordingMemoReducer = Reducer<
       }
 
       return .none
+
   }
 
 }
@@ -245,6 +271,13 @@ extension AudioRecorderClient {
           return await volumes.value
       }, resultText: {
           return  resultText
+      }, insertAudio: { _,_,_  in
+          await isRecording.setValue(true)
+          while await isRecording.value {
+            try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+            await currentTime.withValue { $0 += 1 }
+          }
+          return true
       }
     )
   }
