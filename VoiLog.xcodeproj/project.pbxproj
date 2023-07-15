@@ -198,7 +198,6 @@
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
 				61E43AD32A33EFF50006A9D2 /* Logger.swift */,
 				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
-				61C677532A4D01EF00C53FA6 /* Environment.swift */,
 			);
 			path = VoiLog;
 			sourceTree = "<group>";
@@ -409,7 +408,6 @@
 				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
 				614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */,
 				61037A132A47F05800BD196D /* AudioEditingView.swift in Sources */,
-				61C677542A4D01EF00C53FA6 /* Environment.swift in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
 				619440C92904014800BF337E /* SettingView.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
