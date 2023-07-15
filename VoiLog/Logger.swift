@@ -14,12 +14,9 @@ class Logger {
     static let shared = Logger()
 
     private init() {
-        if let variableValue = EnvironmentProcess.getEnvironmentVariable("ROLLBAR_CONFIG") {
-            Crashlytics.crashlytics().setCustomValue(UUID(), forKey: "UUID")
-            let config = RollbarConfig.mutableConfig(withAccessToken: variableValue)
-            Rollbar.initWithConfiguration(config)
-        }
-
+        Crashlytics.crashlytics().setCustomValue(UUID(), forKey: "UUID")
+        let config = RollbarConfig.mutableConfig(withAccessToken: "")
+        Rollbar.initWithConfiguration(config)
     }
 
     func logError(_ message: String) {
