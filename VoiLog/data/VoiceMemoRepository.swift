@@ -76,11 +76,47 @@ class VoiceMemoRepository: NSObject {
             Logger.shared.logError("selectAllData:" + error.localizedDescription)
         }
         let voiceMemoStates = memoGroups.map { voiceMemo in
-            VoiceMemoState(uuid: voiceMemo.id ?? UUID(), date: voiceMemo.createdAt ?? Date(), duration: voiceMemo.duration, time: 0, title: voiceMemo.title ?? "", url: voiceMemo.url!, text: voiceMemo.text ?? "")
-
+            VoiceMemoState(
+                uuid: voiceMemo.id ?? UUID(),
+                date: voiceMemo.createdAt ?? Date(),
+                duration: voiceMemo.duration,
+                time: 0,
+                title: voiceMemo.title ?? "",
+                url: voiceMemo.url!,
+                text: voiceMemo.text ?? ""
+            )
         }
         return voiceMemoStates
+    }
 
+    func fetch(uuid: UUID) -> RecordingMemoState? {
+        var recordingMemo: RecordingMemoState?
+
+        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+        fetchRequest.fetchLimit = 1
+
+        // Configure the fetch request with a predicate to match the specified UUID
+        let predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
+        fetchRequest.predicate = predicate
+
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            if let voice = results.first {
+                // Construct your RecordingMemoState object based on the retrieved Voice object
+                recordingMemo = RecordingMemoState(
+                    uuid: voice.id ?? UUID(),
+                    date: voice.createdAt ?? Date(),
+                    duration: voice.duration,
+                    url: voice.url!,
+                    resultText: voice.text ?? ""
+                )
+            }
+        } catch let error {
+            print(error.localizedDescription)
+            Logger.shared.logError("fetch:" + error.localizedDescription)
+        }
+
+        return recordingMemo
     }
 
     func delete(id: UUID) {
