@@ -41,6 +41,8 @@ struct RecordingMemoState: Equatable {
     var url: URL
     var newUrl: URL?
     var startTime: TimeInterval = 0
+    /// 再生時間
+    var time: TimeInterval = 0
 
     enum Mode {
         case recording
@@ -164,8 +166,6 @@ let recordingMemoReducer = Reducer<
           let text = await environment.audioRecorder.resultText()
           await send(.updateResultText(text))
       }
-
-      return .none
   case let .fetchRecordingMemo(uuid):
       if let recordingmemo = VoiceMemoRepository.shared.fetch(uuid: uuid){
           state = recordingmemo
@@ -264,7 +264,6 @@ struct RecordingMemoView_Previews: PreviewProvider {
             url: URL(string: "https://www.pointfree.co/functions")!, duration: 5
 
         ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
-
           )
         ))
     }
