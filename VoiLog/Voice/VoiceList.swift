@@ -78,12 +78,13 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
         return .none
 
       case .allowed:
-        state.recordingMemo = RecordingMemoState(
-          date: environment.mainRunLoop.now.date,
-           url: environment.temporaryDirectory()
-            .appendingPathComponent(environment.uuid().uuidString)
-            .appendingPathExtension("m4a")
-        )
+          state.recordingMemo = RecordingMemoState.init(
+            date: environment.mainRunLoop.now.date,
+            url: environment.temporaryDirectory()
+                .appendingPathComponent(environment.uuid().uuidString)
+                .appendingPathExtension("m4a"),
+            duration: 0
+          )
         return .none
       }
 
@@ -119,7 +120,8 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
           date: environment.mainRunLoop.now.date,
            url: environment.temporaryDirectory()
             .appendingPathComponent(environment.uuid().uuidString)
-            .appendingPathExtension("m4a")
+            .appendingPathExtension("m4a"),
+          duration: 0
         )
         return .none
       } else {

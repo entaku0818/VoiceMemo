@@ -5,6 +5,33 @@ import Photos
 struct RecordingMemoFailed: Equatable, Error {}
 
 struct RecordingMemoState: Equatable {
+
+
+    init(date:Date, url:URL, duration:TimeInterval){
+        self.date = date
+        self.url = url
+        self.duration = duration
+    }
+
+    init(uuid:UUID,date:Date, duration:TimeInterval,url:URL,resultText:String) {
+        self.uuid = uuid
+        self.date = date
+        self.duration = duration
+        self.mode = .encoding
+        self.url = url
+        self.resultText = resultText
+    }
+
+    init(from voiceMemoState: VoiceMemoState) {
+        self.uuid = voiceMemoState.uuid
+        self.date = voiceMemoState.date
+        self.duration = voiceMemoState.duration
+        self.startTime = voiceMemoState.time
+        self.mode = .encoding
+        self.url = voiceMemoState.url
+        self.resultText = voiceMemoState.text
+    }
+
     var uuid = UUID()
     var date: Date
     var duration: TimeInterval = 0
@@ -23,6 +50,7 @@ struct RecordingMemoState: Equatable {
 
 enum RecordingMemoAction: Equatable {
     case audioRecorderDidFinish(TaskResult<Bool>)
+    case fetchRecordingMemo(UUID)
     case delegate(DelegateAction)
     case finalRecordingTime(TimeInterval)
     case task
@@ -138,7 +166,11 @@ let recordingMemoReducer = Reducer<
       }
 
       return .none
-
+  case let .fetchRecordingMemo(uuid):
+      if let recordingmemo = VoiceMemoRepository.shared.fetch(uuid: uuid){
+          state = recordingmemo
+      }
+      return .none
   }
 
 }
@@ -229,8 +261,7 @@ struct RecordingMemoView_Previews: PreviewProvider {
     static var previews: some View {
         RecordingMemoView(store: Store(initialState: RecordingMemoState(
             date: Date(),
-            duration: 5,
-            url: URL(string: "https://www.pointfree.co/functions")!
+            url: URL(string: "https://www.pointfree.co/functions")!, duration: 5
 
         ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
 
