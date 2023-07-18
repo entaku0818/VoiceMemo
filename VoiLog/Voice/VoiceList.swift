@@ -158,7 +158,6 @@ struct VoiceMemosView: View {
 
     init(store: Store<VoiceMemosState, VoiceMemosAction>) {
         self.store = store
-        checkTrackingAuthorizationStatus()
     }
 
   var body: some View {
@@ -196,6 +195,9 @@ struct VoiceMemosView: View {
           .frame(maxWidth: .infinity)
           .background(Color.init(white: 0.95))
         }
+        .onAppear{
+            checkTrackingAuthorizationStatus()
+        }
         .alert(
           self.store.scope(state: \.alert),
           dismiss: .alertDismissed
@@ -222,6 +224,7 @@ struct VoiceMemosView: View {
 
 
     func checkTrackingAuthorizationStatus() {
+        
         switch ATTrackingManager.trackingAuthorizationStatus {
         case .notDetermined:
             requestTrackingAuthorization()
@@ -234,14 +237,16 @@ struct VoiceMemosView: View {
     }
 
     func requestTrackingAuthorization() {
-        ATTrackingManager.requestTrackingAuthorization { status in
-            switch status {
-            case .notDetermined: break
-            case .restricted:  break
-            case .denied:  break
-            case .authorized:  break
-            @unknown default:  break
-                fatalError()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .notDetermined: break
+                case .restricted:  break
+                case .denied:  break
+                case .authorized:  break
+                @unknown default:  break
+                    fatalError()
+                }
             }
         }
     }
