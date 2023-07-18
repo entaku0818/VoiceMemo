@@ -156,7 +156,6 @@ struct VoiceMemosView: View {
 
     init(store: Store<VoiceMemosState, VoiceMemosAction>) {
         self.store = store
-        checkTrackingAuthorizationStatus()
     }
 
   var body: some View {
@@ -181,7 +180,7 @@ struct VoiceMemosView: View {
             self.store.scope(state: \.recordingMemo, action: { .recordingMemo($0) })
           ) { store in
                   RecordingMemoView(store: store)
-                  
+
 
           } else: {
             RecordButton(permission: viewStore.audioRecorderPermission) {
@@ -193,6 +192,9 @@ struct VoiceMemosView: View {
           .padding()
           .frame(maxWidth: .infinity)
           .background(Color.init(white: 0.95))
+        }
+        .onAppear{
+            checkTrackingAuthorizationStatus()
         }
         .alert(
           self.store.scope(state: \.alert),
@@ -220,6 +222,7 @@ struct VoiceMemosView: View {
 
 
     func checkTrackingAuthorizationStatus() {
+
         switch ATTrackingManager.trackingAuthorizationStatus {
         case .notDetermined:
             requestTrackingAuthorization()
@@ -232,14 +235,16 @@ struct VoiceMemosView: View {
     }
 
     func requestTrackingAuthorization() {
-        ATTrackingManager.requestTrackingAuthorization { status in
-            switch status {
-            case .notDetermined: break
-            case .restricted:  break
-            case .denied:  break
-            case .authorized:  break
-            @unknown default:  break
-                fatalError()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .notDetermined: break
+                case .restricted:  break
+                case .denied:  break
+                case .authorized:  break
+                @unknown default:  break
+                    fatalError()
+                }
             }
         }
     }
