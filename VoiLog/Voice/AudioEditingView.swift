@@ -12,21 +12,24 @@ import Accelerate
 import ComposableArchitecture
 
 
+
 struct AudioEditingView: View {
-    let store: Store<VoiceMemoState, VoiceMemoAction>
+    let store: Store<RecordingMemoState, RecordingMemoAction>
+
 
     @State private var waveformData: [Float]
     @State private var totalDuration: Double
     var audioURL: URL?
 
-    init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?) {
-        self.store = store
+    init(store: Store<RecordingMemoState, RecordingMemoAction>,audioURL: URL?) {
         self._waveformData = State(initialValue: [])
         self._totalDuration = State(initialValue: 0.0)
         self.audioURL = audioURL
+
+        self.store = store
     }
 
-    init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?,waveformData: [Float]) {
+    init(store: Store<RecordingMemoState, RecordingMemoAction>,audioURL: URL?, waveformData: [Float]) {
         self.store = store
         self._waveformData = State(initialValue: waveformData)
         self._totalDuration = State(initialValue: 0.0)
@@ -225,13 +228,20 @@ struct AudioEditingView_Previews: PreviewProvider {
                             mainRunLoop: .main
                         )
                     )
+        let recordingStore = Store(initialState: RecordingMemoState(
+            date: Date(),
+            url: URL(string: "https://www.pointfree.co/functions")!, duration: 5
+
+        ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
+          )
+        )
 
         var randomArray: [Float] = []
         for _ in 0..<1000 {
             let randomValue = Float.random(in: 0...10)
             randomArray.append(randomValue)
         }
-        return AudioEditingView(store: store, audioURL: nil,waveformData: randomArray)
+        return AudioEditingView(store: recordingStore, audioURL: nil,waveformData: randomArray)
 
     }
 }
