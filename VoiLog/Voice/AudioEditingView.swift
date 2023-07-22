@@ -21,6 +21,13 @@ struct AudioEditingView: View {
     @State private var totalDuration: Double
     var audioURL: URL?
 
+    @State private var trimStart: Double = 0.0
+    @State private var trimEnd: Double = 0.0
+    @State private var editmode: Bool = false
+
+    @State private var rightOffsetX: CGFloat = 0
+    @State private var leftOffsetX: CGFloat = 0
+
     init(store: Store<RecordingMemoState, RecordingMemoAction>,audioURL: URL?) {
         self._waveformData = State(initialValue: [])
         self._totalDuration = State(initialValue: 0.0)
@@ -43,51 +50,121 @@ struct AudioEditingView: View {
                 ScrollViewReader { scrollViewProxy in
 
                     GeometryReader { geometry in
-                        ZStack(alignment: .bottom) {
-                            // 背景
-                            Rectangle()
-                                .fill(Color.gray)
+                        VStack{
+                            ZStack(alignment: .center) {
+                                    // 背景
+                                    Rectangle()
+                                        .fill(Color.gray)
 
-                            VStack{
-                                Spacer()
-                                ScrollView(.horizontal, showsIndicators: false) {
 
-                                    HStack(spacing: 2) {
-                                        Spacer().frame(width: geometry.size.width / 2)
-                                        ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
-                                            let height: CGFloat = CGFloat(volume * 30) + 1
-                                            Rectangle()
-                                                .fill(Color.pink)
-                                                .frame(width: 3, height: height)
-                                                .id(index)
+                                    ScrollView(.horizontal, showsIndicators: false) {
+
+                                        LazyHStack(alignment: .center, spacing: 1) {
+                                            Spacer().frame(width: geometry.size.width / 2)
+                                            ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
+                                                let height: CGFloat = CGFloat(volume * 30) + 1
+                                                Rectangle()
+                                                    .fill(Color.pink)
+                                                    .frame(width: 2, height: height)
+                                                    .id(index)
+                                            }
+                                            Spacer().frame(width:  geometry.size.width / 2)
                                         }
-                                        Spacer().frame(width:  geometry.size.width / 2)
-                                    }
-                                    .onChange(of: viewStore.time) { _ in
-                                        DispatchQueue.main.async {
-                                            let waveformDatalength = CGFloat(waveformData.count)
-                                            let targetOffset = Int((viewStore.time / viewStore.duration) * waveformDatalength)
-                                            withAnimation(.easeInOut(duration: 0.1)) {
 
-                                                scrollViewProxy.scrollTo(targetOffset, anchor: .center)
+                                    }
+
+
+
+                                GeometryReader { geometry2 in
+
+                                    VStack{
+                                        Spacer()
+                                        Path { path in
+                                            let startPoint = CGPoint(x: 0, y: geometry2.size.height / 2)
+                                            let endPoint = CGPoint(x: geometry2.size.width, y: geometry2.size.height / 2)
+                                            path.move(to: startPoint)
+                                            path.addLine(to: endPoint)
+                                        }
+                                        .stroke(Color.white, lineWidth:1)
+                                        Spacer()
+                                    }
+                                }
+
+                            }
+                            ZStack(alignment: .center) {
+                                // 背景
+                                Rectangle()
+                                    .fill(Color.gray)
+
+
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    GeometryReader { geometry in
+                                        LazyHStack(alignment: .center, spacing: 1) {
+                                            ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
+                                                let height: CGFloat = CGFloat(volume * 10) + 1
+                                                let percent = waveformData.count / 200
+                                                if waveformData.count % percent == 0 {
+                                                    Rectangle()
+                                                        .fill(Color.pink)
+                                                        .frame(width:1, height: height)
+                                                        .id(index)
+                                                }
                                             }
                                         }
                                     }
                                 }
 
-                                Spacer()
-                            }
+                                    HStack{
+                                        GeometryReader { geometry in
+                                            ZStack {
+                                                Image("Polygon")
+                                                    .resizable()
+                                                    .frame(width: 20, height: 20)
+                                                    .offset(x: rightOffsetX, y: 0 - geometry.size.height / 2)
+                                                    .gesture(DragGesture(minimumDistance: 0)
+                                                        .onChanged { value in
 
-                            // 基準線
-                            Path { path in
-                                let height = geometry.size.height
-                                let centerY = height / 2.0
+                                                            rightOffsetX = value.location.x
 
-                                path.move(to: CGPoint(x: 0, y: centerY))
-                                path.addLine(to: CGPoint(x: geometry.size.width, y: centerY))
+                                                        }
+                                                    )
+                                                Path { path in
+                                                    path.move(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: 0))
+                                                    path.addLine(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: geometry.size.height))
+                                                }
+                                                .stroke(Color.blue, lineWidth: 5)
+
+                                                Image("Polygon")
+                                                    .resizable()
+                                                    .frame(width: 20, height: 20)
+                                                    .offset(x: leftOffsetX, y: 0 - geometry.size.height / 2)
+                                                    .gesture(DragGesture(minimumDistance: 0)
+                                                        .onChanged { value in
+
+                                                            leftOffsetX = value.location.x
+
+                                                        }
+                                                    )
+                                                Path { path in
+
+                                                    path.move(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: 0))
+                                                    path.addLine(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: geometry.size.height))
+                                                }
+                                                .stroke(Color.blue, lineWidth: 5)
+                                                
+
+                                            }.onAppear{
+                                                rightOffsetX = geometry.size.width / 2
+                                                leftOffsetX = 0 - geometry.size.width / 2
+                                            }
+                                        }
+                                    }
+
                             }
-                            .stroke(Color.white, lineWidth: 1)
+                            .frame(height:80)
                         }
+
+
 
                     }
                 }
@@ -104,6 +181,56 @@ struct AudioEditingView: View {
             waveformData = waveformAnalyzer.analyze().0
             totalDuration =  waveformAnalyzer.analyze().1
         }
+    }
+
+    // trim処理
+    func performTrimming() {
+        guard let audioURL = audioURL else {
+            return
+        }
+
+        let asset = AVAsset(url: audioURL)
+        let composition = AVMutableComposition()
+        let compositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+        let assetTrack = asset.tracks(withMediaType: .audio).first
+
+        guard let audioDuration = asset.duration.seconds as? CMTime else {
+            return
+        }
+
+        let startTime = CMTime(seconds: trimStart, preferredTimescale: asset.duration.timescale)
+        let endTime = CMTime(seconds: trimEnd, preferredTimescale: asset.duration.timescale)
+        let range = CMTimeRange(start: startTime, end: endTime)
+
+        do {
+            try compositionTrack?.insertTimeRange(range, of: assetTrack!, at: .zero)
+        } catch {
+            print("Trimming: Failed to insert time range: \(error)")
+            return
+        }
+
+        let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough)
+        exportSession?.outputFileType = .m4a
+
+        let trimmedFileName = "trimmed_audio.m4a"  // トリミングされた音声ファイルの保存先とファイル名
+        let trimmedFilePath = NSTemporaryDirectory().appending(trimmedFileName)
+        let trimmedFileURL = URL(fileURLWithPath: trimmedFilePath)
+
+        exportSession?.outputURL = trimmedFileURL
+        exportSession?.exportAsynchronously(completionHandler: {
+            if exportSession?.status == .completed {
+                // トリミングされた音声ファイルの保存が完了した場合の処理
+                print("Trimming completed. Saved at: \(trimmedFilePath)")
+
+            } else if exportSession?.status == .failed {
+                // トリミング処理が失敗した場合の処理
+                if let error = exportSession?.error {
+                    print("Trimming failed with error: \(error.localizedDescription)")
+                } else {
+                    print("Trimming failed.")
+                }
+            }
+        })
     }
 
 }
@@ -131,6 +258,7 @@ class WaveformAnalyzer {
 
         return (volumes, buffers.1)
     }
+
 
     func loadAudioFile(_ fileUrl: URL) -> ([AVAudioPCMBuffer], Double) {
         var buffers: [AVAudioPCMBuffer] = []
@@ -237,7 +365,7 @@ struct AudioEditingView_Previews: PreviewProvider {
         )
 
         var randomArray: [Float] = []
-        for _ in 0..<1000 {
+        for _ in 0..<4000 {
             let randomValue = Float.random(in: 0...10)
             randomArray.append(randomValue)
         }
