@@ -103,7 +103,7 @@ struct AudioEditingView: View {
                                             ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
                                                 let height: CGFloat = CGFloat(volume * 10) + 1
                                                 let percent = waveformData.count / 200
-                                                if waveformData.count % percent == 0 {
+                                                if index % percent == 0 {
                                                     Rectangle()
                                                         .fill(Color.pink)
                                                         .frame(width:1, height: height)
