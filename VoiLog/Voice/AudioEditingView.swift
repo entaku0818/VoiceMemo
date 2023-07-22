@@ -22,11 +22,16 @@ struct AudioEditingView: View {
     var audioURL: URL?
 
     @State private var trimStart: Double = 0.0
-    @State private var trimEnd: Double = 0.0
+    @State private var trimEnd: Double = 10.0
     @State private var editmode: Bool = false
 
     @State private var rightOffsetX: CGFloat = 0
     @State private var leftOffsetX: CGFloat = 0
+
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+
+
 
     init(store: Store<RecordingMemoState, RecordingMemoAction>,audioURL: URL?) {
         self._waveformData = State(initialValue: [])
@@ -103,7 +108,12 @@ struct AudioEditingView: View {
                                             ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
                                                 let height: CGFloat = CGFloat(volume * 10) + 1
                                                 let percent = waveformData.count / 200
-                                                if index % percent == 0 {
+                                                if percent == 0 {
+                                                    Rectangle()
+                                                        .fill(Color.pink)
+                                                        .frame(width:1, height: height)
+                                                        .id(index)
+                                                }else if index % percent == 0 {
                                                     Rectangle()
                                                         .fill(Color.pink)
                                                         .frame(width:1, height: height)
@@ -114,54 +124,64 @@ struct AudioEditingView: View {
                                     }
                                 }
 
-                                    HStack{
-                                        GeometryReader { geometry in
-                                            ZStack {
-                                                Image("Polygon")
-                                                    .resizable()
-                                                    .frame(width: 20, height: 20)
-                                                    .offset(x: rightOffsetX, y: 0 - geometry.size.height / 2)
-                                                    .gesture(DragGesture(minimumDistance: 0)
-                                                        .onChanged { value in
+                                HStack{
+                                    GeometryReader { geometry in
+                                        ZStack {
+                                            Image("Polygon")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .offset(x: rightOffsetX, y: 0 - geometry.size.height / 2)
+                                                .gesture(DragGesture(minimumDistance: 0)
+                                                    .onChanged { value in
 
-                                                            rightOffsetX = value.location.x
+                                                        rightOffsetX = value.location.x
 
-                                                        }
-                                                    )
-                                                Path { path in
-                                                    path.move(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: 0))
-                                                    path.addLine(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: geometry.size.height))
-                                                }
-                                                .stroke(Color.blue, lineWidth: 5)
-
-                                                Image("Polygon")
-                                                    .resizable()
-                                                    .frame(width: 20, height: 20)
-                                                    .offset(x: leftOffsetX, y: 0 - geometry.size.height / 2)
-                                                    .gesture(DragGesture(minimumDistance: 0)
-                                                        .onChanged { value in
-
-                                                            leftOffsetX = value.location.x
-
-                                                        }
-                                                    )
-                                                Path { path in
-
-                                                    path.move(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: 0))
-                                                    path.addLine(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: geometry.size.height))
-                                                }
-                                                .stroke(Color.blue, lineWidth: 5)
-                                                
-
-                                            }.onAppear{
-                                                rightOffsetX = geometry.size.width / 2
-                                                leftOffsetX = 0 - geometry.size.width / 2
+                                                    }
+                                                )
+                                            Path { path in
+                                                path.move(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: 0))
+                                                path.addLine(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: geometry.size.height))
                                             }
+                                            .stroke(Color.blue, lineWidth: 5)
+
+                                            Image("Polygon")
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .offset(x: leftOffsetX, y: 0 - geometry.size.height / 2)
+                                                .gesture(DragGesture(minimumDistance: 0)
+                                                    .onChanged { value in
+
+                                                        leftOffsetX = value.location.x
+
+                                                    }
+                                                )
+                                            Path { path in
+
+                                                path.move(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: 0))
+                                                path.addLine(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: geometry.size.height))
+                                            }
+                                            .stroke(Color.blue, lineWidth: 5)
+
+
+                                        }.onAppear{
+                                            rightOffsetX = geometry.size.width / 2
+                                            leftOffsetX = 0 - geometry.size.width / 2
                                         }
                                     }
+                                }
 
                             }
                             .frame(height:80)
+
+
+                            Button {
+                                if let audioURL = audioURL {
+                                    trimAudioFile(inputURL: audioURL, startTime: trimStart, endTime: trimEnd)
+                                }
+                            } label: {
+                                Text("trim")
+                            }
+
                         }
 
 
@@ -171,7 +191,14 @@ struct AudioEditingView: View {
             }
             .onAppear {
                 loadWaveformData()
+            }.alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text(alertMessage)
+                )
             }
+
+
+
         }
     }
 
@@ -184,54 +211,48 @@ struct AudioEditingView: View {
     }
 
     // trim処理
-    func performTrimming() {
-        guard let audioURL = audioURL else {
-            return
-        }
-
-        let asset = AVAsset(url: audioURL)
-        let composition = AVMutableComposition()
-        let compositionTrack = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-        let assetTrack = asset.tracks(withMediaType: .audio).first
-
-        guard let audioDuration = asset.duration.seconds as? CMTime else {
-            return
-        }
-
-        let startTime = CMTime(seconds: trimStart, preferredTimescale: asset.duration.timescale)
-        let endTime = CMTime(seconds: trimEnd, preferredTimescale: asset.duration.timescale)
-        let range = CMTimeRange(start: startTime, end: endTime)
-
+    func trimAudioFile(inputURL: URL, startTime: TimeInterval, endTime: TimeInterval) {
         do {
-            try compositionTrack?.insertTimeRange(range, of: assetTrack!, at: .zero)
-        } catch {
-            print("Trimming: Failed to insert time range: \(error)")
-            return
-        }
 
-        let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough)
-        exportSession?.outputFileType = .m4a
 
-        let trimmedFileName = "trimmed_audio.m4a"  // トリミングされた音声ファイルの保存先とファイル名
-        let trimmedFilePath = NSTemporaryDirectory().appending(trimmedFileName)
-        let trimmedFileURL = URL(fileURLWithPath: trimmedFilePath)
+            let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + inputURL.lastPathComponent
 
-        exportSession?.outputURL = trimmedFileURL
-        exportSession?.exportAsynchronously(completionHandler: {
-            if exportSession?.status == .completed {
-                // トリミングされた音声ファイルの保存が完了した場合の処理
-                print("Trimming completed. Saved at: \(trimmedFilePath)")
+            // AVAudioFileを作成して入力ファイルを読み込みます
+            let inputFile = try AVAudioFile(forReading: URL(fileURLWithPath: inputDocumentsPath))
 
-            } else if exportSession?.status == .failed {
-                // トリミング処理が失敗した場合の処理
-                if let error = exportSession?.error {
-                    print("Trimming failed with error: \(error.localizedDescription)")
-                } else {
-                    print("Trimming failed.")
-                }
+
+            // 入力ファイルのフォーマットを取得します
+            let fileFormat = inputFile.fileFormat
+            let audioFormat = fileFormat.settings
+
+            let documentsPath = NSHomeDirectory() + "/Documents/"
+            let outputURL = URL(fileURLWithPath: documentsPath + "trim_aaa")
+
+
+            // 出力ファイルを作成します
+            let outputFile = try AVAudioFile(forWriting: outputURL, settings: audioFormat)
+
+            // 切り取る範囲をフレーム単位に変換します
+            guard let startTimeFrame = AVAudioFramePosition(exactly: startTime * inputFile.fileFormat.sampleRate),
+                  let endTimeFrame = AVAudioFramePosition(exactly: endTime * inputFile.fileFormat.sampleRate) else {
+                print("Invalid time range or sample rate.")
+                return
             }
-        })
+
+            // 切り取り処理を行います
+            let buffer = AVAudioPCMBuffer(pcmFormat: inputFile.processingFormat, frameCapacity: AVAudioFrameCount(endTimeFrame - startTimeFrame))
+            try inputFile.read(into: buffer!, frameCount: AVAudioFrameCount(endTimeFrame - startTimeFrame))
+            try outputFile.write(from: buffer!)
+
+
+            alertMessage = outputURL.lastPathComponent + "ファイルが分割されました"
+            print("Trimming completed.")
+            showAlert = true
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
     }
+
 
 }
 
@@ -258,6 +279,8 @@ class WaveformAnalyzer {
 
         return (volumes, buffers.1)
     }
+
+
 
 
     func loadAudioFile(_ fileUrl: URL) -> ([AVAudioPCMBuffer], Double) {
@@ -330,6 +353,7 @@ class WaveformAnalyzer {
 
         return (buffers, duration)
     }
+
 
 
 

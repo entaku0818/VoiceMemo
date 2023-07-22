@@ -10,6 +10,7 @@ import ComposableArchitecture
 
 struct VoiceMemoDetail: View {
   let store: Store<VoiceMemoState, VoiceMemoAction>
+    @Environment(\.presentationMode) var presentationMode
 
   var body: some View {
       WithViewStore(store) { viewStore in
@@ -67,6 +68,11 @@ struct VoiceMemoDetail: View {
               Spacer()
 
           }
+          .navigationBarBackButtonHidden(true)
+          .navigationBarItems(leading: Button(action: {self.presentationMode.wrappedValue.dismiss()}){
+              Image(systemName: "chevron.left").foregroundColor(Color.blue).font(Font.system(size:23, design: .serif)).padding(.leading,-6)
+              Text("Back")
+          })
       }
   }
 }
