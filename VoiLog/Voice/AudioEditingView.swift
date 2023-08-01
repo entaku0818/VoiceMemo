@@ -127,15 +127,16 @@ struct AudioEditingView: View {
                                 HStack{
                                     GeometryReader { geometry in
                                         ZStack {
+                                            
                                             Image("Polygon")
                                                 .resizable()
                                                 .frame(width: 20, height: 20)
                                                 .offset(x: rightOffsetX, y: 0 - geometry.size.height / 2)
                                                 .gesture(DragGesture(minimumDistance: 0)
                                                     .onChanged { value in
-
-                                                        rightOffsetX = value.location.x
-
+                                                        let xPosition = value.location.x
+                                                         rightOffsetX = xPosition
+                                                         trimEnd = state(- Double(xPosition - (geometry.size.width / 2)) / geometry.size.width)
                                                     }
                                                 )
                                             Path { path in
@@ -150,9 +151,9 @@ struct AudioEditingView: View {
                                                 .offset(x: leftOffsetX, y: 0 - geometry.size.height / 2)
                                                 .gesture(DragGesture(minimumDistance: 0)
                                                     .onChanged { value in
-
-                                                        leftOffsetX = value.location.x
-
+                                                        let xPosition = value.location.x
+                                                        leftOffsetX = xPosition
+                                                        trimStart = Double(xPosition - (geometry.size.width / 2))
                                                     }
                                                 )
                                             Path { path in
@@ -168,6 +169,10 @@ struct AudioEditingView: View {
                                             leftOffsetX = 0 - geometry.size.width / 2
                                         }
                                     }
+                                }
+                                VStack{
+                                    Text(String(trimStart))
+                                    Text(String(trimEnd))
                                 }
 
                             }
