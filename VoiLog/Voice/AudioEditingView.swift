@@ -136,7 +136,7 @@ struct AudioEditingView: View {
                                                     .onChanged { value in
                                                         let xPosition = value.location.x
                                                          rightOffsetX = xPosition
-                                                         trimEnd = state(- Double(xPosition - (geometry.size.width / 2)) / geometry.size.width)
+                                                        trimEnd = viewStore.duration * (xPosition + (geometry.size.width / 2)) / geometry.size.width
                                                     }
                                                 )
                                             Path { path in
@@ -153,7 +153,7 @@ struct AudioEditingView: View {
                                                     .onChanged { value in
                                                         let xPosition = value.location.x
                                                         leftOffsetX = xPosition
-                                                        trimStart = Double(xPosition - (geometry.size.width / 2))
+                                                        trimStart = viewStore.duration * (xPosition + (geometry.size.width / 2)) / geometry.size.width
                                                     }
                                                 )
                                             Path { path in
@@ -171,12 +171,13 @@ struct AudioEditingView: View {
                                     }
                                 }
                                 VStack{
-                                    Text(String(trimStart))
-                                    Text(String(trimEnd))
+                                    Text(String(Int(trimStart)))
+                                    Text(String(Int(trimEnd)))
                                 }
 
                             }
-                            .frame(height:80)
+                            .frame(width: 320,height:80)
+
 
 
                             Button {
@@ -238,8 +239,8 @@ struct AudioEditingView: View {
             let outputFile = try AVAudioFile(forWriting: outputURL, settings: audioFormat)
 
             // 切り取る範囲をフレーム単位に変換します
-            guard let startTimeFrame = AVAudioFramePosition(exactly: startTime * inputFile.fileFormat.sampleRate),
-                  let endTimeFrame = AVAudioFramePosition(exactly: endTime * inputFile.fileFormat.sampleRate) else {
+            guard let startTimeFrame = AVAudioFramePosition(exactly: Int(startTime) * Int(inputFile.fileFormat.sampleRate)),
+                  let endTimeFrame = AVAudioFramePosition(exactly: Int(endTime) * Int(inputFile.fileFormat.sampleRate)) else {
                 print("Invalid time range or sample rate.")
                 return
             }
