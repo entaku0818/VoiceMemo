@@ -53,10 +53,7 @@ struct VoiceMemoDetail: View {
                   )
               }.frame(minHeight: 50, maxHeight: 50)
 
-              let recordingStore = Store(initialState: RecordingMemoState(
-                date: Date(),
-                url: URL(string: "https://www.pointfree.co/functions")!, duration: 0
-              ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
+              let recordingStore = Store(initialState: RecordingMemoState(from: viewStore.state), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
                                                                                      )
               )
               AudioEditingView(store: recordingStore,audioURL: viewStore.url)
