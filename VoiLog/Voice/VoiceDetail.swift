@@ -56,7 +56,7 @@ struct VoiceMemoDetail: View {
               let recordingStore = Store(initialState: RecordingMemoState(from: viewStore.state), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
                                                                                      )
               )
-              AudioEditingView(store: recordingStore,audioURL: viewStore.url)
+              AudioEditingView(store: store,audioURL: viewStore.url)
 
               ScrollView {
                   Text(viewStore.text)
