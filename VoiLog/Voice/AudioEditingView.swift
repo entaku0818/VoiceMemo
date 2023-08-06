@@ -14,7 +14,7 @@ import ComposableArchitecture
 
 
 struct AudioEditingView: View {
-    let store: Store<RecordingMemoState, RecordingMemoAction>
+    let store: Store<VoiceMemoState, VoiceMemoAction>
 
 
     @State private var waveformData: [Float]
@@ -33,7 +33,7 @@ struct AudioEditingView: View {
 
 
 
-    init(store: Store<RecordingMemoState, RecordingMemoAction>,audioURL: URL?) {
+    init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?) {
         self._waveformData = State(initialValue: [])
         self._totalDuration = State(initialValue: 0.0)
         self.audioURL = audioURL
@@ -41,7 +41,7 @@ struct AudioEditingView: View {
         self.store = store
     }
 
-    init(store: Store<RecordingMemoState, RecordingMemoAction>,audioURL: URL?, waveformData: [Float]) {
+    init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?, waveformData: [Float]) {
         self.store = store
         self._waveformData = State(initialValue: waveformData)
         self._totalDuration = State(initialValue: 0.0)
@@ -55,47 +55,52 @@ struct AudioEditingView: View {
                 ScrollViewReader { scrollViewProxy in
 
                     GeometryReader { geometry in
-                        VStack{
-                            ZStack(alignment: .center) {
-                                    // 背景
-                                    Rectangle()
-                                        .fill(Color.gray)
+                            ZStack(alignment: .bottom) {
+                                // 背景
+                                Rectangle()
+                                    .fill(Color.gray)
 
-
+                                VStack{
+                                    Spacer()
                                     ScrollView(.horizontal, showsIndicators: false) {
 
-                                        LazyHStack(alignment: .center, spacing: 1) {
+                                        HStack(spacing: 2) {
                                             Spacer().frame(width: geometry.size.width / 2)
                                             ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
                                                 let height: CGFloat = CGFloat(volume * 30) + 1
                                                 Rectangle()
                                                     .fill(Color.pink)
-                                                    .frame(width: 2, height: height)
+                                                    .frame(width: 3, height: height)
                                                     .id(index)
                                             }
                                             Spacer().frame(width:  geometry.size.width / 2)
                                         }
+                                        .onChange(of: viewStore.time) { _ in
+                                            DispatchQueue.main.async {
+                                                let waveformDatalength = CGFloat(waveformData.count)
+                                                let targetOffset = Int((viewStore.time / viewStore.duration) * waveformDatalength)
+                                                withAnimation(.easeInOut(duration: 0.1)) {
 
-                                    }
-
-
-
-                                GeometryReader { geometry2 in
-
-                                    VStack{
-                                        Spacer()
-                                        Path { path in
-                                            let startPoint = CGPoint(x: 0, y: geometry2.size.height / 2)
-                                            let endPoint = CGPoint(x: geometry2.size.width, y: geometry2.size.height / 2)
-                                            path.move(to: startPoint)
-                                            path.addLine(to: endPoint)
+                                                    scrollViewProxy.scrollTo(targetOffset, anchor: .center)
+                                                }
+                                            }
                                         }
-                                        .stroke(Color.white, lineWidth:1)
-                                        Spacer()
                                     }
+
+                                    Spacer()
                                 }
 
+                                // 基準線
+                                Path { path in
+                                    let height = geometry.size.height
+                                    let centerY = height / 2.0
+
+                                    path.move(to: CGPoint(x: 0, y: centerY))
+                                    path.addLine(to: CGPoint(x: geometry.size.width, y: centerY))
+                                }
+                                .stroke(Color.white, lineWidth: 1)
                             }
+                            #if DEBUG
                             ZStack(alignment: .center) {
                                 // 背景
                                 Rectangle()
@@ -187,8 +192,9 @@ struct AudioEditingView: View {
                             } label: {
                                 Text("trim")
                             }
+                            #endif
 
-                        }
+                        
 
 
 
@@ -399,9 +405,8 @@ struct AudioEditingView_Previews: PreviewProvider {
             let randomValue = Float.random(in: 0...10)
             randomArray.append(randomValue)
         }
-        return AudioEditingView(store: recordingStore, audioURL: nil,waveformData: randomArray)
+        return AudioEditingView(store: store, audioURL: nil,waveformData: randomArray)
 
     }
 }
-
 
