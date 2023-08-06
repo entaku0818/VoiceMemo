@@ -574,7 +574,7 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
@@ -583,7 +583,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "シンプル録音";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "あなたの言葉を文字にして記録します。";
@@ -602,7 +602,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.1.1;
+				MARKETING_VERSION = 0.2.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -625,7 +625,7 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -633,7 +633,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "シンプル録音";
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "あなたの言葉を文字にして記録します。";
@@ -652,7 +652,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.1.1;
+				MARKETING_VERSION = 0.2.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
