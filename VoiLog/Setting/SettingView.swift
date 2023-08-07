@@ -117,7 +117,7 @@ struct SettingView: View {
 
             }
             .listStyle(GroupedListStyle())
-            .navigationTitle("setting")
+            .navigationTitle("設定")
         }
     }
 }

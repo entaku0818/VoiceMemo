@@ -119,9 +119,14 @@ struct VoiceMemoView: View {
                 VoiceMemoDetail(store: store)
             } label: {
                 HStack {
-                  Text(
-                    "Untitled, \(viewStore.date.formatted(date: .numeric, time: .shortened))"
-                  )
+
+                if viewStore.title.count > 0 {
+                    Text(viewStore.title)
+                }else{
+                    Text("名称未設定")
+                        .foregroundColor(Color(.systemGray))
+                }
+
 
                   Spacer()
 
