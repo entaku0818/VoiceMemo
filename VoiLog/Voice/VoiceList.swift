@@ -204,6 +204,9 @@ struct VoiceMemosView: View {
         )
         .navigationTitle("シンプル録音")
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
                     SettingView(store: Store(initialState:SettingViewState.initial,
