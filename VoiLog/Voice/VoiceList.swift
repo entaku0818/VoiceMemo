@@ -331,7 +331,8 @@ struct VoiceMemos_Previews: PreviewProvider {
           uuid: { UUID() }
         )
       )
-    )
+    ).environment(\.locale, Locale(identifier: "ja_JP"))
+
   }
 }
 

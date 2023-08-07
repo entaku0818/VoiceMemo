@@ -17,41 +17,30 @@ struct VoiceMemoDetail: View {
           let currentTime =
           viewStore.mode.progress.map { $0 * viewStore.duration } ?? viewStore.duration
           VStack {
-              VStack{
-                  HStack {
-                      TextField(
-                        "\(viewStore.date.formatted(date: .numeric, time: .shortened))",
-                        text: viewStore.binding(get: \.title, send: { .titleTextFieldChanged($0) })
-                      )
-
-                      Spacer()
-
-                      dateComponentsFormatter.string(from: currentTime).map {
-                          Text($0)
-                              .font(.footnote.monospacedDigit())
-                              .foregroundColor(Color(.systemGray))
-                      }
-
-                      Button(action: { viewStore.send(.playButtonTapped) }) {
-                          Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
-                              .font(.system(size: 22))
-                      }
+              TextField(
+                  "名称未設定", // プレースホルダーのテキストを指定
+                  text: viewStore.binding(get: \.title, send: { .titleTextFieldChanged($0) })
+              ).font(.system(size: 18))
+                  .padding()
+                  .overlay(
+                      RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 0.5)
+                  ).padding()
+              HStack{
+                  Spacer()
+                  dateComponentsFormatter.string(from: currentTime).map {
+                      Text($0)
+                          .font(.footnote.monospacedDigit())
+                          .foregroundColor(Color(.systemGray))
                   }
-                  .buttonStyle(.borderless)
-                  .frame(maxHeight: .infinity, alignment: .center)
-                  .padding(.horizontal)
-                  .listRowBackground(viewStore.mode.isPlaying ? Color(.systemGray6) : .clear)
-                  .listRowInsets(EdgeInsets())
-                  .background(
-                    Color(.systemGray5)
-                        .frame(maxWidth: viewStore.mode.isPlaying ? .infinity : 0)
-                        .animation(
-                            viewStore.mode.isPlaying ? .linear(duration: viewStore.duration) : nil,
-                            value: viewStore.mode.isPlaying
-                        ),
-                    alignment: .leading
-                  )
-              }.frame(minHeight: 50, maxHeight: 50)
+                  Button(action: { viewStore.send(.playButtonTapped) }) {
+                      Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
+                          .font(.system(size: 36))
+                  }
+
+
+
+              }.padding()
 
               let recordingStore = Store(initialState: RecordingMemoState(from: viewStore.state), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
                                                                                      )
@@ -74,8 +63,24 @@ struct VoiceMemoDetail: View {
   }
 }
 
-//struct VoiceDetail_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VoiceMemoDetail(store: <#Store<VoiceMemoState, VoiceMemoAction>#>)
-//    }
-//}
+struct VoiceDetail_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = Store(initialState: VoiceMemoState(
+                            uuid: UUID(),
+                            date: Date(),
+                            duration: 180,
+                            time: 0,
+                            mode: .notPlaying,
+                            title: "",
+                            url: URL(fileURLWithPath: ""),
+                            text: ""
+                        ),
+                        reducer: voiceMemoReducer,
+                        environment: VoiceMemoEnvironment(
+                            audioPlayer: .mock,
+                            mainRunLoop: .main
+                        )
+                    )
+        VoiceMemoDetail(store: store)
+    }
+}
