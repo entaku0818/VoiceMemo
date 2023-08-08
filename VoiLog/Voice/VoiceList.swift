@@ -204,6 +204,9 @@ struct VoiceMemosView: View {
         )
         .navigationTitle("シンプル録音")
         .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationLink {
                     SettingView(store: Store(initialState:SettingViewState.initial,
@@ -328,7 +331,8 @@ struct VoiceMemos_Previews: PreviewProvider {
           uuid: { UUID() }
         )
       )
-    )
+    ).environment(\.locale, Locale(identifier: "ja_JP"))
+
   }
 }
 
