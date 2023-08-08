@@ -138,4 +138,30 @@ class VoiceMemoRepository: NSObject {
         }
     }
 
+    func update(state: VoiceMemoState) {
+        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+        fetchRequest.fetchLimit = 1
+
+        // Configure the fetch request with a predicate to match the specified UUID
+        let predicate = NSPredicate(format: "id == %@", state.uuid as CVarArg)
+        fetchRequest.predicate = predicate
+
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            if let voice = results.first {
+                // Update the existing Voice object with the new data
+                voice.title = state.title
+                voice.url = state.url
+                voice.text = state.text
+                voice.createdAt = state.date
+                voice.duration = state.duration
+
+                try managedContext.save()
+            }
+        } catch let error {
+            print(error.localizedDescription)
+            Logger.shared.logError("update:" + error.localizedDescription)
+        }
+    }
+
 }

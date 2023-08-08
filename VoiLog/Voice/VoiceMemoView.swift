@@ -103,6 +103,8 @@ let voiceMemoReducer = Reducer<
 
   case let .titleTextFieldChanged(text):
     state.title = text
+      let voiceMemoRepository = VoiceMemoRepository()
+      voiceMemoRepository.update(state: state)
     return .none
   }
 }
