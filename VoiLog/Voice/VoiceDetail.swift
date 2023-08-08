@@ -19,7 +19,8 @@ struct VoiceMemoDetail: View {
           VStack {
               TextField(
                   "名称未設定", // プレースホルダーのテキストを指定
-                  text: viewStore.binding(get: \.title, send: { .titleTextFieldChanged($0) })
+                  text: viewStore.binding(get: \.title,
+                                          send: { .titleTextFieldChanged($0) })
               ).font(.system(size: 18))
                   .padding()
                   .overlay(
@@ -27,6 +28,12 @@ struct VoiceMemoDetail: View {
                         .stroke(Color.gray, lineWidth: 0.5)
                   ).padding()
               HStack{
+
+                  if let formattedDate = formatDateTime(viewStore.date) {
+                      Text(formattedDate)
+                          .font(.footnote.monospacedDigit())
+                          .foregroundColor(Color(.systemGray))
+                  }
                   Spacer()
                   dateComponentsFormatter.string(from: currentTime).map {
                       Text($0)
@@ -61,6 +68,15 @@ struct VoiceMemoDetail: View {
           })
       }
   }
+
+    func formatDateTime(_ date: Date) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .medium
+        dateFormatter.locale = Locale.autoupdatingCurrent // Set to the default locale of the user's device
+        return dateFormatter.string(from: date)
+    }
+
 }
 
 struct VoiceDetail_Previews: PreviewProvider {
