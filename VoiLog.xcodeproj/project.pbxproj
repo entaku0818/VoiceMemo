@@ -323,11 +323,12 @@
 			};
 			buildConfigurationList = 619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiLog" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 619799D928C34A2500169FB6;
 			packageReferences = (
