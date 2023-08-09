@@ -10,6 +10,8 @@
 		61037A132A47F05800BD196D /* AudioEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61037A122A47F05800BD196D /* AudioEditingView.swift */; };
 		6104770628DDD13100141042 /* Voice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6104770428DDD13100141042 /* Voice.xcdatamodeld */; };
 		610A144E2A46EB0F00CB88AA /* VoiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */; };
+		611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A244C2A83DB9800F68D7D /* InfoPlist.strings */; };
+		611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A24522A83DBEC00F68D7D /* InfoPlist.strings */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */; };
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
@@ -63,6 +65,8 @@
 		61037A122A47F05800BD196D /* AudioEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditingView.swift; sourceTree = "<group>"; };
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
+		611A244B2A83DB9800F68D7D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		611A24512A83DBEC00F68D7D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -149,6 +153,15 @@
 			path = Voice;
 			sourceTree = "<group>";
 		};
+		611A244D2A83DBAC00F68D7D /* Locate */ = {
+			isa = PBXGroup;
+			children = (
+				611A244C2A83DB9800F68D7D /* InfoPlist.strings */,
+				611A24522A83DBEC00F68D7D /* InfoPlist.strings */,
+			);
+			path = Locate;
+			sourceTree = "<group>";
+		};
 		619440CA2904049800BF337E /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +195,7 @@
 		619799E428C34A2500169FB6 /* VoiLog */ = {
 			isa = PBXGroup;
 			children = (
+				611A244D2A83DBAC00F68D7D /* Locate */,
 				61B70F572A51008900740093 /* Extention */,
 				6104770728DDD30600141042 /* data */,
 				619799E528C34A2500169FB6 /* VoiceMemoApp.swift */,
@@ -353,6 +367,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */,
+				611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */,
 				619799EE28C34A2500169FB6 /* Preview Assets.xcassets in Resources */,
 				619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */,
 				61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */,
@@ -456,6 +472,25 @@
 			targetProxy = 619799FE28C34A2600169FB6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		611A244C2A83DB9800F68D7D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				611A244B2A83DB9800F68D7D /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		611A24522A83DBEC00F68D7D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				611A24512A83DBEC00F68D7D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		61979A0528C34A2600169FB6 /* Debug */ = {
@@ -575,7 +610,7 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
@@ -583,7 +618,6 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "シンプル録音";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
@@ -603,7 +637,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.2.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -626,14 +660,13 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VoiLog/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "シンプル録音";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "あなたの声を音声にして記録します";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "アルバムの写真から振り返ります";
@@ -653,7 +686,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.2.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
