@@ -61,11 +61,25 @@ struct VoiceMemoDetail: View {
               Spacer()
 
           }
-          .navigationBarBackButtonHidden(true)
-          .navigationBarItems(leading: Button(action: {self.presentationMode.wrappedValue.dismiss()}){
-              Image(systemName: "chevron.left").foregroundColor(Color.blue).font(Font.system(size:23, design: .serif)).padding(.leading,-6)
-              Text("Back")
-          })
+          .navigationBarItems(trailing:
+                Button(action: {
+                    // シェアするコンテンツを設定
+                    let textToShare = viewStore.title
+                    var itemsToShare: [Any] = [textToShare]
+                    let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + viewStore.url.lastPathComponent
+
+                    let audioFileURL = NSURL(fileURLWithPath: inputDocumentsPath)
+
+                    itemsToShare.append(audioFileURL)
+
+
+                    // UIActivityViewControllerを表示
+                    let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
+                    UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                }
+          )
       }
   }
 
