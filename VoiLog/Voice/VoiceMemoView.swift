@@ -22,6 +22,9 @@ struct VoiceMemoState: Equatable, Identifiable {
     var url: URL
     var text: String
 
+
+    var waveformData: [Float] = []
+
   var id: URL { self.url }
 
   enum Mode: Equatable {
@@ -46,6 +49,7 @@ enum VoiceMemoAction: Equatable {
   case playButtonTapped
   case timerUpdated(TimeInterval)
   case titleTextFieldChanged(String)
+  case loadWaveformData
 }
 
 struct VoiceMemoEnvironment {
@@ -106,6 +110,13 @@ let voiceMemoReducer = Reducer<
       let voiceMemoRepository = VoiceMemoRepository()
       voiceMemoRepository.update(state: state)
     return .none
+
+  case .loadWaveformData:
+      if !state.waveformData.isEmpty { return .none }
+      let waveformAnalyzer = WaveformAnalyzer(audioURL: state.url)
+      let (newWaveformData, newTotalDuration) = waveformAnalyzer.analyze()
+      state.waveformData = newWaveformData
+      return .none
   }
 }
 
