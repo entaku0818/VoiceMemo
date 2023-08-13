@@ -17,8 +17,6 @@ struct AudioEditingView: View {
     let store: Store<VoiceMemoState, VoiceMemoAction>
 
 
-    @State private var waveformData: [Float]
-    @State private var totalDuration: Double
     var audioURL: URL?
 
     @State private var trimStart: Double = 0.0
@@ -34,17 +32,12 @@ struct AudioEditingView: View {
 
 
     init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?) {
-        self._waveformData = State(initialValue: [])
-        self._totalDuration = State(initialValue: 0.0)
         self.audioURL = audioURL
-
         self.store = store
     }
 
     init(store: Store<VoiceMemoState, VoiceMemoAction>,audioURL: URL?, waveformData: [Float]) {
         self.store = store
-        self._waveformData = State(initialValue: waveformData)
-        self._totalDuration = State(initialValue: 0.0)
         self.audioURL = audioURL
     }
 
@@ -66,8 +59,8 @@ struct AudioEditingView: View {
 
                                         HStack(spacing: 2) {
                                             Spacer().frame(width: geometry.size.width / 2)
-                                            ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
-                                                let height: CGFloat = CGFloat(volume * 30) + 1
+                                            ForEach(Array(viewStore.waveformData.enumerated()), id: \.offset) { index, volume in
+                                                let height: CGFloat = CGFloat(volume * 30)
                                                 Rectangle()
                                                     .fill(Color.pink)
                                                     .frame(width: 3, height: height)
@@ -77,7 +70,7 @@ struct AudioEditingView: View {
                                         }
                                         .onChange(of: viewStore.time) { _ in
                                             DispatchQueue.main.async {
-                                                let waveformDatalength = CGFloat(waveformData.count)
+                                                let waveformDatalength = CGFloat(viewStore.waveformData.count)
                                                 let targetOffset = Int((viewStore.time / viewStore.duration) * waveformDatalength)
                                                 withAnimation(.easeInOut(duration: 0.1)) {
 
@@ -200,13 +193,12 @@ struct AudioEditingView: View {
 
                     }
                 }
-            }
-            .onAppear {
-                loadWaveformData()
             }.alert(isPresented: $showAlert) {
                 Alert(
                     title: Text(alertMessage)
                 )
+            }.onAppear {
+                viewStore.send(.loadWaveformData)
             }
 
 
@@ -214,13 +206,7 @@ struct AudioEditingView: View {
         }
     }
 
-    func loadWaveformData() {
-        if let audioURL = audioURL {
-            let waveformAnalyzer = WaveformAnalyzer(audioURL: audioURL)
-            waveformData = waveformAnalyzer.analyze().0
-            totalDuration =  waveformAnalyzer.analyze().1
-        }
-    }
+
 
     // trim処理
     func trimAudioFile(inputURL: URL, startTime: TimeInterval, endTime: TimeInterval) {
