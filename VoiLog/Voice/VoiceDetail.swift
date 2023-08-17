@@ -47,18 +47,13 @@ struct VoiceMemoDetail: View {
 
 
 
-              }.padding(.horizontal)
-              .listRowBackground(viewStore.mode.isPlaying ? Color(.systemGray6) : .clear)
-                  .listRowInsets(EdgeInsets())
-                  .background(
-                    Color(.systemGray5)
-                      .frame(maxWidth: viewStore.mode.isPlaying ? .infinity : 0)
-                      .animation(
-                        viewStore.mode.isPlaying ? .linear(duration: viewStore.duration) : nil,
-                        value: viewStore.mode.isPlaying
-                      ),
-                    alignment: .leading
-                  )
+              }.padding()
+
+              ProgressView(value: viewStore.time / viewStore.duration)
+                  .frame(height: 10)
+                  .progressViewStyle(.linear)
+                  .accentColor(Color.gray) 
+                  .padding()
 
               let recordingStore = Store(initialState: RecordingMemoState(from: viewStore.state), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
                                                                                      )
