@@ -93,99 +93,99 @@ struct AudioEditingView: View {
                                 }
                                 .stroke(Color.white, lineWidth: 1)
                             }
-                            #if DEBUG
-                            ZStack(alignment: .center) {
-                                // 背景
-                                Rectangle()
-                                    .fill(Color.gray)
-
-
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    GeometryReader { geometry in
-                                        LazyHStack(alignment: .center, spacing: 1) {
-                                            ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
-                                                let height: CGFloat = CGFloat(volume * 10) + 1
-                                                let percent = waveformData.count / 200
-                                                if percent == 0 {
-                                                    Rectangle()
-                                                        .fill(Color.pink)
-                                                        .frame(width:1, height: height)
-                                                        .id(index)
-                                                }else if index % percent == 0 {
-                                                    Rectangle()
-                                                        .fill(Color.pink)
-                                                        .frame(width:1, height: height)
-                                                        .id(index)
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                HStack{
-                                    GeometryReader { geometry in
-                                        ZStack {
-                                            
-                                            Image("Polygon")
-                                                .resizable()
-                                                .frame(width: 20, height: 20)
-                                                .offset(x: rightOffsetX, y: 0 - geometry.size.height / 2)
-                                                .gesture(DragGesture(minimumDistance: 0)
-                                                    .onChanged { value in
-                                                        let xPosition = value.location.x
-                                                         rightOffsetX = xPosition
-                                                        trimEnd = viewStore.duration * (xPosition + (geometry.size.width / 2)) / geometry.size.width
-                                                    }
-                                                )
-                                            Path { path in
-                                                path.move(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: 0))
-                                                path.addLine(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: geometry.size.height))
-                                            }
-                                            .stroke(Color.blue, lineWidth: 5)
-
-                                            Image("Polygon")
-                                                .resizable()
-                                                .frame(width: 20, height: 20)
-                                                .offset(x: leftOffsetX, y: 0 - geometry.size.height / 2)
-                                                .gesture(DragGesture(minimumDistance: 0)
-                                                    .onChanged { value in
-                                                        let xPosition = value.location.x
-                                                        leftOffsetX = xPosition
-                                                        trimStart = viewStore.duration * (xPosition + (geometry.size.width / 2)) / geometry.size.width
-                                                    }
-                                                )
-                                            Path { path in
-
-                                                path.move(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: 0))
-                                                path.addLine(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: geometry.size.height))
-                                            }
-                                            .stroke(Color.blue, lineWidth: 5)
-
-
-                                        }.onAppear{
-                                            rightOffsetX = geometry.size.width / 2
-                                            leftOffsetX = 0 - geometry.size.width / 2
-                                        }
-                                    }
-                                }
-                                VStack{
-                                    Text(String(Int(trimStart)))
-                                    Text(String(Int(trimEnd)))
-                                }
-
-                            }
-                            .frame(width: 320,height:80)
-
-
-
-                            Button {
-                                if let audioURL = audioURL {
-                                    trimAudioFile(inputURL: audioURL, startTime: trimStart, endTime: trimEnd)
-                                }
-                            } label: {
-                                Text("trim")
-                            }
-                            #endif
+//                            #if DEBUG
+//                            ZStack(alignment: .center) {
+//                                // 背景
+//                                Rectangle()
+//                                    .fill(Color.gray)
+//
+//
+//                                ScrollView(.horizontal, showsIndicators: false) {
+//                                    GeometryReader { geometry in
+//                                        LazyHStack(alignment: .center, spacing: 1) {
+//                                            ForEach(Array(waveformData.enumerated()), id: \.offset) { index, volume in
+//                                                let height: CGFloat = CGFloat(volume * 10) + 1
+//                                                let percent = waveformData.count / 200
+//                                                if percent == 0 {
+//                                                    Rectangle()
+//                                                        .fill(Color.pink)
+//                                                        .frame(width:1, height: height)
+//                                                        .id(index)
+//                                                }else if index % percent == 0 {
+//                                                    Rectangle()
+//                                                        .fill(Color.pink)
+//                                                        .frame(width:1, height: height)
+//                                                        .id(index)
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//
+//                                HStack{
+//                                    GeometryReader { geometry in
+//                                        ZStack {
+//
+//                                            Image("Polygon")
+//                                                .resizable()
+//                                                .frame(width: 20, height: 20)
+//                                                .offset(x: rightOffsetX, y: 0 - geometry.size.height / 2)
+//                                                .gesture(DragGesture(minimumDistance: 0)
+//                                                    .onChanged { value in
+//                                                        let xPosition = value.location.x
+//                                                         rightOffsetX = xPosition
+//                                                        trimEnd = viewStore.duration * (xPosition + (geometry.size.width / 2)) / geometry.size.width
+//                                                    }
+//                                                )
+//                                            Path { path in
+//                                                path.move(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: 0))
+//                                                path.addLine(to: CGPoint(x: rightOffsetX + geometry.size.width / 2, y: geometry.size.height))
+//                                            }
+//                                            .stroke(Color.blue, lineWidth: 5)
+//
+//                                            Image("Polygon")
+//                                                .resizable()
+//                                                .frame(width: 20, height: 20)
+//                                                .offset(x: leftOffsetX, y: 0 - geometry.size.height / 2)
+//                                                .gesture(DragGesture(minimumDistance: 0)
+//                                                    .onChanged { value in
+//                                                        let xPosition = value.location.x
+//                                                        leftOffsetX = xPosition
+//                                                        trimStart = viewStore.duration * (xPosition + (geometry.size.width / 2)) / geometry.size.width
+//                                                    }
+//                                                )
+//                                            Path { path in
+//
+//                                                path.move(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: 0))
+//                                                path.addLine(to: CGPoint(x: leftOffsetX + geometry.size.width / 2, y: geometry.size.height))
+//                                            }
+//                                            .stroke(Color.blue, lineWidth: 5)
+//
+//
+//                                        }.onAppear{
+//                                            rightOffsetX = geometry.size.width / 2
+//                                            leftOffsetX = 0 - geometry.size.width / 2
+//                                        }
+//                                    }
+//                                }
+//                                VStack{
+//                                    Text(String(Int(trimStart)))
+//                                    Text(String(Int(trimEnd)))
+//                                }
+//
+//                            }
+//                            .frame(width: 320,height:80)
+//
+//
+//
+//                            Button {
+//                                if let audioURL = audioURL {
+//                                    trimAudioFile(inputURL: audioURL, startTime: trimStart, endTime: trimEnd)
+//                                }
+//                            } label: {
+//                                Text("trim")
+//                            }
+//                            #endif
 
                         
 

@@ -49,10 +49,18 @@ struct VoiceMemoDetail: View {
 
               }.padding()
 
+              ProgressView(value: viewStore.time / viewStore.duration)
+                  .frame(height: 10)
+                  .progressViewStyle(.linear)
+                  .accentColor(Color.gray) 
+                  .padding()
+
               let recordingStore = Store(initialState: RecordingMemoState(from: viewStore.state), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
                                                                                      )
               )
-              AudioEditingView(store: store,audioURL: viewStore.url)
+
+
+//              AudioEditingView(store: store,audioURL: viewStore.url)
 
               ScrollView {
                   Text(viewStore.text)
