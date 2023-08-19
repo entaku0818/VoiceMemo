@@ -13,10 +13,12 @@ struct AdmobBannerView: UIViewRepresentable {
     func makeUIView(context: Context) -> GADBannerView {
         let adSize = GADAdSizeFromCGSize(CGSize(width: 300, height: 50))
         let view = GADBannerView(adSize: adSize)
+
+
         #if DEBUG
         view.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         #else
-        view.adUnitID = ""
+        view.adUnitID = ProcessInfo.processInfo.environment["ADMOB_APP_ID"]
         #endif
         view.rootViewController = UIApplication.shared.windows.first?.rootViewController
         view.load(GADRequest())

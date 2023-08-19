@@ -15,8 +15,11 @@ class Logger {
 
     private init() {
         Crashlytics.crashlytics().setCustomValue(UUID(), forKey: "UUID")
-        let config = RollbarConfig.mutableConfig(withAccessToken: "")
-        Rollbar.initWithConfiguration(config)
+        if let apiKey = ProcessInfo.processInfo.environment["API_KEY"] {
+            let config = RollbarConfig.mutableConfig(withAccessToken: apiKey)
+            Rollbar.initWithConfiguration(config)
+        }
+
     }
 
     func logError(_ message: String) {
