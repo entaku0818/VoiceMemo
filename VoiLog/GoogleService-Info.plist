@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>950571144078-6gtsv5lo5b6aq0k9onoki06dc10g8tvr.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.950571144078-6gtsv5lo5b6aq0k9onoki06dc10g8tvr</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDNHFswFbNCzj19idq7uKujKgZzsit2xdM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>950571144078</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.entaku.VoiLog</string>
+	<key>PROJECT_ID</key>
+	<string>voilog</string>
+	<key>STORAGE_BUCKET</key>
+	<string>voilog.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:950571144078:ios:4d4483b9127e0479388adf</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-3484697221349891~3051778288</string>
+</dict>
+</plist>
