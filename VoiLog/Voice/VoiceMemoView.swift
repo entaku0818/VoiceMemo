@@ -75,13 +75,15 @@ let voiceMemoReducer = Reducer<
   case .playButtonTapped:
     switch state.mode {
     case .notPlaying:
-      state.mode = .playing(progress: 0)
 
-      return .run { [url = state.url] send in
+
+        state.mode = .playing(progress: state.time)
+
+      return .run { [url = state.url,time = state.time] send in
         let start = environment.mainRunLoop.now
 
         async let playAudio: Void = send(
-          .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url) })
+            .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url, time) })
         )
 
         for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
