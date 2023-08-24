@@ -14,8 +14,7 @@ struct VoiceMemoDetail: View {
 
   var body: some View {
       WithViewStore(store) { viewStore in
-          let currentTime =
-          viewStore.mode.progress.map { $0 * viewStore.duration } ?? viewStore.duration
+          let currentTime = viewStore.time == 0 ? viewStore.duration : viewStore.time
           VStack {
               TextField(
                   "名称未設定", // プレースホルダーのテキストを指定
