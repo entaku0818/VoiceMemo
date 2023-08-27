@@ -75,7 +75,7 @@ let voiceMemoReducer = Reducer<
         print("audioPlayer:" + String(state.time))
 
         state.mode = .playing(progress: state.time)
-        return .run { [url = state.url,time = state.time] send in
+        return .run { [url = state.url,time = state.time,duration = state.duration] send in
         let start = environment.mainRunLoop.now
 
         async let playAudio: Void = send(
@@ -84,7 +84,7 @@ let voiceMemoReducer = Reducer<
 
         for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
 
-            let timer = time + tick.date.timeIntervalSince(start.date)
+            let timer = time + tick.date.timeIntervalSince(start.date) > duration ? duration : time + tick.date.timeIntervalSince(start.date)
             await send(.timerUpdated(timer))
         }
       }
