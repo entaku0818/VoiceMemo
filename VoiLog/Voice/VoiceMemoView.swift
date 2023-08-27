@@ -35,11 +35,6 @@ struct VoiceMemoState: Equatable, Identifiable {
       if case .playing = self { return true }
       return false
     }
-
-    var progress: Double? {
-      if case let .playing(progress) = self { return progress }
-      return nil
-    }
   }
 }
 
@@ -66,6 +61,8 @@ let voiceMemoReducer = Reducer<
 
   switch action {
   case .audioPlayerClient:
+      // 停止時の処理
+      state.time = 0.0
     state.mode = .notPlaying
     return .cancel(id: PlayID.self)
 
@@ -75,17 +72,20 @@ let voiceMemoReducer = Reducer<
   case .playButtonTapped:
     switch state.mode {
     case .notPlaying:
-      state.mode = .playing(progress: 0)
+        print("audioPlayer:" + String(state.time))
 
-      return .run { [url = state.url] send in
+        state.mode = .playing(progress: state.time)
+        return .run { [url = state.url,time = state.time,duration = state.duration] send in
         let start = environment.mainRunLoop.now
 
         async let playAudio: Void = send(
-          .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url) })
+            .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url, time) })
         )
 
         for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
-          await send(.timerUpdated(tick.date.timeIntervalSince(start.date)))
+
+            let timer = time + tick.date.timeIntervalSince(start.date) > duration ? duration : time + tick.date.timeIntervalSince(start.date)
+            await send(.timerUpdated(timer))
         }
       }
       .cancellable(id: PlayID.self, cancelInFlight: true)
@@ -101,7 +101,7 @@ let voiceMemoReducer = Reducer<
       break
     case let .playing(progress: progress):
       state.mode = .playing(progress: time / state.duration)
-        state.time = time
+      state.time = time
     }
     return .none
 
@@ -126,8 +126,7 @@ struct VoiceMemoView: View {
 
   var body: some View {
     WithViewStore(store) { viewStore in
-            let currentTime =
-              viewStore.mode.progress.map { $0 * viewStore.duration } ?? viewStore.duration
+        let currentTime = viewStore.duration
             NavigationLink {
                 VoiceMemoDetail(store: store)
             } label: {
@@ -152,8 +151,6 @@ struct VoiceMemoView: View {
                 Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
                   .font(.system(size: 22))
                   .foregroundColor(Color.accentColor)
-
-
                 }
             }
             .buttonStyle(.borderless)
