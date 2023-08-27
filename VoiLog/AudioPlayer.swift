@@ -9,15 +9,15 @@
 import ComposableArchitecture
 
 struct AudioPlayerClient {
-  var play: @Sendable (URL) async throws -> Bool
+    var play: @Sendable (URL, Double) async throws -> Bool
 }
 
 extension AudioPlayerClient {
-  static let live = Self { url in
+    static let live = Self { url, startTime  in
     let stream = AsyncThrowingStream<Bool, Error> { continuation in
       do {
         let delegate = try Delegate(
-          url: url,
+            url: url, startTime: startTime,
           didFinishPlaying: { successful in
             continuation.yield(successful)
             continuation.finish()
@@ -48,18 +48,20 @@ private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
 
   init(
     url: URL,
+    startTime: Double,
     didFinishPlaying: @escaping @Sendable (Bool) -> Void,
     decodeErrorDidOccur: @escaping @Sendable (Error?) -> Void
   ) throws {
-    try AVAudioSession.sharedInstance().setActive(true)
-    try AVAudioSession.sharedInstance().setCategory(.playback)
-    self.didFinishPlaying = didFinishPlaying
-    self.decodeErrorDidOccur = decodeErrorDidOccur
-    let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
+        try AVAudioSession.sharedInstance().setActive(true)
+        try AVAudioSession.sharedInstance().setCategory(.playback)
+        self.didFinishPlaying = didFinishPlaying
+        self.decodeErrorDidOccur = decodeErrorDidOccur
+        let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
 
-    self.player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: documentsPath))
-    super.init()
-    self.player.delegate = self
+        self.player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: documentsPath))
+        player.currentTime = startTime
+        super.init()
+        self.player.delegate = self
   }
 
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
