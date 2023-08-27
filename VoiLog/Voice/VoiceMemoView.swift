@@ -126,7 +126,7 @@ struct VoiceMemoView: View {
 
   var body: some View {
     WithViewStore(store) { viewStore in
-        let currentTime = viewStore.time == 0 ? viewStore.duration : viewStore.time
+        let currentTime = viewStore.duration
             NavigationLink {
                 VoiceMemoDetail(store: store)
             } label: {
