@@ -21,6 +21,7 @@ struct VoiceMemoState: Equatable, Identifiable {
     var title = ""
     var url: URL
     var text: String
+    var orderBy: Int
 
 
     var waveformData: [Float] = []
@@ -41,6 +42,7 @@ struct VoiceMemoState: Equatable, Identifiable {
 enum VoiceMemoAction: Equatable {
   case audioPlayerClient(TaskResult<Bool>)
   case delete
+  case reorderVoiceMemos(from: IndexSet, to: Int)
   case playButtonTapped
   case timerUpdated(TimeInterval)
   case titleTextFieldChanged(String)
@@ -117,6 +119,11 @@ let voiceMemoReducer = Reducer<
       let (newWaveformData, newTotalDuration) = waveformAnalyzer.analyze()
       state.waveformData = newWaveformData
       return .none
+  case .reorderVoiceMemos(from: let from, to: let to):
+      let voiceMemoRepository = VoiceMemoRepository()
+      voiceMemoRepository.updateOrder(uuid: state.uuid, orderBy: Int64(to))
+      return .none
+
   }
 }
 
@@ -174,7 +181,7 @@ struct VoiceMemoView_Previews: PreviewProvider {
                         mode: .notPlaying,
                         title: "Untitled",
                         url: URL(fileURLWithPath: ""),
-                        text: ""
+                        text: "", orderBy: 0
                     ),
                     reducer: voiceMemoReducer,
                     environment: VoiceMemoEnvironment(

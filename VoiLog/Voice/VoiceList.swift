@@ -99,7 +99,8 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
             date: recordingMemo.date,
             duration: recordingMemo.duration, time: 0,
           url: recordingMemo.url,
-          text: recordingMemo.resultText
+          text: recordingMemo.resultText,
+            orderBy: state.voiceMemos.count + 1
         ),
         at: 0
       )
@@ -174,6 +175,13 @@ struct VoiceMemosView: View {
               for index in indexSet {
                 viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
               }
+            }
+            .onMove { sourceIndices, destinationIndex in
+
+                for index in sourceIndices {
+                    viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .reorderVoiceMemos(from: sourceIndices, to: destinationIndex)))
+                }
+
             }
           }
           AdmobBannerView().frame(width: .infinity, height: 50)
@@ -306,7 +314,7 @@ struct VoiceMemos_Previews: PreviewProvider {
                 duration: 5, time: 0,
               mode: .notPlaying,
               title: "Functions",
-                url: URL(string: "https://www.pointfree.co/functions")!, text: ""
+                url: URL(string: "https://www.pointfree.co/functions")!, text: "", orderBy: 0
             ),
             VoiceMemoState(
                 uuid: UUID(),
@@ -315,7 +323,7 @@ struct VoiceMemos_Previews: PreviewProvider {
               mode: .notPlaying,
               title: "",
               url: URL(string: "https://www.pointfree.co/untitled")!,
-              text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", orderBy: 1
             )
           ]
         ),

@@ -83,10 +83,13 @@ class VoiceMemoRepository: NSObject {
                 time: 0,
                 title: voiceMemo.title ?? "",
                 url: voiceMemo.url!,
-                text: voiceMemo.text ?? ""
+                text: voiceMemo.text ?? "",
+                orderBy: Int(voiceMemo.orderBy)
             )
         }
-        return voiceMemoStates
+        let sortedVoiceMemoStates = voiceMemoStates.sorted { $0.orderBy < $1.orderBy }
+
+        return sortedVoiceMemoStates
     }
 
     func fetch(uuid: UUID) -> RecordingMemoState? {
@@ -155,6 +158,29 @@ class VoiceMemoRepository: NSObject {
                 voice.text = state.text
                 voice.createdAt = state.date
                 voice.duration = state.duration
+
+                try managedContext.save()
+            }
+        } catch let error {
+            print(error.localizedDescription)
+            Logger.shared.logError("update:" + error.localizedDescription)
+        }
+    }
+
+    func updateOrder(uuid:UUID, orderBy:Int64) {
+        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+        fetchRequest.fetchLimit = 1
+
+        // Configure the fetch request with a predicate to match the specified UUID
+        let predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+        fetchRequest.predicate = predicate
+
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            if let voice = results.first {
+                // Update the existing Voice object with the new data
+                voice.orderBy = orderBy
+
 
                 try managedContext.save()
             }

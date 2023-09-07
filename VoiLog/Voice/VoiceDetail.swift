@@ -110,7 +110,7 @@ struct VoiceDetail_Previews: PreviewProvider {
                             mode: .notPlaying,
                             title: "",
                             url: URL(fileURLWithPath: ""),
-                            text: ""
+                            text: "", orderBy: 0
                         ),
                         reducer: voiceMemoReducer,
                         environment: VoiceMemoEnvironment(

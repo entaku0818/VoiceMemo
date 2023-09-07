@@ -370,7 +370,7 @@ struct AudioEditingView_Previews: PreviewProvider {
                             mode: .notPlaying,
                             title: "Untitled",
                             url: URL(fileURLWithPath: ""),
-                            text: ""
+                            text: "", orderBy: 0
                         ),
                         reducer: voiceMemoReducer,
                         environment: VoiceMemoEnvironment(
