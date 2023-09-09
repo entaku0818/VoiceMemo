@@ -55,6 +55,12 @@ class VoiceMemoRepository: NSObject {
             voice.text = state.resultText
             voice.createdAt = state.date
             voice.duration = state.duration
+            voice.fileFormat = state.fileFormat
+            voice.samplingFrequency = state.samplingFrequency ?? 0
+            voice.quantizationBitDepth = Int16(state.quantizationBitDepth ?? 0)
+            voice.numberOfChannels = Int16(state.numberOfChannels ?? 0)
+
+
 
             do {
                 try managedContext.save()
@@ -83,7 +89,12 @@ class VoiceMemoRepository: NSObject {
                 time: 0,
                 title: voiceMemo.title ?? "",
                 url: voiceMemo.url!,
-                text: voiceMemo.text ?? ""
+                text: voiceMemo.text ?? "",
+                fileFormat: voiceMemo.fileFormat ?? "",
+                samplingFrequency: voiceMemo.samplingFrequency ,
+                quantizationBitDepth: Int(voiceMemo.quantizationBitDepth ),
+                numberOfChannels: Int(voiceMemo.numberOfChannels )
+
             )
         }
         return voiceMemoStates

@@ -22,6 +22,10 @@ struct VoiceMemoState: Equatable, Identifiable {
     var url: URL
     var text: String
 
+    var fileFormat: String
+    var samplingFrequency: Double
+    var quantizationBitDepth: Int
+    var numberOfChannels: Int
 
     var waveformData: [Float] = []
 
@@ -130,28 +134,66 @@ struct VoiceMemoView: View {
             NavigationLink {
                 VoiceMemoDetail(store: store)
             } label: {
-                HStack {
+                    HStack {
 
-                if viewStore.title.count > 0 {
-                    Text(viewStore.title)
-                }else{
-                    Text("名称未設定")
-                        .foregroundColor(Color(.systemGray))
-                }
+                        VStack {
+                            HStack {
+                                if viewStore.title.count > 0 {
+                                    Text(viewStore.title)
+                                        .font(.headline) // Adjust the font size and style as needed
+                                        .foregroundColor(.black) // Set text color
+                                } else {
+                                    Text("名称未設定")
+                                        .font(.headline) // Adjust the font size and style as needed
+                                        .foregroundColor(.black)
+                                }
+                                Spacer()
+                            }
+
+                            if viewStore.state.fileFormat.count > 0 {
+                                HStack {
+                                    Text(viewStore.state.fileFormat)
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+
+                                    Text(viewStore.state.samplingFrequency.formattedAsKHz())
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                    Text("/")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                    Text(String(viewStore.state.quantizationBitDepth) + "bit")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                    Text("/")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                    Text(String(viewStore.state.numberOfChannels) + "ch")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+
+                                    Spacer()
+                                }
+                            }
+                        }
 
 
-                  Spacer()
 
-                  dateComponentsFormatter.string(from: currentTime).map {
-                    Text($0)
-                      .font(.footnote.monospacedDigit())
-                      .foregroundColor(Color(.systemGray))
-                  }
+                        Spacer()
 
-                Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
-                  .font(.system(size: 22))
-                  .foregroundColor(Color.accentColor)
-                }
+                        dateComponentsFormatter.string(from: currentTime).map {
+                            Text($0)
+                                .font(.footnote.monospacedDigit())
+                                .foregroundColor(Color(.systemGray))
+                        }
+
+                        Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
+                            .font(.system(size: 22))
+                            .foregroundColor(Color.accentColor)
+                    }
+
+
+
             }
             .buttonStyle(.borderless)
             .frame(maxHeight: .infinity, alignment: .center)
@@ -174,7 +216,11 @@ struct VoiceMemoView_Previews: PreviewProvider {
                         mode: .notPlaying,
                         title: "Untitled",
                         url: URL(fileURLWithPath: ""),
-                        text: ""
+                        text: "",
+                        fileFormat: "WAV",
+                        samplingFrequency: 44100.0,
+                        quantizationBitDepth: 16,
+                        numberOfChannels: 1
                     ),
                     reducer: voiceMemoReducer,
                     environment: VoiceMemoEnvironment(
