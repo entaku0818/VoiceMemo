@@ -134,15 +134,49 @@ struct VoiceMemoView: View {
             NavigationLink {
                 VoiceMemoDetail(store: store)
             } label: {
-                VStack{
                     HStack {
 
-                        if viewStore.title.count > 0 {
-                            Text(viewStore.title)
-                        }else{
-                            Text("名称未設定")
-                                .foregroundColor(Color(.systemGray))
+                        VStack {
+                            HStack {
+                                if viewStore.title.count > 0 {
+                                    Text(viewStore.title)
+                                        .font(.headline) // Adjust the font size and style as needed
+                                        .foregroundColor(.black) // Set text color
+                                } else {
+                                    Text("名称未設定")
+                                        .font(.headline) // Adjust the font size and style as needed
+                                        .foregroundColor(Color(.systemGray))
+                                }
+                                Spacer()
+                            }
+
+                            if viewStore.state.fileFormat.count > 0 {
+                                HStack {
+                                    Text(viewStore.state.fileFormat)
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+
+                                    Text(viewStore.state.samplingFrequency.formattedAsKHz())
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+                                    Text("/")
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+                                    Text(String(viewStore.state.quantizationBitDepth) + "bit")
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+                                    Text("/")
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+                                    Text(String(viewStore.state.numberOfChannels) + "ch")
+                                        .font(.caption)
+                                        .foregroundColor(.black)
+
+                                    Spacer()
+                                }
+                            }
                         }
+
 
 
                         Spacer()
@@ -158,15 +192,8 @@ struct VoiceMemoView: View {
                             .foregroundColor(Color.accentColor)
                     }
 
-                    HStack{
-                        Text(viewStore.state.fileFormat)
-                        Text(String(viewStore.state.samplingFrequency))
-                        Text(String(viewStore.state.quantizationBitDepth))
 
-                        Text(String(viewStore.state.numberOfChannels))
 
-                    }
-                }
             }
             .buttonStyle(.borderless)
             .frame(maxHeight: .infinity, alignment: .center)
@@ -190,11 +217,10 @@ struct VoiceMemoView_Previews: PreviewProvider {
                         title: "Untitled",
                         url: URL(fileURLWithPath: ""),
                         text: "",
-                        fileFormat: "",
-                        samplingFrequency: 0.0,
-                        quantizationBitDepth: 0,
-                        numberOfChannels: 0
-
+                        fileFormat: "WAV",
+                        samplingFrequency: 44100.0,
+                        quantizationBitDepth: 16,
+                        numberOfChannels: 1
                     ),
                     reducer: voiceMemoReducer,
                     environment: VoiceMemoEnvironment(
