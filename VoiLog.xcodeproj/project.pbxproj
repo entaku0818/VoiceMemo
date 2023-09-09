@@ -43,6 +43,7 @@
 		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
 		61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */; };
 		61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD32A33EFF50006A9D2 /* Logger.swift */; };
+		61EC9B842AAC66080062533A /* Double+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EC9B832AAC66080062533A /* Double+Extention.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobBannerView.swift; sourceTree = "<group>"; };
 		61E43AD32A33EFF50006A9D2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		61EC9B832AAC66080062533A /* Double+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extention.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */,
+				61EC9B832AAC66080062533A /* Double+Extention.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
 				614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */,
 				61037A132A47F05800BD196D /* AudioEditingView.swift in Sources */,
+				61EC9B842AAC66080062533A /* Double+Extention.swift in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
 				619440C92904014800BF337E /* SettingView.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
