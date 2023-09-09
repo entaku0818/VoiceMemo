@@ -22,6 +22,10 @@ struct VoiceMemoState: Equatable, Identifiable {
     var url: URL
     var text: String
 
+    var fileFormat: String
+    var samplingFrequency: Double
+    var quantizationBitDepth: Int
+    var numberOfChannels: Int
 
     var waveformData: [Float] = []
 
@@ -130,27 +134,38 @@ struct VoiceMemoView: View {
             NavigationLink {
                 VoiceMemoDetail(store: store)
             } label: {
-                HStack {
+                VStack{
+                    HStack {
 
-                if viewStore.title.count > 0 {
-                    Text(viewStore.title)
-                }else{
-                    Text("名称未設定")
-                        .foregroundColor(Color(.systemGray))
-                }
+                        if viewStore.title.count > 0 {
+                            Text(viewStore.title)
+                        }else{
+                            Text("名称未設定")
+                                .foregroundColor(Color(.systemGray))
+                        }
 
 
-                  Spacer()
+                        Spacer()
 
-                  dateComponentsFormatter.string(from: currentTime).map {
-                    Text($0)
-                      .font(.footnote.monospacedDigit())
-                      .foregroundColor(Color(.systemGray))
-                  }
+                        dateComponentsFormatter.string(from: currentTime).map {
+                            Text($0)
+                                .font(.footnote.monospacedDigit())
+                                .foregroundColor(Color(.systemGray))
+                        }
 
-                Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
-                  .font(.system(size: 22))
-                  .foregroundColor(Color.accentColor)
+                        Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
+                            .font(.system(size: 22))
+                            .foregroundColor(Color.accentColor)
+                    }
+
+                    HStack{
+                        Text(viewStore.state.fileFormat)
+                        Text(String(viewStore.state.samplingFrequency))
+                        Text(String(viewStore.state.quantizationBitDepth))
+
+                        Text(String(viewStore.state.numberOfChannels))
+
+                    }
                 }
             }
             .buttonStyle(.borderless)
@@ -174,7 +189,12 @@ struct VoiceMemoView_Previews: PreviewProvider {
                         mode: .notPlaying,
                         title: "Untitled",
                         url: URL(fileURLWithPath: ""),
-                        text: ""
+                        text: "",
+                        fileFormat: "",
+                        samplingFrequency: 0.0,
+                        quantizationBitDepth: 0,
+                        numberOfChannels: 0
+
                     ),
                     reducer: voiceMemoReducer,
                     environment: VoiceMemoEnvironment(
