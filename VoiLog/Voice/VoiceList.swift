@@ -213,12 +213,13 @@ struct VoiceMemosView: View {
                 EditButton()
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink {
-                    SettingView(store: Store(initialState:SettingViewState.initial,
-                                             reducer: settingViewReducer,
-                                             environment:SettingViewEnvironment()))
-                } label: {
-                    Image(systemName: "gearshape.fill")
+
+                if viewStore.recordingMemo == nil {
+                    NavigationLink(destination: SettingView(store: Store(initialState: SettingViewState.initial,
+                        reducer: settingViewReducer,
+                        environment: SettingViewEnvironment()))) {
+                        Image(systemName: "gearshape.fill")
+                    }
                 }
 
             }
