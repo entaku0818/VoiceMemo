@@ -145,7 +145,7 @@ struct VoiceMemoView: View {
                                 } else {
                                     Text("名称未設定")
                                         .font(.headline) // Adjust the font size and style as needed
-                                        .foregroundColor(Color(.systemGray))
+                                        .foregroundColor(.black)
                                 }
                                 Spacer()
                             }
@@ -154,23 +154,23 @@ struct VoiceMemoView: View {
                                 HStack {
                                     Text(viewStore.state.fileFormat)
                                         .font(.caption)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.gray)
 
                                     Text(viewStore.state.samplingFrequency.formattedAsKHz())
                                         .font(.caption)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.gray)
                                     Text("/")
                                         .font(.caption)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.gray)
                                     Text(String(viewStore.state.quantizationBitDepth) + "bit")
                                         .font(.caption)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.gray)
                                     Text("/")
                                         .font(.caption)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.gray)
                                     Text(String(viewStore.state.numberOfChannels) + "ch")
                                         .font(.caption)
-                                        .foregroundColor(.black)
+                                        .foregroundColor(.gray)
 
                                     Spacer()
                                 }
