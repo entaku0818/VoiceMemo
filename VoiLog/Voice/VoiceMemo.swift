@@ -38,6 +38,12 @@ struct RecordingMemoState: Equatable {
     var volumes: [Float] = []
     var resultText: String = ""
     var mode: Mode = .recording
+    var fileFormat: String = ""
+    var samplingFrequency: Double = 0.0
+    var quantizationBitDepth: Int = 0
+    var numberOfChannels: Int = 0
+
+
     var url: URL
     var newUrl: URL?
     var startTime: TimeInterval = 0
@@ -98,6 +104,10 @@ let recordingMemoReducer = Reducer<
 
   case .stopButtonTapped:
     state.mode = .encoding
+      state.fileFormat =  UserDefaultsManager.shared.selectedFileFormat
+      state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
+      state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
+      state.numberOfChannels = 1
     return .run { send in
       if let currentTime = await environment.audioRecorder.currentTime() {
         await send(.finalRecordingTime(currentTime))

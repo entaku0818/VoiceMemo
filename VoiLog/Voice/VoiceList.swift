@@ -93,16 +93,21 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
 
       let voiceRepository = VoiceMemoRepository()
         voiceRepository.insert(state: recordingMemo)
-      state.voiceMemos.insert(
-        VoiceMemoState(
-            uuid: recordingMemo.uuid,
-            date: recordingMemo.date,
-            duration: recordingMemo.duration, time: 0,
-          url: recordingMemo.url,
-          text: recordingMemo.resultText
-        ),
-        at: 0
-      )
+          state.voiceMemos.insert(
+            VoiceMemoState(
+                uuid: recordingMemo.uuid,
+                date: recordingMemo.date,
+                duration: recordingMemo.duration, time: 0,
+              url: recordingMemo.url,
+              text: recordingMemo.resultText,
+                fileFormat: recordingMemo.fileFormat,
+                samplingFrequency: recordingMemo.samplingFrequency,
+                quantizationBitDepth: recordingMemo.quantizationBitDepth,
+                numberOfChannels: recordingMemo.numberOfChannels
+                
+            ),
+            at: 0
+          )
       return .none
 
     case .recordingMemo(.delegate(.didFinish(.failure))):
@@ -306,7 +311,11 @@ struct VoiceMemos_Previews: PreviewProvider {
                 duration: 5, time: 0,
               mode: .notPlaying,
               title: "Functions",
-                url: URL(string: "https://www.pointfree.co/functions")!, text: ""
+                url: URL(string: "https://www.pointfree.co/functions")!, text: "",
+                fileFormat: "",
+                samplingFrequency: 0.0,
+                quantizationBitDepth: 0,
+                numberOfChannels: 0
             ),
             VoiceMemoState(
                 uuid: UUID(),
@@ -315,7 +324,11 @@ struct VoiceMemos_Previews: PreviewProvider {
               mode: .notPlaying,
               title: "",
               url: URL(string: "https://www.pointfree.co/untitled")!,
-              text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                fileFormat: "",
+                samplingFrequency: 0.0,
+                quantizationBitDepth: 0,
+                numberOfChannels: 0
             )
           ]
         ),
