@@ -40,6 +40,8 @@
 		61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */ = {isa = PBXBuildFile; productRef = 61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */; };
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
 		61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */; };
+		61C011BD2AB12EA600350576 /* PlayListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C011BC2AB12EA600350576 /* PlayListView.swift */; };
+		61C011BF2AB12F5100350576 /* PlaylistReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C011BE2AB12F5100350576 /* PlaylistReducer.swift */; };
 		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
 		61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */; };
 		61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E43AD32A33EFF50006A9D2 /* Logger.swift */; };
@@ -96,6 +98,8 @@
 		619DC8012A91B77000738929 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		619DC8022A91B7F600738929 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
 		61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioPCMBuffer+Extention.swift"; sourceTree = "<group>"; };
+		61C011BC2AB12EA600350576 /* PlayListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListView.swift; sourceTree = "<group>"; };
+		61C011BE2AB12F5100350576 /* PlaylistReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistReducer.swift; sourceTree = "<group>"; };
 		61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobBannerView.swift; sourceTree = "<group>"; };
 		61E43AD32A33EFF50006A9D2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 				61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */,
 				610A144C2A46EAF200CB88AA /* Voice */,
 				619440CA2904049800BF337E /* Setting */,
+				61C011BB2AB12E5E00350576 /* Playlist */,
 				619799EC28C34A2500169FB6 /* Preview Content */,
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
 				61E43AD32A33EFF50006A9D2 /* Logger.swift */,
@@ -261,6 +266,15 @@
 				61EC9B832AAC66080062533A /* Double+Extention.swift */,
 			);
 			path = Extention;
+			sourceTree = "<group>";
+		};
+		61C011BB2AB12E5E00350576 /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				61C011BC2AB12EA600350576 /* PlayListView.swift */,
+				61C011BE2AB12F5100350576 /* PlaylistReducer.swift */,
+			);
+			path = Playlist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,10 +463,12 @@
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
 				613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */,
 				61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */,
+				61C011BD2AB12EA600350576 /* PlayListView.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoiceMemoView.swift in Sources */,
 				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
 				619DC8032A91B7F600738929 /* Env.swift in Sources */,
 				619440CE2904DB2B00BF337E /* SettingNotification.swift in Sources */,
+				61C011BF2AB12F5100350576 /* PlaylistReducer.swift in Sources */,
 				619440CC290404BD00BF337E /* SettingVoiceQuestionView.swift in Sources */,
 				61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */,
 				619440D32905914800BF337E /* ThemaRepository.swift in Sources */,
@@ -863,8 +879,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.0;
+				kind = exactVersion;
+				version = 0.39.1;
 			};
 		};
 		61A285C92A3608BB00BD7CB5 /* XCRemoteSwiftPackageReference "rollbar-apple" */ = {

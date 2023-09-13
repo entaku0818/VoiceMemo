@@ -1,9 +1,4 @@
-//
-//  SwiftUIView.swift
-//  VoiLog
-//
-//  Created by 遠藤拓弥 on 22.10.2022.
-//
+
 
 import SwiftUI
 import ComposableArchitecture
