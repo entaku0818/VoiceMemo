@@ -9,120 +9,122 @@ import ComposableArchitecture
 import Foundation
 import SwiftUI
 
-struct VoiceMemoState: Equatable, Identifiable {
-    var uuid: UUID
-    var date: Date
 
-    /// 音声のトータル時間
-    var duration: TimeInterval
-    /// 再生時間
-    var time: TimeInterval
-    var mode = Mode.notPlaying
-    var title = ""
-    var url: URL
-    var text: String
 
-    var fileFormat: String
-    var samplingFrequency: Double
-    var quantizationBitDepth: Int
-    var numberOfChannels: Int
-
-    var waveformData: [Float] = []
-
-  var id: URL { self.url }
-
-  enum Mode: Equatable {
-    case notPlaying
-    case playing(progress: Double)
-
-    var isPlaying: Bool {
-      if case .playing = self { return true }
-      return false
-    }
-  }
-}
-
-enum VoiceMemoAction: Equatable {
-  case audioPlayerClient(TaskResult<Bool>)
-  case delete
-  case playButtonTapped
-  case timerUpdated(TimeInterval)
-  case titleTextFieldChanged(String)
-  case loadWaveformData
-}
 
 struct VoiceMemoEnvironment {
   var audioPlayer: AudioPlayerClient
   var mainRunLoop: AnySchedulerOf<RunLoop>
 }
 
-let voiceMemoReducer = Reducer<
-  VoiceMemoState,
-  VoiceMemoAction,
-  VoiceMemoEnvironment
-> { state, action, environment in
-  enum PlayID {}
+struct VoiceMemoReducer: Reducer {
+    struct State: Equatable, Identifiable {
+        var uuid: UUID
+        var date: Date
 
-  switch action {
-  case .audioPlayerClient:
-      // 停止時の処理
-      state.time = 0.0
-    state.mode = .notPlaying
-    return .cancel(id: PlayID.self)
+        /// 音声のトータル時間
+        var duration: TimeInterval
+        /// 再生時間
+        var time: TimeInterval
+        var mode = Mode.notPlaying
+        var title = ""
+        var url: URL
+        var text: String
 
-  case .delete:
-    return .cancel(id: PlayID.self)
+        var fileFormat: String
+        var samplingFrequency: Double
+        var quantizationBitDepth: Int
+        var numberOfChannels: Int
 
-  case .playButtonTapped:
-    switch state.mode {
-    case .notPlaying:
-        print("audioPlayer:" + String(state.time))
+        var waveformData: [Float] = []
 
-        state.mode = .playing(progress: state.time)
-        return .run { [url = state.url,time = state.time,duration = state.duration] send in
-        let start = environment.mainRunLoop.now
+      var id: URL { self.url }
 
-        async let playAudio: Void = send(
-            .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url, time) })
-        )
+      enum Mode: Equatable {
+        case notPlaying
+        case playing(progress: Double)
 
-        for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
-
-            let timer = time + tick.date.timeIntervalSince(start.date) > duration ? duration : time + tick.date.timeIntervalSince(start.date)
-            await send(.timerUpdated(timer))
+        var isPlaying: Bool {
+          if case .playing = self { return true }
+          return false
         }
       }
-      .cancellable(id: PlayID.self, cancelInFlight: true)
 
-    case .playing:
-      state.mode = .notPlaying
-      return .cancel(id: PlayID.self)
+    enum Action: Equatable {
+        case audioPlayerClient(TaskResult<Bool>)
+        case delete
+        case playButtonTapped
+        case timerUpdated(TimeInterval)
+        case titleTextFieldChanged(String)
+        case loadWaveformData
     }
 
-  case let .timerUpdated(time):
-    switch state.mode {
-    case .notPlaying:
-      break
-    case let .playing(progress: progress):
-      state.mode = .playing(progress: time / state.duration)
-      state.time = time
-    }
-    return .none
+        func reduce(into state: inout State, action: Action) -> Effect<Action> {
+            enum PlayID {}
+            switch action {
+            case .audioPlayerClient:
+                // 停止時の処理
+                state.time = 0.0
+              state.mode = .notPlaying
+              return .cancel(id: PlayID.self)
 
-  case let .titleTextFieldChanged(text):
-    state.title = text
-      let voiceMemoRepository = VoiceMemoRepository()
-      voiceMemoRepository.update(state: state)
-    return .none
+            case .delete:
+              return .cancel(id: PlayID.self)
 
-  case .loadWaveformData:
-      if !state.waveformData.isEmpty { return .none }
-      let waveformAnalyzer = WaveformAnalyzer(audioURL: state.url)
-      let (newWaveformData, newTotalDuration) = waveformAnalyzer.analyze()
-      state.waveformData = newWaveformData
-      return .none
-  }
+            case .playButtonTapped:
+              switch state.mode {
+              case .notPlaying:
+                  print("audioPlayer:" + String(state.time))
+
+                  state.mode = .playing(progress: state.time)
+                  return .run { [url = state.url,time = state.time,duration = state.duration] send in
+                  let start = environment.mainRunLoop.now
+
+                  async let playAudio: Void = send(
+                      .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url, time) })
+                  )
+
+                  for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
+
+                      let timer = time + tick.date.timeIntervalSince(start.date) > duration ? duration : time + tick.date.timeIntervalSince(start.date)
+                      await send(.timerUpdated(timer))
+                  }
+                }
+                .cancellable(id: PlayID.self, cancelInFlight: true)
+
+              case .playing:
+                state.mode = .notPlaying
+                return .cancel(id: PlayID.self)
+              }
+
+            case let .timerUpdated(time):
+              switch state.mode {
+              case .notPlaying:
+                break
+              case let .playing(progress: progress):
+                state.mode = .playing(progress: time / state.duration)
+                state.time = time
+              }
+              return .none
+
+            case let .titleTextFieldChanged(text):
+              state.title = text
+                let voiceMemoRepository = VoiceMemoRepository()
+                voiceMemoRepository.update(state: state)
+              return .none
+
+            case .loadWaveformData:
+                if !state.waveformData.isEmpty { return .none }
+                let waveformAnalyzer = WaveformAnalyzer(audioURL: state.url)
+                let (newWaveformData, newTotalDuration) = waveformAnalyzer.analyze()
+                state.waveformData = newWaveformData
+                return .none
+            }
+        }
+
+
 }
+
 
 struct VoiceMemoView: View {
   let store: Store<VoiceMemoState, VoiceMemoAction>
