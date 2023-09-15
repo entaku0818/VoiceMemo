@@ -35,7 +35,7 @@ class PlaylistRepository: NSObject {
                  Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
-                Logger.shared.logError(entityName + error.localizedDescription)
+                Logger.shared.logError("Playlist" + error.localizedDescription)
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
