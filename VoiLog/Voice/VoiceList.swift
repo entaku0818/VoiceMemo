@@ -161,6 +161,9 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
 struct VoiceMemosView: View {
   let store: Store<VoiceMemosState, VoiceMemosAction>
 
+    @State private var isDeleteConfirmationPresented = false
+    @State private var selectedIndex: Int?
+
     init(store: Store<VoiceMemosState, VoiceMemosAction>) {
         self.store = store
     }
@@ -176,9 +179,12 @@ struct VoiceMemosView: View {
               VoiceMemoView(store: $0)
             }
             .onDelete { indexSet in
-              for index in indexSet {
-                viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
-              }
+                for index in indexSet {
+                    // インデックスを保存して確認アラートを表示
+                    selectedIndex = index
+                    isDeleteConfirmationPresented = true
+                }
+
             }
           }
           AdmobBannerView().frame(width: .infinity, height: 50)
@@ -227,6 +233,21 @@ struct VoiceMemosView: View {
 
         }
       }
+      .alert(isPresented: $isDeleteConfirmationPresented) {
+           Alert(
+               title: Text("削除しますか？"),
+               message: Text("選択した音声を削除しますか？"),
+               primaryButton: .destructive(Text("削除")) {
+                   if let index = selectedIndex {
+                       viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
+                       selectedIndex = nil // インデックスをリセット
+                   }
+               },
+               secondaryButton: .cancel() {
+                   selectedIndex = nil // インデックスをリセット
+               }
+           )
+       }
       .navigationViewStyle(.stack)
     }
   }
