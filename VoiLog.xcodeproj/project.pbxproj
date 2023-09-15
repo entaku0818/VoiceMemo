@@ -16,6 +16,7 @@
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
 		614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */; };
+		6178A30D2AB3D848008ACF1A /* PlaylistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6178A30C2AB3D848008ACF1A /* PlaylistRepository.swift */; };
 		6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408728F308C400BF337E /* FirebaseAnalytics */; };
 		6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408928F308C400BF337E /* FirebaseAnalyticsSwift */; };
 		6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408B28F308C400BF337E /* FirebaseCrashlytics */; };
@@ -75,6 +76,7 @@
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		6178A30C2AB3D848008ACF1A /* PlaylistRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistRepository.swift; sourceTree = "<group>"; };
 		619440C82904014800BF337E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVoiceQuestionView.swift; sourceTree = "<group>"; };
 		619440CD2904DB2B00BF337E /* SettingNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingNotification.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				6104770428DDD13100141042 /* Voice.xcdatamodeld */,
 				619440D429059C4000BF337E /* Thema.xcdatamodel */,
 				613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */,
+				6178A30C2AB3D848008ACF1A /* PlaylistRepository.swift */,
 				619440D22905914800BF337E /* ThemaRepository.swift */,
 				614AD4342A3B5207004B5B98 /* Constants.swift */,
 				614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */,
@@ -458,6 +461,7 @@
 				619440C92904014800BF337E /* SettingView.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,
 				6104770628DDD13100141042 /* Voice.xcdatamodeld in Sources */,
+				6178A30D2AB3D848008ACF1A /* PlaylistRepository.swift in Sources */,
 				614AD4352A3B5207004B5B98 /* Constants.swift in Sources */,
 				610A144E2A46EB0F00CB88AA /* VoiceDetail.swift in Sources */,
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,

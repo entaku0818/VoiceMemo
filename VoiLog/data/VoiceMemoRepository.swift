@@ -130,6 +130,29 @@ class VoiceMemoRepository: NSObject {
         return recordingMemo
     }
 
+    func fetch(uuid: UUID) -> Voice? {
+        var recordingMemo: RecordingMemoState?
+
+        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+        fetchRequest.fetchLimit = 1
+
+        // Configure the fetch request with a predicate to match the specified UUID
+        let predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
+        fetchRequest.predicate = predicate
+
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            if let voice = results.first {
+                // Construct your RecordingMemoState object based on the retrieved Voice object
+                return voice
+            }
+        } catch let error {
+            print(error.localizedDescription)
+            Logger.shared.logError("fetch:" + error.localizedDescription)
+        }
+
+    }
+
     func delete(id: UUID) {
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
         // 条件指定
