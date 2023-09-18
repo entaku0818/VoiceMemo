@@ -1,4 +1,5 @@
 import AVFoundation
+import StoreKit
 import ComposableArchitecture
 import Foundation
 import SwiftUI
@@ -208,6 +209,7 @@ struct VoiceMemosView: View {
         }
         .onAppear{
             checkTrackingAuthorizationStatus()
+            requestReview()
         }
         .alert(
           self.store.scope(state: \.alert),
@@ -263,6 +265,12 @@ struct VoiceMemosView: View {
         case .authorized:  break
         @unknown default:  break
             fatalError()
+        }
+    }
+
+    func requestReview() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
         }
     }
 
