@@ -38,6 +38,7 @@
 		61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2228C466E800169FB6 /* AudioPlayer.swift */; };
 		619DC8032A91B7F600738929 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619DC8022A91B7F600738929 /* Env.swift */; };
 		61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */ = {isa = PBXBuildFile; productRef = 61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */; };
+		61A3D8D92AB7DFE9002D8364 /* AboutSimpleRecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */; };
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
 		61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */; };
 		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
@@ -95,6 +96,7 @@
 		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		619DC8012A91B77000738929 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		619DC8022A91B7F600738929 /* Env.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Env.swift; sourceTree = "<group>"; };
+		61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSimpleRecoder.swift; sourceTree = "<group>"; };
 		61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioPCMBuffer+Extention.swift"; sourceTree = "<group>"; };
 		61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobBannerView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				619440C82904014800BF337E /* SettingView.swift */,
+				61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */,
 				619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */,
 				619440CD2904DB2B00BF337E /* SettingNotification.swift */,
 			);
@@ -436,6 +439,7 @@
 			files = (
 				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
 				619440D529059C4000BF337E /* Thema.xcdatamodel in Sources */,
+				61A3D8D92AB7DFE9002D8364 /* AboutSimpleRecoder.swift in Sources */,
 				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
 				614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */,
 				61037A132A47F05800BD196D /* AudioEditingView.swift in Sources */,
@@ -655,9 +659,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.2.7;
+				MARKETING_VERSION = 0.3.2;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
+				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLogDevelop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
@@ -704,7 +708,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.2.7;
+				MARKETING_VERSION = 0.3.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";

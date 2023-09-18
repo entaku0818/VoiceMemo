@@ -64,5 +64,23 @@ class UserDefaultsManager {
         }
     }
 
+    // インストール日を保存するプロパティ
+    var installDate: Date? {
+        get {
+            return defaults.object(forKey: "InstallDate") as? Date
+        }
+        set {
+            defaults.set(newValue, forKey: "InstallDate")
+        }
+    }
 
+    // レビューのリクエストカウントを保存する
+    var reviewRequestCount: Int {
+        get {
+            return defaults.object(forKey: "ReviewRequestCount") as? Int ?? 0
+        }
+        set {
+            defaults.set(newValue, forKey: "ReviewRequestCount")
+        }
+    }
 }
