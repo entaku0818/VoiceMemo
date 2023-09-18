@@ -269,9 +269,25 @@ struct VoiceMemosView: View {
     }
 
     func requestReview() {
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
+        let installDate = UserDefaultsManager.shared.installDate
+        let reviewCount = UserDefaultsManager.shared.reviewRequestCount
+
+        // 初回起動時
+        if let installDate = installDate {
+            let currentDate = Date()
+            if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
+                if interval >= 7 && reviewCount == 0 {
+                    if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                        SKStoreReviewController.requestReview(in: scene)
+                        UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                    }
+                }
+            }
+        }else{
+            UserDefaultsManager.shared.installDate = Date()
+
         }
+
     }
 
     func requestTrackingAuthorization() {
