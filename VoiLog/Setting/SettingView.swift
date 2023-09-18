@@ -70,51 +70,60 @@ struct SettingView: View {
             List {
                 // ...
                 // ...
+                Section(header: Text("音声設定")) {
 
-                NavigationLink(destination: FileFormatView(store: self.store)) {
-                    HStack {
-                        Text("ファイル形式")
-                        Spacer()
-                        Text("\(viewStore.selectedFileFormat)")
+                    NavigationLink(destination: FileFormatView(store: self.store)) {
+                        HStack {
+                            Text("ファイル形式")
+                            Spacer()
+                            Text("\(viewStore.selectedFileFormat)")
+                        }
+                    }
+
+                    NavigationLink(destination: SamplingFrequencyView(store: self.store)) {
+                        HStack {
+                            Text("サンプリング周波数")
+                            Spacer()
+                            Text("\(String(viewStore.samplingFrequency))Hz")
+                        }
+                    }
+
+                    NavigationLink(destination: QuantizationBitDepthView(store: self.store)) {
+                        HStack {
+                            Text("量子化ビット数")
+                            Spacer()
+                            Text("\(viewStore.quantizationBitDepth)bit")
+                        }
+                    }
+#if DEBUG
+
+                    NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
+                        HStack {
+                            Text("チャネル")
+                            Spacer()
+                            Text("\(viewStore.numberOfChannels)")
+                        }
+                    }
+
+
+#endif
+
+                    NavigationLink(destination: MicrophonesVolumeView(store: self.store)) {
+                        HStack {
+                            Text("マイクの音量")
+                            Spacer()
+                            Text("\(Int(viewStore.microphonesVolume))")
+                        }
                     }
                 }
-
-                NavigationLink(destination: SamplingFrequencyView(store: self.store)) {
-                    HStack {
-                        Text("サンプリング周波数")
-                        Spacer()
-                        Text("\(String(viewStore.samplingFrequency))Hz")
+                Section(header: Text("")) {
+                    NavigationLink(destination: AboutSimpleRecoder()) {
+                        HStack {
+                            Text("アプリについて")
+                            Spacer()
+                        }
                     }
                 }
-
-                NavigationLink(destination: QuantizationBitDepthView(store: self.store)) {
-                    HStack {
-                        Text("量子化ビット数")
-                        Spacer()
-                        Text("\(viewStore.quantizationBitDepth)bit")
-                    }
-                }
-            #if DEBUG
-
-                NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
-                    HStack {
-                        Text("チャネル")
-                        Spacer()
-                        Text("\(viewStore.numberOfChannels)")
-                    }
-                }
-
-
-            #endif
-
-                NavigationLink(destination: MicrophonesVolumeView(store: self.store)) {
-                    HStack {
-                        Text("マイクの音量")
-                        Spacer()
-                        Text("\(Int(viewStore.microphonesVolume))")
-                    }
-                }
-
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("設定")
