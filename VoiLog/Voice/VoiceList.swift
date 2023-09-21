@@ -162,7 +162,15 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
 struct VoiceMemosView: View {
   let store: Store<VoiceMemosState, VoiceMemosAction>
 
-    @State private var isDeleteConfirmationPresented = false
+    enum AlertType {
+      case deleted
+        case appInterview
+      case mail
+    }
+    @State private var isPresentedModal = false
+    @State private var alertType: AlertType = .deleted
+    @State private var isMailComposePresented = false
+
     @State private var selectedIndex: Int?
 
     init(store: Store<VoiceMemosState, VoiceMemosAction>) {
@@ -183,7 +191,8 @@ struct VoiceMemosView: View {
                 for index in indexSet {
                     // インデックスを保存して確認アラートを表示
                     selectedIndex = index
-                    isDeleteConfirmationPresented = true
+                    isPresentedModal = true
+                    alertType = .deleted
                 }
 
             }
@@ -209,7 +218,8 @@ struct VoiceMemosView: View {
         }
         .onAppear{
             checkTrackingAuthorizationStatus()
-            requestReview()
+            isPresentedModal = true
+            alertType = .appInterview
         }
         .alert(
           self.store.scope(state: \.alert),
@@ -235,21 +245,49 @@ struct VoiceMemosView: View {
 
         }
       }
-      .alert(isPresented: $isDeleteConfirmationPresented) {
-           Alert(
-               title: Text("削除しますか？"),
-               message: Text("選択した音声を削除しますか？"),
-               primaryButton: .destructive(Text("削除")) {
-                   if let index = selectedIndex {
-                       viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
-                       selectedIndex = nil // インデックスをリセット
-                   }
-               },
-               secondaryButton: .cancel() {
-                   selectedIndex = nil // インデックスをリセット
-               }
-           )
+      .alert(isPresented: $isPresentedModal) {
+          switch alertType {
+
+          case .deleted:
+              Alert(
+                  title: Text("削除しますか？"),
+                  message: Text("選択した音声を削除しますか？"),
+                  primaryButton: .destructive(Text("削除")) {
+                      if let index = selectedIndex {
+                          viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
+                          selectedIndex = nil // インデックスをリセット
+                      }
+                  },
+                  secondaryButton: .cancel() {
+                      selectedIndex = nil // インデックスをリセット
+                  }
+              )
+          case .appInterview:
+              Alert(
+                  title: Text("シンプル録音について"),
+                  message: Text("シンプル録音はいかがですか？"),
+                  primaryButton: .destructive(Text("悪い")) {
+                      alertType = .mail
+                      isPresentedModal = true
+                  },
+                  secondaryButton: .default(Text("良い")) {
+                      requestReview()
+                  }
+              )
+          case .mail:
+              Alert(
+                  title: Text("ご不便かけて申し訳ありません"),
+                  message: Text("ご不便な点をメールでお送りいただけないでしょうか？「はい」を押すとメールアプリが開きます。"),
+                  dismissButton: .default(Text("はい"), action: {
+                      isMailComposePresented = true
+                  })
+              )
+          }
+       }.sheet(isPresented: $isMailComposePresented) {
+           MailComposeViewControllerWrapper(isPresented: $isMailComposePresented)
        }
+
+
       .navigationViewStyle(.stack)
     }
   }
@@ -269,25 +307,9 @@ struct VoiceMemosView: View {
     }
 
     func requestReview() {
-        let installDate = UserDefaultsManager.shared.installDate
-        let reviewCount = UserDefaultsManager.shared.reviewRequestCount
-
-        // 初回起動時
-        if let installDate = installDate {
-            let currentDate = Date()
-            if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
-                if interval >= 7 && reviewCount == 0 {
-                    if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                        SKStoreReviewController.requestReview(in: scene)
-                        UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
-                    }
-                }
-            }
-        }else{
-            UserDefaultsManager.shared.installDate = Date()
-
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
         }
-
     }
 
     func requestTrackingAuthorization() {
