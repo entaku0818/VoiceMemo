@@ -27,6 +27,13 @@ enum VoiceMemosAction: Equatable {
   case recordPermissionResponse(Bool)
   case recordingMemo(RecordingMemoAction)
   case voiceMemo(id: VoiceMemoState.ID, action: VoiceMemoAction)
+  case onAppear
+    case onGoodReview
+    case onBadReview
+    case onAddReview
+
+
+
 }
 
 struct VoiceMemosEnvironment {
@@ -58,6 +65,17 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
     ),
   Reducer { state, action, environment in
     switch action {
+    case .onAppear:
+
+        state.alert = AlertState(
+            title: TextState("シンプル録音について"),
+            message: TextState("シンプル録音に満足していますか？"),
+            primaryButton: AlertState.Button.default(TextState("いいえ"),
+                                                     action: .send(.onGoodReview)),
+            secondaryButton: AlertState.Button.default(
+                    TextState("はい"),
+                    action: .send(.onBadReview)))
+        return .none
     case .alertDismissed:
       state.alert = nil
       return .none
@@ -155,6 +173,30 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
 
     case .voiceMemo:
       return .none
+    case .onAddReview: 
+
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
+        return .none
+
+    case .onGoodReview:
+        state.alert = AlertState(
+            title: TextState("シンプル録音について"),
+            message: TextState("ご利用ありがとうございます！AppStoreでアプリの評価をお願いします。"),
+            dismissButton: AlertState.Button.default(TextState("OK"),
+                                                     action: .send(.onAddReview))
+            )
+        return .none
+    case .onBadReview:
+        state.alert = AlertState(
+            title: TextState("シンプル録音について"),
+            message: TextState("ご利用ありがとうございます！AppleStoreでアプリの評価をお願いします。"),
+            dismissButton: AlertState.Button.default(TextState("OK"),
+                                                     action: .send(.onBadReview))
+            )
+        return .none
+
     }
   }
 )
@@ -167,9 +209,8 @@ struct VoiceMemosView: View {
         case appInterview
       case mail
     }
-    @State private var isPresentedModal = false
-    @State private var alertType: AlertType = .deleted
-    @State private var isMailComposePresented = false
+    @State private var isDeleteConfirmationPresented = false
+
 
     @State private var selectedIndex: Int?
 
@@ -191,8 +232,7 @@ struct VoiceMemosView: View {
                 for index in indexSet {
                     // インデックスを保存して確認アラートを表示
                     selectedIndex = index
-                    isPresentedModal = true
-                    alertType = .deleted
+                    isDeleteConfirmationPresented = true
                 }
 
             }
@@ -218,13 +258,27 @@ struct VoiceMemosView: View {
         }
         .onAppear{
             checkTrackingAuthorizationStatus()
-            isPresentedModal = true
-            alertType = .appInterview
+            viewStore.send(.onAppear)
         }
         .alert(
           self.store.scope(state: \.alert),
           dismiss: .alertDismissed
         )
+        .alert(isPresented: $isDeleteConfirmationPresented) {
+            Alert(
+                title: Text("削除しますか？"),
+                message: Text("選択した音声を削除しますか？"),
+                primaryButton: .destructive(Text("削除")) {
+                    if let index = selectedIndex {
+                        viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
+                        selectedIndex = nil // インデックスをリセット
+                    }
+                },
+                secondaryButton: .cancel() {
+                    selectedIndex = nil // インデックスをリセット
+                }
+            )
+        }
         .navigationTitle("シンプル録音")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -245,47 +299,7 @@ struct VoiceMemosView: View {
 
         }
       }
-      .alert(isPresented: $isPresentedModal) {
-          switch alertType {
 
-          case .deleted:
-              Alert(
-                  title: Text("削除しますか？"),
-                  message: Text("選択した音声を削除しますか？"),
-                  primaryButton: .destructive(Text("削除")) {
-                      if let index = selectedIndex {
-                          viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
-                          selectedIndex = nil // インデックスをリセット
-                      }
-                  },
-                  secondaryButton: .cancel() {
-                      selectedIndex = nil // インデックスをリセット
-                  }
-              )
-          case .appInterview:
-              Alert(
-                  title: Text("シンプル録音について"),
-                  message: Text("シンプル録音はいかがですか？"),
-                  primaryButton: .destructive(Text("悪い")) {
-                      alertType = .mail
-                      isPresentedModal = true
-                  },
-                  secondaryButton: .default(Text("良い")) {
-                      requestReview()
-                  }
-              )
-          case .mail:
-              Alert(
-                  title: Text("ご不便かけて申し訳ありません"),
-                  message: Text("ご不便な点をメールでお送りいただけないでしょうか？「はい」を押すとメールアプリが開きます。"),
-                  dismissButton: .default(Text("はい"), action: {
-                      isMailComposePresented = true
-                  })
-              )
-          }
-       }.sheet(isPresented: $isMailComposePresented) {
-           MailComposeViewControllerWrapper(isPresented: $isMailComposePresented)
-       }
 
 
       .navigationViewStyle(.stack)
@@ -306,11 +320,6 @@ struct VoiceMemosView: View {
         }
     }
 
-    func requestReview() {
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
-        }
-    }
 
     func requestTrackingAuthorization() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
