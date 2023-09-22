@@ -16,6 +16,7 @@
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
 		614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */; };
+		6167A4762ABC7FA30052945F /* MailComposeViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */; };
 		6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408728F308C400BF337E /* FirebaseAnalytics */; };
 		6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408928F308C400BF337E /* FirebaseAnalyticsSwift */; };
 		6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408B28F308C400BF337E /* FirebaseCrashlytics */; };
@@ -74,6 +75,7 @@
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeViewControllerWrapper.swift; sourceTree = "<group>"; };
 		619440C82904014800BF337E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVoiceQuestionView.swift; sourceTree = "<group>"; };
 		619440CD2904DB2B00BF337E /* SettingNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingNotification.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				61979A2028C466C500169FB6 /* VoiceMemoView.swift */,
 				610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */,
 				61037A122A47F05800BD196D /* AudioEditingView.swift */,
+				6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */,
 			);
 			path = Voice;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoiceMemoView.swift in Sources */,
 				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
+				6167A4762ABC7FA30052945F /* MailComposeViewControllerWrapper.swift in Sources */,
 				619DC8032A91B7F600738929 /* Env.swift in Sources */,
 				619440CE2904DB2B00BF337E /* SettingNotification.swift in Sources */,
 				619440CC290404BD00BF337E /* SettingVoiceQuestionView.swift in Sources */,
@@ -659,7 +663,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.3.2;
+				MARKETING_VERSION = 0.3.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLogDevelop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -708,7 +712,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.3.2;
+				MARKETING_VERSION = 0.3.3;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -732,7 +736,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemoTests;
@@ -755,7 +759,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiceMemoTests;

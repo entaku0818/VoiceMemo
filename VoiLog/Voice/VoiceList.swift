@@ -12,6 +12,7 @@ struct VoiceMemosState: Equatable {
   var audioRecorderPermission = RecorderPermission.undetermined
   var recordingMemo: RecordingMemoState?
   var voiceMemos: IdentifiedArrayOf<VoiceMemoState> = []
+    var isMailComposePresented:Bool = false
 
   enum RecorderPermission {
     case allowed
@@ -27,6 +28,13 @@ enum VoiceMemosAction: Equatable {
   case recordPermissionResponse(Bool)
   case recordingMemo(RecordingMemoAction)
   case voiceMemo(id: VoiceMemoState.ID, action: VoiceMemoAction)
+  case onAppear
+    case onGoodReview
+    case onBadReview
+    case onAddReview
+    case onMailTap
+
+
 }
 
 struct VoiceMemosEnvironment {
@@ -57,112 +65,177 @@ let voiceMemosReducer = Reducer<VoiceMemosState, VoiceMemosAction, VoiceMemosEnv
       }
     ),
   Reducer { state, action, environment in
-    switch action {
-    case .alertDismissed:
-      state.alert = nil
-      return .none
+      switch action {
+      case .onAppear:
 
-    case .openSettingsButtonTapped:
-      return .fireAndForget {
-        await environment.openSettings()
-      }
+              let installDate = UserDefaultsManager.shared.installDate
+              let reviewCount = UserDefaultsManager.shared.reviewRequestCount
 
-    case .recordButtonTapped:
-      switch state.audioRecorderPermission {
-      case .undetermined:
-        return .task {
-          await .recordPermissionResponse(environment.audioRecorder.requestRecordPermission())
-        }
+              // 初回起動時
+              if let installDate = installDate {
+                  let currentDate = Date()
+                  if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
+                      if interval >= 7 && reviewCount == 0 {
+                          if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                              state.alert = AlertState(
+                                title: TextState("シンプル録音について"),
+                                message: TextState("シンプル録音に満足していますか？"),
+                                primaryButton: AlertState.Button.default(TextState("いいえ"),
+                                                                         action: .send(.onBadReview)),
+                                secondaryButton: AlertState.Button.default(
+                                    TextState("はい"),
+                                    action: .send(.onGoodReview)))
+                              UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                          }
+                      }
+                  }
+              }else{
+                  UserDefaultsManager.shared.installDate = Date()
+              }
 
-      case .denied:
-        state.alert = AlertState(title: TextState("Permission is required to record voice memos."))
-        return .none
 
-      case .allowed:
-          state.recordingMemo = RecordingMemoState.init(
-            date: environment.mainRunLoop.now.date,
-            url: environment.temporaryDirectory()
-                .appendingPathComponent(environment.uuid().uuidString)
-                .appendingPathExtension("m4a"),
-            duration: 0
-          )
-        return .none
-      }
+          return .none
+      case .alertDismissed:
 
-    case let .recordingMemo(.delegate(.didFinish(.success(recordingMemo)))):
-      state.recordingMemo = nil
+          return .none
 
-      let voiceRepository = VoiceMemoRepository()
-        voiceRepository.insert(state: recordingMemo)
+      case .openSettingsButtonTapped:
+          return .fireAndForget {
+              await environment.openSettings()
+          }
+
+      case .recordButtonTapped:
+          switch state.audioRecorderPermission {
+          case .undetermined:
+              return .task {
+                  await .recordPermissionResponse(environment.audioRecorder.requestRecordPermission())
+              }
+
+          case .denied:
+              state.alert = AlertState(title: TextState("Permission is required to record voice memos."))
+              return .none
+
+          case .allowed:
+              state.recordingMemo = RecordingMemoState.init(
+                date: environment.mainRunLoop.now.date,
+                url: environment.temporaryDirectory()
+                    .appendingPathComponent(environment.uuid().uuidString)
+                    .appendingPathExtension("m4a"),
+                duration: 0
+              )
+              return .none
+          }
+
+      case let .recordingMemo(.delegate(.didFinish(.success(recordingMemo)))):
+          state.recordingMemo = nil
+
+          let voiceRepository = VoiceMemoRepository()
+          voiceRepository.insert(state: recordingMemo)
           state.voiceMemos.insert(
             VoiceMemoState(
                 uuid: recordingMemo.uuid,
                 date: recordingMemo.date,
                 duration: recordingMemo.duration, time: 0,
-              url: recordingMemo.url,
-              text: recordingMemo.resultText,
+                url: recordingMemo.url,
+                text: recordingMemo.resultText,
                 fileFormat: recordingMemo.fileFormat,
                 samplingFrequency: recordingMemo.samplingFrequency,
                 quantizationBitDepth: recordingMemo.quantizationBitDepth,
                 numberOfChannels: recordingMemo.numberOfChannels
-                
+
             ),
             at: 0
           )
-      return .none
+          return .none
 
-    case .recordingMemo(.delegate(.didFinish(.failure))):
-      state.alert = AlertState(title: TextState("Voice memo recording failed."))
-      state.recordingMemo = nil
-      return .none
+      case .recordingMemo(.delegate(.didFinish(.failure))):
+          state.alert = AlertState(title: TextState("Voice memo recording failed."))
+          state.recordingMemo = nil
+          return .none
 
-    case .recordingMemo:
-      return .none
+      case .recordingMemo:
+          return .none
 
-    case let .recordPermissionResponse(permission):
-      state.audioRecorderPermission = permission ? .allowed : .denied
-      if permission {
-        state.recordingMemo = RecordingMemoState(
-          date: environment.mainRunLoop.now.date,
-           url: environment.temporaryDirectory()
-            .appendingPathComponent(environment.uuid().uuidString)
-            .appendingPathExtension("m4a"),
-          duration: 0
-        )
-        return .none
-      } else {
-        state.alert = AlertState(title: TextState("Permission is required to record voice memos."))
-        return .none
+      case let .recordPermissionResponse(permission):
+          state.audioRecorderPermission = permission ? .allowed : .denied
+          if permission {
+              state.recordingMemo = RecordingMemoState(
+                date: environment.mainRunLoop.now.date,
+                url: environment.temporaryDirectory()
+                    .appendingPathComponent(environment.uuid().uuidString)
+                    .appendingPathExtension("m4a"),
+                duration: 0
+              )
+              return .none
+          } else {
+              state.alert = AlertState(title: TextState("Permission is required to record voice memos."))
+              return .none
+          }
+
+      case .voiceMemo(id: _, action: .audioPlayerClient(.failure)):
+          state.alert = AlertState(title: TextState("Voice memo playback failed."))
+          return .none
+
+      case let .voiceMemo(id: id, action: .delete):
+          if let uuid = state.voiceMemos[id: id]?.uuid {
+              VoiceMemoRepository.shared.delete(id: uuid)
+          }
+          state.voiceMemos.remove(id: id)
+
+          return .none
+
+      case let .voiceMemo(id: tappedId, action: .playButtonTapped):
+          for id in state.voiceMemos.ids where id != tappedId {
+              state.voiceMemos[id: id]?.mode = .notPlaying
+          }
+          return .none
+
+      case .voiceMemo:
+          return .none
+      case .onAddReview:
+
+          if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+              SKStoreReviewController.requestReview(in: scene)
+          }
+          return .none
+
+      case .onGoodReview:
+          state.alert = AlertState(
+            title: TextState("シンプル録音について"),
+            message: TextState("ご利用ありがとうございます！次の画面でアプリの評価をお願いします。"),
+            dismissButton: AlertState.Button.default(TextState("OK"),
+                                                     action: .send(.onAddReview))
+          )
+          return .none
+      case .onBadReview:
+          state.alert = AlertState(
+            title: TextState("ご不便かけて申し訳ありません"),
+            message: TextState("次の画面のメールにて詳細に状況を教えてください。"),
+            dismissButton: AlertState.Button.default(TextState("OK"),
+                                                     action: .send(.onMailTap))
+          )
+          return .none
+
+
+      case .onMailTap:
+          state.alert = nil
+          state.isMailComposePresented.toggle()
+          return .none
       }
-
-    case .voiceMemo(id: _, action: .audioPlayerClient(.failure)):
-      state.alert = AlertState(title: TextState("Voice memo playback failed."))
-      return .none
-
-    case let .voiceMemo(id: id, action: .delete):
-        if let uuid = state.voiceMemos[id: id]?.uuid {
-            VoiceMemoRepository.shared.delete(id: uuid)
-        }
-      state.voiceMemos.remove(id: id)
-
-      return .none
-
-    case let .voiceMemo(id: tappedId, action: .playButtonTapped):
-      for id in state.voiceMemos.ids where id != tappedId {
-        state.voiceMemos[id: id]?.mode = .notPlaying
-      }
-      return .none
-
-    case .voiceMemo:
-      return .none
-    }
   }
 )
 
 struct VoiceMemosView: View {
   let store: Store<VoiceMemosState, VoiceMemosAction>
 
+    enum AlertType {
+      case deleted
+        case appInterview
+      case mail
+    }
     @State private var isDeleteConfirmationPresented = false
+
+
     @State private var selectedIndex: Int?
 
     init(store: Store<VoiceMemosState, VoiceMemosAction>) {
@@ -209,12 +282,30 @@ struct VoiceMemosView: View {
         }
         .onAppear{
             checkTrackingAuthorizationStatus()
-            requestReview()
+            viewStore.send(.onAppear)
         }
         .alert(
           self.store.scope(state: \.alert),
           dismiss: .alertDismissed
         )
+        .alert(isPresented: $isDeleteConfirmationPresented) {
+            Alert(
+                title: Text("削除しますか？"),
+                message: Text("選択した音声を削除しますか？"),
+                primaryButton: .destructive(Text("削除")) {
+                    if let index = selectedIndex {
+                        viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
+                        selectedIndex = nil // インデックスをリセット
+                    }
+                },
+                secondaryButton: .cancel() {
+                    selectedIndex = nil // インデックスをリセット
+                }
+            )
+        }
+        .sheet(isPresented: viewStore.binding(get: { $0.isMailComposePresented }, send: .onMailTap)) {
+            MailComposeViewControllerWrapper(isPresented:viewStore.binding(get: { $0.isMailComposePresented }, send: .alertDismissed) )
+        }
         .navigationTitle("シンプル録音")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -231,25 +322,8 @@ struct VoiceMemosView: View {
                 }
 
             }
-
-
         }
       }
-      .alert(isPresented: $isDeleteConfirmationPresented) {
-           Alert(
-               title: Text("削除しますか？"),
-               message: Text("選択した音声を削除しますか？"),
-               primaryButton: .destructive(Text("削除")) {
-                   if let index = selectedIndex {
-                       viewStore.send(.voiceMemo(id: viewStore.voiceMemos[index].id, action: .delete))
-                       selectedIndex = nil // インデックスをリセット
-                   }
-               },
-               secondaryButton: .cancel() {
-                   selectedIndex = nil // インデックスをリセット
-               }
-           )
-       }
       .navigationViewStyle(.stack)
     }
   }
@@ -268,27 +342,6 @@ struct VoiceMemosView: View {
         }
     }
 
-    func requestReview() {
-        let installDate = UserDefaultsManager.shared.installDate
-        let reviewCount = UserDefaultsManager.shared.reviewRequestCount
-
-        // 初回起動時
-        if let installDate = installDate {
-            let currentDate = Date()
-            if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
-                if interval >= 7 && reviewCount == 0 {
-                    if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                        SKStoreReviewController.requestReview(in: scene)
-                        UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
-                    }
-                }
-            }
-        }else{
-            UserDefaultsManager.shared.installDate = Date()
-
-        }
-
-    }
 
     func requestTrackingAuthorization() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
