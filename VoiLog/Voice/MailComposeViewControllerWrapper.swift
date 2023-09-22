@@ -19,7 +19,12 @@ struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
         }
 
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-            isPresented = false
+            switch result {
+            case .cancelled: // キャンセルボタンが押された場合
+                isPresented = false // シートを閉じる
+            default:
+                break
+            }
         }
     }
 
