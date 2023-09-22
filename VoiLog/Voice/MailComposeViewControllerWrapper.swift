@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MessageUI
+import UIKit
 
 struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
@@ -19,12 +20,8 @@ struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
         }
 
         func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-            switch result {
-            case .cancelled: // キャンセルボタンが押された場合
-                isPresented = false // シートを閉じる
-            default:
-                break
-            }
+            isPresented = false
+            controller.dismiss(animated: true, completion: nil)
         }
     }
 
@@ -35,9 +32,26 @@ struct MailComposeViewControllerWrapper: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> MFMailComposeViewController {
         let viewController = MFMailComposeViewController()
         viewController.mailComposeDelegate = context.coordinator
-        viewController.setToRecipients(["entaku19890818@gmail.com"]) // 宛先メールアドレスを設定
-        viewController.setSubject("メールの件名") // メールの件名を設定
-        viewController.setMessageBody("メールの本文", isHTML: false) // メールの本文を設定
+        viewController.setToRecipients(["entaku19890818@gmail.com"])
+        viewController.setSubject("シンプル録音 問い合わせ - iOS")
+
+        // iOSバージョンを取得
+        let iOSVersion = UIDevice.current.systemVersion
+
+        // アプリのバージョンを取得
+        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            let mailBody = """
+
+
+
+            [iOS: \(iOSVersion)  バージョン: \(appVersion)]
+
+            """
+            viewController.setMessageBody(mailBody, isHTML: false)
+        } else {
+            viewController.setMessageBody("", isHTML: false)
+        }
+
         return viewController
     }
 
