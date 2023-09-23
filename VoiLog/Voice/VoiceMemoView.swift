@@ -17,18 +17,28 @@ struct VoiceMemoEnvironment {
   var mainRunLoop: AnySchedulerOf<RunLoop>
 }
 
+
+// TODO: iOS16切るか考える
+@available(iOS 16.0.0, *)
 struct VoiceMemoReducer: Reducer {
     enum Action: Equatable {
         case audioPlayerClient(TaskResult<Bool>)
+        case delegate(Delegate)
         case delete
         case playButtonTapped
         case timerUpdated(TimeInterval)
         case titleTextFieldChanged(String)
         case loadWaveformData
+
+        enum Delegate {
+          case playbackStarted
+          case playbackFailed
+        }
     }
 
     private enum CancelID { case play }
-
+    @Dependency(\.audioPlayer) var audioPlayer
+    @Dependency(\.continuousClock) var clock
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         enum PlayID {}
@@ -37,35 +47,39 @@ struct VoiceMemoReducer: Reducer {
             // 停止時の処理
             state.time = 0.0
           state.mode = .notPlaying
-          return .cancel(id: PlayID.self)
+        return .cancel(id: CancelID.play)
 
         case .delete:
-          return .cancel(id: PlayID.self)
+            return .cancel(id: CancelID.play)
 
         case .playButtonTapped:
           switch state.mode {
           case .notPlaying:
               print("audioPlayer:" + String(state.time))
 
-              state.mode = .playing(progress: state.time)
-              return .run { [url = state.url,time = state.time,duration = state.duration] send in
-              let start = environment.mainRunLoop.now
+              state.mode = .playing(progress: 0)
 
-              async let playAudio: Void = send(
-                  .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url, time) })
-              )
+              return .run { [url = state.url,time = state.time] send in
+                await send(.delegate(.playbackStarted))
 
-              for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
+                async let playAudio: Void = send(
+                    .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time) })
+                )
 
-                  let timer = time + tick.date.timeIntervalSince(start.date) > duration ? duration : time + tick.date.timeIntervalSince(start.date)
-                  await send(.timerUpdated(timer))
+                var start: TimeInterval = 0
+                for await _ in self.clock.timer(interval: .milliseconds(500)) {
+                  start += 0.5
+                  await send(.timerUpdated(start))
+                }
+
+                await playAudio
               }
-            }
-            .cancellable(id: PlayID.self, cancelInFlight: true)
+              .cancellable(id: CancelID.play, cancelInFlight: true)
+
 
           case .playing:
             state.mode = .notPlaying
-            return .cancel(id: PlayID.self)
+              return .cancel(id: CancelID.play)
           }
 
         case let .timerUpdated(time):
@@ -90,6 +104,8 @@ struct VoiceMemoReducer: Reducer {
             let (newWaveformData, newTotalDuration) = waveformAnalyzer.analyze()
             state.waveformData = newWaveformData
             return .none
+        case .delegate:
+          return .none
         }
     }
 
