@@ -10,16 +10,6 @@ import Foundation
 import SwiftUI
 
 
-
-
-struct VoiceMemoEnvironment {
-  var audioPlayer: AudioPlayerClient
-  var mainRunLoop: AnySchedulerOf<RunLoop>
-}
-
-
-// TODO: iOS16切るか考える
-@available(iOS 16.0.0, *)
 struct VoiceMemoReducer: Reducer {
     enum Action: Equatable {
         case audioPlayerClient(TaskResult<Bool>)
@@ -151,11 +141,11 @@ struct VoiceMemoReducer: Reducer {
 
 
 struct VoiceMemoView: View {
-  let store: Store<VoiceMemoState, VoiceMemoAction>
+    let store: StoreOf<VoiceMemoReducer>
   @State private var showingModal = false
 
   var body: some View {
-    WithViewStore(store) { viewStore in
+      WithViewStore(self.store, observe: { $0 }) { viewStore in
         let currentTime = viewStore.duration
             NavigationLink {
                 VoiceMemoDetail(store: store)
@@ -235,25 +225,26 @@ struct VoiceMemoView: View {
 
 struct VoiceMemoView_Previews: PreviewProvider {
   static var previews: some View {
-    let store = Store(initialState: VoiceMemoState(
-                        uuid: UUID(),
-                        date: Date(),
-                        duration: 180, time: 0,
-                        mode: .notPlaying,
-                        title: "Untitled",
-                        url: URL(fileURLWithPath: ""),
-                        text: "",
-                        fileFormat: "WAV",
-                        samplingFrequency: 44100.0,
-                        quantizationBitDepth: 16,
-                        numberOfChannels: 1
-                    ),
-                    reducer: voiceMemoReducer,
-                    environment: VoiceMemoEnvironment(
-                        audioPlayer: .mock,
-                        mainRunLoop: .main
-                    )
-                )
-    return VoiceMemoView(store: store)
+      return VoiceMemoView(
+        store: Store(
+          initialState: VoiceMemoReducer.State(
+              uuid: UUID(),
+              date: Date(),
+              duration: 180,
+              time: 0,
+              mode: .notPlaying,
+              title: "",
+              url: URL(fileURLWithPath: ""),
+              text: "",
+              fileFormat: "",
+              samplingFrequency: 0.0,
+              quantizationBitDepth: 0,
+              numberOfChannels: 0
+          )
+        ) {
+            VoiceMemoReducer()
+        }
+      )
+
   }
 }
