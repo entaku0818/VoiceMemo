@@ -9,17 +9,19 @@ import SwiftUI
 import ComposableArchitecture
 
 struct VoiceMemoDetail: View {
-  let store: Store<VoiceMemoState, VoiceMemoAction>
+    let store: StoreOf<VoiceMemoReducer>
+
     @Environment(\.presentationMode) var presentationMode
 
   var body: some View {
-      WithViewStore(store) { viewStore in
-          let currentTime = viewStore.time == 0 ? viewStore.duration : viewStore.time
+      WithViewStore(self.store, observe: { $0 }) { viewStore in
+
           VStack {
               TextField(
                   "名称未設定", // プレースホルダーのテキストを指定
-                  text: viewStore.binding(get: \.title,
-                                          send: { .titleTextFieldChanged($0) })
+                  text: viewStore.binding(
+                    get: \.title,
+                    send: VoiceMemoReducer.Action.titleTextFieldChanged)
               ).font(.system(size: 18))
                   .padding()
                   .overlay(
@@ -34,7 +36,8 @@ struct VoiceMemoDetail: View {
                           .foregroundColor(Color(.systemGray))
                   }
                   Spacer()
-                  dateComponentsFormatter.string(from: currentTime).map {
+
+                  dateComponentsFormatter.string(from: viewStore.time == 0 ? viewStore.duration : viewStore.time).map {
                       Text($0)
                           .font(.footnote.monospacedDigit())
                           .foregroundColor(Color(.systemGray))
@@ -54,12 +57,9 @@ struct VoiceMemoDetail: View {
                   .accentColor(Color.gray) 
                   .padding()
 
-              let recordingStore = Store(initialState: RecordingMemoState(from: viewStore.state), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
-                                                                                     )
-              )
 
 
-//              AudioEditingView(store: store,audioURL: viewStore.url)
+
 
               ScrollView {
                   Text(viewStore.text)
@@ -102,26 +102,27 @@ struct VoiceMemoDetail: View {
 
 struct VoiceDetail_Previews: PreviewProvider {
     static var previews: some View {
-        let store = Store(initialState: VoiceMemoState(
-                            uuid: UUID(),
-                            date: Date(),
-                            duration: 180,
-                            time: 0,
-                            mode: .notPlaying,
-                            title: "",
-                            url: URL(fileURLWithPath: ""),
-                            text: "",
-                            fileFormat: "",
-                            samplingFrequency: 0.0,
-                            quantizationBitDepth: 0,
-                            numberOfChannels: 0
-                        ),
-                        reducer: voiceMemoReducer,
-                        environment: VoiceMemoEnvironment(
-                            audioPlayer: .mock,
-                            mainRunLoop: .main
-                        )
-                    )
-        VoiceMemoDetail(store: store)
+
+        VoiceMemoDetail(
+          store: Store(
+            initialState: VoiceMemoReducer.State(
+                uuid: UUID(),
+                date: Date(),
+                duration: 180,
+                time: 0,
+                mode: .notPlaying,
+                title: "",
+                url: URL(fileURLWithPath: ""),
+                text: "",
+                fileFormat: "",
+                samplingFrequency: 0.0,
+                quantizationBitDepth: 0,
+                numberOfChannels: 0
+            )
+          ) {
+              VoiceMemoReducer()
+          }
+        )
+
     }
 }
