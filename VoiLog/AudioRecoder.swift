@@ -22,6 +22,47 @@ struct AudioRecorderClient {
     var insertAudio: @Sendable (TimeInterval, URL, URL) async throws -> Bool
 }
 
+extension AudioRecorderClient: TestDependencyKey {
+  static var previewValue: Self {
+    let isRecording = ActorIsolated(false)
+    let currentTime = ActorIsolated(0.0)
+
+    return Self(
+      currentTime: { await currentTime.value },
+      requestRecordPermission: { true },
+      startRecording: { _ in
+        await isRecording.setValue(true)
+        while await isRecording.value {
+          try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+          await currentTime.withValue { $0 += 1 }
+        }
+        return true
+      },
+      stopRecording: {
+        await isRecording.setValue(false)
+        await currentTime.setValue(0)
+      }
+    )
+  }
+
+  static let testValue = Self(
+    currentTime: unimplemented("\(Self.self).currentTime", placeholder: nil),
+    requestRecordPermission: unimplemented(
+      "\(Self.self).requestRecordPermission", placeholder: false
+    ),
+    startRecording: unimplemented("\(Self.self).startRecording", placeholder: false),
+    stopRecording: unimplemented("\(Self.self).stopRecording")
+  )
+}
+
+extension DependencyValues {
+  var audioRecorder: AudioRecorderClient {
+    get { self[AudioRecorderClient.self] }
+    set { self[AudioRecorderClient.self] = newValue }
+  }
+}
+
+
 extension AudioRecorderClient {
   static var live: Self {
     let audioRecorder = AudioRecorder()
