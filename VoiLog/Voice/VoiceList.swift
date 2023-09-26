@@ -6,6 +6,135 @@ import AppTrackingTransparency
 import GoogleMobileAds
 
 
+
+
+struct VoiceMemos: Reducer {
+  struct State: Equatable {
+    @PresentationState var alert: AlertState<AlertAction>?
+    var audioRecorderPermission = RecorderPermission.undetermined
+    @PresentationState var recordingMemo: RecordingMemo.State?
+    var voiceMemos: IdentifiedArrayOf<VoiceMemo.State> = []
+
+    enum RecorderPermission {
+      case allowed
+      case denied
+      case undetermined
+    }
+  }
+
+  enum Action: Equatable {
+    case alert(PresentationAction<AlertAction>)
+    case onDelete(IndexSet)
+    case openSettingsButtonTapped
+    case recordButtonTapped
+    case recordPermissionResponse(Bool)
+    case recordingMemo(PresentationAction<RecordingMemo.Action>)
+    case voiceMemos(id: VoiceMemo.State.ID, action: VoiceMemo.Action)
+  }
+
+  enum AlertAction: Equatable {}
+
+  @Dependency(\.audioRecorder.requestRecordPermission) var requestRecordPermission
+  @Dependency(\.date) var date
+  @Dependency(\.openSettings) var openSettings
+  @Dependency(\.temporaryDirectory) var temporaryDirectory
+  @Dependency(\.uuid) var uuid
+
+  var body: some Reducer<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .alert:
+        return .none
+
+      case let .onDelete(indexSet):
+        state.voiceMemos.remove(atOffsets: indexSet)
+        return .none
+
+      case .openSettingsButtonTapped:
+        return .run { _ in
+          await self.openSettings()
+        }
+
+      case .recordButtonTapped:
+        switch state.audioRecorderPermission {
+        case .undetermined:
+          return .run { send in
+            await send(.recordPermissionResponse(self.requestRecordPermission()))
+          }
+
+        case .denied:
+          state.alert = AlertState { TextState("Permission is required to record voice memos.") }
+          return .none
+
+        case .allowed:
+          state.recordingMemo = newRecordingMemo
+          return .none
+        }
+
+      case let .recordingMemo(.presented(.delegate(.didFinish(.success(recordingMemo))))):
+        state.recordingMemo = nil
+        state.voiceMemos.insert(
+          VoiceMemo.State(
+            date: recordingMemo.date,
+            duration: recordingMemo.duration,
+            url: recordingMemo.url
+          ),
+          at: 0
+        )
+        return .none
+
+      case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
+        state.alert = AlertState { TextState("Voice memo recording failed.") }
+        state.recordingMemo = nil
+        return .none
+
+      case .recordingMemo:
+        return .none
+
+      case let .recordPermissionResponse(permission):
+        state.audioRecorderPermission = permission ? .allowed : .denied
+        if permission {
+          state.recordingMemo = newRecordingMemo
+          return .none
+        } else {
+          state.alert = AlertState { TextState("Permission is required to record voice memos.") }
+          return .none
+        }
+
+      case let .voiceMemos(id: id, action: .delegate(delegateAction)):
+        switch delegateAction {
+        case .playbackFailed:
+          state.alert = AlertState { TextState("Voice memo playback failed.") }
+          return .none
+        case .playbackStarted:
+          for memoID in state.voiceMemos.ids where memoID != id {
+            state.voiceMemos[id: memoID]?.mode = .notPlaying
+          }
+          return .none
+        }
+
+      case .voiceMemos:
+        return .none
+      }
+    }
+    .ifLet(\.$alert, action: /Action.alert)
+    .ifLet(\.$recordingMemo, action: /Action.recordingMemo) {
+      RecordingMemo()
+    }
+    .forEach(\.voiceMemos, action: /Action.voiceMemos) {
+      VoiceMemo()
+    }
+  }
+
+  private var newRecordingMemo: RecordingMemo.State {
+    RecordingMemo.State(
+      date: self.date.now,
+      url: self.temporaryDirectory()
+        .appendingPathComponent(self.uuid().uuidString)
+        .appendingPathExtension("m4a")
+    )
+  }
+}
 struct VoiceMemosState: Equatable {
   var alert: AlertState<VoiceMemosAction>?
   var audioRecorderPermission = RecorderPermission.undetermined
