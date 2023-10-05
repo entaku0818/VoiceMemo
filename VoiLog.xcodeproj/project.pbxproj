@@ -69,13 +69,14 @@
 		61037A122A47F05800BD196D /* AudioEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEditingView.swift; sourceTree = "<group>"; };
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
-		611A244B2A83DB9800F68D7D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		611A24512A83DBEC00F68D7D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeViewControllerWrapper.swift; sourceTree = "<group>"; };
+		618C67D62AC9BA250006DA74 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		618C67D72AC9BA380006DA74 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		618C67D82AC9BA380006DA74 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		619440C82904014800BF337E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVoiceQuestionView.swift; sourceTree = "<group>"; };
 		619440CD2904DB2B00BF337E /* SettingNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingNotification.swift; sourceTree = "<group>"; };
@@ -359,12 +360,13 @@
 			};
 			buildConfigurationList = 619799DD28C34A2500169FB6 /* Build configuration list for PBXProject "VoiLog" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = ja;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 				ja,
+				es,
 			);
 			mainGroup = 619799D928C34A2500169FB6;
 			packageReferences = (
@@ -503,7 +505,7 @@
 		611A244C2A83DB9800F68D7D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				611A244B2A83DB9800F68D7D /* ja */,
+				618C67D72AC9BA380006DA74 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -511,7 +513,8 @@
 		611A24522A83DBEC00F68D7D /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				611A24512A83DBEC00F68D7D /* en */,
+				618C67D62AC9BA250006DA74 /* es */,
+				618C67D82AC9BA380006DA74 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
