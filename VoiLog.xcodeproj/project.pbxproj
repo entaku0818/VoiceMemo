@@ -77,6 +77,7 @@
 		618C67D62AC9BA250006DA74 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D72AC9BA380006DA74 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D82AC9BA380006DA74 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		618EE5B12ACE364C00DD8C3D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		619440C82904014800BF337E /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingVoiceQuestionView.swift; sourceTree = "<group>"; };
 		619440CD2904DB2B00BF337E /* SettingNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingNotification.swift; sourceTree = "<group>"; };
@@ -367,6 +368,7 @@
 				Base,
 				ja,
 				es,
+				de,
 			);
 			mainGroup = 619799D928C34A2500169FB6;
 			packageReferences = (
@@ -506,6 +508,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				618C67D72AC9BA380006DA74 /* en */,
+				618EE5B12ACE364C00DD8C3D /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -666,7 +669,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.3.3;
+				MARKETING_VERSION = 0.3.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLogDevelop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -715,7 +718,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.3.3;
+				MARKETING_VERSION = 0.3.5;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
