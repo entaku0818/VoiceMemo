@@ -246,6 +246,7 @@ struct VoiceMemosView: View {
     WithViewStore(self.store) { viewStore in
       NavigationView {
         VStack {
+        AdmobBannerView().frame(width: .infinity, height: 50)
           List {
             ForEachStore(
               self.store.scope(state: \.voiceMemos, action: { .voiceMemo(id: $0, action: $1) })
@@ -261,7 +262,6 @@ struct VoiceMemosView: View {
 
             }
           }
-          AdmobBannerView().frame(width: .infinity, height: 50)
 
           IfLetStore(
             self.store.scope(state: \.recordingMemo, action: { .recordingMemo($0) })
