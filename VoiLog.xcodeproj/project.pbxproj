@@ -11,6 +11,7 @@
 		610A144E2A46EB0F00CB88AA /* VoiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */; };
 		611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A244C2A83DB9800F68D7D /* InfoPlist.strings */; };
 		611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A24522A83DBEC00F68D7D /* InfoPlist.strings */; };
+		6124A0222ADAAE2C009444EA /* DependencyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124A0212ADAAE2C009444EA /* DependencyValues.swift */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */; };
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
@@ -65,6 +66,7 @@
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
 		611A244B2A83DB9800F68D7D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		611A24512A83DBEC00F68D7D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6124A0212ADAAE2C009444EA /* DependencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyValues.swift; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				61979A1E28C4646200169FB6 /* VoiceList.swift */,
 				61979A2028C466C500169FB6 /* VoiceMemoView.swift */,
 				610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */,
+				6124A0212ADAAE2C009444EA /* DependencyValues.swift */,
 			);
 			path = Voice;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6124A0222ADAAE2C009444EA /* DependencyValues.swift in Sources */,
 				61979A1628C3510000169FB6 /* VoiceMemo.swift in Sources */,
 				619440D529059C4000BF337E /* Thema.xcdatamodel in Sources */,
 				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
