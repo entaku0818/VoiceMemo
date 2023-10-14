@@ -21,10 +21,43 @@ struct AdmobBannerView: UIViewRepresentable {
         view.adUnitID = ProcessInfo.processInfo.environment["ADMOB_APP_ID"]
         #endif
         view.rootViewController = UIApplication.shared.windows.first?.rootViewController
+        view.delegate = context.coordinator
         view.load(GADRequest())
         return view
     }
 
     func updateUIView(_ uiView: GADBannerView, context: Context) {
+    }
+
+    // Adding the Coordinator for delegate handling
+     func makeCoordinator() -> Coordinator {
+         Coordinator()
+     }
+
+    class Coordinator: NSObject, GADBannerViewDelegate {
+
+        // 広告受信時
+        func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+            print("adUnitID: \(bannerView.adUnitID)")
+            print("Ad received successfully.")
+
+        }
+
+        // 広告受信失敗時
+        func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+            print("Failed to load ad with error: \(error.localizedDescription)")
+            print("adUnitID: \(bannerView.adUnitID)")
+
+        }
+
+        // インプレッションが記録された時
+        func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+            print("Impression has been recorded for the ad.")
+        }
+
+        // 広告がクリックされた時
+        func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
+            print("Ad was clicked.")
+        }
     }
 }

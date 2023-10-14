@@ -67,65 +67,69 @@ struct SettingView: View {
 
     var body: some View {
         WithViewStore(self.store) { viewStore in
-            List {
-                // ...
-                // ...
-                Section(header: Text("音声設定")) {
+            VStack{
+                List {
+                    // ...
+                    // ...
+                    Section(header: Text("音声設定")) {
 
-                    NavigationLink(destination: FileFormatView(store: self.store)) {
-                        HStack {
-                            Text("ファイル形式")
-                            Spacer()
-                            Text("\(viewStore.selectedFileFormat)")
+                        NavigationLink(destination: FileFormatView(store: self.store)) {
+                            HStack {
+                                Text("ファイル形式")
+                                Spacer()
+                                Text("\(viewStore.selectedFileFormat)")
+                            }
+                        }
+
+                        NavigationLink(destination: SamplingFrequencyView(store: self.store)) {
+                            HStack {
+                                Text("サンプリング周波数")
+                                Spacer()
+                                Text("\(String(viewStore.samplingFrequency))Hz")
+                            }
+                        }
+
+                        NavigationLink(destination: QuantizationBitDepthView(store: self.store)) {
+                            HStack {
+                                Text("量子化ビット数")
+                                Spacer()
+                                Text("\(viewStore.quantizationBitDepth)bit")
+                            }
+                        }
+    #if DEBUG
+
+                        NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
+                            HStack {
+                                Text("チャネル")
+                                Spacer()
+                                Text("\(viewStore.numberOfChannels)")
+                            }
+                        }
+
+
+    #endif
+
+                        NavigationLink(destination: MicrophonesVolumeView(store: self.store)) {
+                            HStack {
+                                Text("マイクの音量")
+                                Spacer()
+                                Text("\(Int(viewStore.microphonesVolume))")
+                            }
                         }
                     }
-
-                    NavigationLink(destination: SamplingFrequencyView(store: self.store)) {
-                        HStack {
-                            Text("サンプリング周波数")
-                            Spacer()
-                            Text("\(String(viewStore.samplingFrequency))Hz")
-                        }
-                    }
-
-                    NavigationLink(destination: QuantizationBitDepthView(store: self.store)) {
-                        HStack {
-                            Text("量子化ビット数")
-                            Spacer()
-                            Text("\(viewStore.quantizationBitDepth)bit")
-                        }
-                    }
-#if DEBUG
-
-                    NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
-                        HStack {
-                            Text("チャネル")
-                            Spacer()
-                            Text("\(viewStore.numberOfChannels)")
-                        }
-                    }
-
-
-#endif
-
-                    NavigationLink(destination: MicrophonesVolumeView(store: self.store)) {
-                        HStack {
-                            Text("マイクの音量")
-                            Spacer()
-                            Text("\(Int(viewStore.microphonesVolume))")
+                    Section(header: Text("")) {
+                        NavigationLink(destination: AboutSimpleRecoder()) {
+                            HStack {
+                                Text("アプリについて")
+                                Spacer()
+                            }
                         }
                     }
                 }
-                Section(header: Text("")) {
-                    NavigationLink(destination: AboutSimpleRecoder()) {
-                        HStack {
-                            Text("アプリについて")
-                            Spacer()
-                        }
-                    }
-                }
+                .listStyle(GroupedListStyle())
+
+                AdmobBannerView().frame(width: .infinity, height: 50)
             }
-            .listStyle(GroupedListStyle())
             .navigationTitle("設定")
         }
     }
