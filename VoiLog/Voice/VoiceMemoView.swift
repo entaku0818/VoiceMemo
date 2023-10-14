@@ -89,10 +89,7 @@ struct VoiceMemoReducer: Reducer {
           return .none
 
         case .loadWaveformData:
-            if !state.waveformData.isEmpty { return .none }
-            let waveformAnalyzer = WaveformAnalyzer(audioURL: state.url)
-            let (newWaveformData, newTotalDuration) = waveformAnalyzer.analyze()
-            state.waveformData = newWaveformData
+
             return .none
         case .delegate:
           return .none
@@ -131,11 +128,6 @@ struct VoiceMemoReducer: Reducer {
             }
         }
     }
-
-
-
-
-
 
 }
 

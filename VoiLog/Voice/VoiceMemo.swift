@@ -117,13 +117,13 @@ struct RecordingMemo: Reducer {
         return .run { [url = state.url] send in
           async let startRecording: Void = send(
             .audioRecorderDidFinish(
-              TaskResult { try await environment.audioRecorder.startRecording(url) }
+              TaskResult { try await audioRecorder.startRecording(url) }
             )
           )
             Logger.shared.logInfo("record stert")
 
 
-          for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
+          for await _ in self.clock.timer(interval: .seconds(1)) {
             await send(.timerUpdated)
             await send(.getVolumes)
             await send(.getResultText)
@@ -142,12 +142,12 @@ struct RecordingMemo: Reducer {
         return .none
       case .getVolumes:
         return .run { send in
-            let volume = await environment.audioRecorder.volumes()
+            let volume = await audioRecorder.volumes()
             await send(.updateVolumes(volume))
         }
       case .getResultText:
           return .run { send in
-              let text = await environment.audioRecorder.resultText()
+              let text = await audioRecorder.resultText()
               await send(.updateResultText(text))
           }
       case let .fetchRecordingMemo(uuid):
@@ -159,21 +159,14 @@ struct RecordingMemo: Reducer {
 
   }
 }
-let recordingMemoReducer = Reducer<
-  RecordingMemoState,
-  RecordingMemoAction,
-  RecordingMemoEnvironment
-> { state, action, environment in
-
-}
 
 struct RecordingMemoView: View {
-  let store: Store<RecordingMemoState, RecordingMemoAction>
+    let store: StoreOf<RecordingMemo>
     @State var value: CGFloat = 0.0
     @State var bottomID = UUID()
 
   var body: some View {
-    WithViewStore(self.store) { viewStore in
+      WithViewStore(self.store, observe: { $0 }) { viewStore in
 
       VStack(spacing: 12) {
 
@@ -249,17 +242,23 @@ struct RecordingMemoView: View {
   }
 }
 
+
 struct RecordingMemoView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordingMemoView(store: Store(initialState: RecordingMemoState(
+  static var previews: some View {
+      return RecordingMemoView(
+        store:  Store(initialState: RecordingMemo.State(
             date: Date(),
             url: URL(string: "https://www.pointfree.co/functions")!, duration: 5
 
-        ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
-          )
-        ))
-    }
+        )
+        ) {
+            RecordingMemo()
+        }
+      )
+
+  }
 }
+
 
 let dateComponentsFormatter: DateComponentsFormatter = {
   let formatter = DateComponentsFormatter()
