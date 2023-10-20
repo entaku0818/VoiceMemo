@@ -76,6 +76,7 @@
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeViewControllerWrapper.swift; sourceTree = "<group>"; };
+		6168E54C2AE207A500447F3F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D62AC9BA250006DA74 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D72AC9BA380006DA74 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D82AC9BA380006DA74 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -373,6 +374,7 @@
 				de,
 				"zh-Hant",
 				"pt-PT",
+				ko,
 			);
 			mainGroup = 619799D928C34A2500169FB6;
 			packageReferences = (
@@ -515,6 +517,7 @@
 				618EE5B12ACE364C00DD8C3D /* de */,
 				6121ECC82ADB844300B94F83 /* zh-Hant */,
 				6124A0232ADAD4E9009444EA /* pt-PT */,
+				6168E54C2AE207A500447F3F /* ko */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
