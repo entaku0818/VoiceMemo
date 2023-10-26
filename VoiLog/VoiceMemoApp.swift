@@ -51,6 +51,7 @@ struct VoiceMemoApp: App {
     init() {
         let voiceMemoRepository = VoiceMemoRepository()
         voiceMemos = voiceMemoRepository.selectAllData()
+
     }
     var body: some Scene {
         WindowGroup {
@@ -66,7 +67,7 @@ struct VoiceMemoApp: App {
 //              )
 //            ))
             VoiceMemosView(
-              store: Store(initialState: VoiceMemos.State()) {
+              store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
                 VoiceMemos()._printChanges()
               }
             )
