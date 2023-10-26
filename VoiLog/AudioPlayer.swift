@@ -35,8 +35,8 @@ extension DependencyValues {
   }
 }
 
-extension AudioPlayerClient {
-    static let live = Self { url, startTime  in
+extension AudioPlayerClient: DependencyKey {
+    static let liveValue = Self { url, startTime  in
     let stream = AsyncThrowingStream<Bool, Error> { continuation in
       do {
         let delegate = try Delegate(
