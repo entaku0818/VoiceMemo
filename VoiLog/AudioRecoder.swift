@@ -70,8 +70,8 @@ extension DependencyValues {
 }
 
 
-extension AudioRecorderClient {
-  static var live: Self {
+extension AudioRecorderClient: DependencyKey  {
+  static var liveValue: Self {
     let audioRecorder = AudioRecorder()
     return Self(
       currentTime: { await audioRecorder.currentTime },
@@ -102,14 +102,11 @@ private actor AudioRecorder {
     var currentTime: TimeInterval = 0
 
   static func requestPermission() async -> Bool {
-    await withUnsafeContinuation { continuation in
-      AVAudioSession.sharedInstance().requestRecordPermission { granted in
-        continuation.resume(returning: granted)
-      }
-        SFSpeechRecognizer.requestAuthorization { _ in
-
+      await withUnsafeContinuation { continuation in
+        AVAudioSession.sharedInstance().requestRecordPermission { granted in
+          continuation.resume(returning: granted)
         }
-    }
+      }
   }
 
   func stop() {
