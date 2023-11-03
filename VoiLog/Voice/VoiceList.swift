@@ -87,6 +87,8 @@ struct VoiceMemos: Reducer {
             ),
           at: 0
         )
+          let voiceRepository = VoiceMemoRepository()
+          voiceRepository.insert(state: recordingMemo)
         return .none
 
       case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
@@ -132,14 +134,20 @@ struct VoiceMemos: Reducer {
     }
   }
 
+    func documentsDirectory() -> URL {
+      let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+      return paths[0]
+    }
+
     private var newRecordingMemo: RecordingMemo.State {
       RecordingMemo.State(
         date: self.date.now,
-        url: self.temporaryDirectory()
+        url: self.documentsDirectory()
           .appendingPathComponent(self.uuid().uuidString)
           .appendingPathExtension("m4a"), 
         duration: 0
       )
+
     }
 }
 
@@ -201,11 +209,11 @@ struct VoiceMemosView: View {
                 if viewStore.recordingMemo == nil {
                     // Initial state
                     let initialState = SettingReducer.State(
-                        selectedFileFormat: "DefaultFormat",  // Default or previously saved value
-                        samplingFrequency: 44100,            // Default or previously saved value
-                        quantizationBitDepth: 16,            // Default or previously saved value
-                        numberOfChannels: 2,                 // Default or previously saved value
-                        microphonesVolume: 50                // Default or previously saved value
+                        selectedFileFormat: Constants.defaultFileFormat.rawValue,  // Default or previously saved value
+                        samplingFrequency: Constants.defaultSamplingFrequency.rawValue,            // Default or previously saved value
+                        quantizationBitDepth: Constants.defaultQuantizationBitDepth.rawValue,            // Default or previously saved value
+                        numberOfChannels: Constants.defaultNumberOfChannels.rawValue,                 // Default or previously saved value
+                        microphonesVolume: Constants.defaultMicrophonesVolume.rawValue                // Default or previously saved value
                     )
 
                     // Creating the store
