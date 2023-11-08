@@ -46,11 +46,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 @main
 struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    var voiceMemos: [VoiceMemoState] = []
+    var voiceMemos: [VoiceMemoReducer.State] = []
     let DocumentsPath = NSHomeDirectory() + "/Documents"
     init() {
         let voiceMemoRepository = VoiceMemoRepository()
         voiceMemos = voiceMemoRepository.selectAllData()
+
     }
     var body: some Scene {
         WindowGroup {
@@ -66,24 +67,9 @@ struct VoiceMemoApp: App {
 //              )
 //            ))
             VoiceMemosView(
-              store: Store(
-                initialState: VoiceMemosState(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos)),
-                reducer:
-                  voiceMemosReducer
-                  .debug(),
-                environment: VoiceMemosEnvironment(
-                  audioPlayer: .live,
-                  audioRecorder: .live,
-                  mainRunLoop: .main,
-                  openSettings: {
-                    await MainActor.run {
-                      UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                    }
-                  },
-                  temporaryDirectory: { URL(fileURLWithPath: DocumentsPath) },
-                  uuid: { UUID() }
-                )
-              )
+              store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
+                VoiceMemos()._printChanges()
+              }
             )
         }
     }

@@ -7,70 +7,62 @@
 
 import SwiftUI
 import ComposableArchitecture
-struct SettingViewState: Equatable {
-    var selectedFileFormat: String
-    var samplingFrequency: Double
-    var quantizationBitDepth:Int
-    var numberOfChannels:Int
-    var microphonesVolume:Double
-}
 
-enum SettingViewAction {
-    case selectFileFormat(String)
-    case samplingFrequency(Double)
-    case quantizationBitDepth(Int)
-    case numberOfChannels(Int)
-    case microphonesVolume(Double)
-}
-
-extension SettingViewState {
-    static let initial = SettingViewState(
-        selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
-        samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
-        quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
-        numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
-        microphonesVolume: UserDefaultsManager.shared.microphonesVolume
-    )
-}
-
-struct SettingViewEnvironment {
-    // ここに必要な依存関係や外部サービスを記述します
-}
-
-let settingViewReducer = Reducer<SettingViewState, SettingViewAction, SettingViewEnvironment> { state, action, _ in
-    switch action {
-    case let .selectFileFormat(fileFormat):
-        state.selectedFileFormat = fileFormat
-        UserDefaultsManager.shared.selectedFileFormat = fileFormat
-        return .none
-    case let .samplingFrequency(rate):
-        state.samplingFrequency = rate
-        UserDefaultsManager.shared.samplingFrequency = rate
-        return .none
-    case let .quantizationBitDepth(bit):
-        state.quantizationBitDepth = bit
-        UserDefaultsManager.shared.quantizationBitDepth = bit
-        return .none
-    case let .numberOfChannels(number):
-        state.numberOfChannels = number
-        UserDefaultsManager.shared.numberOfChannels = number
-        return .none
-    case let .microphonesVolume(volume):
-        state.microphonesVolume = volume
-        UserDefaultsManager.shared.microphonesVolume = volume
-        return .none
+struct SettingReducer: Reducer {
+    enum Action: Equatable {
+        case selectFileFormat(String)
+        case samplingFrequency(Double)
+        case quantizationBitDepth(Int)
+        case numberOfChannels(Int)
+        case microphonesVolume(Double)
     }
+
+    func reduce(into state: inout State, action: Action) -> Effect<Action> {
+        switch action {
+        case let .selectFileFormat(fileFormat):
+            state.selectedFileFormat = fileFormat
+            UserDefaultsManager.shared.selectedFileFormat = fileFormat
+            return .none
+        case let .samplingFrequency(rate):
+            state.samplingFrequency = rate
+            UserDefaultsManager.shared.samplingFrequency = rate
+            return .none
+        case let .quantizationBitDepth(bit):
+            state.quantizationBitDepth = bit
+            UserDefaultsManager.shared.quantizationBitDepth = bit
+            return .none
+        case let .numberOfChannels(number):
+            state.numberOfChannels = number
+            UserDefaultsManager.shared.numberOfChannels = number
+            return .none
+        case let .microphonesVolume(volume):
+            state.microphonesVolume = volume
+            UserDefaultsManager.shared.microphonesVolume = volume
+            return .none
+        }
+    }
+
+    struct State: Equatable {
+        var selectedFileFormat: String
+        var samplingFrequency: Double
+        var quantizationBitDepth:Int
+        var numberOfChannels:Int
+        var microphonesVolume:Double
+    }
+
 }
+
+
 
 struct SettingView: View {
-    let store: Store<SettingViewState, SettingViewAction>
+    let store: StoreOf<SettingReducer>
+
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
-            VStack{
-                List {
-                    // ...
-                    // ...
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            List {
+                // ...
+                //
                     Section(header: Text("音声設定")) {
 
                         NavigationLink(destination: FileFormatView(store: self.store)) {
@@ -128,19 +120,19 @@ struct SettingView: View {
                 }
                 .listStyle(GroupedListStyle())
 
-                AdmobBannerView().frame(width: .infinity, height: 50)
-            }
-            .navigationTitle("設定")
+            AdmobBannerView().frame(width: .infinity, height: 50)
         }
+        .navigationTitle("設定")
     }
+
 }
 
 struct FileFormatView: View {
-    let store: Store<SettingViewState, SettingViewAction>
+    let store: StoreOf<SettingReducer>
     @Environment(\.presentationMode) var presentationMode // 追加
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             List {
                 ForEach(Constants.FileFormat.allCases, id: \.self) { format in
                     Button(action: {
@@ -167,11 +159,11 @@ struct FileFormatView: View {
 
 
 struct SamplingFrequencyView: View {
-    let store: Store<SettingViewState, SettingViewAction>
+    let store: StoreOf<SettingReducer>
     @Environment(\.presentationMode) var presentationMode // 追加
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             List {
                 ForEach(Constants.SamplingFrequency.allCases, id: \.self) { rate in
                     Button(action: {
@@ -197,11 +189,11 @@ struct SamplingFrequencyView: View {
 }
 
 struct QuantizationBitDepthView: View {
-    let store: Store<SettingViewState, SettingViewAction>
+    let store: StoreOf<SettingReducer>
     @Environment(\.presentationMode) var presentationMode // 追加
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             List {
                 ForEach(Constants.QuantizationBitDepth.allCases, id: \.self) { bit in
                     Button(action: {
@@ -227,11 +219,11 @@ struct QuantizationBitDepthView: View {
 }
 
 struct NumberOfChannelsView: View {
-    let store: Store<SettingViewState, SettingViewAction>
+    let store: StoreOf<SettingReducer>
     @Environment(\.presentationMode) var presentationMode // 追加
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
             List {
                 ForEach(Constants.NumberOfChannels.allCases, id: \.self) { number in
                     Button(action: {
@@ -257,12 +249,12 @@ struct NumberOfChannelsView: View {
 }
 
 struct MicrophonesVolumeView: View {
-    let store: Store<SettingViewState, SettingViewAction>
+    let store: StoreOf<SettingReducer>
     @Environment(\.presentationMode) var presentationMode // 追加
 
 
     var body: some View {
-        WithViewStore(self.store) { viewStore in
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
 
             List(Constants.MicrophonesVolume.allCases, id: \.self) { volumeOption in
                 Button(action: {

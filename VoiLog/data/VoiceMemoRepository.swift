@@ -46,7 +46,7 @@ class VoiceMemoRepository: NSObject {
         }
     }
 
-    func insert(state: RecordingMemoState) {
+    func insert(state: RecordingMemo.State) {
         if let voice = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
 
             voice.title = ""
@@ -70,7 +70,7 @@ class VoiceMemoRepository: NSObject {
         }
     }
 
-    func selectAllData() -> [VoiceMemoState] {
+    func selectAllData() -> [VoiceMemoReducer.State] {
         var memoGroups: [Voice] = []
 
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
@@ -82,7 +82,7 @@ class VoiceMemoRepository: NSObject {
             Logger.shared.logError("selectAllData:" + error.localizedDescription)
         }
         let voiceMemoStates = memoGroups.map { voiceMemo in
-            VoiceMemoState(
+            VoiceMemoReducer.State(
                 uuid: voiceMemo.id ?? UUID(),
                 date: voiceMemo.createdAt ?? Date(),
                 duration: voiceMemo.duration,
@@ -100,8 +100,8 @@ class VoiceMemoRepository: NSObject {
         return voiceMemoStates
     }
 
-    func fetch(uuid: UUID) -> RecordingMemoState? {
-        var recordingMemo: RecordingMemoState?
+    func fetch(uuid: UUID) -> RecordingMemo.State? {
+        var recordingMemo: RecordingMemo.State?
 
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
         fetchRequest.fetchLimit = 1
@@ -114,7 +114,7 @@ class VoiceMemoRepository: NSObject {
             let results = try managedContext.fetch(fetchRequest)
             if let voice = results.first {
                 // Construct your RecordingMemoState object based on the retrieved Voice object
-                recordingMemo = RecordingMemoState(
+                recordingMemo = RecordingMemo.State(
                     uuid: voice.id ?? UUID(),
                     date: voice.createdAt ?? Date(),
                     duration: voice.duration,
@@ -149,7 +149,7 @@ class VoiceMemoRepository: NSObject {
         }
     }
 
-    func update(state: VoiceMemoState) {
+    func update(state: VoiceMemoReducer.State) {
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
         fetchRequest.fetchLimit = 1
 

@@ -9,127 +9,135 @@ import ComposableArchitecture
 import Foundation
 import SwiftUI
 
-struct VoiceMemoState: Equatable, Identifiable {
-    var uuid: UUID
-    var date: Date
 
-    /// 音声のトータル時間
-    var duration: TimeInterval
-    /// 再生時間
-    var time: TimeInterval
-    var mode = Mode.notPlaying
-    var title = ""
-    var url: URL
-    var text: String
+struct VoiceMemoReducer: Reducer {
+    enum Action: Equatable {
+        case audioPlayerClient(TaskResult<Bool>)
+        case delegate(Delegate)
+        case delete
+        case playButtonTapped
+        case timerUpdated(TimeInterval)
+        case titleTextFieldChanged(String)
+        case loadWaveformData
 
-    var fileFormat: String
-    var samplingFrequency: Double
-    var quantizationBitDepth: Int
-    var numberOfChannels: Int
-
-    var waveformData: [Float] = []
-
-  var id: URL { self.url }
-
-  enum Mode: Equatable {
-    case notPlaying
-    case playing(progress: Double)
-
-    var isPlaying: Bool {
-      if case .playing = self { return true }
-      return false
-    }
-  }
-}
-
-enum VoiceMemoAction: Equatable {
-  case audioPlayerClient(TaskResult<Bool>)
-  case delete
-  case playButtonTapped
-  case timerUpdated(TimeInterval)
-  case titleTextFieldChanged(String)
-  case loadWaveformData
-}
-
-struct VoiceMemoEnvironment {
-  var audioPlayer: AudioPlayerClient
-  var mainRunLoop: AnySchedulerOf<RunLoop>
-}
-
-let voiceMemoReducer = Reducer<
-  VoiceMemoState,
-  VoiceMemoAction,
-  VoiceMemoEnvironment
-> { state, action, environment in
-  enum PlayID {}
-
-  switch action {
-  case .audioPlayerClient:
-      // 停止時の処理
-      state.time = 0.0
-    state.mode = .notPlaying
-    return .cancel(id: PlayID.self)
-
-  case .delete:
-    return .cancel(id: PlayID.self)
-
-  case .playButtonTapped:
-    switch state.mode {
-    case .notPlaying:
-        print("audioPlayer:" + String(state.time))
-
-        state.mode = .playing(progress: state.time)
-        return .run { [url = state.url,time = state.time,duration = state.duration] send in
-        let start = environment.mainRunLoop.now
-
-        async let playAudio: Void = send(
-            .audioPlayerClient(TaskResult { try await environment.audioPlayer.play(url, time) })
-        )
-
-        for try await tick in environment.mainRunLoop.timer(interval: 0.1) {
-
-            let timer = time + tick.date.timeIntervalSince(start.date) > duration ? duration : time + tick.date.timeIntervalSince(start.date)
-            await send(.timerUpdated(timer))
+        enum Delegate {
+          case playbackStarted
+          case playbackFailed
         }
-      }
-      .cancellable(id: PlayID.self, cancelInFlight: true)
-
-    case .playing:
-      state.mode = .notPlaying
-      return .cancel(id: PlayID.self)
     }
 
-  case let .timerUpdated(time):
-    switch state.mode {
-    case .notPlaying:
-      break
-    case let .playing(progress: progress):
-      state.mode = .playing(progress: time / state.duration)
-      state.time = time
+    private enum CancelID { case play }
+    @Dependency(\.audioPlayer) var audioPlayer
+    @Dependency(\.continuousClock) var clock
+
+    func reduce(into state: inout State, action: Action) -> Effect<Action> {
+        enum PlayID {}
+        switch action {
+        case .audioPlayerClient:
+            // 停止時の処理
+            state.time = 0.0
+          state.mode = .notPlaying
+        return .cancel(id: CancelID.play)
+
+        case .delete:
+            return .cancel(id: CancelID.play)
+
+        case .playButtonTapped:
+          switch state.mode {
+          case .notPlaying:
+              print("audioPlayer:" + String(state.time))
+
+              state.mode = .playing(progress: 0)
+
+              return .run { [url = state.url,time = state.time] send in
+                await send(.delegate(.playbackStarted))
+
+                async let playAudio: Void = send(
+                    .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time) })
+                )
+
+                var start: TimeInterval = 0
+                for await _ in self.clock.timer(interval: .milliseconds(500)) {
+                  start += 0.5
+                  await send(.timerUpdated(start))
+                }
+
+                await playAudio
+              }
+              .cancellable(id: CancelID.play, cancelInFlight: true)
+
+
+          case .playing:
+            state.mode = .notPlaying
+              return .cancel(id: CancelID.play)
+          }
+
+        case let .timerUpdated(time):
+          switch state.mode {
+          case .notPlaying:
+            break
+          case let .playing(progress: progress):
+            state.mode = .playing(progress: time / state.duration)
+            state.time = time
+          }
+          return .none
+
+        case let .titleTextFieldChanged(text):
+          state.title = text
+            let voiceMemoRepository = VoiceMemoRepository()
+            voiceMemoRepository.update(state: state)
+          return .none
+
+        case .loadWaveformData:
+
+            return .none
+        case .delegate:
+          return .none
+        }
     }
-    return .none
 
-  case let .titleTextFieldChanged(text):
-    state.title = text
-      let voiceMemoRepository = VoiceMemoRepository()
-      voiceMemoRepository.update(state: state)
-    return .none
+    struct State: Equatable, Identifiable {
+        var uuid: UUID
+        var date: Date
 
-  case .loadWaveformData:
-      if !state.waveformData.isEmpty { return .none }
-      let waveformAnalyzer = WaveformAnalyzer(audioURL: state.url)
-      let (newWaveformData, newTotalDuration) = waveformAnalyzer.analyze()
-      state.waveformData = newWaveformData
-      return .none
-  }
+        /// 音声のトータル時間
+        var duration: TimeInterval
+        /// 再生時間
+        var time: TimeInterval
+        var mode = Mode.notPlaying
+        var title = ""
+        var url: URL
+        var text: String
+
+        var fileFormat: String
+        var samplingFrequency: Double
+        var quantizationBitDepth: Int
+        var numberOfChannels: Int
+
+        var waveformData: [Float] = []
+
+        var id: URL { self.url }
+
+        enum Mode: Equatable {
+            case notPlaying
+            case playing(progress: Double)
+
+            var isPlaying: Bool {
+                if case .playing = self { return true }
+                return false
+            }
+        }
+    }
+
 }
+
 
 struct VoiceMemoView: View {
-  let store: Store<VoiceMemoState, VoiceMemoAction>
+    let store: StoreOf<VoiceMemoReducer>
   @State private var showingModal = false
 
   var body: some View {
-    WithViewStore(store) { viewStore in
+      WithViewStore(self.store, observe: { $0 }) { viewStore in
         let currentTime = viewStore.duration
             NavigationLink {
                 VoiceMemoDetail(store: store)
@@ -209,25 +217,26 @@ struct VoiceMemoView: View {
 
 struct VoiceMemoView_Previews: PreviewProvider {
   static var previews: some View {
-    let store = Store(initialState: VoiceMemoState(
-                        uuid: UUID(),
-                        date: Date(),
-                        duration: 180, time: 0,
-                        mode: .notPlaying,
-                        title: "Untitled",
-                        url: URL(fileURLWithPath: ""),
-                        text: "",
-                        fileFormat: "WAV",
-                        samplingFrequency: 44100.0,
-                        quantizationBitDepth: 16,
-                        numberOfChannels: 1
-                    ),
-                    reducer: voiceMemoReducer,
-                    environment: VoiceMemoEnvironment(
-                        audioPlayer: .mock,
-                        mainRunLoop: .main
-                    )
-                )
-    return VoiceMemoView(store: store)
+      return VoiceMemoView(
+        store: Store(
+          initialState: VoiceMemoReducer.State(
+              uuid: UUID(),
+              date: Date(),
+              duration: 180,
+              time: 0,
+              mode: .notPlaying,
+              title: "",
+              url: URL(fileURLWithPath: ""),
+              text: "",
+              fileFormat: "",
+              samplingFrequency: 0.0,
+              quantizationBitDepth: 0,
+              numberOfChannels: 0
+          )
+        ) {
+            VoiceMemoReducer()
+        }
+      )
+
   }
 }

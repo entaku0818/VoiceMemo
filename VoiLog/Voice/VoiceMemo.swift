@@ -2,196 +2,171 @@ import ComposableArchitecture
 import SwiftUI
 import Photos
 
-struct RecordingMemoFailed: Equatable, Error {}
-
-struct RecordingMemoState: Equatable {
 
 
-    init(date:Date, url:URL, duration:TimeInterval){
-        self.date = date
-        self.url = url
-        self.duration = duration
-    }
+struct RecordingMemo: Reducer {
+  struct State: Equatable {
 
-    init(uuid:UUID,date:Date, duration:TimeInterval,url:URL,resultText:String) {
-        self.uuid = uuid
-        self.date = date
-        self.duration = duration
-        self.mode = .encoding
-        self.url = url
-        self.resultText = resultText
-    }
-
-    init(from voiceMemoState: VoiceMemoState) {
-        self.uuid = voiceMemoState.uuid
-        self.date = voiceMemoState.date
-        self.duration = voiceMemoState.duration
-        self.startTime = voiceMemoState.time
-        self.mode = .encoding
-        self.url = voiceMemoState.url
-        self.resultText = voiceMemoState.text
-    }
-
-    var uuid = UUID()
-    var date: Date
-    var duration: TimeInterval = 0
-    var volumes: [Float] = []
-    var resultText: String = ""
-    var mode: Mode = .recording
-    var fileFormat: String = ""
-    var samplingFrequency: Double = 0.0
-    var quantizationBitDepth: Int = 0
-    var numberOfChannels: Int = 0
-
-
-    var url: URL
-    var newUrl: URL?
-    var startTime: TimeInterval = 0
-    /// 再生時間
-    var time: TimeInterval = 0
-
-    enum Mode {
-        case recording
-        case encoding
-    }
-}
-
-enum RecordingMemoAction: Equatable {
-    case audioRecorderDidFinish(TaskResult<Bool>)
-    case fetchRecordingMemo(UUID)
-    case delegate(DelegateAction)
-    case finalRecordingTime(TimeInterval)
-    case task
-    case timerUpdated
-    case getVolumes
-    case getResultText
-    case updateVolumes([Float])
-    case updateResultText(String)
-    case insertAudio
-    case stopButtonTapped
-
-    enum DelegateAction: Equatable {
-        case didFinish(TaskResult<RecordingMemoState>)
-    }
-}
-
-struct RecordingMemoEnvironment {
-  var audioRecorder: AudioRecorderClient
-  var mainRunLoop: AnySchedulerOf<RunLoop>
-}
-
-let recordingMemoReducer = Reducer<
-  RecordingMemoState,
-  RecordingMemoAction,
-  RecordingMemoEnvironment
-> { state, action, environment in
-  switch action {
-  case .audioRecorderDidFinish(.success(true)):
-    return .task { [state] in .delegate(.didFinish(.success(state))) }
-
-  case .audioRecorderDidFinish(.success(false)):
-    return .task { .delegate(.didFinish(.failure(RecordingMemoFailed()))) }
-
-  case let .audioRecorderDidFinish(.failure(error)):
-    return .task { .delegate(.didFinish(.failure(error))) }
-
-  case .delegate:
-    return .none
-
-  case let .finalRecordingTime(duration):
-    state.duration = duration
-    return .none
-
-  case .stopButtonTapped:
-    state.mode = .encoding
-      state.fileFormat =  UserDefaultsManager.shared.selectedFileFormat
-      state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
-      state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
-      state.numberOfChannels = 1
-    return .run { send in
-      if let currentTime = await environment.audioRecorder.currentTime() {
-        await send(.finalRecordingTime(currentTime))
-      }
-      await environment.audioRecorder.stopRecording()
-      Logger.shared.logInfo("record stop")
-
-    }
-
-  case .task:
-    return .run { [url = state.url] send in
-      async let startRecording: Void = send(
-        .audioRecorderDidFinish(
-          TaskResult { try await environment.audioRecorder.startRecording(url) }
-        )
-      )
-        Logger.shared.logInfo("record stert")
-
-
-      for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
-        await send(.timerUpdated)
-        await send(.getVolumes)
-        await send(.getResultText)
-      }
-    }
-  case .insertAudio:
-      return .run { [url = state.url,startTime = state.startTime,newUrl = state.newUrl] send in
-        async let startRecording: Void = send(
-          .audioRecorderDidFinish(
-            TaskResult {
-                try await environment.audioRecorder.insertAudio(
-                    startTime,
-                    url,
-                    newUrl!
-                )
-            }
-          )
-        )
-          Logger.shared.logInfo("record stert")
-
-
-        for await _ in environment.mainRunLoop.timer(interval: .seconds(1)) {
-          await send(.timerUpdated)
-          await send(.getVolumes)
-          await send(.getResultText)
-        }
+      init(date:Date, url:URL, duration:TimeInterval){
+          self.date = date
+          self.url = url
+          self.duration = duration
       }
 
-  case .timerUpdated:
-    state.duration += 1
+      init(uuid:UUID,date:Date, duration:TimeInterval,url:URL,resultText:String) {
+          self.uuid = uuid
+          self.date = date
+          self.duration = duration
+          self.mode = .encoding
+          self.url = url
+          self.resultText = resultText
+      }
 
-    return .none
-  case let .updateVolumes(volumes):
-      state.volumes = volumes 
-    return .none
-  case let .updateResultText(text):
-    state.resultText = text
-    return .none
-  case .getVolumes:
-    return .run { send in
-        let volume = await environment.audioRecorder.volumes()
-        await send(.updateVolumes(volume))
-    }
-  case .getResultText:
-      return .run { send in
-          let text = await environment.audioRecorder.resultText()
-          await send(.updateResultText(text))
+      init(from voiceMemoState: VoiceMemoReducer.State) {
+          self.uuid = voiceMemoState.uuid
+          self.date = voiceMemoState.date
+          self.duration = voiceMemoState.duration
+          self.startTime = voiceMemoState.time
+          self.mode = .encoding
+          self.url = voiceMemoState.url
+          self.resultText = voiceMemoState.text
       }
-  case let .fetchRecordingMemo(uuid):
-      if let recordingmemo = VoiceMemoRepository.shared.fetch(uuid: uuid){
-          state = recordingmemo
+
+      var uuid = UUID()
+      var date: Date
+      var duration: TimeInterval = 0
+      var volumes: [Float] = []
+      var resultText: String = ""
+      var mode: Mode = .recording
+      var fileFormat: String = ""
+      var samplingFrequency: Double = 0.0
+      var quantizationBitDepth: Int = 0
+      var numberOfChannels: Int = 0
+
+
+      var url: URL
+      var newUrl: URL?
+      var startTime: TimeInterval = 0
+      /// 再生時間
+      var time: TimeInterval = 0
+
+      enum Mode {
+          case recording
+          case encoding
       }
-      return .none
   }
 
+  enum Action: Equatable {
+      case audioRecorderDidFinish(TaskResult<Bool>)
+      case fetchRecordingMemo(UUID)
+      case delegate(DelegateAction)
+      case finalRecordingTime(TimeInterval)
+      case task
+      case timerUpdated
+      case getVolumes
+      case getResultText
+      case updateVolumes([Float])
+      case updateResultText(String)
+      case stopButtonTapped
+
+  }
+
+  enum DelegateAction: Equatable {
+    case didFinish(TaskResult<State>)
+  }
+
+  struct Failed: Equatable, Error {}
+
+  @Dependency(\.audioRecorder) var audioRecorder
+  @Dependency(\.continuousClock) var clock
+
+  func reduce(into state: inout State, action: Action) -> Effect<Action> {
+      switch action {
+      case .audioRecorderDidFinish(.success(true)):
+        return .send(.delegate(.didFinish(.success(state))))
+
+      case .audioRecorderDidFinish(.success(false)):
+        return .send(.delegate(.didFinish(.failure(Failed()))))
+
+      case let .audioRecorderDidFinish(.failure(error)):
+        return .send(.delegate(.didFinish(.failure(error))))
+
+      case .delegate:
+        return .none
+
+      case let .finalRecordingTime(duration):
+        state.duration = duration
+        return .none
+
+      case .stopButtonTapped:
+        state.mode = .encoding
+          state.fileFormat =  UserDefaultsManager.shared.selectedFileFormat
+          state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
+          state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
+          state.numberOfChannels = 1
+          return .run { send in
+            if let currentTime = await self.audioRecorder.currentTime() {
+              await send(.finalRecordingTime(currentTime))
+            }
+            await self.audioRecorder.stopRecording()
+            Logger.shared.logInfo("record stop")
+
+          }
+
+      case .task:
+        return .run { [url = state.url] send in
+          async let startRecording: Void = send(
+            .audioRecorderDidFinish(
+              TaskResult { try await audioRecorder.startRecording(url) }
+            )
+          )
+            Logger.shared.logInfo("record stert")
+
+
+          for await _ in self.clock.timer(interval: .seconds(1)) {
+            await send(.timerUpdated)
+            await send(.getVolumes)
+            await send(.getResultText)
+          }
+        }
+
+      case .timerUpdated:
+        state.duration += 1
+
+        return .none
+      case let .updateVolumes(volumes):
+          state.volumes = volumes
+        return .none
+      case let .updateResultText(text):
+        state.resultText = text
+        return .none
+      case .getVolumes:
+        return .run { send in
+            let volume = await audioRecorder.volumes()
+            await send(.updateVolumes(volume))
+        }
+      case .getResultText:
+          return .run { send in
+              let text = await audioRecorder.resultText()
+              await send(.updateResultText(text))
+          }
+      case let .fetchRecordingMemo(uuid):
+          if let recordingmemo = VoiceMemoRepository.shared.fetch(uuid: uuid){
+              state = recordingmemo
+          }
+          return .none
+      }
+
+  }
 }
 
 struct RecordingMemoView: View {
-  let store: Store<RecordingMemoState, RecordingMemoAction>
+    let store: StoreOf<RecordingMemo>
     @State var value: CGFloat = 0.0
     @State var bottomID = UUID()
 
   var body: some View {
-    WithViewStore(self.store) { viewStore in
+      WithViewStore(self.store, observe: { $0 }) { viewStore in
 
       VStack(spacing: 12) {
 
@@ -267,17 +242,23 @@ struct RecordingMemoView: View {
   }
 }
 
+
 struct RecordingMemoView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordingMemoView(store: Store(initialState: RecordingMemoState(
+  static var previews: some View {
+      return RecordingMemoView(
+        store:  Store(initialState: RecordingMemo.State(
             date: Date(),
             url: URL(string: "https://www.pointfree.co/functions")!, duration: 5
 
-        ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .mock, mainRunLoop: .main
-          )
-        ))
-    }
+        )
+        ) {
+            RecordingMemo()
+        }
+      )
+
+  }
 }
+
 
 let dateComponentsFormatter: DateComponentsFormatter = {
   let formatter = DateComponentsFormatter()
