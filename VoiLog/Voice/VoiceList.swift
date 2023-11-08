@@ -1,4 +1,5 @@
 import AVFoundation
+import StoreKit
 import ComposableArchitecture
 import Foundation
 import SwiftUI
@@ -14,6 +15,7 @@ struct VoiceMemos: Reducer {
     var audioRecorderPermission = RecorderPermission.undetermined
     @PresentationState var recordingMemo: RecordingMemo.State?
     var voiceMemos: IdentifiedArrayOf<VoiceMemoReducer.State> = []
+    var isMailComposePresented: Bool = false
 
     enum RecorderPermission {
       case allowed
@@ -24,15 +26,22 @@ struct VoiceMemos: Reducer {
 
   enum Action: Equatable {
     case alert(PresentationAction<AlertAction>)
-    case onDelete(IndexSet)
+    case onAppear
+    case onDelete(uuid: UUID)
     case openSettingsButtonTapped
     case recordButtonTapped
     case recordPermissionResponse(Bool)
     case recordingMemo(PresentationAction<RecordingMemo.Action>)
     case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
+    case mailComposeDismissed
   }
 
-  enum AlertAction: Equatable {}
+  enum AlertAction: Equatable {
+      case onAddReview
+      case onGoodReview
+      case onBadReview
+      case onMailTap
+  }
 
   @Dependency(\.audioRecorder.requestRecordPermission) var requestRecordPermission
   @Dependency(\.date) var date
@@ -43,11 +52,46 @@ struct VoiceMemos: Reducer {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-      case .alert:
-        return .none
+            case .onAppear:
 
-      case let .onDelete(indexSet):
-        state.voiceMemos.remove(atOffsets: indexSet)
+                  let installDate = UserDefaultsManager.shared.installDate
+                  let reviewCount = UserDefaultsManager.shared.reviewRequestCount
+
+                  // 初回起動時
+                  if let installDate = installDate {
+                      let currentDate = Date()
+                      if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
+                          if interval >= 7 && reviewCount == 0 {
+                              if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                                    state.alert = AlertState {
+                                        TextState("シンプル録音について")
+                                    } actions: {
+                                        ButtonState(action: .send(.onGoodReview)) {
+                                            TextState("はい")
+                                        }
+                                        ButtonState(action: .send(.onBadReview)) {
+                                            TextState("いいえ、フィードバックを送信")
+                                        }
+                                    } message: {
+                                        TextState(
+                                            "シンプル録音に満足していますか？"
+                                        )
+                                    }
+                                  UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                              }
+                          }
+                      }
+                  }else{
+                      UserDefaultsManager.shared.installDate = Date()
+                  }
+
+
+              return .none
+
+      case let .onDelete(uuid):
+        state.voiceMemos.removeAll { $0.uuid == uuid }
+          let voiceRepository = VoiceMemoRepository()
+          voiceRepository.delete(id: uuid)
         return .none
 
       case .openSettingsButtonTapped:
@@ -75,11 +119,12 @@ struct VoiceMemos: Reducer {
         state.recordingMemo = nil
         state.voiceMemos.insert(
             VoiceMemoReducer.State(
+
                 uuid: recordingMemo.uuid,
                 date: recordingMemo.date,
                 duration: recordingMemo.duration, time: 0,
-              url: recordingMemo.url,
-              text: recordingMemo.resultText,
+                url: recordingMemo.url,
+                text: recordingMemo.resultText,
                 fileFormat: recordingMemo.fileFormat,
                 samplingFrequency: recordingMemo.samplingFrequency,
                 quantizationBitDepth: recordingMemo.quantizationBitDepth,
@@ -123,6 +168,43 @@ struct VoiceMemos: Reducer {
 
       case .voiceMemos:
         return .none
+      case .alert(.presented(.onAddReview)):
+
+
+              if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                  SKStoreReviewController.requestReview(in: scene)
+              }
+              return .none
+      case .alert(.presented(.onGoodReview)):
+
+              state.alert = AlertState(
+                title: TextState("シンプル録音について"),
+                message: TextState("ご利用ありがとうございます！次の画面でアプリの評価をお願いします。"),
+                dismissButton: .default(TextState("OK"),
+                                                         action: .send(.onAddReview))
+              )
+              return .none
+      case .alert(.presented(.onBadReview)):
+
+              state.alert = AlertState(
+                title: TextState("ご不便かけて申し訳ありません"),
+                message: TextState("次の画面のメールにて詳細に状況を教えてください。"),
+                dismissButton: .default(TextState("OK"),
+                                                         action: .send(.onMailTap))
+              )
+              return .none
+
+      case .alert(.presented(.onMailTap)):
+
+          state.alert = nil
+          state.isMailComposePresented.toggle()
+          return .none
+      case .alert(.dismiss):
+          return .none
+
+      case .mailComposeDismissed:
+          state.isMailComposePresented = false
+          return .none
       }
     }
     .ifLet(\.$alert, action: /Action.alert)
@@ -132,6 +214,8 @@ struct VoiceMemos: Reducer {
     .forEach(\.voiceMemos, action: /Action.voiceMemos) {
         VoiceMemoReducer()
     }
+
+
   }
 
     func documentsDirectory() -> URL {
@@ -158,85 +242,126 @@ struct VoiceMemos: Reducer {
 struct VoiceMemosView: View {
     let store: StoreOf<VoiceMemos>
 
+    enum AlertType {
+      case deleted
+        case appInterview
+      case mail
+    }
+    @State private var isDeleteConfirmationPresented = false
+
+
+    @State private var selectedIndex: Int?
+
     init(store:  StoreOf<VoiceMemos>) {
         self.store = store
     }
 
   var body: some View {
-      WithViewStore(self.store, observe: { $0 }) { viewStore in
-      NavigationView {
-        VStack {
-          List {
-            ForEachStore(
-                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-            ) {
-              VoiceMemoView(store: $0)
-            }
-            .onDelete { indexSet in
-              for index in indexSet {
-                  viewStore.send(.voiceMemos(id: viewStore.voiceMemos[index].id, action: .delete))
-              }
-            }
-          }
-          AdmobBannerView().frame(width: .infinity, height: 50)
-
-          IfLetStore(
-            self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
-          ) { store in
-                  RecordingMemoView(store: store)
-                  
-
-          } else: {
-            RecordButton(permission: viewStore.audioRecorderPermission) {
-              viewStore.send(.recordButtonTapped, animation: .spring())
-            } settingsAction: {
-              viewStore.send(.openSettingsButtonTapped)
-            }
-          }
-          .padding()
-          .frame(maxWidth: .infinity)
-          .background(Color.init(white: 0.95))
-        }
-        .onAppear{
-            checkTrackingAuthorizationStatus()
-        }
-        .alert(store: self.store.scope(state: \.$alert, action: VoiceMemos.Action.alert))
-        .navigationTitle("シンプル録音")
-        .toolbar {
-
-            ToolbarItem(placement: .navigationBarTrailing) {
-
-                if viewStore.recordingMemo == nil {
-                    // Initial state
-                    let initialState = SettingReducer.State(
-                        selectedFileFormat: Constants.defaultFileFormat.rawValue,  // Default or previously saved value
-                        samplingFrequency: Constants.defaultSamplingFrequency.rawValue,            // Default or previously saved value
-                        quantizationBitDepth: Constants.defaultQuantizationBitDepth.rawValue,            // Default or previously saved value
-                        numberOfChannels: Constants.defaultNumberOfChannels.rawValue,                 // Default or previously saved value
-                        microphonesVolume: Constants.defaultMicrophonesVolume.rawValue                // Default or previously saved value
-                    )
-
-                    // Creating the store
-                    let store = Store(initialState: initialState) {
-                        SettingReducer()
-                    }
-
-                    // Initializing the view
-                    let settingView = SettingView(store: store)
-
-                    NavigationLink(destination:settingView) {
-                        Image(systemName: "gearshape.fill")
-                    }
+          WithViewStore(self.store, observe: { $0 }) { viewStore in
+          NavigationView {
+            VStack {
+            AdmobBannerView().frame(width: .infinity, height: 50)
+              List {
+                ForEachStore(
+                    self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                ) {
+                  VoiceMemoView(store: $0)
                 }
+                .onDelete { indexSet in
+                    for index in indexSet {
+                        // インデックスを保存して確認アラートを表示
+                        selectedIndex = index
+                        isDeleteConfirmationPresented = true
+                    }
 
+                }
+              }
+
+              IfLetStore(
+                self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
+              ) { store in
+                      RecordingMemoView(store: store)
+
+
+              } else: {
+                RecordButton(permission: viewStore.audioRecorderPermission) {
+                  viewStore.send(.recordButtonTapped, animation: .spring())
+                } settingsAction: {
+                  viewStore.send(.openSettingsButtonTapped)
+                }
+              }
+              .padding()
+              .frame(maxWidth: .infinity)
+              .background(Color.init(white: 0.95))
             }
+            .onAppear{
+                checkTrackingAuthorizationStatus()
+                viewStore.send(.onAppear)
+            }
+            .alert(store: self.store.scope(state: \.$alert, action: VoiceMemos.Action.alert))
+            .alert(isPresented: $isDeleteConfirmationPresented) {
+                Alert(
+                    title: Text("削除しますか？"),
+                    message: Text("選択した音声を削除しますか？"),
+                    primaryButton: .destructive(Text("削除")) {
+                        if let index = selectedIndex {
+                            let voiceMemoID = viewStore.voiceMemos[index].uuid
+                            viewStore.send(.onDelete(uuid: voiceMemoID))
+                            selectedIndex = nil // インデックスをリセット
+                        }
+                    },
+                    secondaryButton: .cancel() {
+                        selectedIndex = nil // インデックスをリセット
+                    }
+                )
+            }
+            .sheet(
+              isPresented: viewStore.binding(
+                get: \.isMailComposePresented,
+                send: VoiceMemos.Action.mailComposeDismissed // Use the new action here
+              )
+            ) {
+              MailComposeViewControllerWrapper(
+                isPresented: viewStore.binding(
+                  get: \.isMailComposePresented,
+                  send: VoiceMemos.Action.mailComposeDismissed // And also here
+                )
+              )
+            }
+            .navigationTitle("シンプル録音")
+            .toolbar {
 
+                ToolbarItem(placement: .navigationBarTrailing) {
 
+                    if viewStore.recordingMemo == nil {
+                        // Initial state
+                        let initialState = SettingReducer.State(
+                            selectedFileFormat: Constants.defaultFileFormat.rawValue,  // Default or previously saved value
+                            samplingFrequency: Constants.defaultSamplingFrequency.rawValue,            // Default or previously saved value
+                            quantizationBitDepth: Constants.defaultQuantizationBitDepth.rawValue,            // Default or previously saved value
+                            numberOfChannels: Constants.defaultNumberOfChannels.rawValue,                 // Default or previously saved value
+                            microphonesVolume: Constants.defaultMicrophonesVolume.rawValue                // Default or previously saved value
+                        )
+
+                        // Creating the store
+                        let store = Store(initialState: initialState) {
+                            SettingReducer()
+                        }
+
+                        // Initializing the view
+                        let settingView = SettingView(store: store)
+
+                        NavigationLink(destination:settingView) {
+                            Image(systemName: "gearshape.fill")
+                        }
+                    }
+
+                }
+            }
+          }
+          .navigationViewStyle(.stack)
         }
       }
-      .navigationViewStyle(.stack)
-    }
-  }
 
 
     func checkTrackingAuthorizationStatus() {
@@ -251,6 +376,7 @@ struct VoiceMemosView: View {
             fatalError()
         }
     }
+
 
     func requestTrackingAuthorization() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
