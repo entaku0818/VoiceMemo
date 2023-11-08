@@ -22,8 +22,56 @@ struct AudioRecorderClient {
     var insertAudio: @Sendable (TimeInterval, URL, URL) async throws -> Bool
 }
 
-extension AudioRecorderClient {
-  static var live: Self {
+extension AudioRecorderClient: TestDependencyKey {
+    static var previewValue: Self {
+        let isRecording = ActorIsolated(false)
+        let currentTime = ActorIsolated(0.0)
+
+        return Self(
+            currentTime: { await currentTime.value },
+            requestRecordPermission: { true },
+            startRecording: { _ in
+                await isRecording.setValue(true)
+                while await isRecording.value {
+                    try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+                    await currentTime.withValue { $0 += 1 }
+                }
+                return true
+            },
+            stopRecording: {
+                await isRecording.setValue(false)
+                await currentTime.setValue(0)
+            },
+            volumes: { [] }, // Add some stub values here if needed
+            resultText: { "" },
+            insertAudio: { _, _, _ in true }
+        )
+    }
+
+    static let testValue = Self(
+        currentTime: unimplemented("\(Self.self).currentTime", placeholder: nil),
+        requestRecordPermission: unimplemented(
+            "\(Self.self).requestRecordPermission", placeholder: false
+        ),
+        startRecording: unimplemented("\(Self.self).startRecording", placeholder: false),
+        stopRecording: unimplemented("\(Self.self).stopRecording"),
+        volumes: unimplemented("\(Self.self).volumes", placeholder: []),
+        resultText: unimplemented("\(Self.self).resultText", placeholder: ""),
+        insertAudio: unimplemented("\(Self.self).insertAudio", placeholder: false)
+    )
+}
+
+
+extension DependencyValues {
+  var audioRecorder: AudioRecorderClient {
+    get { self[AudioRecorderClient.self] }
+    set { self[AudioRecorderClient.self] = newValue }
+  }
+}
+
+
+extension AudioRecorderClient: DependencyKey  {
+  static var liveValue: Self {
     let audioRecorder = AudioRecorder()
     return Self(
       currentTime: { await audioRecorder.currentTime },
@@ -54,14 +102,11 @@ private actor AudioRecorder {
     var currentTime: TimeInterval = 0
 
   static func requestPermission() async -> Bool {
-    await withUnsafeContinuation { continuation in
-      AVAudioSession.sharedInstance().requestRecordPermission { granted in
-        continuation.resume(returning: granted)
-      }
-        SFSpeechRecognizer.requestAuthorization { _ in
-
+      await withUnsafeContinuation { continuation in
+        AVAudioSession.sharedInstance().requestRecordPermission { granted in
+          continuation.resume(returning: granted)
         }
-    }
+      }
   }
 
   func stop() {

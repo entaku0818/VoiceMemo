@@ -7,13 +7,36 @@
 
 @preconcurrency import AVFoundation
 import ComposableArchitecture
+import Dependencies
+import Foundation
+import XCTestDynamicOverlay
 
 struct AudioPlayerClient {
     var play: @Sendable (URL, Double) async throws -> Bool
 }
 
-extension AudioPlayerClient {
-    static let live = Self { url, startTime  in
+extension AudioPlayerClient: TestDependencyKey {
+  static let previewValue = Self(
+    play: { _,_  in
+      try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
+      return true
+    }
+  )
+
+  static let testValue = Self(
+    play: unimplemented("\(Self.self).play")
+  )
+}
+
+extension DependencyValues {
+  var audioPlayer: AudioPlayerClient {
+    get { self[AudioPlayerClient.self] }
+    set { self[AudioPlayerClient.self] = newValue }
+  }
+}
+
+extension AudioPlayerClient: DependencyKey {
+    static let liveValue = Self { url, startTime  in
     let stream = AsyncThrowingStream<Bool, Error> { continuation in
       do {
         let delegate = try Delegate(
