@@ -66,10 +66,8 @@
 /* Begin PBXFileReference section */
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
-		611A244B2A83DB9800F68D7D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		611A24512A83DBEC00F68D7D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6124A0212ADAAE2C009444EA /* DependencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyValues.swift; sourceTree = "<group>"; };
 		6121ECC82ADB844300B94F83 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		6124A0212ADAAE2C009444EA /* DependencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyValues.swift; sourceTree = "<group>"; };
 		6124A0232ADAD4E9009444EA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 				61979A2028C466C500169FB6 /* VoiceMemoView.swift */,
 				610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */,
 				6124A0212ADAAE2C009444EA /* DependencyValues.swift */,
-				61037A122A47F05800BD196D /* AudioEditingView.swift */,
 				6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */,
 			);
 			path = Voice;
@@ -180,8 +177,6 @@
 			children = (
 				619440C82904014800BF337E /* SettingView.swift */,
 				61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */,
-				619440CB290404BD00BF337E /* SettingVoiceQuestionView.swift */,
-				619440CD2904DB2B00BF337E /* SettingNotification.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -672,9 +667,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.3.8;
+				MARKETING_VERSION = 0.4.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog.dev;
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLogDevelop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -722,7 +716,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.3.8;
+				MARKETING_VERSION = 0.4.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
