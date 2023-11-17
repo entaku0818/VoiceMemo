@@ -3,6 +3,12 @@
   "strings" : {
     "" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13,6 +19,12 @@
     },
     "/" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23,6 +35,12 @@
     },
     "%@" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33,6 +51,12 @@
     },
     "%@Hz" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -43,6 +67,12 @@
     },
     "%lld" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -53,6 +83,12 @@
     },
     "%lldbit" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -67,10 +103,22 @@
     "AppName" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einfacher Sprachrekorder"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Simple Recorder"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grabador de Voz Sencillo"
           }
         },
         "ja" : {
@@ -83,9 +131,21 @@
     },
     "AppStoreでレビューを書く" : {
       "localizations" : {
-        "ja" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Write a review on the App Store."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escribe una reseña en la App Store."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "AppStoreでレビューを書く"
           }
         }
@@ -93,6 +153,18 @@
     },
     "OK" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -103,6 +175,12 @@
     },
     "Open Settings" : {
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -112,14 +190,35 @@
       }
     },
     "Permission is required to record voice memos" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se requiere permiso para grabar notas de voz."
+          }
+        }
+      }
     },
     "Permission is required to record voice memos." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se necesita permiso para grabar notas de voz."
+          }
+        }
+      }
     },
     "Recording" : {
       "extractionState" : "manual",
       "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grabación"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -129,13 +228,34 @@
       }
     },
     "Recording requires microphone access." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La grabación requiere acceso al micrófono."
+          }
+        }
+      }
     },
     "Voice memo playback failed." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La reproducción de la nota de voz falló."
+          }
+        }
+      }
     },
     "Voice memo recording failed." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La grabación de la nota de voz falló."
+          }
+        }
+      }
     },
     "アプリについて" : {
       "localizations" : {
@@ -143,6 +263,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "About the App"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acerca de la aplicación."
           }
         },
         "ja" : {
@@ -161,6 +287,12 @@
             "value" : "No, Send to FeedBack"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No, enviar a retroalimentación."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -175,6 +307,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "I apologize for the inconvenience."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me disculpo por las molestias."
           }
         },
         "ja" : {
@@ -193,6 +331,12 @@
             "value" : "Thank you for using our service! Please rate the app on the next screen."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Gracias por usar nuestro servicio! Por favor, califica la aplicación en la próxima pantalla."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -209,6 +353,12 @@
             "value" : "sampling frequency"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "frecuencia de muestreo"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -222,12 +372,18 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "about simple recording"
+            "value" : "about Simple Recorder"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "acerca de Grabador de Voz Sencillo"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "シンプル録音について"
           }
         }
@@ -239,6 +395,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Are you satisfied with the this App."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Estás satisfecho con esta aplicación?"
           }
         },
         "ja" : {
@@ -257,6 +419,12 @@
             "value" : "channel"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "canal"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -268,6 +436,12 @@
     "はい" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yes"
+          }
+        },
+        "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yes"
@@ -289,6 +463,12 @@
             "value" : "File Format"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formato de Archivo"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -303,6 +483,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Microphone Volume"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volumen del Micrófono"
           }
         },
         "ja" : {
@@ -321,6 +507,12 @@
             "value" : "Delete"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eliminar"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -335,6 +527,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Do you want to delete?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Quieres eliminar?"
           }
         },
         "ja" : {
@@ -353,6 +551,12 @@
             "value" : "Share a Friend About the App"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comparte con un amigo acerca de la aplicación."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -367,6 +571,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Untitled"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin Título"
           }
         },
         "ja" : {
@@ -385,6 +595,12 @@
             "value" : "Please explain the situation in detail in the email on the next screen."
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, explique la situación en detalle en el correo electrónico en la próxima pantalla."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -399,6 +615,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setting"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuración"
           }
         },
         "ja" : {
@@ -417,6 +639,12 @@
             "value" : "Do you want to delete the selected audio?"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Deseas eliminar el audio seleccionado?"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -433,6 +661,12 @@
             "value" : "Quantization Bit Rate"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tasa de Bits de Cuantización"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -447,6 +681,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Audio Settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajustes de Audio"
           }
         },
         "ja" : {
