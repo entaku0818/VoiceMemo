@@ -105,6 +105,11 @@
 		61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmobBannerView.swift; sourceTree = "<group>"; };
 		61E43AD32A33EFF50006A9D2 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		61E851622B084AAE008895F9 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		61E851632B084B60008895F9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		61E851642B084BD2008895F9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		61E851652B084CC8008895F9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		61E851662B084CDB008895F9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		61EC9B832AAC66080062533A /* Double+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extention.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -370,6 +375,11 @@
 				de,
 				"zh-Hant",
 				"pt-PT",
+				tr,
+				fr,
+				vi,
+				ru,
+				"zh-Hans",
 			);
 			mainGroup = 619799D928C34A2500169FB6;
 			packageReferences = (
@@ -511,6 +521,11 @@
 				618EE5B12ACE364C00DD8C3D /* de */,
 				6121ECC82ADB844300B94F83 /* zh-Hant */,
 				6124A0232ADAD4E9009444EA /* pt-PT */,
+				61E851622B084AAE008895F9 /* tr */,
+				61E851632B084B60008895F9 /* fr */,
+				61E851642B084BD2008895F9 /* vi */,
+				61E851652B084CC8008895F9 /* ru */,
+				61E851662B084CDB008895F9 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

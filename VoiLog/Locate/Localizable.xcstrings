@@ -14,6 +14,18 @@
             "state" : "translated",
             "value" : ""
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
@@ -26,6 +38,18 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ""
@@ -46,6 +70,18 @@
             "state" : "translated",
             "value" : ""
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
@@ -58,6 +94,18 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ""
@@ -78,6 +126,18 @@
             "state" : "translated",
             "value" : ""
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
@@ -94,11 +154,25 @@
             "state" : "translated",
             "value" : ""
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
         }
       }
     },
     "About " : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : ""
+          }
+        }
+      }
     },
     "AppName" : {
       "extractionState" : "manual",
@@ -126,11 +200,23 @@
             "state" : "translated",
             "value" : "シンプル録音"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gravador de Voz"
+          }
         }
       }
     },
     "AppStoreでレビューを書く" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schreiben Sie eine Bewertung im App Store."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -148,11 +234,29 @@
             "state" : "needs_review",
             "value" : "AppStoreでレビューを書く"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escreva uma avaliação na App Store."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在App Store上撰寫評論。"
+          }
         }
       }
     },
     "OK" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -169,6 +273,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
           }
         }
       }
@@ -192,20 +302,56 @@
     "Permission is required to record voice memos" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erlaubnis ist erforderlich, um Sprachnotizen aufzunehmen."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se requiere permiso para grabar notas de voz."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "É necessário permissão para gravar notas de voz."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄製語音備忘錄需要許可。"
           }
         }
       }
     },
     "Permission is required to record voice memos." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erlaubnis ist erforderlich, um Sprachnotizen aufzunehmen."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Se necesita permiso para grabar notas de voz."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "É necessário permissão para gravar notas de voz."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄製語音備忘錄需要許可。"
           }
         }
       }
@@ -229,36 +375,96 @@
     },
     "Recording requires microphone access." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für die Aufnahme ist der Zugriff auf das Mikrofon erforderlich."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "La grabación requiere acceso al micrófono."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gravação requer acesso ao microfone."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音需要使用麥克風訪問權限。"
           }
         }
       }
     },
     "Voice memo playback failed." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Wiedergabe der Sprachnotiz ist fehlgeschlagen."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "La reproducción de la nota de voz falló."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A reprodução da nota de voz falhou."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音備忘錄播放失敗。"
           }
         }
       }
     },
     "Voice memo recording failed." : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Aufnahme der Sprachnotiz ist fehlgeschlagen."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "La grabación de la nota de voz falló."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gravação da nota de voz falhou."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音備忘錄錄製失敗。"
           }
         }
       }
     },
     "アプリについて" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über die App"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -276,11 +482,29 @@
             "state" : "translated",
             "value" : "アプリについて"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sobre o Aplicativo"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關於應用程式"
+          }
         }
       }
     },
     "いいえ、フィードバックを送信" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nein, zum Feedback senden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -298,11 +522,29 @@
             "state" : "translated",
             "value" : "いいえ、フィードバックを送信"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não, enviar para o Feedback"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不，發送反饋"
+          }
         }
       }
     },
     "ご不便かけて申し訳ありません" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ich entschuldige mich für die Unannehmlichkeiten.\""
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -320,11 +562,29 @@
             "state" : "translated",
             "value" : "ご不便かけて申し訳ありません"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peço desculpas pelo inconveniente."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我為不便道歉。"
+          }
         }
       }
     },
     "ご利用ありがとうございます！次の画面でアプリの評価をお願いします。" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danke, dass Sie unseren Service nutzen! Bitte bewerten Sie die App auf dem nächsten Bildschirm."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -342,11 +602,29 @@
             "state" : "translated",
             "value" : "ご利用ありがとうございます！次の画面でアプリの評価をお願いします。"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrigado por usar nosso serviço! Por favor, avalie o aplicativo na próxima tela."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "感謝您使用我們的服務！請在下一個畫面對應用程式進行評分"
+          }
         }
       }
     },
     "サンプリング周波数" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abtastfrequenz"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -364,11 +642,29 @@
             "state" : "translated",
             "value" : "サンプリング周波数"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "frequência de amostragem"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "採樣頻率"
+          }
         }
       }
     },
     "シンプル録音について" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "über Simple Recorder\""
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -386,11 +682,29 @@
             "state" : "needs_review",
             "value" : "シンプル録音について"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sobre Simple Recorder"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關於簡易錄音器"
+          }
         }
       }
     },
     "シンプル録音に満足していますか？" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sind Sie mit dieser App zufrieden?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -408,11 +722,29 @@
             "state" : "translated",
             "value" : "シンプル録音に満足していますか？"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você está satisfeito com este aplicativo?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您對這個應用程式滿意嗎？"
+          }
         }
       }
     },
     "チャネル" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kanal"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -430,11 +762,29 @@
             "state" : "translated",
             "value" : "チャネル"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "canal"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "頻道"
+          }
         }
       }
     },
     "はい" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yes"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -457,6 +807,12 @@
     },
     "ファイル形式" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dateiformat"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -474,11 +830,29 @@
             "state" : "translated",
             "value" : "ファイル形式"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formato de Arquivo"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文件格式"
+          }
         }
       }
     },
     "マイクの音量" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikrofonlautstärke"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -496,11 +870,29 @@
             "state" : "translated",
             "value" : "マイクの音量"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume do Microfone"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "麥克風音量"
+          }
         }
       }
     },
     "削除" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Löschen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -518,11 +910,29 @@
             "state" : "translated",
             "value" : "削除"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excluir"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除"
+          }
         }
       }
     },
     "削除しますか？" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Möchten Sie löschen?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -540,11 +950,29 @@
             "state" : "translated",
             "value" : "削除しますか？"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você quer excluir?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您要刪除嗎？"
+          }
         }
       }
     },
     "友人にアプリを教える" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teilen Sie einem Freund etwas über die App mit"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -562,11 +990,29 @@
             "state" : "translated",
             "value" : "友人にアプリを教える"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compartilhe com um Amigo Sobre o Aplicativo"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "與朋友分享關於這個應用程式的信息"
+          }
         }
       }
     },
     "名称未設定" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbenannt"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -584,11 +1030,29 @@
             "state" : "translated",
             "value" : "名称未設定"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem Título"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未命名"
+          }
         }
       }
     },
     "次の画面のメールにて詳細に状況を教えてください。" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte erklären Sie die Situation im Detail in der E-Mail auf dem nächsten Bildschirm."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -606,11 +1070,29 @@
             "state" : "translated",
             "value" : "次の画面のメールにて詳細に状況を教えてください。"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Por favor, explique a situação em detalhes no e-mail na próxima tela."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請在下一個畫面的電子郵件中詳細說明情況。"
+          }
         }
       }
     },
     "設定" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellung"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -628,11 +1110,29 @@
             "state" : "translated",
             "value" : "設定"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuração"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
         }
       }
     },
     "選択した音声を削除しますか？" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Möchten Sie das ausgewählte Audio löschen?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -650,11 +1150,29 @@
             "state" : "translated",
             "value" : "選択した音声を削除しますか？"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você deseja excluir o áudio selecionado?"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "您要刪除選定的音頻嗎？"
+          }
         }
       }
     },
     "量子化ビット数" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quantisierungsbitrate"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -672,11 +1190,29 @@
             "state" : "translated",
             "value" : "量子化ビット数"
           }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taxa de Bits de Quantização"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "量化位率"
+          }
         }
       }
     },
     "音声設定" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audioeinstellungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -693,6 +1229,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "音声設定"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações de Áudio"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音頻設置"
           }
         }
       }
