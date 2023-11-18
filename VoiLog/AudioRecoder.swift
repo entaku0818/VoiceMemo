@@ -124,7 +124,7 @@ private actor AudioRecorder {
         setupAVAudioSession()
       let stream = AsyncThrowingStream<Bool, Error> { continuation in
         do {
-            speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "ja-JP"))
+            speechRecognizer = SFSpeechRecognizer(locale: Locale.current)
               audioEngine = AVAudioEngine()
 
 
