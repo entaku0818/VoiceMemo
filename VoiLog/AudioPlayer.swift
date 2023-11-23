@@ -12,12 +12,12 @@ import Foundation
 import XCTestDynamicOverlay
 
 struct AudioPlayerClient {
-    var play: @Sendable (URL, Double) async throws -> Bool
+    var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed) async throws -> Bool
 }
 
 extension AudioPlayerClient: TestDependencyKey {
   static let previewValue = Self(
-    play: { _,_  in
+    play: { _,_,_   in
       try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
       return true
     }
@@ -36,7 +36,7 @@ extension DependencyValues {
 }
 
 extension AudioPlayerClient: DependencyKey {
-    static let liveValue = Self { url, startTime  in
+    static let liveValue = Self { url, startTime,playspeed   in
     let stream = AsyncThrowingStream<Bool, Error> { continuation in
       do {
         let delegate = try Delegate(
@@ -50,6 +50,9 @@ extension AudioPlayerClient: DependencyKey {
               debugPrint(error?.localizedDescription)
           }
         )
+       delegate.player.enableRate = true
+        delegate.player.rate = playspeed.rawValue
+
 
         delegate.player.play()
         continuation.onTermination = { _ in
@@ -87,6 +90,11 @@ private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
         self.player.delegate = self
   }
 
+    func changePlaybackRate(to rate: AudioPlayerClient.PlaybackSpeed) {
+        player.enableRate = true
+        player.rate = rate.rawValue
+    }
+
   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
     self.didFinishPlaying(flag)
   }
@@ -94,4 +102,35 @@ private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
   func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
     self.decodeErrorDidOccur(error)
   }
+}
+
+extension AudioPlayerClient {
+    enum PlaybackSpeed: Float, CaseIterable {
+        case slowest = 0.5
+        case slower = 0.75
+        case normal = 1.0
+        case faster = 1.25
+        case fast = 1.5
+        case fasterStill = 1.75
+        case fastest = 2.0
+
+        var description: String {
+            switch self {
+            case .slowest:
+                return "0.5x (最も遅い)"
+            case .slower:
+                return "0.75x (遅い)"
+            case .normal:
+                return "1x (標準)"
+            case .faster:
+                return "1.25x (速い)"
+            case .fast:
+                return "1.5x (もっと速い)"
+            case .fasterStill:
+                return "1.75x (かなり速い)"
+            case .fastest:
+                return "2x (最速)"
+            }
+        }
+    }
 }
