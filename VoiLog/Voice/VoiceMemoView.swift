@@ -35,7 +35,6 @@ struct VoiceMemoReducer: Reducer {
         switch action {
         case .audioPlayerClient:
             // 停止時の処理
-            state.time = 0.0
           state.mode = .notPlaying
         return .cancel(id: CancelID.play)
 
@@ -47,16 +46,16 @@ struct VoiceMemoReducer: Reducer {
           case .notPlaying:
               print("audioPlayer:" + String(state.time))
 
-              state.mode = .playing(progress: 0)
+              state.mode = .playing(progress: state.time / state.duration)
 
               return .run { [url = state.url,time = state.time] send in
                 await send(.delegate(.playbackStarted))
 
                 async let playAudio: Void = send(
-                    .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time) })
+                    .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, .normal) })
                 )
 
-                var start: TimeInterval = 0
+                var start: TimeInterval = time
                 for await _ in self.clock.timer(interval: .milliseconds(500)) {
                   start += 0.5
                   await send(.timerUpdated(start))
@@ -69,6 +68,7 @@ struct VoiceMemoReducer: Reducer {
 
           case .playing:
             state.mode = .notPlaying
+              
               return .cancel(id: CancelID.play)
           }
 
