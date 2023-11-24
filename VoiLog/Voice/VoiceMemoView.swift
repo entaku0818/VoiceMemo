@@ -19,6 +19,7 @@ struct VoiceMemoReducer: Reducer {
         case timerUpdated(TimeInterval)
         case titleTextFieldChanged(String)
         case loadWaveformData
+        case onTapPlaySpeed
 
         enum Delegate {
           case playbackStarted
@@ -48,11 +49,11 @@ struct VoiceMemoReducer: Reducer {
 
               state.mode = .playing(progress: state.time / state.duration)
 
-              return .run { [url = state.url,time = state.time] send in
+              return .run { [url = state.url,time = state.time,playSpeed=state.playSpeed] send in
                 await send(.delegate(.playbackStarted))
 
                 async let playAudio: Void = send(
-                    .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, .normal) })
+                    .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed) })
                 )
 
                 var start: TimeInterval = time
@@ -93,6 +94,9 @@ struct VoiceMemoReducer: Reducer {
             return .none
         case .delegate:
           return .none
+        case .onTapPlaySpeed:
+            state.playSpeed = state.playSpeed.next()
+            return .none
         }
     }
 
@@ -113,6 +117,9 @@ struct VoiceMemoReducer: Reducer {
         var samplingFrequency: Double
         var quantizationBitDepth: Int
         var numberOfChannels: Int
+
+        var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
+
 
         var waveformData: [Float] = []
 
