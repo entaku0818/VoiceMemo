@@ -243,9 +243,9 @@ struct VoiceMemosView: View {
     let store: StoreOf<VoiceMemos>
 
     enum AlertType {
-      case deleted
+        case deleted
         case appInterview
-      case mail
+        case mail
     }
     @State private var isDeleteConfirmationPresented = false
 
@@ -280,9 +280,7 @@ struct VoiceMemosView: View {
               IfLetStore(
                 self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
               ) { store in
-                      RecordingMemoView(store: store)
-
-
+                RecordingMemoView(store: store)
               } else: {
                 RecordButton(permission: viewStore.audioRecorderPermission) {
                   viewStore.send(.recordButtonTapped, animation: .spring())

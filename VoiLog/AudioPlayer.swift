@@ -117,20 +117,29 @@ extension AudioPlayerClient {
         var description: String {
             switch self {
             case .slowest:
-                return "0.5x (最も遅い)"
+                return "0.5x"
             case .slower:
-                return "0.75x (遅い)"
+                return "0.75x"
             case .normal:
                 return "1x (標準)"
             case .faster:
-                return "1.25x (速い)"
+                return "1.25x"
             case .fast:
-                return "1.5x (もっと速い)"
+                return "1.5x"
             case .fasterStill:
-                return "1.75x (かなり速い)"
+                return "1.75x"
             case .fastest:
-                return "2x (最速)"
+                return "2x"
             }
         }
+    }
+}
+
+extension AudioPlayerClient.PlaybackSpeed {
+    func next() -> AudioPlayerClient.PlaybackSpeed {
+        let allCases = AudioPlayerClient.PlaybackSpeed.allCases
+        guard let currentIndex = allCases.firstIndex(of: self) else { return .normal }
+        let nextIndex = allCases.index(after: currentIndex)
+        return allCases.indices.contains(nextIndex) ? allCases[nextIndex] : allCases.first!
     }
 }
