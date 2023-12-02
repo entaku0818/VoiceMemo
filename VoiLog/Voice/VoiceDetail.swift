@@ -52,10 +52,27 @@ import ComposableArchitecture
 
                   HStack{
                       Spacer()
+                      Button(action: {
+                          viewStore.send(.skipBy(-10))
+                      }) {
+                          Image(systemName: "gobackward.10")
+                              .imageScale(.large)
+                              .padding()
+                      }
+                      Button(action: {
+                          viewStore.send(.skipBy(10))
+                      }) {
+                          Image(systemName: "goforward.10")
+                              .imageScale(.large)
+                              .padding()
+                      }
+                      Spacer()
                       Button(action: { viewStore.send(.onTapPlaySpeed) }) {
                           Text(viewStore.playSpeed.description)
                               .font(.system(size: 16))
                       }
+                      Spacer()
+
                   }.padding()
 
                   ProgressView(value: viewStore.time / viewStore.duration)
