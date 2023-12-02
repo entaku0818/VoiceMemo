@@ -15,6 +15,8 @@ struct AudioPlayerClient {
     var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed) async throws -> Bool
     var changeSpeed: @Sendable (AudioPlayerClient.PlaybackSpeed) async throws -> Bool
     var stop: @Sendable () async throws -> Bool
+    var seek: @Sendable (_ time: TimeInterval) async throws -> Bool
+    var getCurrentTime: @Sendable () async throws -> TimeInterval
 }
 
 
@@ -36,13 +38,19 @@ extension AudioPlayerClient: TestDependencyKey {
         return true
     }, stop: {
         return true
+    }, seek: { _ in
+        return true
+    }, getCurrentTime: {
+        return 60
     }
   )
 
   static let testValue = Self(
     play: unimplemented("\(Self.self).play"), 
     changeSpeed: unimplemented("\(Self.self).changeSpeed"), 
-    stop: unimplemented("\(Self.self).stop")
+    stop: unimplemented("\(Self.self).stop"),
+    seek: unimplemented("\(Self.self).seek"),
+    getCurrentTime: unimplemented("\(Self.self).getCurrentTime")
   )
 }
 
@@ -65,6 +73,10 @@ extension AudioPlayerClient: DependencyKey {
                 return await audioPlayer.changePlaybackRate(to: playspeed)
             },stop:  {
                 return await audioPlayer.stop()
+            }, seek:  { time in
+                return await audioPlayer.seek(to: time )
+            }, getCurrentTime: {
+                return await audioPlayer.getCurrentTime()
             }
         )
     }
@@ -114,17 +126,36 @@ private actor AudioPlayer {
         guard let player = player else { return false}
         player.enableRate = true
         player.rate = rate.rawValue
-        player.stop()
-        player.play()
+
 
         return true
 
     }
 
+
+
     func stop() async -> Bool {
         guard let player = player else { return false }
         player.stop()
         return true
+    }
+
+    func seek(to time: TimeInterval) async -> Bool {
+        guard let player = player else { return false }
+
+        let isPlaying = player.isPlaying
+        player.currentTime = time
+
+        // 再生中であれば、再生を続ける
+        if isPlaying {
+            player.play()
+        }
+
+        return true
+    }
+
+    func getCurrentTime() async -> TimeInterval {
+        return player?.currentTime ?? 0
     }
 }
 

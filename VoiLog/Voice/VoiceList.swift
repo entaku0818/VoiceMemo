@@ -470,17 +470,4 @@ struct VoiceMemos_Previews: PreviewProvider {
 }
 
 
-extension AudioPlayerClient {
-  static let mock = Self(
-    play: { _,_,_   in
-      try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
-      return true
-    }, changeSpeed: { _   in
-        try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
-        return true
-    }, stop: {
-        try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
-        return true
-    }
-  )
-}
+
