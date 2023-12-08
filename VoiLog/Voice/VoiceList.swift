@@ -260,7 +260,6 @@ struct VoiceMemosView: View {
           WithViewStore(self.store, observe: { $0 }) { viewStore in
           NavigationView {
             VStack {
-            AdmobBannerView().frame(width: .infinity, height: 50)
               List {
                 ForEachStore(
                     self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)

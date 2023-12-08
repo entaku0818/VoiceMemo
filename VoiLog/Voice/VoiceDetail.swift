@@ -90,6 +90,8 @@ import ComposableArchitecture
                   }.frame(minHeight: 50, maxHeight: 200)
                       .padding(16)
                   Spacer()
+                  AdmobBannerView().frame(width: .infinity, height: 50)
+
 
               }
               .navigationBarItems(trailing:
