@@ -213,11 +213,9 @@ struct VoiceMemoView: View {
                                 if viewStore.title.count > 0 {
                                     Text(viewStore.title)
                                         .font(.headline) // Adjust the font size and style as needed
-                                        .foregroundColor(.black) // Set text color
                                 } else {
                                     Text("名称未設定")
                                         .font(.headline) // Adjust the font size and style as needed
-                                        .foregroundColor(.black)
                                 }
                                 Spacer()
                             }
