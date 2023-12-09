@@ -64,11 +64,16 @@ struct VoiceMemoReducer: Reducer {
 
                 state.mode = .playing(progress: state.time / state.duration)
 
-                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed] send in
+                return .run { [
+                        url = state.url,
+                        time = state.time,
+                        playSpeed = state.playSpeed,
+                        isLoop = state.isLoop
+                ] send in
                     await send(.delegate(.playbackStarted))
 
                     async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed) }, .automatic)
+                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
                     )
 
                     for await _ in self.clock.timer(interval: .milliseconds(500)) {
@@ -125,11 +130,11 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 break
             case .playing:
-                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed] send in
+                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed,isLoop = state.isLoop ] send in
                     await send(.delegate(.playbackStarted))
 
                     async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed) }, .automatic)
+                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
                     )
 
                     for await _ in self.clock.timer(interval: .milliseconds(500)) {
@@ -176,6 +181,7 @@ struct VoiceMemoReducer: Reducer {
         var numberOfChannels: Int
 
         var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
+        var isLoop: Bool = false
 
 
         var waveformData: [Float] = []
