@@ -21,6 +21,8 @@ struct VoiceMemoReducer: Reducer {
         case loadWaveformData
         case onTapPlaySpeed
         case skipBy(TimeInterval)
+        case toggleLoop
+
 
         enum Delegate {
             case playbackStarted
@@ -64,11 +66,16 @@ struct VoiceMemoReducer: Reducer {
 
                 state.mode = .playing(progress: state.time / state.duration)
 
-                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed] send in
+                return .run { [
+                        url = state.url,
+                        time = state.time,
+                        playSpeed = state.playSpeed,
+                        isLoop = state.isLooping
+                ] send in
                     await send(.delegate(.playbackStarted))
 
                     async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed) }, .automatic)
+                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
                     )
 
                     for await _ in self.clock.timer(interval: .milliseconds(500)) {
@@ -123,13 +130,13 @@ struct VoiceMemoReducer: Reducer {
             switch state.mode {
 
             case .notPlaying:
-                break
+                return .none
             case .playing:
-                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed] send in
+                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed,isLoop = state.isLooping ] send in
                     await send(.delegate(.playbackStarted))
 
                     async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed) }, .automatic)
+                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
                     )
 
                     for await _ in self.clock.timer(interval: .milliseconds(500)) {
@@ -142,17 +149,53 @@ struct VoiceMemoReducer: Reducer {
                 }
                 .cancellable(id: CancelID.play, cancelInFlight: true)
             }
-            return .none
+
         case let .skipBy(seconds):
             let newTime = max(min(state.time + TimeInterval(seconds), state.duration), 0)
             state.time = newTime
-            return .run { send in
-                async let skipAudio: Void = send(
-                    .audioPlayerClient(TaskResult { try await self.audioPlayer.seek(newTime) }, .manual)
-                )
-                await skipAudio
+            switch state.mode {
+            case .notPlaying:
+                return .none
+            case .playing:
+                return .run { [url = state.url,playSpeed = state.playSpeed,isLoop = state.isLooping ] send in
+                    await send(.delegate(.playbackStarted))
+
+                    async let playAudio: Void = send(
+                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, newTime, playSpeed, isLoop) }, .automatic)
+                    )
+
+                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
+                        let time = try await self.audioPlayer.getCurrentTime()
+                        await send(.timerUpdated(time))
+                    }
+
+                    await playAudio
+                }
+                .cancellable(id: CancelID.play, cancelInFlight: true)
             }
-            .cancellable(id: CancelID.play, cancelInFlight: true)
+
+        case .toggleLoop:
+            state.isLooping.toggle() // Toggle the loop state
+            switch state.mode {
+            case .notPlaying:
+                return .none
+            case .playing:
+                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed,isLoop = state.isLooping ] send in
+                    await send(.delegate(.playbackStarted))
+
+                    async let playAudio: Void = send(
+                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
+                    )
+
+                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
+                        let time = try await self.audioPlayer.getCurrentTime()
+                        await send(.timerUpdated(time))
+                    }
+
+                    await playAudio
+                }
+                .cancellable(id: CancelID.play, cancelInFlight: true)
+            }
         }
     }
 
@@ -176,6 +219,8 @@ struct VoiceMemoReducer: Reducer {
         var numberOfChannels: Int
 
         var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
+        var isLooping: Bool = false
+
 
 
         var waveformData: [Float] = []
