@@ -12,10 +12,8 @@ import Foundation
 import XCTestDynamicOverlay
 
 struct AudioPlayerClient {
-    var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed) async throws -> Bool
-    var changeSpeed: @Sendable (AudioPlayerClient.PlaybackSpeed) async throws -> Bool
+    var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed, Bool) async throws -> Bool
     var stop: @Sendable () async throws -> Bool
-    var seek: @Sendable (_ time: TimeInterval) async throws -> Bool
     var getCurrentTime: @Sendable () async throws -> TimeInterval
 }
 
@@ -29,31 +27,25 @@ extension AudioPlayerClient{
 }
 
 extension AudioPlayerClient: TestDependencyKey {
-  static let previewValue = Self(
-    play: { _,_,_   in
-      try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
-      return true
-    }, changeSpeed: { _ in
-        try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
-        return true
-    }, stop: {
-        return true
-    }, seek: { _ in
-        return true
-    }, getCurrentTime: {
-        return 60
-    }
-  )
+    static let previewValue = Self(
+        play: { _, _, _, _ in
+            try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
+            return true
+        },
+        stop: {
+            return true
+        },
+        getCurrentTime: {
+            return 60
+        }
+    )
 
-  static let testValue = Self(
-    play: unimplemented("\(Self.self).play"), 
-    changeSpeed: unimplemented("\(Self.self).changeSpeed"), 
-    stop: unimplemented("\(Self.self).stop"),
-    seek: unimplemented("\(Self.self).seek"),
-    getCurrentTime: unimplemented("\(Self.self).getCurrentTime")
-  )
+    static let testValue = Self(
+        play: unimplemented("\(Self.self).play"),
+        stop: unimplemented("\(Self.self).stop"),
+        getCurrentTime: unimplemented("\(Self.self).getCurrentTime")
+    )
 }
-
 extension DependencyValues {
   var audioPlayer: AudioPlayerClient {
     get { self[AudioPlayerClient.self] }
@@ -64,18 +56,15 @@ extension DependencyValues {
 extension AudioPlayerClient: DependencyKey {
 
     static var liveValue: Self {
-        let audioPlayer:AudioPlayer = AudioPlayer()
+        let audioPlayer: AudioPlayer = AudioPlayer()
         return Self(
-            play: { url, startTime, playspeed in
-                return try await audioPlayer.play(url: url, startTime: startTime, rate: playspeed)
+            play: { url, startTime, playSpeed, isLooping in
+                return try await audioPlayer.play(url: url, startTime: startTime, rate: playSpeed, isLooping: isLooping)
             },
-            changeSpeed: { playspeed in
-                return await audioPlayer.changePlaybackRate(to: playspeed)
-            },stop:  {
+            stop: {
                 return await audioPlayer.stop()
-            }, seek:  { time in
-                return await audioPlayer.seek(to: time )
-            }, getCurrentTime: {
+            },
+            getCurrentTime: {
                 return await audioPlayer.getCurrentTime()
             }
         )
@@ -88,14 +77,14 @@ private actor AudioPlayer {
     var delegate: Delegate?
 
 
-    func play(url: URL, startTime: Double, rate: AudioPlayerClient.PlaybackSpeed) async throws -> Bool {
+    func play(url: URL, startTime: Double, rate: AudioPlayerClient.PlaybackSpeed, isLooping:Bool) async throws -> Bool {
 
         let stream = AsyncThrowingStream<Bool, Error> { continuation in
           do {
-              self.delegate = try Delegate(didFinishPlaying: { flag in
-                continuation.yield(flag)
-                continuation.finish()
-                try? AVAudioSession.sharedInstance().setActive(false)
+              self.delegate = try Delegate(didFinishPlaying: { [weak self] flag in
+                  continuation.yield(flag)
+                  continuation.finish()
+                  try? AVAudioSession.sharedInstance().setActive(false)
               }, decodeErrorDidOccur: { error in
                   continuation.finish(throwing: error)
                   try? AVAudioSession.sharedInstance().setActive(false)
@@ -109,6 +98,8 @@ private actor AudioPlayer {
               player.currentTime = startTime
               player.enableRate = true
               player.rate = rate.rawValue
+              player.numberOfLoops = isLooping ? -1 : 0
+
               player.play()
           } catch {
             continuation.finish(throwing: error)
@@ -122,35 +113,11 @@ private actor AudioPlayer {
 
     }
 
-    func changePlaybackRate(to rate: AudioPlayerClient.PlaybackSpeed) async -> Bool {
-        guard let player = player else { return false}
-        player.enableRate = true
-        player.rate = rate.rawValue
-
-
-        return true
-
-    }
-
 
 
     func stop() async -> Bool {
         guard let player = player else { return false }
         player.stop()
-        return true
-    }
-
-    func seek(to time: TimeInterval) async -> Bool {
-        guard let player = player else { return false }
-
-        let isPlaying = player.isPlaying
-        player.currentTime = time
-
-        // 再生中であれば、再生を続ける
-        if isPlaying {
-            player.play()
-        }
-
         return true
     }
 
