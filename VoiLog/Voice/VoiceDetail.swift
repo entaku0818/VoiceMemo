@@ -51,6 +51,15 @@ import ComposableArchitecture
                   }.padding()
 
                   HStack{
+                      Button(action: {
+                          viewStore.send(.toggleLoop)
+                      }) {
+                          Image(systemName: "repeat") // You can change this icon as needed
+                              .imageScale(.large)
+                              .font(.system(size: 16, weight: viewStore.isLooping ? .heavy : .light)) // 線を太くする
+                              .padding()
+
+                      }
                       Spacer()
                       Button(action: {
                           viewStore.send(.skipBy(-10))
