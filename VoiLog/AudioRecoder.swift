@@ -316,6 +316,7 @@ private actor AudioRecorder {
 
             } catch {
                 Logger.shared.logError(error.localizedDescription)
+                continuation.yield(true)
                 continuation.finish(throwing: error)
             }
         }
@@ -330,7 +331,7 @@ private actor AudioRecorder {
 
     private func setupAVAudioSession() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.defaultToSpeaker,.duckOthers])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print("マイクの音量を設定できませんでした。エラー: \(error.localizedDescription)")
