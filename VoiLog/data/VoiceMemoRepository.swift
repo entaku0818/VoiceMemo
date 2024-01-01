@@ -175,4 +175,27 @@ class VoiceMemoRepository: NSObject {
         }
     }
 
+
+    func updateTitle(uuid: UUID, newTitle: String) {
+        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+        fetchRequest.fetchLimit = 1
+
+        // UUIDに基づいて特定のVoiceオブジェクトを検索
+        let predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+        fetchRequest.predicate = predicate
+
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            if let voice = results.first {
+                // 新しいタイトルで更新
+                voice.title = newTitle
+
+                try managedContext.save()
+            }
+        } catch let error {
+            print(error.localizedDescription)
+            Logger.shared.logError("updateTitle:" + error.localizedDescription)
+        }
+    }
+
 }
