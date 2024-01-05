@@ -16,11 +16,8 @@ struct SettingReducer: Reducer {
         case quantizationBitDepth(Int)
         case numberOfChannels(Int)
         case microphonesVolume(Double)
-
         case showPurchaseOptions
-        case productsResponse(Result<[Product], Error>)
-        case purchaseProduct(Product)
-        case purchaseResponse(Result<StoreKit.Transaction, Error>)
+        case purchaseProduct
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -46,25 +43,11 @@ struct SettingReducer: Reducer {
             UserDefaultsManager.shared.microphonesVolume = volume
             return .none
         case .showPurchaseOptions:
-            return .run { subscriber in
-                Task {
-                    // 製品リストを非同期で取得
-                    do {
-                        let products = try await Product.products(for: ["製品ID1", "製品ID2"]) // 製品IDを指定
-                        // 製品リスト取得成功
-                        subscriber.send(.productsResponse(.success(products)))
-                    } catch {
-                        // 製品リスト取得失敗
-                        subscriber.send(.productsResponse(.failure(error)))
-                    }
-                }
-            }
-        case .productsResponse(_):
-            <#code#>
-        case .purchaseProduct(_):
-            <#code#>
-        case .purchaseResponse(_):
-            <#code#>
+            state.isPurchaseAlertPresented = true
+            return .none
+        case .purchaseProduct:
+            return .none
+
         }
     }
 
@@ -75,7 +58,6 @@ struct SettingReducer: Reducer {
         var numberOfChannels:Int
         var microphonesVolume:Double
 
-        var products: [Product] = []
         var isPurchaseAlertPresented: Bool = false
     }
 
@@ -145,14 +127,24 @@ struct SettingView: View {
                                 Text("アプリについて")
                                 Spacer()
                             }
-                            HStack {
-                                Button("開発者を支援する") {
-                                    viewStore.send(.showPurchaseOptions)
-                                }
-                                Spacer()
+                        }
+                        HStack {
+                            Button("開発者を支援する") {
+                                viewStore.send(.showPurchaseOptions)
                             }
+                            Spacer()
                         }
                     }
+                }
+                .alert(isPresented: viewStore.binding(get: \.isPurchaseAlertPresented, send: .purchaseProduct)) {
+                    Alert(
+                        title: Text("支援オプション"),
+                        message: Text("開発者を支援するためのオプションを選択してください。"),
+                        primaryButton: .default(Text("購入"), action: {
+                            viewStore.send(.purchaseProduct)
+                        }),
+                        secondaryButton: .cancel()
+                    )
                 }
                 .listStyle(GroupedListStyle())
 
@@ -186,17 +178,6 @@ struct FileFormatView: View {
 
                     }
                 }
-            }
-            .alert(isPresented: viewStore.binding(get: \.isPurchaseAlertPresented, send: .purchaseAlertDismissed)) {
-                Alert(
-                    title: Text("支援オプション"),
-                    message: Text("開発者を支援するためのオプションを選択してください。"),
-                    primaryButton: .default(Text("購入"), action: {
-                        // 購入処理
-                        viewStore.send(.purchaseProduct())
-                    }),
-                    secondaryButton: .cancel()
-                )
             }
             .listStyle(GroupedListStyle())
             .navigationTitle("ファイル形式")
