@@ -11,6 +11,7 @@ import StoreKit
 
 struct SettingReducer: Reducer {
     enum Action: Equatable {
+        case alert(PresentationAction<AlertAction>)
         case selectFileFormat(String)
         case samplingFrequency(Double)
         case quantizationBitDepth(Int)
@@ -18,6 +19,10 @@ struct SettingReducer: Reducer {
         case microphonesVolume(Double)
         case showPurchaseOptions
         case purchaseProduct
+    }
+
+    enum AlertAction: Equatable {
+        case isPurchaseErrorAlertPresented
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -46,12 +51,31 @@ struct SettingReducer: Reducer {
             state.isPurchaseAlertPresented = true
             return .none
         case .purchaseProduct:
-            return .none
+            let productID = "developerSupport"
+            // IAPManagerの共有インスタンスを使用して購入を開始する
+            return .run { send in
+                do {
+                    try await IAPManager.shared.startPurchase(productID: productID)
+                } catch let error {
+                    print(error)
+                }
+            }
 
+        case .alert(.presented(.isPurchaseErrorAlertPresented)):
+
+                state.alert = AlertState(
+                  title: TextState(""),
+                  message: TextState("ご利用ありがとうございます！次の画面でアプリの評価をお願いします。"),
+                  dismissButton: .default(TextState("OK"))
+                )
+                return .none
+        case .alert(.dismiss):
+            return .none
         }
     }
 
     struct State: Equatable {
+        @PresentationState var alert: AlertState<AlertAction>?
         var selectedFileFormat: String
         var samplingFrequency: Double
         var quantizationBitDepth:Int
@@ -59,6 +83,7 @@ struct SettingReducer: Reducer {
         var microphonesVolume:Double
 
         var isPurchaseAlertPresented: Bool = false
+
     }
 
 }
