@@ -8,8 +8,8 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
     enum IAPError: Error {
         case cannotMakePayments
         case productNotFound
+        case canceled
     }
-
     private override init() {
         super.init()
         SKPaymentQueue.default().add(self)
@@ -34,6 +34,7 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
         }
     }
 
+    // SKProductsRequestDelegate
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if let product = response.products.first {
             currentContinuation?.resume(returning: product)
@@ -68,6 +69,11 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
 
     private func failTransaction(_ transaction: SKPaymentTransaction) {
         // トランザクションが失敗したときの処理
+        if let error = transaction.error as? SKError {
+            currentContinuation?.resume(throwing: error)
+        }
         SKPaymentQueue.default().finishTransaction(transaction)
     }
+
+
 }
