@@ -163,7 +163,7 @@ struct SettingView: View {
                 }
                 .alert(isPresented: viewStore.binding(get: \.isPurchaseAlertPresented, send: .purchaseProduct)) {
                     Alert(
-                        title: Text("支援オプション"),
+                        title: Text("開発者を支援する"),
                         message: Text("開発者を支援するためのオプションを選択してください。"),
                         primaryButton: .default(Text("購入"), action: {
                             viewStore.send(.purchaseProduct)

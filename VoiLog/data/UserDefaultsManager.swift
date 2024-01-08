@@ -83,4 +83,14 @@ class UserDefaultsManager {
             defaults.set(newValue, forKey: "ReviewRequestCount")
         }
     }
+
+    // デベロッパーサポートしたかどうか？
+    var hasSupportedDeveloper: Bool {
+        get {
+            return defaults.bool(forKey: "HasSupportedDeveloper")
+        }
+        set {
+            defaults.set(newValue, forKey: "HasSupportedDeveloper")
+        }
+    }
 }
