@@ -190,7 +190,7 @@ struct VoiceMemos: Reducer {
                     title: TextState("ご不便かけて申し訳ありません"),
                     message: TextState("次の画面のメールにて詳細に状況を教えてください。"),
                     dismissButton: .default(TextState("OK"),
-                                                             action: .send(.onMailTap))
+                    action: .send(.onMailTap))
                   )
                   return .none
 
@@ -333,11 +333,13 @@ struct VoiceMemosView: View {
                     if viewStore.recordingMemo == nil {
                         // Initial state
                         let initialState = SettingReducer.State(
-                            selectedFileFormat: Constants.defaultFileFormat.rawValue,  // Default or previously saved value
-                            samplingFrequency: Constants.defaultSamplingFrequency.rawValue,            // Default or previously saved value
-                            quantizationBitDepth: Constants.defaultQuantizationBitDepth.rawValue,            // Default or previously saved value
-                            numberOfChannels: Constants.defaultNumberOfChannels.rawValue,                 // Default or previously saved value
-                            microphonesVolume: Constants.defaultMicrophonesVolume.rawValue                // Default or previously saved value
+                            selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,  // Default or previously saved value
+                            samplingFrequency: UserDefaultsManager.shared.samplingFrequency,            // Default or previously saved value
+                            quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,            // Default or previously saved value
+                            numberOfChannels: UserDefaultsManager.shared.numberOfChannels,                 // Default or previously saved value
+                            microphonesVolume: UserDefaultsManager.shared.microphonesVolume,
+                            developerSupported: UserDefaultsManager.shared.hasSupportedDeveloper
+                // Default or previously saved value
                         )
 
                         // Creating the store
