@@ -7,14 +7,22 @@
 
 import SwiftUI
 import ComposableArchitecture
+import StoreKit
 
 struct SettingReducer: Reducer {
     enum Action: Equatable {
+        case alert(PresentationAction<AlertAction>)
         case selectFileFormat(String)
         case samplingFrequency(Double)
         case quantizationBitDepth(Int)
         case numberOfChannels(Int)
         case microphonesVolume(Double)
+        case supported
+    }
+
+    enum AlertAction: Equatable {
+        case isPurchaseAlertPresented
+        case purchaseProduct
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -39,15 +47,53 @@ struct SettingReducer: Reducer {
             state.microphonesVolume = volume
             UserDefaultsManager.shared.microphonesVolume = volume
             return .none
+        case .alert(.presented(.purchaseProduct)):
+            let productID = "developerSupport"
+            // IAPManagerの共有インスタンスを使用して購入を開始する
+            return .run { send in
+                do {
+                    try await IAPManager.shared.startPurchase(productID: productID)
+                    await send(.supported)
+                } catch let error {
+                    print(error)
+                }
+            }
+
+        case .alert(.presented(.isPurchaseAlertPresented)):
+            if state.developerSupported {return .none}
+            state.alert = AlertState(
+              title: TextState("開発者を支援する"),
+              message: TextState("ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。"),
+              dismissButton: .default(TextState("次へ"),
+              action: .send(.purchaseProduct))
+            )
+            return .none
+        case .supported:
+            state.alert = AlertState(
+              title: TextState("サポートありがとうございます！"),
+              message: TextState("いただいたサポートは開発費用として大切に利用させていただきます。"),
+              dismissButton: .default(TextState("次へ")
+            ))
+            state.developerSupported = true
+            UserDefaultsManager.shared.hasSupportedDeveloper = true
+
+                return .none
+        case .alert(.dismiss):
+            state.alert = nil
+            return .none
         }
     }
 
     struct State: Equatable {
+        @PresentationState var alert: AlertState<AlertAction>?
         var selectedFileFormat: String
         var samplingFrequency: Double
         var quantizationBitDepth:Int
         var numberOfChannels:Int
         var microphonesVolume:Double
+        var developerSupported:Bool
+
+
     }
 
 }
@@ -108,16 +154,41 @@ struct SettingView: View {
                                 Text("\(Int(viewStore.microphonesVolume))")
                             }
                         }
+                        
                     }
                     Section(header: Text("")) {
                         NavigationLink(destination: AboutSimpleRecoder()) {
                             HStack {
                                 Text("アプリについて")
                                 Spacer()
+
+
                             }
                         }
-                    }
+                        HStack {
+                             Button(action: {
+                                 viewStore.send(.alert(.presented(.isPurchaseAlertPresented)))
+                             }) {
+                                 HStack {
+                                     Text("開発者を支援する")
+                                         .foregroundColor(Color("Black"))
+
+                                     Spacer()
+                                     if viewStore.developerSupported{
+                                         Text("購入済")
+                                          .foregroundColor(Color("Black"))
+                                          Image(systemName: "checkmark")
+                                              .foregroundColor(.green)
+
+                                     }
+
+                        
+                                 }
+                             }
+                         }
                 }
+                }
+            .alert(store: self.store.scope(state: \.$alert, action: SettingReducer.Action.alert))
                 .listStyle(GroupedListStyle())
 
             AdmobBannerView().frame(width: .infinity, height: 50)

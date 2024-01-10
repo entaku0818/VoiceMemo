@@ -1061,6 +1061,22 @@
         }
       }
     },
+    "いただいたサポートは開発費用として大切に利用させていただきます。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your support will be greatly appreciated and used as development costs."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "いただいたサポートは開発費用として大切に利用させていただきます。"
+          }
+        }
+      }
+    },
     "ご不便かけて申し訳ありません" : {
       "localizations" : {
         "de" : {
@@ -1197,6 +1213,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "感謝您使用我們的服務！請在下一個畫面對應用程式進行評分"
+          }
+        }
+      }
+    },
+    "ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you wish to provide support, please make a purchase on the next screen. The support will be used for development costs."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。"
+          }
+        }
+      }
+    },
+    "サポートありがとうございます！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thank you for your support!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サポートありがとうございます！"
           }
         }
       }
@@ -2093,6 +2141,22 @@
         }
       }
     },
+    "次へ" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次へ"
+          }
+        }
+      }
+    },
     "設定" : {
       "localizations" : {
         "de" : {
@@ -2159,6 +2223,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定"
+          }
+        }
+      }
+    },
+    "購入" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "buy"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入"
+          }
+        }
+      }
+    },
+    "購入済" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchased"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入済"
           }
         }
       }
@@ -2299,6 +2396,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "量化位率"
+          }
+        }
+      }
+    },
+    "開発者を支援する" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support the Developer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開発者を支援する"
           }
         }
       }
