@@ -487,6 +487,12 @@
             "value" : ""
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -531,6 +537,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定画面を開く"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
           }
         },
         "vi" : {
@@ -707,6 +719,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "録音中"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kayıt"
           }
         },
         "vi" : {
@@ -1063,6 +1081,12 @@
     },
     "いただいたサポートは開発費用として大切に利用させていただきます。" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unterstützen Sie den Entwickler"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1073,6 +1097,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "いただいたサポートは開発費用として大切に利用させていただきます。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destekleriniz büyük takdir toplayacak ve geliştirme maliyeti olarak kullanılacaktır."
           }
         }
       }
@@ -1219,6 +1249,12 @@
     },
     "ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wenn Sie Unterstützung leisten möchten, tätigen Sie bitte einen Kauf auf dem nächsten Bildschirm. Die Unterstützung wird für die Entwicklungskosten verwendet."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1230,11 +1266,23 @@
             "state" : "translated",
             "value" : "ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destek sağlamak istiyorsanız, lütfen bir sonraki ekranda bir satın alma işlemi yapın. Bu destek, geliştirme maliyetleri için kullanılacaktır."
+          }
         }
       }
     },
     "サポートありがとうございます！" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vielen Dank für Ihre Unterstützung!"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1245,6 +1293,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "サポートありがとうございます！"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destekleriniz için teşekkür ederiz!"
           }
         }
       }
@@ -2143,6 +2197,12 @@
     },
     "次へ" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nächstes"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2153,6 +2213,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "次へ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
           }
         }
       }
@@ -2230,6 +2296,12 @@
     "購入" : {
       "extractionState" : "stale",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kaufen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2241,11 +2313,23 @@
             "state" : "translated",
             "value" : "購入"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "buy"
+          }
         }
       }
     },
     "購入済" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gekauft"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2256,6 +2340,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "購入済"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchased"
           }
         }
       }
@@ -2402,6 +2492,12 @@
     },
     "開発者を支援する" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unterstützen Sie den Entwickler"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2412,6 +2508,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "開発者を支援する"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geliştiriciyi Destekle"
           }
         }
       }
