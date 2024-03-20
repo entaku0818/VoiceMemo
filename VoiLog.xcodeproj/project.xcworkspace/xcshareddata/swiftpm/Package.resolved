@@ -167,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-composable-architecture.git",
       "state" : {
-        "revision" : "ae491c9e3f66631e72d58db8bb4c27dfc3d3afd4",
-        "version" : "1.6.0"
+        "revision" : "30ab89daa4e392ecd2150f737c42dbb2336bbc04",
+        "version" : "1.7.0"
       }
     },
     {
@@ -235,6 +235,15 @@
       }
     },
     {
+      "identity" : "swift-perception",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-perception",
+      "state" : {
+        "revision" : "a5bb578d963fcdbffe4fd56c92b2e222f5b02c8a",
+        "version" : "1.1.2"
+      }
+    },
+    {
       "identity" : "swift-protobuf",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-protobuf.git",
@@ -266,8 +275,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "23cbf2294e350076ea4dbd7d5d047c1e76b03631",
-        "version" : "1.0.2"
+        "revision" : "b13b1d1a8e787a5ffc71ac19dcaf52183ab27ba2",
+        "version" : "1.1.1"
       }
     }
   ],
