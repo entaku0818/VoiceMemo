@@ -405,6 +405,12 @@
             "value" : "Rédigez un avis sur l'App Store."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scrivi una recensione sull'App Store."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -475,6 +481,12 @@
             "value" : ""
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -533,6 +545,12 @@
             "value" : "Ouvrir les paramètres"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri le Impostazioni."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -584,6 +602,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Une autorisation est nécessaire pour enregistrer des mémos vocaux."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "È necessaria l'autorizzazione per registrare i memo vocali."
           }
         },
         "ja" : {
@@ -648,6 +672,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Une autorisation est nécessaire pour enregistrer des mémos vocaux."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "È necessaria l'autorizzazione per registrare i memo vocali."
           }
         },
         "ja" : {
@@ -715,6 +745,12 @@
             "value" : ""
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrazione"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -765,6 +801,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "L'enregistrement nécessite un accès au microphone."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La registrazione richiede l'accesso al microfono."
           }
         },
         "ja" : {
@@ -831,6 +873,12 @@
             "value" : "Échec de la lecture du mémo vocal."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riproduzione del memo vocale non riuscita."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -893,6 +941,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Échec de l'enregistrement du mémo vocal."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registrazione del memo vocale non riuscita."
           }
         },
         "ja" : {
@@ -965,6 +1019,12 @@
             "value" : "À propos de l'application"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informazioni sull'app."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1035,6 +1095,12 @@
             "value" : "Non, envoyer au feedback"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No, invia un feedback."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1093,6 +1159,12 @@
             "value" : "Your support will be greatly appreciated and used as development costs."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il tuo sostegno sarà molto apprezzato e utilizzato per i costi di sviluppo."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1131,6 +1203,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Je m'excuse pour le dérangement."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mi scuso per l'inconveniente."
           }
         },
         "ja" : {
@@ -1203,6 +1281,12 @@
             "value" : "Merci d'utiliser notre service ! Veuillez noter l'application sur l'écran suivant."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grazie per aver utilizzato il nostro servizio! Per favore, valuta l'app nella prossima schermata."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1261,6 +1345,12 @@
             "value" : "If you wish to provide support, please make a purchase on the next screen. The support will be used for development costs."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se desideri fornire supporto, effettua un acquisto nella prossima schermata. Il supporto verrà utilizzato per i costi di sviluppo."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1287,6 +1377,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thank you for your support!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grazie per il tuo supporto!"
           }
         },
         "ja" : {
@@ -1327,6 +1423,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fréquence d'échantillonnage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "frequenza di campionamento"
           }
         },
         "ja" : {
@@ -1391,6 +1493,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enregistrement simple"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registratore Vocale Semplice"
           }
         },
         "ja" : {
@@ -1463,6 +1571,12 @@
             "value" : "À propos de Simple Recorder"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "informazioni su Registratore Semplice"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1531,6 +1645,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Êtes-vous satisfait de cette application ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sei soddisfatto di questa app?"
           }
         },
         "ja" : {
@@ -1603,6 +1723,12 @@
             "value" : "Canal"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "canale"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1673,6 +1799,12 @@
             "value" : "Oui"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sì"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1729,6 +1861,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Format de fichier"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formato File"
           }
         },
         "ja" : {
@@ -1801,6 +1939,12 @@
             "value" : "Volume du microphone"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume del Microfono"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1869,6 +2013,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina"
           }
         },
         "ja" : {
@@ -1941,6 +2091,12 @@
             "value" : "Voulez-vous supprimer ?"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuoi eliminare?"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2009,6 +2165,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partager l'application avec un ami"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Condividi l'app con un amico."
           }
         },
         "ja" : {
@@ -2081,6 +2243,12 @@
             "value" : "Sans titre"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Senza titolo"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2151,6 +2319,12 @@
             "value" : "Veuillez expliquer en détail la situation dans l'email sur l'écran suivant."
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per favore, spiega la situazione in dettaglio nell'email nella prossima schermata."
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2209,6 +2383,12 @@
             "value" : "Next"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avanti"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2247,6 +2427,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Réglage"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impostazione"
           }
         },
         "ja" : {
@@ -2308,6 +2494,12 @@
             "value" : "buy"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "acquista"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2334,6 +2526,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Purchased"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acquistato"
           }
         },
         "ja" : {
@@ -2374,6 +2572,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Voulez-vous supprimer l'audio sélectionné ?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuoi eliminare l'audio selezionato?"
           }
         },
         "ja" : {
@@ -2446,6 +2650,12 @@
             "value" : "Taux de quantification des bits"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bit Rate di Quantizzazione"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2504,6 +2714,12 @@
             "value" : "Support the Developer"
           }
         },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporta lo Sviluppatore"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2542,6 +2758,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paramètres audio"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impostazioni Audio"
           }
         },
         "ja" : {
