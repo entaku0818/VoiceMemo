@@ -127,6 +127,15 @@
       }
     },
     {
+      "identity" : "purchases-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RevenueCat/purchases-ios.git",
+      "state" : {
+        "revision" : "3d5c2bcdfff34fe07ee0783f274d2412c76e0c91",
+        "version" : "4.40.0"
+      }
+    },
+    {
       "identity" : "rollbar-apple",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rollbar/rollbar-apple",

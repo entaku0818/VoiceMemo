@@ -39,6 +39,8 @@
 		61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */ = {isa = PBXBuildFile; productRef = 61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */; };
 		61A3D8D92AB7DFE9002D8364 /* AboutSimpleRecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */; };
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
+		61A91BBE2BC245660033532A /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 61A91BBD2BC245660033532A /* RevenueCat */; };
+		61A91BC02BC245660033532A /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 61A91BBF2BC245660033532A /* RevenueCatUI */; };
 		61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */; };
 		61C2CDB62AFF3923005DC779 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 61C2CDB52AFF3923005DC779 /* Localizable.xcstrings */; };
 		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
@@ -120,7 +122,9 @@
 			files = (
 				6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */,
 				6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */,
+				61A91BBE2BC245660033532A /* RevenueCat in Frameworks */,
 				61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */,
+				61A91BC02BC245660033532A /* RevenueCatUI in Frameworks */,
 				61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */,
 				6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */,
 				61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */,
@@ -298,6 +302,8 @@
 				6194408B28F308C400BF337E /* FirebaseCrashlytics */,
 				61A8818C2A30015500A4189C /* GoogleMobileAds */,
 				61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */,
+				61A91BBD2BC245660033532A /* RevenueCat */,
+				61A91BBF2BC245660033532A /* RevenueCatUI */,
 			);
 			productName = VoiceMemo;
 			productReference = 619799E228C34A2500169FB6 /* VoiLog.app */;
@@ -387,6 +393,7 @@
 				6194408628F308C400BF337E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				61A285C92A3608BB00BD7CB5 /* XCRemoteSwiftPackageReference "rollbar-apple" */,
+				61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 619799E328C34A2500169FB6 /* Products */;
 			projectDirPath = "";
@@ -915,6 +922,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.40.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -947,6 +962,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
+		};
+		61A91BBD2BC245660033532A /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+		61A91BBF2BC245660033532A /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCatUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 
