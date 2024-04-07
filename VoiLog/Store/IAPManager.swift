@@ -87,4 +87,22 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
          }
      }
 
+    func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String) {
+        let product = try await fetchProduct(productIdentifier: productIdentifier)
+        guard let localizedPrice = product.localizedPrice else {
+            throw IAPError.productNotFound
+        }
+        return (name: product.localizedTitle, price: localizedPrice)
+    }
+
+}
+
+
+extension SKProduct {
+    var localizedPrice: String? {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale = priceLocale
+        return numberFormatter.string(from: price)
+    }
 }
