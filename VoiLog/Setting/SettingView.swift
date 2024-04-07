@@ -23,6 +23,7 @@ struct SettingReducer: Reducer {
     enum AlertAction: Equatable {
         case isPurchaseAlertPresented
         case purchaseProduct
+        
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -162,7 +163,6 @@ struct SettingView: View {
                                 Text("アプリについて")
                                 Spacer()
 
-
                             }
                         }
                         HStack {
@@ -186,6 +186,11 @@ struct SettingView: View {
                                  }
                              }
                          }
+                        NavigationLink(destination: PaywallView()) {
+                            HStack {
+                                Text("サブスク")
+                            }
+                        }
                 }
                 }
             .alert(store: self.store.scope(state: \.$alert, action: SettingReducer.Action.alert))

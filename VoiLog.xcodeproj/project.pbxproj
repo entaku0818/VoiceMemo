@@ -12,6 +12,8 @@
 		611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A244C2A83DB9800F68D7D /* InfoPlist.strings */; };
 		611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A24522A83DBEC00F68D7D /* InfoPlist.strings */; };
 		6124A0222ADAAE2C009444EA /* DependencyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124A0212ADAAE2C009444EA /* DependencyValues.swift */; };
+		612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */; };
+		612521172BC26E3B002A7A3E /* PaywallView_Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612521162BC26E3B002A7A3E /* PaywallView_Previews.swift */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */; };
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
@@ -72,6 +74,8 @@
 		6121ECC82ADB844300B94F83 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6124A0212ADAAE2C009444EA /* DependencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyValues.swift; sourceTree = "<group>"; };
 		6124A0232ADAD4E9009444EA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Simple Voice Recorder - Audio.storekit"; sourceTree = "<group>"; };
+		612521162BC26E3B002A7A3E /* PaywallView_Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView_Previews.swift; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -188,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				6168A6412B43ACAB00B20F0F /* IAPManager.swift */,
+				612521162BC26E3B002A7A3E /* PaywallView_Previews.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
 				61E43AD32A33EFF50006A9D2 /* Logger.swift */,
 				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
+				612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */,
 			);
 			path = VoiLog;
 			sourceTree = "<group>";
@@ -417,6 +423,7 @@
 				619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */,
 				61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */,
 				61C2CDB62AFF3923005DC779 /* Localizable.xcstrings in Resources */,
+				612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */,
 				614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +487,7 @@
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
 				613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */,
 				61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */,
+				612521172BC26E3B002A7A3E /* PaywallView_Previews.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoiceMemoView.swift in Sources */,
 				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
 				6167A4762ABC7FA30052945F /* MailComposeViewControllerWrapper.swift in Sources */,
