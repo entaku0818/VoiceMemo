@@ -107,9 +107,48 @@ struct SettingView: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            List {
-                // ...
-                //
+            
+            VStack {
+
+                HStack{
+                    NavigationLink(destination: PaywallView()) {
+                        HStack{
+                            Image(systemName: "music.mic.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 32, height: 32)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white,.purple)
+                            VStack(alignment: .leading){
+                                Text("プレミアムサービス 1ヶ月無料！")
+                                    .fontWeight(.bold)
+                                      .foregroundColor(.white)
+
+                                HStack{
+                                    Text("->詳しくはこちら")
+                                        .font(.caption2)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                }
+
+                            }
+
+                        }.padding()
+                        .background(
+                            Rectangle()
+                                .fill(Color.black)
+                                .cornerRadius(15)
+
+                        )
+                        .padding(.horizontal,20)
+
+                    }
+                }
+
+
+                List {
+
                     Section(header: Text("音声設定")) {
 
                         NavigationLink(destination: FileFormatView(store: self.store)) {
@@ -135,7 +174,7 @@ struct SettingView: View {
                                 Text("\(viewStore.quantizationBitDepth)bit")
                             }
                         }
-    #if DEBUG
+#if DEBUG
 
                         NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
                             HStack {
@@ -146,7 +185,7 @@ struct SettingView: View {
                         }
 
 
-    #endif
+#endif
 
                         NavigationLink(destination: MicrophonesVolumeView(store: self.store)) {
                             HStack {
@@ -155,7 +194,7 @@ struct SettingView: View {
                                 Text("\(Int(viewStore.microphonesVolume))")
                             }
                         }
-                        
+
                     }
                     Section(header: Text("")) {
                         NavigationLink(destination: AboutSimpleRecoder()) {
@@ -166,33 +205,30 @@ struct SettingView: View {
                             }
                         }
                         HStack {
-                             Button(action: {
-                                 viewStore.send(.alert(.presented(.isPurchaseAlertPresented)))
-                             }) {
-                                 HStack {
-                                     Text("開発者を支援する")
-                                         .foregroundColor(Color("Black"))
+                            Button(action: {
+                                viewStore.send(.alert(.presented(.isPurchaseAlertPresented)))
+                            }) {
+                                HStack {
+                                    Text("開発者を支援する")
+                                        .foregroundColor(Color("Black"))
 
-                                     Spacer()
-                                     if viewStore.developerSupported{
-                                         Text("購入済")
-                                          .foregroundColor(Color("Black"))
-                                          Image(systemName: "checkmark")
-                                              .foregroundColor(.green)
+                                    Spacer()
+                                    if viewStore.developerSupported{
+                                        Text("購入済")
+                                            .foregroundColor(Color("Black"))
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(.green)
 
-                                     }
+                                    }
 
-                        
-                                 }
-                             }
-                         }
-                        NavigationLink(destination: PaywallView()) {
-                            HStack {
-                                Text("サブスク")
+
+                                }
                             }
                         }
+
+                    }
                 }
-                }
+            }
             .alert(store: self.store.scope(state: \.$alert, action: SettingReducer.Action.alert))
                 .listStyle(GroupedListStyle())
 
@@ -352,4 +388,27 @@ struct MicrophonesVolumeView: View {
     }
 
 
+}
+
+
+
+
+struct SettingView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingView(store: Store(
+            initialState: SettingReducer.State(
+                alert: nil,
+                selectedFileFormat: "WAV",
+                samplingFrequency: 44100.0,
+                quantizationBitDepth: 16,
+                numberOfChannels: 2,
+                microphonesVolume: 75.0,
+                developerSupported: false
+            )
+        ){
+            SettingReducer()
+        }
+        )
+        .preferredColorScheme(.light)
+    }
 }
