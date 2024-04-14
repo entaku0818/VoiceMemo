@@ -111,7 +111,7 @@ struct SettingView: View {
             VStack {
 
                 HStack{
-                    NavigationLink(destination: PaywallView()) {
+                    NavigationLink(destination: PaywallView(iapManager: IAPManager())) {
                         HStack{
                             Image(systemName: "music.mic.circle.fill")
                                 .resizable()

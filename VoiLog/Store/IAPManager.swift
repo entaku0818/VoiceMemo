@@ -1,6 +1,13 @@
 import StoreKit
 
-class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+
+protocol IAPManagerProtocol {
+    func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String)
+    func startPurchase(productID: String) async throws
+}
+
+
+class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     static let shared = IAPManager()
 
     private var currentContinuation: CheckedContinuation<SKProduct, Error>?
@@ -10,7 +17,8 @@ class IAPManager: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObser
         case productNotFound
         case canceled
     }
-    private override init() {
+    
+    override init() {
         super.init()
         SKPaymentQueue.default().add(self)
     }
