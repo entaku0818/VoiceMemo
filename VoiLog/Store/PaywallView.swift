@@ -17,19 +17,46 @@ struct PaywallView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Image("AppIcon")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100, height: 100)
-                    .padding()
 
-                Text(productName)
-                    .font(.largeTitle)
-                    .padding()
+                HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
+                    Spacer()
+                    VStack(alignment: .center){
 
-                Text(productPrice)
-                    .font(.title)
-                    .padding()
+                        Text("すべての機能が使い放題")
+                            .font(.title)
+                            .foregroundColor(.black)
+                        Text("今すぐ1ヶ月無料体験してみよう！")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                    }.padding(.vertical,30)
+                    Spacer()
+
+                }
+                HStack{
+                    Spacer()
+                    Image(systemName: "music.mic.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white,.purple)
+                    VStack(alignment: .leading){
+
+                        Text("プレミアムサービスでできること")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                    }
+                    Spacer()
+
+                }.padding()
+                .background(
+                    Rectangle()
+                        .fill(Color.black)
+
+
+                )
+
+                Spacer().frame(minHeight: 30)
 
                 VStack(alignment: .leading) {
                     ForEach(features, id: \.self) { feature in
@@ -39,17 +66,24 @@ struct PaywallView: View {
                 }
                 .padding()
 
-                Spacer()
+                Spacer().frame(minHeight: 30)
 
                 Button(action: {
                     Task {
                         await purchaseProduct()
                     }
                 }) {
-                    Text("購入する")
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: .infinity)
+                    VStack{
+                        Text("1ヶ月 無料でお試し")
+                            .font(.headline)
+                            .foregroundColor(.white)
+
+                        Text("\(productPrice)/月")
+                            .foregroundColor(.white)
+
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
                         .background(Color.black)
                         .cornerRadius(10)
                 }
