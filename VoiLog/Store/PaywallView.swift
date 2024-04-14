@@ -2,14 +2,17 @@ import SwiftUI
 import StoreKit
 
 struct PaywallView: View {
-    // 製品情報を保持するための@Stateプロパティを追加
-    @State private var productName: String = "ローディング中..."
+    @State private var productName: String = ""
     @State private var productPrice: String = ""
 
-    // 特典のリスト
+    var iapManager: IAPManagerProtocol
     private var features: [String] = [
         "広告なしの使用体験",
     ]
+
+    init(iapManager: IAPManagerProtocol) {
+        self.iapManager = iapManager
+    }
 
     var body: some View {
         ScrollView {
@@ -30,7 +33,7 @@ struct PaywallView: View {
 
                 VStack(alignment: .leading) {
                     ForEach(features, id: \.self) { feature in
-                        Text("• \(feature)")
+                        Text("✅\(feature)")
                             .padding(.vertical, 2)
                     }
                 }
@@ -52,7 +55,7 @@ struct PaywallView: View {
                 }
                 .padding()
             }
-            .onAppear { 
+            .onAppear {
                 Task {
                     await fetchProductInfo()
                 }
@@ -62,7 +65,7 @@ struct PaywallView: View {
 
     func fetchProductInfo() async {
         do {
-            let (name, price) = try await IAPManager.shared.fetchProductNameAndPrice(productIdentifier: "pro")
+            let (name, price) = try await iapManager.fetchProductNameAndPrice(productIdentifier: "pro")
             productName = name
             productPrice = price
         } catch {
@@ -73,9 +76,19 @@ struct PaywallView: View {
 
     func purchaseProduct() async {
         do {
-            try await IAPManager.shared.startPurchase(productID: "pro")
+            try await iapManager.startPurchase(productID: "pro")
         } catch {
             print(error)
         }
+    }
+}
+
+
+
+struct PaywallView_Previews: PreviewProvider {
+    static var previews: some View {
+        PaywallView(iapManager: MockIAPManager())
+            .previewLayout(.sizeThatFits) // This adjusts the preview to just fit the content
+            .environment(\.locale, .init(identifier: "ja")) // Set locale to Japanese for testing
     }
 }
