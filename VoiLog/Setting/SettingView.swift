@@ -116,23 +116,23 @@ struct SettingView: View {
                             Image(systemName: "music.mic.circle.fill")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 32, height: 32)
+                                .frame(width: 40, height: 40)
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(.white,.purple)
                             VStack(alignment: .leading){
-                                Text("プレミアムサービス 1ヶ月無料！")
+                                Text("1ヶ月無料！")
+                                    .font(.caption)
                                     .fontWeight(.bold)
-                                      .foregroundColor(.white)
-
-                                HStack{
-                                    Text("->詳しくはこちら")
-                                        .font(.caption2)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
-                                    Spacer()
-                                }
-
+                                    .foregroundColor(.white)
+                                Text("プレミアムサービス")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
                             }
+                            Spacer()
+                            Text("詳細をタップ")
+                                .font(.caption2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
 
                         }.padding()
                         .background(
