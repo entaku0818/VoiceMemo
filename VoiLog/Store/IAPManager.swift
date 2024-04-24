@@ -46,14 +46,12 @@ class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPay
 
     private var purchaseContinuation: CheckedContinuation<Void, Error>?
 
-     // ... existing methods ...
 
      private func buyProduct(_ product: SKProduct) {
          let payment = SKPayment(product: product)
          SKPaymentQueue.default().add(payment)
      }
 
-     // ... SKProductsRequestDelegate methods ...
 
      func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
          for transaction in transactions {
@@ -94,6 +92,10 @@ class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPay
              buyProduct(product)
          }
      }
+    func restorePurchases() {
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+
 
     func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String) {
         let product = try await fetchProduct(productIdentifier: productIdentifier)

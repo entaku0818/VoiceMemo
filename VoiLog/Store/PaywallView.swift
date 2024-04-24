@@ -16,7 +16,7 @@ struct PaywallView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading,spacing: 0) {
 
                 HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/){
                     Spacer()
@@ -86,6 +86,18 @@ struct PaywallView: View {
                     .frame(maxWidth: .infinity)
                         .background(Color.black)
                         .cornerRadius(10)
+                }
+                .padding()
+
+                VStack(alignment: .center) {
+                    HStack(alignment: .center) {
+                        Link("利用規約", destination: URL(string: "https://voilog.web.app/terms_of_service.html")!)
+                            .font(.body)
+                            .foregroundColor(.blue)
+                        Link("プライバシーポリシー", destination: URL(string: "https://voilog.web.app/privacy_policy.html")!)
+                            .font(.body)
+                            .foregroundColor(.blue)
+                    }
                 }
                 .padding()
             }
