@@ -93,4 +93,13 @@ class UserDefaultsManager {
             defaults.set(newValue, forKey: "HasSupportedDeveloper")
         }
     }
+
+    var hasPurchasedProduct: Bool {
+        get {
+            return defaults.bool(forKey: "HasPurchasedProduct")
+        }
+        set {
+            defaults.set(newValue, forKey: "HasPurchasedProduct")
+        }
+    }
 }

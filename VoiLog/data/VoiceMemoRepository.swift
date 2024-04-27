@@ -93,7 +93,7 @@ class VoiceMemoRepository: NSObject {
                 fileFormat: voiceMemo.fileFormat ?? "",
                 samplingFrequency: voiceMemo.samplingFrequency ,
                 quantizationBitDepth: Int(voiceMemo.quantizationBitDepth ),
-                numberOfChannels: Int(voiceMemo.numberOfChannels )
+                numberOfChannels: Int(voiceMemo.numberOfChannels ), hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
 
             )
         }

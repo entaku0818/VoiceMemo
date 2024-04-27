@@ -69,6 +69,7 @@ class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPay
      private func completeTransaction(_ transaction: SKPaymentTransaction) {
          // トランザクションが成功したときの処理
          SKPaymentQueue.default().finishTransaction(transaction)
+         UserDefaultsManager.shared.hasPurchasedProduct = true
          purchaseContinuation?.resume(returning: ()) // Resume the continuation
      }
 
