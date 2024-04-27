@@ -5,6 +5,9 @@ struct PaywallView: View {
     @State private var productName: String = ""
     @State private var productPrice: String = ""
 
+    @Environment(\.colorScheme) var colorScheme
+
+
     var iapManager: IAPManagerProtocol
     private var features: [String] = [
         "広告なしの使用体験",
@@ -52,6 +55,7 @@ struct PaywallView: View {
                 .background(
                     Rectangle()
                         .fill(Color.black)
+                        .border(colorScheme == .dark ? Color.white : Color.clear, width: 1)
 
 
                 )
@@ -86,17 +90,23 @@ struct PaywallView: View {
                     .frame(maxWidth: .infinity)
                         .background(Color.black)
                         .cornerRadius(10)
+                        .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
+                        )
                 }
                 .padding()
 
                 VStack(alignment: .center) {
                     HStack(alignment: .center) {
+                        Spacer()
                         Link("利用規約", destination: URL(string: "https://voilog.web.app/terms_of_service.html")!)
                             .font(.body)
                             .foregroundColor(.blue)
                         Link("プライバシーポリシー", destination: URL(string: "https://voilog.web.app/privacy_policy.html")!)
                             .font(.body)
                             .foregroundColor(.blue)
+                        Spacer()
                     }
                 }
                 .padding()
