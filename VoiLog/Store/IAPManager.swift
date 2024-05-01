@@ -4,23 +4,40 @@ import StoreKit
 protocol IAPManagerProtocol {
     func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String)
     func startPurchase(productID: String) async throws
+    func restorePurchases() async throws
 }
 
 
 class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+
+    
     static let shared = IAPManager()
 
     private var currentContinuation: CheckedContinuation<SKProduct, Error>?
+
+    private var restoreContinuation: CheckedContinuation<Void, Error>?
+
 
     enum IAPError: Error {
         case cannotMakePayments
         case productNotFound
         case canceled
+        case noRestorablePurchases
     }
-    
+
     override init() {
         super.init()
         SKPaymentQueue.default().add(self)
+    }
+
+    func restorePurchases() async throws {
+        guard restoreContinuation == nil else {
+            return
+        }
+        return try await withCheckedThrowingContinuation { continuation in
+            self.restoreContinuation = continuation
+            SKPaymentQueue.default().restoreCompletedTransactions()
+        }
     }
 
 
@@ -53,25 +70,46 @@ class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPay
      }
 
 
-     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-         for transaction in transactions {
-             switch transaction.transactionState {
-             case .purchased:
-                 completeTransaction(transaction)
-             case .failed:
-                 failTransaction(transaction)
-             default:
-                 break
-             }
-         }
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                completeTransaction(transaction)
+            case .restored:
+                completeTransaction(transaction)
+            case .failed:
+                failTransaction(transaction)
+            default:
+                break
+            }
+        }
+    }
+
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        if queue.transactions.isEmpty {
+            restoreContinuation?.resume(throwing: IAPError.noRestorablePurchases)
+        }
+    }
+
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+         restoreContinuation?.resume(throwing: error)
      }
 
-     private func completeTransaction(_ transaction: SKPaymentTransaction) {
-         // トランザクションが成功したときの処理
-         SKPaymentQueue.default().finishTransaction(transaction)
-         UserDefaultsManager.shared.hasPurchasedProduct = true
-         purchaseContinuation?.resume(returning: ()) // Resume the continuation
-     }
+    private func completeTransaction(_ transaction: SKPaymentTransaction) {
+        // Transaction completion process for both purchase and restore
+        SKPaymentQueue.default().finishTransaction(transaction)
+        UserDefaultsManager.shared.hasPurchasedProduct = true
+        switch transaction.transactionState {
+        case .purchased:
+            purchaseContinuation?.resume(returning: ())
+            purchaseContinuation = nil
+        case .restored:
+            restoreContinuation?.resume(returning: ())
+            restoreContinuation = nil
+        default:
+            break
+        }
+    }
 
      private func failTransaction(_ transaction: SKPaymentTransaction) {
          // トランザクションが失敗したときの処理
@@ -93,9 +131,6 @@ class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPay
              buyProduct(product)
          }
      }
-    func restorePurchases() {
-        SKPaymentQueue.default().restoreCompletedTransactions()
-    }
 
 
     func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String) {
