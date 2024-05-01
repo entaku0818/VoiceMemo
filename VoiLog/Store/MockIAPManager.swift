@@ -29,4 +29,10 @@ class MockIAPManager: IAPManagerProtocol {
             throw IAPManager.IAPError.cannotMakePayments
         }
     }
+
+    func restorePurchases() async throws {
+        if shouldThrowError {
+            throw IAPManager.IAPError.noRestorablePurchases
+        }
+    }
 }

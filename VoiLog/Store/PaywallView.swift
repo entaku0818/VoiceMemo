@@ -4,8 +4,12 @@ import StoreKit
 struct PaywallView: View {
     @State private var productName: String = ""
     @State private var productPrice: String = ""
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    
 
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.presentationMode) var presentationMode
 
 
     var iapManager: IAPManagerProtocol
@@ -97,6 +101,21 @@ struct PaywallView: View {
                 }
                 .padding()
 
+                Button("リストア購入") { 
+                      Task {
+                          await restorePurchases()
+                      }
+                  }
+                  .padding()
+                  .frame(maxWidth: .infinity)
+                  .background(Color.gray)
+                  .foregroundColor(.white)
+                  .cornerRadius(10)
+                  .overlay(
+                      RoundedRectangle(cornerRadius: 10)
+                          .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
+                  )
+
                 VStack(alignment: .center) {
                     HStack(alignment: .center) {
                         Spacer()
@@ -116,6 +135,8 @@ struct PaywallView: View {
                     await fetchProductInfo()
                 }
             }
+        }.alert(isPresented: $showAlert) {
+            Alert(title: Text(""), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
 
@@ -131,12 +152,24 @@ struct PaywallView: View {
     }
 
     func purchaseProduct() async {
-        do {
-            try await iapManager.startPurchase(productID: "pro")
-        } catch {
-            print(error)
-        }
-    }
+         do {
+             try await iapManager.startPurchase(productID: "pro")
+             alertMessage = "購入が完了しました！"
+             showAlert = true
+         } catch {
+             print(error)
+         }
+     }
+
+     func restorePurchases() async {
+         do {
+             try await iapManager.restorePurchases()
+             alertMessage = "購入情報が復元しました！"
+             showAlert = true
+         } catch {
+             print(error)
+         }
+     }
 }
 
 
