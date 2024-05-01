@@ -59,9 +59,6 @@
         }
       }
     },
-    "->詳しくはこちら" : {
-
-    },
     "/" : {
       "localizations" : {
         "de" : {
@@ -183,6 +180,9 @@
           }
         }
       }
+    },
+    "%@/月" : {
+
     },
     "%@Hz" : {
       "localizations" : {
@@ -385,6 +385,26 @@
     "✅%@" : {
 
     },
+    "1ヶ月 無料でお試し" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try for one month free"
+          }
+        }
+      }
+    },
+    "1ヶ月無料！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One month free!"
+          }
+        }
+      }
+    },
     "AppStoreでレビューを書く" : {
       "localizations" : {
         "de" : {
@@ -539,6 +559,12 @@
             "value" : "Einstellungen öffnen"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -596,6 +622,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erlaubnis ist erforderlich, um Sprachnotizen aufzunehmen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permission is required to record voice memos"
           }
         },
         "es" : {
@@ -666,6 +698,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erlaubnis ist erforderlich, um Sprachnotizen aufzunehmen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permission is required to record voice memos."
           }
         },
         "es" : {
@@ -739,6 +777,12 @@
             "value" : "Aufnahme läuft"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -795,6 +839,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Für die Aufnahme ist der Zugriff auf das Mikrofon erforderlich."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording requires microphone access."
           }
         },
         "es" : {
@@ -867,6 +917,12 @@
             "value" : "Die Wiedergabe der Sprachnotiz ist fehlgeschlagen."
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice memo playback failed."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -935,6 +991,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Die Aufnahme der Sprachnotiz ist fehlgeschlagen."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice memo recording failed."
           }
         },
         "es" : {
@@ -1703,6 +1765,16 @@
         }
       }
     },
+    "すべての機能が使い放題" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All features are available for unlimited use"
+          }
+        }
+      }
+    },
     "チャネル" : {
       "localizations" : {
         "de" : {
@@ -1919,8 +1991,35 @@
         }
       }
     },
-    "プレミアムサービス 1ヶ月無料！" : {
-
+    "プライバシーポリシー" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        }
+      }
+    },
+    "プレミアムサービス" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium Service"
+          }
+        }
+      }
+    },
+    "プレミアムサービスでできること" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What you can do with premium service"
+          }
+        }
+      }
     },
     "マイクの音量" : {
       "localizations" : {
@@ -1994,6 +2093,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "麥克風音量"
+          }
+        }
+      }
+    },
+    "リストア購入" : {
+
+    },
+    "今すぐ1ヶ月無料体験してみよう！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try a one-month free trial now!"
+          }
+        }
+      }
+    },
+    "利用規約" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
           }
         }
       }
@@ -2412,119 +2534,15 @@
         }
       }
     },
-    "設定" : {
+    "詳細をタップ" : {
       "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einstellung"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Setting"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configuración"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réglage"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impostazione"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configuração"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настройка"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ayar"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cài đặt"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定"
+            "value" : "detail"
           }
         }
       }
-    },
-    "購入" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "kaufen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "buy"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "acquista"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "購入"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "buy"
-          }
-        }
-      }
-    },
-    "購入する" : {
-
     },
     "購入済" : {
       "localizations" : {
