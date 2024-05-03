@@ -11,6 +11,7 @@ import FirebaseCore
 import GoogleMobileAds
 import FirebaseCrashlytics
 import RollbarNotifier
+import RevenueCat
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -19,6 +20,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
       FirebaseApp.configure()
       GADMobileAds.sharedInstance().start(completionHandler: nil)
       Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
+
+      Purchases.logLevel = .debug
+      Purchases.configure(withAPIKey: "")
+
 
       UNUserNotificationCenter.current().requestAuthorization(
       options: [.alert, .sound, .badge]){
