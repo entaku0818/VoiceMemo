@@ -22,6 +22,7 @@ struct VoiceMemoReducer: Reducer {
         case onTapPlaySpeed
         case skipBy(TimeInterval)
         case toggleLoop
+        case onAppear
 
 
         enum Delegate {
@@ -196,6 +197,10 @@ struct VoiceMemoReducer: Reducer {
                 }
                 .cancellable(id: CancelID.play, cancelInFlight: true)
             }
+        case .onAppear:
+            state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+            return .none
+
         }
     }
 
@@ -236,6 +241,7 @@ struct VoiceMemoReducer: Reducer {
                 return false
             }
         }
+        var hasPurchasedPremium:Bool
     }
 
 }
@@ -310,6 +316,7 @@ struct VoiceMemoView: View {
 
 
             }
+
             .buttonStyle(.borderless)
             .frame(maxHeight: .infinity, alignment: .center)
             .padding(.horizontal)
@@ -338,7 +345,7 @@ struct VoiceMemoView_Previews: PreviewProvider {
               fileFormat: "",
               samplingFrequency: 0.0,
               quantizationBitDepth: 0,
-              numberOfChannels: 0
+              numberOfChannels: 0, hasPurchasedPremium: false
           )
         ) {
             VoiceMemoReducer()

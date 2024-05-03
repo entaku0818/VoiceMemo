@@ -99,9 +99,14 @@ import ComposableArchitecture
                   }.frame(minHeight: 50, maxHeight: 200)
                       .padding(16)
                   Spacer()
-                  AdmobBannerView().frame(width: .infinity, height: 50)
+                  if !viewStore.hasPurchasedPremium{
+                      AdmobBannerView().frame(width: .infinity, height: 50)
+                  }
 
 
+              }
+              .onAppear{
+                  viewStore.send(.onAppear)
               }
               .navigationBarItems(trailing:
                     Button(action: {
@@ -152,7 +157,7 @@ struct VoiceDetail_Previews: PreviewProvider {
                 fileFormat: "",
                 samplingFrequency: 0.0,
                 quantizationBitDepth: 0,
-                numberOfChannels: 0
+                numberOfChannels: 0, hasPurchasedPremium: false
             )
           ) {
               VoiceMemoReducer()

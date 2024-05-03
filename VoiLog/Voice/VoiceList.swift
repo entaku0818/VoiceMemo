@@ -128,7 +128,8 @@ struct VoiceMemos: Reducer {
                     fileFormat: recordingMemo.fileFormat,
                     samplingFrequency: recordingMemo.samplingFrequency,
                     quantizationBitDepth: recordingMemo.quantizationBitDepth,
-                    numberOfChannels: recordingMemo.numberOfChannels
+                    numberOfChannels: recordingMemo.numberOfChannels, 
+                    hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
                 ),
               at: 0
             )
@@ -338,7 +339,8 @@ struct VoiceMemosView: View {
                             quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,            // Default or previously saved value
                             numberOfChannels: UserDefaultsManager.shared.numberOfChannels,                 // Default or previously saved value
                             microphonesVolume: UserDefaultsManager.shared.microphonesVolume,
-                            developerSupported: UserDefaultsManager.shared.hasSupportedDeveloper
+                            developerSupported: UserDefaultsManager.shared.hasSupportedDeveloper, 
+                            hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
                 // Default or previously saved value
                         )
 
@@ -446,7 +448,8 @@ struct VoiceMemos_Previews: PreviewProvider {
                 fileFormat: "",
                 samplingFrequency: 0.0,
                 quantizationBitDepth: 0,
-                numberOfChannels: 0
+                numberOfChannels: 0, 
+                hasPurchasedPremium: false
             ),
             VoiceMemoReducer.State(
                 uuid: UUID(),
@@ -459,7 +462,8 @@ struct VoiceMemos_Previews: PreviewProvider {
                 fileFormat: "",
                 samplingFrequency: 0.0,
                 quantizationBitDepth: 0,
-                numberOfChannels: 0
+                numberOfChannels: 0, 
+                hasPurchasedPremium: false
             )
           ]
         )

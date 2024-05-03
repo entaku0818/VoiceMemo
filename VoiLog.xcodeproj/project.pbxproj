@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		6104770628DDD13100141042 /* Voice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6104770428DDD13100141042 /* Voice.xcdatamodeld */; };
+		6105624F2BCC0CF700D82088 /* MockIAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6105624E2BCC0CF700D82088 /* MockIAPManager.swift */; };
 		610A144E2A46EB0F00CB88AA /* VoiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */; };
 		611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A244C2A83DB9800F68D7D /* InfoPlist.strings */; };
 		611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A24522A83DBEC00F68D7D /* InfoPlist.strings */; };
 		6124A0222ADAAE2C009444EA /* DependencyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124A0212ADAAE2C009444EA /* DependencyValues.swift */; };
+		612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */; };
+		612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612521162BC26E3B002A7A3E /* PaywallView.swift */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */; };
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
@@ -39,6 +42,8 @@
 		61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */ = {isa = PBXBuildFile; productRef = 61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */; };
 		61A3D8D92AB7DFE9002D8364 /* AboutSimpleRecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */; };
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
+		61A91BBE2BC245660033532A /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 61A91BBD2BC245660033532A /* RevenueCat */; };
+		61A91BC02BC245660033532A /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 61A91BBF2BC245660033532A /* RevenueCatUI */; };
 		61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */; };
 		61C2CDB62AFF3923005DC779 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 61C2CDB52AFF3923005DC779 /* Localizable.xcstrings */; };
 		61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61E43ACF2A3345300006A9D2 /* GoogleService-Info.plist */; };
@@ -66,10 +71,13 @@
 
 /* Begin PBXFileReference section */
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		6105624E2BCC0CF700D82088 /* MockIAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIAPManager.swift; sourceTree = "<group>"; };
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
 		6121ECC82ADB844300B94F83 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6124A0212ADAAE2C009444EA /* DependencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyValues.swift; sourceTree = "<group>"; };
 		6124A0232ADAD4E9009444EA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Simple Voice Recorder - Audio.storekit"; sourceTree = "<group>"; };
+		612521162BC26E3B002A7A3E /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -120,7 +128,9 @@
 			files = (
 				6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */,
 				6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */,
+				61A91BBE2BC245660033532A /* RevenueCat in Frameworks */,
 				61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */,
+				61A91BC02BC245660033532A /* RevenueCatUI in Frameworks */,
 				61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */,
 				6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */,
 				61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */,
@@ -184,6 +194,8 @@
 			isa = PBXGroup;
 			children = (
 				6168A6412B43ACAB00B20F0F /* IAPManager.swift */,
+				612521162BC26E3B002A7A3E /* PaywallView.swift */,
+				6105624E2BCC0CF700D82088 /* MockIAPManager.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -236,6 +248,7 @@
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
 				61E43AD32A33EFF50006A9D2 /* Logger.swift */,
 				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
+				612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */,
 			);
 			path = VoiLog;
 			sourceTree = "<group>";
@@ -298,6 +311,8 @@
 				6194408B28F308C400BF337E /* FirebaseCrashlytics */,
 				61A8818C2A30015500A4189C /* GoogleMobileAds */,
 				61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */,
+				61A91BBD2BC245660033532A /* RevenueCat */,
+				61A91BBF2BC245660033532A /* RevenueCatUI */,
 			);
 			productName = VoiceMemo;
 			productReference = 619799E228C34A2500169FB6 /* VoiLog.app */;
@@ -387,6 +402,7 @@
 				6194408628F308C400BF337E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				61A285C92A3608BB00BD7CB5 /* XCRemoteSwiftPackageReference "rollbar-apple" */,
+				61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			productRefGroup = 619799E328C34A2500169FB6 /* Products */;
 			projectDirPath = "";
@@ -410,6 +426,7 @@
 				619799EA28C34A2500169FB6 /* Assets.xcassets in Resources */,
 				61E43AD02A3345300006A9D2 /* GoogleService-Info.plist in Resources */,
 				61C2CDB62AFF3923005DC779 /* Localizable.xcstrings in Resources */,
+				612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */,
 				614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +479,7 @@
 				61A3D8D92AB7DFE9002D8364 /* AboutSimpleRecoder.swift in Sources */,
 				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
 				614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */,
+				6105624F2BCC0CF700D82088 /* MockIAPManager.swift in Sources */,
 				6168A6422B43ACAB00B20F0F /* IAPManager.swift in Sources */,
 				61EC9B842AAC66080062533A /* Double+Extention.swift in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
@@ -473,6 +491,7 @@
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
 				613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */,
 				61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */,
+				612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoiceMemoView.swift in Sources */,
 				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
 				6167A4762ABC7FA30052945F /* MailComposeViewControllerWrapper.swift in Sources */,
@@ -660,7 +679,7 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
@@ -687,7 +706,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.9.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLogDevelop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -710,7 +729,7 @@
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"VoiLog/Preview Content\"";
 				DEVELOPMENT_TEAM = 4YZQY4C47E;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -736,7 +755,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.8.3;
+				MARKETING_VERSION = 0.9.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -915,6 +934,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.40.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -947,6 +974,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
+		};
+		61A91BBD2BC245660033532A /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCat;
+		};
+		61A91BBF2BC245660033532A /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */;
+			productName = RevenueCatUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 

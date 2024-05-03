@@ -18,11 +18,13 @@ struct SettingReducer: Reducer {
         case numberOfChannels(Int)
         case microphonesVolume(Double)
         case supported
+        case onAppear
     }
 
     enum AlertAction: Equatable {
         case isPurchaseAlertPresented
         case purchaseProduct
+        
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -77,9 +79,14 @@ struct SettingReducer: Reducer {
             state.developerSupported = true
             UserDefaultsManager.shared.hasSupportedDeveloper = true
 
-                return .none
+            return .none
         case .alert(.dismiss):
             state.alert = nil
+            return .none
+        case .onAppear:
+            state.developerSupported = UserDefaultsManager.shared.hasSupportedDeveloper
+            state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+
             return .none
         }
     }
@@ -92,6 +99,7 @@ struct SettingReducer: Reducer {
         var numberOfChannels:Int
         var microphonesVolume:Double
         var developerSupported:Bool
+        var hasPurchasedPremium:Bool
 
 
     }
@@ -102,13 +110,58 @@ struct SettingReducer: Reducer {
 
 struct SettingView: View {
     let store: StoreOf<SettingReducer>
+    @Environment(\.colorScheme) var colorScheme
 
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            List {
-                // ...
-                //
+            
+            VStack {
+                if !viewStore.hasPurchasedPremium{
+
+
+                    NavigationLink(destination: PaywallView(iapManager: IAPManager())) {
+                        HStack{
+                            Image(systemName: "music.mic.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white,.purple)
+                            VStack(alignment: .leading){
+                                Text("1ヶ月無料！")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                Text("プレミアムサービス")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                            }
+                            Spacer()
+                            Text("詳細をタップ")
+                                .font(.caption2)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+
+                        }.padding()
+                            .background(
+                                Rectangle()
+                                    .fill(Color.black)
+                                    .cornerRadius(16)
+                                    .overlay(
+                                            RoundedRectangle(cornerRadius: 16)
+                                                .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
+                                    )
+
+                            )
+                            .padding(.horizontal,20)
+
+                    }
+
+                }
+
+                List {
+
                     Section(header: Text("音声設定")) {
 
                         NavigationLink(destination: FileFormatView(store: self.store)) {
@@ -134,7 +187,7 @@ struct SettingView: View {
                                 Text("\(viewStore.quantizationBitDepth)bit")
                             }
                         }
-    #if DEBUG
+#if DEBUG
 
                         NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
                             HStack {
@@ -145,16 +198,9 @@ struct SettingView: View {
                         }
 
 
-    #endif
+#endif
 
-                        NavigationLink(destination: MicrophonesVolumeView(store: self.store)) {
-                            HStack {
-                                Text("マイクの音量")
-                                Spacer()
-                                Text("\(Int(viewStore.microphonesVolume))")
-                            }
-                        }
-                        
+
                     }
                     Section(header: Text("")) {
                         NavigationLink(destination: AboutSimpleRecoder()) {
@@ -162,38 +208,43 @@ struct SettingView: View {
                                 Text("アプリについて")
                                 Spacer()
 
-
                             }
                         }
                         HStack {
-                             Button(action: {
-                                 viewStore.send(.alert(.presented(.isPurchaseAlertPresented)))
-                             }) {
-                                 HStack {
-                                     Text("開発者を支援する")
-                                         .foregroundColor(Color("Black"))
+                            Button(action: {
+                                viewStore.send(.alert(.presented(.isPurchaseAlertPresented)))
+                            }) {
+                                HStack {
+                                    Text("開発者を支援する")
+                                        .foregroundColor(Color("Black"))
 
-                                     Spacer()
-                                     if viewStore.developerSupported{
-                                         Text("購入済")
-                                          .foregroundColor(Color("Black"))
-                                          Image(systemName: "checkmark")
-                                              .foregroundColor(.green)
+                                    Spacer()
+                                    if viewStore.developerSupported{
+                                        Text("購入済")
+                                            .foregroundColor(Color("Black"))
+                                        Image(systemName: "checkmark")
+                                            .foregroundColor(.green)
 
-                                     }
+                                    }
 
-                        
-                                 }
-                             }
-                         }
+
+                                }
+                            }
+                        }
+
+                    }
                 }
-                }
+            }
+            .onAppear{
+                viewStore.send(.onAppear)
+            }
             .alert(store: self.store.scope(state: \.$alert, action: SettingReducer.Action.alert))
                 .listStyle(GroupedListStyle())
 
-            AdmobBannerView().frame(width: .infinity, height: 50)
+            if !viewStore.hasPurchasedPremium{
+                AdmobBannerView().frame(width: .infinity, height: 50)
+            }
         }
-        .navigationTitle("設定")
     }
 
 }
@@ -347,4 +398,27 @@ struct MicrophonesVolumeView: View {
     }
 
 
+}
+
+
+
+
+struct SettingView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingView(store: Store(
+            initialState: SettingReducer.State(
+                alert: nil,
+                selectedFileFormat: "WAV",
+                samplingFrequency: 44100.0,
+                quantizationBitDepth: 16,
+                numberOfChannels: 2,
+                microphonesVolume: 75.0,
+                developerSupported: false, hasPurchasedPremium: false
+            )
+        ){
+            SettingReducer()
+        }
+        )
+        .preferredColorScheme(.light)
+    }
 }
