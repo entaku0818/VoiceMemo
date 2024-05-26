@@ -8,10 +8,13 @@
 import SwiftUI
 import ComposableArchitecture
 
-    struct VoiceMemoDetail: View {
+struct VoiceMemoDetail: View {
         let store: StoreOf<VoiceMemoReducer>
 
         @Environment(\.presentationMode) var presentationMode
+
+        let admobUnitId: String
+
 
       var body: some View {
           WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -100,7 +103,7 @@ import ComposableArchitecture
                       .padding(16)
                   Spacer()
                   if !viewStore.hasPurchasedPremium{
-                      AdmobBannerView().frame(width: .infinity, height: 50)
+                      AdmobBannerView(unitId: admobUnitId).frame(width: .infinity, height: 50)
                   }
 
 
@@ -161,7 +164,7 @@ struct VoiceDetail_Previews: PreviewProvider {
             )
           ) {
               VoiceMemoReducer()
-          }
+          }, admobUnitId: ""
         )
 
     }
