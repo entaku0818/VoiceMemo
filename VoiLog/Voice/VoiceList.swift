@@ -242,6 +242,8 @@ struct VoiceMemos: Reducer {
 
 struct VoiceMemosView: View {
     let store: StoreOf<VoiceMemos>
+    let admobUnitId: String
+
 
     enum AlertType {
         case deleted
@@ -253,8 +255,9 @@ struct VoiceMemosView: View {
 
     @State private var selectedIndex: Int?
 
-    init(store:  StoreOf<VoiceMemos>) {
+    init(store:  StoreOf<VoiceMemos>, admobUnitId:String) {
         self.store = store
+        self.admobUnitId = admobUnitId
     }
 
   var body: some View {
@@ -265,7 +268,7 @@ struct VoiceMemosView: View {
                 ForEachStore(
                     self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
                 ) {
-                  VoiceMemoView(store: $0)
+                    VoiceMemoView(store: $0, admobUnitId: admobUnitId)
                 }
                 .onDelete { indexSet in
                     for index in indexSet {
@@ -350,7 +353,7 @@ struct VoiceMemosView: View {
                         }
 
                         // Initializing the view
-                        let settingView = SettingView(store: store)
+                        let settingView = SettingView(store: store, admobUnitId: admobUnitId)
 
                         NavigationLink(destination:settingView) {
                             Image(systemName: "gearshape.fill")
@@ -469,7 +472,7 @@ struct VoiceMemos_Previews: PreviewProvider {
         )
       ) {
         VoiceMemos()
-      }
+      }, admobUnitId: ""
     )
   }
 }

@@ -15,14 +15,15 @@ import RevenueCat
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+
+
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
       FirebaseApp.configure()
       GADMobileAds.sharedInstance().start(completionHandler: nil)
       Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
-      Purchases.logLevel = .debug
-      Purchases.configure(withAPIKey: "")
+
 
 
       UNUserNotificationCenter.current().requestAuthorization(
@@ -53,30 +54,49 @@ struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var voiceMemos: [VoiceMemoReducer.State] = []
     let DocumentsPath = NSHomeDirectory() + "/Documents"
+
+    var admobUnitId: String!
+
     init() {
+        let environmentConfig = loadEnvironmentVariables()
+        self.admobUnitId = environmentConfig.admobKey
+        Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
+        Logger.shared.initialize(with: environmentConfig.rollbarKey)
+
         let voiceMemoRepository = VoiceMemoRepository()
         voiceMemos = voiceMemoRepository.selectAllData()
-
     }
+
     var body: some Scene {
         WindowGroup {
-//            RecordingMemoView(store: Store(initialState: RecordingMemoState(
-//                date: Date(),
-//                duration: 5,
-//                mode: .recording,
-//                url:  URL(fileURLWithPath: NSTemporaryDirectory())
-//                  .appendingPathComponent(UUID().uuidString)
-//                  .appendingPathExtension("m4a")
-//            ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
-//
-//              )
-//            ))
             VoiceMemosView(
-              store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
-                VoiceMemos()._printChanges()
-              }
+                store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
+                    VoiceMemos()
+                }, admobUnitId: admobUnitId
             )
         }
     }
+}
 
+
+
+extension VoiceMemoApp {
+    func loadEnvironmentVariables() -> EnvironmentConfig {
+
+        guard
+            let rollbarKey = Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? ProcessInfo.processInfo.environment["ROLLBAR_KEY"],
+            let admobKey = Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["ADMOB_KEY"],
+            let revenueCatKey = Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
+        else {
+            fatalError("One or more environment variables are missing")
+        }
+
+        return EnvironmentConfig(rollbarKey: rollbarKey, admobKey: admobKey, revenueCatKey: revenueCatKey)
+    }
+
+    struct EnvironmentConfig {
+        let rollbarKey: String
+        let admobKey: String
+        let revenueCatKey: String
+    }
 }

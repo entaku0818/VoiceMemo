@@ -1,0 +1,12 @@
+//
+//  Prod.xcconfig
+//  VoiLog
+//
+//  Created by 遠藤拓弥 on 2024/05/26.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+ROLLBAR_KEY = ""
+ADMOB_KEY = ""
+REVENUECAT_KEY = ""
