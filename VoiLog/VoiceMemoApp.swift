@@ -16,7 +16,6 @@ import RevenueCat
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
-    var environmentConfig: EnvironmentConfig!
 
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -24,15 +23,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
       GADMobileAds.sharedInstance().start(completionHandler: nil)
       Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
-      environmentConfig = loadEnvironmentVariables()
 
-
-
-
-
-
-      Purchases.logLevel = .debug
-      Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
 
 
       UNUserNotificationCenter.current().requestAuthorization(
@@ -63,37 +54,33 @@ struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var voiceMemos: [VoiceMemoReducer.State] = []
     let DocumentsPath = NSHomeDirectory() + "/Documents"
+
+    var admobUnitId: String!
+
     init() {
+        let environmentConfig = loadEnvironmentVariables()
+        self.admobUnitId = environmentConfig.admobKey
+        Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
+        Logger.shared.initialize(with: environmentConfig.rollbarKey)
+
         let voiceMemoRepository = VoiceMemoRepository()
         voiceMemos = voiceMemoRepository.selectAllData()
-
     }
+
     var body: some Scene {
         WindowGroup {
-//            RecordingMemoView(store: Store(initialState: RecordingMemoState(
-//                date: Date(),
-//                duration: 5,
-//                mode: .recording,
-//                url:  URL(fileURLWithPath: NSTemporaryDirectory())
-//                  .appendingPathComponent(UUID().uuidString)
-//                  .appendingPathExtension("m4a")
-//            ), reducer: recordingMemoReducer, environment: RecordingMemoEnvironment(audioRecorder: .live, mainRunLoop: .main
-//
-//              )
-//            ))
             VoiceMemosView(
-              store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
-                VoiceMemos()
-              }
+                store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
+                    VoiceMemos()
+                }, admobUnitId: admobUnitId
             )
         }
     }
-
 }
 
 
 
-extension AppDelegate {
+extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
 
         guard

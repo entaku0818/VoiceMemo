@@ -250,12 +250,14 @@ struct VoiceMemoReducer: Reducer {
 struct VoiceMemoView: View {
     let store: StoreOf<VoiceMemoReducer>
   @State private var showingModal = false
+    let admobUnitId: String
+
 
   var body: some View {
       WithViewStore(self.store, observe: { $0 }) { viewStore in
         let currentTime = viewStore.duration
             NavigationLink {
-                VoiceMemoDetail(store: store)
+                VoiceMemoDetail(store: store, admobUnitId: admobUnitId)
             } label: {
                     HStack {
 
@@ -349,7 +351,7 @@ struct VoiceMemoView_Previews: PreviewProvider {
           )
         ) {
             VoiceMemoReducer()
-        }
+        }, admobUnitId: ""
       )
 
   }
