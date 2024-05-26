@@ -84,6 +84,7 @@
 		614AD4362A3B522F004B5B98 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailComposeViewControllerWrapper.swift; sourceTree = "<group>"; };
 		6168A6412B43ACAB00B20F0F /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		616AA3682C02E19A00C7705A /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
 		617C43742BB85930008BAA6C /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D62AC9BA250006DA74 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D72AC9BA380006DA74 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -249,6 +250,7 @@
 				61E43AD32A33EFF50006A9D2 /* Logger.swift */,
 				61979A2228C466E800169FB6 /* AudioPlayer.swift */,
 				612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */,
+				616AA3682C02E19A00C7705A /* Prod.xcconfig */,
 			);
 			path = VoiLog;
 			sourceTree = "<group>";
@@ -564,6 +566,7 @@
 /* Begin XCBuildConfiguration section */
 		61979A0528C34A2600169FB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 616AA3682C02E19A00C7705A /* Prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -622,6 +625,7 @@
 		};
 		61979A0628C34A2600169FB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 616AA3682C02E19A00C7705A /* Prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -673,6 +677,7 @@
 		};
 		61979A0828C34A2600169FB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 616AA3682C02E19A00C7705A /* Prod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -706,7 +711,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 0.9.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLogDevelop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -723,6 +728,7 @@
 		};
 		61979A0928C34A2600169FB6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 616AA3682C02E19A00C7705A /* Prod.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -755,7 +761,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.5;
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 0.9.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.entaku.VoiLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -931,7 +937,7 @@
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.0.0;
+				minimumVersion = 11.0.0;
 			};
 		};
 		61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */ = {

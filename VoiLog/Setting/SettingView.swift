@@ -111,7 +111,7 @@ struct SettingReducer: Reducer {
 struct SettingView: View {
     let store: StoreOf<SettingReducer>
     @Environment(\.colorScheme) var colorScheme
-
+    let admobUnitId: String
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -242,7 +242,7 @@ struct SettingView: View {
                 .listStyle(GroupedListStyle())
 
             if !viewStore.hasPurchasedPremium{
-                AdmobBannerView().frame(width: .infinity, height: 50)
+                AdmobBannerView(unitId: admobUnitId).frame(width: .infinity, height: 50)
             }
         }
     }
@@ -417,7 +417,7 @@ struct SettingView_Previews: PreviewProvider {
             )
         ){
             SettingReducer()
-        }
+        }, admobUnitId: ""
         )
         .preferredColorScheme(.light)
     }

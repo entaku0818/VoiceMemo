@@ -10,6 +10,12 @@ import UIKit
 import SwiftUI
 
 struct AdmobBannerView: UIViewRepresentable {
+
+    private let unitId: String
+    init(unitId: String) {
+        self.unitId = unitId
+    }
+
     func makeUIView(context: Context) -> GADBannerView {
         let adSize = GADAdSizeFromCGSize(CGSize(width: 300, height: 50))
         let view = GADBannerView(adSize: adSize)
@@ -18,7 +24,7 @@ struct AdmobBannerView: UIViewRepresentable {
         #if DEBUG
         view.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         #else
-        view.adUnitID = ProcessInfo.processInfo.environment["ADMOB_UNIT_ID"]
+        view.adUnitID = unitId
         #endif
         view.rootViewController = UIApplication.shared.windows.first?.rootViewController
         view.delegate = context.coordinator
@@ -58,6 +64,17 @@ struct AdmobBannerView: UIViewRepresentable {
         // 広告がクリックされた時
         func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
             print("Ad was clicked.")
+        }
+        func bannerViewWillPresentScreen(_: GADBannerView) {
+            print("\(#function) called")
+        }
+
+        func bannerViewWillDismissScreen(_: GADBannerView) {
+            print("\(#function) called")
+        }
+
+        func bannerViewDidDismissScreen(_: GADBannerView) {
+            print("\(#function) called")
         }
     }
 }

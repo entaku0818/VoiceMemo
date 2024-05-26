@@ -13,13 +13,12 @@ import RollbarNotifier
 class Logger {
     static let shared = Logger()
 
-    private init() {
-        Crashlytics.crashlytics().setCustomValue(UUID(), forKey: "UUID")
-        if let apiKey = ProcessInfo.processInfo.environment["API_KEY"] {
-            let config = RollbarConfig.mutableConfig(withAccessToken: apiKey)
-            Rollbar.initWithConfiguration(config)
-        }
+    private init() {}
 
+    func initialize(with accessToken: String) {
+        Crashlytics.crashlytics().setCustomValue(UUID().uuidString, forKey: "UUID")
+        let config = RollbarConfig.mutableConfig(withAccessToken: accessToken)
+        Rollbar.initWithConfiguration(config)
     }
 
     func logError(_ message: String) {
@@ -27,8 +26,8 @@ class Logger {
         Rollbar.errorMessage(message)
     }
 
-    func logInfo(_ message: String, context:String) {
-        Rollbar.infoMessage(message, data: nil,context:context)
+    func logInfo(_ message: String, context: String) {
+        Rollbar.infoMessage(message, data: nil, context: context)
     }
 
     func logInfo(_ message: String) {
