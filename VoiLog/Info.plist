@@ -2,8 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ADMOB_KEY</key>
+	<string>$(ADMOB_KEY)</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3484697221349891~3051778288</string>
+	<key>REVENUECAT_KEY</key>
+	<string>$(REVENUECAT_KEY)</string>
+	<key>ROLLBAR_KEY</key>
+	<string>$(ROLLBAR_KEY)</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>

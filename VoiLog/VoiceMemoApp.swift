@@ -15,14 +15,24 @@ import RevenueCat
 
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+
+    var environmentConfig: EnvironmentConfig!
+
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
       FirebaseApp.configure()
       GADMobileAds.sharedInstance().start(completionHandler: nil)
       Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
+      environmentConfig = loadEnvironmentVariables()
+
+
+
+
+
+
       Purchases.logLevel = .debug
-      Purchases.configure(withAPIKey: "")
+      Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
 
 
       UNUserNotificationCenter.current().requestAuthorization(
@@ -73,10 +83,33 @@ struct VoiceMemoApp: App {
 //            ))
             VoiceMemosView(
               store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
-                VoiceMemos()._printChanges()
+                VoiceMemos()
               }
             )
         }
     }
 
+}
+
+
+
+extension AppDelegate {
+    func loadEnvironmentVariables() -> EnvironmentConfig {
+
+        guard
+            let rollbarKey = Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? ProcessInfo.processInfo.environment["ROLLBAR_KEY"],
+            let admobKey = Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["ADMOB_KEY"],
+            let revenueCatKey = Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
+        else {
+            fatalError("One or more environment variables are missing")
+        }
+
+        return EnvironmentConfig(rollbarKey: rollbarKey, admobKey: admobKey, revenueCatKey: revenueCatKey)
+    }
+
+    struct EnvironmentConfig {
+        let rollbarKey: String
+        let admobKey: String
+        let revenueCatKey: String
+    }
 }
