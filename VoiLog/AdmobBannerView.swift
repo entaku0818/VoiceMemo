@@ -44,37 +44,37 @@ struct AdmobBannerView: UIViewRepresentable {
 
         // 広告受信時
         func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-            print("adUnitID: \(bannerView.adUnitID)")
-            print("Ad received successfully.")
+            print("AdmobBannerView adUnitID: \(bannerView.adUnitID)")
+            print("AdmobBannerView Ad received successfully.")
 
         }
 
         // 広告受信失敗時
         func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-            print("Failed to load ad with error: \(error.localizedDescription)")
-            print("adUnitID: \(bannerView.adUnitID)")
+            print("AdmobBannerView  Failed to load ad with error: \(error.localizedDescription)")
+            print("AdmobBannerView adUnitID: \(bannerView.adUnitID)")
 
         }
 
         // インプレッションが記録された時
         func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
-            print("Impression has been recorded for the ad.")
+            print("AdmobBannerView Impression has been recorded for the ad.")
         }
 
         // 広告がクリックされた時
         func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
-            print("Ad was clicked.")
+            print("AdmobBannerView Ad was clicked.")
         }
         func bannerViewWillPresentScreen(_: GADBannerView) {
-            print("\(#function) called")
+            print("AdmobBannerView \(#function) called")
         }
 
         func bannerViewWillDismissScreen(_: GADBannerView) {
-            print("\(#function) called")
+            print("AdmobBannerView \(#function) called")
         }
 
         func bannerViewDidDismissScreen(_: GADBannerView) {
-            print("\(#function) called")
+            print("AdmobBannerView \(#function) called")
         }
     }
 }

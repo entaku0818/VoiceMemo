@@ -56,10 +56,11 @@ struct VoiceMemoApp: App {
     let DocumentsPath = NSHomeDirectory() + "/Documents"
 
     var admobUnitId: String!
-
+    var recordAdmobUnitId: String!
     init() {
         let environmentConfig = loadEnvironmentVariables()
         self.admobUnitId = environmentConfig.admobKey
+        self.recordAdmobUnitId = environmentConfig.recordAdmobKey
         Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
         Logger.shared.initialize(with: environmentConfig.rollbarKey)
 
@@ -72,7 +73,7 @@ struct VoiceMemoApp: App {
             VoiceMemosView(
                 store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
                     VoiceMemos()
-                }, admobUnitId: admobUnitId
+                }, admobUnitId: admobUnitId, recordAdmobUnitId: recordAdmobUnitId
             )
         }
     }
@@ -85,18 +86,20 @@ extension VoiceMemoApp {
 
         guard
             let rollbarKey = Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? ProcessInfo.processInfo.environment["ROLLBAR_KEY"],
+            let recordAdmobKey = Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"],
             let admobKey = Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["ADMOB_KEY"],
             let revenueCatKey = Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
         else {
             fatalError("One or more environment variables are missing")
         }
 
-        return EnvironmentConfig(rollbarKey: rollbarKey, admobKey: admobKey, revenueCatKey: revenueCatKey)
+        return EnvironmentConfig(rollbarKey: rollbarKey, admobKey: admobKey, recordAdmobKey: recordAdmobKey, revenueCatKey: revenueCatKey)
     }
 
     struct EnvironmentConfig {
         let rollbarKey: String
         let admobKey: String
+        let recordAdmobKey:String
         let revenueCatKey: String
     }
 }
