@@ -8,6 +8,8 @@
 	<string>ca-app-pub-3484697221349891~3051778288</string>
 	<key>MinimumOSVersion</key>
 	<string>16.0</string>
+	<key>RECORD_ADMOB_KEY</key>
+	<string>$(RECORD_ADMOB_KEY)</string>
 	<key>REVENUECAT_KEY</key>
 	<string>$(REVENUECAT_KEY)</string>
 	<key>ROLLBAR_KEY</key>

@@ -243,6 +243,7 @@ struct VoiceMemos: Reducer {
 struct VoiceMemosView: View {
     let store: StoreOf<VoiceMemos>
     let admobUnitId: String
+    let recordAdmobUnitId: String
 
 
     enum AlertType {
@@ -255,9 +256,10 @@ struct VoiceMemosView: View {
 
     @State private var selectedIndex: Int?
 
-    init(store:  StoreOf<VoiceMemos>, admobUnitId:String) {
+    init(store:  StoreOf<VoiceMemos>, admobUnitId:String, recordAdmobUnitId:String) {
         self.store = store
         self.admobUnitId = admobUnitId
+        self.recordAdmobUnitId = recordAdmobUnitId
     }
 
   var body: some View {
@@ -294,6 +296,9 @@ struct VoiceMemosView: View {
               .padding()
               .frame(maxWidth: .infinity)
               .background(Color.init(white: 0.95))
+
+                AdmobBannerView(unitId: recordAdmobUnitId)
+                     .frame(width: .infinity, height: 50)
             }
             .onAppear{
                 checkTrackingAuthorizationStatus()
@@ -472,7 +477,7 @@ struct VoiceMemos_Previews: PreviewProvider {
         )
       ) {
         VoiceMemos()
-      }, admobUnitId: ""
+      }, admobUnitId: "", recordAdmobUnitId: ""
     )
   }
 }
