@@ -182,7 +182,14 @@
       }
     },
     "%@/月" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "month"
+          }
+        }
+      }
     },
     "%@Hz" : {
       "localizations" : {
@@ -2098,7 +2105,14 @@
       }
     },
     "リストア購入" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "restore"
+          }
+        }
+      }
     },
     "今すぐ1ヶ月無料体験してみよう！" : {
       "localizations" : {
