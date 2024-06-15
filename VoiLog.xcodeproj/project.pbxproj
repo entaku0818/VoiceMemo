@@ -15,6 +15,7 @@
 		6124A0222ADAAE2C009444EA /* DependencyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124A0212ADAAE2C009444EA /* DependencyValues.swift */; };
 		612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */; };
 		612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612521162BC26E3B002A7A3E /* PaywallView.swift */; };
+		613ABC832C1DE9130092F5F7 /* VoiceMemosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613ABC822C1DE9130092F5F7 /* VoiceMemosTests.swift */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */; };
 		614AB0EA2A5918080033F6CB /* ff16audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 614AB0E92A5918080033F6CB /* ff16audio.mp3 */; };
 		614AD4352A3B5207004B5B98 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614AD4342A3B5207004B5B98 /* Constants.swift */; };
@@ -78,6 +79,7 @@
 		6124A0232ADAD4E9009444EA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Simple Voice Recorder - Audio.storekit"; sourceTree = "<group>"; };
 		612521162BC26E3B002A7A3E /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		613ABC822C1DE9130092F5F7 /* VoiceMemosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemosTests.swift; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		614AB0E92A5918080033F6CB /* ff16audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ff16audio.mp3; sourceTree = "<group>"; };
 		614AD4342A3B5207004B5B98 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				619799F728C34A2600169FB6 /* VoiLogTests.swift */,
+				613ABC822C1DE9130092F5F7 /* VoiceMemosTests.swift */,
 			);
 			path = VoiLogTests;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				619799F828C34A2600169FB6 /* VoiLogTests.swift in Sources */,
+				613ABC832C1DE9130092F5F7 /* VoiceMemosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
