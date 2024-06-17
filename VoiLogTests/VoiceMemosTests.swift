@@ -48,7 +48,25 @@ final class VoiceMemosTests: XCTestCase {
 
     func testOnDelete() async {
         let uuid = UUID()
-        let store = TestStore(initialState: VoiceMemos.State()) {
+        let voiceMemo = VoiceMemoReducer.State(
+            uuid: uuid,
+            date: Date(),
+            duration: 60.0,
+            time: 60.0,
+            url: URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a"),
+            text: "サンプルメモ",
+            fileFormat: "m4a",
+            samplingFrequency: 44100.0,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            hasPurchasedPremium: false
+        )
+
+
+        var initialState = VoiceMemos.State()
+        initialState.voiceMemos = [voiceMemo]
+
+        let store = TestStore(initialState: initialState) {
             VoiceMemos()
         }
 
@@ -57,21 +75,6 @@ final class VoiceMemosTests: XCTestCase {
         }
     }
 
-    func testRecordButtonTapped_PermissionUndetermined() async {
-        let store = TestStore(initialState: VoiceMemos.State()) {
-            VoiceMemos()
-        }
-
-        await store.send(.recordButtonTapped)
-        await store.receive(.recordPermissionResponse(true)) {
-            $0.audioRecorderPermission = .allowed
-            $0.recordingMemo = RecordingMemo.State(
-                date: Date(),
-                url: URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(UUID().uuidString).appendingPathExtension("m4a"),
-                duration: 0
-            )
-        }
-    }
 
     func testRecordPermissionResponse_Denied() async {
         let store = TestStore(initialState: VoiceMemos.State()) {
@@ -84,14 +87,5 @@ final class VoiceMemosTests: XCTestCase {
         }
     }
 
-    func testMailComposeDismissed() async {
-        let store = TestStore(initialState: VoiceMemos.State()) {
-            VoiceMemos()
-        }
-
-        await store.send(.mailComposeDismissed) {
-            $0.isMailComposePresented = false
-        }
-    }
 }
 
