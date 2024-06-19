@@ -253,6 +253,13 @@ struct VoiceMemoView: View {
     let admobUnitId: String
 
 
+    private let dateFormatter: DateFormatter = {
+         let formatter = DateFormatter()
+         formatter.dateStyle = .medium
+         formatter.timeStyle = .short
+         return formatter
+     }()
+
   var body: some View {
       WithViewStore(self.store, observe: { $0 }) { viewStore in
         let currentTime = viewStore.duration
@@ -274,11 +281,15 @@ struct VoiceMemoView: View {
                             }
 
                             if viewStore.state.fileFormat.count > 0 {
-                                HStack {
+                                HStack(spacing:0){
+                                    Text(dateFormatter.string(from: viewStore.date))
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                    Spacer()
                                     Text(viewStore.state.fileFormat)
                                         .font(.caption)
                                         .foregroundColor(.gray)
-
+                                    Spacer()
                                     Text(viewStore.state.samplingFrequency.formattedAsKHz())
                                         .font(.caption)
                                         .foregroundColor(.gray)
@@ -310,9 +321,7 @@ struct VoiceMemoView: View {
                                 .foregroundColor(Color(.systemGray))
                         }
 
-                        Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
-                            .font(.system(size: 22))
-                            .foregroundColor(Color.accentColor)
+
                     }
 
 
@@ -332,27 +341,28 @@ struct VoiceMemoView: View {
 
 
 struct VoiceMemoView_Previews: PreviewProvider {
-  static var previews: some View {
-      return VoiceMemoView(
-        store: Store(
-          initialState: VoiceMemoReducer.State(
-              uuid: UUID(),
-              date: Date(),
-              duration: 180,
-              time: 0,
-              mode: .notPlaying,
-              title: "",
-              url: URL(fileURLWithPath: ""),
-              text: "",
-              fileFormat: "",
-              samplingFrequency: 0.0,
-              quantizationBitDepth: 0,
-              numberOfChannels: 0, hasPurchasedPremium: false
-          )
-        ) {
-            VoiceMemoReducer()
-        }, admobUnitId: ""
-      )
-
-  }
+    static var previews: some View {
+        VoiceMemoView(
+            store: Store(
+                initialState: VoiceMemoReducer.State(
+                    uuid: UUID(),
+                    date: Date(),
+                    duration: 180,
+                    time: 0,
+                    mode: .notPlaying,
+                    title: "Sample Memo",
+                    url: URL(fileURLWithPath: "/path/to/memo.m4a"),
+                    text: "This is a sample voice memo.",
+                    fileFormat: "m4a",
+                    samplingFrequency: 44100.0,
+                    quantizationBitDepth: 16,
+                    numberOfChannels: 2,
+                    hasPurchasedPremium: false
+                )
+            ) {
+                VoiceMemoReducer()
+            },
+            admobUnitId: ""
+        )
+    }
 }
