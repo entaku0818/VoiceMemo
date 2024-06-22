@@ -135,6 +135,10 @@ struct VoiceMemos: Reducer {
             )
               let voiceRepository = VoiceMemoRepository()
               voiceRepository.insert(state: recordingMemo)
+          Task{
+              await voiceRepository.uploadToCloud(uuid: recordingMemo.uuid)
+
+          }
             return .none
 
           case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):

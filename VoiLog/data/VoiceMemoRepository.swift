@@ -6,12 +6,17 @@
 //
 
 import Foundation
+
+import Foundation
+
 class VoiceMemoRepository {
 
     private let coreDataAccessor: VoiceMemoCoredataAccessor
+    private let cloudUploader: CloudUploader
 
-    init(coreDataAccessor: VoiceMemoCoredataAccessor = VoiceMemoCoredataAccessor()) {
+    init(coreDataAccessor: VoiceMemoCoredataAccessor = VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader = CloudUploader()) {
         self.coreDataAccessor = coreDataAccessor
+        self.cloudUploader = cloudUploader
     }
 
     func insert(state: RecordingMemo.State) {
@@ -86,6 +91,18 @@ class VoiceMemoRepository {
         coreDataAccessor.updateTitle(uuid: uuid, newTitle: newTitle)
     }
 
+    func uploadToCloud(uuid: UUID) async -> Bool {
+        if let voice = coreDataAccessor.fetch(uuid: uuid) {
+            let result = await cloudUploader.saveVoice(voice: voice)
+            if result{
+                coreDataAccessor.update(voice: voice)
+            }
+            return true
+        } else {
+            return false
+        }
+    }   
+
     struct Voice {
         var title: String
         var url: URL
@@ -98,6 +115,4 @@ class VoiceMemoRepository {
         var quantizationBitDepth: Int16
         var numberOfChannels: Int16
     }
-
 }
-
