@@ -151,7 +151,9 @@ struct RecordingMemo: Reducer {
               await send(.updateResultText(text))
           }
       case let .fetchRecordingMemo(uuid):
-          if let recordingmemo = VoiceMemoRepository.shared.fetch(uuid: uuid){
+
+          let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository()
+          if let recordingmemo = voiceMemoRepository.fetch(uuid: uuid){
               state = recordingmemo
           }
           return .none
