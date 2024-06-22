@@ -135,6 +135,7 @@ struct VoiceMemos: Reducer {
             )
               let voiceRepository = VoiceMemoRepository()
               voiceRepository.insert(state: recordingMemo)
+
             return .none
 
           case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
@@ -270,7 +271,7 @@ struct VoiceMemosView: View {
                 ForEachStore(
                     self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
                 ) {
-                    VoiceMemoView(store: $0, admobUnitId: admobUnitId)
+                    VoiceMemoListItem(store: $0, admobUnitId: admobUnitId)
                 }
                 .onDelete { indexSet in
                     for index in indexSet {
