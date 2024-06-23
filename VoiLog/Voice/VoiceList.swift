@@ -65,6 +65,7 @@ struct VoiceMemos: Reducer {
     Reduce { state, action in
       switch action {
         case .onAppear:
+          let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
 
           let installDate = UserDefaultsManager.shared.installDate
           let reviewCount = UserDefaultsManager.shared.reviewRequestCount
@@ -405,12 +406,20 @@ struct VoiceMemosView: View {
                                     Image(systemName: "arrow.triangle.2.circlepath.icloud.fill")
                                         .accentColor(.accentColor)
                                 } else {
-                                    Button {
-                                        viewStore.send(.synciCloud)
-                                    } label: {
-                                        Image(systemName: "exclamationmark.icloud.fill")
-                                            .accentColor(.accentColor)
+                                    if viewStore.hasPurchasedPremium{
+                                        Button {
+                                            viewStore.send(.synciCloud)
+                                        } label: {
+                                            Image(systemName: "exclamationmark.icloud.fill")
+                                                .accentColor(.accentColor)
+                                        }
+                                    }else{
+                                        NavigationLink(destination: PaywallView(iapManager: IAPManager())) {
+                                            Image(systemName: "exclamationmark.icloud.fill")
+                                                .accentColor(.accentColor)
+                                        }
                                     }
+
                                 }
                                 Spacer().frame(width: 10)
                                 NavigationLink(destination: settingView) {

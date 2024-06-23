@@ -32,13 +32,14 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         }
     }
 
-    func  insert(voice: VoiceMemoRepository.Voice, isCloud:Bool) {
+    func insert(voice: VoiceMemoRepository.Voice, isCloud:Bool) {
         if let voiceEntity = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
             voiceEntity.title = voice.title
             voiceEntity.url = voice.url
             voiceEntity.id = voice.id
             voiceEntity.text = voice.text
             voiceEntity.createdAt = voice.createdAt
+            voiceEntity.updatedAt = voice.updatedAt
             voiceEntity.duration = voice.duration
             voiceEntity.fileFormat = voice.fileFormat
             voiceEntity.samplingFrequency = voice.samplingFrequency
@@ -70,6 +71,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 id: voiceEntity.id ?? UUID(),
                 text: voiceEntity.text ?? "",
                 createdAt: voiceEntity.createdAt ?? Date(),
+                updatedAt: voiceEntity.updatedAt ?? Date(),
                 duration: voiceEntity.duration,
                 fileFormat: voiceEntity.fileFormat ?? "",
                 samplingFrequency: voiceEntity.samplingFrequency,
@@ -94,7 +96,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                     url: voiceEntity.url!,
                     id: voiceEntity.id ?? UUID(),
                     text: voiceEntity.text ?? "",
-                    createdAt: voiceEntity.createdAt ?? Date(),
+                    createdAt: voiceEntity.createdAt ?? Date(), 
+                    updatedAt: voiceEntity.updatedAt ?? Date(),
                     duration: voiceEntity.duration,
                     fileFormat: voiceEntity.fileFormat ?? "",
                     samplingFrequency: voiceEntity.samplingFrequency,
@@ -137,6 +140,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 voiceEntity.url = voice.url
                 voiceEntity.text = voice.text
                 voiceEntity.createdAt = voice.createdAt
+                voiceEntity.updatedAt = voice.updatedAt
                 voiceEntity.duration = voice.duration
                 voiceEntity.fileFormat = voice.fileFormat
                 voiceEntity.samplingFrequency = voice.samplingFrequency
@@ -160,6 +164,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             let results = try managedContext.fetch(fetchRequest)
             if let voiceEntity = results.first {
                 voiceEntity.title = newTitle
+                voiceEntity.updatedAt = Date()
                 try managedContext.save()
             }
         } catch let error {

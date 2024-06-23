@@ -23,7 +23,8 @@ class VoiceMemoRepository {
             url: state.url,
             id: state.uuid,
             text: state.resultText,
-            createdAt: state.date,
+            createdAt: state.date, 
+            updatedAt: Date(),
             duration: state.duration,
             fileFormat: state.fileFormat,
             samplingFrequency: state.samplingFrequency,
@@ -77,15 +78,19 @@ class VoiceMemoRepository {
 
     func delete(id: UUID) {
         coreDataAccessor.delete(id: id)
+        // クラウドからも削除
+        Task {
+            _ = await cloudUploader.deleteVoice(id: id)
+        }
     }
-
     func update(state: VoiceMemoReducer.State) {
         let voice = Voice(
             title: state.title,
             url: state.url,
             id: state.uuid,
             text: state.text,
-            createdAt: state.date,
+            createdAt: state.date, 
+            updatedAt: Date(),
             duration: state.duration,
             fileFormat: state.fileFormat,
             samplingFrequency: state.samplingFrequency,
@@ -100,24 +105,24 @@ class VoiceMemoRepository {
         coreDataAccessor.updateTitle(uuid: uuid, newTitle: newTitle)
     }
     func syncToCloud() async -> Bool {
-        // Fetch all local voices
+        // ローカルの音声データを全て取得
         let localVoices = coreDataAccessor.selectAllData()
         let localVoiceIds = Set(localVoices.map { $0.id })
 
-        // Fetch all cloud voices
+        // クラウド上の音声データを全て取得
         let cloudVoices = await cloudUploader.fetchAllVoices()
         let cloudVoiceIds = Set(cloudVoices.map { $0.id })
 
-        // Find voices that need to be uploaded to the cloud
+        // アップロードが必要な音声データを特定
         let voicesToUpload = localVoices.filter { !cloudVoiceIds.contains($0.id) }
 
-        // Find voices that need to be downloaded to the local database
+        // ダウンロードが必要な音声データを特定
         let voicesToDownload = cloudVoices.filter { !localVoiceIds.contains($0.id) }
 
-
+        // 同期の結果を追跡
         var allUploadsSucceeded = true
 
-        // Upload local-only voices to the cloud
+        // ローカルのみの音声データをクラウドにアップロード
         for voice in voicesToUpload {
             let success = await cloudUploader.saveVoice(voice: voice)
             if success {
@@ -129,13 +134,64 @@ class VoiceMemoRepository {
             }
         }
 
-        // Download cloud-only voices to the local database
+        // クラウドのみの音声データをローカルデータベースにダウンロード
         for voice in voicesToDownload {
             coreDataAccessor.insert(voice: voice, isCloud: true)
         }
 
+        // updatedAtを比較して新しい方で上書き
+        for localVoice in localVoices {
+            if let cloudVoice = cloudVoices.first(where: { $0.id == localVoice.id }) {
+                if cloudVoice.updatedAt > localVoice.updatedAt {
+                    coreDataAccessor.update(voice: cloudVoice)
+                } else if localVoice.updatedAt > cloudVoice.updatedAt {
+                    let success = await cloudUploader.saveVoice(voice: localVoice)
+                    if !success {
+                        allUploadsSucceeded = false
+                    }
+                }
+            }
+        }
+
         return allUploadsSucceeded
     }
+
+    func checkForDifferences() async -> Bool {
+          // ローカルの音声データを全て取得
+          let localVoices = coreDataAccessor.selectAllData()
+          let localVoiceIds = Set(localVoices.map { $0.id })
+
+          // クラウド上の音声データを全て取得
+          let cloudVoices = await cloudUploader.fetchAllVoices()
+          let cloudVoiceIds = Set(cloudVoices.map { $0.id })
+
+          // 差分を検出
+          var hasDifferences = false
+
+          for localVoice in localVoices {
+              if let cloudVoice = cloudVoices.first(where: { $0.id == localVoice.id }) {
+                  if cloudVoice.updatedAt != localVoice.updatedAt {
+                      hasDifferences = true
+                      break
+                  }
+              } else {
+                  hasDifferences = true
+                  break
+              }
+          }
+
+          if !hasDifferences {
+              for cloudVoice in cloudVoices {
+                  if !localVoiceIds.contains(cloudVoice.id) {
+                      hasDifferences = true
+                      break
+                  }
+              }
+          }
+
+          return hasDifferences
+      }
+
 
 
     struct Voice {
@@ -144,6 +200,7 @@ class VoiceMemoRepository {
         var id: UUID
         var text: String
         var createdAt: Date
+        var updatedAt: Date
         var duration: Double
         var fileFormat: String
         var samplingFrequency: Double
