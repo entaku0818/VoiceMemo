@@ -116,7 +116,7 @@ struct VoiceMemoReducer: Reducer {
 
         case let .titleTextFieldChanged(text):
             state.title = text
-            let voiceMemoRepository = VoiceMemoRepository()
+            let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor())
             voiceMemoRepository.update(state: state)
             return .none
 

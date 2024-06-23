@@ -1,7 +1,16 @@
 import Foundation
 import CoreData
 
-class VoiceMemoCoredataAccessor: NSObject {
+protocol VoiceMemoCoredataAccessorProtocol {
+    func insert(voice: VoiceMemoRepository.Voice)
+    func selectAllData() -> [VoiceMemoRepository.Voice]
+    func fetch(uuid: UUID) -> VoiceMemoRepository.Voice?
+    func delete(id: UUID)
+    func update(voice: VoiceMemoRepository.Voice)
+    func updateTitle(uuid: UUID, newTitle: String)
+}
+
+class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
     let container: NSPersistentContainer
     var managedContext: NSManagedObjectContext

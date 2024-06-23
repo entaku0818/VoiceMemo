@@ -5,56 +5,75 @@ import Photos
 
 
 struct RecordingMemo: Reducer {
-  struct State: Equatable {
+    struct State: Equatable {
 
-      init(date:Date, url:URL, duration:TimeInterval){
-          self.date = date
-          self.url = url
-          self.duration = duration
-      }
+        init(
+            uuid: UUID = UUID(),
+            date: Date,
+            duration: TimeInterval,
+            volumes: [Float] = [],
+            resultText: String = "",
+            mode: Mode = .recording,
+            fileFormat: String = "",
+            samplingFrequency: Double,
+            quantizationBitDepth: Int,
+            numberOfChannels: Int,
+            url: URL,
+            startTime: TimeInterval,
+            time: TimeInterval
+        ) {
+            self.uuid = uuid
+            self.date = date
+            self.duration = duration
+            self.volumes = volumes
+            self.resultText = resultText
+            self.mode = mode
+            self.fileFormat = fileFormat
+            self.samplingFrequency = samplingFrequency
+            self.quantizationBitDepth = quantizationBitDepth
+            self.numberOfChannels = numberOfChannels
+            self.url = url
+            self.startTime = startTime
+            self.time = time
+        }
 
-      init(uuid:UUID,date:Date, duration:TimeInterval,url:URL,resultText:String) {
-          self.uuid = uuid
-          self.date = date
-          self.duration = duration
-          self.mode = .encoding
-          self.url = url
-          self.resultText = resultText
-      }
+        init(from voiceMemoState: VoiceMemoReducer.State) {
+            self.uuid = voiceMemoState.uuid
+            self.date = voiceMemoState.date
+            self.duration = voiceMemoState.duration
+            self.volumes = []
+            self.resultText = voiceMemoState.text
+            self.mode = .encoding
+            self.fileFormat = ""
+            self.samplingFrequency = voiceMemoState.samplingFrequency
+            self.quantizationBitDepth = voiceMemoState.quantizationBitDepth
+            self.numberOfChannels = voiceMemoState.numberOfChannels
+            self.url = voiceMemoState.url
+            self.newUrl = nil
+            self.startTime = voiceMemoState.time
+            self.time = voiceMemoState.time
+        }
 
-      init(from voiceMemoState: VoiceMemoReducer.State) {
-          self.uuid = voiceMemoState.uuid
-          self.date = voiceMemoState.date
-          self.duration = voiceMemoState.duration
-          self.startTime = voiceMemoState.time
-          self.mode = .encoding
-          self.url = voiceMemoState.url
-          self.resultText = voiceMemoState.text
-      }
+        var uuid: UUID
+        var date: Date
+        var duration: TimeInterval
+        var volumes: [Float]
+        var resultText: String
+        var mode: Mode
+        var fileFormat: String
+        var samplingFrequency: Double
+        var quantizationBitDepth: Int
+        var numberOfChannels: Int
+        var url: URL
+        var newUrl: URL?
+        var startTime: TimeInterval
+        var time: TimeInterval
 
-      var uuid = UUID()
-      var date: Date
-      var duration: TimeInterval = 0
-      var volumes: [Float] = []
-      var resultText: String = ""
-      var mode: Mode = .recording
-      var fileFormat: String = ""
-      var samplingFrequency: Double = 0.0
-      var quantizationBitDepth: Int = 0
-      var numberOfChannels: Int = 0
-
-
-      var url: URL
-      var newUrl: URL?
-      var startTime: TimeInterval = 0
-      /// 再生時間
-      var time: TimeInterval = 0
-
-      enum Mode {
-          case recording
-          case encoding
-      }
-  }
+        enum Mode {
+            case recording
+            case encoding
+        }
+    }
 
   enum Action: Equatable {
       case audioRecorderDidFinish(TaskResult<Bool>)
@@ -103,7 +122,7 @@ struct RecordingMemo: Reducer {
           state.fileFormat =  UserDefaultsManager.shared.selectedFileFormat
           state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
           state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
-          state.numberOfChannels = 1
+          state.numberOfChannels = UserDefaultsManager.shared.numberOfChannels
           return .run { send in
             if let currentTime = await self.audioRecorder.currentTime() {
               await send(.finalRecordingTime(currentTime))
@@ -152,7 +171,7 @@ struct RecordingMemo: Reducer {
           }
       case let .fetchRecordingMemo(uuid):
 
-          let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository()
+          let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor())
           if let recordingmemo = voiceMemoRepository.fetch(uuid: uuid){
               state = recordingmemo
           }
@@ -246,19 +265,24 @@ struct RecordingMemoView: View {
 
 
 struct RecordingMemoView_Previews: PreviewProvider {
-  static var previews: some View {
-      return RecordingMemoView(
-        store:  Store(initialState: RecordingMemo.State(
-            date: Date(),
-            url: URL(string: "https://www.pointfree.co/functions")!, duration: 5
-
+    static var previews: some View {
+        RecordingMemoView(
+            store: Store(
+                initialState: RecordingMemo.State(
+                    date: Date(),
+                    duration: 5,
+                    samplingFrequency: 44100,
+                    quantizationBitDepth: 16,
+                    numberOfChannels: 2,
+                    url: URL(string: "https://www.pointfree.co/functions")!,
+                    startTime: 0,
+                    time: 0
+                )
+            ) {
+                RecordingMemo()
+            }
         )
-        ) {
-            RecordingMemo()
-        }
-      )
-
-  }
+    }
 }
 
 

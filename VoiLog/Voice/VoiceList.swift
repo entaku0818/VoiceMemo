@@ -90,7 +90,7 @@ struct VoiceMemos: Reducer {
 
           case let .onDelete(uuid):
             state.voiceMemos.removeAll { $0.uuid == uuid }
-              let voiceRepository = VoiceMemoRepository()
+          let voiceRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor())
               voiceRepository.delete(id: uuid)
             return .none
 
@@ -133,7 +133,7 @@ struct VoiceMemos: Reducer {
                 ),
               at: 0
             )
-              let voiceRepository = VoiceMemoRepository()
+              let voiceRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor())
               voiceRepository.insert(state: recordingMemo)
 
             return .none
@@ -226,15 +226,25 @@ struct VoiceMemos: Reducer {
     }
 
     private var newRecordingMemo: RecordingMemo.State {
-      RecordingMemo.State(
-        date: self.date.now,
-        url: self.documentsDirectory()
-          .appendingPathComponent(self.uuid().uuidString)
-          .appendingPathExtension("m4a"), 
-        duration: 0
-      )
-
+        RecordingMemo.State(
+            uuid: UUID(),
+            date: self.date.now,
+            duration: 0,
+            volumes: [],
+            resultText: "",
+            mode: .recording,
+            fileFormat: "m4a",
+            samplingFrequency: 44100,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            url: self.documentsDirectory()
+                .appendingPathComponent(self.uuid().uuidString)
+                .appendingPathExtension("m4a"),
+            startTime: 0,
+            time: 0  
+        )
     }
+
 }
 
 

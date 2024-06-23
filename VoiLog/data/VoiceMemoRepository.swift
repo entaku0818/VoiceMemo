@@ -7,14 +7,12 @@
 
 import Foundation
 
-import Foundation
-
 class VoiceMemoRepository {
 
-    private let coreDataAccessor: VoiceMemoCoredataAccessor
+    private let coreDataAccessor: VoiceMemoCoredataAccessorProtocol
     private let cloudUploader: CloudUploader
 
-    init(coreDataAccessor: VoiceMemoCoredataAccessor = VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader = CloudUploader()) {
+    init(coreDataAccessor: VoiceMemoCoredataAccessorProtocol, cloudUploader: CloudUploader = CloudUploader()) {
         self.coreDataAccessor = coreDataAccessor
         self.cloudUploader = cloudUploader
     }
@@ -60,10 +58,19 @@ class VoiceMemoRepository {
                 uuid: voice.id,
                 date: voice.createdAt,
                 duration: voice.duration,
+                volumes: [],
+                resultText: voice.text,
+                mode: .encoding,
+                fileFormat: voice.fileFormat,
+                samplingFrequency: voice.samplingFrequency,
+                quantizationBitDepth: Int(voice.quantizationBitDepth),
+                numberOfChannels: Int(voice.numberOfChannels),
                 url: voice.url,
-                resultText: voice.text
+                startTime: 0,
+                time: 0
             )
         }
+
         return nil
     }
 

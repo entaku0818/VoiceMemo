@@ -64,7 +64,7 @@ struct VoiceMemoApp: App {
         Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
         Logger.shared.initialize(with: environmentConfig.rollbarKey)
 
-        let voiceMemoRepository = VoiceMemoRepository()
+        let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor())
         voiceMemos = voiceMemoRepository.selectAllData()
     }
 
