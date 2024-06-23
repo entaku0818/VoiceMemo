@@ -4,6 +4,7 @@ import Foundation
 @testable import VoiLog
 
 class MockCloudUploader: CloudUploaderProtocol {
+    
     var savedVoice: VoiceMemoRepository.Voice?
     var fetchedVoices: [VoiceMemoRepository.Voice] = []
 
@@ -14,5 +15,9 @@ class MockCloudUploader: CloudUploaderProtocol {
 
     func fetchAllVoices() async -> [VoiceMemoRepository.Voice] {
         return fetchedVoices
+    }
+
+    func deleteVoice(id: UUID) async -> Bool {
+        return true
     }
 }
