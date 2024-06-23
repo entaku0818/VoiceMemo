@@ -10,9 +10,9 @@ import Foundation
 class VoiceMemoRepository {
 
     private let coreDataAccessor: VoiceMemoCoredataAccessorProtocol
-    private let cloudUploader: CloudUploader
+    private let cloudUploader: CloudUploaderProtocol
 
-    init(coreDataAccessor: VoiceMemoCoredataAccessorProtocol, cloudUploader: CloudUploader = CloudUploader()) {
+    init(coreDataAccessor: VoiceMemoCoredataAccessorProtocol, cloudUploader: CloudUploaderProtocol) {
         self.coreDataAccessor = coreDataAccessor
         self.cloudUploader = cloudUploader
     }
@@ -28,9 +28,10 @@ class VoiceMemoRepository {
             fileFormat: state.fileFormat,
             samplingFrequency: state.samplingFrequency,
             quantizationBitDepth: Int16(state.quantizationBitDepth),
-            numberOfChannels: Int16(state.numberOfChannels)
+            numberOfChannels: Int16(state.numberOfChannels), 
+            isCloud: false
         )
-        coreDataAccessor.insert(voice: voice)
+        coreDataAccessor.insert(voice: voice, isCloud: false)
     }
 
     func selectAllData() -> [VoiceMemoReducer.State] {
@@ -89,7 +90,8 @@ class VoiceMemoRepository {
             fileFormat: state.fileFormat,
             samplingFrequency: state.samplingFrequency,
             quantizationBitDepth: Int16(state.quantizationBitDepth),
-            numberOfChannels: Int16(state.numberOfChannels)
+            numberOfChannels: Int16(state.numberOfChannels), 
+            isCloud: false
         )
         coreDataAccessor.update(voice: voice)
     }
@@ -97,18 +99,44 @@ class VoiceMemoRepository {
     func updateTitle(uuid: UUID, newTitle: String) {
         coreDataAccessor.updateTitle(uuid: uuid, newTitle: newTitle)
     }
+    func syncToCloud() async -> Bool {
+        // Fetch all local voices
+        let localVoices = coreDataAccessor.selectAllData()
+        let localVoiceIds = Set(localVoices.map { $0.id })
 
-    func uploadToCloud(uuid: UUID) async -> Bool {
-        if let voice = coreDataAccessor.fetch(uuid: uuid) {
-            let result = await cloudUploader.saveVoice(voice: voice)
-            if result{
-                coreDataAccessor.update(voice: voice)
+        // Fetch all cloud voices
+        let cloudVoices = await cloudUploader.fetchAllVoices()
+        let cloudVoiceIds = Set(cloudVoices.map { $0.id })
+
+        // Find voices that need to be uploaded to the cloud
+        let voicesToUpload = localVoices.filter { !cloudVoiceIds.contains($0.id) }
+
+        // Find voices that need to be downloaded to the local database
+        let voicesToDownload = cloudVoices.filter { !localVoiceIds.contains($0.id) }
+
+
+        var allUploadsSucceeded = true
+
+        // Upload local-only voices to the cloud
+        for voice in voicesToUpload {
+            let success = await cloudUploader.saveVoice(voice: voice)
+            if success {
+                var updatedVoice = voice
+                updatedVoice.isCloud = true
+                coreDataAccessor.update(voice: updatedVoice)
+            } else {
+                allUploadsSucceeded = false
             }
-            return true
-        } else {
-            return false
         }
-    }   
+
+        // Download cloud-only voices to the local database
+        for voice in voicesToDownload {
+            coreDataAccessor.insert(voice: voice, isCloud: true)
+        }
+
+        return allUploadsSucceeded
+    }
+
 
     struct Voice {
         var title: String
@@ -121,5 +149,6 @@ class VoiceMemoRepository {
         var samplingFrequency: Double
         var quantizationBitDepth: Int16
         var numberOfChannels: Int16
+        var isCloud:Bool
     }
 }

@@ -5,8 +5,12 @@
 //  Created by 遠藤拓弥 on 2024/06/22.
 //
 import CloudKit
+protocol CloudUploaderProtocol {
+    func saveVoice(voice: VoiceMemoRepository.Voice) async -> Bool
+    func fetchAllVoices() async -> [VoiceMemoRepository.Voice]
+}
 
-class CloudUploader {
+class CloudUploader: CloudUploaderProtocol {
     let container: CKContainer
     let database: CKDatabase
 
@@ -19,7 +23,9 @@ class CloudUploader {
         let record = CKRecord(recordType: "Voice")
 
         // 音声ファイルのCKAssetを作成
-        let asset = CKAsset(fileURL: voice.url)
+        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + voice.url.lastPathComponent
+
+        let asset = CKAsset(fileURL: URL(fileURLWithPath: inputDocumentsPath))
         record["file"] = asset
 
         // メタデータをCKRecordに設定
@@ -37,10 +43,50 @@ class CloudUploader {
             let _ = try await database.save(record)
             return true
         } catch {
-            print("Error saving voice record to CloudKit: \(error.localizedDescription)")
-            print("Container Identifier: \(container.containerIdentifier ?? "None")")
-            print("Record: \(record)")
             return false
         }
     }
+
+    func fetchAllVoices() async -> [VoiceMemoRepository.Voice] {
+        let query = CKQuery(recordType: "Voice", predicate: NSPredicate(value: true))
+
+        do {
+            let (matchedRecords, _) = try await database.records(matching: query)
+            return matchedRecords.compactMap { recordTuple in
+                let record = try? recordTuple.1.get()
+                if let record = record,
+                   let url = (record["file"] as? CKAsset)?.fileURL,
+                   let title = record["title"] as? String,
+                   let idString = record["id"] as? String,
+                   let id = UUID(uuidString: idString),
+                   let text = record["text"] as? String,
+                   let createdAt = record["createdAt"] as? Date,
+                   let duration = record["duration"] as? Double,
+                   let fileFormat = record["fileFormat"] as? String,
+                   let samplingFrequency = record["samplingFrequency"] as? Double,
+                   let quantizationBitDepth = record["quantizationBitDepth"] as? Int,
+                   let numberOfChannels = record["numberOfChannels"] as? Int {
+                    return VoiceMemoRepository.Voice(
+                        title:title,
+                        url: url,
+                        id: id,
+                        text: text,
+                        createdAt: createdAt,
+                        duration: duration,
+                        fileFormat: fileFormat,
+                        samplingFrequency: samplingFrequency,
+                        quantizationBitDepth: Int16(quantizationBitDepth),
+                        numberOfChannels: Int16(numberOfChannels), 
+                        isCloud: true
+                    )
+                }
+                return nil
+            }
+        } catch {
+            print("Error fetching voice records from CloudKit: \(error.localizedDescription)")
+            return []
+        }
+    }
 }
+
+

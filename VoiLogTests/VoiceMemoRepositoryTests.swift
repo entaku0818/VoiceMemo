@@ -11,28 +11,40 @@ import XCTest
 
 class VoiceMemoRepositoryTests: XCTestCase {
     var mockAccessor: MockVoiceMemoCoredataAccessor!
+    var mockCloudUploader: MockCloudUploader!
     var repository: VoiceMemoRepository!
 
     override func setUp() {
         super.setUp()
         mockAccessor = MockVoiceMemoCoredataAccessor()
-        repository = VoiceMemoRepository(coreDataAccessor: mockAccessor)
+        mockCloudUploader = MockCloudUploader()
+        repository = VoiceMemoRepository(coreDataAccessor: mockAccessor, cloudUploader: mockCloudUploader)
     }
 
     override func tearDown() {
         mockAccessor = nil
+        mockCloudUploader = nil
         repository = nil
         super.tearDown()
     }
 
     func testInsertVoice() {
         let state = RecordingMemo.State(
-            uuid: UUID(),
-            date: Date(),
-            duration: 60.0,
-            url: URL(string: "file:///path/to/voice.m4a")!,
-            resultText: "Test voice memo"
+            uuid: UUID(),  // Generate a new UUID
+            date: Date(),  // Current date and time
+            duration: 0,  // Default duration, adjust if needed
+            volumes: [],  // Assuming an empty list for volumes if not provided
+            resultText: "",  // Assuming an empty string for resultText
+            mode: .recording,  // Assuming the default mode is recording
+            fileFormat: "m4a",  // Assuming the file format is "m4a"
+            samplingFrequency: 44100,  // Default sampling frequency, adjust if needed
+            quantizationBitDepth: 16,  // Default quantization bit depth, adjust if needed
+            numberOfChannels: 2,  // Default number of channels, adjust if needed
+            url: URL(string: "https://www.example.com")!,  // Replace with a valid URL
+            startTime: 0,  // Default start time, adjust if needed
+            time: 0  // Default time, adjust if needed
         )
+
 
         repository.insert(state: state)
 
@@ -59,7 +71,7 @@ class VoiceMemoRepositoryTests: XCTestCase {
             fileFormat: "m4a",
             samplingFrequency: 44100.0,
             quantizationBitDepth: 16,
-            numberOfChannels: 2
+            numberOfChannels: 2, isCloud: false
         )
         let result = repository.selectAllData()
         XCTAssertTrue(result.isEmpty)
@@ -77,7 +89,7 @@ class VoiceMemoRepositoryTests: XCTestCase {
             fileFormat: "m4a",
             samplingFrequency: 44100.0,
             quantizationBitDepth: 16,
-            numberOfChannels: 2
+            numberOfChannels: 2, isCloud: false
         )
         mockAccessor.fetchedVoice = expectedVoice
 
@@ -133,5 +145,52 @@ class VoiceMemoRepositoryTests: XCTestCase {
 
         XCTAssertEqual(mockAccessor.updatedTitle?.uuid, uuid)
         XCTAssertEqual(mockAccessor.updatedTitle?.newTitle, newTitle)
+    }
+
+    func testSyncToCloudWithDuplicateUUID() async {
+        // Setup mock data
+        let commonUUID = UUID()
+
+        // Local voice with the same UUID as cloud voice
+        let localVoice = VoiceMemoRepository.Voice(
+            title: "Local Test",
+            url: URL(string: "file:///path/to/local_voice.m4a")!,
+            id: commonUUID,
+            text: "Local voice memo",
+            createdAt: Date(),
+            duration: 60.0,
+            fileFormat: "m4a",
+            samplingFrequency: 44100.0,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            isCloud: false
+        )
+        mockAccessor.fetchedVoices = [localVoice]
+
+        // Cloud voice with the same UUID as local voice
+        let cloudVoice = VoiceMemoRepository.Voice(
+            title: "Cloud Test",
+            url: URL(string: "file:///path/to/cloud_voice.m4a")!,
+            id: commonUUID,
+            text: "Cloud voice memo",
+            createdAt: Date(),
+            duration: 60.0,
+            fileFormat: "m4a",
+            samplingFrequency: 44100.0,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            isCloud: true
+        )
+        mockCloudUploader.fetchedVoices = [cloudVoice]
+
+
+        // Perform sync to cloud
+        let result = await repository.syncToCloud()
+        let list = await repository.selectAllData()
+
+        // Validate upload success
+        XCTAssertTrue(result)
+        XCTAssertEqual(list.count, 1) // No new upload should be attempted
+
     }
 }

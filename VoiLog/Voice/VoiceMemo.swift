@@ -171,7 +171,7 @@ struct RecordingMemo: Reducer {
           }
       case let .fetchRecordingMemo(uuid):
 
-          let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor())
+          let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
           if let recordingmemo = voiceMemoRepository.fetch(uuid: uuid){
               state = recordingmemo
           }

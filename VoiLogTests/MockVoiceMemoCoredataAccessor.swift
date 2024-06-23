@@ -10,18 +10,21 @@ import Foundation
 
 
 class MockVoiceMemoCoredataAccessor: VoiceMemoCoredataAccessorProtocol {
+    
     var insertedVoice: VoiceMemoRepository.Voice?
     var fetchedVoice: VoiceMemoRepository.Voice?
     var updatedVoice: VoiceMemoRepository.Voice?
+    var fetchedVoices: [VoiceMemoRepository.Voice] = []
+
     var deletedId: UUID?
     var updatedTitle: (uuid: UUID, newTitle: String)?
 
-    func insert(voice: VoiceMemoRepository.Voice) {
+    func insert(voice: VoiLog.VoiceMemoRepository.Voice, isCloud: Bool) {
         insertedVoice = voice
     }
 
     func selectAllData() -> [VoiceMemoRepository.Voice] {
-        return []
+        return fetchedVoices
     }
 
     func fetch(uuid: UUID) -> VoiceMemoRepository.Voice? {

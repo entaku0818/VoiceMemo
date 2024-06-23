@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 protocol VoiceMemoCoredataAccessorProtocol {
-    func insert(voice: VoiceMemoRepository.Voice)
+    func insert(voice: VoiceMemoRepository.Voice, isCloud:Bool)
     func selectAllData() -> [VoiceMemoRepository.Voice]
     func fetch(uuid: UUID) -> VoiceMemoRepository.Voice?
     func delete(id: UUID)
@@ -32,7 +32,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         }
     }
 
-    func insert(voice: VoiceMemoRepository.Voice) {
+    func  insert(voice: VoiceMemoRepository.Voice, isCloud:Bool) {
         if let voiceEntity = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
             voiceEntity.title = voice.title
             voiceEntity.url = voice.url
@@ -44,7 +44,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             voiceEntity.samplingFrequency = voice.samplingFrequency
             voiceEntity.quantizationBitDepth = voice.quantizationBitDepth
             voiceEntity.numberOfChannels = voice.numberOfChannels
-
+            voiceEntity.isCloud = isCloud
             do {
                 try managedContext.save()
             } catch let error {
@@ -74,7 +74,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 fileFormat: voiceEntity.fileFormat ?? "",
                 samplingFrequency: voiceEntity.samplingFrequency,
                 quantizationBitDepth: voiceEntity.quantizationBitDepth,
-                numberOfChannels: voiceEntity.numberOfChannels
+                numberOfChannels: voiceEntity.numberOfChannels,
+                isCloud: voiceEntity.isCloud
             )
         }
     }
@@ -98,7 +99,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                     fileFormat: voiceEntity.fileFormat ?? "",
                     samplingFrequency: voiceEntity.samplingFrequency,
                     quantizationBitDepth: voiceEntity.quantizationBitDepth,
-                    numberOfChannels: voiceEntity.numberOfChannels
+                    numberOfChannels: voiceEntity.numberOfChannels,
+                    isCloud: voiceEntity.isCloud
                 )
             }
         } catch let error {
