@@ -1,7 +1,16 @@
 import Foundation
 import CoreData
 
-class VoiceMemoCoredataAccessor: NSObject {
+protocol VoiceMemoCoredataAccessorProtocol {
+    func insert(voice: VoiceMemoRepository.Voice, isCloud:Bool)
+    func selectAllData() -> [VoiceMemoRepository.Voice]
+    func fetch(uuid: UUID) -> VoiceMemoRepository.Voice?
+    func delete(id: UUID)
+    func update(voice: VoiceMemoRepository.Voice)
+    func updateTitle(uuid: UUID, newTitle: String)
+}
+
+class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
     let container: NSPersistentContainer
     var managedContext: NSManagedObjectContext
@@ -23,19 +32,20 @@ class VoiceMemoCoredataAccessor: NSObject {
         }
     }
 
-    func insert(voice: VoiceMemoRepository.Voice) {
+    func insert(voice: VoiceMemoRepository.Voice, isCloud:Bool) {
         if let voiceEntity = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
             voiceEntity.title = voice.title
             voiceEntity.url = voice.url
             voiceEntity.id = voice.id
             voiceEntity.text = voice.text
             voiceEntity.createdAt = voice.createdAt
+            voiceEntity.updatedAt = voice.updatedAt
             voiceEntity.duration = voice.duration
             voiceEntity.fileFormat = voice.fileFormat
             voiceEntity.samplingFrequency = voice.samplingFrequency
             voiceEntity.quantizationBitDepth = voice.quantizationBitDepth
             voiceEntity.numberOfChannels = voice.numberOfChannels
-
+            voiceEntity.isCloud = isCloud
             do {
                 try managedContext.save()
             } catch let error {
@@ -47,6 +57,9 @@ class VoiceMemoCoredataAccessor: NSObject {
     func selectAllData() -> [VoiceMemoRepository.Voice] {
         var memoGroups: [Voice] = []
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+
+        let sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
 
         do {
             memoGroups = try managedContext.fetch(fetchRequest)
@@ -61,14 +74,17 @@ class VoiceMemoCoredataAccessor: NSObject {
                 id: voiceEntity.id ?? UUID(),
                 text: voiceEntity.text ?? "",
                 createdAt: voiceEntity.createdAt ?? Date(),
+                updatedAt: voiceEntity.updatedAt ?? Date(),
                 duration: voiceEntity.duration,
                 fileFormat: voiceEntity.fileFormat ?? "",
                 samplingFrequency: voiceEntity.samplingFrequency,
                 quantizationBitDepth: voiceEntity.quantizationBitDepth,
-                numberOfChannels: voiceEntity.numberOfChannels
+                numberOfChannels: voiceEntity.numberOfChannels,
+                isCloud: voiceEntity.isCloud
             )
         }
     }
+
 
     func fetch(uuid: UUID) -> VoiceMemoRepository.Voice? {
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
@@ -84,12 +100,14 @@ class VoiceMemoCoredataAccessor: NSObject {
                     url: voiceEntity.url!,
                     id: voiceEntity.id ?? UUID(),
                     text: voiceEntity.text ?? "",
-                    createdAt: voiceEntity.createdAt ?? Date(),
+                    createdAt: voiceEntity.createdAt ?? Date(), 
+                    updatedAt: voiceEntity.updatedAt ?? Date(),
                     duration: voiceEntity.duration,
                     fileFormat: voiceEntity.fileFormat ?? "",
                     samplingFrequency: voiceEntity.samplingFrequency,
                     quantizationBitDepth: voiceEntity.quantizationBitDepth,
-                    numberOfChannels: voiceEntity.numberOfChannels
+                    numberOfChannels: voiceEntity.numberOfChannels,
+                    isCloud: voiceEntity.isCloud
                 )
             }
         } catch let error {
@@ -126,6 +144,7 @@ class VoiceMemoCoredataAccessor: NSObject {
                 voiceEntity.url = voice.url
                 voiceEntity.text = voice.text
                 voiceEntity.createdAt = voice.createdAt
+                voiceEntity.updatedAt = voice.updatedAt
                 voiceEntity.duration = voice.duration
                 voiceEntity.fileFormat = voice.fileFormat
                 voiceEntity.samplingFrequency = voice.samplingFrequency
@@ -149,6 +168,7 @@ class VoiceMemoCoredataAccessor: NSObject {
             let results = try managedContext.fetch(fetchRequest)
             if let voiceEntity = results.first {
                 voiceEntity.title = newTitle
+                voiceEntity.updatedAt = Date()
                 try managedContext.save()
             }
         } catch let error {

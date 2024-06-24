@@ -13,9 +13,7 @@ struct PaywallView: View {
 
 
     var iapManager: IAPManagerProtocol
-    private var features: [String] = [
-        "広告なしの使用体験",
-    ]
+
 
     init(iapManager: IAPManagerProtocol) {
         self.iapManager = iapManager
@@ -31,10 +29,8 @@ struct PaywallView: View {
 
                         Text("すべての機能が使い放題")
                             .font(.title)
-                            .foregroundColor(.black)
                         Text("今すぐ1ヶ月無料体験してみよう！")
                             .font(.title2)
-                            .foregroundColor(.black)
                     }.padding(.vertical,30)
                     Spacer()
 
@@ -59,22 +55,53 @@ struct PaywallView: View {
                 .background(
                     Rectangle()
                         .fill(Color.black)
-                        .border(colorScheme == .dark ? Color.white : Color.clear, width: 1)
-
+                        .border(.white, width: colorScheme == .dark ? 0 : 1)
 
                 )
 
                 Spacer().frame(minHeight: 30)
 
-                VStack(alignment: .leading) {
-                    ForEach(features, id: \.self) { feature in
-                        Text("✅\(feature)")
-                            .padding(.vertical, 2)
+                VStack(spacing: 16){
+                    HStack{
+                        Spacer().frame(width: 8)
+                        Image(colorScheme == .dark ? .adsWhite : .adsBlack).resizable()
+                            .foregroundColor(.white)
+                            .frame(width: 36,height: 36)
+                        VStack(alignment: .leading) {
+
+                            Text("広告なしの使用体験")
+                                .font(.title2)
+                                .padding(.vertical, 2)
+                            Text("全ての広告が非表示に！")
+                                .font(.subheadline)
+                                .padding(.vertical, 2)
+                        }
+                        Spacer()
+                    }
+
+
+                    HStack{
+                        Spacer().frame(width: 8)
+                        Image(systemName: "icloud.and.arrow.up")
+                            .resizable()
+                            .frame(width: 36,height: 36)
+                        VStack(alignment: .leading) {
+                            Text("iCloud同期機能")
+                                .font(.title2)
+                                .padding(.vertical, 2)
+                            Text("すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！")
+                                .font(.subheadline)
+                                .padding(.vertical, 2)
+                        }
+                        .padding(.vertical)
+                        Spacer()
                     }
                 }
-                .padding()
+
+
 
                 Spacer().frame(minHeight: 30)
+
 
                 Button(action: {
                     Task {
@@ -114,7 +141,7 @@ struct PaywallView: View {
                   .overlay(
                       RoundedRectangle(cornerRadius: 10)
                           .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
-                  )
+                  ).padding()
 
                 VStack(alignment: .center) {
                     HStack(alignment: .center) {
@@ -129,6 +156,7 @@ struct PaywallView: View {
                     }
                 }
                 .padding()
+                Spacer()
             }
             .onAppear {
                 Task {
@@ -176,8 +204,17 @@ struct PaywallView: View {
 
 struct PaywallView_Previews: PreviewProvider {
     static var previews: some View {
-        PaywallView(iapManager: MockIAPManager())
-            .previewLayout(.sizeThatFits) // This adjusts the preview to just fit the content
-            .environment(\.locale, .init(identifier: "ja")) // Set locale to Japanese for testing
+        Group {
+            PaywallView(iapManager: MockIAPManager())
+                .previewLayout(.sizeThatFits)
+                .environment(\.locale, .init(identifier: "ja"))
+                .environment(\.colorScheme, .light) // Light mode preview
+
+            PaywallView(iapManager: MockIAPManager())
+                .previewLayout(.sizeThatFits)
+                .environment(\.locale, .init(identifier: "ja"))
+                .environment(\.colorScheme, .dark) // Dark mode preview
+                .background(.black)
+        }
     }
 }
