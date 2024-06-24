@@ -7,7 +7,7 @@
 
 import Foundation
 import XCTest
- import ComposableArchitecture
+import ComposableArchitecture
 @testable import VoiLog
 
 @MainActor
