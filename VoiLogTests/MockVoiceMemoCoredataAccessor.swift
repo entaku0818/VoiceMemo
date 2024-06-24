@@ -8,7 +8,6 @@
 import Foundation
 @testable import VoiLog
 
-
 class MockVoiceMemoCoredataAccessor: VoiceMemoCoredataAccessorProtocol {
     
     var insertedVoice: VoiceMemoRepository.Voice?

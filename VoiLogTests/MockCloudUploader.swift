@@ -1,7 +1,7 @@
 
 
-import Foundation
 @testable import VoiLog
+import Foundation
 
 class MockCloudUploader: CloudUploaderProtocol {
     
@@ -18,6 +18,10 @@ class MockCloudUploader: CloudUploaderProtocol {
     }
 
     func deleteVoice(id: UUID) async -> Bool {
+        return true
+    }
+
+    func downloadVoiceFile(id: UUID) async -> Bool {
         return true
     }
 }

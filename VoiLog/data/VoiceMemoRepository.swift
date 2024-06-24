@@ -136,7 +136,10 @@ class VoiceMemoRepository {
 
         // クラウドのみの音声データをローカルデータベースにダウンロード
         for voice in voicesToDownload {
-            coreDataAccessor.insert(voice: voice, isCloud: true)
+            let result = await cloudUploader.downloadVoiceFile(id: voice.id)
+            if result {
+                coreDataAccessor.insert(voice: voice, isCloud: true)
+            }
         }
 
         // updatedAtを比較して新しい方で上書き

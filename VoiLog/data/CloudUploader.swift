@@ -10,6 +10,7 @@ protocol CloudUploaderProtocol {
     func saveVoice(voice: VoiceMemoRepository.Voice) async -> Bool
     func fetchAllVoices() async -> [VoiceMemoRepository.Voice]
     func deleteVoice(id: UUID) async -> Bool
+    func downloadVoiceFile(id: UUID) async -> Bool
 }
 class CloudUploader: CloudUploaderProtocol {
     let container: CKContainer
@@ -64,10 +65,10 @@ class CloudUploader: CloudUploaderProtocol {
 
         do {
             let (matchedRecords, _) = try await database.records(matching: query)
+
             return matchedRecords.compactMap { recordTuple in
                 let record = try? recordTuple.1.get()
                 if let record = record,
-                   let url = (record["file"] as? CKAsset)?.fileURL,
                    let title = record["title"] as? String,
                    let idString = record["id"] as? String,
                    let id = UUID(uuidString: idString),
@@ -79,9 +80,12 @@ class CloudUploader: CloudUploaderProtocol {
                    let samplingFrequency = record["samplingFrequency"] as? Double,
                    let quantizationBitDepth = record["quantizationBitDepth"] as? Int,
                    let numberOfChannels = record["numberOfChannels"] as? Int {
+                    let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString
+                     let fileURL = URL(fileURLWithPath: inputDocumentsPath)
+
                     return VoiceMemoRepository.Voice(
                         title: title,
-                        url: url,
+                        url: fileURL,
                         id: id,
                         text: text,
                         createdAt: createdAt,
@@ -115,4 +119,39 @@ class CloudUploader: CloudUploaderProtocol {
             }
         }
     }
+    
+    func downloadVoiceFile(id: UUID) async -> Bool {
+            let recordID = CKRecord.ID(recordName: id.uuidString)
+            do {
+                let record = try await database.record(for: recordID)
+                if let asset = record["file"] as? CKAsset,
+                   let fileURL = asset.fileURL {
+                    // ドキュメントフォルダに保存するためのパスを作成
+                    let documentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString
+                    let destinationURL = URL(fileURLWithPath: documentsPath)
+
+                    // ファイルをコピー
+                    do {
+                        if FileManager.default.fileExists(atPath: destinationURL.path) {
+                            try FileManager.default.removeItem(at: destinationURL)
+                        }
+                        try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+
+                        return true
+                    } catch {
+                        print("Error copying file to Documents: \(error)")
+                        return false
+                    }
+                } else {
+                    print("No asset found for the given record ID.")
+                    return false
+                }
+            } catch {
+                print("Error fetching voice record from CloudKit: \(error)")
+                return false
+            }
+        }
+
+
+
 }

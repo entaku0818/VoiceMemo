@@ -77,43 +77,61 @@ private actor AudioPlayer {
     var delegate: Delegate?
 
 
-    func play(url: URL, startTime: Double, rate: AudioPlayerClient.PlaybackSpeed, isLooping:Bool) async throws -> Bool {
+    func play(url: URL, startTime: Double, rate: AudioPlayerClient.PlaybackSpeed, isLooping: Bool) async throws -> Bool {
+
+        // ファイルの存在チェック
+        let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
+        let fileURL = URL(fileURLWithPath: documentsPath)
+        print("Files in Documents directory: \(listFilesInDocumentsDirectory())")
+        print("Files in Documents directory: \(fileURL.absoluteString)")
+
+        guard FileManager.default.fileExists(atPath: fileURL.path()) else {
+            throw NSError(domain: "FileNotFound", code: 404, userInfo: [NSLocalizedDescriptionKey: "The file does not exist."])
+        }
 
         let stream = AsyncThrowingStream<Bool, Error> { continuation in
-          do {
-              self.delegate = try Delegate(didFinishPlaying: { [weak self] flag in
-                  continuation.yield(flag)
-                  continuation.finish()
-                  try? AVAudioSession.sharedInstance().setActive(false)
-              }, decodeErrorDidOccur: { error in
-                  continuation.finish(throwing: error)
-                  try? AVAudioSession.sharedInstance().setActive(false)
-              })
-              try AVAudioSession.sharedInstance().setActive(true)
-              try AVAudioSession.sharedInstance().setCategory(.playback)
-              let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
-              self.player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: documentsPath))
-              guard let player = player else { return }
-              player.delegate = delegate
-              player.currentTime = startTime
-              player.enableRate = true
-              player.rate = rate.rawValue
-              player.numberOfLoops = isLooping ? -1 : 0
+            do {
+                self.delegate = try Delegate(didFinishPlaying: { [weak self] flag in
+                    continuation.yield(flag)
+                    continuation.finish()
+                    try? AVAudioSession.sharedInstance().setActive(false)
+                }, decodeErrorDidOccur: { error in
+                    continuation.finish(throwing: error)
+                    try? AVAudioSession.sharedInstance().setActive(false)
+                })
+                try AVAudioSession.sharedInstance().setActive(true)
+                try AVAudioSession.sharedInstance().setCategory(.playback)
+                self.player = try AVAudioPlayer(contentsOf: fileURL)
+                guard let player = player else { return }
+                player.delegate = delegate
+                player.currentTime = startTime
+                player.enableRate = true
+                player.rate = rate.rawValue
+                player.numberOfLoops = isLooping ? -1 : 0
 
-              player.play()
-          } catch {
-            continuation.finish(throwing: error)
-          }
+                player.play()
+            } catch {
+                continuation.finish(throwing: error)
+            }
         }
 
         for try await didFinish in stream {
-          return didFinish
+            return didFinish
         }
         throw CancellationError()
-
     }
 
 
+    func listFilesInDocumentsDirectory() -> [String] {
+        let documentsPath = NSHomeDirectory() + "/Documents/"
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(atPath: documentsPath)
+            return fileURLs
+        } catch {
+            print("Error while listing files in Documents directory: \(error)")
+            return []
+        }
+    }
 
     func stop() async -> Bool {
         guard let player = player else { return false }

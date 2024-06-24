@@ -58,6 +58,9 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         var memoGroups: [Voice] = []
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
 
+        let sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
         do {
             memoGroups = try managedContext.fetch(fetchRequest)
         } catch let error {
@@ -81,6 +84,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             )
         }
     }
+
 
     func fetch(uuid: UUID) -> VoiceMemoRepository.Voice? {
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
