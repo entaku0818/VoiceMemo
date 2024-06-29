@@ -116,7 +116,7 @@ struct VoiceMemoReducer: Reducer {
 
         case let .titleTextFieldChanged(text):
             state.title = text
-            let voiceMemoRepository = VoiceMemoRepository()
+            let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
             voiceMemoRepository.update(state: state)
             return .none
 
@@ -245,114 +245,130 @@ struct VoiceMemoReducer: Reducer {
     }
 
 }
-
-
-struct VoiceMemoView: View {
+struct VoiceMemoListItem: View {
     let store: StoreOf<VoiceMemoReducer>
-  @State private var showingModal = false
+    @State private var showingModal = false
     let admobUnitId: String
 
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        formatter.locale = Locale.current
+        return formatter
+    }()
 
-  var body: some View {
-      WithViewStore(self.store, observe: { $0 }) { viewStore in
-        let currentTime = viewStore.duration
+    private let dateComponentsFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.minute, .second]
+        formatter.zeroFormattingBehavior = .pad
+        return formatter
+    }()
+
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            let currentTime = viewStore.duration
             NavigationLink {
                 VoiceMemoDetail(store: store, admobUnitId: admobUnitId)
             } label: {
-                    HStack {
+                HStack {
+                    VStack(spacing: 5) {
+                        HStack {
+                            if viewStore.title.count > 0 {
+                                Text(viewStore.title)
+                                    .font(.headline)
+                            } else {
+                                Text("名称未設定")
+                                    .font(.headline)
+                            }
+                            Spacer()
+                        }
 
-                        VStack {
-                            HStack {
-                                if viewStore.title.count > 0 {
-                                    Text(viewStore.title)
-                                        .font(.headline) // Adjust the font size and style as needed
-                                } else {
-                                    Text("名称未設定")
-                                        .font(.headline) // Adjust the font size and style as needed
-                                }
+                        if viewStore.state.fileFormat.count > 0 {
+                            HStack(spacing: 0) {
+                                Text(dateFormatter.string(from: viewStore.date))
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                Spacer()
+                                Text(viewStore.state.fileFormat)
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                Spacer()
+                                Text(viewStore.state.samplingFrequency.formattedAsKHz())
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                Text("/")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                Text(String(viewStore.state.quantizationBitDepth) + "bit")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                Text("/")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
+                                Text(String(viewStore.state.numberOfChannels) + "ch")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .minimumScaleFactor(0.5)
+                                    .lineLimit(1)
                                 Spacer()
                             }
-
-                            if viewStore.state.fileFormat.count > 0 {
-                                HStack {
-                                    Text(viewStore.state.fileFormat)
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-
-                                    Text(viewStore.state.samplingFrequency.formattedAsKHz())
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                    Text("/")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                    Text(String(viewStore.state.quantizationBitDepth) + "bit")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                    Text("/")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                    Text(String(viewStore.state.numberOfChannels) + "ch")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-
-                                    Spacer()
-                                }
-                            }
                         }
-
-
-
-                        Spacer()
-
-                        dateComponentsFormatter.string(from: currentTime).map {
-                            Text($0)
-                                .font(.footnote.monospacedDigit())
-                                .foregroundColor(Color(.systemGray))
-                        }
-
-                        Image(systemName: viewStore.mode.isPlaying ? "stop.circle" : "play.circle")
-                            .font(.system(size: 22))
-                            .foregroundColor(Color.accentColor)
                     }
 
 
 
+                    dateComponentsFormatter.string(from: currentTime).map {
+                        Text($0)
+                            .font(.footnote.monospacedDigit())
+                            .foregroundColor(Color(.systemGray))
+                    }
+                }
             }
-
             .buttonStyle(.borderless)
             .frame(maxHeight: .infinity, alignment: .center)
             .padding(.horizontal)
             .listRowInsets(EdgeInsets())
-
-
-
+        }
     }
-  }
 }
 
-
-struct VoiceMemoView_Previews: PreviewProvider {
-  static var previews: some View {
-      return VoiceMemoView(
-        store: Store(
-          initialState: VoiceMemoReducer.State(
-              uuid: UUID(),
-              date: Date(),
-              duration: 180,
-              time: 0,
-              mode: .notPlaying,
-              title: "",
-              url: URL(fileURLWithPath: ""),
-              text: "",
-              fileFormat: "",
-              samplingFrequency: 0.0,
-              quantizationBitDepth: 0,
-              numberOfChannels: 0, hasPurchasedPremium: false
-          )
-        ) {
-            VoiceMemoReducer()
-        }, admobUnitId: ""
-      )
-
-  }
+struct VoiceMemoListItem_Previews: PreviewProvider {
+    static var previews: some View {
+        VoiceMemoListItem(
+            store: Store(
+                initialState: VoiceMemoReducer.State(
+                    uuid: UUID(),
+                    date: Date(),
+                    duration: 180,
+                    time: 0,
+                    mode: .notPlaying,
+                    title: "Sample Memo",
+                    url: URL(fileURLWithPath: "/path/to/memo.m4a"),
+                    text: "This is a sample voice memo.",
+                    fileFormat: "m4a",
+                    samplingFrequency: 44100.0,
+                    quantizationBitDepth: 16,
+                    numberOfChannels: 2,
+                    hasPurchasedPremium: false
+                )
+            ) {
+                VoiceMemoReducer()
+            },
+            admobUnitId: ""
+        ).padding()
+    }
 }
