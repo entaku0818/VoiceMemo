@@ -331,7 +331,7 @@ private actor AudioRecorder {
 
     private func setupAVAudioSession() {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.defaultToSpeaker,.duckOthers])
+            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.duckOthers])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             print("マイクの音量を設定できませんでした。エラー: \(error.localizedDescription)")

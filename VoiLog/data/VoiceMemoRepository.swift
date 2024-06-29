@@ -1,201 +1,214 @@
 //
-//  File.swift
-//  VoiceMemo
+//  VoiceMemoRepository.swift
+//  VoiLog
 //
-//  Created by 遠藤拓弥 on 24.9.2022.
+//  Created by 遠藤拓弥 on 2024/06/22.
 //
 
 import Foundation
-import CoreData
 
-class VoiceMemoRepository: NSObject {
+class VoiceMemoRepository {
 
-    static let shared = VoiceMemoRepository()
+    private let coreDataAccessor: VoiceMemoCoredataAccessorProtocol
+    private let cloudUploader: CloudUploaderProtocol
 
-    let container: NSPersistentContainer
-    var managedContext: NSManagedObjectContext
-    var entity: NSEntityDescription?
-
-    var entityName: String = "Voice"
-
-    override init() {
-
-        container = NSPersistentContainer(name: entityName)
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-                Logger.shared.logError("VoiceMemoRepository:" + error.localizedDescription)
-            }
-        })
-        container.viewContext.automaticallyMergesChangesFromParent = true
-
-        self.managedContext = container.viewContext
-        if let localEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
-            self.entity = localEntity
-        }
+    init(coreDataAccessor: VoiceMemoCoredataAccessorProtocol, cloudUploader: CloudUploaderProtocol) {
+        self.coreDataAccessor = coreDataAccessor
+        self.cloudUploader = cloudUploader
     }
 
     func insert(state: RecordingMemo.State) {
-        if let voice = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
-
-            voice.title = ""
-            voice.url = state.url
-            voice.id = state.uuid
-            voice.text = state.resultText
-            voice.createdAt = state.date
-            voice.duration = state.duration
-            voice.fileFormat = state.fileFormat
-            voice.samplingFrequency = state.samplingFrequency ?? 0
-            voice.quantizationBitDepth = Int16(state.quantizationBitDepth ?? 0)
-            voice.numberOfChannels = Int16(state.numberOfChannels ?? 0)
-
-
-
-            do {
-                try managedContext.save()
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }
+        let voice = Voice(
+            title: "",
+            url: state.url,
+            id: state.uuid,
+            text: state.resultText,
+            createdAt: state.date, 
+            updatedAt: Date(),
+            duration: state.duration,
+            fileFormat: state.fileFormat,
+            samplingFrequency: state.samplingFrequency,
+            quantizationBitDepth: Int16(state.quantizationBitDepth),
+            numberOfChannels: Int16(state.numberOfChannels), 
+            isCloud: false
+        )
+        coreDataAccessor.insert(voice: voice, isCloud: false)
     }
 
     func selectAllData() -> [VoiceMemoReducer.State] {
-        var memoGroups: [Voice] = []
-
-        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
-
-        do {
-            memoGroups = try managedContext.fetch(fetchRequest)
-        } catch let error {
-            print(error.localizedDescription)
-            Logger.shared.logError("selectAllData:" + error.localizedDescription)
-        }
-        let voiceMemoStates = memoGroups.map { voiceMemo in
+        return coreDataAccessor.selectAllData().map { voice in
             VoiceMemoReducer.State(
-                uuid: voiceMemo.id ?? UUID(),
-                date: voiceMemo.createdAt ?? Date(),
-                duration: voiceMemo.duration,
+                uuid: voice.id,
+                date: voice.createdAt,
+                duration: voice.duration,
                 time: 0,
-                title: voiceMemo.title ?? "",
-                url: voiceMemo.url!,
-                text: voiceMemo.text ?? "",
-                fileFormat: voiceMemo.fileFormat ?? "",
-                samplingFrequency: voiceMemo.samplingFrequency ,
-                quantizationBitDepth: Int(voiceMemo.quantizationBitDepth ),
-                numberOfChannels: Int(voiceMemo.numberOfChannels ), hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
-
+                title: voice.title,
+                url: voice.url,
+                text: voice.text,
+                fileFormat: voice.fileFormat,
+                samplingFrequency: voice.samplingFrequency,
+                quantizationBitDepth: Int(voice.quantizationBitDepth),
+                numberOfChannels: Int(voice.numberOfChannels),
+                hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
             )
         }
-        return voiceMemoStates
     }
 
     func fetch(uuid: UUID) -> RecordingMemo.State? {
-        var recordingMemo: RecordingMemo.State?
-
-        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
-        fetchRequest.fetchLimit = 1
-
-        // Configure the fetch request with a predicate to match the specified UUID
-        let predicate = NSPredicate(format: "uuid == %@", uuid as CVarArg)
-        fetchRequest.predicate = predicate
-
-        do {
-            let results = try managedContext.fetch(fetchRequest)
-            if let voice = results.first {
-                // Construct your RecordingMemoState object based on the retrieved Voice object
-                recordingMemo = RecordingMemo.State(
-                    uuid: voice.id ?? UUID(),
-                    date: voice.createdAt ?? Date(),
-                    duration: voice.duration,
-                    url: voice.url!,
-                    resultText: voice.text ?? ""
-                )
-            }
-        } catch let error {
-            print(error.localizedDescription)
-            Logger.shared.logError("fetch:" + error.localizedDescription)
+        if let voice = coreDataAccessor.fetch(uuid: uuid) {
+            return RecordingMemo.State(
+                uuid: voice.id,
+                date: voice.createdAt,
+                duration: voice.duration,
+                volumes: [],
+                resultText: voice.text,
+                mode: .encoding,
+                fileFormat: voice.fileFormat,
+                samplingFrequency: voice.samplingFrequency,
+                quantizationBitDepth: Int(voice.quantizationBitDepth),
+                numberOfChannels: Int(voice.numberOfChannels),
+                url: voice.url,
+                startTime: 0,
+                time: 0
+            )
         }
 
-        return recordingMemo
+        return nil
     }
 
     func delete(id: UUID) {
-        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
-        // 条件指定
-        fetchRequest.predicate = NSPredicate(format: "id = %@", id as CVarArg)
-
-        do {
-            let myResults = try managedContext.fetch(fetchRequest)
-            for myData in myResults {
-                managedContext.delete(myData)
-            }
-
-            try managedContext.save()
-        } catch let error as NSError {
-            print("\(error), \(error.userInfo)")
-            Logger.shared.logError("delete:" + "\(error.localizedDescription), \(error.userInfo)")
-
+        coreDataAccessor.delete(id: id)
+        // クラウドからも削除
+        Task {
+            _ = await cloudUploader.deleteVoice(id: id)
         }
     }
-
     func update(state: VoiceMemoReducer.State) {
-        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
-        fetchRequest.fetchLimit = 1
-
-        // Configure the fetch request with a predicate to match the specified UUID
-        let predicate = NSPredicate(format: "id == %@", state.uuid as CVarArg)
-        fetchRequest.predicate = predicate
-
-        do {
-            let results = try managedContext.fetch(fetchRequest)
-            if let voice = results.first {
-                // Update the existing Voice object with the new data
-                voice.title = state.title
-                voice.url = state.url
-                voice.text = state.text
-                voice.createdAt = state.date
-                voice.duration = state.duration
-
-                try managedContext.save()
-            }
-        } catch let error {
-            print(error.localizedDescription)
-            Logger.shared.logError("update:" + error.localizedDescription)
-        }
+        let voice = Voice(
+            title: state.title,
+            url: state.url,
+            id: state.uuid,
+            text: state.text,
+            createdAt: state.date, 
+            updatedAt: Date(),
+            duration: state.duration,
+            fileFormat: state.fileFormat,
+            samplingFrequency: state.samplingFrequency,
+            quantizationBitDepth: Int16(state.quantizationBitDepth),
+            numberOfChannels: Int16(state.numberOfChannels), 
+            isCloud: false
+        )
+        coreDataAccessor.update(voice: voice)
     }
-
 
     func updateTitle(uuid: UUID, newTitle: String) {
-        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
-        fetchRequest.fetchLimit = 1
+        coreDataAccessor.updateTitle(uuid: uuid, newTitle: newTitle)
+    }
+    func syncToCloud() async -> Bool {
+        // ローカルの音声データを全て取得
+        let localVoices = coreDataAccessor.selectAllData()
+        let localVoiceIds = Set(localVoices.map { $0.id })
 
-        // UUIDに基づいて特定のVoiceオブジェクトを検索
-        let predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
-        fetchRequest.predicate = predicate
+        // クラウド上の音声データを全て取得
+        let cloudVoices = await cloudUploader.fetchAllVoices()
+        let cloudVoiceIds = Set(cloudVoices.map { $0.id })
 
-        do {
-            let results = try managedContext.fetch(fetchRequest)
-            if let voice = results.first {
-                // 新しいタイトルで更新
-                voice.title = newTitle
+        // アップロードが必要な音声データを特定
+        let voicesToUpload = localVoices.filter { !cloudVoiceIds.contains($0.id) }
 
-                try managedContext.save()
+        // ダウンロードが必要な音声データを特定
+        let voicesToDownload = cloudVoices.filter { !localVoiceIds.contains($0.id) }
+
+        // 同期の結果を追跡
+        var allUploadsSucceeded = true
+
+        // ローカルのみの音声データをクラウドにアップロード
+        for voice in voicesToUpload {
+            let success = await cloudUploader.saveVoice(voice: voice)
+            if success {
+                var updatedVoice = voice
+                updatedVoice.isCloud = true
+                coreDataAccessor.update(voice: updatedVoice)
+            } else {
+                allUploadsSucceeded = false
             }
-        } catch let error {
-            print(error.localizedDescription)
-            Logger.shared.logError("updateTitle:" + error.localizedDescription)
         }
+
+        // クラウドのみの音声データをローカルデータベースにダウンロード
+        for voice in voicesToDownload {
+            let result = await cloudUploader.downloadVoiceFile(id: voice.id)
+            if result {
+                coreDataAccessor.insert(voice: voice, isCloud: true)
+            }
+        }
+
+        // updatedAtを比較して新しい方で上書き
+        for localVoice in localVoices {
+            if let cloudVoice = cloudVoices.first(where: { $0.id == localVoice.id }) {
+                if cloudVoice.updatedAt > localVoice.updatedAt {
+                    coreDataAccessor.update(voice: cloudVoice)
+                } else if localVoice.updatedAt > cloudVoice.updatedAt {
+                    let success = await cloudUploader.saveVoice(voice: localVoice)
+                    if !success {
+                        allUploadsSucceeded = false
+                    }
+                }
+            }
+        }
+
+        return allUploadsSucceeded
     }
 
+    func checkForDifferences() async -> Bool {
+          // ローカルの音声データを全て取得
+          let localVoices = coreDataAccessor.selectAllData()
+          let localVoiceIds = Set(localVoices.map { $0.id })
+
+          // クラウド上の音声データを全て取得
+          let cloudVoices = await cloudUploader.fetchAllVoices()
+          let cloudVoiceIds = Set(cloudVoices.map { $0.id })
+
+          // 差分を検出
+          var hasDifferences = false
+
+          for localVoice in localVoices {
+              if let cloudVoice = cloudVoices.first(where: { $0.id == localVoice.id }) {
+                  if cloudVoice.updatedAt != localVoice.updatedAt {
+                      hasDifferences = true
+                      break
+                  }
+              } else {
+                  hasDifferences = true
+                  break
+              }
+          }
+
+          if !hasDifferences {
+              for cloudVoice in cloudVoices {
+                  if !localVoiceIds.contains(cloudVoice.id) {
+                      hasDifferences = true
+                      break
+                  }
+              }
+          }
+
+          return hasDifferences
+      }
+
+
+
+    struct Voice {
+        var title: String
+        var url: URL
+        var id: UUID
+        var text: String
+        var createdAt: Date
+        var updatedAt: Date
+        var duration: Double
+        var fileFormat: String
+        var samplingFrequency: Double
+        var quantizationBitDepth: Int16
+        var numberOfChannels: Int16
+        var isCloud:Bool
+    }
 }
