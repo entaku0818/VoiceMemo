@@ -60,7 +60,7 @@ class VoiceMemoRepository {
                 uuid: voice.id,
                 date: voice.createdAt,
                 duration: voice.duration,
-                volumes: [],
+                volumes: 0.0,
                 resultText: voice.text,
                 mode: .encoding,
                 fileFormat: voice.fileFormat,

@@ -59,7 +59,7 @@ struct recordActivityLiveActivity: Widget {
                     }
                 }
             } compactLeading: {
-                Text("Rec")
+                Text("\(formatTimeInterval(context.state.recordingTime))")
             } compactTrailing: {
                 Text("\(context.state.emoji)")
             } minimal: {

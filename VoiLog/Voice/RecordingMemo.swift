@@ -29,7 +29,7 @@ struct RecordingMemo: Reducer {
             uuid: UUID = UUID(),
             date: Date,
             duration: TimeInterval,
-            volumes: [Float] = [],
+            volumes: Float = -60,
             resultText: String = "",
             mode: Mode = .recording,
             fileFormat: String = "",
@@ -59,7 +59,7 @@ struct RecordingMemo: Reducer {
             self.uuid = voiceMemoState.uuid
             self.date = voiceMemoState.date
             self.duration = voiceMemoState.duration
-            self.volumes = []
+            self.volumes = -60
             self.resultText = voiceMemoState.text
             self.mode = .encoding
             self.fileFormat = ""
@@ -75,7 +75,7 @@ struct RecordingMemo: Reducer {
         var uuid: UUID
         var date: Date
         var duration: TimeInterval
-        var volumes: [Float]
+        var volumes: Float
         var resultText: String
         var mode: Mode
         var fileFormat: String
@@ -104,7 +104,7 @@ struct RecordingMemo: Reducer {
       case timerUpdated
       case getVolumes
       case getResultText
-      case updateVolumes([Float])
+      case updateVolumes(Float)
       case updateResultText(String)
       case stopButtonTapped
 
@@ -152,14 +152,12 @@ struct RecordingMemo: Reducer {
 
     func updateLiveActivity(activity: Activity<recordActivityAttributes>?, duration: TimeInterval) {
         guard let activity = activity else {
-            print("No active recording to update")
             return
         }
 
-        let contentState = recordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: duration)
+        let contentState = recordActivityAttributes.ContentState(emoji: "🔴", recordingTime: duration)
         Task {
             await activity.update(using: contentState)
-            print("Activity updated: \(activity.id)")
         }
 
     }
@@ -214,11 +212,22 @@ struct RecordingMemo: Reducer {
                 )
                 Logger.shared.logInfo("record start")
 
-                for await _ in self.clock.timer(interval: .seconds(1)) {
-                    await send(.timerUpdated)
-                    await send(.getVolumes)
-                    await send(.getResultText)
-                }
+                // Timer for other periodic updates
+                async let generalUpdates: Void = {
+                    for await _ in self.clock.timer(interval: .seconds(1)) {
+                        await send(.timerUpdated)
+                        await send(.getResultText)
+                    }
+                }()
+
+                // Timer for volume updates
+                async let volumeUpdates: Void = {
+                    for await _ in self.clock.timer(interval: .milliseconds(100)) {
+                        await send(.getVolumes)
+                    }
+                }()
+
+                _ = await (startRecording, generalUpdates, volumeUpdates)
             }
 
         case .timerUpdated:
@@ -289,34 +298,39 @@ struct RecordingMemoView: View {
 
               }
           }
-          VStack {
-              ScrollViewReader { reader in
-                  ScrollView(.horizontal, showsIndicators: false) {
-                      HStack(spacing: 2) {
+//          VStack {
+//              ScrollViewReader { reader in
+//                  ScrollView(.horizontal, showsIndicators: false) {
+//                      HStack(spacing: 2) {
+//
+//                          ForEach(viewStore.volumes, id: \.self) { volume in
+//                              let height: CGFloat = CGFloat(volume * 50) + 1
+//                              Rectangle()
+//                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
+//                                  .frame(width: 3, height: height)
+//                          }
+//                          Button("") {
+//                          }.id(bottomID)
+//                      }
+//
+//                  }.onChange(of: viewStore.volumes) { _ in
+//                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                          reader.scrollTo(bottomID)
+//                      }
+//
+//                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
+//                  .padding(.trailing, UIScreen.main.bounds.width / 2)
+//              }
+//
+//
+//          }
 
-                          ForEach(viewStore.volumes, id: \.self) { volume in
-                              let height: CGFloat = CGFloat(volume * 50) + 1
-                              Rectangle()
-                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
-                                  .frame(width: 3, height: height)
-                          }
-                          Button("") {
-                          }.id(bottomID)
-                      }
-
-                  }.onChange(of: viewStore.volumes) { _ in
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                          reader.scrollTo(bottomID)
-                      }
-
-                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
-                  .padding(.trailing, UIScreen.main.bounds.width / 2)
-              }
-              Text(viewStore.resultText)
-                  .foregroundColor(.black)
-                  .fixedSize(horizontal: false, vertical: true)
-
-          }
+          AudioLevelView(audioLevel: viewStore.volumes)
+              .frame(height: 20)
+              .padding()
+          Text(viewStore.resultText)
+              .foregroundColor(.black)
+              .fixedSize(horizontal: false, vertical: true)
 
         ZStack {
           Circle()
@@ -337,6 +351,9 @@ struct RecordingMemoView: View {
       }
     }.navigationBarTitle("Recording", displayMode: .inline)
   }
+
+
+
 }
 
 
@@ -373,7 +390,7 @@ extension AudioRecorderClient {
   static var mock: Self {
     let isRecording = ActorIsolated(false)
     let currentTime = ActorIsolated(0.0)
-      let volumes = ActorIsolated([Float(1.0),Float(1.0)])
+      let volumes = ActorIsolated(Float(1.0))
       let resultText = String("進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。")
 
     return Self(

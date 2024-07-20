@@ -270,7 +270,7 @@ struct VoiceMemos: Reducer {
             uuid: UUID(),
             date: self.date.now,
             duration: 0,
-            volumes: [],
+            volumes: 0.0,
             resultText: "",
             mode: .recording,
             fileFormat: "m4a",

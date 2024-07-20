@@ -14,40 +14,60 @@ import RollbarNotifier
 import RevenueCat
 
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+import UIKit
+import Firebase
+import GoogleMobileAds
+import UserNotifications
 
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-      FirebaseApp.configure()
-      GADMobileAds.sharedInstance().start(completionHandler: nil)
-      Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
+        UNUserNotificationCenter.current().requestAuthorization(
+        options: [.alert, .sound, .badge]) { (granted, _) in
+            if granted {
+                UNUserNotificationCenter.current().delegate = self
+            }
+        }
 
+        return true
+    }
 
-      UNUserNotificationCenter.current().requestAuthorization(
-      options: [.alert, .sound, .badge]){
-          (granted, _) in
-          if granted{
-              UNUserNotificationCenter.current().delegate = self
-          }
-      }
-      return true
-  }
-}
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        registerBackgroundTask()
+    }
 
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
-    {
-        // アプリ起動時も通知を行う
-        completionHandler([ .badge, .sound, .alert ])
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        endBackgroundTask()
+    }
+
+    private func registerBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+        assert(backgroundTask != .invalid)
+    }
+
+    private func endBackgroundTask() {
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = .invalid
+    }
+
+    // UNUserNotificationCenterDelegate method
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound, .badge])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
     }
 }
-
 
 @main
 struct VoiceMemoApp: App {
