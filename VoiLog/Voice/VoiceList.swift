@@ -1,5 +1,4 @@
 import AVFoundation
-import ActivityKit
 import StoreKit
 import ComposableArchitecture
 import Foundation
@@ -12,15 +11,6 @@ import GoogleMobileAds
 
 struct VoiceMemos: Reducer {
   struct State: Equatable {
-      static func == (lhs: State, rhs: State) -> Bool {
-          return lhs.alert == rhs.alert &&
-                 lhs.audioRecorderPermission == rhs.audioRecorderPermission &&
-                 lhs.recordingMemo == rhs.recordingMemo &&
-                 lhs.voiceMemos == rhs.voiceMemos &&
-                 lhs.isMailComposePresented == rhs.isMailComposePresented &&
-                 lhs.syncStatus == rhs.syncStatus &&
-                 lhs.hasPurchasedPremium == rhs.hasPurchasedPremium
-      }
     @PresentationState var alert: AlertState<AlertAction>?
     var audioRecorderPermission = RecorderPermission.undetermined
     @PresentationState var recordingMemo: RecordingMemo.State?
@@ -28,7 +18,6 @@ struct VoiceMemos: Reducer {
     var isMailComposePresented: Bool = false
       var syncStatus: SyncStatus = .notSynced
       var hasPurchasedPremium: Bool = false
-      var currentActivity: Activity<recordActivityAttributes>? = nil
 
 
     enum RecorderPermission {
@@ -76,43 +65,44 @@ struct VoiceMemos: Reducer {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-        case .onAppear:
 
-          let installDate = UserDefaultsManager.shared.installDate
-          let reviewCount = UserDefaultsManager.shared.reviewRequestCount
+            case .onAppear:
 
-          state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+              let installDate = UserDefaultsManager.shared.installDate
+              let reviewCount = UserDefaultsManager.shared.reviewRequestCount
 
-          // 初回起動時
-          if let installDate = installDate {
-              let currentDate = Date()
-              if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
-                  if interval >= 7 && reviewCount == 0 {
-                      if UIApplication.shared.connectedScenes.first is UIWindowScene {
-                            state.alert = AlertState {
-                                TextState("シンプル録音について")
-                            } actions: {
-                                ButtonState(action: .send(.onGoodReview)) {
-                                    TextState("はい")
+              state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+
+              // 初回起動時
+              if let installDate = installDate {
+                  let currentDate = Date()
+                  if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
+                      if interval >= 7 && reviewCount == 0 {
+                          if UIApplication.shared.connectedScenes.first is UIWindowScene {
+                                state.alert = AlertState {
+                                    TextState("シンプル録音について")
+                                } actions: {
+                                    ButtonState(action: .send(.onGoodReview)) {
+                                        TextState("はい")
+                                    }
+                                    ButtonState(action: .send(.onBadReview)) {
+                                        TextState("いいえ、フィードバックを送信")
+                                    }
+                                } message: {
+                                    TextState(
+                                        "シンプル録音に満足していますか？"
+                                    )
                                 }
-                                ButtonState(action: .send(.onBadReview)) {
-                                    TextState("いいえ、フィードバックを送信")
-                                }
-                            } message: {
-                                TextState(
-                                    "シンプル録音に満足していますか？"
-                                )
-                            }
-                          UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                              UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                          }
                       }
                   }
+              }else{
+                  UserDefaultsManager.shared.installDate = Date()
               }
-          }else{
-              UserDefaultsManager.shared.installDate = Date()
-          }
 
 
-          return .none
+              return .none
 
           case let .onDelete(uuid):
             state.voiceMemos.removeAll { $0.uuid == uuid }
@@ -159,7 +149,6 @@ struct VoiceMemos: Reducer {
               return .none
 
             case .allowed:
-                startLiveActivity(state: &state)
 
               state.recordingMemo = newRecordingMemo
               return .none
@@ -185,14 +174,12 @@ struct VoiceMemos: Reducer {
             )
           let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
           voiceMemoRepository.insert(state: recordingMemo)
-          stopLiveActivity(state: &state)
 
             return .none
 
           case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
             state.alert = AlertState { TextState("Voice memo recording failed.") }
             state.recordingMemo = nil
-            stopLiveActivity(state: &state)
 
             return .none
 
@@ -299,36 +286,7 @@ struct VoiceMemos: Reducer {
     }
 
 
-    func startLiveActivity(state: inout State) {
-        let attributes = recordActivityAttributes(name: "Recording Activity")
-        let initialContentState = recordActivityAttributes.ContentState(emoji: "🔴")
-        let activityContent = ActivityContent(state: initialContentState, staleDate: Date().addingTimeInterval(60))
-
-        do {
-            let activity = try Activity<recordActivityAttributes>.request(attributes: attributes, content: activityContent, pushType: nil)
-            state.currentActivity = activity
-            print("Activity started: \(activity.id)")
-        } catch {
-            print("Failed to start activity: \(error.localizedDescription)")
-        }
-    }
-
-    func stopLiveActivity(state: inout State)  {
-        guard let activity = state.currentActivity else {
-            print("No active recording to stop")
-            return
-        }
-
-        let finalContentState = recordActivityAttributes.ContentState(emoji: "⏹️")
-        let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
-
-        Task {
-            await activity.end(finalActivityContent, dismissalPolicy: .immediate)
-            print("Activity ended: \(activity.id)")
-        }
-        state.currentActivity = nil
-
-    }
+ 
 
 }
 

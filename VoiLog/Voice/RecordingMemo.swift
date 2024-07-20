@@ -2,10 +2,28 @@ import ComposableArchitecture
 import SwiftUI
 import Photos
 
+import ActivityKit
 
 
 struct RecordingMemo: Reducer {
     struct State: Equatable {
+        static func == (lhs: State, rhs: State) -> Bool {
+                 return lhs.uuid == rhs.uuid &&
+                     lhs.date == rhs.date &&
+                     lhs.duration == rhs.duration &&
+                     lhs.volumes == rhs.volumes &&
+                     lhs.resultText == rhs.resultText &&
+                     lhs.mode == rhs.mode &&
+                     lhs.fileFormat == rhs.fileFormat &&
+                     lhs.samplingFrequency == rhs.samplingFrequency &&
+                     lhs.quantizationBitDepth == rhs.quantizationBitDepth &&
+                     lhs.numberOfChannels == rhs.numberOfChannels &&
+                     lhs.url == rhs.url &&
+                     lhs.newUrl == rhs.newUrl &&
+                     lhs.startTime == rhs.startTime &&
+                     lhs.time == rhs.time
+             }
+
 
         init(
             uuid: UUID = UUID(),
@@ -68,6 +86,8 @@ struct RecordingMemo: Reducer {
         var newUrl: URL?
         var startTime: TimeInterval
         var time: TimeInterval
+        var currentActivity: Activity<recordActivityAttributes>? = nil
+
 
         enum Mode {
             case recording
@@ -99,86 +119,142 @@ struct RecordingMemo: Reducer {
   @Dependency(\.audioRecorder) var audioRecorder
   @Dependency(\.continuousClock) var clock
 
-  func reduce(into state: inout State, action: Action) -> Effect<Action> {
-      switch action {
-      case .audioRecorderDidFinish(.success(true)):
-        return .send(.delegate(.didFinish(.success(state))))
+    func startLiveActivity() -> Activity<recordActivityAttributes>? {
+        let attributes = recordActivityAttributes(name: "Recording Activity")
+        let initialContentState = recordActivityAttributes.ContentState(emoji: "🔴", recordingTime: 0)
+        let activityContent = ActivityContent(state: initialContentState, staleDate: Date().addingTimeInterval(60))
 
-      case .audioRecorderDidFinish(.success(false)):
-        return .send(.delegate(.didFinish(.failure(Failed()))))
+        do {
+            let activity = try Activity<recordActivityAttributes>.request(attributes: attributes, content: activityContent, pushType: nil)
+            print("Activity started: \(activity.id)")
+            return activity
+        } catch {
+            print("Failed to start activity: \(error.localizedDescription)")
+            return nil
+        }
+    }
 
-      case let .audioRecorderDidFinish(.failure(error)):
-        return .send(.delegate(.didFinish(.failure(error))))
+    func stopLiveActivity(activity: Activity<recordActivityAttributes>?) {
+        guard let activity = activity else {
+            print("No active recording to stop")
+            return
+        }
 
-      case .delegate:
-        return .none
+        let finalContentState = recordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0)
+        let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
 
-      case let .finalRecordingTime(duration):
-        state.duration = duration
-        return .none
+        Task {
+            await activity.end(finalActivityContent, dismissalPolicy: .immediate)
+            print("Activity ended: \(activity.id)")
+        }
+    }
 
-      case .stopButtonTapped:
-        state.mode = .encoding
-          state.fileFormat =  UserDefaultsManager.shared.selectedFileFormat
-          state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
-          state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
-          state.numberOfChannels = UserDefaultsManager.shared.numberOfChannels
-          return .run { send in
-            if let currentTime = await self.audioRecorder.currentTime() {
-              await send(.finalRecordingTime(currentTime))
+
+    func updateLiveActivity(activity: Activity<recordActivityAttributes>?, duration: TimeInterval) {
+        guard let activity = activity else {
+            print("No active recording to update")
+            return
+        }
+
+        let contentState = recordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: duration)
+        Task {
+            await activity.update(using: contentState)
+            print("Activity updated: \(activity.id)")
+        }
+
+    }
+
+
+
+    func reduce(into state: inout State, action: Action) -> Effect<Action> {
+        switch action {
+        case .audioRecorderDidFinish(.success(true)):
+            return .send(.delegate(.didFinish(.success(state))))
+
+        case .audioRecorderDidFinish(.success(false)):
+            return .send(.delegate(.didFinish(.failure(Failed()))))
+
+        case let .audioRecorderDidFinish(.failure(error)):
+            return .send(.delegate(.didFinish(.failure(error))))
+
+        case .delegate:
+            return .none
+
+        case let .finalRecordingTime(duration):
+            state.duration = duration
+            return .none
+
+        case .stopButtonTapped:
+            state.mode = .encoding
+            state.fileFormat = UserDefaultsManager.shared.selectedFileFormat
+            state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
+            state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
+            state.numberOfChannels = UserDefaultsManager.shared.numberOfChannels
+            let activity = state.currentActivity
+            state.currentActivity = nil
+            return .run { send in
+                if let currentTime = await self.audioRecorder.currentTime() {
+                    await send(.finalRecordingTime(currentTime))
+                }
+                await self.audioRecorder.stopRecording()
+                Logger.shared.logInfo("record stop")
+                stopLiveActivity(activity: activity)
             }
-            await self.audioRecorder.stopRecording()
-            Logger.shared.logInfo("record stop")
 
-          }
+        case .task:
+            let url = state.url
+            let activity = startLiveActivity()
+            state.currentActivity = activity
 
-      case .task:
-        return .run { [url = state.url] send in
-          async let startRecording: Void = send(
-            .audioRecorderDidFinish(
-              TaskResult { try await audioRecorder.startRecording(url) }
-            )
-          )
-            Logger.shared.logInfo("record stert")
+            return .run { send in
+                async let startRecording: Void = send(
+                    .audioRecorderDidFinish(
+                        TaskResult { try await audioRecorder.startRecording(url) }
+                    )
+                )
+                Logger.shared.logInfo("record start")
 
+                for await _ in self.clock.timer(interval: .seconds(1)) {
+                    await send(.timerUpdated)
+                    await send(.getVolumes)
+                    await send(.getResultText)
+                }
+            }
 
-          for await _ in self.clock.timer(interval: .seconds(1)) {
-            await send(.timerUpdated)
-            await send(.getVolumes)
-            await send(.getResultText)
-          }
+        case .timerUpdated:
+            state.duration += 1
+            updateLiveActivity(activity: state.currentActivity, duration: state.duration)
+
+            return .none
+
+        case let .updateVolumes(volumes):
+            state.volumes = volumes
+            return .none
+
+        case let .updateResultText(text):
+            state.resultText = text
+            return .none
+
+        case .getVolumes:
+            return .run { send in
+                let volume = await audioRecorder.volumes()
+                await send(.updateVolumes(volume))
+            }
+
+        case .getResultText:
+            return .run { send in
+                let text = await audioRecorder.resultText()
+                await send(.updateResultText(text))
+            }
+
+        case let .fetchRecordingMemo(uuid):
+            let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
+            if let recordingmemo = voiceMemoRepository.fetch(uuid: uuid) {
+                state = recordingmemo
+            }
+            return .none
         }
-
-      case .timerUpdated:
-        state.duration += 1
-
-        return .none
-      case let .updateVolumes(volumes):
-          state.volumes = volumes
-        return .none
-      case let .updateResultText(text):
-        state.resultText = text
-        return .none
-      case .getVolumes:
-        return .run { send in
-            let volume = await audioRecorder.volumes()
-            await send(.updateVolumes(volume))
-        }
-      case .getResultText:
-          return .run { send in
-              let text = await audioRecorder.resultText()
-              await send(.updateResultText(text))
-          }
-      case let .fetchRecordingMemo(uuid):
-
-          let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
-          if let recordingmemo = voiceMemoRepository.fetch(uuid: uuid){
-              state = recordingmemo
-          }
-          return .none
-      }
-
-  }
+    }
 }
 
 struct RecordingMemoView: View {
