@@ -33,7 +33,7 @@ class VoiceMemoRepositoryTests: XCTestCase {
             uuid: UUID(),  // Generate a new UUID
             date: Date(),  // Current date and time
             duration: 0,  // Default duration, adjust if needed
-            volumes: [],  // Assuming an empty list for volumes if not provided
+            volumes: 0,  // Assuming an empty list for volumes if not provided
             resultText: "",  // Assuming an empty string for resultText
             mode: .recording,  // Assuming the default mode is recording
             fileFormat: "m4a",  // Assuming the file format is "m4a"
