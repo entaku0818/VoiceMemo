@@ -8,9 +8,7 @@
 import ActivityKit
 import WidgetKit
 import SwiftUI
-import ActivityKit
-import WidgetKit
-import SwiftUI
+
 
 struct recordActivityAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
@@ -28,10 +26,18 @@ struct recordActivityLiveActivity: Widget {
         ActivityConfiguration(for: recordActivityAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
-                Text("🔴 \(formatTimeInterval(context.state.recordingTime))") // 録音時間を表示
+                HStack {
+                    Spacer().frame(width: 16)
+                    Text("録音中") // 録音時間を表示
+                        .foregroundColor(.white)
+                    Text("\(formatTimeInterval(context.state.recordingTime))") // 録音時間を表示
+                        .font(.largeTitle) // フォントサイズを大きく設定
+                        .foregroundColor(.red)
+                    Spacer()
+                }
             }
-            .activityBackgroundTint(Color.cyan)
-            .activitySystemActionForegroundColor(Color.black)
+            .activityBackgroundTint(Color.black)
+            .activitySystemActionForegroundColor(Color.red)
 
         } dynamicIsland: { context in
             DynamicIsland {
@@ -45,7 +51,11 @@ struct recordActivityLiveActivity: Widget {
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     VStack {
-                        Text(formatTimeInterval(context.state.recordingTime))
+                        HStack {
+                            Text(formatTimeInterval(context.state.recordingTime))
+                                .font(.largeTitle) // フォントサイズを大きく設定
+                            Spacer()
+                        }
                     }
                 }
             } compactLeading: {
