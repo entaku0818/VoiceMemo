@@ -623,12 +623,6 @@
         }
       }
     },
-    "Bottom %@" : {
-
-    },
-    "Hello %@" : {
-
-    },
     "iCloud同期機能" : {
       "localizations" : {
         "de" : {
@@ -704,12 +698,6 @@
           }
         }
       }
-    },
-    "L" : {
-
-    },
-    "Leading" : {
-
     },
     "OK" : {
       "localizations" : {
@@ -998,6 +986,9 @@
         }
       }
     },
+    "Rec" : {
+
+    },
     "Recording" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1139,10 +1130,7 @@
         }
       }
     },
-    "T %@" : {
-
-    },
-    "Trailing" : {
+    "Recording Status: 録音中" : {
 
     },
     "Voice memo playback failed." : {

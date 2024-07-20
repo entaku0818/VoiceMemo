@@ -12,6 +12,15 @@ import GoogleMobileAds
 
 struct VoiceMemos: Reducer {
   struct State: Equatable {
+      static func == (lhs: State, rhs: State) -> Bool {
+          return lhs.alert == rhs.alert &&
+                 lhs.audioRecorderPermission == rhs.audioRecorderPermission &&
+                 lhs.recordingMemo == rhs.recordingMemo &&
+                 lhs.voiceMemos == rhs.voiceMemos &&
+                 lhs.isMailComposePresented == rhs.isMailComposePresented &&
+                 lhs.syncStatus == rhs.syncStatus &&
+                 lhs.hasPurchasedPremium == rhs.hasPurchasedPremium
+      }
     @PresentationState var alert: AlertState<AlertAction>?
     var audioRecorderPermission = RecorderPermission.undetermined
     @PresentationState var recordingMemo: RecordingMemo.State?
@@ -19,6 +28,8 @@ struct VoiceMemos: Reducer {
     var isMailComposePresented: Bool = false
       var syncStatus: SyncStatus = .notSynced
       var hasPurchasedPremium: Bool = false
+      var currentActivity: Activity<recordActivityAttributes>? = nil
+
 
     enum RecorderPermission {
       case allowed
@@ -148,7 +159,7 @@ struct VoiceMemos: Reducer {
               return .none
 
             case .allowed:
-                startLiveActivity()
+                startLiveActivity(state: &state)
 
               state.recordingMemo = newRecordingMemo
               return .none
@@ -167,19 +178,22 @@ struct VoiceMemos: Reducer {
                     fileFormat: recordingMemo.fileFormat,
                     samplingFrequency: recordingMemo.samplingFrequency,
                     quantizationBitDepth: recordingMemo.quantizationBitDepth,
-                    numberOfChannels: recordingMemo.numberOfChannels, 
+                    numberOfChannels: recordingMemo.numberOfChannels,
                     hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
                 ),
               at: 0
             )
           let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
           voiceMemoRepository.insert(state: recordingMemo)
+          stopLiveActivity(state: &state)
 
             return .none
 
           case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
             state.alert = AlertState { TextState("Voice memo recording failed.") }
             state.recordingMemo = nil
+            stopLiveActivity(state: &state)
+
             return .none
 
           case .recordingMemo:
@@ -280,21 +294,40 @@ struct VoiceMemos: Reducer {
                 .appendingPathComponent(self.uuid().uuidString)
                 .appendingPathExtension("m4a"),
             startTime: 0,
-            time: 0  
+            time: 0
         )
     }
 
-    func startLiveActivity() {
-        let attributes = recordActivityAttributes(name: "")
-        let initialContentState = recordActivityAttributes.ContentState(emoji: "😴")
+
+    func startLiveActivity(state: inout State) {
+        let attributes = recordActivityAttributes(name: "Recording Activity")
+        let initialContentState = recordActivityAttributes.ContentState(emoji: "🔴")
         let activityContent = ActivityContent(state: initialContentState, staleDate: Date().addingTimeInterval(60))
 
         do {
             let activity = try Activity<recordActivityAttributes>.request(attributes: attributes, content: activityContent, pushType: nil)
+            state.currentActivity = activity
             print("Activity started: \(activity.id)")
         } catch {
             print("Failed to start activity: \(error.localizedDescription)")
         }
+    }
+
+    func stopLiveActivity(state: inout State)  {
+        guard let activity = state.currentActivity else {
+            print("No active recording to stop")
+            return
+        }
+
+        let finalContentState = recordActivityAttributes.ContentState(emoji: "⏹️")
+        let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
+
+        Task {
+            await activity.end(finalActivityContent, dismissalPolicy: .immediate)
+            print("Activity ended: \(activity.id)")
+        }
+        state.currentActivity = nil
+
     }
 
 }

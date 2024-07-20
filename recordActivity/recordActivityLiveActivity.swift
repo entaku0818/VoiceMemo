@@ -24,7 +24,7 @@ struct recordActivityLiveActivity: Widget {
         ActivityConfiguration(for: recordActivityAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.emoji)")
+                Text("Recording Status: 録音中")
             }
             .activityBackgroundTint(Color.cyan)
             .activitySystemActionForegroundColor(Color.black)
@@ -34,19 +34,19 @@ struct recordActivityLiveActivity: Widget {
                 // Expanded UI goes here.  Compose the expanded UI through
                 // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    Text("Recording Status: 録音中")
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    Text("\(context.state.emoji)")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
+                    Text("Recording Status: 録音中")
                     // more content
                 }
             } compactLeading: {
-                Text("L")
+                Text("Rec")
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                Text("\(context.state.emoji)")
             } minimal: {
                 Text(context.state.emoji)
             }
@@ -63,11 +63,7 @@ extension recordActivityAttributes {
 }
 
 extension recordActivityAttributes.ContentState {
-    fileprivate static var smiley: recordActivityAttributes.ContentState {
-        recordActivityAttributes.ContentState(emoji: "😀")
-     }
-     
-     fileprivate static var starEyes: recordActivityAttributes.ContentState {
-         recordActivityAttributes.ContentState(emoji: "🤩")
-     }
+    fileprivate static var recording: recordActivityAttributes.ContentState {
+        recordActivityAttributes.ContentState(emoji: "🔴")
+    }
 }
