@@ -623,6 +623,12 @@
         }
       }
     },
+    "Bottom %@" : {
+
+    },
+    "Hello %@" : {
+
+    },
     "iCloud同期機能" : {
       "localizations" : {
         "de" : {
@@ -698,6 +704,12 @@
           }
         }
       }
+    },
+    "L" : {
+
+    },
+    "Leading" : {
+
     },
     "OK" : {
       "localizations" : {
@@ -1126,6 +1138,12 @@
           }
         }
       }
+    },
+    "T %@" : {
+
+    },
+    "Trailing" : {
+
     },
     "Voice memo playback failed." : {
       "localizations" : {

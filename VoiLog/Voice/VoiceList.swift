@@ -1,4 +1,5 @@
 import AVFoundation
+import ActivityKit
 import StoreKit
 import ComposableArchitecture
 import Foundation
@@ -76,7 +77,7 @@ struct VoiceMemos: Reducer {
               let currentDate = Date()
               if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
                   if interval >= 7 && reviewCount == 0 {
-                      if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                      if UIApplication.shared.connectedScenes.first is UIWindowScene {
                             state.alert = AlertState {
                                 TextState("シンプル録音について")
                             } actions: {
@@ -147,6 +148,8 @@ struct VoiceMemos: Reducer {
               return .none
 
             case .allowed:
+                startLiveActivity()
+
               state.recordingMemo = newRecordingMemo
               return .none
             }
@@ -279,6 +282,19 @@ struct VoiceMemos: Reducer {
             startTime: 0,
             time: 0  
         )
+    }
+
+    func startLiveActivity() {
+        let attributes = recordActivityAttributes(name: "")
+        let initialContentState = recordActivityAttributes.ContentState(emoji: "😴")
+        let activityContent = ActivityContent(state: initialContentState, staleDate: Date().addingTimeInterval(60))
+
+        do {
+            let activity = try Activity<recordActivityAttributes>.request(attributes: attributes, content: activityContent, pushType: nil)
+            print("Activity started: \(activity.id)")
+        } catch {
+            print("Failed to start activity: \(error.localizedDescription)")
+        }
     }
 
 }

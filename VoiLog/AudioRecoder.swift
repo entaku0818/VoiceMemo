@@ -151,7 +151,6 @@ private actor AudioRecorder {
                   if let result = result {
                       self.isFinal = result.isFinal
                       // 認識結果をプリント
-                      print("RecognizedText: \(result.bestTranscription.formattedString)")
                       self.resultText = result.bestTranscription.formattedString
                   }
 
@@ -201,7 +200,6 @@ private actor AudioRecorder {
                     try audioFile.write(from: buffer)
                   } catch let error {
                       Logger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
-                    print("audioFile.writeFromBuffer error:", error)
                     continuation.finish(throwing: error)
                   }
               }
@@ -267,7 +265,6 @@ private actor AudioRecorder {
                       if let result = result {
                           self.isFinal = result.isFinal
                           // 認識結果をプリント
-                          print("RecognizedText: \(result.bestTranscription.formattedString)")
                           self.resultText = result.bestTranscription.formattedString
                       }
 
