@@ -833,6 +833,9 @@
         }
       }
     },
+    "Pause" : {
+
+    },
     "Permission is required to record voice memos" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1126,6 +1129,9 @@
           }
         }
       }
+    },
+    "Resume" : {
+
     },
     "Voice memo playback failed." : {
       "localizations" : {

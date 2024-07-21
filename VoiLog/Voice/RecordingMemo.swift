@@ -91,24 +91,26 @@ struct RecordingMemo: Reducer {
 
         enum Mode {
             case recording
+            case pause
             case encoding
         }
     }
 
-  enum Action: Equatable {
-      case audioRecorderDidFinish(TaskResult<Bool>)
-      case fetchRecordingMemo(UUID)
-      case delegate(DelegateAction)
-      case finalRecordingTime(TimeInterval)
-      case task
-      case timerUpdated
-      case getVolumes
-      case getResultText
-      case updateVolumes(Float)
-      case updateResultText(String)
-      case stopButtonTapped
+    enum Action: Equatable {
+        case audioRecorderDidFinish(TaskResult<Bool>)
+        case fetchRecordingMemo(UUID)
+        case delegate(DelegateAction)
+        case finalRecordingTime(TimeInterval)
+        case task
+        case timerUpdated(TimeInterval)
+        case getVolumes
+        case getResultText
+        case updateVolumes(Float)
+        case updateResultText(String)
+        case stopButtonTapped
+        case togglePauseResume
+    }
 
-  }
 
   enum DelegateAction: Equatable {
     case didFinish(TaskResult<State>)
@@ -170,10 +172,15 @@ struct RecordingMemo: Reducer {
             return .send(.delegate(.didFinish(.success(state))))
 
         case .audioRecorderDidFinish(.success(false)):
-            return .send(.delegate(.didFinish(.failure(Failed()))))
-
+            return .run { send in
+                await self.audioRecorder.pauseRecording()
+                await send(.delegate(.didFinish(.failure(Failed()))))
+            }
         case let .audioRecorderDidFinish(.failure(error)):
-            return .send(.delegate(.didFinish(.failure(error))))
+            return .run { send in
+                await self.audioRecorder.pauseRecording()
+                await send(.delegate(.didFinish(.failure(error))))
+            }
 
         case .delegate:
             return .none
@@ -199,6 +206,22 @@ struct RecordingMemo: Reducer {
                 stopLiveActivity(activity: activity)
             }
 
+
+        case .togglePauseResume:
+            if state.mode == .pause {
+                state.mode = .recording
+                return .run { _ in
+                    await self.audioRecorder.resumeRecording()
+                    Logger.shared.logInfo("record resumed")
+                }
+            } else {
+                state.mode = .pause
+                return .run { _ in
+                    await self.audioRecorder.pauseRecording()
+                    Logger.shared.logInfo("record paused")
+                }
+            }
+
         case .task:
             let url = state.url
             let activity = startLiveActivity()
@@ -215,7 +238,9 @@ struct RecordingMemo: Reducer {
                 // Timer for other periodic updates
                 async let generalUpdates: Void = {
                     for await _ in self.clock.timer(interval: .seconds(1)) {
-                        await send(.timerUpdated)
+                        if let currentTime = await self.audioRecorder.currentTime() {
+                            await send(.timerUpdated(currentTime))
+                        }
                         await send(.getResultText)
                     }
                 }()
@@ -230,11 +255,11 @@ struct RecordingMemo: Reducer {
                 _ = await (startRecording, generalUpdates, volumeUpdates)
             }
 
-        case .timerUpdated:
-            state.duration += 1
-            updateLiveActivity(activity: state.currentActivity, duration: state.duration)
-
+        case let .timerUpdated(currentTime):
+            state.duration = currentTime
+            updateLiveActivity(activity: state.currentActivity, duration: currentTime)
             return .none
+
 
         case let .updateVolumes(volumes):
             state.volumes = volumes
@@ -264,6 +289,7 @@ struct RecordingMemo: Reducer {
             return .none
         }
     }
+
 }
 
 struct RecordingMemoView: View {
@@ -331,20 +357,27 @@ struct RecordingMemoView: View {
           Text(viewStore.resultText)
               .foregroundColor(.black)
               .fixedSize(horizontal: false, vertical: true)
+          HStack{
+              ZStack {
+                  Circle()
+                      .foregroundColor(Color(.label))
+                      .frame(width: 74, height: 74)
 
-        ZStack {
-          Circle()
-            .foregroundColor(Color(.label))
-            .frame(width: 74, height: 74)
-
-          Button(action: { viewStore.send(.stopButtonTapped, animation: .default) }) {
-            RoundedRectangle(cornerRadius: 4)
-              .foregroundColor(Color(.systemRed))
-              .padding(17)
+                  Button(action: { viewStore.send(.stopButtonTapped, animation: .default) }) {
+                      RoundedRectangle(cornerRadius: 4)
+                          .foregroundColor(Color(.systemRed))
+                          .padding(17)
+                  }
+                  .frame(width: 70, height: 70)
+              }
+              Button(action: { viewStore.send(.togglePauseResume, animation: .default) }) {
+                  Text(viewStore.mode == .pause ? "Resume" : "Pause")
+                      .foregroundColor(.white)
+                      .padding()
+                      .background(Color.blue)
+                      .cornerRadius(8)
+              }
           }
-          .frame(width: 70, height: 70)
-
-        }
       }
       .task {
         await viewStore.send(.task).finish()
@@ -387,41 +420,45 @@ let dateComponentsFormatter: DateComponentsFormatter = {
 }()
 
 extension AudioRecorderClient {
-  static var mock: Self {
-    let isRecording = ActorIsolated(false)
-    let currentTime = ActorIsolated(0.0)
-      let volumes = ActorIsolated(Float(1.0))
-      let resultText = String("進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。進捗ダメです。/n進捗ダメです。")
+    static var mock: Self {
+        let isRecording = ActorIsolated(false)
+        let currentTime = ActorIsolated(0.0)
+        let volumes = ActorIsolated(Float(1.0))
+        let resultText = """
+        進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。\n進捗ダメです。
+        """
 
-    return Self(
-      currentTime: { await currentTime.value },
-      requestRecordPermission: { true },
-      startRecording: { _ in
-        await isRecording.setValue(true)
-        while await isRecording.value {
-          try await Task.sleep(nanoseconds: NSEC_PER_SEC)
-          await currentTime.withValue { $0 += 1 }
-        }
-        return true
-      },
-      stopRecording: {
-        await isRecording.setValue(false)
-        await currentTime.setValue(0)
-      }, volumes: {
-          return await volumes.value
-      }, resultText: {
-          return  resultText
-      }, insertAudio: { _,_,_  in
-          await isRecording.setValue(true)
-          while await isRecording.value {
-            try await Task.sleep(nanoseconds: NSEC_PER_SEC)
-            await currentTime.withValue { $0 += 1 }
-          }
-          return true
-      }
-    )
-  }
+        return Self(
+            currentTime: { await currentTime.value },
+            requestRecordPermission: { true },
+            startRecording: { _ in
+                await isRecording.setValue(true)
+                while await isRecording.value {
+                    try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+                    await currentTime.withValue { $0 += 1 }
+                }
+                return true
+            },
+            stopRecording: {
+                await isRecording.setValue(false)
+                await currentTime.setValue(0)
+            },
+            pauseRecording: {
+                await isRecording.setValue(false)
+            },
+            resumeRecording: {
+                await isRecording.setValue(true)
+            },
+            volumes: {
+                return await volumes.value
+            },
+            resultText: {
+                return resultText
+            }
+        )
+    }
 }
+
 
 struct RingProgressView: View {
 
@@ -453,62 +490,3 @@ struct RingProgressView: View {
 
 
 
-
-struct CarouselView: View {
-   
-   @State private var currentIndex = 0
-   @GestureState private var dragOffset: CGFloat = 0
-    @State  var examples:[UIImage] = [UIImage(systemName: "house.fill")!]
-   
-   let itemPadding: CGFloat = 20
-   
-    init(images:[UIImage]){
-        _examples = State(initialValue: images)
-    }
-   
-   var body: some View {
-       GeometryReader { bodyView in
-           LazyHStack(spacing: itemPadding) {
-               ForEach(examples.indices, id: \.self) { index in
-                   // カルーセル対象のView
-                   Image(uiImage: examples[index])
-                       .frame(width: bodyView.size.width * 0.8, height: 200)
-                       .background(Color.gray)
-                       .padding(.leading, index == 0 ? bodyView.size.width * 0.1 : 0)
-               }
-           }
-           .offset(x: self.dragOffset)
-           .offset(x: -CGFloat(self.currentIndex) * (bodyView.size.width * 0.8 + itemPadding))
-           .gesture(
-               DragGesture()
-                   .updating(self.$dragOffset, body: { (value, state, _) in
-                       // 先頭・末尾ではスクロールする必要がないので、画面サイズの1/5までドラッグで制御する
-                       if self.currentIndex == 0, value.translation.width > 0 {
-                           state = value.translation.width / 5
-                       } else if self.currentIndex == (self.examples.count - 1), value.translation.width < 0 {
-                           state = value.translation.width / 5
-                       } else {
-                           state = value.translation.width
-                       }
-                   })
-                   .onEnded({ value in
-                       var newIndex = self.currentIndex
-                       // ドラッグ幅からページングを判定
-                       if abs(value.translation.width) > bodyView.size.width * 0.3 {
-                           newIndex = value.translation.width > 0 ? self.currentIndex - 1 : self.currentIndex + 1
-                       }
-                       
-                       // 最小ページ、最大ページを超えないようチェック
-                       if newIndex < 0 {
-                           newIndex = 0
-                       } else if newIndex > (self.examples.count - 1) {
-                           newIndex = self.examples.count - 1
-                       }
-                       
-                       self.currentIndex = newIndex
-                   })
-           )
-       }
-       .animation(.interpolatingSpring(mass: 0.6, stiffness: 150, damping: 80, initialVelocity: 0.1))
-   }
-}
