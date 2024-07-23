@@ -82,7 +82,6 @@ struct VoiceMemoReducer: Reducer {
                     for await _ in self.clock.timer(interval: .milliseconds(500)) {
                         let time = try await self.audioPlayer.getCurrentTime()
                         await send(.timerUpdated(time))
-                        print("playAudio\(time)")
                     }
 
                     await playAudio
@@ -143,7 +142,6 @@ struct VoiceMemoReducer: Reducer {
                     for await _ in self.clock.timer(interval: .milliseconds(500)) {
                         let time = try await self.audioPlayer.getCurrentTime()
                         await send(.timerUpdated(time))
-                        print("playAudio\(time)")
                     }
 
                     await playAudio
