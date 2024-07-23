@@ -227,8 +227,8 @@ struct RecordingMemo: Reducer {
 
         case .task:
             let url = state.url
-//            let activity = startLiveActivity()
-//            state.currentActivity = activity
+            let activity = startLiveActivity()
+            state.currentActivity = activity
 
             return .run { send in
                 async let startRecording: Void = send(
