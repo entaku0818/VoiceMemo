@@ -87,6 +87,7 @@ struct RecordingMemo: Reducer {
         var startTime: TimeInterval
         var time: TimeInterval
         var currentActivity: Activity<recordActivityAttributes>? = nil
+        var waveFormHeights: [Float] = []
 
 
         enum Mode {
@@ -106,6 +107,8 @@ struct RecordingMemo: Reducer {
         case getVolumes
         case getResultText
         case updateVolumes(Float)
+        case getWaveFormHeights
+        case updateWaveFormHeights([Float])
         case updateResultText(String)
         case stopButtonTapped
         case togglePauseResume
@@ -224,8 +227,8 @@ struct RecordingMemo: Reducer {
 
         case .task:
             let url = state.url
-            let activity = startLiveActivity()
-            state.currentActivity = activity
+//            let activity = startLiveActivity()
+//            state.currentActivity = activity
 
             return .run { send in
                 async let startRecording: Void = send(
@@ -238,9 +241,8 @@ struct RecordingMemo: Reducer {
                 // Timer for other periodic updates
                 async let generalUpdates: Void = {
                     for await _ in self.clock.timer(interval: .seconds(1)) {
-                        if let currentTime = await self.audioRecorder.currentTime() {
-                            await send(.timerUpdated(currentTime))
-                        }
+
+                        await send(.getWaveFormHeights)
                         await send(.getResultText)
                     }
                 }()
@@ -252,8 +254,19 @@ struct RecordingMemo: Reducer {
                     }
                 }()
 
-                _ = await (startRecording, generalUpdates, volumeUpdates)
+                // Timer for waveform height updates
+                async let currentTimeUpdates: Void = {
+                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
+
+                        if let currentTime = await self.audioRecorder.currentTime() {
+                            await send(.timerUpdated(currentTime))
+                        }
+                    }
+                }()
+
+                _ = await (startRecording, generalUpdates, volumeUpdates, currentTimeUpdates)
             }
+
 
         case let .timerUpdated(currentTime):
             state.duration = currentTime
@@ -286,6 +299,15 @@ struct RecordingMemo: Reducer {
             if let recordingmemo = voiceMemoRepository.fetch(uuid: uuid) {
                 state = recordingmemo
             }
+            return .none
+        case .getWaveFormHeights:
+            return .run { send in
+                let heights = await audioRecorder.waveFormHeights()
+                await send(.updateWaveFormHeights(heights))
+            }
+
+        case let .updateWaveFormHeights(heights):
+            state.waveFormHeights = heights
             return .none
         }
     }
@@ -326,32 +348,32 @@ struct RecordingMemoView: View {
 
               }
           }
-//          VStack {
-//              ScrollViewReader { reader in
-//                  ScrollView(.horizontal, showsIndicators: false) {
-//                      HStack(spacing: 2) {
-//
-//                          ForEach(viewStore.volumes, id: \.self) { volume in
-//                              let height: CGFloat = CGFloat(volume * 50) + 1
-//                              Rectangle()
-//                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
-//                                  .frame(width: 3, height: height)
-//                          }
-//                          Button("") {
-//                          }.id(bottomID)
-//                      }
-//
-//                  }.onChange(of: viewStore.volumes) { _ in
-//                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                          reader.scrollTo(bottomID)
-//                      }
-//
-//                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
-//                  .padding(.trailing, UIScreen.main.bounds.width / 2)
-//              }
-//
-//
-//          }
+          VStack {
+              ScrollViewReader { reader in
+                  ScrollView(.horizontal, showsIndicators: false) {
+                      HStack(spacing: 2) {
+
+                          ForEach(viewStore.waveFormHeights, id: \.self) { volume in
+                              let height: CGFloat = CGFloat(volume * 50) + 1
+                              Rectangle()
+                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
+                                  .frame(width: 3, height: height)
+                          }
+                          Button("") {
+                          }.id(bottomID)
+                      }
+
+                  }.onChange(of: viewStore.waveFormHeights) { _ in
+                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                          reader.scrollTo(bottomID)
+                      }
+
+                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
+                  .padding(.trailing, UIScreen.main.bounds.width / 2)
+              }
+
+
+          }
 
           AudioLevelView(audioLevel: viewStore.volumes)
               .frame(height: 20)
@@ -483,6 +505,8 @@ extension AudioRecorderClient {
             },
             volumes: {
                 return await volumes.value
+            }, waveFormHeights: {
+                return [0.1]
             },
             resultText: {
                 return resultText

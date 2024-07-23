@@ -13,6 +13,7 @@ struct AudioRecorderClient {
     var pauseRecording: @Sendable () async -> Void
     var resumeRecording: @Sendable () async -> Void
     var volumes: @Sendable () async -> Float
+    var waveFormHeights: @Sendable () async -> [Float]
     var resultText: @Sendable () async -> String
 }
 
@@ -53,6 +54,7 @@ extension AudioRecorderClient: TestDependencyKey {
                 await isPaused.setValue(false)
             },
             volumes: { 0.0 }, // Add some stub values here if needed
+            waveFormHeights: {[]},
             resultText: { "" }
         )
     }
@@ -67,6 +69,7 @@ extension AudioRecorderClient: TestDependencyKey {
         pauseRecording: unimplemented("\(Self.self).pauseRecording"),
         resumeRecording: unimplemented("\(Self.self).resumeRecording"),
         volumes: unimplemented("\(Self.self).volumes", placeholder: 0.0),
+        waveFormHeights: unimplemented("\(Self.self).waveFormHeights", placeholder: []),
         resultText: unimplemented("\(Self.self).resultText", placeholder: "")
     )
 }
@@ -89,11 +92,11 @@ extension AudioRecorderClient: DependencyKey  {
             pauseRecording: { await audioRecorder.pause() },
             resumeRecording: { await audioRecorder.resume() },
             volumes: { await audioRecorder.amplitude() },
+            waveFormHeights: { await audioRecorder.getWaveFormHeights() },
             resultText: { await audioRecorder.fetchResultText() }
         )
     }
 }
-
 private actor AudioRecorder {
     var speechRecognizer: SFSpeechRecognizer?
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -142,6 +145,8 @@ private actor AudioRecorder {
                     return
                 }
 
+                NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption), name: AVAudioSession.interruptionNotification, object: AVAudioSession.sharedInstance())
+
                 inputNode.volume = Float(UserDefaultsManager.shared.microphonesVolume)
 
                 recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
@@ -150,7 +155,6 @@ private actor AudioRecorder {
                     fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object")
                 }
                 recognitionRequest.shouldReportPartialResults = true
-
                 recognitionRequest.requiresOnDeviceRecognition = false
 
                 self.recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
@@ -159,11 +163,6 @@ private actor AudioRecorder {
                         self.resultText = result.bestTranscription.formattedString
                     }
 
-                    if let error = error as? NSError {
-                        UserDefaultsManager.shared.logError(error.localizedDescription)
-                        continuation.yield(true)
-                        continuation.finish()
-                    }
                     if self.isFinal {
                         UserDefaultsManager.shared.logError("isFinal")
                         self.recognitionTask = nil
@@ -223,6 +222,29 @@ private actor AudioRecorder {
         return action
     }
 
+    @objc func handleInterruption(notification: Notification) async {
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let interruptionType = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+            return
+        }
+
+        switch interruptionType {
+        case .began:
+            audioEngine?.pause()
+            UserDefaultsManager.shared.logError("Audio session interrupted. Audio engine paused.")
+        case .ended:
+            do {
+                try AVAudioSession.sharedInstance().setActive(true)
+                try audioEngine?.start()
+                UserDefaultsManager.shared.logError("Audio session interruption ended. Audio engine restarted.")
+            } catch {
+                UserDefaultsManager.shared.logError("Failed to reactivate audio session: \(error.localizedDescription)")
+            }
+        default:
+            break
+        }
+    }
 
     func pause() {
         isPaused = true
@@ -234,13 +256,22 @@ private actor AudioRecorder {
         try? audioEngine?.start()
     }
 
-    private func setupAVAudioSession() {
+    func setupAVAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
         do {
-            try AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.duckOthers, .allowBluetooth, .allowBluetoothA2DP, .allowAirPlay])
-            try AVAudioSession.sharedInstance().setActive(true)
+            try audioSession.setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetooth, .allowBluetoothA2DP, .mixWithOthers])
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            print("マイクの音量を設定できませんでした。エラー: \(error.localizedDescription)")
+            UserDefaultsManager.shared.logError("Failed to set up AVAudioSession: \(error.localizedDescription)")
         }
+    }
+
+    @objc func audioEngineConfigurationChange(notification: Notification) async {
+        UserDefaultsManager.shared.logError("AudioEngine configuration change detected")
+    }
+
+    func getWaveFormHeights() -> [Float] {
+        return waveFormHeights.map { Float($0) }
     }
 
     func amplitude() -> Float {

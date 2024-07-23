@@ -347,7 +347,7 @@ struct VoiceMemosView: View {
                     .background(Color.init(white: 0.95))
 
                     AdmobBannerView(unitId: recordAdmobUnitId)
-                        .frame(width: .infinity, height: 50)
+                        .frame(height: 50)
                 }
                 .onAppear {
                     checkTrackingAuthorizationStatus()
