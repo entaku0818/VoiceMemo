@@ -375,9 +375,7 @@ struct RecordingMemoView: View {
 
           }
 
-          AudioLevelView(audioLevel: viewStore.volumes)
-              .frame(height: 20)
-              .padding()
+
           VStack(alignment: .center) {
               Text(viewStore.resultText)
                   .lineLimit(3)
