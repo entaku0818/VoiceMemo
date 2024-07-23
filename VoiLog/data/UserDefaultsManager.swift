@@ -15,6 +15,22 @@ class UserDefaultsManager {
         defaults = UserDefaults.standard
     }
 
+    public func logError(_ message: String) {
+        let timestamp = Date().description(with: .current)
+        let logMessage = "[\(timestamp)] \(message)"
+
+        var errorLogs = defaults.array(forKey: "ErrorLogs") as? [String] ?? []
+        errorLogs.append(logMessage)
+
+        defaults.set(errorLogs, forKey: "ErrorLogs")
+        defaults.synchronize()
+    }
+
+    // Property to retrieve error logs
+    var errorLogs: [String] {
+        return defaults.array(forKey: "ErrorLogs") as? [String] ?? []
+    }
+
     // ファイル形式の設定値を保存するプロパティ
     var selectedFileFormat: String {
         get {

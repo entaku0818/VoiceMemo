@@ -623,6 +623,12 @@
         }
       }
     },
+    "Close" : {
+
+    },
+    "Error Logs" : {
+
+    },
     "iCloud同期機能" : {
       "localizations" : {
         "de" : {
@@ -985,6 +991,9 @@
           }
         }
       }
+    },
+    "Read More" : {
+
     },
     "Recording" : {
       "extractionState" : "manual",
@@ -1506,6 +1515,9 @@
           }
         }
       }
+    },
+    "エラーログを見る" : {
+
     },
     "ご不便かけて申し訳ありません" : {
       "localizations" : {
@@ -2336,6 +2348,9 @@
           }
         }
       }
+    },
+    "デバッグ" : {
+
     },
     "はい" : {
       "localizations" : {
@@ -3920,6 +3935,9 @@
           }
         }
       }
+    },
+    "録音中" : {
+
     },
     "開発者を支援する" : {
       "localizations" : {

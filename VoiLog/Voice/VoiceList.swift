@@ -19,6 +19,7 @@ struct VoiceMemos: Reducer {
       var syncStatus: SyncStatus = .notSynced
       var hasPurchasedPremium: Bool = false
 
+
     enum RecorderPermission {
       case allowed
       case denied
@@ -64,43 +65,44 @@ struct VoiceMemos: Reducer {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-        case .onAppear:
 
-          let installDate = UserDefaultsManager.shared.installDate
-          let reviewCount = UserDefaultsManager.shared.reviewRequestCount
+            case .onAppear:
 
-          state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+              let installDate = UserDefaultsManager.shared.installDate
+              let reviewCount = UserDefaultsManager.shared.reviewRequestCount
 
-          // 初回起動時
-          if let installDate = installDate {
-              let currentDate = Date()
-              if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
-                  if interval >= 7 && reviewCount == 0 {
-                      if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                            state.alert = AlertState {
-                                TextState("シンプル録音について")
-                            } actions: {
-                                ButtonState(action: .send(.onGoodReview)) {
-                                    TextState("はい")
+              state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+
+              // 初回起動時
+              if let installDate = installDate {
+                  let currentDate = Date()
+                  if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
+                      if interval >= 7 && reviewCount == 0 {
+                          if UIApplication.shared.connectedScenes.first is UIWindowScene {
+                                state.alert = AlertState {
+                                    TextState("シンプル録音について")
+                                } actions: {
+                                    ButtonState(action: .send(.onGoodReview)) {
+                                        TextState("はい")
+                                    }
+                                    ButtonState(action: .send(.onBadReview)) {
+                                        TextState("いいえ、フィードバックを送信")
+                                    }
+                                } message: {
+                                    TextState(
+                                        "シンプル録音に満足していますか？"
+                                    )
                                 }
-                                ButtonState(action: .send(.onBadReview)) {
-                                    TextState("いいえ、フィードバックを送信")
-                                }
-                            } message: {
-                                TextState(
-                                    "シンプル録音に満足していますか？"
-                                )
-                            }
-                          UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                              UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                          }
                       }
                   }
+              }else{
+                  UserDefaultsManager.shared.installDate = Date()
               }
-          }else{
-              UserDefaultsManager.shared.installDate = Date()
-          }
 
 
-          return .none
+              return .none
 
           case let .onDelete(uuid):
             state.voiceMemos.removeAll { $0.uuid == uuid }
@@ -147,6 +149,7 @@ struct VoiceMemos: Reducer {
               return .none
 
             case .allowed:
+
               state.recordingMemo = newRecordingMemo
               return .none
             }
@@ -164,7 +167,7 @@ struct VoiceMemos: Reducer {
                     fileFormat: recordingMemo.fileFormat,
                     samplingFrequency: recordingMemo.samplingFrequency,
                     quantizationBitDepth: recordingMemo.quantizationBitDepth,
-                    numberOfChannels: recordingMemo.numberOfChannels, 
+                    numberOfChannels: recordingMemo.numberOfChannels,
                     hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
                 ),
               at: 0
@@ -177,6 +180,7 @@ struct VoiceMemos: Reducer {
           case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
             state.alert = AlertState { TextState("Voice memo recording failed.") }
             state.recordingMemo = nil
+
             return .none
 
           case .recordingMemo:
@@ -266,7 +270,7 @@ struct VoiceMemos: Reducer {
             uuid: UUID(),
             date: self.date.now,
             duration: 0,
-            volumes: [],
+            volumes: 0.0,
             resultText: "",
             mode: .recording,
             fileFormat: "m4a",
@@ -277,9 +281,12 @@ struct VoiceMemos: Reducer {
                 .appendingPathComponent(self.uuid().uuidString)
                 .appendingPathExtension("m4a"),
             startTime: 0,
-            time: 0  
+            time: 0
         )
     }
+
+
+ 
 
 }
 
@@ -340,7 +347,7 @@ struct VoiceMemosView: View {
                     .background(Color.init(white: 0.95))
 
                     AdmobBannerView(unitId: recordAdmobUnitId)
-                        .frame(width: .infinity, height: 50)
+                        .frame(height: 50)
                 }
                 .onAppear {
                     checkTrackingAuthorizationStatus()
