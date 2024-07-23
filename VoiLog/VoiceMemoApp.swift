@@ -12,8 +12,6 @@ import GoogleMobileAds
 import FirebaseCrashlytics
 import RollbarNotifier
 import RevenueCat
-
-
 import UIKit
 import Firebase
 import GoogleMobileAds
@@ -40,10 +38,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        UserDefaultsManager.shared.logError("applicationDidEnterBackground")
+
         registerBackgroundTask()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        UserDefaultsManager.shared.logError("applicationWillEnterForeground")
+
         endBackgroundTask()
     }
 

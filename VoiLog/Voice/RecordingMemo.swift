@@ -296,6 +296,8 @@ struct RecordingMemoView: View {
     let store: StoreOf<RecordingMemo>
     @State var value: CGFloat = 0.0
     @State var bottomID = UUID()
+    @State private var showModal = false
+
 
   var body: some View {
       WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -354,10 +356,36 @@ struct RecordingMemoView: View {
           AudioLevelView(audioLevel: viewStore.volumes)
               .frame(height: 20)
               .padding()
-          Text(viewStore.resultText)
-              .foregroundColor(.black)
-              .fixedSize(horizontal: false, vertical: true)
-          HStack{
+          VStack(alignment: .center) {
+              Text(viewStore.resultText)
+                  .lineLimit(3)
+                  .foregroundColor(.black)
+                  .fixedSize(horizontal: false, vertical: true)
+
+              if viewStore.resultText.count > 0{
+                  Button(action: {
+                      showModal.toggle()
+                  }) {
+                      Text("Read More")
+                          .foregroundColor(.blue)
+                          .underline()
+                  }
+              }
+          }
+          .sheet(isPresented: $showModal) {
+              VStack {
+                  ScrollView {
+                      Text(viewStore.resultText)
+                          .padding()
+                  }
+                  Button("Close") {
+                      showModal.toggle()
+                  }
+                  .padding()
+              }
+          }
+
+          HStack {
               ZStack {
                   Circle()
                       .foregroundColor(Color(.label))
@@ -370,14 +398,18 @@ struct RecordingMemoView: View {
                   }
                   .frame(width: 70, height: 70)
               }
+              Spacer().frame(width: 24)
               Button(action: { viewStore.send(.togglePauseResume, animation: .default) }) {
-                  Text(viewStore.mode == .pause ? "Resume" : "Pause")
+                  Image(systemName: viewStore.mode == .pause ? "play.fill" : "pause.fill")
+                      .resizable()
+                      .frame(width: 24, height: 24)
                       .foregroundColor(.white)
-                      .padding()
-                      .background(Color.blue)
-                      .cornerRadius(8)
+                      .padding(24)
+                      .background(Color.black)
+                      .clipShape(Circle())
               }
           }
+
       }
       .task {
         await viewStore.send(.task).finish()

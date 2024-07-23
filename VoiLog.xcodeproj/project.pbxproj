@@ -52,6 +52,7 @@
 		61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A1E28C4646200169FB6 /* VoiceList.swift */; };
 		61979A2128C466C500169FB6 /* VoiceMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2028C466C500169FB6 /* VoiceMemoView.swift */; };
 		61979A2328C466E800169FB6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61979A2228C466E800169FB6 /* AudioPlayer.swift */; };
+		6199AF832C4D2B8700CABC67 /* ErrorLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199AF822C4D2B8700CABC67 /* ErrorLogsView.swift */; };
 		61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */ = {isa = PBXBuildFile; productRef = 61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */; };
 		61A3D8D92AB7DFE9002D8364 /* AboutSimpleRecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */; };
 		61A8818D2A30015500A4189C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 61A8818C2A30015500A4189C /* GoogleMobileAds */; };
@@ -157,6 +158,7 @@
 		61979A1E28C4646200169FB6 /* VoiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceList.swift; sourceTree = "<group>"; };
 		61979A2028C466C500169FB6 /* VoiceMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoView.swift; sourceTree = "<group>"; };
 		61979A2228C466E800169FB6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		6199AF822C4D2B8700CABC67 /* ErrorLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLogsView.swift; sourceTree = "<group>"; };
 		61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSimpleRecoder.swift; sourceTree = "<group>"; };
 		61B70F582A5100A100740093 /* AVAudioPCMBuffer+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVAudioPCMBuffer+Extention.swift"; sourceTree = "<group>"; };
 		61C2CDB52AFF3923005DC779 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			children = (
 				619440C82904014800BF337E /* SettingView.swift */,
 				61A3D8D82AB7DFE9002D8364 /* AboutSimpleRecoder.swift */,
+				6199AF822C4D2B8700CABC67 /* ErrorLogsView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				6105624F2BCC0CF700D82088 /* MockIAPManager.swift in Sources */,
 				6168A6422B43ACAB00B20F0F /* IAPManager.swift in Sources */,
 				61EC9B842AAC66080062533A /* Double+Extention.swift in Sources */,
+				6199AF832C4D2B8700CABC67 /* ErrorLogsView.swift in Sources */,
 				61979A1A28C44D8F00169FB6 /* AudioRecoder.swift in Sources */,
 				619440C92904014800BF337E /* SettingView.swift in Sources */,
 				61979A1F28C4646200169FB6 /* VoiceList.swift in Sources */,

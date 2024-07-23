@@ -233,6 +233,13 @@ struct SettingView: View {
                         }
 
                     }
+                    #if DEBUG
+                    Section(header: Text("デバッグ")) {
+                        NavigationLink(destination: ErrorLogsView()) {
+                            Text("エラーログを見る")
+                        }
+                    }
+                    #endif
                 }
             }
             .onAppear{

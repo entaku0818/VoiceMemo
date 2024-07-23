@@ -623,6 +623,12 @@
         }
       }
     },
+    "Close" : {
+
+    },
+    "Error Logs" : {
+
+    },
     "iCloud同期機能" : {
       "localizations" : {
         "de" : {
@@ -833,9 +839,6 @@
         }
       }
     },
-    "Pause" : {
-
-    },
     "Permission is required to record voice memos" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -989,6 +992,9 @@
         }
       }
     },
+    "Read More" : {
+
+    },
     "Recording" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1129,9 +1135,6 @@
           }
         }
       }
-    },
-    "Resume" : {
-
     },
     "Voice memo playback failed." : {
       "localizations" : {
@@ -1512,6 +1515,9 @@
           }
         }
       }
+    },
+    "エラーログを見る" : {
+
     },
     "ご不便かけて申し訳ありません" : {
       "localizations" : {
@@ -2342,6 +2348,9 @@
           }
         }
       }
+    },
+    "デバッグ" : {
+
     },
     "はい" : {
       "localizations" : {

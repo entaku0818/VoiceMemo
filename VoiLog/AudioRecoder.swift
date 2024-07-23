@@ -136,12 +136,19 @@ private actor AudioRecorder {
                 audioEngine = AVAudioEngine()
                 inputNode = audioEngine?.inputNode
 
-                guard let inputNode = inputNode else { return }
+                guard let inputNode = inputNode else {
+                    UserDefaultsManager.shared.logError("Input node not available")
+                    continuation.finish(throwing: NSError(domain: "InputNodeError", code: -1, userInfo: nil))
+                    return
+                }
 
                 inputNode.volume = Float(UserDefaultsManager.shared.microphonesVolume)
 
                 recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-                guard let recognitionRequest = recognitionRequest else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
+                guard let recognitionRequest = recognitionRequest else {
+                    UserDefaultsManager.shared.logError("Unable to create a SFSpeechAudioBufferRecognitionRequest object")
+                    fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object")
+                }
                 recognitionRequest.shouldReportPartialResults = true
 
                 recognitionRequest.requiresOnDeviceRecognition = false
@@ -153,10 +160,12 @@ private actor AudioRecorder {
                     }
 
                     if let error = error as? NSError {
+                        UserDefaultsManager.shared.logError(error.localizedDescription)
                         continuation.yield(true)
                         continuation.finish()
                     }
                     if self.isFinal {
+                        UserDefaultsManager.shared.logError("isFinal")
                         self.recognitionTask = nil
                         continuation.yield(true)
                         continuation.finish()
@@ -190,6 +199,7 @@ private actor AudioRecorder {
                     do {
                         try audioFile.write(from: buffer)
                     } catch let error {
+                        UserDefaultsManager.shared.logError(error.localizedDescription)
                         Logger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
                         continuation.finish(throwing: error)
                     }
@@ -198,7 +208,8 @@ private actor AudioRecorder {
                 audioEngine?.prepare()
                 try audioEngine?.start()
 
-            } catch {
+            } catch let error {
+                UserDefaultsManager.shared.logError(error.localizedDescription)
                 Logger.shared.logError(error.localizedDescription)
                 continuation.finish(throwing: error)
             }
@@ -206,10 +217,12 @@ private actor AudioRecorder {
 
         guard let action = try await stream.first(where: { @Sendable _ in true })
         else {
+            UserDefaultsManager.shared.logError("CancellationError")
             throw CancellationError()
         }
         return action
     }
+
 
     func pause() {
         isPaused = true
