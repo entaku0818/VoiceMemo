@@ -104,8 +104,6 @@ private actor AudioRecorder {
     var audioEngine: AVAudioEngine?
     var inputNode: AVAudioInputNode?
     var resultText: String = ""
-    var buffers: [AVAudioPCMBuffer] = []
-    var waveFormHeights: [CGFloat] = []
     var isFinal = false
     var currentTime: TimeInterval = 0
     var isPaused: Bool = false
@@ -130,7 +128,7 @@ private actor AudioRecorder {
         try? AVAudioSession.sharedInstance().setActive(false)
     }
 
-    func start(url: URL) async throws -> Bool {
+    func start(url: URL) async -> Bool {
         self.stop()
         setupAVAudioSession()
         let stream = AsyncThrowingStream<Bool, Error> { continuation in
@@ -189,10 +187,10 @@ private actor AudioRecorder {
                     guard !self.isPaused else { return }
 
                     self.currentTime = Double(audioFile.length) / sampleRate
+                    UserDefaultsManager.shared.logError("currentTime:\(self.currentTime)")
+
 
                     self.recognitionRequest?.append(buffer)
-                    self.buffers.append(buffer)
-                    self.waveFormHeights.append(buffer.waveFormHeight)
                     self.updateAudioLevel(buffer: buffer)
 
                     do {
@@ -214,13 +212,18 @@ private actor AudioRecorder {
             }
         }
 
-        guard let action = try await stream.first(where: { @Sendable _ in true })
-        else {
-            UserDefaultsManager.shared.logError("CancellationError")
-            throw CancellationError()
+        do {
+            guard let action = try await stream.first(where: { @Sendable _ in true }) else {
+                UserDefaultsManager.shared.logError("CancellationError")
+                return false
+            }
+            return action
+        } catch {
+            UserDefaultsManager.shared.logError("Stream error: \(error.localizedDescription)")
+            return false
         }
-        return action
     }
+
 
     @objc func handleInterruption(notification: Notification) async {
         guard let userInfo = notification.userInfo,
@@ -271,7 +274,7 @@ private actor AudioRecorder {
     }
 
     func getWaveFormHeights() -> [Float] {
-        return waveFormHeights.map { Float($0) }
+        return []
     }
 
     func amplitude() -> Float {

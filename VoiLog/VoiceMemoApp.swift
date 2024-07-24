@@ -17,9 +17,9 @@ import Firebase
 import GoogleMobileAds
 import UserNotifications
 
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
-    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -37,29 +37,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         return true
     }
 
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        UserDefaultsManager.shared.logError("applicationDidEnterBackground")
-
-        registerBackgroundTask()
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        UserDefaultsManager.shared.logError("applicationWillEnterForeground")
-
-        endBackgroundTask()
-    }
-
-    private func registerBackgroundTask() {
-        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
-            self?.endBackgroundTask()
-        }
-        assert(backgroundTask != .invalid)
-    }
-
-    private func endBackgroundTask() {
-        UIApplication.shared.endBackgroundTask(backgroundTask)
-        backgroundTask = .invalid
-    }
 
     // UNUserNotificationCenterDelegate method
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -79,6 +56,9 @@ struct VoiceMemoApp: App {
 
     var admobUnitId: String!
     var recordAdmobUnitId: String!
+
+    private let backgroundTaskManager = BackgroundTaskManager()
+
     init() {
         let environmentConfig = loadEnvironmentVariables()
         self.admobUnitId = environmentConfig.admobKey
@@ -97,10 +77,17 @@ struct VoiceMemoApp: App {
                     VoiceMemos()
                 }, admobUnitId: admobUnitId, recordAdmobUnitId: recordAdmobUnitId
             )
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                print("applicationDidEnterBackground")
+                backgroundTaskManager.registerBackgroundTask()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                print("applicationWillEnterForeground")
+                backgroundTaskManager.endBackgroundTask()
+            }
         }
     }
 }
-
 
 
 extension VoiceMemoApp {
@@ -123,5 +110,21 @@ extension VoiceMemoApp {
         let admobKey: String
         let recordAdmobKey:String
         let revenueCatKey: String
+    }
+}
+
+class BackgroundTaskManager {
+    private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+
+    func registerBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+        assert(backgroundTask != .invalid)
+    }
+
+    func endBackgroundTask() {
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = .invalid
     }
 }
