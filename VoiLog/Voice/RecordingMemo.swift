@@ -242,7 +242,6 @@ struct RecordingMemo: Reducer {
                 async let generalUpdates: Void = {
                     for await _ in self.clock.timer(interval: .seconds(1)) {
 
-                        await send(.getWaveFormHeights)
                         await send(.getResultText)
                     }
                 }()
@@ -348,32 +347,36 @@ struct RecordingMemoView: View {
 
               }
           }
-          VStack {
-              ScrollViewReader { reader in
-                  ScrollView(.horizontal, showsIndicators: false) {
-                      HStack(spacing: 2) {
+//          VStack {
+//              ScrollViewReader { reader in
+//                  ScrollView(.horizontal, showsIndicators: false) {
+//                      HStack(spacing: 2) {
+//
+//                          ForEach(viewStore.waveFormHeights, id: \.self) { volume in
+//                              let height: CGFloat = CGFloat(volume * 50) + 1
+//                              Rectangle()
+//                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
+//                                  .frame(width: 3, height: height)
+//                          }
+//                          Button("") {
+//                          }.id(bottomID)
+//                      }
+//
+//                  }.onChange(of: viewStore.waveFormHeights) { _ in
+//                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                          reader.scrollTo(bottomID)
+//                      }
+//
+//                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
+//                  .padding(.trailing, UIScreen.main.bounds.width / 2)
+//              }
+//
+//
+//          }
 
-                          ForEach(viewStore.waveFormHeights, id: \.self) { volume in
-                              let height: CGFloat = CGFloat(volume * 50) + 1
-                              Rectangle()
-                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
-                                  .frame(width: 3, height: height)
-                          }
-                          Button("") {
-                          }.id(bottomID)
-                      }
-
-                  }.onChange(of: viewStore.waveFormHeights) { _ in
-                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                          reader.scrollTo(bottomID)
-                      }
-
-                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
-                  .padding(.trailing, UIScreen.main.bounds.width / 2)
-              }
-
-
-          }
+          AudioLevelView(audioLevel: viewStore.volumes)
+              .frame(height: 20)
+              .padding()
 
 
           VStack(alignment: .center) {
