@@ -126,11 +126,15 @@ private actor AudioRecorder {
         isFinal = true
         resultText = ""
         try? AVAudioSession.sharedInstance().setActive(false)
+        endBackgroundTask() // バックグラウンドタスクを終了
     }
+
+    private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
     func start(url: URL) async -> Bool {
         self.stop()
         setupAVAudioSession()
+        beginBackgroundTask() // バックグラウンドタスクを開始
         let stream = AsyncThrowingStream<Bool, Error> { continuation in
             do {
                 speechRecognizer = SFSpeechRecognizer(locale: Locale.current)
@@ -187,7 +191,6 @@ private actor AudioRecorder {
                     guard !self.isPaused else { return }
 
                     self.currentTime = Double(audioFile.length) / sampleRate
-                    UserDefaultsManager.shared.logError("currentTime:\(self.currentTime)")
 
 
                     self.recognitionRequest?.append(buffer)
@@ -221,6 +224,22 @@ private actor AudioRecorder {
         } catch {
             UserDefaultsManager.shared.logError("Stream error: \(error.localizedDescription)")
             return false
+        }
+    }
+
+
+    private func beginBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            guard let self = self else { return }
+            UIApplication.shared.endBackgroundTask(self.backgroundTask)
+            self.backgroundTask = .invalid
+        }
+    }
+
+    private func endBackgroundTask() {
+        if backgroundTask != .invalid {
+            UIApplication.shared.endBackgroundTask(backgroundTask)
+            backgroundTask = .invalid
         }
     }
 

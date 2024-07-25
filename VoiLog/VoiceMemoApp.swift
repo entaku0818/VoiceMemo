@@ -85,6 +85,14 @@ struct VoiceMemoApp: App {
                 print("applicationWillEnterForeground")
                 backgroundTaskManager.endBackgroundTask()
             }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+                UserDefaultsManager.shared.logError("applicationWillTerminate")
+
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
+                UserDefaultsManager.shared.logError("applicationWillTerminate")
+
+            }
         }
     }
 }
