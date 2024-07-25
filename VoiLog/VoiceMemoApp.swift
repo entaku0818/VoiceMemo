@@ -16,6 +16,7 @@ import UIKit
 import Firebase
 import GoogleMobileAds
 import UserNotifications
+import BackgroundTasks
 
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -121,9 +122,16 @@ extension VoiceMemoApp {
     }
 }
 
+
+
 class BackgroundTaskManager {
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
+    init() {
+        registerBackgroundTasks()
+    }
+
+    // Registering the traditional background task
     func registerBackgroundTask() {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
@@ -134,5 +142,37 @@ class BackgroundTaskManager {
     func endBackgroundTask() {
         UIApplication.shared.endBackgroundTask(backgroundTask)
         backgroundTask = .invalid
+    }
+
+    private func registerBackgroundTasks() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.entaku.VoiLog.background", using: nil) { task in
+            self.handleBackgroundTask(task: task as! BGProcessingTask)
+        }
+    }
+
+    private func handleBackgroundTask(task: BGProcessingTask) {
+        scheduleAppRefresh()
+
+
+        task.expirationHandler = {
+            // Clean up if needed before the task expires
+        }
+
+        // Simulate a long-running task
+        DispatchQueue.global().async {
+            task.setTaskCompleted(success: true)
+        }
+    }
+
+    // Schedule the next background task
+    private func scheduleAppRefresh() {
+        let request = BGAppRefreshTaskRequest(identifier: "com.entaku.VoiLog.background")
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60) // 15 minutes
+
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("Could not schedule app refresh: \(error)")
+        }
     }
 }
