@@ -187,7 +187,7 @@ private actor AudioRecorder {
 
                 let audioFile = try AVAudioFile(forWriting: url, settings: settings)
 
-                inputNode.installTap(onBus: 0, bufferSize: 1024, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
+                inputNode.installTap(onBus: 0, bufferSize: 4096, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
                     guard !self.isPaused else { return }
 
                     self.currentTime = Double(audioFile.length) / sampleRate
