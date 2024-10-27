@@ -11,6 +11,10 @@ import GoogleMobileAds
 
 struct VoiceMemos: Reducer {
   struct State: Equatable {
+      enum Mode {
+          case recording
+          case playback
+      }
     @PresentationState var alert: AlertState<AlertAction>?
     var audioRecorderPermission = RecorderPermission.undetermined
     @PresentationState var recordingMemo: RecordingMemo.State?
@@ -18,6 +22,7 @@ struct VoiceMemos: Reducer {
     var isMailComposePresented: Bool = false
       var syncStatus: SyncStatus = .notSynced
       var hasPurchasedPremium: Bool = false
+      var currentMode: Mode = .recording
 
 
     enum RecorderPermission {
@@ -47,6 +52,8 @@ struct VoiceMemos: Reducer {
       case synciCloud
       case syncSuccess
       case syncFailure
+      case toggleMode
+
   }
 
   enum AlertAction: Equatable {
@@ -65,7 +72,9 @@ struct VoiceMemos: Reducer {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
-
+          case .toggleMode:
+            state.currentMode = (state.currentMode == .playback) ? .recording : .playback
+            return .none
             case .onAppear:
 
               let installDate = UserDefaultsManager.shared.installDate
@@ -385,6 +394,13 @@ struct VoiceMemosView: View {
                 }
                 .navigationTitle("シンプル録音")
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                           Button(action: {
+                               viewStore.send(.toggleMode)
+                           }) {
+                               Text(viewStore.currentMode == .playback ? "録音へ" : "再生へ")
+                           }
+                       }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         if viewStore.recordingMemo == nil {
                             let initialState = SettingReducer.State(
