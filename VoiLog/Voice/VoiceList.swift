@@ -24,6 +24,8 @@ struct VoiceMemos: Reducer {
       var hasPurchasedPremium: Bool = false
       var currentMode: Mode = .recording
 
+      var currentPlayingMemo: VoiceMemoReducer.State?
+
 
     enum RecorderPermission {
       case allowed
@@ -211,10 +213,12 @@ struct VoiceMemos: Reducer {
               state.alert = AlertState { TextState("Voice memo playback failed.") }
               return .none
             case .playbackStarted:
+                state.currentPlayingMemo = state.voiceMemos[id: id]
               for memoID in state.voiceMemos.ids where memoID != id {
                 state.voiceMemos[id: memoID]?.mode = .notPlaying
               }
               return .none
+
             }
 
           case .voiceMemos:
@@ -304,188 +308,283 @@ struct VoiceMemos: Reducer {
 
 
 struct VoiceMemosView: View {
-    let store: StoreOf<VoiceMemos>
-    let admobUnitId: String
-    let recordAdmobUnitId: String
+   let store: StoreOf<VoiceMemos>
+   let admobUnitId: String
+   let recordAdmobUnitId: String
 
-    enum AlertType {
-        case deleted
-        case appInterview
-        case mail
-    }
-    @State private var isDeleteConfirmationPresented = false
-    @State private var selectedIndex: Int?
+   enum AlertType {
+       case deleted
+       case appInterview
+       case mail
+   }
+   @State private var isDeleteConfirmationPresented = false
+   @State private var selectedIndex: Int?
 
-    init(store:  StoreOf<VoiceMemos>, admobUnitId:String, recordAdmobUnitId:String) {
-        self.store = store
-        self.admobUnitId = admobUnitId
-        self.recordAdmobUnitId = recordAdmobUnitId
-    }
+   init(store:  StoreOf<VoiceMemos>, admobUnitId:String, recordAdmobUnitId:String) {
+       self.store = store
+       self.admobUnitId = admobUnitId
+       self.recordAdmobUnitId = recordAdmobUnitId
+   }
 
-    var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            NavigationView {
-                VStack {
-                    List {
-                        ForEachStore(
-                            self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-                        ) {
-                            VoiceMemoListItem(store: $0, admobUnitId: admobUnitId)
-                        }
-                        .onDelete { indexSet in
-                            for index in indexSet {
-                                selectedIndex = index
-                                isDeleteConfirmationPresented = true
-                            }
-                        }
-                    }
-
-                    IfLetStore(
-                        self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
-                    ) { store in
-                        RecordingMemoView(store: store)
-                    } else: {
-                        RecordButton(permission: viewStore.audioRecorderPermission) {
-                            viewStore.send(.recordButtonTapped, animation: .spring())
-                        } settingsAction: {
-                            viewStore.send(.openSettingsButtonTapped)
-                        }
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.init(white: 0.95))
-
-                    AdmobBannerView(unitId: recordAdmobUnitId)
-                        .frame(height: 50)
-                }
-                .onAppear {
-                    checkTrackingAuthorizationStatus()
-                    viewStore.send(.onAppear)
-                }
-                .alert(store: self.store.scope(state: \.$alert, action: VoiceMemos.Action.alert))
-                .alert(isPresented: $isDeleteConfirmationPresented) {
-                    Alert(
-                        title: Text("削除しますか？"),
-                        message: Text("選択した音声を削除しますか？"),
-                        primaryButton: .destructive(Text("削除")) {
-                            if let index = selectedIndex {
-                                let voiceMemoID = viewStore.voiceMemos[index].uuid
-                                viewStore.send(.onDelete(uuid: voiceMemoID))
-                                selectedIndex = nil
-                            }
-                        },
-                        secondaryButton: .cancel() {
-                            selectedIndex = nil
-                        }
-                    )
-                }
-                .sheet(
-                    isPresented: viewStore.binding(
-                        get: \.isMailComposePresented,
-                        send: VoiceMemos.Action.mailComposeDismissed
-                    )
-                ) {
-                    MailComposeViewControllerWrapper(
-                        isPresented: viewStore.binding(
-                            get: \.isMailComposePresented,
-                            send: VoiceMemos.Action.mailComposeDismissed
-                        )
-                    )
-                }
-                .navigationTitle("シンプル録音")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                           Button(action: {
-                               viewStore.send(.toggleMode)
-                           }) {
-                               Text(viewStore.currentMode == .playback ? "録音へ" : "再生へ")
+   var body: some View {
+       WithViewStore(self.store, observe: { $0 }) { viewStore in
+           NavigationView {
+               VStack {
+                   List {
+                       ForEachStore(
+                           self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                       ) {
+                           VoiceMemoListItem(store: $0, admobUnitId: admobUnitId)
+                       }
+                       .onDelete { indexSet in
+                           for index in indexSet {
+                               selectedIndex = index
+                               isDeleteConfirmationPresented = true
                            }
                        }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        if viewStore.recordingMemo == nil {
-                            let initialState = SettingReducer.State(
-                                selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
-                                samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
-                                quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
-                                numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
-                                microphonesVolume: UserDefaultsManager.shared.microphonesVolume,
-                                developerSupported: UserDefaultsManager.shared.hasSupportedDeveloper,
-                                hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
-                            )
+                   }
+                   if let playingMemo = viewStore.currentPlayingMemo {
+                       PlayerView(memo: playingMemo, store: store)
+                   }
 
-                            let store = Store(initialState: initialState) {
-                                SettingReducer()
-                            }
+                   IfLetStore(
+                       self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
+                   ) { store in
+                       RecordingMemoView(store: store)
+                   } else: {
+                       RecordButton(permission: viewStore.audioRecorderPermission) {
+                           viewStore.send(.recordButtonTapped, animation: .spring())
+                       } settingsAction: {
+                           viewStore.send(.openSettingsButtonTapped)
+                       }
+                   }
+                   .padding()
+                   .frame(maxWidth: .infinity)
+                   .background(Color.init(white: 0.95))
 
-                            let settingView = SettingView(store: store, admobUnitId: admobUnitId)
+                   AdmobBannerView(unitId: recordAdmobUnitId)
+                       .frame(height: 50)
+               }
+               .onAppear {
+                   checkTrackingAuthorizationStatus()
+                   viewStore.send(.onAppear)
+               }
+               .alert(store: self.store.scope(state: \.$alert, action: VoiceMemos.Action.alert))
+               .alert(isPresented: $isDeleteConfirmationPresented) {
+                   Alert(
+                       title: Text("削除しますか？"),
+                       message: Text("選択した音声を削除しますか？"),
+                       primaryButton: .destructive(Text("削除")) {
+                           if let index = selectedIndex {
+                               let voiceMemoID = viewStore.voiceMemos[index].uuid
+                               viewStore.send(.onDelete(uuid: voiceMemoID))
+                               selectedIndex = nil
+                           }
+                       },
+                       secondaryButton: .cancel() {
+                           selectedIndex = nil
+                       }
+                   )
+               }
+               .sheet(
+                   isPresented: viewStore.binding(
+                       get: \.isMailComposePresented,
+                       send: VoiceMemos.Action.mailComposeDismissed
+                   )
+               ) {
+                   MailComposeViewControllerWrapper(
+                       isPresented: viewStore.binding(
+                           get: \.isMailComposePresented,
+                           send: VoiceMemos.Action.mailComposeDismissed
+                       )
+                   )
+               }
+               .navigationTitle("シンプル録音")
+               .toolbar {
+                   ToolbarItem(placement: .navigationBarLeading) {
+                       Button(action: {
+                           viewStore.send(.toggleMode)
+                       }) {
+                           Text(viewStore.currentMode == .playback ? "録音へ" : "再生へ")
+                       }
+                   }
+                   ToolbarItem(placement: .navigationBarTrailing) {
+                       if viewStore.recordingMemo == nil {
+                           makeToolbarContent(viewStore: viewStore)
+                       }
+                   }
+               }
+           }
+           .navigationViewStyle(.stack)
+       }
+   }
 
+   private func makeToolbarContent(viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) -> some View {
+       let initialState = SettingReducer.State(
+           selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
+           samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
+           quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
+           numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
+           microphonesVolume: UserDefaultsManager.shared.microphonesVolume,
+           developerSupported: UserDefaultsManager.shared.hasSupportedDeveloper,
+           hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
+       )
 
-                            HStack {
-                                if viewStore.syncStatus == .synced {
-                                    Image(systemName: "checkmark.icloud.fill")
-                                        .foregroundColor(.accentColor)
-                                } else if viewStore.syncStatus == .syncing {
-                                    Image(systemName: "arrow.triangle.2.circlepath.icloud.fill")
-                                        .foregroundColor(.accentColor)
-                                } else {
-                                    if viewStore.hasPurchasedPremium{
-                                        Button {
-                                            viewStore.send(.synciCloud)
-                                        } label: {
-                                            Image(systemName: "exclamationmark.icloud.fill")
-                                                .foregroundColor(.accentColor)
-                                        }
-                                    }else{
-                                        NavigationLink(destination: PaywallView(iapManager: IAPManager())) {
-                                            Image(systemName: "exclamationmark.icloud.fill")
-                                                .foregroundColor(.accentColor)
+       let settingStore = Store(initialState: initialState) {
+           SettingReducer()
+       }
 
-                                        }
-                                    }
+       return HStack {
+           makeSyncStatusView(viewStore: viewStore)
+           Spacer().frame(width: 10)
+           NavigationLink(destination: SettingView(store: settingStore, admobUnitId: admobUnitId)) {
+               Image(systemName: "gearshape.fill")
+                   .accentColor(.accentColor)
+           }
+       }
+   }
 
-                                }
-                                Spacer().frame(width: 10)
-                                NavigationLink(destination: settingView) {
-                                    Image(systemName: "gearshape.fill")
-                                        .accentColor(.accentColor)
-                                }
-                            }
+   private func makeSyncStatusView(viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) -> some View {
+       Group {
+           if viewStore.syncStatus == .synced {
+               Image(systemName: "checkmark.icloud.fill")
+                   .foregroundColor(.accentColor)
+           } else if viewStore.syncStatus == .syncing {
+               Image(systemName: "arrow.triangle.2.circlepath.icloud.fill")
+                   .foregroundColor(.accentColor)
+           } else {
+               if viewStore.hasPurchasedPremium {
+                   Button {
+                       viewStore.send(.synciCloud)
+                   } label: {
+                       Image(systemName: "exclamationmark.icloud.fill")
+                           .foregroundColor(.accentColor)
+                   }
+               } else {
+                   NavigationLink(destination: PaywallView(iapManager: IAPManager())) {
+                       Image(systemName: "exclamationmark.icloud.fill")
+                           .foregroundColor(.accentColor)
+                   }
+               }
+           }
+       }
+   }
 
+   func checkTrackingAuthorizationStatus() {
+       switch ATTrackingManager.trackingAuthorizationStatus {
+       case .notDetermined:
+           requestTrackingAuthorization()
+       case .restricted: break
+       case .denied: break
+       case .authorized: break
+       @unknown default: break
+       }
+   }
 
-                        }
-                    }
-                }
-            }
-            .navigationViewStyle(.stack)
-        }
-    }
-
-    func checkTrackingAuthorizationStatus() {
-        switch ATTrackingManager.trackingAuthorizationStatus {
-        case .notDetermined:
-            requestTrackingAuthorization()
-        case .restricted: break
-        case .denied: break
-        case .authorized: break
-        @unknown default: break
-        }
-    }
-
-    func requestTrackingAuthorization() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            ATTrackingManager.requestTrackingAuthorization { status in
-                switch status {
-                case .notDetermined: break
-                case .restricted: break
-                case .denied: break
-                case .authorized: break
-                @unknown default: break
-                }
-            }
-        }
-    }
+   func requestTrackingAuthorization() {
+       DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+           ATTrackingManager.requestTrackingAuthorization { status in
+               switch status {
+               case .notDetermined: break
+               case .restricted: break
+               case .denied: break
+               case .authorized: break
+               @unknown default: break
+               }
+           }
+       }
+   }
 }
 
+struct PlayerView: View {
+   let memo: VoiceMemoReducer.State
+   let store: StoreOf<VoiceMemos>
+
+   var body: some View {
+       VStack(spacing: 8) {
+           HStack {
+               Text(memo.title.isEmpty ? "名称未設定" : memo.title)
+                   .font(.headline)
+               Spacer()
+           }
+
+           HStack {
+               Text(memo.time.formattedTime())
+                   .font(.system(.caption, design: .monospaced))
+
+               GeometryReader { geometry in
+                   ZStack(alignment: .leading) {
+                       Rectangle()
+                           .fill(Color.gray.opacity(0.2))
+                           .frame(width: geometry.size.width, height: 4)
+
+                       Rectangle()
+                           .fill(Color.blue)
+                           .frame(width: geometry.size.width * CGFloat(memo.time / memo.duration), height: 4)
+                   }
+                   .clipShape(RoundedRectangle(cornerRadius: 2))
+               }
+               .frame(height: 4)
+
+               Text(memo.duration.formattedTime())
+                   .font(.system(.caption, design: .monospaced))
+           }
+           .padding(.horizontal)
+
+           HStack(spacing: 20) {
+               Spacer()
+
+               Button(action: {
+                   store.send(.voiceMemos(id: memo.id, action: .onTapPlaySpeed))
+               }) {
+                   Text("\(memo.playSpeed.description)")
+                       .font(.caption)
+                       .padding(.horizontal, 8)
+                       .padding(.vertical, 4)
+                       .background(Color.gray.opacity(0.2))
+                       .clipShape(Capsule())
+               }
+
+               Button(action: {
+                   store.send(.voiceMemos(id: memo.id, action: .skipBy(-10)))
+               }) {
+                   Image(systemName: "gobackward.10")
+                       .font(.title3)
+               }
+
+               Button(action: {
+                   store.send(.voiceMemos(id: memo.id, action: .playButtonTapped))
+               }) {
+                   Image(systemName: memo.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                       .font(.title)
+                       .foregroundColor(.blue)
+               }
+
+               Button(action: {
+                   store.send(.voiceMemos(id: memo.id, action: .skipBy(10)))
+               }) {
+                   Image(systemName: "goforward.10")
+                       .font(.title3)
+               }
+
+               Button(action: {
+                   store.send(.voiceMemos(id: memo.id, action: .toggleLoop))
+               }) {
+                   Image(systemName: "repeat")
+                       .font(.title3)
+                       .foregroundColor(memo.isLooping ? .blue : .gray)
+               }
+
+               Spacer()
+           }
+       }
+       .padding()
+       .background(Color.white)
+       .cornerRadius(12)
+       .shadow(radius: 2)
+       .padding(.horizontal)
+   }
+}
 struct RecordButton: View {
     let permission: VoiceMemos.State.RecorderPermission
   let action: () -> Void
