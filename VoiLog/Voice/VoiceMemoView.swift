@@ -271,6 +271,15 @@ struct VoiceMemoListItem: View {
                 VoiceMemoDetail(store: store, admobUnitId: admobUnitId)
             } label: {
                 HStack {
+                    Button(action: {
+                        viewStore.send(.playButtonTapped)
+                    }) {
+                        Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                    }
+                    .buttonStyle(.borderless)
+
                     VStack(spacing: 5) {
                         HStack {
                             if viewStore.title.count > 0 {
@@ -326,8 +335,6 @@ struct VoiceMemoListItem: View {
                             }
                         }
                     }
-
-
 
                     dateComponentsFormatter.string(from: currentTime).map {
                         Text($0)
