@@ -14,6 +14,7 @@
 		610A144E2A46EB0F00CB88AA /* VoiceDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */; };
 		611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A244C2A83DB9800F68D7D /* InfoPlist.strings */; };
 		611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A24522A83DBEC00F68D7D /* InfoPlist.strings */; };
+		612002732CE63F98004BB880 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612002722CE63F98004BB880 /* PlayerView.swift */; };
 		6124A0222ADAAE2C009444EA /* DependencyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124A0212ADAAE2C009444EA /* DependencyValues.swift */; };
 		612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */; };
 		612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612521162BC26E3B002A7A3E /* PaywallView.swift */; };
@@ -112,6 +113,7 @@
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		6105624E2BCC0CF700D82088 /* MockIAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIAPManager.swift; sourceTree = "<group>"; };
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
+		612002722CE63F98004BB880 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		6121ECC82ADB844300B94F83 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6124A0212ADAAE2C009444EA /* DependencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyValues.swift; sourceTree = "<group>"; };
 		6124A0232ADAD4E9009444EA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				6124A0212ADAAE2C009444EA /* DependencyValues.swift */,
 				6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */,
 				61458CE92C4C115A00B7107E /* AudioLevelView.swift */,
+				612002722CE63F98004BB880 /* PlayerView.swift */,
 			);
 			path = Voice;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */,
 				6105624F2BCC0CF700D82088 /* MockIAPManager.swift in Sources */,
 				6168A6422B43ACAB00B20F0F /* IAPManager.swift in Sources */,
+				612002732CE63F98004BB880 /* PlayerView.swift in Sources */,
 				617F129A2CE1044200D6815D /* TimeInterval+Extention.swift in Sources */,
 				61EC9B842AAC66080062533A /* Double+Extention.swift in Sources */,
 				6199AF832C4D2B8700CABC67 /* ErrorLogsView.swift in Sources */,
