@@ -15,6 +15,7 @@
 		611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A244C2A83DB9800F68D7D /* InfoPlist.strings */; };
 		611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A24522A83DBEC00F68D7D /* InfoPlist.strings */; };
 		612002732CE63F98004BB880 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612002722CE63F98004BB880 /* PlayerView.swift */; };
+		612002752CE64061004BB880 /* VoiceMemos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612002742CE64061004BB880 /* VoiceMemos.swift */; };
 		6124A0222ADAAE2C009444EA /* DependencyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124A0212ADAAE2C009444EA /* DependencyValues.swift */; };
 		612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */; };
 		612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612521162BC26E3B002A7A3E /* PaywallView.swift */; };
@@ -114,6 +115,7 @@
 		6105624E2BCC0CF700D82088 /* MockIAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIAPManager.swift; sourceTree = "<group>"; };
 		610A144D2A46EB0F00CB88AA /* VoiceDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceDetail.swift; sourceTree = "<group>"; };
 		612002722CE63F98004BB880 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		612002742CE64061004BB880 /* VoiceMemos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemos.swift; sourceTree = "<group>"; };
 		6121ECC82ADB844300B94F83 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6124A0212ADAAE2C009444EA /* DependencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyValues.swift; sourceTree = "<group>"; };
 		6124A0232ADAD4E9009444EA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				6167A4752ABC7FA30052945F /* MailComposeViewControllerWrapper.swift */,
 				61458CE92C4C115A00B7107E /* AudioLevelView.swift */,
 				612002722CE63F98004BB880 /* PlayerView.swift */,
+				612002742CE64061004BB880 /* VoiceMemos.swift */,
 			);
 			path = Voice;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */,
 				612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */,
 				61979A2128C466C500169FB6 /* VoiceMemoView.swift in Sources */,
+				612002752CE64061004BB880 /* VoiceMemos.swift in Sources */,
 				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
 				6101104C2C26AA830055D279 /* VoiceMemoRepository.swift in Sources */,
 				61458CEA2C4C115A00B7107E /* AudioLevelView.swift in Sources */,

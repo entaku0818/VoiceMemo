@@ -12,28 +12,29 @@ import SwiftUI
 
 struct VoiceMemoReducer: Reducer {
     enum Action: Equatable {
-        case audioPlayerClient(TaskResult<Bool>, PlaybackMode)
-        case delegate(Delegate)
-        case delete
-        case playButtonTapped
-        case timerUpdated(TimeInterval)
-        case titleTextFieldChanged(String)
-        case loadWaveformData
-        case onTapPlaySpeed
-        case skipBy(TimeInterval)
-        case toggleLoop
-        case onAppear
+       case audioPlayerClient(TaskResult<Bool>, PlaybackMode)
+       case delegate(Delegate)
+       case delete
+       case playButtonTapped
+       case timerUpdated(TimeInterval)
+       case titleTextFieldChanged(String)
+       case loadWaveformData
+       case onTapPlaySpeed
+       case skipBy(TimeInterval)
+       case toggleLoop
+       case onAppear
 
+       enum Delegate: Equatable {
+           case playbackStarted
+           case playbackFailed
+           case playbackStopped
+           case playbackInProgress(TimeInterval)
+       }
 
-        enum Delegate {
-            case playbackStarted
-            case playbackFailed
-        }
-
-        enum PlaybackMode {
-            case automatic
-            case manual
-        }
+       enum PlaybackMode: Equatable {
+           case automatic
+           case manual
+       }
     }
 
     private enum CancelID { case play }
