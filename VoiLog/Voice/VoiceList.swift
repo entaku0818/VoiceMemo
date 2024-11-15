@@ -46,7 +46,7 @@ struct VoiceMemosView: View {
                            }
                        }
                    }
-                   if let playingMemoID = viewStore.currentPlayingMemo?.id {
+                   if let playingMemoID = viewStore.currentPlayingMemo {
                          ForEachStore(
                              self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos),
                              content: { store in

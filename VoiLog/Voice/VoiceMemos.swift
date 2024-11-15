@@ -23,22 +23,20 @@ struct VoiceMemos: Reducer {
         var syncStatus: SyncStatus = .notSynced
         var hasPurchasedPremium: Bool = false
         var currentMode: Mode = .recording
-
-        var currentPlayingMemo: VoiceMemoReducer.State?
-
+        var currentPlayingMemo: VoiceMemoReducer.State.ID?
 
         enum RecorderPermission {
             case allowed
             case denied
             case undetermined
         }
+
         enum SyncStatus {
             case synced
             case syncing
             case notSynced
             case cantUseCloud
         }
-
     }
 
     enum Action: Equatable {
@@ -55,7 +53,6 @@ struct VoiceMemos: Reducer {
         case syncSuccess
         case syncFailure
         case toggleMode
-
     }
 
     enum AlertAction: Equatable {
@@ -71,53 +68,93 @@ struct VoiceMemos: Reducer {
     @Dependency(\.temporaryDirectory) var temporaryDirectory
     @Dependency(\.uuid) var uuid
 
+    private func handleVoiceMemoDelegate(
+        state: inout State,
+        id: VoiceMemoReducer.State.ID,
+        delegateAction: VoiceMemoReducer.Action.Delegate
+    ) -> Effect<Action> {
+        switch delegateAction {
+        case .playbackFailed:
+            state.alert = AlertState { TextState("Voice memo playback failed.") }
+            return .none
+
+        case .playbackStarted:
+            state.currentPlayingMemo = id
+            resetOtherMemos(state: &state, exceptId: id)
+            return .none
+
+        case let .playbackInProgress(currentTime):
+            if let currentMemoId = state.currentPlayingMemo,
+               currentMemoId == id {
+                state.voiceMemos[id: id]?.time = currentTime
+            }
+            return .none
+        case .playbackComplete:
+            print("playbackComplete")
+            state.currentPlayingMemo = nil
+            resetOtherMemos(state: &state, exceptId: id)
+
+            return .none
+        }
+    }
+
+
+
+    private func resetOtherMemos(state: inout State, exceptId: VoiceMemoReducer.State.ID) {
+        for memoID in state.voiceMemos.ids where memoID != exceptId {
+            state.voiceMemos[id: memoID]?.mode = .notPlaying
+        }
+    }
+
+    private func handleOnAppear(state: inout State) -> Effect<Action> {
+        let installDate = UserDefaultsManager.shared.installDate
+        let reviewCount = UserDefaultsManager.shared.reviewRequestCount
+
+        state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+
+        if let installDate = installDate {
+            let currentDate = Date()
+            if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
+                if interval >= 7 && reviewCount == 0 {
+                    if UIApplication.shared.connectedScenes.first is UIWindowScene {
+                        state.alert = AlertState {
+                            TextState("シンプル録音について")
+                        } actions: {
+                            ButtonState(action: .send(.onGoodReview)) {
+                                TextState("はい")
+                            }
+                            ButtonState(action: .send(.onBadReview)) {
+                                TextState("いいえ、フィードバックを送信")
+                            }
+                        } message: {
+                            TextState("シンプル録音に満足していますか？")
+                        }
+                        UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
+                    }
+                }
+            }
+        } else {
+            UserDefaultsManager.shared.installDate = Date()
+        }
+        return .none
+    }
+
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case .toggleMode:
                 state.currentMode = (state.currentMode == .playback) ? .recording : .playback
                 return .none
+
             case .onAppear:
-
-                let installDate = UserDefaultsManager.shared.installDate
-                let reviewCount = UserDefaultsManager.shared.reviewRequestCount
-
-                state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
-
-                // 初回起動時
-                if let installDate = installDate {
-                    let currentDate = Date()
-                    if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
-                        if interval >= 7 && reviewCount == 0 {
-                            if UIApplication.shared.connectedScenes.first is UIWindowScene {
-                                state.alert = AlertState {
-                                    TextState("シンプル録音について")
-                                } actions: {
-                                    ButtonState(action: .send(.onGoodReview)) {
-                                        TextState("はい")
-                                    }
-                                    ButtonState(action: .send(.onBadReview)) {
-                                        TextState("いいえ、フィードバックを送信")
-                                    }
-                                } message: {
-                                    TextState(
-                                        "シンプル録音に満足していますか？"
-                                    )
-                                }
-                                UserDefaultsManager.shared.reviewRequestCount = reviewCount + 1
-                            }
-                        }
-                    }
-                }else{
-                    UserDefaultsManager.shared.installDate = Date()
-                }
-
-
-                return .none
+                return handleOnAppear(state: &state)
 
             case let .onDelete(uuid):
                 state.voiceMemos.removeAll { $0.uuid == uuid }
-                let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
+                let voiceMemoRepository = VoiceMemoRepository(
+                    coreDataAccessor: VoiceMemoCoredataAccessor(),
+                    cloudUploader: CloudUploader()
+                )
                 voiceMemoRepository.delete(id: uuid)
                 return .none
 
@@ -125,28 +162,30 @@ struct VoiceMemos: Reducer {
                 return .run { _ in
                     await self.openSettings()
                 }
+
             case .synciCloud:
                 state.syncStatus = .syncing
                 return .run { send in
-                    let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
+                    let voiceMemoRepository = VoiceMemoRepository(
+                        coreDataAccessor: VoiceMemoCoredataAccessor(),
+                        cloudUploader: CloudUploader()
+                    )
                     let result = await voiceMemoRepository.syncToCloud()
-                    if result {
-                        await send(.syncSuccess)
-                    } else {
-                        await send(.syncFailure)
-                    }
+                    await send(result ? .syncSuccess : .syncFailure)
                 }
 
             case .syncSuccess:
-                let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
-                state.voiceMemos = IdentifiedArrayOf(uniqueElements:  voiceMemoRepository.selectAllData())
+                let voiceMemoRepository = VoiceMemoRepository(
+                    coreDataAccessor: VoiceMemoCoredataAccessor(),
+                    cloudUploader: CloudUploader()
+                )
+                state.voiceMemos = IdentifiedArrayOf(uniqueElements: voiceMemoRepository.selectAllData())
                 state.syncStatus = .synced
                 return .none
 
             case .syncFailure:
                 state.syncStatus = .notSynced
                 return .none
-
 
             case .recordButtonTapped:
                 switch state.audioRecorderPermission {
@@ -160,7 +199,6 @@ struct VoiceMemos: Reducer {
                     return .none
 
                 case .allowed:
-
                     state.recordingMemo = newRecordingMemo
                     return .none
                 }
@@ -169,10 +207,10 @@ struct VoiceMemos: Reducer {
                 state.recordingMemo = nil
                 state.voiceMemos.insert(
                     VoiceMemoReducer.State(
-
                         uuid: recordingMemo.uuid,
                         date: recordingMemo.date,
-                        duration: recordingMemo.duration, time: 0,
+                        duration: recordingMemo.duration,
+                        time: 0,
                         url: recordingMemo.url,
                         text: recordingMemo.resultText,
                         fileFormat: recordingMemo.fileFormat,
@@ -183,15 +221,16 @@ struct VoiceMemos: Reducer {
                     ),
                     at: 0
                 )
-                let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
+                let voiceMemoRepository = VoiceMemoRepository(
+                    coreDataAccessor: VoiceMemoCoredataAccessor(),
+                    cloudUploader: CloudUploader()
+                )
                 voiceMemoRepository.insert(state: recordingMemo)
-
                 return .none
 
             case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
                 state.alert = AlertState { TextState("Voice memo recording failed.") }
                 state.recordingMemo = nil
-
                 return .none
 
             case .recordingMemo:
@@ -208,66 +247,38 @@ struct VoiceMemos: Reducer {
                 }
 
             case let .voiceMemos(id: id, action: .delegate(delegateAction)):
-               switch delegateAction {
-               case .playbackFailed:
-                   state.alert = AlertState { TextState("Voice memo playback failed.") }
-                   return .none
-
-               case .playbackStarted:
-                   state.currentPlayingMemo = state.voiceMemos[id: id]
-                   for memoID in state.voiceMemos.ids where memoID != id {
-                       state.voiceMemos[id: memoID]?.mode = .notPlaying
-                   }
-                   return .none
-
-               case .playbackStopped:
-                   state.currentPlayingMemo = nil
-                   for memoID in state.voiceMemos.ids where memoID != id {
-                       state.voiceMemos[id: memoID]?.mode = .notPlaying
-                   }
-                   return .none
-
-               case let .playbackInProgress(currentTime):
-                   if let currentMemoId = state.currentPlayingMemo?.id,
-                      currentMemoId == id {
-                       state.voiceMemos[id: id]?.time = currentTime
-                   }
-                   return .none
-               }
+                return handleVoiceMemoDelegate(state: &state, id: id, delegateAction: delegateAction)
 
             case .voiceMemos:
                 return .none
+
             case .alert(.presented(.onAddReview)):
-
-
                 if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
                     SKStoreReviewController.requestReview(in: scene)
                 }
                 return .none
-            case .alert(.presented(.onGoodReview)):
 
+            case .alert(.presented(.onGoodReview)):
                 state.alert = AlertState(
                     title: TextState("シンプル録音について"),
                     message: TextState("ご利用ありがとうございます！次の画面でアプリの評価をお願いします。"),
-                    dismissButton: .default(TextState("OK"),
-                                            action: .send(.onAddReview))
+                    dismissButton: .default(TextState("OK"), action: .send(.onAddReview))
                 )
                 return .none
-            case .alert(.presented(.onBadReview)):
 
+            case .alert(.presented(.onBadReview)):
                 state.alert = AlertState(
                     title: TextState("ご不便かけて申し訳ありません"),
                     message: TextState("次の画面のメールにて詳細に状況を教えてください。"),
-                    dismissButton: .default(TextState("OK"),
-                                            action: .send(.onMailTap))
+                    dismissButton: .default(TextState("OK"), action: .send(.onMailTap))
                 )
                 return .none
 
             case .alert(.presented(.onMailTap)):
-
                 state.alert = nil
                 state.isMailComposePresented.toggle()
                 return .none
+
             case .alert(.dismiss):
                 return .none
 
@@ -283,13 +294,10 @@ struct VoiceMemos: Reducer {
         .forEach(\.voiceMemos, action: /Action.voiceMemos) {
             VoiceMemoReducer()
         }
-
-
     }
 
     func documentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
 
     private var newRecordingMemo: RecordingMemo.State {
@@ -311,9 +319,4 @@ struct VoiceMemos: Reducer {
             time: 0
         )
     }
-
-
-
-
 }
-
