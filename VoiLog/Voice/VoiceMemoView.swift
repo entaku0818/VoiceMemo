@@ -234,6 +234,7 @@ struct VoiceMemoListItem: View {
     let store: StoreOf<VoiceMemoReducer>
     @State private var showingModal = false
     let admobUnitId: String
+    let currentMode: VoiceMemos.State.Mode
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -321,14 +322,22 @@ struct VoiceMemoListItem: View {
                             .font(.footnote.monospacedDigit())
                             .foregroundColor(Color(.systemGray))
                     }
-                    Button(action: {
-                        viewStore.send(.playButtonTapped)
-                    }) {
-                        Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.blue)
+                    
+                    if currentMode == .playback {
+                        dateComponentsFormatter.string(from: currentTime).map {
+                            Text($0)
+                                .font(.footnote.monospacedDigit())
+                                .foregroundColor(Color(.systemGray))
+                        }
+                        Button(action: {
+                            viewStore.send(.playButtonTapped)
+                        }) {
+                            Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
+                        .buttonStyle(.borderless)
                     }
-                    .buttonStyle(.borderless)
                 }
             }
             .buttonStyle(.borderless)
@@ -361,7 +370,7 @@ struct VoiceMemoListItem_Previews: PreviewProvider {
             ) {
                 VoiceMemoReducer()
             },
-            admobUnitId: ""
+            admobUnitId: "", currentMode: .playback
         ).padding()
     }
 }

@@ -46,31 +46,36 @@ struct VoiceMemosView: View {
                            }
                        }
                    }
-                   if let playingMemoID = viewStore.currentPlayingMemo {
-                         ForEachStore(
-                             self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos),
-                             content: { store in
-                                 if store.withState({ $0.id == playingMemoID }) {
-                                     PlayerView(store: store)
+                   if viewStore.currentMode == .playback {
+                       if let playingMemoID = viewStore.currentPlayingMemo {
+                             ForEachStore(
+                                 self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos),
+                                 content: { store in
+                                     if store.withState({ $0.id == playingMemoID }) {
+                                         PlayerView(store: store)
+                                     }
                                  }
-                             }
-                         )
-                     }
-
-                   IfLetStore(
-                       self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
-                   ) { store in
-                       RecordingMemoView(store: store)
-                   } else: {
-                       RecordButton(permission: viewStore.audioRecorderPermission) {
-                           viewStore.send(.recordButtonTapped, animation: .spring())
-                       } settingsAction: {
-                           viewStore.send(.openSettingsButtonTapped)
+                             )
                        }
+                   }else if viewStore.currentMode == .recording {
+                       IfLetStore(
+                           self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
+                       ) { store in
+                           RecordingMemoView(store: store)
+                       } else: {
+                           RecordButton(permission: viewStore.audioRecorderPermission) {
+                               viewStore.send(.recordButtonTapped, animation: .spring())
+                           } settingsAction: {
+                               viewStore.send(.openSettingsButtonTapped)
+                           }
+                       }
+                       .padding()
+                       .frame(maxWidth: .infinity)
+                       .background(Color.init(white: 0.95))
                    }
-                   .padding()
-                   .frame(maxWidth: .infinity)
-                   .background(Color.init(white: 0.95))
+
+
+
 
                    AdmobBannerView(unitId: recordAdmobUnitId)
                        .frame(height: 50)
@@ -112,10 +117,13 @@ struct VoiceMemosView: View {
                .navigationTitle("シンプル録音")
                .toolbar {
                    ToolbarItem(placement: .navigationBarLeading) {
-                       Button(action: {
-                           viewStore.send(.toggleMode)
-                       }) {
-                           Text(viewStore.currentMode == .playback ? "録音へ" : "再生へ")
+
+                       if viewStore.currentPlayingMemo == nil {
+                           Button(action: {
+                               viewStore.send(.toggleMode)
+                           }) {
+                               Text(viewStore.currentMode == .playback ? "再生" : "録音")
+                           }
                        }
                    }
                    ToolbarItem(placement: .navigationBarTrailing) {

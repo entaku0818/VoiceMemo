@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import ComposableArchitecture
 struct PlayerView: View {
+    @Environment(\.colorScheme) var colorScheme
     let store: StoreOf<VoiceMemoReducer>
 
     var body: some View {
@@ -53,7 +54,7 @@ struct PlayerView: View {
                             .font(.caption)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
-                            .background(Color.gray.opacity(0.2))
+                            .background(colorScheme == .dark ? Color.gray.opacity(0.3) : Color.gray.opacity(0.2))
                             .clipShape(Capsule())
                     }
 
@@ -65,11 +66,11 @@ struct PlayerView: View {
                     }
 
                     Button(action: {
-                        viewStore.send(.playButtonTapped)
+                       viewStore.send(.playButtonTapped)
                     }) {
-                        Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .font(.title)
-                            .foregroundColor(.blue)
+                       Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                           .font(.system(size: 44))
+                           .foregroundColor(.blue)
                     }
 
                     Button(action: {
@@ -91,10 +92,69 @@ struct PlayerView: View {
                 }
             }
             .padding()
-            .background(Color.white)
-            .cornerRadius(12)
-            .shadow(radius: 2)
+            .background(colorScheme == .dark ? Color.black : Color.white)
             .padding(.horizontal)
         }
+    }
+}
+
+struct PlayerView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            // ライトモード
+            PlayerView(
+                store: Store(
+                    initialState: VoiceMemoReducer.State(
+                        uuid: UUID(),
+                        date: Date(),
+                        duration: 180,
+                        time: 30,
+                        mode: .playing(progress: 30/180),
+                        title: "再生中のメモ",
+                        url: URL(fileURLWithPath: "/path/to/memo.m4a"),
+                        text: "Sample text",
+                        fileFormat: "m4a",
+                        samplingFrequency: 44100.0,
+                        quantizationBitDepth: 16,
+                        numberOfChannels: 2,
+                        playSpeed: .normal,
+                        isLooping: false,
+                        hasPurchasedPremium: false
+                    )
+                ) {
+                    VoiceMemoReducer()
+                }
+            )
+            .previewDisplayName("Light Mode")
+
+            // ダークモード
+            PlayerView(
+                store: Store(
+                    initialState: VoiceMemoReducer.State(
+                        uuid: UUID(),
+                        date: Date(),
+                        duration: 180,
+                        time: 0,
+                        mode: .notPlaying,
+                        title: "停止中のメモ",
+                        url: URL(fileURLWithPath: "/path/to/memo.m4a"),
+                        text: "Sample text",
+                        fileFormat: "m4a",
+                        samplingFrequency: 44100.0,
+                        quantizationBitDepth: 16,
+                        numberOfChannels: 2,
+                        playSpeed: .fast,
+                        isLooping: true,
+                        hasPurchasedPremium: false
+                    )
+                ) {
+                    VoiceMemoReducer()
+                }
+            )
+            .preferredColorScheme(.dark)
+            .previewDisplayName("Dark Mode")
+        }
+        .previewLayout(.sizeThatFits)
+        .background(Color.gray.opacity(0.1))
     }
 }

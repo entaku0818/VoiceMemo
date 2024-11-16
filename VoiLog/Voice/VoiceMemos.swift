@@ -90,7 +90,6 @@ struct VoiceMemos: Reducer {
             }
             return .none
         case .playbackComplete:
-            print("playbackComplete")
             // Find the index of the current memo
             if let currentIndex = state.voiceMemos.index(id: id) {
                 // Check if there's a next memo
