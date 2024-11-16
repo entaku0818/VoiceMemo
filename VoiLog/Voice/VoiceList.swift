@@ -37,7 +37,7 @@ struct VoiceMemosView: View {
                        ForEachStore(
                            self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
                        ) {
-                           VoiceMemoListItem(store: $0, admobUnitId: admobUnitId)
+                           VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
                        }
                        .onDelete { indexSet in
                            for index in indexSet {
