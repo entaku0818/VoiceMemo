@@ -82,8 +82,6 @@ private actor AudioPlayer {
         // ファイルの存在チェック
         let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
         let fileURL = URL(fileURLWithPath: documentsPath)
-        print("Files in Documents directory: \(listFilesInDocumentsDirectory())")
-        print("Files in Documents directory: \(fileURL.absoluteString)")
 
         guard FileManager.default.fileExists(atPath: fileURL.path()) else {
             throw NSError(domain: "FileNotFound", code: 404, userInfo: [NSLocalizedDescriptionKey: "The file does not exist."])
