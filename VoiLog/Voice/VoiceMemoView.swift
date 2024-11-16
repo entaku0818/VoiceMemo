@@ -41,6 +41,41 @@ struct VoiceMemoReducer: Reducer {
     @Dependency(\.audioPlayer) var audioPlayer
     @Dependency(\.continuousClock) var clock
 
+    private func playAudioEffect(
+            url: URL,
+            time: TimeInterval,
+            playSpeed: AudioPlayerClient.PlaybackSpeed,
+            isLoop: Bool
+        ) -> Effect<Action> {
+            .run { [audioPlayer, clock] send in
+                await send(.delegate(.playbackStarted))
+                let timerTask = Task {
+                    for await _ in clock.timer(interval: .milliseconds(100)) {
+                        let currentTime = try await audioPlayer.getCurrentTime()
+                        await send(.timerUpdated(currentTime))
+                    }
+                }
+
+                do {
+                    let didComplete = try await audioPlayer.play(url, time, playSpeed, isLoop)
+
+                    // Cancel the timer task when playback completes
+                    timerTask.cancel()
+
+                    if didComplete {
+                        await send(.delegate(.playbackComplete))
+                    }
+                    await send(.audioPlayerClient(.success(didComplete), .automatic))
+                } catch {
+                    await send(.delegate(.playbackFailed))
+                    await send(.audioPlayerClient(.failure(error), .automatic))
+                    timerTask.cancel()
+                }
+            }
+            .cancellable(id: CancelID.play, cancelInFlight: true)
+        }
+
+
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         enum PlayID {}
         switch action {
@@ -65,24 +100,12 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 state.mode = .playing(progress: state.time / state.duration)
 
-                return .run { [url = state.url, time = state.time, playSpeed = state.playSpeed, isLoop = state.isLooping] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(
-                            TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) },
-                            .automatic
-                        )
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
 
             case .playing:
                 state.mode = .notPlaying
@@ -105,13 +128,7 @@ struct VoiceMemoReducer: Reducer {
             case .playing:
                 state.mode = .playing(progress: time / state.duration)
                 state.time = time
-                if time >= state.duration {
-                    state.time = 0
-                    state.mode = .notPlaying
-                    return .run { send in
-                        await send(.delegate(.playbackComplete))
-                    }
-                }
+
             }
             return .none
 
@@ -138,24 +155,12 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 return .none
             case .playing:
-                return .run { [url = state.url, time = state.time, playSpeed = state.playSpeed, isLoop = state.isLooping] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(
-                            TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) },
-                            .automatic
-                        )
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
             }
 
         case let .skipBy(seconds):
@@ -165,24 +170,12 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 return .none
             case .playing:
-                return .run { [url = state.url, playSpeed = state.playSpeed, isLoop = state.isLooping] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(
-                            TaskResult { try await self.audioPlayer.play(url, newTime, playSpeed, isLoop) },
-                            .automatic
-                        )
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
             }
 
         case .toggleLoop:
@@ -191,24 +184,12 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 return .none
             case .playing:
-                return .run { [url = state.url, time = state.time, playSpeed = state.playSpeed, isLoop = state.isLooping] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(
-                            TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) },
-                            .automatic
-                        )
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
             }
 
         case .onAppear:

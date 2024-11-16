@@ -91,9 +91,24 @@ struct VoiceMemos: Reducer {
             return .none
         case .playbackComplete:
             print("playbackComplete")
-            state.currentPlayingMemo = nil
-            resetOtherMemos(state: &state, exceptId: id)
-
+            // Find the index of the current memo
+            if let currentIndex = state.voiceMemos.index(id: id) {
+                // Check if there's a next memo
+                let nextIndex = currentIndex + 1
+                if nextIndex < state.voiceMemos.count {
+                    // Get the next memo's ID
+                    let nextMemoId = state.voiceMemos[nextIndex].id
+                    // Reset the current memo
+                    state.voiceMemos[id: id]?.mode = .notPlaying
+                    state.voiceMemos[id: id]?.time = 0
+                    // Start playing the next memo
+                    return .send(.voiceMemos(id: nextMemoId, action: .playButtonTapped))
+                } else {
+                    // No next memo, reset everything
+                    state.currentPlayingMemo = nil
+                    resetOtherMemos(state: &state, exceptId: id)
+                }
+            }
             return .none
         }
     }
