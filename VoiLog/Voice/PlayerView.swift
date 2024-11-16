@@ -101,7 +101,6 @@ struct PlayerView: View {
 struct PlayerView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            // ライトモード
             PlayerView(
                 store: Store(
                     initialState: VoiceMemoReducer.State(
@@ -127,7 +126,6 @@ struct PlayerView_Previews: PreviewProvider {
             )
             .previewDisplayName("Light Mode")
 
-            // ダークモード
             PlayerView(
                 store: Store(
                     initialState: VoiceMemoReducer.State(
