@@ -3024,6 +3024,16 @@
         }
       }
     },
+    "再生" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play"
+          }
+        }
+      }
+    },
     "利用規約" : {
       "localizations" : {
         "de" : {
@@ -3936,8 +3946,25 @@
         }
       }
     },
+    "録音" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record"
+          }
+        }
+      }
+    },
     "録音中" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording"
+          }
+        }
+      }
     },
     "開発者を支援する" : {
       "localizations" : {

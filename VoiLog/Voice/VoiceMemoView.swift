@@ -24,13 +24,14 @@ struct VoiceMemoReducer: Reducer {
         case toggleLoop
         case onAppear
 
-
-        enum Delegate {
+        enum Delegate: Equatable {
             case playbackStarted
             case playbackFailed
+            case playbackInProgress(TimeInterval)
+            case playbackComplete
         }
 
-        enum PlaybackMode {
+        enum PlaybackMode: Equatable {
             case automatic
             case manual
         }
@@ -39,6 +40,41 @@ struct VoiceMemoReducer: Reducer {
     private enum CancelID { case play }
     @Dependency(\.audioPlayer) var audioPlayer
     @Dependency(\.continuousClock) var clock
+
+    private func playAudioEffect(
+            url: URL,
+            time: TimeInterval,
+            playSpeed: AudioPlayerClient.PlaybackSpeed,
+            isLoop: Bool
+        ) -> Effect<Action> {
+            .run { [audioPlayer, clock] send in
+                await send(.delegate(.playbackStarted))
+                let timerTask = Task {
+                    for await _ in clock.timer(interval: .milliseconds(100)) {
+                        let currentTime = try await audioPlayer.getCurrentTime()
+                        await send(.timerUpdated(currentTime))
+                    }
+                }
+
+                do {
+                    let didComplete = try await audioPlayer.play(url, time, playSpeed, isLoop)
+
+                    // Cancel the timer task when playback completes
+                    timerTask.cancel()
+
+                    if didComplete {
+                        await send(.delegate(.playbackComplete))
+                    }
+                    await send(.audioPlayerClient(.success(didComplete), .automatic))
+                } catch {
+                    await send(.delegate(.playbackFailed))
+                    await send(.audioPlayerClient(.failure(error), .automatic))
+                    timerTask.cancel()
+                }
+            }
+            .cancellable(id: CancelID.play, cancelInFlight: true)
+        }
+
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         enum PlayID {}
@@ -50,11 +86,10 @@ struct VoiceMemoReducer: Reducer {
             case .automatic:
                 state.time = 0
             case .manual:
-                if Int(state.duration) <= Int(state.time){
+                if Int(state.duration) <= Int(state.time) {
                     state.time = 0
                 }
             }
-
             return .cancel(id: CancelID.play)
 
         case .delete:
@@ -63,41 +98,25 @@ struct VoiceMemoReducer: Reducer {
         case .playButtonTapped:
             switch state.mode {
             case .notPlaying:
-                print("audioPlayer:" + String(state.time))
-
                 state.mode = .playing(progress: state.time / state.duration)
 
-                return .run { [
-                        url = state.url,
-                        time = state.time,
-                        playSpeed = state.playSpeed,
-                        isLoop = state.isLooping
-                ] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
-
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
 
             case .playing:
                 state.mode = .notPlaying
                 return .run { send in
-
                     async let stopAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.stop() }, .manual)
+                        .audioPlayerClient(
+                            TaskResult { try await self.audioPlayer.stop() },
+                            .manual
+                        )
                     )
                     await stopAudio
-
                 }
                 .cancellable(id: CancelID.play, cancelInFlight: true)
             }
@@ -106,47 +125,42 @@ struct VoiceMemoReducer: Reducer {
             switch state.mode {
             case .notPlaying:
                 break
-            case let .playing(progress: progress):
-                
+            case .playing:
                 state.mode = .playing(progress: time / state.duration)
                 state.time = time
+
             }
             return .none
 
+
         case let .titleTextFieldChanged(text):
             state.title = text
-            let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
+            let voiceMemoRepository = VoiceMemoRepository(
+                coreDataAccessor: VoiceMemoCoredataAccessor(),
+                cloudUploader: CloudUploader()
+            )
             voiceMemoRepository.update(state: state)
             return .none
 
         case .loadWaveformData:
-
             return .none
+
         case .delegate:
             return .none
+
         case .onTapPlaySpeed:
             state.playSpeed = state.playSpeed.next()
 
             switch state.mode {
-
             case .notPlaying:
                 return .none
             case .playing:
-                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed,isLoop = state.isLooping ] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
             }
 
         case let .skipBy(seconds):
@@ -156,45 +170,28 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 return .none
             case .playing:
-                return .run { [url = state.url,playSpeed = state.playSpeed,isLoop = state.isLooping ] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, newTime, playSpeed, isLoop) }, .automatic)
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
             }
 
         case .toggleLoop:
-            state.isLooping.toggle() // Toggle the loop state
+            state.isLooping.toggle()
             switch state.mode {
             case .notPlaying:
                 return .none
             case .playing:
-                return .run { [url = state.url,time = state.time,playSpeed = state.playSpeed,isLoop = state.isLooping ] send in
-                    await send(.delegate(.playbackStarted))
-
-                    async let playAudio: Void = send(
-                        .audioPlayerClient(TaskResult { try await self.audioPlayer.play(url, time, playSpeed, isLoop) }, .automatic)
-                    )
-
-                    for await _ in self.clock.timer(interval: .milliseconds(500)) {
-                        let time = try await self.audioPlayer.getCurrentTime()
-                        await send(.timerUpdated(time))
-                    }
-
-                    await playAudio
-                }
-                .cancellable(id: CancelID.play, cancelInFlight: true)
+                return playAudioEffect(
+                     url: state.url,
+                     time: state.time,
+                     playSpeed: state.playSpeed,
+                     isLoop: state.isLooping
+                 )
             }
+
         case .onAppear:
             state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
             return .none
@@ -202,31 +199,23 @@ struct VoiceMemoReducer: Reducer {
         }
     }
 
-
     struct State: Equatable, Identifiable {
         var uuid: UUID
         var date: Date
-
-        /// 音声のトータル時間
         var duration: TimeInterval
-        /// 再生時間
         var time: TimeInterval
         var mode = Mode.notPlaying
         var title = ""
         var url: URL
         var text: String
-
         var fileFormat: String
         var samplingFrequency: Double
         var quantizationBitDepth: Int
         var numberOfChannels: Int
-
         var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
         var isLooping: Bool = false
-
-
-
         var waveformData: [Float] = []
+        var hasPurchasedPremium: Bool
 
         var id: URL { self.url }
 
@@ -239,14 +228,13 @@ struct VoiceMemoReducer: Reducer {
                 return false
             }
         }
-        var hasPurchasedPremium:Bool
     }
-
 }
 struct VoiceMemoListItem: View {
     let store: StoreOf<VoiceMemoReducer>
     @State private var showingModal = false
     let admobUnitId: String
+    let currentMode: VoiceMemos.State.Mode
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -271,6 +259,8 @@ struct VoiceMemoListItem: View {
                 VoiceMemoDetail(store: store, admobUnitId: admobUnitId)
             } label: {
                 HStack {
+
+
                     VStack(spacing: 5) {
                         HStack {
                             if viewStore.title.count > 0 {
@@ -327,12 +317,26 @@ struct VoiceMemoListItem: View {
                         }
                     }
 
-
-
                     dateComponentsFormatter.string(from: currentTime).map {
                         Text($0)
                             .font(.footnote.monospacedDigit())
                             .foregroundColor(Color(.systemGray))
+                    }
+                    
+                    if currentMode == .playback {
+                        dateComponentsFormatter.string(from: currentTime).map {
+                            Text($0)
+                                .font(.footnote.monospacedDigit())
+                                .foregroundColor(Color(.systemGray))
+                        }
+                        Button(action: {
+                            viewStore.send(.playButtonTapped)
+                        }) {
+                            Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
+                        .buttonStyle(.borderless)
                     }
                 }
             }
@@ -366,7 +370,7 @@ struct VoiceMemoListItem_Previews: PreviewProvider {
             ) {
                 VoiceMemoReducer()
             },
-            admobUnitId: ""
+            admobUnitId: "", currentMode: .playback
         ).padding()
     }
 }
