@@ -118,7 +118,7 @@ struct VoiceMemosView: View {
                .toolbar {
                    ToolbarItem(placement: .navigationBarLeading) {
 
-                       if viewStore.currentPlayingMemo == nil {
+                       if !viewStore.hasPlayingMemo {
                            Button(action: {
                                viewStore.send(.toggleMode)
                            }) {

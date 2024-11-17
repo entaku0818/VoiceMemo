@@ -333,4 +333,18 @@ struct VoiceMemos: Reducer {
             time: 0
         )
     }
+
+
+}
+
+
+extension VoiceMemos.State {
+    var hasPlayingMemo: Bool {
+        voiceMemos.contains { memo in
+            if case .playing = memo.mode {
+                return true
+            }
+            return false
+        }
+    }
 }
