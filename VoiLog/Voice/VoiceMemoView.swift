@@ -324,11 +324,6 @@ struct VoiceMemoListItem: View {
                     }
                     
                     if currentMode == .playback {
-                        dateComponentsFormatter.string(from: currentTime).map {
-                            Text($0)
-                                .font(.footnote.monospacedDigit())
-                                .foregroundColor(Color(.systemGray))
-                        }
                         Button(action: {
                             viewStore.send(.playButtonTapped)
                         }) {
