@@ -169,7 +169,7 @@ struct PaywallView: View {
     // RevenueCat用の商品情報取得処理
     func fetchProductInfo() async {
         do {
-            let (name, price) = try await purchaseManager.fetchProductNameAndPrice(productIdentifier: "premium_monthly")
+            let (name, price) = try await purchaseManager.fetchProPlan()
             productName = name
             productPrice = price
         } catch {
@@ -183,13 +183,17 @@ struct PaywallView: View {
     // RevenueCat用の購入処理
     func purchaseProduct() async {
         do {
-            try await purchaseManager.startPurchase(productID: "premium_monthly")
-            alertMessage = "購入が完了しました！"
-            showAlert = true
-            presentationMode.wrappedValue.dismiss()
+            try await purchaseManager.purchasePro()
+            await MainActor.run {
+                alertMessage = "購入が完了しました！"
+                showAlert = true
+                presentationMode.wrappedValue.dismiss()
+            }
         } catch {
-            alertMessage = "購入に失敗しました"
-            showAlert = true
+            await MainActor.run {
+                alertMessage = "購入に失敗しました"
+                showAlert = true
+            }
         }
     }
 

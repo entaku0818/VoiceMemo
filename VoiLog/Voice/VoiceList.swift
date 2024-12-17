@@ -76,9 +76,10 @@ struct VoiceMemosView: View {
 
 
 
-
-                   AdmobBannerView(unitId: recordAdmobUnitId)
-                       .frame(height: 50)
+                   if !viewStore.hasPurchasedPremium{
+                       AdmobBannerView(unitId: recordAdmobUnitId)
+                           .frame(height: 50)
+                   }
                }
                .onAppear {
                    checkTrackingAuthorizationStatus()
