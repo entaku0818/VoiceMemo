@@ -1,146 +1,119 @@
 import StoreKit
+import RevenueCat
+import os.log
 
-
-protocol IAPManagerProtocol {
+protocol PurchaseManagerProtocol {
     func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String)
     func startPurchase(productID: String) async throws
     func restorePurchases() async throws
+    func startOneTimePurchase() async throws
+
 }
 
-
-class IAPManager: NSObject, IAPManagerProtocol, SKProductsRequestDelegate, SKPaymentTransactionObserver {
-
-    
-    static let shared = IAPManager()
-
-    private var currentContinuation: CheckedContinuation<SKProduct, Error>?
-
-    private var restoreContinuation: CheckedContinuation<Void, Error>?
+class PurchaseManager: PurchaseManagerProtocol {
+    private let logger = OSLog(subsystem: "com.entaku.VoiLog", category: "Purchase")
 
 
-    enum IAPError: Error {
-        case cannotMakePayments
+    static let shared = PurchaseManager()
+
+    private init() {}
+
+    enum PurchaseError: Error {
         case productNotFound
-        case canceled
-        case noRestorablePurchases
+        case purchaseFailed
+        case noEntitlements
     }
 
-    override init() {
-        super.init()
-        SKPaymentQueue.default().add(self)
+    func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String) {
+        let offerings = try await Purchases.shared.offerings()
+
+        guard let offering = offerings.current,
+              let package = offering.package(identifier: productIdentifier) else {
+            throw PurchaseError.productNotFound
+        }
+
+        return (name: package.storeProduct.localizedTitle,
+                price: package.localizedPriceString)
+    }
+
+    func startPurchase(productID: String) async throws {
+        let offerings = try await Purchases.shared.offerings()
+
+        guard let offering = offerings.current,
+              let package = offering.availablePackages.first(where: { $0.identifier == "$rc_annual" }) else {
+            throw PurchaseError.productNotFound
+        }
+
+        do {
+            let (_, customerInfo, _) = try await Purchases.shared.purchase(package: package)
+
+            if customerInfo.entitlements["premium"]?.isActive == true {
+                UserDefaultsManager.shared.hasPurchasedProduct = true
+            } else {
+                throw PurchaseError.purchaseFailed
+            }
+        } catch {
+            throw PurchaseError.purchaseFailed
+        }
     }
 
     func restorePurchases() async throws {
-        guard restoreContinuation == nil else {
-            return
-        }
-        return try await withCheckedThrowingContinuation { continuation in
-            self.restoreContinuation = continuation
-            SKPaymentQueue.default().restoreCompletedTransactions()
-        }
-    }
-
-
-
-    private func fetchProduct(productIdentifier: String) async throws -> SKProduct {
-        return try await withCheckedThrowingContinuation { continuation in
-            let request = SKProductsRequest(productIdentifiers: Set([productIdentifier]))
-            request.delegate = self
-            self.currentContinuation = continuation
-            request.start()
-        }
-    }
-
-    // SKProductsRequestDelegate
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        if let product = response.products.first {
-            currentContinuation?.resume(returning: product)
-        } else {
-            currentContinuation?.resume(throwing: IAPError.productNotFound)
-        }
-        currentContinuation = nil
-    }
-
-    private var purchaseContinuation: CheckedContinuation<Void, Error>?
-
-
-     private func buyProduct(_ product: SKProduct) {
-         let payment = SKPayment(product: product)
-         SKPaymentQueue.default().add(payment)
-     }
-
-
-    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
-            switch transaction.transactionState {
-            case .purchased:
-                completeTransaction(transaction)
-            case .restored:
-                completeTransaction(transaction)
-            case .failed:
-                failTransaction(transaction)
-            default:
-                break
+        do {
+            let customerInfo = try await Purchases.shared.restorePurchases()
+            if customerInfo.entitlements["premium"]?.isActive == true {
+                UserDefaultsManager.shared.hasPurchasedProduct = true
+            } else {
+                throw PurchaseError.noEntitlements
             }
+        } catch {
+            throw error
         }
     }
 
-    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        if queue.transactions.isEmpty {
-            restoreContinuation?.resume(throwing: IAPError.noRestorablePurchases)
+    func startOneTimePurchase() async throws {
+        let offerings = try await Purchases.shared.offerings()
+
+        os_log("=== Purchase Flow Start ===", log: logger, type: .debug)
+        os_log("Offerings: %{public}@", log: logger, type: .debug, offerings.all.keys.description)
+        os_log("Current Offering ID: %{public}@", log: logger, type: .debug, offerings.current?.identifier ?? "nil")
+
+        if let current = offerings.current {
+            os_log("Packages in current offering:", log: logger, type: .debug)
+            current.availablePackages.forEach { package in
+                os_log("- ID: %{public}@", log: logger, type: .debug, package.identifier)
+                os_log("  Product: %{public}@", log: logger, type: .debug, package.storeProduct.productIdentifier)
+            }
+        } else {
+            os_log("No current offering available", log: logger, type: .debug)
         }
-    }
 
-    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-         restoreContinuation?.resume(throwing: error)
-     }
-
-    private func completeTransaction(_ transaction: SKPaymentTransaction) {
-        // Transaction completion process for both purchase and restore
-        SKPaymentQueue.default().finishTransaction(transaction)
-        UserDefaultsManager.shared.hasPurchasedProduct = true
-        switch transaction.transactionState {
-        case .purchased:
-            purchaseContinuation?.resume(returning: ())
-            purchaseContinuation = nil
-        case .restored:
-            restoreContinuation?.resume(returning: ())
-            restoreContinuation = nil
-        default:
-            break
+        guard let offering = offerings.current else {
+            os_log("No current offering available", log: logger, type: .error)
+            throw PurchaseError.productNotFound
         }
-    }
 
-     private func failTransaction(_ transaction: SKPaymentTransaction) {
-         // トランザクションが失敗したときの処理
-         if let error = transaction.error {
-             purchaseContinuation?.resume(throwing: error) // Resume the continuation with error
-         }
-         SKPaymentQueue.default().finishTransaction(transaction)
-     }
-
-     func startPurchase(productID: String) async throws {
-         guard SKPaymentQueue.canMakePayments() else {
-             throw IAPError.cannotMakePayments
-         }
-
-         let product = try await fetchProduct(productIdentifier: productID)
-
-         return try await withCheckedThrowingContinuation { continuation in
-             self.purchaseContinuation = continuation
-             buyProduct(product)
-         }
-     }
-
-
-    func fetchProductNameAndPrice(productIdentifier: String) async throws -> (name: String, price: String) {
-        let product = try await fetchProduct(productIdentifier: productIdentifier)
-        guard let localizedPrice = product.localizedPrice else {
-            throw IAPError.productNotFound
+        guard let package = offering.availablePackages.first(where: { $0.identifier == "developerSupport" }) else {
+            os_log("Failed to get package", log: logger, type: .debug)
+            os_log("Available packages: %{public}@", log: logger, type: .debug,
+                  offering.availablePackages.map { $0.identifier }.description)
+            throw PurchaseError.productNotFound
         }
-        return (name: product.localizedTitle, price: localizedPrice)
-    }
 
+        os_log("Found package: %{public}@", log: logger, type: .debug, package.identifier)
+        os_log("Product ID: %{public}@", log: logger, type: .debug, package.storeProduct.productIdentifier)
+
+        do {
+            let (_, customerInfo, _) = try await Purchases.shared.purchase(package: package)
+            os_log("Purchase completed", log: logger, type: .debug)
+            os_log("Premium status: %{public}@", log: logger, type: .debug,
+                  String(customerInfo.entitlements["premium"]?.isActive ?? false))
+        } catch {
+            os_log("Purchase failed: %{public}@", log: logger, type: .error, error.localizedDescription)
+            throw PurchaseError.purchaseFailed
+        }
+
+        os_log("=== Purchase Flow End ===", log: logger, type: .debug)
+    }
 }
 
 

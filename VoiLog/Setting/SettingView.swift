@@ -50,13 +50,11 @@ struct SettingReducer: Reducer {
             UserDefaultsManager.shared.microphonesVolume = volume
             return .none
         case .alert(.presented(.purchaseProduct)):
-            let productID = "developerSupport"
-            // IAPManagerの共有インスタンスを使用して購入を開始する
             return .run { send in
                 do {
-                    try await IAPManager.shared.startPurchase(productID: productID)
+                    try await PurchaseManager.shared.startOneTimePurchase()
                     await send(.supported)
-                } catch let error {
+                } catch {
                     print(error)
                 }
             }
@@ -120,7 +118,7 @@ struct SettingView: View {
                 if !viewStore.hasPurchasedPremium{
 
 
-                    NavigationLink(destination: PaywallView(iapManager: IAPManager())) {
+                    NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
                         HStack{
                             Image(systemName: "music.mic.circle.fill")
                                 .resizable()
