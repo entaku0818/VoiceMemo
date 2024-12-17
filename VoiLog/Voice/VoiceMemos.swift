@@ -90,7 +90,12 @@ struct VoiceMemos: Reducer {
             }
             return .none
         case .playbackComplete:
-            // Find the index of the current memo
+            guard state.currentMode == .playback else {
+                // 録音モードの場合は再生を停止
+                state.currentPlayingMemo = nil
+                resetOtherMemos(state: &state, exceptId: id)
+                return .none
+            }
             if let currentIndex = state.voiceMemos.index(id: id) {
                 // Check if there's a next memo
                 let nextIndex = currentIndex + 1
