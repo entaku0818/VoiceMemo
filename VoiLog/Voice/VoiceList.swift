@@ -76,9 +76,10 @@ struct VoiceMemosView: View {
 
 
 
-
-                   AdmobBannerView(unitId: recordAdmobUnitId)
-                       .frame(height: 50)
+                   if !viewStore.hasPurchasedPremium{
+                       AdmobBannerView(unitId: recordAdmobUnitId)
+                           .frame(height: 50)
+                   }
                }
                .onAppear {
                    checkTrackingAuthorizationStatus()
@@ -162,31 +163,31 @@ struct VoiceMemosView: View {
        }
    }
 
-   private func makeSyncStatusView(viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) -> some View {
-       Group {
-           if viewStore.syncStatus == .synced {
-               Image(systemName: "checkmark.icloud.fill")
-                   .foregroundColor(.accentColor)
-           } else if viewStore.syncStatus == .syncing {
-               Image(systemName: "arrow.triangle.2.circlepath.icloud.fill")
-                   .foregroundColor(.accentColor)
-           } else {
-               if viewStore.hasPurchasedPremium {
-                   Button {
-                       viewStore.send(.synciCloud)
-                   } label: {
-                       Image(systemName: "exclamationmark.icloud.fill")
-                           .foregroundColor(.accentColor)
-                   }
-               } else {
-                   NavigationLink(destination: PaywallView(iapManager: IAPManager())) {
-                       Image(systemName: "exclamationmark.icloud.fill")
-                           .foregroundColor(.accentColor)
-                   }
-               }
-           }
-       }
-   }
+    private func makeSyncStatusView(viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) -> some View {
+        Group {
+            if viewStore.syncStatus == .synced {
+                Image(systemName: "checkmark.icloud.fill")
+                    .foregroundColor(.accentColor)
+            } else if viewStore.syncStatus == .syncing {
+                Image(systemName: "arrow.triangle.2.circlepath.icloud.fill")
+                    .foregroundColor(.accentColor)
+            } else {
+                if viewStore.hasPurchasedPremium {
+                    Button {
+                        viewStore.send(.synciCloud)
+                    } label: {
+                        Image(systemName: "exclamationmark.icloud.fill")
+                            .foregroundColor(.accentColor)
+                    }
+                } else {
+                    NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
+                        Image(systemName: "exclamationmark.icloud.fill")
+                            .foregroundColor(.accentColor)
+                    }
+                }
+            }
+        }
+    }
 
    func checkTrackingAuthorizationStatus() {
        switch ATTrackingManager.trackingAuthorizationStatus {
