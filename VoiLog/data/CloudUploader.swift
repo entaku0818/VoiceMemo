@@ -52,7 +52,7 @@ class CloudUploader: CloudUploaderProtocol {
         record["numberOfChannels"] = voice.numberOfChannels as CKRecordValue
 
         do {
-            let _ = try await database.save(record)
+            _ = try await database.save(record)
             return true
         } catch {
             print("Error saving voice record to CloudKit: \(error)")
@@ -81,7 +81,7 @@ class CloudUploader: CloudUploaderProtocol {
                    let quantizationBitDepth = record["quantizationBitDepth"] as? Int,
                    let numberOfChannels = record["numberOfChannels"] as? Int {
                     let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString
-                     let fileURL = URL(fileURLWithPath: inputDocumentsPath)
+                    let fileURL = URL(fileURLWithPath: inputDocumentsPath)
 
                     return VoiceMemoRepository.Voice(
                         title: title,
@@ -119,39 +119,37 @@ class CloudUploader: CloudUploaderProtocol {
             }
         }
     }
-    
+
     func downloadVoiceFile(id: UUID) async -> Bool {
-            let recordID = CKRecord.ID(recordName: id.uuidString)
-            do {
-                let record = try await database.record(for: recordID)
-                if let asset = record["file"] as? CKAsset,
-                   let fileURL = asset.fileURL {
-                    // ドキュメントフォルダに保存するためのパスを作成
-                    let documentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString
-                    let destinationURL = URL(fileURLWithPath: documentsPath)
+        let recordID = CKRecord.ID(recordName: id.uuidString)
+        do {
+            let record = try await database.record(for: recordID)
+            if let asset = record["file"] as? CKAsset,
+               let fileURL = asset.fileURL {
+                // ドキュメントフォルダに保存するためのパスを作成
+                let documentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString
+                let destinationURL = URL(fileURLWithPath: documentsPath)
 
-                    // ファイルをコピー
-                    do {
-                        if FileManager.default.fileExists(atPath: destinationURL.path) {
-                            try FileManager.default.removeItem(at: destinationURL)
-                        }
-                        try FileManager.default.copyItem(at: fileURL, to: destinationURL)
-
-                        return true
-                    } catch {
-                        print("Error copying file to Documents: \(error)")
-                        return false
+                // ファイルをコピー
+                do {
+                    if FileManager.default.fileExists(atPath: destinationURL.path) {
+                        try FileManager.default.removeItem(at: destinationURL)
                     }
-                } else {
-                    print("No asset found for the given record ID.")
+                    try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+
+                    return true
+                } catch {
+                    print("Error copying file to Documents: \(error)")
                     return false
                 }
-            } catch {
-                print("Error fetching voice record from CloudKit: \(error)")
+            } else {
+                print("No asset found for the given record ID.")
                 return false
             }
+        } catch {
+            print("Error fetching voice record from CloudKit: \(error)")
+            return false
         }
-
-
+    }
 
 }

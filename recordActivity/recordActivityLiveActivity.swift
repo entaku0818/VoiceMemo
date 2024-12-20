@@ -9,7 +9,6 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
-
 struct recordActivityAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic stateful properties about your activity go here!

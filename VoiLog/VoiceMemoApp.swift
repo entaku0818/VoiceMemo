@@ -14,13 +14,10 @@ import RollbarNotifier
 import RevenueCat
 import UIKit
 import Firebase
-import GoogleMobileAds
 import UserNotifications
 import BackgroundTasks
 
-
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -29,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
         UNUserNotificationCenter.current().requestAuthorization(
-        options: [.alert, .sound, .badge]) { (granted, _) in
+            options: [.alert, .sound, .badge]) { granted, _ in
             if granted {
                 UNUserNotificationCenter.current().delegate = self
             }
@@ -37,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         return true
     }
-
 
     // UNUserNotificationCenterDelegate method
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -98,7 +94,6 @@ struct VoiceMemoApp: App {
     }
 }
 
-
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
 
@@ -117,12 +112,10 @@ extension VoiceMemoApp {
     struct EnvironmentConfig {
         let rollbarKey: String
         let admobKey: String
-        let recordAdmobKey:String
+        let recordAdmobKey: String
         let revenueCatKey: String
     }
 }
-
-
 
 class BackgroundTaskManager {
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
@@ -152,7 +145,6 @@ class BackgroundTaskManager {
 
     private func handleBackgroundTask(task: BGProcessingTask) {
         scheduleAppRefresh()
-
 
         task.expirationHandler = {
             // Clean up if needed before the task expires

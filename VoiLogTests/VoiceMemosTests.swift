@@ -15,7 +15,7 @@ final class VoiceMemosTests: XCTestCase {
 
     func testOnAppear_FirstLaunch() async {
 
-        let store =  TestStore(initialState: VoiceMemos.State()) {
+        let store = TestStore(initialState: VoiceMemos.State()) {
             VoiceMemos()
         }
 
@@ -62,7 +62,6 @@ final class VoiceMemosTests: XCTestCase {
             hasPurchasedPremium: false
         )
 
-
         var initialState = VoiceMemos.State()
         initialState.voiceMemos = [voiceMemo]
 
@@ -74,7 +73,6 @@ final class VoiceMemosTests: XCTestCase {
             $0.voiceMemos = []
         }
     }
-
 
     func testRecordPermissionResponse_Denied() async {
         let store = TestStore(initialState: VoiceMemos.State()) {
@@ -88,4 +86,3 @@ final class VoiceMemosTests: XCTestCase {
     }
 
 }
-

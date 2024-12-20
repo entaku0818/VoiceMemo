@@ -16,17 +16,17 @@ struct AboutSimpleRecoder: View {
         List {
 
             Button(action: {
-                 // AppStoreのURLを指定して開く
-                 if let url = URL(string: "https://apps.apple.com/app/id6443528409") {
-                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                 }
-             }) {
-                 HStack {
-                     Image(systemName: "hands.sparkles")
-                     Text("AppStoreでレビューを書く")
-                     Spacer()
-                 }
-             }
+                // AppStoreのURLを指定して開く
+                if let url = URL(string: "https://apps.apple.com/app/id6443528409") {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }) {
+                HStack {
+                    Image(systemName: "hands.sparkles")
+                    Text("AppStoreでレビューを書く")
+                    Spacer()
+                }
+            }
 
             Button(action: {
                 isShareSheetPresented.toggle()
@@ -41,20 +41,17 @@ struct AboutSimpleRecoder: View {
                 ActivityViewController(activityItems: ["https://apps.apple.com/app/id6443528409"])
             })
 
-
         }
         .listStyle(GroupedListStyle())
         .navigationTitle("アプリについて")
 
     }
 
-
 }
 
 #Preview {
     AboutSimpleRecoder()
 }
-
 
 // UIActivityViewControllerをSwiftUIのViewに組み込むためのラッパー
 struct ActivityViewController: UIViewControllerRepresentable {

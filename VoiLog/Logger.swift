@@ -9,7 +9,6 @@ import Foundation
 import FirebaseCrashlytics
 import RollbarNotifier
 
-
 class Logger {
     static let shared = Logger()
 

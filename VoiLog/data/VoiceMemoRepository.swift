@@ -23,20 +23,20 @@ class VoiceMemoRepository {
             url: state.url,
             id: state.uuid,
             text: state.resultText,
-            createdAt: state.date, 
+            createdAt: state.date,
             updatedAt: Date(),
             duration: state.duration,
             fileFormat: state.fileFormat,
             samplingFrequency: state.samplingFrequency,
             quantizationBitDepth: Int16(state.quantizationBitDepth),
-            numberOfChannels: Int16(state.numberOfChannels), 
+            numberOfChannels: Int16(state.numberOfChannels),
             isCloud: false
         )
         coreDataAccessor.insert(voice: voice, isCloud: false)
     }
 
     func selectAllData() -> [VoiceMemoReducer.State] {
-        return coreDataAccessor.selectAllData().map { voice in
+        coreDataAccessor.selectAllData().map { voice in
             VoiceMemoReducer.State(
                 uuid: voice.id,
                 date: voice.createdAt,
@@ -89,13 +89,13 @@ class VoiceMemoRepository {
             url: state.url,
             id: state.uuid,
             text: state.text,
-            createdAt: state.date, 
+            createdAt: state.date,
             updatedAt: Date(),
             duration: state.duration,
             fileFormat: state.fileFormat,
             samplingFrequency: state.samplingFrequency,
             quantizationBitDepth: Int16(state.quantizationBitDepth),
-            numberOfChannels: Int16(state.numberOfChannels), 
+            numberOfChannels: Int16(state.numberOfChannels),
             isCloud: false
         )
         coreDataAccessor.update(voice: voice)
@@ -160,42 +160,40 @@ class VoiceMemoRepository {
     }
 
     func checkForDifferences() async -> Bool {
-          // ローカルの音声データを全て取得
-          let localVoices = coreDataAccessor.selectAllData()
-          let localVoiceIds = Set(localVoices.map { $0.id })
+        // ローカルの音声データを全て取得
+        let localVoices = coreDataAccessor.selectAllData()
+        let localVoiceIds = Set(localVoices.map { $0.id })
 
-          // クラウド上の音声データを全て取得
-          let cloudVoices = await cloudUploader.fetchAllVoices()
-          let cloudVoiceIds = Set(cloudVoices.map { $0.id })
+        // クラウド上の音声データを全て取得
+        let cloudVoices = await cloudUploader.fetchAllVoices()
+        let cloudVoiceIds = Set(cloudVoices.map { $0.id })
 
-          // 差分を検出
-          var hasDifferences = false
+        // 差分を検出
+        var hasDifferences = false
 
-          for localVoice in localVoices {
-              if let cloudVoice = cloudVoices.first(where: { $0.id == localVoice.id }) {
-                  if cloudVoice.updatedAt != localVoice.updatedAt {
-                      hasDifferences = true
-                      break
-                  }
-              } else {
-                  hasDifferences = true
-                  break
-              }
-          }
+        for localVoice in localVoices {
+            if let cloudVoice = cloudVoices.first(where: { $0.id == localVoice.id }) {
+                if cloudVoice.updatedAt != localVoice.updatedAt {
+                    hasDifferences = true
+                    break
+                }
+            } else {
+                hasDifferences = true
+                break
+            }
+        }
 
-          if !hasDifferences {
-              for cloudVoice in cloudVoices {
-                  if !localVoiceIds.contains(cloudVoice.id) {
-                      hasDifferences = true
-                      break
-                  }
-              }
-          }
+        if !hasDifferences {
+            for cloudVoice in cloudVoices {
+                if !localVoiceIds.contains(cloudVoice.id) {
+                    hasDifferences = true
+                    break
+                }
+            }
+        }
 
-          return hasDifferences
-      }
-
-
+        return hasDifferences
+    }
 
     struct Voice {
         var title: String
@@ -209,6 +207,6 @@ class VoiceMemoRepository {
         var samplingFrequency: Double
         var quantizationBitDepth: Int16
         var numberOfChannels: Int16
-        var isCloud:Bool
+        var isCloud: Bool
     }
 }

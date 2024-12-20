@@ -7,56 +7,56 @@
 
 import Foundation
 class MockPurchaseManager: PurchaseManagerProtocol {
-   var productName: String
-   var productPrice: String
-   var shouldThrowError: Bool
+    var productName: String
+    var productPrice: String
+    var shouldThrowError: Bool
 
-   init(productName: String = "Premium Plan",
-        productPrice: String = "¥1200",
-        shouldThrowError: Bool = false) {
-       self.productName = productName
-       self.productPrice = productPrice
-       self.shouldThrowError = shouldThrowError
-   }
+    init(productName: String = "Premium Plan",
+         productPrice: String = "¥1200",
+         shouldThrowError: Bool = false) {
+        self.productName = productName
+        self.productPrice = productPrice
+        self.shouldThrowError = shouldThrowError
+    }
 
-   func fetchProPlan() async throws -> (name: String, price: String) {
-       if shouldThrowError {
-           throw PurchaseError.productNotFound
-       }
-       return (name: productName, price: productPrice)
-   }
+    func fetchProPlan() async throws -> (name: String, price: String) {
+        if shouldThrowError {
+            throw PurchaseError.productNotFound
+        }
+        return (name: productName, price: productPrice)
+    }
 
-   func purchasePro() async throws {
-       if shouldThrowError {
-           throw PurchaseError.purchaseFailed
-       }
-       UserDefaultsManager.shared.hasPurchasedProduct = true
-   }
+    func purchasePro() async throws {
+        if shouldThrowError {
+            throw PurchaseError.purchaseFailed
+        }
+        UserDefaultsManager.shared.hasPurchasedProduct = true
+    }
 
-   func startOneTimePurchase() async throws {
-       if shouldThrowError {
-           throw PurchaseError.purchaseFailed
-       }
-       UserDefaultsManager.shared.hasSupportedDeveloper = true
-   }
+    func startOneTimePurchase() async throws {
+        if shouldThrowError {
+            throw PurchaseError.purchaseFailed
+        }
+        UserDefaultsManager.shared.hasSupportedDeveloper = true
+    }
 
-   func restorePurchases() async throws {
-       if shouldThrowError {
-           throw PurchaseError.noEntitlements
-       }
-       UserDefaultsManager.shared.hasPurchasedProduct = true
-   }
+    func restorePurchases() async throws {
+        if shouldThrowError {
+            throw PurchaseError.noEntitlements
+        }
+        UserDefaultsManager.shared.hasPurchasedProduct = true
+    }
 }
 
 // テスト用の便利なファクトリメソッド
 extension MockPurchaseManager {
-   static var succeeding: MockPurchaseManager {
-       MockPurchaseManager(shouldThrowError: false)
-   }
+    static var succeeding: MockPurchaseManager {
+        MockPurchaseManager(shouldThrowError: false)
+    }
 
-   static var failing: MockPurchaseManager {
-       MockPurchaseManager(shouldThrowError: true)
-   }
+    static var failing: MockPurchaseManager {
+        MockPurchaseManager(shouldThrowError: true)
+    }
 }
 
 // カスタムエラーの定義を追加

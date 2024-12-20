@@ -28,19 +28,19 @@ class UserDefaultsManager {
 
     // Property to retrieve error logs
     var errorLogs: [String] {
-        return defaults.array(forKey: "ErrorLogs") as? [String] ?? []
+        defaults.array(forKey: "ErrorLogs") as? [String] ?? []
     }
 
     // ファイル形式の設定値を保存するプロパティ
     var selectedFileFormat: String {
         get {
-            return defaults.string(forKey: "SelectedFileFormat") ?? Constants.defaultFileFormat.rawValue
+            defaults.string(forKey: "SelectedFileFormat") ?? Constants.defaultFileFormat.rawValue
         }
         set {
             defaults.set(newValue, forKey: "SelectedFileFormat")
         }
     }
-    
+
     var samplingFrequency: Double {
         get {
             let value = defaults.double(forKey: "SamplingFrequency")
@@ -50,7 +50,7 @@ class UserDefaultsManager {
             defaults.set(newValue, forKey: "SamplingFrequency")
         }
     }
-    
+
     var quantizationBitDepth: Int {
         get {
             let value = defaults.integer(forKey: "QuantizationBitDepth")
@@ -83,7 +83,7 @@ class UserDefaultsManager {
     // インストール日を保存するプロパティ
     var installDate: Date? {
         get {
-            return defaults.object(forKey: "InstallDate") as? Date
+            defaults.object(forKey: "InstallDate") as? Date
         }
         set {
             defaults.set(newValue, forKey: "InstallDate")
@@ -93,7 +93,7 @@ class UserDefaultsManager {
     // レビューのリクエストカウントを保存する
     var reviewRequestCount: Int {
         get {
-            return defaults.object(forKey: "ReviewRequestCount") as? Int ?? 0
+            defaults.object(forKey: "ReviewRequestCount") as? Int ?? 0
         }
         set {
             defaults.set(newValue, forKey: "ReviewRequestCount")
@@ -103,7 +103,7 @@ class UserDefaultsManager {
     // デベロッパーサポートしたかどうか？
     var hasSupportedDeveloper: Bool {
         get {
-            return defaults.bool(forKey: "HasSupportedDeveloper")
+            defaults.bool(forKey: "HasSupportedDeveloper")
         }
         set {
             defaults.set(newValue, forKey: "HasSupportedDeveloper")
@@ -112,7 +112,7 @@ class UserDefaultsManager {
 
     var hasPurchasedProduct: Bool {
         get {
-            return defaults.bool(forKey: "HasPurchasedProduct")
+            defaults.bool(forKey: "HasPurchasedProduct")
         }
         set {
             defaults.set(newValue, forKey: "HasPurchasedProduct")

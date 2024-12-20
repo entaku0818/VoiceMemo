@@ -4,7 +4,7 @@ import RevenueCat
 struct PaywallView: View {
     @State private var productName: String = ""
     @State private var productPrice: String = ""
-    @State private var showAlert: Bool = false
+    @State private var showAlert = false
     @State private var alertMessage: String = ""
     @State private var offering: Offering?
 

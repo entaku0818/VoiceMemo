@@ -66,11 +66,11 @@ struct PlayerView: View {
                     }
 
                     Button(action: {
-                       viewStore.send(.playButtonTapped)
+                        viewStore.send(.playButtonTapped)
                     }) {
-                       Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                           .font(.system(size: 44))
-                           .foregroundColor(.blue)
+                        Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                            .font(.system(size: 44))
+                            .foregroundColor(.blue)
                     }
 
                     Button(action: {
@@ -108,7 +108,7 @@ struct PlayerView_Previews: PreviewProvider {
                         date: Date(),
                         duration: 180,
                         time: 30,
-                        mode: .playing(progress: 30/180),
+                        mode: .playing(progress: 30 / 180),
                         title: "再生中のメモ",
                         url: URL(fileURLWithPath: "/path/to/memo.m4a"),
                         text: "Sample text",

@@ -19,9 +19,9 @@ struct VoiceMemos: Reducer {
         var audioRecorderPermission = RecorderPermission.undetermined
         @PresentationState var recordingMemo: RecordingMemo.State?
         var voiceMemos: IdentifiedArrayOf<VoiceMemoReducer.State> = []
-        var isMailComposePresented: Bool = false
+        var isMailComposePresented = false
         var syncStatus: SyncStatus = .notSynced
-        var hasPurchasedPremium: Bool = false
+        var hasPurchasedPremium = false
         var currentMode: Mode = .recording
         var currentPlayingMemo: VoiceMemoReducer.State.ID?
 
@@ -116,8 +116,6 @@ struct VoiceMemos: Reducer {
             return .none
         }
     }
-
-
 
     private func resetOtherMemos(state: inout State, exceptId: VoiceMemoReducer.State.ID) {
         for memoID in state.voiceMemos.ids where memoID != exceptId {
@@ -339,9 +337,7 @@ struct VoiceMemos: Reducer {
         )
     }
 
-
 }
-
 
 extension VoiceMemos.State {
     var hasPlayingMemo: Bool {

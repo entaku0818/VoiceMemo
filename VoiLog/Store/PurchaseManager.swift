@@ -36,7 +36,7 @@ class PurchaseManager: PurchaseManagerProtocol {
             os_log("Packages in offering:", log: logger, type: .debug)
             current.availablePackages.forEach { package in
                 os_log("- ID: %{public}@, Product: %{public}@", log: logger, type: .debug,
-                    package.identifier, package.storeProduct.productIdentifier)
+                       package.identifier, package.storeProduct.productIdentifier)
             }
         }
 
@@ -124,7 +124,7 @@ class PurchaseManager: PurchaseManagerProtocol {
         guard let package = offering.availablePackages.first(where: { $0.identifier == Package.developerSupport }) else {
             os_log("Failed to get one time package", log: logger, type: .debug)
             os_log("Available packages: %{public}@", log: logger, type: .debug,
-                  offering.availablePackages.map { $0.identifier }.description)
+                   offering.availablePackages.map { $0.identifier }.description)
             throw PurchaseError.productNotFound
         }
 
@@ -135,7 +135,7 @@ class PurchaseManager: PurchaseManagerProtocol {
             let (_, customerInfo, _) = try await Purchases.shared.purchase(package: package)
             os_log("Purchase completed", log: logger, type: .debug)
             os_log("Premium status: %{public}@", log: logger, type: .debug,
-                  String(customerInfo.entitlements["premium"]?.isActive ?? false))
+                   String(customerInfo.entitlements["premium"]?.isActive ?? false))
 
             if customerInfo.entitlements["premium"]?.isActive == true {
                 UserDefaultsManager.shared.hasSupportedDeveloper = true

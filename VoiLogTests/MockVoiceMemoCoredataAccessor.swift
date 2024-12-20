@@ -9,7 +9,7 @@ import Foundation
 @testable import VoiLog
 
 class MockVoiceMemoCoredataAccessor: VoiceMemoCoredataAccessorProtocol {
-    
+
     var insertedVoice: VoiceMemoRepository.Voice?
     var fetchedVoice: VoiceMemoRepository.Voice?
     var updatedVoice: VoiceMemoRepository.Voice?
@@ -23,11 +23,11 @@ class MockVoiceMemoCoredataAccessor: VoiceMemoCoredataAccessorProtocol {
     }
 
     func selectAllData() -> [VoiceMemoRepository.Voice] {
-        return fetchedVoices
+        fetchedVoices
     }
 
     func fetch(uuid: UUID) -> VoiceMemoRepository.Voice? {
-        return fetchedVoice
+        fetchedVoice
     }
 
     func delete(id: UUID) {

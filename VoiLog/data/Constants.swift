@@ -15,11 +15,10 @@ class Constants {
     static let defaultNumberOfChannels: NumberOfChannels = .one
     static let defaultMicrophonesVolume: MicrophonesVolume = .one
 
-
     enum FileFormat: String, CaseIterable {
         case WAV
         case AAC
-        
+
         var audioId: AudioFormatID {
             switch self {
             case .WAV:

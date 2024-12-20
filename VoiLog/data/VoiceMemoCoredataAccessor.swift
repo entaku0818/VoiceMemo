@@ -2,7 +2,7 @@ import Foundation
 import CoreData
 
 protocol VoiceMemoCoredataAccessorProtocol {
-    func insert(voice: VoiceMemoRepository.Voice, isCloud:Bool)
+    func insert(voice: VoiceMemoRepository.Voice, isCloud: Bool)
     func selectAllData() -> [VoiceMemoRepository.Voice]
     func fetch(uuid: UUID) -> VoiceMemoRepository.Voice?
     func delete(id: UUID)
@@ -20,7 +20,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
     override init() {
         container = NSPersistentContainer(name: entityName)
-        container.loadPersistentStores(completionHandler: { (_, error) in
+        container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
@@ -32,7 +32,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         }
     }
 
-    func insert(voice: VoiceMemoRepository.Voice, isCloud:Bool) {
+    func insert(voice: VoiceMemoRepository.Voice, isCloud: Bool) {
         if let voiceEntity = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
             voiceEntity.title = voice.title
             voiceEntity.url = voice.url
@@ -48,7 +48,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             voiceEntity.isCloud = isCloud
             do {
                 try managedContext.save()
-            } catch let error {
+            } catch {
                 print(error.localizedDescription)
             }
         }
@@ -63,7 +63,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
         do {
             memoGroups = try managedContext.fetch(fetchRequest)
-        } catch let error {
+        } catch {
             print(error.localizedDescription)
         }
 
@@ -85,7 +85,6 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         }
     }
 
-
     func fetch(uuid: UUID) -> VoiceMemoRepository.Voice? {
         let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
         fetchRequest.fetchLimit = 1
@@ -100,7 +99,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                     url: voiceEntity.url!,
                     id: voiceEntity.id ?? UUID(),
                     text: voiceEntity.text ?? "",
-                    createdAt: voiceEntity.createdAt ?? Date(), 
+                    createdAt: voiceEntity.createdAt ?? Date(),
                     updatedAt: voiceEntity.updatedAt ?? Date(),
                     duration: voiceEntity.duration,
                     fileFormat: voiceEntity.fileFormat ?? "",
@@ -110,7 +109,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                     isCloud: voiceEntity.isCloud
                 )
             }
-        } catch let error {
+        } catch {
             print(error.localizedDescription)
         }
         return nil
@@ -153,7 +152,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
                 try managedContext.save()
             }
-        } catch let error {
+        } catch {
             print(error.localizedDescription)
         }
     }
@@ -171,7 +170,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 voiceEntity.updatedAt = Date()
                 try managedContext.save()
             }
-        } catch let error {
+        } catch {
             print(error.localizedDescription)
         }
     }

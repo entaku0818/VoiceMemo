@@ -17,8 +17,7 @@ struct AudioPlayerClient {
     var getCurrentTime: @Sendable () async throws -> TimeInterval
 }
 
-
-extension AudioPlayerClient{
+extension AudioPlayerClient {
     struct PlaybackInfo {
         var url: URL
         var position: Double
@@ -47,16 +46,16 @@ extension AudioPlayerClient: TestDependencyKey {
     )
 }
 extension DependencyValues {
-  var audioPlayer: AudioPlayerClient {
-    get { self[AudioPlayerClient.self] }
-    set { self[AudioPlayerClient.self] = newValue }
-  }
+    var audioPlayer: AudioPlayerClient {
+        get { self[AudioPlayerClient.self] }
+        set { self[AudioPlayerClient.self] = newValue }
+    }
 }
 
 extension AudioPlayerClient: DependencyKey {
 
     static var liveValue: Self {
-        let audioPlayer: AudioPlayer = AudioPlayer()
+        let audioPlayer = AudioPlayer()
         return Self(
             play: { url, startTime, playSpeed, isLooping in
                 return try await audioPlayer.play(url: url, startTime: startTime, rate: playSpeed, isLooping: isLooping)
@@ -71,11 +70,9 @@ extension AudioPlayerClient: DependencyKey {
     }
 }
 
-
 private actor AudioPlayer {
     var player: AVAudioPlayer?
     var delegate: Delegate?
-
 
     func play(url: URL, startTime: Double, rate: AudioPlayerClient.PlaybackSpeed, isLooping: Bool) async throws -> Bool {
 
@@ -119,7 +116,6 @@ private actor AudioPlayer {
         throw CancellationError()
     }
 
-
     func listFilesInDocumentsDirectory() -> [String] {
         let documentsPath = NSHomeDirectory() + "/Documents/"
         do {
@@ -138,33 +134,31 @@ private actor AudioPlayer {
     }
 
     func getCurrentTime() async -> TimeInterval {
-        return player?.currentTime ?? 0
+        player?.currentTime ?? 0
     }
 }
 
 private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
-  let didFinishPlaying: @Sendable (Bool) -> Void
-  let decodeErrorDidOccur: @Sendable (Error?) -> Void
+    let didFinishPlaying: @Sendable (Bool) -> Void
+    let decodeErrorDidOccur: @Sendable (Error?) -> Void
 
-  init(
-    didFinishPlaying: @escaping @Sendable (Bool) -> Void,
-    decodeErrorDidOccur: @escaping @Sendable (Error?) -> Void
-  ) throws {
-    self.didFinishPlaying = didFinishPlaying
-    self.decodeErrorDidOccur = decodeErrorDidOccur
-    super.init()
-  }
+    init(
+        didFinishPlaying: @escaping @Sendable (Bool) -> Void,
+        decodeErrorDidOccur: @escaping @Sendable (Error?) -> Void
+    ) throws {
+        self.didFinishPlaying = didFinishPlaying
+        self.decodeErrorDidOccur = decodeErrorDidOccur
+        super.init()
+    }
 
-  func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-    self.didFinishPlaying(flag)
-  }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.didFinishPlaying(flag)
+    }
 
-  func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-    self.decodeErrorDidOccur(error)
-  }
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        self.decodeErrorDidOccur(error)
+    }
 }
-
-
 
 extension AudioPlayerClient {
     enum PlaybackSpeed: Float, CaseIterable {

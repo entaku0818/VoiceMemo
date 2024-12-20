@@ -4,26 +4,24 @@ import Photos
 
 import ActivityKit
 
-
 struct RecordingMemo: Reducer {
     struct State: Equatable {
         static func == (lhs: State, rhs: State) -> Bool {
-                 return lhs.uuid == rhs.uuid &&
-                     lhs.date == rhs.date &&
-                     lhs.duration == rhs.duration &&
-                     lhs.volumes == rhs.volumes &&
-                     lhs.resultText == rhs.resultText &&
-                     lhs.mode == rhs.mode &&
-                     lhs.fileFormat == rhs.fileFormat &&
-                     lhs.samplingFrequency == rhs.samplingFrequency &&
-                     lhs.quantizationBitDepth == rhs.quantizationBitDepth &&
-                     lhs.numberOfChannels == rhs.numberOfChannels &&
-                     lhs.url == rhs.url &&
-                     lhs.newUrl == rhs.newUrl &&
-                     lhs.startTime == rhs.startTime &&
-                     lhs.time == rhs.time
-             }
-
+            lhs.uuid == rhs.uuid &&
+                lhs.date == rhs.date &&
+                lhs.duration == rhs.duration &&
+                lhs.volumes == rhs.volumes &&
+                lhs.resultText == rhs.resultText &&
+                lhs.mode == rhs.mode &&
+                lhs.fileFormat == rhs.fileFormat &&
+                lhs.samplingFrequency == rhs.samplingFrequency &&
+                lhs.quantizationBitDepth == rhs.quantizationBitDepth &&
+                lhs.numberOfChannels == rhs.numberOfChannels &&
+                lhs.url == rhs.url &&
+                lhs.newUrl == rhs.newUrl &&
+                lhs.startTime == rhs.startTime &&
+                lhs.time == rhs.time
+        }
 
         init(
             uuid: UUID = UUID(),
@@ -86,9 +84,8 @@ struct RecordingMemo: Reducer {
         var newUrl: URL?
         var startTime: TimeInterval
         var time: TimeInterval
-        var currentActivity: Activity<recordActivityAttributes>? = nil
+        var currentActivity: Activity<recordActivityAttributes>?
         var waveFormHeights: [Float] = []
-
 
         enum Mode {
             case recording
@@ -114,15 +111,14 @@ struct RecordingMemo: Reducer {
         case togglePauseResume
     }
 
+    enum DelegateAction: Equatable {
+        case didFinish(TaskResult<State>)
+    }
 
-  enum DelegateAction: Equatable {
-    case didFinish(TaskResult<State>)
-  }
+    struct Failed: Equatable, Error {}
 
-  struct Failed: Equatable, Error {}
-
-  @Dependency(\.audioRecorder) var audioRecorder
-  @Dependency(\.continuousClock) var clock
+    @Dependency(\.audioRecorder) var audioRecorder
+    @Dependency(\.continuousClock) var clock
 
     func startLiveActivity() -> Activity<recordActivityAttributes>? {
         let attributes = recordActivityAttributes(name: "Recording Activity")
@@ -154,7 +150,6 @@ struct RecordingMemo: Reducer {
         }
     }
 
-
     func updateLiveActivity(activity: Activity<recordActivityAttributes>?, duration: TimeInterval) {
         guard let activity = activity else {
             return
@@ -166,8 +161,6 @@ struct RecordingMemo: Reducer {
         }
 
     }
-
-
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
@@ -208,7 +201,6 @@ struct RecordingMemo: Reducer {
                 Logger.shared.logInfo("record stop")
                 stopLiveActivity(activity: activity)
             }
-
 
         case .togglePauseResume:
             if state.mode == .pause {
@@ -266,12 +258,10 @@ struct RecordingMemo: Reducer {
                 _ = await (startRecording, generalUpdates, volumeUpdates, currentTimeUpdates)
             }
 
-
         case let .timerUpdated(currentTime):
             state.duration = currentTime
             updateLiveActivity(activity: state.currentActivity, duration: currentTime)
             return .none
-
 
         case let .updateVolumes(volumes):
             state.volumes = volumes
@@ -294,7 +284,7 @@ struct RecordingMemo: Reducer {
             }
 
         case let .fetchRecordingMemo(uuid):
-            let voiceMemoRepository: VoiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
+            let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
             if let recordingmemo = voiceMemoRepository.fetch(uuid: uuid) {
                 state = recordingmemo
             }
@@ -319,131 +309,126 @@ struct RecordingMemoView: View {
     @State var bottomID = UUID()
     @State private var showModal = false
 
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
 
-  var body: some View {
-      WithViewStore(self.store, observe: { $0 }) { viewStore in
+            VStack(spacing: 12) {
 
-      VStack(spacing: 12) {
+                ZStack {
+                    RingProgressView(value: value)
+                        .frame(width: 150, height: 150)
+                        .onAppear {
+                            withAnimation(.linear(duration: 600)) {
+                                self.value = 1.0
+                            }
+                        }
+                    VStack(spacing: 12) {
 
-          ZStack {
-              RingProgressView(value: value)
-                  .frame(width: 150, height: 150)
-                  .onAppear {
-                      withAnimation(.linear(duration: 600)) {
-                          self.value = 1.0
-                      }
-                  }
-              VStack(spacing: 12) {
+                        Text("Recording")
+                            .font(.title)
+                            .colorMultiply(Color(Int(viewStore.duration).isMultiple(of: 2) ? .systemRed : .label))
+                            .animation(.easeInOut(duration: 1), value: viewStore.duration)
+                        if let formattedDuration = dateComponentsFormatter.string(from: viewStore.duration) {
+                            Text(formattedDuration)
+                                .font(.body.monospacedDigit().bold())
+                                .foregroundColor(.black)
+                        }
 
-                  Text("Recording")
-                      .font(.title)
-                      .colorMultiply(Color(Int(viewStore.duration).isMultiple(of: 2) ? .systemRed : .label))
-                      .animation(.easeInOut(duration: 1), value: viewStore.duration)
-                  if let formattedDuration = dateComponentsFormatter.string(from: viewStore.duration) {
-                      Text(formattedDuration)
-                          .font(.body.monospacedDigit().bold())
-                          .foregroundColor(.black)
-                  }
+                    }
+                }
+                //          VStack {
+                //              ScrollViewReader { reader in
+                //                  ScrollView(.horizontal, showsIndicators: false) {
+                //                      HStack(spacing: 2) {
+                //
+                //                          ForEach(viewStore.waveFormHeights, id: \.self) { volume in
+                //                              let height: CGFloat = CGFloat(volume * 50) + 1
+                //                              Rectangle()
+                //                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
+                //                                  .frame(width: 3, height: height)
+                //                          }
+                //                          Button("") {
+                //                          }.id(bottomID)
+                //                      }
+                //
+                //                  }.onChange(of: viewStore.waveFormHeights) { _ in
+                //                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                //                          reader.scrollTo(bottomID)
+                //                      }
+                //
+                //                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
+                //                  .padding(.trailing, UIScreen.main.bounds.width / 2)
+                //              }
+                //
+                //
+                //          }
 
-              }
-          }
-//          VStack {
-//              ScrollViewReader { reader in
-//                  ScrollView(.horizontal, showsIndicators: false) {
-//                      HStack(spacing: 2) {
-//
-//                          ForEach(viewStore.waveFormHeights, id: \.self) { volume in
-//                              let height: CGFloat = CGFloat(volume * 50) + 1
-//                              Rectangle()
-//                                  .fill(Color.pink)               // 図形の塗りつぶしに使うViewを指定
-//                                  .frame(width: 3, height: height)
-//                          }
-//                          Button("") {
-//                          }.id(bottomID)
-//                      }
-//
-//                  }.onChange(of: viewStore.waveFormHeights) { _ in
-//                      DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                          reader.scrollTo(bottomID)
-//                      }
-//
-//                  }.frame(width: UIScreen.main.bounds.width / 2, height: 60, alignment: .leading)
-//                  .padding(.trailing, UIScreen.main.bounds.width / 2)
-//              }
-//
-//
-//          }
+                AudioLevelView(audioLevel: viewStore.volumes)
+                    .frame(height: 20)
+                    .padding()
 
-          AudioLevelView(audioLevel: viewStore.volumes)
-              .frame(height: 20)
-              .padding()
+                VStack(alignment: .center) {
+                    Text(viewStore.resultText)
+                        .lineLimit(3)
+                        .foregroundColor(.black)
+                        .fixedSize(horizontal: false, vertical: true)
 
+                    if viewStore.resultText.count > 0 {
+                        Button(action: {
+                            showModal.toggle()
+                        }) {
+                            Text("Read More")
+                                .foregroundColor(.blue)
+                                .underline()
+                        }
+                    }
+                }
+                .sheet(isPresented: $showModal) {
+                    VStack {
+                        ScrollView {
+                            Text(viewStore.resultText)
+                                .padding()
+                        }
+                        Button("Close") {
+                            showModal.toggle()
+                        }
+                        .padding()
+                    }
+                }
 
-          VStack(alignment: .center) {
-              Text(viewStore.resultText)
-                  .lineLimit(3)
-                  .foregroundColor(.black)
-                  .fixedSize(horizontal: false, vertical: true)
+                HStack {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(Color(.label))
+                            .frame(width: 74, height: 74)
 
-              if viewStore.resultText.count > 0{
-                  Button(action: {
-                      showModal.toggle()
-                  }) {
-                      Text("Read More")
-                          .foregroundColor(.blue)
-                          .underline()
-                  }
-              }
-          }
-          .sheet(isPresented: $showModal) {
-              VStack {
-                  ScrollView {
-                      Text(viewStore.resultText)
-                          .padding()
-                  }
-                  Button("Close") {
-                      showModal.toggle()
-                  }
-                  .padding()
-              }
-          }
+                        Button(action: { viewStore.send(.stopButtonTapped, animation: .default) }) {
+                            RoundedRectangle(cornerRadius: 4)
+                                .foregroundColor(Color(.systemRed))
+                                .padding(17)
+                        }
+                        .frame(width: 70, height: 70)
+                    }
+                    Spacer().frame(width: 24)
+                    Button(action: { viewStore.send(.togglePauseResume, animation: .default) }) {
+                        Image(systemName: viewStore.mode == .pause ? "play.fill" : "pause.fill")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.white)
+                            .padding(24)
+                            .background(Color.black)
+                            .clipShape(Circle())
+                    }
+                }
 
-          HStack {
-              ZStack {
-                  Circle()
-                      .foregroundColor(Color(.label))
-                      .frame(width: 74, height: 74)
-
-                  Button(action: { viewStore.send(.stopButtonTapped, animation: .default) }) {
-                      RoundedRectangle(cornerRadius: 4)
-                          .foregroundColor(Color(.systemRed))
-                          .padding(17)
-                  }
-                  .frame(width: 70, height: 70)
-              }
-              Spacer().frame(width: 24)
-              Button(action: { viewStore.send(.togglePauseResume, animation: .default) }) {
-                  Image(systemName: viewStore.mode == .pause ? "play.fill" : "pause.fill")
-                      .resizable()
-                      .frame(width: 24, height: 24)
-                      .foregroundColor(.white)
-                      .padding(24)
-                      .background(Color.black)
-                      .clipShape(Circle())
-              }
-          }
-
-      }
-      .task {
-        await viewStore.send(.task).finish()
-      }
-    }.navigationBarTitle("Recording", displayMode: .inline)
-  }
-
-
+            }
+            .task {
+                await viewStore.send(.task).finish()
+            }
+        }.navigationBarTitle("Recording", displayMode: .inline)
+    }
 
 }
-
 
 struct RecordingMemoView_Previews: PreviewProvider {
     static var previews: some View {
@@ -466,12 +451,11 @@ struct RecordingMemoView_Previews: PreviewProvider {
     }
 }
 
-
 let dateComponentsFormatter: DateComponentsFormatter = {
-  let formatter = DateComponentsFormatter()
+    let formatter = DateComponentsFormatter()
     formatter.allowedUnits = [.minute, .second, .nanosecond]
-  formatter.zeroFormattingBehavior = .pad
-  return formatter
+    formatter.zeroFormattingBehavior = .pad
+    return formatter
 }()
 
 extension AudioRecorderClient {
@@ -516,13 +500,12 @@ extension AudioRecorderClient {
     }
 }
 
-
 struct RingProgressView: View {
 
     var value: CGFloat
     var lineWidth: CGFloat = 6.0
-    var outerRingColor: Color = Color.black.opacity(0.08)
-    var innerRingColor: Color = Color.orange
+    var outerRingColor = Color.black.opacity(0.08)
+    var innerRingColor = Color.orange
 
     var body: some View {
         ZStack {
@@ -544,6 +527,3 @@ struct RingProgressView: View {
         .padding(.all, self.lineWidth / 2)
     }
 }
-
-
-

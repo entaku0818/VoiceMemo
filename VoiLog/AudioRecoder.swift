@@ -54,7 +54,7 @@ extension AudioRecorderClient: TestDependencyKey {
                 await isPaused.setValue(false)
             },
             volumes: { 0.0 }, // Add some stub values here if needed
-            waveFormHeights: {[]},
+            waveFormHeights: { [] },
             resultText: { "" }
         )
     }
@@ -81,7 +81,7 @@ extension DependencyValues {
     }
 }
 
-extension AudioRecorderClient: DependencyKey  {
+extension AudioRecorderClient: DependencyKey {
     static var liveValue: Self {
         let audioRecorder = AudioRecorder()
         return Self(
@@ -106,7 +106,7 @@ private actor AudioRecorder {
     var resultText: String = ""
     var isFinal = false
     var currentTime: TimeInterval = 0
-    var isPaused: Bool = false
+    var isPaused = false
 
     var audioLevel: Float = 0.0 // 音の大きさを表すプロパティ
 
@@ -159,7 +159,7 @@ private actor AudioRecorder {
                 recognitionRequest.shouldReportPartialResults = true
                 recognitionRequest.requiresOnDeviceRecognition = false
 
-                self.recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
+                self.recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, _ in
                     if let result = result {
                         self.isFinal = result.isFinal
                         self.resultText = result.bestTranscription.formattedString
@@ -182,7 +182,7 @@ private actor AudioRecorder {
                     AVFormatIDKey: fileFormat,
                     AVNumberOfChannelsKey: numberOfChannels,
                     AVSampleRateKey: sampleRate,
-                    AVLinearPCMBitDepthKey: quantizationBitDepth,
+                    AVLinearPCMBitDepthKey: quantizationBitDepth
                 ]
 
                 let audioFile = try AVAudioFile(forWriting: url, settings: settings)
@@ -192,13 +192,12 @@ private actor AudioRecorder {
 
                     self.currentTime = Double(audioFile.length) / sampleRate
 
-
                     self.recognitionRequest?.append(buffer)
                     self.updateAudioLevel(buffer: buffer)
 
                     do {
                         try audioFile.write(from: buffer)
-                    } catch let error {
+                    } catch {
                         UserDefaultsManager.shared.logError(error.localizedDescription)
                         Logger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
                         continuation.finish(throwing: error)
@@ -208,7 +207,7 @@ private actor AudioRecorder {
                 audioEngine?.prepare()
                 try audioEngine?.start()
 
-            } catch let error {
+            } catch {
                 UserDefaultsManager.shared.logError(error.localizedDescription)
                 Logger.shared.logError(error.localizedDescription)
                 continuation.finish(throwing: error)
@@ -227,7 +226,6 @@ private actor AudioRecorder {
         }
     }
 
-
     private func beginBackgroundTask() {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             guard let self = self else { return }
@@ -242,7 +240,6 @@ private actor AudioRecorder {
             backgroundTask = .invalid
         }
     }
-
 
     @objc func handleInterruption(notification: Notification) async {
         guard let userInfo = notification.userInfo,
@@ -293,11 +290,11 @@ private actor AudioRecorder {
     }
 
     func getWaveFormHeights() -> [Float] {
-        return []
+        []
     }
 
     func amplitude() -> Float {
-        return audioLevel
+        audioLevel
     }
 
     private func updateAudioLevel(buffer: AVAudioPCMBuffer) {
@@ -314,6 +311,6 @@ private actor AudioRecorder {
     }
 
     func fetchResultText() -> String {
-        return resultText
+        resultText
     }
 }

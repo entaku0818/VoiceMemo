@@ -45,7 +45,6 @@ class VoiceMemoRepositoryTests: XCTestCase {
             time: 0  // Default time, adjust if needed
         )
 
-
         repository.insert(state: state)
 
         XCTAssertEqual(mockAccessor.insertedVoice?.id, state.uuid)
@@ -66,7 +65,7 @@ class VoiceMemoRepositoryTests: XCTestCase {
             url: URL(string: "file:///path/to/voice.m4a")!,
             id: UUID(),
             text: "Test voice memo",
-            createdAt: Date(), 
+            createdAt: Date(),
             updatedAt: Date(),
             duration: 60.0,
             fileFormat: "m4a",
@@ -177,7 +176,7 @@ class VoiceMemoRepositoryTests: XCTestCase {
             id: commonUUID,
             text: "Cloud voice memo",
             createdAt: Date(),
-            updatedAt: Date(), 
+            updatedAt: Date(),
             duration: 60.0,
             fileFormat: "m4a",
             samplingFrequency: 44100.0,
@@ -186,7 +185,6 @@ class VoiceMemoRepositoryTests: XCTestCase {
             isCloud: true
         )
         mockCloudUploader.fetchedVoices = [cloudVoice]
-
 
         // Perform sync to cloud
         let result = await repository.syncToCloud()

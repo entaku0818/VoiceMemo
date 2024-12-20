@@ -24,7 +24,7 @@ struct SettingReducer: Reducer {
     enum AlertAction: Equatable {
         case isPurchaseAlertPresented
         case purchaseProduct
-        
+
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -62,18 +62,18 @@ struct SettingReducer: Reducer {
         case .alert(.presented(.isPurchaseAlertPresented)):
             if state.developerSupported {return .none}
             state.alert = AlertState(
-              title: TextState("開発者を支援する"),
-              message: TextState("ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。"),
-              dismissButton: .default(TextState("次へ"),
-              action: .send(.purchaseProduct))
+                title: TextState("開発者を支援する"),
+                message: TextState("ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。"),
+                dismissButton: .default(TextState("次へ"),
+                                        action: .send(.purchaseProduct))
             )
             return .none
         case .supported:
             state.alert = AlertState(
-              title: TextState("サポートありがとうございます！"),
-              message: TextState("いただいたサポートは開発費用として大切に利用させていただきます。"),
-              dismissButton: .default(TextState("次へ")
-            ))
+                title: TextState("サポートありがとうございます！"),
+                message: TextState("いただいたサポートは開発費用として大切に利用させていただきます。"),
+                dismissButton: .default(TextState("次へ")
+                ))
             state.developerSupported = true
             UserDefaultsManager.shared.hasSupportedDeveloper = true
 
@@ -93,18 +93,15 @@ struct SettingReducer: Reducer {
         @PresentationState var alert: AlertState<AlertAction>?
         var selectedFileFormat: String
         var samplingFrequency: Double
-        var quantizationBitDepth:Int
-        var numberOfChannels:Int
-        var microphonesVolume:Double
-        var developerSupported:Bool
-        var hasPurchasedPremium:Bool
-
+        var quantizationBitDepth: Int
+        var numberOfChannels: Int
+        var microphonesVolume: Double
+        var developerSupported: Bool
+        var hasPurchasedPremium: Bool
 
     }
 
 }
-
-
 
 struct SettingView: View {
     let store: StoreOf<SettingReducer>
@@ -113,20 +110,19 @@ struct SettingView: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            
-            VStack {
-                if !viewStore.hasPurchasedPremium{
 
+            VStack {
+                if !viewStore.hasPurchasedPremium {
 
                     NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
-                        HStack{
+                        HStack {
                             Image(systemName: "music.mic.circle.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 40, height: 40)
                                 .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white,.purple)
-                            VStack(alignment: .leading){
+                                .foregroundStyle(.white, .purple)
+                            VStack(alignment: .leading) {
                                 Text("1ヶ月無料！")
                                     .font(.caption)
                                     .fontWeight(.bold)
@@ -142,17 +138,17 @@ struct SettingView: View {
                                 .foregroundColor(.white)
 
                         }.padding()
-                            .background(
-                                Rectangle()
-                                    .fill(Color.black)
-                                    .cornerRadius(16)
-                                    .overlay(
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
-                                    )
+                        .background(
+                            Rectangle()
+                                .fill(Color.black)
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
+                                )
 
-                            )
-                            .padding(.horizontal,20)
+                        )
+                        .padding(.horizontal, 20)
 
                     }
 
@@ -185,7 +181,7 @@ struct SettingView: View {
                                 Text("\(viewStore.quantizationBitDepth)bit")
                             }
                         }
-#if DEBUG
+                        #if DEBUG
 
                         NavigationLink(destination: NumberOfChannelsView(store: self.store)) {
                             HStack {
@@ -195,9 +191,7 @@ struct SettingView: View {
                             }
                         }
 
-
-#endif
-
+                        #endif
 
                     }
                     Section(header: Text("")) {
@@ -217,14 +211,13 @@ struct SettingView: View {
                                         .foregroundColor(Color("Black"))
 
                                     Spacer()
-                                    if viewStore.developerSupported{
+                                    if viewStore.developerSupported {
                                         Text("購入済")
                                             .foregroundColor(Color("Black"))
                                         Image(systemName: "checkmark")
                                             .foregroundColor(.green)
 
                                     }
-
 
                                 }
                             }
@@ -240,13 +233,13 @@ struct SettingView: View {
                     #endif
                 }
             }
-            .onAppear{
+            .onAppear {
                 viewStore.send(.onAppear)
             }
             .alert(store: self.store.scope(state: \.$alert, action: SettingReducer.Action.alert))
-                .listStyle(GroupedListStyle())
+            .listStyle(GroupedListStyle())
 
-            if !viewStore.hasPurchasedPremium{
+            if !viewStore.hasPurchasedPremium {
                 AdmobBannerView(unitId: admobUnitId).frame(width: .infinity, height: 50)
             }
         }
@@ -268,12 +261,12 @@ struct FileFormatView: View {
 
                     }) {
                         HStack {
-                               Text("\(format.rawValue)")
-                               Spacer()
-                               if format.rawValue == viewStore.selectedFileFormat {
-                                   Image(systemName: "checkmark")
-                               }
-                           }
+                            Text("\(format.rawValue)")
+                            Spacer()
+                            if format.rawValue == viewStore.selectedFileFormat {
+                                Image(systemName: "checkmark")
+                            }
+                        }
 
                     }
                 }
@@ -283,7 +276,6 @@ struct FileFormatView: View {
         }
     }
 }
-
 
 struct SamplingFrequencyView: View {
     let store: StoreOf<SettingReducer>
@@ -300,11 +292,11 @@ struct SamplingFrequencyView: View {
                     }) {
                         HStack {
                             Text("\(rate.stringValue)")
-                               Spacer()
-                               if rate.rawValue == viewStore.samplingFrequency {
-                                   Image(systemName: "checkmark")
-                               }
-                           }
+                            Spacer()
+                            if rate.rawValue == viewStore.samplingFrequency {
+                                Image(systemName: "checkmark")
+                            }
+                        }
 
                     }
                 }
@@ -330,11 +322,11 @@ struct QuantizationBitDepthView: View {
                     }) {
                         HStack {
                             Text("\(bit.stringValue)")
-                               Spacer()
+                            Spacer()
                             if bit.rawValue == viewStore.quantizationBitDepth {
-                                   Image(systemName: "checkmark")
-                               }
-                           }
+                                Image(systemName: "checkmark")
+                            }
+                        }
 
                     }
                 }
@@ -360,11 +352,11 @@ struct NumberOfChannelsView: View {
                     }) {
                         HStack {
                             Text("\(number.rawValue)")
-                               Spacer()
+                            Spacer()
                             if number.rawValue == viewStore.numberOfChannels {
-                                   Image(systemName: "checkmark")
-                               }
-                           }
+                                Image(systemName: "checkmark")
+                            }
+                        }
 
                     }
                 }
@@ -378,7 +370,6 @@ struct NumberOfChannelsView: View {
 struct MicrophonesVolumeView: View {
     let store: StoreOf<SettingReducer>
     @Environment(\.presentationMode) var presentationMode // 追加
-
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -402,11 +393,7 @@ struct MicrophonesVolumeView: View {
         }
     }
 
-
 }
-
-
-
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
@@ -420,7 +407,7 @@ struct SettingView_Previews: PreviewProvider {
                 microphonesVolume: 75.0,
                 developerSupported: false, hasPurchasedPremium: false
             )
-        ){
+        ) {
             SettingReducer()
         }, admobUnitId: ""
         )

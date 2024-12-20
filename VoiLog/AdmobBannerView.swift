@@ -20,7 +20,6 @@ struct AdmobBannerView: UIViewRepresentable {
         let adSize = GADAdSizeFromCGSize(CGSize(width: 300, height: 50))
         let view = GADBannerView(adSize: adSize)
 
-
         #if DEBUG
         view.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         #else
@@ -36,9 +35,9 @@ struct AdmobBannerView: UIViewRepresentable {
     }
 
     // Adding the Coordinator for delegate handling
-     func makeCoordinator() -> Coordinator {
-         Coordinator()
-     }
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
 
     class Coordinator: NSObject, GADBannerViewDelegate {
 
