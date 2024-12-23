@@ -13,6 +13,8 @@ protocol PlaylistRepository {
     func fetchAll() async throws -> [Playlist]
     func fetch(by id: UUID) async throws -> Playlist?
     func update(_ playlist: Playlist, name: String) async throws -> Playlist
+    func addVoice(voiceId: UUID, to playlist: Playlist) async throws -> Playlist
+    func removeVoice(voiceId: UUID, from playlist: Playlist) async throws -> Playlist
     func delete(_ playlist: Playlist) async throws
     func deleteAll() async throws
 }
@@ -21,14 +23,20 @@ protocol PlaylistRepository {
 enum PlaylistRepositoryError: LocalizedError {
     case notFound
     case failedToSave
+    case voiceNotFound
     case unknown(Error)
 
     var errorDescription: String? {
         switch self {
         case .notFound:
             return "指定されたプレイリストが見つかりませんでした"
+
         case .failedToSave:
             return "プレイリストの保存に失敗しました"
+
+        case .voiceNotFound:
+            return "指定された音声が見つかりませんでした"
+
         case .unknown(let error):
             return "予期せぬエラーが発生しました: \(error.localizedDescription)"
         }
@@ -74,9 +82,74 @@ final class CoreDataPlaylistRepository: PlaylistRepository {
                 NSSortDescriptor(keyPath: \PlaylistEntity.createdAt, ascending: false)
             ]
             let entities = try self.context.fetch(request)
-            return IdentifiedArrayOf(
-                uniqueElements: entities.map(self.convertToPlaylist)
-            )
+            return entities.map(self.convertToPlaylist)
+        }
+    }
+
+    private func checkVoiceExists(_ voiceId: UUID) async throws -> Bool {
+        try await context.perform {
+            let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+            fetchRequest.fetchLimit = 1
+            let predicate = NSPredicate(format: "id == %@", voiceId as CVarArg)
+            fetchRequest.predicate = predicate
+
+            let count = try self.context.count(for: fetchRequest)
+            return count > 0
+        }
+    }
+
+    func addVoice(voiceId: UUID, to playlist: Playlist) async throws -> Playlist {
+        // まず音声の存在チェック
+        guard try await checkVoiceExists(voiceId) else {
+            throw PlaylistRepositoryError.voiceNotFound
+        }
+
+        return try await context.perform {
+            let fetchRequest: NSFetchRequest<PlaylistEntity> = PlaylistEntity.fetchRequest()
+            fetchRequest.fetchLimit = 1
+            let predicate = NSPredicate(format: "id == %@", playlist.id as CVarArg)
+            fetchRequest.predicate = predicate
+
+            guard let playlistEntity = try self.context.fetch(fetchRequest).first else {
+                throw PlaylistRepositoryError.notFound
+            }
+
+            var currentVoiceIds = playlistEntity.voiceIds ?? []
+            if !currentVoiceIds.contains(voiceId) {
+                currentVoiceIds.append(voiceId)
+                playlistEntity.voiceIds = currentVoiceIds
+                playlistEntity.updatedAt = Date()
+                try self.context.save()
+            }
+
+            return self.convertToPlaylist(playlistEntity)
+        }
+    }
+
+    func removeVoice(voiceId: UUID, from playlist: Playlist) async throws -> Playlist {
+        // 音声の存在チェック
+        guard try await checkVoiceExists(voiceId) else {
+            throw PlaylistRepositoryError.voiceNotFound
+        }
+
+        return try await context.perform {
+            let fetchRequest: NSFetchRequest<PlaylistEntity> = PlaylistEntity.fetchRequest()
+            fetchRequest.fetchLimit = 1
+            let predicate = NSPredicate(format: "id == %@", playlist.id as CVarArg)
+            fetchRequest.predicate = predicate
+
+            guard let playlistEntity = try self.context.fetch(fetchRequest).first else {
+                throw PlaylistRepositoryError.notFound
+            }
+
+            if var currentVoiceIds = playlistEntity.voiceIds {
+                currentVoiceIds.removeAll { $0 == voiceId }
+                playlistEntity.voiceIds = currentVoiceIds
+                playlistEntity.updatedAt = Date()
+                try self.context.save()
+            }
+
+            return self.convertToPlaylist(playlistEntity)
         }
     }
 
