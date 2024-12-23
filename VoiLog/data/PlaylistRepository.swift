@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import Dependencies
 // MARK: - Repository Protocol
 protocol PlaylistRepository {
     func create(name: String) async throws -> Playlist
@@ -205,5 +206,22 @@ final class CoreDataPlaylistRepository: PlaylistRepository {
             try self.context.execute(batchDelete)
             try self.context.save()
         }
+    }
+}
+
+enum PlaylistRepositoryKey: DependencyKey {
+    static let liveValue: any PlaylistRepository = CoreDataPlaylistRepository(
+        context: NSPersistentContainer(name: "Voice").viewContext
+    )
+
+    static let testValue: any PlaylistRepository = CoreDataPlaylistRepository(
+        context: NSPersistentContainer(name: "Voice").viewContext
+    )
+}
+
+extension DependencyValues {
+    var playlistRepository: any PlaylistRepository {
+        get { self[PlaylistRepositoryKey.self] }
+        set { self[PlaylistRepositoryKey.self] = newValue }
     }
 }
