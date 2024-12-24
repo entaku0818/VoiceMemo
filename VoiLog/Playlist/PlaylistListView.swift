@@ -109,3 +109,17 @@ struct CreatePlaylistView: View {
         }
     }
 }
+
+
+#Preview {
+    PlaylistListView(
+        store: Store(
+            initialState: PlaylistListFeature.State(),
+            reducer: {
+                PlaylistListFeature()
+                    ._printChanges()
+            }
+        )
+    )
+
+}

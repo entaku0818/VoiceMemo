@@ -30,15 +30,28 @@ struct VoiceMemosView: View {
             NavigationView {
                 VStack {
                     List {
-                        ForEachStore(
-                            self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-                        ) {
-                            VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
+                        Section {
+                            NavigationLink(destination: PlaylistListView(
+                                store: Store(
+                                    initialState: PlaylistListFeature.State(),
+                                    reducer: { PlaylistListFeature() }
+                                )
+                            )) {
+                                Label("プレイリスト", systemImage: "music.note.list")
+                            }
                         }
-                        .onDelete { indexSet in
-                            for index in indexSet {
-                                selectedIndex = index
-                                isDeleteConfirmationPresented = true
+
+                        Section {
+                            ForEachStore(
+                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                            ) {
+                                VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
+                            }
+                            .onDelete { indexSet in
+                                for index in indexSet {
+                                    selectedIndex = index
+                                    isDeleteConfirmationPresented = true
+                                }
                             }
                         }
                     }

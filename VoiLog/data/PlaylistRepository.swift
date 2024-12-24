@@ -210,13 +210,33 @@ final class CoreDataPlaylistRepository: PlaylistRepository {
 }
 
 enum PlaylistRepositoryKey: DependencyKey {
-    static let liveValue: any PlaylistRepository = CoreDataPlaylistRepository(
-        context: NSPersistentContainer(name: "Voice").viewContext
-    )
+    static let liveValue: any PlaylistRepository = {
+        let container = NSPersistentContainer(name: "Voice")
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("CoreData store failed to load: \(error.localizedDescription)")
+            }
+        }
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        return CoreDataPlaylistRepository(context: container.viewContext)
+    }()
 
-    static let testValue: any PlaylistRepository = CoreDataPlaylistRepository(
-        context: NSPersistentContainer(name: "Voice").viewContext
-    )
+    static let testValue: any PlaylistRepository = {
+        let container = NSPersistentContainer(name: "Voice")
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType
+        container.persistentStoreDescriptions = [description]
+
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("CoreData store failed to load: \(error.localizedDescription)")
+            }
+        }
+        return CoreDataPlaylistRepository(context: container.viewContext)
+    }()
+
+    static let previewValue: any PlaylistRepository = PreviewPlaylistRepository()
+
 }
 
 extension DependencyValues {
