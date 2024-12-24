@@ -12,7 +12,7 @@ import Dependencies
 protocol PlaylistRepository {
     func create(name: String) async throws -> Playlist
     func fetchAll() async throws -> [Playlist]
-    func fetch(by id: UUID) async throws -> Playlist?
+    func fetch(by id: UUID) async throws -> PlaylistDetail?
     func update(_ playlist: Playlist, name: String) async throws -> Playlist
     func addVoice(voiceId: UUID, to playlist: Playlist) async throws -> Playlist
     func removeVoice(voiceId: UUID, from playlist: Playlist) async throws -> Playlist
@@ -154,15 +154,66 @@ final class CoreDataPlaylistRepository: PlaylistRepository {
         }
     }
 
-    func fetch(by id: UUID) async throws -> Playlist? {
+    func fetch(by id: UUID) async throws -> PlaylistDetail? {
         try await context.perform {
             let request = PlaylistEntity.fetchRequest()
             request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
             request.fetchLimit = 1
-            guard let entity = try self.context.fetch(request).first else {
+
+            guard let entity = try self.context.fetch(request).first,
+                  let playlistId = entity.id,
+                  let name = entity.name,
+                  let createdAt = entity.createdAt,
+                  let updatedAt = entity.updatedAt
+            else {
                 return nil
             }
-            return self.convertToPlaylist(entity)
+
+            // Voice情報の取得
+            let voiceIds = entity.voiceIds ?? []
+            let voices: [VoiceMemoRepository.Voice]
+            if !voiceIds.isEmpty {
+                let voiceRequest = Voice.fetchRequest()
+                voiceRequest.predicate = NSPredicate(format: "id IN %@", voiceIds as CVarArg)
+                let voiceEntities = try self.context.fetch(voiceRequest)
+                voices = voiceEntities.compactMap { entity in
+                    guard let id = entity.id,
+                          let title = entity.title,
+                          let text = entity.text,
+                          let url = entity.url,
+                          let fileFormat = entity.fileFormat,
+                          let createdAt = entity.createdAt,
+                          let updatedAt = entity.updatedAt
+                    else {
+                        return nil
+                    }
+
+                    return VoiceMemoRepository.Voice(
+                        title: title,
+                        url: url,
+                        id: id,
+                        text: text,
+                        createdAt: createdAt,
+                        updatedAt: updatedAt,
+                        duration: entity.duration,
+                        fileFormat: fileFormat,
+                        samplingFrequency: entity.samplingFrequency,
+                        quantizationBitDepth: entity.quantizationBitDepth,
+                        numberOfChannels: entity.numberOfChannels,
+                        isCloud: entity.isCloud
+                    )
+                }
+            } else {
+                voices = []
+            }
+
+            return PlaylistDetail(
+                id: playlistId,
+                name: name,
+                voices: voices,
+                createdAt: createdAt,
+                updatedAt: updatedAt
+            )
         }
     }
 

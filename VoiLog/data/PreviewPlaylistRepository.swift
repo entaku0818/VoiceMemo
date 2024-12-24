@@ -7,6 +7,8 @@
 
 import Foundation
 final class PreviewPlaylistRepository: PlaylistRepository {
+
+    
     private var playlists: [Playlist]
 
     init() {
@@ -48,8 +50,50 @@ final class PreviewPlaylistRepository: PlaylistRepository {
         playlists
     }
 
-    func fetch(by id: UUID) async throws -> Playlist? {
-        playlists.first { $0.id == id }
+    func fetch(by id: UUID) async throws -> PlaylistDetail? {
+        guard let playlist = playlists.first(where: { $0.id == id }) else {
+            return nil
+        }
+
+        // プレビュー用のダミーVoiceデータを作成
+        let mockVoices = [
+            VoiceMemoRepository.Voice(
+                title: "テスト音声1",
+                url: URL(string: "file://test1.m4a")!,
+                id: UUID(),
+                text: "テストテキスト1",
+                createdAt: Date(),
+                updatedAt: Date(),
+                duration: 60.0,
+                fileFormat: "m4a",
+                samplingFrequency: 44100,
+                quantizationBitDepth: 16,
+                numberOfChannels: 1,
+                isCloud: false
+            ),
+            VoiceMemoRepository.Voice(
+                title: "テスト音声2",
+                url: URL(string: "file://test2.m4a")!,
+                id: UUID(),
+                text: "テストテキスト2",
+                createdAt: Date(),
+                updatedAt: Date(),
+                duration: 120.0,
+                fileFormat: "m4a",
+                samplingFrequency: 44100,
+                quantizationBitDepth: 16,
+                numberOfChannels: 1,
+                isCloud: false
+            )
+        ]
+
+        return PlaylistDetail(
+            id: playlist.id,
+            name: playlist.name,
+            voices: mockVoices,
+            createdAt: playlist.createdAt,
+            updatedAt: playlist.updatedAt
+        )
     }
 
     func update(_ playlist: Playlist, name: String) async throws -> Playlist {
