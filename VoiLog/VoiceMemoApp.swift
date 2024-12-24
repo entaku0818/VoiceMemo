@@ -96,17 +96,21 @@ struct VoiceMemoApp: App {
 
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
-
         guard
-            let rollbarKey = Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? ProcessInfo.processInfo.environment["ROLLBAR_KEY"],
-            let recordAdmobKey = Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"],
-            let admobKey = Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["ADMOB_KEY"],
-            let revenueCatKey = Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
+            let rollbarKey = ProcessInfo.processInfo.environment["ROLLBAR_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String,
+            let recordAdmobKey = ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String,
+            let admobKey = ProcessInfo.processInfo.environment["ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String,
+            let revenueCatKey = ProcessInfo.processInfo.environment["REVENUECAT_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String
         else {
             fatalError("One or more environment variables are missing")
         }
 
-        return EnvironmentConfig(rollbarKey: rollbarKey, admobKey: admobKey, recordAdmobKey: recordAdmobKey, revenueCatKey: revenueCatKey)
+        return EnvironmentConfig(
+            rollbarKey: rollbarKey,
+            admobKey: admobKey,
+            recordAdmobKey: recordAdmobKey,
+            revenueCatKey: revenueCatKey
+        )
     }
 
     struct EnvironmentConfig {
