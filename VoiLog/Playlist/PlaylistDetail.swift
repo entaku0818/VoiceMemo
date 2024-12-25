@@ -20,5 +20,12 @@ struct PlaylistDetail: Equatable {
     var voices: [VoiceMemoRepository.Voice]
     let createdAt: Date
     var updatedAt: Date
-
+    var asPlaylist: Playlist {
+        Playlist(
+            id: id,
+            name: name,
+            createdAt: createdAt,
+            updatedAt: updatedAt
+        )
+    }
 }
