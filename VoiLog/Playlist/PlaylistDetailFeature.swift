@@ -19,7 +19,9 @@ struct PlaylistDetailFeature: Reducer {
         var error: String?
         var isEditingName: Bool = false
         var editingName: String = ""
-        var voiceMemos: [VoiceMemoRepository.Voice] = [] // 追加
+        var voiceMemos: [VoiceMemoRepository.Voice] = []
+        var isShowingVoiceSelection: Bool = false 
+
     }
 
     enum Action {
@@ -38,6 +40,11 @@ struct PlaylistDetailFeature: Reducer {
         case loadVoiceMemos
         case voiceMemosLoaded([VoiceMemoRepository.Voice])
         case voiceMemosLoadFailed(Error)
+        case showVoiceSelectionSheet
+        case hideVoiceSelectionSheet
+        case addVoiceToPlaylist(UUID)
+        case voiceAddedToPlaylist(PlaylistDetail)
+        case voiceAddFailedToPlaylist(Error)
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
@@ -151,6 +158,41 @@ struct PlaylistDetailFeature: Reducer {
             case let .voiceMemosLoadFailed(error):
                 state.error = error.localizedDescription
                 return .none
+
+            case .showVoiceSelectionSheet:
+                state.isShowingVoiceSelection = true
+                return .send(.loadVoiceMemos)
+
+            case .hideVoiceSelectionSheet:
+                state.isShowingVoiceSelection = false
+                return .none
+
+            case let .addVoiceToPlaylist(voiceId):
+                guard let playlist = state.playlistDetail else { return .none }
+
+                return .run { send in
+                    do {
+                        let updated = try await playlistRepository.addVoice(voiceId: voiceId, to: playlist.asPlaylist)
+                        guard let detail = try await playlistRepository.fetch(by: updated.id) else {
+                            throw PlaylistRepositoryError.notFound
+                        }
+                        await send(.voiceAddedToPlaylist(detail))
+                    } catch {
+                        await send(.voiceAddFailedToPlaylist(error))
+                    }
+                }
+
+            case let .voiceAddedToPlaylist(detail):
+                state.playlistDetail = detail
+                return .none
+
+            case let .voiceAddFailedToPlaylist(error):
+                state.error = error.localizedDescription
+                return .none
+
+            case let .voiceRemoved(detail):
+                state.playlistDetail = detail
+                return .send(.loadVoiceMemos) // 音声削除後に一覧を更新
             }
         }
     }

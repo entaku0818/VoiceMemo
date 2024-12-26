@@ -66,6 +66,19 @@ struct PlaylistDetailView: View {
                                 .foregroundColor(.secondary)
                         }
 
+                        Section {
+                                   Button {
+                                       viewStore.send(.showVoiceSelectionSheet)
+                                   } label: {
+                                       HStack {
+                                           Image(systemName: "plus.circle.fill")
+                                               .foregroundColor(.blue)
+                                           Text("音声を追加")
+                                       }
+                                   }
+                               }
+
+
                         // Voices Section
                         Section("音声リスト") {
                             if detail.voices.isEmpty {
@@ -94,6 +107,64 @@ struct PlaylistDetailView: View {
                         }
                     }
                     .listStyle(InsetGroupedListStyle())
+                    .sheet(
+                                            isPresented: viewStore.binding(
+                                                get: \.isShowingVoiceSelection,
+                                                send: PlaylistDetailFeature.Action.hideVoiceSelectionSheet
+                                            )
+                                        ) {
+                                            NavigationView {
+                                                List {
+                                                    ForEach(viewStore.voiceMemos, id: \.id) { voice in
+                                                        HStack {
+                                                            VStack(alignment: .leading, spacing: 4) {
+                                                                Text(voice.title)
+                                                                    .font(.headline)
+
+                                                                HStack(spacing: 8) {
+                                                                    Label(
+                                                                        String(format: "%.1f秒", voice.duration),
+                                                                        systemImage: "clock"
+                                                                    )
+                                                                    .font(.caption)
+                                                                    .foregroundColor(.secondary)
+
+                                                                    Text("録音日: \(voice.createdAt.formatted(date: .abbreviated, time: .shortened))")
+                                                                        .font(.caption)
+                                                                        .foregroundColor(.secondary)
+                                                                }
+                                                            }
+
+                                                            Spacer()
+
+                                                            if !detail.voices.contains(where: { $0.id == voice.id }) {
+                                                                Button {
+                                                                    viewStore.send(.addVoiceToPlaylist(voice.id))
+                                                                } label: {
+                                                                    Image(systemName: "plus.circle.fill")
+                                                                        .foregroundColor(.blue)
+                                                                        .font(.title2)
+                                                                }
+                                                            } else {
+                                                                Image(systemName: "checkmark.circle.fill")
+                                                                    .foregroundColor(.green)
+                                                                    .font(.title2)
+                                                            }
+                                                        }
+                                                        .padding(.vertical, 4)
+                                                    }
+                                                }
+                                                .navigationTitle("音声を選択")
+                                                .navigationBarTitleDisplayMode(.inline)
+                                                .toolbar {
+                                                    ToolbarItem(placement: .navigationBarTrailing) {
+                                                        Button("完了") {
+                                                            viewStore.send(.hideVoiceSelectionSheet)
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                 } else {
                     Text("プレイリストが見つかりません")
                         .foregroundColor(.secondary)

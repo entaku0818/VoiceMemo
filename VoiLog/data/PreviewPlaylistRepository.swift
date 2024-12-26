@@ -51,7 +51,7 @@ final class PreviewPlaylistRepository: PlaylistRepository {
     }
 
     func fetch(by id: UUID) async throws -> PlaylistDetail? {
-        guard let playlist = playlists.first(where: { $0.id == id }) else {
+        guard let playlist = playlists.first else {
             return nil
         }
 
