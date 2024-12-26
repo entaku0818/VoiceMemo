@@ -12,15 +12,20 @@ import ComposableArchitecture
 struct PlaylistDetailView: View {
     let store: StoreOf<PlaylistDetailFeature>
 
-    init(store: StoreOf<PlaylistDetailFeature>) {
-        self.store = store
-    }
-
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             Group {
-                if let detail = viewStore.playlistDetail {
+                if viewStore.isLoading {
+                    ProgressView()
+                } else if let error = viewStore.error {
+                    VStack {
+                        Text("エラーが発生しました")
+                        Text(error)
+                            .foregroundColor(.red)
+                    }
+                } else if let detail = viewStore.playlistDetail {
                     List {
+                        // Playlist Name Section
                         Section {
                             if viewStore.isEditingName {
                                 HStack {
@@ -28,19 +33,26 @@ struct PlaylistDetailView: View {
                                         get: \.editingName,
                                         send: PlaylistDetailFeature.Action.updateName
                                     ))
+                                    .textFieldStyle(RoundedBorderTextFieldStyle())
 
                                     Button("保存") {
                                         viewStore.send(.saveNameButtonTapped)
                                     }
+                                    .buttonStyle(.bordered)
 
                                     Button("キャンセル") {
                                         viewStore.send(.cancelEditButtonTapped)
                                     }
+                                    .buttonStyle(.bordered)
                                 }
                             } else {
                                 HStack {
                                     Text(detail.name)
+                                        .font(.title2)
+                                        .fontWeight(.semibold)
+
                                     Spacer()
+
                                     Button {
                                         viewStore.send(.editButtonTapped)
                                     } label: {
@@ -54,15 +66,18 @@ struct PlaylistDetailView: View {
                                 .foregroundColor(.secondary)
                         }
 
+                        // Voices Section
                         Section("音声リスト") {
                             if detail.voices.isEmpty {
                                 Text("音声が追加されていません")
                                     .foregroundColor(.secondary)
+                                    .frame(maxWidth: .infinity, alignment: .center)
                             } else {
                                 ForEach(detail.voices, id: \.id) { voice in
-                                    VStack(alignment: .leading) {
+                                    VStack(alignment: .leading, spacing: 4) {
                                         Text(voice.title)
                                             .font(.headline)
+
                                         Text("録音日: \(voice.createdAt.formatted(date: .abbreviated, time: .shortened))")
                                             .font(.caption)
                                             .foregroundColor(.secondary)
@@ -78,9 +93,14 @@ struct PlaylistDetailView: View {
                             }
                         }
                     }
+                    .listStyle(InsetGroupedListStyle())
+                } else {
+                    Text("プレイリストが見つかりません")
+                        .foregroundColor(.secondary)
                 }
             }
             .navigationTitle("プレイリストの詳細")
+            .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 viewStore.send(.onAppear)
             }

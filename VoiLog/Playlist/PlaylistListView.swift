@@ -15,20 +15,16 @@ struct PlaylistListView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
                 Group {
-
                     List {
                         ForEach(viewStore.playlists, id: \.id) { playlist in
-                            let detailStore = Store(
-                                initialState: PlaylistDetailFeature.State(
-                                    id: playlist.id
-                                ),
-                                reducer: {
-                                    PlaylistDetailFeature()
-                                        ._printChanges()
-                                }
-                            )
-
-                            NavigationLink(destination: PlaylistDetailView(store: detailStore)) {
+                            NavigationLink(
+                                destination: PlaylistDetailView(
+                                    store: Store(
+                                        initialState: PlaylistDetailFeature.State(id: playlist.id),
+                                        reducer: { PlaylistDetailFeature() }
+                                    )
+                                )
+                            ) {
                                 PlaylistRow(playlist: playlist)
                             }
                             .swipeActions {
@@ -40,7 +36,6 @@ struct PlaylistListView: View {
                             }
                         }
                     }
-
                 }
                 .navigationTitle("プレイリスト")
                 .toolbar {
@@ -60,7 +55,8 @@ struct PlaylistListView: View {
                 ) {
                     CreatePlaylistView(store: store)
                 }
-                .onAppear { viewStore.send(.onAppear) }
+    
+            .onAppear { viewStore.send(.onAppear) }
         }
     }
 }
