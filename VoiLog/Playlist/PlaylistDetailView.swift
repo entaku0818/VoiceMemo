@@ -12,12 +12,14 @@ import ComposableArchitecture
 struct PlaylistDetailView: View {
     let store: StoreOf<PlaylistDetailFeature>
 
+    init(store: StoreOf<PlaylistDetailFeature>) {
+        self.store = store
+    }
+
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             Group {
-                if viewStore.isLoading {
-                    ProgressView()
-                } else if let detail = viewStore.playlistDetail {
+                if let detail = viewStore.playlistDetail {
                     List {
                         Section {
                             if viewStore.isEditingName {
@@ -57,7 +59,7 @@ struct PlaylistDetailView: View {
                                 Text("音声が追加されていません")
                                     .foregroundColor(.secondary)
                             } else {
-                                ForEach(detail.voices) { voice in
+                                ForEach(detail.voices, id: \.id) { voice in
                                     VStack(alignment: .leading) {
                                         Text(voice.title)
                                             .font(.headline)
@@ -120,7 +122,6 @@ struct PlaylistDetailView: View {
         }
     )
 
-    return NavigationStack {
-        PlaylistDetailView(store: store)
-    }
+    return PlaylistDetailView(store: store)
+
 }

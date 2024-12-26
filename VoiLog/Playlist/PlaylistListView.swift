@@ -14,24 +14,33 @@ struct PlaylistListView: View {
 
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationStack {
                 Group {
-                    if viewStore.isLoading {
-                        ProgressView()
-                    } else {
-                        List {
-                            ForEach(viewStore.playlists) { playlist in
+
+                    List {
+                        ForEach(viewStore.playlists, id: \.id) { playlist in
+                            let detailStore = Store(
+                                initialState: PlaylistDetailFeature.State(
+                                    id: playlist.id
+                                ),
+                                reducer: {
+                                    PlaylistDetailFeature()
+                                        ._printChanges()
+                                }
+                            )
+
+                            NavigationLink(destination: PlaylistDetailView(store: detailStore)) {
                                 PlaylistRow(playlist: playlist)
-                                    .swipeActions {
-                                        Button(role: .destructive) {
-                                            viewStore.send(.deletePlaylist(playlist.id))
-                                        } label: {
-                                            Label("削除", systemImage: "trash")
-                                        }
-                                    }
+                            }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    viewStore.send(.deletePlaylist(playlist.id))
+                                } label: {
+                                    Label("削除", systemImage: "trash")
+                                }
                             }
                         }
                     }
+
                 }
                 .navigationTitle("プレイリスト")
                 .toolbar {
@@ -51,8 +60,7 @@ struct PlaylistListView: View {
                 ) {
                     CreatePlaylistView(store: store)
                 }
-            }
-            .onAppear { viewStore.send(.onAppear) }
+                .onAppear { viewStore.send(.onAppear) }
         }
     }
 }
