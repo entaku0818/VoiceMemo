@@ -195,7 +195,7 @@ class VoiceMemoRepository {
         return hasDifferences
     }
 
-    struct Voice {
+    struct Voice: Equatable {
         var title: String
         var url: URL
         var id: UUID

@@ -19,6 +19,7 @@ struct PlaylistDetailFeature: Reducer {
         var error: String?
         var isEditingName: Bool = false
         var editingName: String = ""
+        var voiceMemos: [VoiceMemoRepository.Voice] = [] // 追加
     }
 
     enum Action {
@@ -34,9 +35,13 @@ struct PlaylistDetailFeature: Reducer {
         case removeVoice(UUID)
         case voiceRemoved(PlaylistDetail)
         case voiceRemovalFailed(Error)
+        case loadVoiceMemos
+        case voiceMemosLoaded([VoiceMemoRepository.Voice])
+        case voiceMemosLoadFailed(Error)
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
+    @Dependency(\.voiceMemoCoredataAccessor) var voiceMemoAccessor
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -127,6 +132,23 @@ struct PlaylistDetailFeature: Reducer {
                 return .none
 
             case let .voiceRemovalFailed(error):
+                state.error = error.localizedDescription
+                return .none
+            case .loadVoiceMemos:
+                return .run { send in
+                    do {
+                        let voices = voiceMemoAccessor.selectAllData()
+                        await send(.voiceMemosLoaded(voices))
+                    } catch {
+                        await send(.voiceMemosLoadFailed(error))
+                    }
+                }
+
+            case let .voiceMemosLoaded(voices):
+                state.voiceMemos = voices
+                return .none
+
+            case let .voiceMemosLoadFailed(error):
                 state.error = error.localizedDescription
                 return .none
             }
