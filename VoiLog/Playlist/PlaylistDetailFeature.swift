@@ -21,7 +21,10 @@ struct PlaylistDetailFeature: Reducer {
         var editingName: String = ""
         var voiceMemos: [VoiceMemoRepository.Voice] = []
         var isShowingVoiceSelection: Bool = false 
-
+        var isPlaying: Bool = false
+        var currentPlayingIndex: Int?
+        var currentTime: TimeInterval = 0
+        var playbackSpeed: AudioPlayerClient.PlaybackSpeed = .normal
     }
 
     enum Action {
@@ -45,10 +48,20 @@ struct PlaylistDetailFeature: Reducer {
         case addVoiceToPlaylist(UUID)
         case voiceAddedToPlaylist(PlaylistDetail)
         case voiceAddFailedToPlaylist(Error)
+        case playAllButtonTapped
+       case pauseButtonTapped
+       case playNextVoice
+       case playbackFinished(Bool)
+       case updatePlaybackTime(TimeInterval)
+       case changePlaybackSpeed
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
     @Dependency(\.voiceMemoCoredataAccessor) var voiceMemoAccessor
+    @Dependency(\.audioPlayer) var audioPlayer
+    @Dependency(\.continuousClock) var clock
+
+    private enum CancelID { case player }
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -193,8 +206,78 @@ struct PlaylistDetailFeature: Reducer {
             case let .voiceRemoved(detail):
                 state.playlistDetail = detail
                 return .send(.loadVoiceMemos) // 音声削除後に一覧を更新
+
+            case .playAllButtonTapped:
+                     guard let playlist = state.playlistDetail, !playlist.voices.isEmpty else { return .none }
+                     state.isPlaying = true
+                     state.currentPlayingIndex = 0
+
+                     return .run { [voices = playlist.voices, speed = state.playbackSpeed] send in
+                         let voice = voices[0]
+                         do {
+                             let result = try await audioPlayer.play(voice.url, 0, speed, false)
+                             await send(.playbackFinished(result))
+
+                             for await _ in clock.timer(interval: .seconds(0.5)) {
+                                 let currentTime = try await audioPlayer.getCurrentTime()
+                                 await send(.updatePlaybackTime(currentTime))
+                             }
+                         } catch {
+                             await send(.playbackFinished(false))
+                         }
+                     }
+                     .cancellable(id: CancelID.player)
+
+                 case .pauseButtonTapped:
+                     state.isPlaying = false
+                     return .run { _ in
+                         _ = try await audioPlayer.stop()
+                     }
+                     .cancellable(id: CancelID.player)
+
+                 case .playNextVoice:
+                     guard let playlist = state.playlistDetail,
+                           let currentIndex = state.currentPlayingIndex,
+                           currentIndex + 1 < playlist.voices.count
+                     else {
+                         state.isPlaying = false
+                         state.currentPlayingIndex = nil
+                         state.currentTime = 0
+                         return .none
+                     }
+
+                     state.currentPlayingIndex = currentIndex + 1
+                     let nextVoice = playlist.voices[currentIndex + 1]
+
+                     return .run { [speed = state.playbackSpeed] send in
+                         let result = try await audioPlayer.play(nextVoice.url, 0, speed, false)
+                         await send(.playbackFinished(result))
+                     }
+                     .cancellable(id: CancelID.player)
+
+                 case let .playbackFinished(success):
+                     if success {
+                         return .send(.playNextVoice)
+                     }
+                     state.isPlaying = false
+                     state.currentPlayingIndex = nil
+                     state.currentTime = 0
+                     return .none
+
+                 case let .updatePlaybackTime(time):
+                     state.currentTime = time
+                     return .none
+
+                 case .changePlaybackSpeed:
+                     state.playbackSpeed = state.playbackSpeed.next()
+                     if state.isPlaying {
+                         return .send(.pauseButtonTapped)
+                     }
+                     return .none
             }
         }
     }
 }
+
+
 

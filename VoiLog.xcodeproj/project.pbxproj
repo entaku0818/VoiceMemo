@@ -21,6 +21,7 @@
 		612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */; };
 		612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612521162BC26E3B002A7A3E /* PaywallView.swift */; };
 		613ABC832C1DE9130092F5F7 /* VoiceMemosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613ABC822C1DE9130092F5F7 /* VoiceMemosTests.swift */; };
+		613F02752D1D939F0098C091 /* PlaylistDetailFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613F02742D1D939E0098C091 /* PlaylistDetailFeatureTests.swift */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoCoredataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoCoredataAccessor.swift */; };
 		61458CD22C4B939300B7107E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61458CD12C4B939300B7107E /* WidgetKit.framework */; };
 		61458CD42C4B939300B7107E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61458CD32C4B939300B7107E /* SwiftUI.framework */; };
@@ -133,6 +134,7 @@
 		612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Simple Voice Recorder - Audio.storekit"; sourceTree = "<group>"; };
 		612521162BC26E3B002A7A3E /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		613ABC822C1DE9130092F5F7 /* VoiceMemosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemosTests.swift; sourceTree = "<group>"; };
+		613F02742D1D939E0098C091 /* PlaylistDetailFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailFeatureTests.swift; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoCoredataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoCoredataAccessor.swift; sourceTree = "<group>"; };
 		61458CCF2C4B939300B7107E /* recordActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = recordActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		61458CD12C4B939300B7107E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -402,6 +404,7 @@
 				615321B32C26FD2C00E70580 /* MockVoiceMemoCoredataAccessor.swift */,
 				615321B52C2808C400E70580 /* MockCloudUploader.swift */,
 				6168BB092D19AE15007CDF6A /* PlaylistRepositoryTests.swift */,
+				613F02742D1D939E0098C091 /* PlaylistDetailFeatureTests.swift */,
 			);
 			path = VoiLogTests;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				6168BB0A2D19AE15007CDF6A /* PlaylistRepositoryTests.swift in Sources */,
 				615321B22C26FD1400E70580 /* VoiceMemoRepositoryTests.swift in Sources */,
 				615321B42C26FD2C00E70580 /* MockVoiceMemoCoredataAccessor.swift in Sources */,
+				613F02752D1D939F0098C091 /* PlaylistDetailFeatureTests.swift in Sources */,
 				619799F828C34A2600169FB6 /* VoiLogTests.swift in Sources */,
 				613ABC832C1DE9130092F5F7 /* VoiceMemosTests.swift in Sources */,
 			);
