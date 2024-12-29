@@ -95,7 +95,7 @@ final class CoreDataPlaylistRepository: PlaylistRepository {
             fetchRequest.predicate = predicate
 
             let count = try self.context.count(for: fetchRequest)
-            return !isEmpty
+            return count > 0
         }
     }
 

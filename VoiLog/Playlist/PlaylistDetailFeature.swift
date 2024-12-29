@@ -19,7 +19,7 @@ struct PlaylistDetailFeature: Reducer {
         var error: String?
         var isEditingName: Bool = false
         var editingName: String = ""
-        var voiceMemos: [VoiceMemoRepository.Voice] = []
+        var voiceMemos: [VoiceMemoReducer.State] = []
         var isShowingVoiceSelection: Bool = false
         var isPlaying: Bool = false
         var currentPlayingIndex: Int?
@@ -41,7 +41,7 @@ struct PlaylistDetailFeature: Reducer {
         case voiceRemoved(PlaylistDetail)
         case voiceRemovalFailed(Error)
         case loadVoiceMemos
-        case voiceMemosLoaded([VoiceMemoRepository.Voice])
+        case voiceMemosLoaded([VoiceMemoReducer.State])
         case voiceMemosLoadFailed(Error)
         case showVoiceSelectionSheet
         case hideVoiceSelectionSheet
@@ -157,7 +157,23 @@ struct PlaylistDetailFeature: Reducer {
             case .loadVoiceMemos:
                 return .run { send in
                     do {
-                        let voices = voiceMemoAccessor.selectAllData()
+                        let voices = voiceMemoAccessor.selectAllData().map { voice in
+                            VoiceMemoReducer.State(
+                                uuid: voice.id,
+                                date: voice.createdAt,
+                                duration: voice.duration,
+                                time: 0,
+                                mode: .notPlaying,
+                                title: voice.title,
+                                url: voice.url,
+                                text: voice.text,
+                                fileFormat: voice.fileFormat,
+                                samplingFrequency: voice.samplingFrequency,
+                                quantizationBitDepth: Int(voice.quantizationBitDepth),
+                                numberOfChannels: Int(voice.numberOfChannels),
+                                hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
+                            )
+                        }
                         await send(.voiceMemosLoaded(voices))
                     } catch {
                         await send(.voiceMemosLoadFailed(error))
