@@ -68,11 +68,11 @@ struct VoiceMemos: Reducer {
     @Dependency(\.temporaryDirectory) var temporaryDirectory
     @Dependency(\.uuid) var uuid
 
-    private func handleVoiceMemoDelegate(
-        state: inout State,
-        id: VoiceMemoReducer.State.ID,
-        delegateAction: VoiceMemoReducer.Action.Delegate
-    ) -> Effect<Action> {
+        private func handleVoiceMemoDelegate(
+            state: inout State,
+            id: VoiceMemoReducer.State.ID,
+            delegateAction: VoiceMemoReducer.Action.Delegate
+        ) -> Effect<Action> {
         switch delegateAction {
         case .playbackFailed:
             state.alert = AlertState { TextState("Voice memo playback failed.") }

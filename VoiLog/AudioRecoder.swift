@@ -199,7 +199,7 @@ private actor AudioRecorder {
                         try audioFile.write(from: buffer)
                     } catch {
                         UserDefaultsManager.shared.logError(error.localizedDescription)
-                        Logger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
+                        RollbarLogger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
                         continuation.finish(throwing: error)
                     }
                 }
@@ -209,7 +209,7 @@ private actor AudioRecorder {
 
             } catch {
                 UserDefaultsManager.shared.logError(error.localizedDescription)
-                Logger.shared.logError(error.localizedDescription)
+                RollbarLogger.shared.logError(error.localizedDescription)
                 continuation.finish(throwing: error)
             }
         }

@@ -61,7 +61,7 @@ struct VoiceMemoApp: App {
         self.admobUnitId = environmentConfig.admobKey
         self.recordAdmobUnitId = environmentConfig.recordAdmobKey
         Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
-        Logger.shared.initialize(with: environmentConfig.rollbarKey)
+        RollbarLogger.shared.initialize(with: environmentConfig.rollbarKey)
 
         let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
         voiceMemos = voiceMemoRepository.selectAllData()
