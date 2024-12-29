@@ -33,9 +33,8 @@ struct VoiceMemosView: View {
                         Section {
                             NavigationLink(destination: PlaylistListView(
                                 store: Store(
-                                    initialState: PlaylistListFeature.State(),
-                                    reducer: { PlaylistListFeature() }
-                                )
+                                    initialState: PlaylistListFeature.State()
+                                )                                    { PlaylistListFeature() }
                             )) {
                                 Label("プレイリスト", systemImage: "music.note.list")
                             }
@@ -58,13 +57,12 @@ struct VoiceMemosView: View {
                     if viewStore.currentMode == .playback {
                         if let playingMemoID = viewStore.currentPlayingMemo {
                             ForEachStore(
-                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos),
-                                content: { store in
+                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                            )                                { store in
                                     if store.withState({ $0.id == playingMemoID }) {
                                         PlayerView(store: store)
                                     }
                                 }
-                            )
                         }
                     } else if viewStore.currentMode == .recording {
                         IfLetStore(
@@ -104,7 +102,7 @@ struct VoiceMemosView: View {
                                 selectedIndex = nil
                             }
                         },
-                        secondaryButton: .cancel() {
+                        secondaryButton: .cancel {
                             selectedIndex = nil
                         }
                     )

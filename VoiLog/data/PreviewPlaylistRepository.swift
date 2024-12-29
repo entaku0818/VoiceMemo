@@ -8,7 +8,6 @@
 import Foundation
 final class PreviewPlaylistRepository: PlaylistRepository {
 
-    
     private var playlists: [Playlist]
 
     init() {

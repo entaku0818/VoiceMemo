@@ -17,7 +17,7 @@ final class PlaylistRepositoryTests: XCTestCase {
         description.type = NSInMemoryStoreType
         container.persistentStoreDescriptions = [description]
 
-        await container.loadPersistentStores { description, error in
+        await container.loadPersistentStores { _, error in
             XCTAssertNil(error)
         }
 
@@ -110,9 +110,7 @@ final class PlaylistRepositoryTests: XCTestCase {
         XCTAssertNil(fetched)
     }
 
-
     // MARK: - Voice Management Tests
-
 
     func test_addVoice_throws_error_for_nonexistent_voice() async throws {
         // 準備
@@ -129,6 +127,5 @@ final class PlaylistRepositoryTests: XCTestCase {
             XCTFail("予期しないエラー: \(error)")
         }
     }
-
 
 }

@@ -15,7 +15,7 @@ class UserDefaultsManager {
         defaults = UserDefaults.standard
     }
 
-    public func logError(_ message: String) {
+    func logError(_ message: String) {
         let timestamp = Date().description(with: .current)
         let logMessage = "[\(timestamp)] \(message)"
 

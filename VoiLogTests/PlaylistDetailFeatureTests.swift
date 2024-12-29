@@ -12,8 +12,6 @@ import ComposableArchitecture
 @MainActor
 final class PlaylistDetailFeatureTests: XCTestCase {
 
-
-
     func testPlaybackSpeedChange() async {
         let store = TestStore(initialState: PlaylistDetailFeature.State(
             id: UUID(),

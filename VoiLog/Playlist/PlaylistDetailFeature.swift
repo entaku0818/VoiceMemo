@@ -20,7 +20,7 @@ struct PlaylistDetailFeature: Reducer {
         var isEditingName: Bool = false
         var editingName: String = ""
         var voiceMemos: [VoiceMemoRepository.Voice] = []
-        var isShowingVoiceSelection: Bool = false 
+        var isShowingVoiceSelection: Bool = false
         var isPlaying: Bool = false
         var currentPlayingIndex: Int?
         var currentTime: TimeInterval = 0
@@ -278,6 +278,3 @@ struct PlaylistDetailFeature: Reducer {
         }
     }
 }
-
-
-

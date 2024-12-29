@@ -21,11 +21,11 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
     override init() {
         container = NSPersistentContainer(name: entityName)
-        container.loadPersistentStores(completionHandler: { _, error in
+        container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        })
+        }
         container.viewContext.automaticallyMergesChangesFromParent = true
         self.managedContext = container.viewContext
         if let localEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
@@ -176,7 +176,6 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         }
     }
 }
-
 
 private enum VoiceMemoCoredataAccessorKey: DependencyKey {
     static let liveValue: VoiceMemoCoredataAccessorProtocol = VoiceMemoCoredataAccessor()

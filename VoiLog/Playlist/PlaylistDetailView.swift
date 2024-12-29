@@ -76,8 +76,7 @@ struct PlaylistDetailView: View {
                                            Text("音声を追加")
                                        }
                                    }
-                               }
-
+                        }
 
                         // Voices Section
                         Section("音声リスト") {
@@ -164,7 +163,7 @@ struct PlaylistDetailView: View {
                                                     }
                                                 }
                                             }
-                                        }
+                    }
                 } else {
                     Text("プレイリストが見つかりません")
                         .foregroundColor(.secondary)
@@ -206,12 +205,11 @@ struct PlaylistDetailView: View {
                 createdAt: Date(),
                 updatedAt: Date()
             )
-        ),
-        reducer: {
+        )
+    )        {
             PlaylistDetailFeature()
                 ._printChanges()
         }
-    )
 
     return PlaylistDetailView(store: store)
 

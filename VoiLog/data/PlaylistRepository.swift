@@ -95,7 +95,7 @@ final class CoreDataPlaylistRepository: PlaylistRepository {
             fetchRequest.predicate = predicate
 
             let count = try self.context.count(for: fetchRequest)
-            return count > 0
+            return !isEmpty
         }
     }
 
@@ -263,7 +263,7 @@ final class CoreDataPlaylistRepository: PlaylistRepository {
 enum PlaylistRepositoryKey: DependencyKey {
     static let liveValue: any PlaylistRepository = {
         let container = NSPersistentContainer(name: "Voice")
-        container.loadPersistentStores { description, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("CoreData store failed to load: \(error.localizedDescription)")
             }
@@ -278,7 +278,7 @@ enum PlaylistRepositoryKey: DependencyKey {
         description.type = NSInMemoryStoreType
         container.persistentStoreDescriptions = [description]
 
-        container.loadPersistentStores { description, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("CoreData store failed to load: \(error.localizedDescription)")
             }

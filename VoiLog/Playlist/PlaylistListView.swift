@@ -20,9 +20,8 @@ struct PlaylistListView: View {
                             NavigationLink(
                                 destination: PlaylistDetailView(
                                     store: Store(
-                                        initialState: PlaylistDetailFeature.State(id: playlist.id),
-                                        reducer: { PlaylistDetailFeature() }
-                                    )
+                                        initialState: PlaylistDetailFeature.State(id: playlist.id)
+                                    )                                        { PlaylistDetailFeature() }
                                 )
                             ) {
                                 PlaylistRow(playlist: playlist)
@@ -49,13 +48,12 @@ struct PlaylistListView: View {
                 }
                 .sheet(
                     isPresented: viewStore.binding(
-                        get: \.isShowingCreateSheet,
-                        send: { $0 ? .createPlaylistButtonTapped : .createPlaylistSheetDismissed }
-                    )
+                        get: \.isShowingCreateSheet
+                    )                        { $0 ? .createPlaylistButtonTapped : .createPlaylistSheetDismissed }
                 ) {
                     CreatePlaylistView(store: store)
                 }
-    
+
             .onAppear { viewStore.send(.onAppear) }
         }
     }
@@ -114,16 +112,14 @@ struct CreatePlaylistView: View {
     }
 }
 
-
 #Preview {
     PlaylistListView(
         store: Store(
-            initialState: PlaylistListFeature.State(),
-            reducer: {
+            initialState: PlaylistListFeature.State()
+        )            {
                 PlaylistListFeature()
                     ._printChanges()
             }
-        )
     )
 
 }

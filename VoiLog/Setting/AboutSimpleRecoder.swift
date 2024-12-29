@@ -37,9 +37,9 @@ struct AboutSimpleRecoder: View {
                     Spacer()
                 }
             }
-            .sheet(isPresented: $isShareSheetPresented, content: {
+            .sheet(isPresented: $isShareSheetPresented) {
                 ActivityViewController(activityItems: ["https://apps.apple.com/app/id6443528409"])
-            })
+            }
 
         }
         .listStyle(GroupedListStyle())

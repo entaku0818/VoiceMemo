@@ -373,7 +373,7 @@ struct RecordingMemoView: View {
                         .foregroundColor(.black)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    if viewStore.resultText.count > 0 {
+                    if !viewStore.resultText.isEmpty {
                         Button(action: {
                             showModal.toggle()
                         }) {
@@ -489,12 +489,12 @@ extension AudioRecorderClient {
                 await isRecording.setValue(true)
             },
             volumes: {
-                return await volumes.value
+                await volumes.value
             }, waveFormHeights: {
-                return [0.1]
+                [0.1]
             },
             resultText: {
-                return resultText
+                resultText
             }
         )
     }

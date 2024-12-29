@@ -34,7 +34,6 @@ struct PlaylistListFeature: Reducer {
 
     @Dependency(\.playlistRepository) var playlistRepository
 
-
     func reduce(into state: inout State, action: Action) -> ComposableArchitecture.Effect<Action> {
         switch action {
         case .onAppear:
@@ -116,7 +115,4 @@ struct PlaylistListFeature: Reducer {
         }
     }
 
-
 }
-
-

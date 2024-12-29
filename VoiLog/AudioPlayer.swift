@@ -32,10 +32,10 @@ extension AudioPlayerClient: TestDependencyKey {
             return true
         },
         stop: {
-            return true
+            true
         },
         getCurrentTime: {
-            return 60
+            60
         }
     )
 
@@ -58,13 +58,13 @@ extension AudioPlayerClient: DependencyKey {
         let audioPlayer = AudioPlayer()
         return Self(
             play: { url, startTime, playSpeed, isLooping in
-                return try await audioPlayer.play(url: url, startTime: startTime, rate: playSpeed, isLooping: isLooping)
+                try await audioPlayer.play(url: url, startTime: startTime, rate: playSpeed, isLooping: isLooping)
             },
             stop: {
-                return await audioPlayer.stop()
+                await audioPlayer.stop()
             },
             getCurrentTime: {
-                return await audioPlayer.getCurrentTime()
+                await audioPlayer.getCurrentTime()
             }
         )
     }
