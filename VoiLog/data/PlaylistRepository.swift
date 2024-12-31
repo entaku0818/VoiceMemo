@@ -272,19 +272,7 @@ enum PlaylistRepositoryKey: DependencyKey {
         return CoreDataPlaylistRepository(context: container.viewContext)
     }()
 
-    static let testValue: any PlaylistRepository = {
-        let container = NSPersistentContainer(name: "Voice")
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType
-        container.persistentStoreDescriptions = [description]
-
-        container.loadPersistentStores { _, error in
-            if let error = error {
-                fatalError("CoreData store failed to load: \(error.localizedDescription)")
-            }
-        }
-        return CoreDataPlaylistRepository(context: container.viewContext)
-    }()
+    static let testValue:  any PlaylistRepository = PreviewPlaylistRepository()
 
     static let previewValue: any PlaylistRepository = PreviewPlaylistRepository()
 

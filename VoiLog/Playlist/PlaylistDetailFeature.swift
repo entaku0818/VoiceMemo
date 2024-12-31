@@ -68,7 +68,6 @@ struct PlaylistDetailFeature: Reducer {
 
     @Dependency(\.playlistRepository) var playlistRepository
     @Dependency(\.voiceMemoCoredataAccessor) var voiceMemoAccessor
-    @Dependency(\.audioPlayer) var audioPlayer
     @Dependency(\.continuousClock) var clock
 
     private enum CancelID { case player }
