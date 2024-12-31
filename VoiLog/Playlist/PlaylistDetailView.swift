@@ -10,6 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 // MARK: - PlaylistNameSection
 struct PlaylistNameSection: View {
+    let name: String
     let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
 
     var body: some View {
@@ -34,7 +35,7 @@ struct PlaylistNameSection: View {
                 }
             } else {
                 HStack {
-                    Text(viewStore.state.name)
+                    Text(name)
                         .font(.title2)
                         .fontWeight(.semibold)
 
@@ -76,16 +77,17 @@ struct AddVoiceSection: View {
 
 // MARK: - VoiceListSection
 struct VoiceListSection: View {
+    let voices: [VoiceMemoRepository.Voice]
     let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
 
     var body: some View {
         Section("音声リスト") {
-            if viewStore.voices.isEmpty {
+            if voices.isEmpty {
                 Text("音声が追加されていません")
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
             } else {
-                ForEach(viewStore.voices, id: \.id) { voice in
+                ForEach(voices, id: \.id) { voice in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(voice.title)
                             .font(.headline)
@@ -116,6 +118,7 @@ struct VoiceListSection: View {
 
 // MARK: - VoiceSelectionSheet
 struct VoiceSelectionSheet: View {
+    let voices: [VoiceMemoRepository.Voice]
     let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
 
     var body: some View {
@@ -143,7 +146,7 @@ struct VoiceSelectionSheet: View {
 
                         Spacer()
 
-                        if !viewStore.voices.contains(where: { $0.id == voice.uuid }) {
+                        if !voices.contains(where: { $0.id == voice.uuid }) {
                             Button {
                                 viewStore.send(.addVoiceToPlaylist(voice.uuid))
                             } label: {
@@ -173,23 +176,22 @@ struct VoiceSelectionSheet: View {
     }
 }
 
-// MARK: - CurrentPlayingSection
 struct CurrentPlayingSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
-                if let currentIndex = viewStore.currentPlayingIndex,
-                   currentIndex < viewStore.voices.count {
-                    let currentVoice = viewStore.voices[currentIndex]
+                if let currentId = viewStore.currentPlayingId,
+                   let currentVoice = viewStore.voices.first(where: { $0.url == currentId }),
+                   let voiceMemo = viewStore.voiceMemos[id: currentVoice.url] {
                     ForEachStore(
                         store.scope(
                             state: \.voiceMemos,
                             action: PlaylistDetailFeature.Action.voiceMemos
                         )
                     ) { memoStore in
-                        if memoStore.withState({ $0.uuid == currentVoice.id }) {
+                        if memoStore.withState({ $0.url == currentVoice.url }) {
                             PlayerView(store: memoStore)
                         }
                     }
@@ -217,26 +219,38 @@ struct PlaylistDetailView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottom) {
                 Group {
-
-                    List {
-                        PlaylistNameSection(
-                            viewStore: viewStore
-                        )
-                        AddVoiceSection(viewStore: viewStore)
-                        VoiceListSection(
-                            viewStore: viewStore
-                        )
-                    }
-                    .listStyle(InsetGroupedListStyle())
-                    .sheet(
-                        isPresented: viewStore.binding(
-                            get: \.isShowingVoiceSelection,
-                            send: PlaylistDetailFeature.Action.hideVoiceSelectionSheet
-                        )
-                    ) {
-                        VoiceSelectionSheet(
-                            viewStore: viewStore
-                        )
+                    if viewStore.isLoading {
+                        ProgressView()
+                    } else if let error = viewStore.error {
+                        VStack {
+                            Text("エラーが発生しました")
+                            Text(error)
+                                .foregroundColor(.red)
+                        }
+                    } else {
+                        List {
+                            PlaylistNameSection(
+                                name: viewStore.name,
+                                viewStore: viewStore
+                            )
+                            AddVoiceSection(viewStore: viewStore)
+                            VoiceListSection(
+                                voices: viewStore.voices,
+                                viewStore: viewStore
+                            )
+                        }
+                        .listStyle(InsetGroupedListStyle())
+                        .sheet(
+                            isPresented: viewStore.binding(
+                                get: \.isShowingVoiceSelection,
+                                send: PlaylistDetailFeature.Action.hideVoiceSelectionSheet
+                            )
+                        ) {
+                            VoiceSelectionSheet(
+                                voices: viewStore.voices,
+                                viewStore: viewStore
+                            )
+                        }
                     }
                 }
 
@@ -253,7 +267,7 @@ struct PlaylistDetailView: View {
         }
     }
 }
-
+// MARK: - AddVoiceSection
 // MARK: - Preview
 #Preview("プレイリスト詳細") {
     let store = Store(
@@ -288,6 +302,8 @@ struct PlaylistDetailView: View {
 }
 
 #Preview("プレイリスト詳細 - 再生中") {
+    let voiceId = UUID()
+    let url = URL(string: "file://test1.m4a")!
     let store = Store(
         initialState: PlaylistDetailFeature.State(
             id: UUID(),
@@ -295,8 +311,8 @@ struct PlaylistDetailView: View {
             voices: [
                 .init(
                     title: "テスト音声1",
-                    url: URL(string: "file://test1.m4a")!,
-                    id: UUID(),
+                    url: url,
+                    id: voiceId,
                     text: "テストテキスト1",
                     createdAt: Date(),
                     updatedAt: Date(),
@@ -312,13 +328,13 @@ struct PlaylistDetailView: View {
             updatedAt: Date(),
             voiceMemos: IdentifiedArrayOf(uniqueElements: [
                 .init(
-                    uuid: UUID(),
+                    uuid: voiceId,
                     date: Date(),
                     duration: 60.0,
                     time: 30.0,
                     mode: .playing(progress: 0.5),
                     title: "テスト音声1",
-                    url: URL(string: "file://test1.m4a")!,
+                    url: url,
                     text: "テストテキスト1",
                     fileFormat: "m4a",
                     samplingFrequency: 44100,
@@ -328,7 +344,7 @@ struct PlaylistDetailView: View {
                 )
             ]),
             isPlaying: true,
-            currentPlayingIndex: 0
+            currentPlayingId: url
         )
     ) {
         PlaylistDetailFeature()
@@ -384,7 +400,7 @@ struct PlaylistDetailView: View {
                 )
             ]),
             isPlaying: true,
-            currentPlayingIndex: 0
+            currentPlayingId: url
         )
     ) {
         PlaylistDetailFeature()

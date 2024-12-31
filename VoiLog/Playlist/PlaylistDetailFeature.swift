@@ -27,7 +27,8 @@ struct PlaylistDetailFeature: Reducer {
         var voiceMemos: IdentifiedArrayOf<VoiceMemoReducer.State> = []
         var isShowingVoiceSelection: Bool = false
         var isPlaying: Bool = false
-        var currentPlayingIndex: Int?
+        var currentPlayingId: VoiceMemoReducer.State.ID?
+        var currentTime: TimeInterval = 0
         var playbackSpeed: AudioPlayerClient.PlaybackSpeed = .normal
 
         var asPlaylist: Playlist {
@@ -75,54 +76,52 @@ struct PlaylistDetailFeature: Reducer {
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.voilog", category: "PlaylistDetail")
 
     private func handleVoiceMemoDelegate(
-        state: inout State,
-        id: VoiceMemoReducer.State.ID,
-        delegateAction: VoiceMemoReducer.Action.Delegate
-    ) -> Effect<Action> {
-        switch delegateAction {
-        case .playbackFailed:
-            logger.error("Playback Failed - ID: \(id.description)")
-            state.error = "再生に失敗しました"
-            state.isPlaying = false
-            state.currentPlayingIndex = nil
-            return .none
+           state: inout State,
+           id: VoiceMemoReducer.State.ID,
+           delegateAction: VoiceMemoReducer.Action.Delegate
+       ) -> Effect<Action> {
+           switch delegateAction {
+           case .playbackFailed:
+               logger.error("Playback Failed - ID: \(id.description)")
+               state.error = "再生に失敗しました"
+               state.isPlaying = false
+               state.currentPlayingId = nil
+               return .none
 
-        case .playbackStarted:
-            logger.debug("Playback Started - ID: \(id.description)")
-            if let index = state.voiceMemos.index(id: id) {
-                logger.debug("Found index: \(index)")
-                state.currentPlayingIndex = index
-                state.isPlaying = true
-                resetOtherMemos(state: &state, exceptId: id)
-            } else {
-                logger.error("Could not find index for ID: \(id.description)")
-            }
-            return .none
+           case .playbackStarted:
+               logger.debug("Playback Started - ID: \(id.description)")
+               state.currentPlayingId = id
+               state.isPlaying = true
+               resetOtherMemos(state: &state, exceptId: id)
+               return .none
 
-        case let .playbackInProgress(currentTime):
-            logger.debug("Playback Progress - ID: \(id.description), Time: \(currentTime)")
-            if let index = state.voiceMemos.index(id: id) {
-                state.voiceMemos[index].time = currentTime
-            }
-            return .none
+           case let .playbackInProgress(currentTime):
+               logger.debug("Playback Progress - ID: \(id.description), Time: \(currentTime)")
+               if let index = state.voiceMemos.index(id: id) {
+                   state.voiceMemos[index].time = currentTime
+               }
+               return .none
 
-        case .playbackComplete:
-            logger.debug("Playback Complete - ID: \(id.description)")
-            if let currentIndex = state.currentPlayingIndex {
-                if currentIndex + 1 < state.voiceMemos.count {
-                    let nextMemoId = state.voiceMemos[currentIndex + 1].id
-                    state.currentPlayingIndex = currentIndex + 1
-                    return .send(.voiceMemos(id: nextMemoId, action: .playButtonTapped))
-                } else {
-                    logger.debug("Reached end of playlist")
-                    state.isPlaying = false
-                    state.currentPlayingIndex = nil
-                    state.voiceMemos[currentIndex].time = 0
-                }
-            }
-            return .none
-        }
-    }
+           case .playbackComplete:
+               logger.debug("Playback Complete - ID: \(id.description)")
+               if let currentId = state.currentPlayingId,
+                  let currentIndex = state.voiceMemos.index(id: currentId) {
+                   if currentIndex > 0 {  // 前の音声に移動
+                       let nextMemoId = state.voiceMemos[currentIndex - 1].id
+                       state.currentPlayingId = nextMemoId
+                       return .send(.voiceMemos(id: nextMemoId, action: .playButtonTapped))
+                   } else {
+                       logger.debug("Reached beginning of playlist")
+                       state.isPlaying = false
+                       state.currentPlayingId = nil
+                       if let index = state.voiceMemos.index(id: currentId) {
+                           state.voiceMemos[index].time = 0
+                       }
+                   }
+               }
+               return .none
+           }
+       }
 
     private func resetOtherMemos(state: inout State, exceptId: VoiceMemoReducer.State.ID) {
         for memoID in state.voiceMemos.ids where memoID != exceptId {

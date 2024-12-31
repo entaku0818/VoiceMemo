@@ -9,51 +9,78 @@ import Foundation
 import SwiftUI
 import ComposableArchitecture
 // MARK: - View
+// MARK: - PlaylistListContent
+struct PlaylistListContent: View {
+    let viewStore: ViewStore<PlaylistListFeature.State, PlaylistListFeature.Action>
+
+    var body: some View {
+        List {
+            ForEach(viewStore.playlists, id: \.id) { playlist in
+                NavigationLink(
+                    destination: PlaylistDetailView(
+                        store: Store(
+                            initialState: PlaylistDetailFeature.State(
+                                id: playlist.id,
+                                name: playlist.name,
+                                voices: [],
+                                createdAt: playlist.createdAt,
+                                updatedAt: playlist.updatedAt
+                            )
+                        ) {
+                            PlaylistDetailFeature()
+                        }
+                    )
+                ) {
+                    PlaylistRow(playlist: playlist)
+                }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        viewStore.send(.deletePlaylist(playlist.id))
+                    } label: {
+                        Label("削除", systemImage: "trash")
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - PlaylistListToolbar
+struct PlaylistListToolbar: ToolbarContent {
+    let viewStore: ViewStore<PlaylistListFeature.State, PlaylistListFeature.Action>
+
+    var body: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            Button {
+                viewStore.send(.createPlaylistButtonTapped)
+            } label: {
+                Image(systemName: "plus")
+            }
+        }
+    }
+}
+
+// MARK: - PlaylistListView
 struct PlaylistListView: View {
     let store: StoreOf<PlaylistListFeature>
 
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-                Group {
-                    List {
-                        ForEach(viewStore.playlists, id: \.id) { playlist in
-                            NavigationLink(
-                                destination: PlaylistDetailView(
-                                    store: Store(
-                                        initialState: PlaylistDetailFeature.State(id: playlist.id)
-                                    )                                        { PlaylistDetailFeature() }
-                                )
-                            ) {
-                                PlaylistRow(playlist: playlist)
-                            }
-                            .swipeActions {
-                                Button(role: .destructive) {
-                                    viewStore.send(.deletePlaylist(playlist.id))
-                                } label: {
-                                    Label("削除", systemImage: "trash")
-                                }
-                            }
-                        }
+            NavigationView {
+                PlaylistListContent(viewStore: viewStore)
+                    .navigationTitle("プレイリスト")
+                    .toolbar {
+                        PlaylistListToolbar(viewStore: viewStore)
                     }
-                }
-                .navigationTitle("プレイリスト")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            viewStore.send(.createPlaylistButtonTapped)
-                        } label: {
-                            Image(systemName: "plus")
-                        }
+                    .sheet(
+                        isPresented: viewStore.binding(
+                            get: \.isShowingCreateSheet,
+                            send: { $0 ? .createPlaylistButtonTapped : .createPlaylistSheetDismissed }
+                        )
+                    ) {
+                        CreatePlaylistView(store: store)
                     }
-                }
-                .sheet(
-                    isPresented: viewStore.binding(
-                        get: \.isShowingCreateSheet
-                    )                        { $0 ? .createPlaylistButtonTapped : .createPlaylistSheetDismissed }
-                ) {
-                    CreatePlaylistView(store: store)
-                }
-
+            }
             .onAppear { viewStore.send(.onAppear) }
         }
     }

@@ -124,9 +124,10 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 break
             case .playing:
-                state.mode = .playing(progress: time / state.duration)
+                let progress = time / state.duration
+                print("Timer Updated - Time: \(time), Duration: \(state.duration), Progress: \(progress)")
+                state.mode = .playing(progress: progress)
                 state.time = time
-
             }
             return .none
 
