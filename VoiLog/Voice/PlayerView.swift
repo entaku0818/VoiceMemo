@@ -93,7 +93,6 @@ struct PlayerView: View {
             }
             .padding()
             .background(colorScheme == .dark ? Color.black : Color.white)
-            .padding(.horizontal)
         }
     }
 }

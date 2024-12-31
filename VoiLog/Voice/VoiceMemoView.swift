@@ -124,9 +124,9 @@ struct VoiceMemoReducer: Reducer {
             case .notPlaying:
                 break
             case .playing:
-                state.mode = .playing(progress: time / state.duration)
+                let progress = time / state.duration
+                state.mode = .playing(progress: progress)
                 state.time = time
-
             }
             return .none
 
@@ -259,7 +259,7 @@ struct VoiceMemoListItem: View {
 
                     VStack(spacing: 5) {
                         HStack {
-                            if viewStore.title.count > 0 {
+                            if !viewStore.title.isEmpty {
                                 Text(viewStore.title)
                                     .font(.headline)
                             } else {
@@ -269,7 +269,7 @@ struct VoiceMemoListItem: View {
                             Spacer()
                         }
 
-                        if viewStore.state.fileFormat.count > 0 {
+                        if !viewStore.state.fileFormat.isEmpty {
                             HStack(spacing: 0) {
                                 Text(dateFormatter.string(from: viewStore.date))
                                     .font(.caption2)

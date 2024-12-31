@@ -198,7 +198,7 @@ struct RecordingMemo: Reducer {
                     await send(.finalRecordingTime(currentTime))
                 }
                 await self.audioRecorder.stopRecording()
-                Logger.shared.logInfo("record stop")
+                RollbarLogger.shared.logInfo("record stop")
                 stopLiveActivity(activity: activity)
             }
 
@@ -207,13 +207,13 @@ struct RecordingMemo: Reducer {
                 state.mode = .recording
                 return .run { _ in
                     await self.audioRecorder.resumeRecording()
-                    Logger.shared.logInfo("record resumed")
+                    RollbarLogger.shared.logInfo("record resumed")
                 }
             } else {
                 state.mode = .pause
                 return .run { _ in
                     await self.audioRecorder.pauseRecording()
-                    Logger.shared.logInfo("record paused")
+                    RollbarLogger.shared.logInfo("record paused")
                 }
             }
 
@@ -228,7 +228,7 @@ struct RecordingMemo: Reducer {
                         TaskResult { try await audioRecorder.startRecording(url) }
                     )
                 )
-                Logger.shared.logInfo("record start")
+                RollbarLogger.shared.logInfo("record start")
 
                 // Timer for other periodic updates
                 async let generalUpdates: Void = {
@@ -373,7 +373,7 @@ struct RecordingMemoView: View {
                         .foregroundColor(.black)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    if viewStore.resultText.count > 0 {
+                    if !viewStore.resultText.isEmpty {
                         Button(action: {
                             showModal.toggle()
                         }) {
@@ -489,12 +489,12 @@ extension AudioRecorderClient {
                 await isRecording.setValue(true)
             },
             volumes: {
-                return await volumes.value
+                await volumes.value
             }, waveFormHeights: {
-                return [0.1]
+                [0.1]
             },
             resultText: {
-                return resultText
+                resultText
             }
         )
     }

@@ -1,4 +1,5 @@
 import Foundation
+import Dependencies
 import CoreData
 
 protocol VoiceMemoCoredataAccessorProtocol {
@@ -20,11 +21,11 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
     override init() {
         container = NSPersistentContainer(name: entityName)
-        container.loadPersistentStores(completionHandler: { _, error in
+        container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        })
+        }
         container.viewContext.automaticallyMergesChangesFromParent = true
         self.managedContext = container.viewContext
         if let localEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
@@ -173,5 +174,19 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         } catch {
             print(error.localizedDescription)
         }
+    }
+}
+
+private enum VoiceMemoCoredataAccessorKey: DependencyKey {
+    static let liveValue: VoiceMemoCoredataAccessorProtocol = VoiceMemoCoredataAccessor()
+
+    static var previewValue: VoiceMemoCoredataAccessorProtocol = VoiceMemoCoredataAccessor()
+    static var testValue: VoiceMemoCoredataAccessorProtocol = VoiceMemoCoredataAccessor()
+}
+
+extension DependencyValues {
+    var voiceMemoCoredataAccessor: VoiceMemoCoredataAccessorProtocol {
+        get { self[VoiceMemoCoredataAccessorKey.self] }
+        set { self[VoiceMemoCoredataAccessorKey.self] = newValue }
     }
 }

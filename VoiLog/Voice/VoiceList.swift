@@ -10,6 +10,8 @@ struct VoiceMemosView: View {
     let store: StoreOf<VoiceMemos>
     let admobUnitId: String
     let recordAdmobUnitId: String
+    let playListAdmobUnitId: String
+
 
     enum AlertType {
         case deleted
@@ -19,10 +21,11 @@ struct VoiceMemosView: View {
     @State private var isDeleteConfirmationPresented = false
     @State private var selectedIndex: Int?
 
-    init(store: StoreOf<VoiceMemos>, admobUnitId: String, recordAdmobUnitId: String) {
+    init(store: StoreOf<VoiceMemos>, admobUnitId: String, recordAdmobUnitId: String,playListAdmobUnitId:String) {
         self.store = store
         self.admobUnitId = admobUnitId
         self.recordAdmobUnitId = recordAdmobUnitId
+        self.playListAdmobUnitId = playListAdmobUnitId
     }
 
     var body: some View {
@@ -30,28 +33,39 @@ struct VoiceMemosView: View {
             NavigationView {
                 VStack {
                     List {
-                        ForEachStore(
-                            self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-                        ) {
-                            VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
+                        Section {
+                            NavigationLink(destination: PlaylistListView(
+                                store: Store(
+                                    initialState: PlaylistListFeature.State()
+                                )                                    { PlaylistListFeature() }, admobUnitId: playListAdmobUnitId
+                            )) {
+                                Label("プレイリスト", systemImage: "music.note.list")
+                            }
                         }
-                        .onDelete { indexSet in
-                            for index in indexSet {
-                                selectedIndex = index
-                                isDeleteConfirmationPresented = true
+
+                        Section {
+                            ForEachStore(
+                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                            ) {
+                                VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
+                            }
+                            .onDelete { indexSet in
+                                for index in indexSet {
+                                    selectedIndex = index
+                                    isDeleteConfirmationPresented = true
+                                }
                             }
                         }
                     }
                     if viewStore.currentMode == .playback {
                         if let playingMemoID = viewStore.currentPlayingMemo {
                             ForEachStore(
-                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos),
-                                content: { store in
+                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                            )                                { store in
                                     if store.withState({ $0.id == playingMemoID }) {
                                         PlayerView(store: store)
                                     }
                                 }
-                            )
                         }
                     } else if viewStore.currentMode == .recording {
                         IfLetStore(
@@ -91,7 +105,7 @@ struct VoiceMemosView: View {
                                 selectedIndex = nil
                             }
                         },
-                        secondaryButton: .cancel() {
+                        secondaryButton: .cancel {
                             selectedIndex = nil
                         }
                     )
@@ -301,7 +315,7 @@ struct VoiceMemos_Previews: PreviewProvider {
                 VoiceMemos()
             },
             admobUnitId: "",
-            recordAdmobUnitId: ""
+            recordAdmobUnitId: "", playListAdmobUnitId: ""
         )
     }
 }

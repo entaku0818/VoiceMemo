@@ -53,6 +53,8 @@ struct VoiceMemoApp: App {
 
     var admobUnitId: String!
     var recordAdmobUnitId: String!
+    var playListAdmobUnitId: String!
+
 
     private let backgroundTaskManager = BackgroundTaskManager()
 
@@ -60,8 +62,10 @@ struct VoiceMemoApp: App {
         let environmentConfig = loadEnvironmentVariables()
         self.admobUnitId = environmentConfig.admobKey
         self.recordAdmobUnitId = environmentConfig.recordAdmobKey
+        self.playListAdmobUnitId = environmentConfig.playListAdmobKey
+
         Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
-        Logger.shared.initialize(with: environmentConfig.rollbarKey)
+        RollbarLogger.shared.initialize(with: environmentConfig.rollbarKey)
 
         let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
         voiceMemos = voiceMemoRepository.selectAllData()
@@ -72,7 +76,7 @@ struct VoiceMemoApp: App {
             VoiceMemosView(
                 store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
                     VoiceMemos()
-                }, admobUnitId: admobUnitId, recordAdmobUnitId: recordAdmobUnitId
+                }, admobUnitId: admobUnitId, recordAdmobUnitId: recordAdmobUnitId, playListAdmobUnitId: playListAdmobUnitId
             )
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
                 print("applicationDidEnterBackground")
@@ -96,17 +100,24 @@ struct VoiceMemoApp: App {
 
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
-
         guard
-            let rollbarKey = Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? ProcessInfo.processInfo.environment["ROLLBAR_KEY"],
-            let recordAdmobKey = Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"],
-            let admobKey = Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? ProcessInfo.processInfo.environment["ADMOB_KEY"],
-            let revenueCatKey = Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
+            let rollbarKey = ProcessInfo.processInfo.environment["ROLLBAR_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String,
+            let recordAdmobKey = ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String,
+            let admobKey = ProcessInfo.processInfo.environment["ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String,
+            let revenueCatKey = ProcessInfo.processInfo.environment["REVENUECAT_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String,
+            let playListAdmobKey = ProcessInfo.processInfo.environment["PLAYLIST_ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String
+
         else {
             fatalError("One or more environment variables are missing")
         }
 
-        return EnvironmentConfig(rollbarKey: rollbarKey, admobKey: admobKey, recordAdmobKey: recordAdmobKey, revenueCatKey: revenueCatKey)
+        return EnvironmentConfig(
+            rollbarKey: rollbarKey,
+            admobKey: admobKey,
+            recordAdmobKey: recordAdmobKey,
+            revenueCatKey: revenueCatKey,
+            playListAdmobKey: playListAdmobKey
+        )
     }
 
     struct EnvironmentConfig {
@@ -114,6 +125,7 @@ extension VoiceMemoApp {
         let admobKey: String
         let recordAdmobKey: String
         let revenueCatKey: String
+        let playListAdmobKey: String
     }
 }
 
