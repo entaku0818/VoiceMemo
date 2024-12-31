@@ -48,7 +48,7 @@
 		6168BB152D1B8AF6007CDF6A /* PlaylistDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6168BB142D1B8AF6007CDF6A /* PlaylistDetailFeature.swift */; };
 		6168BB172D1B8B4E007CDF6A /* PlaylistDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6168BB162D1B8B4E007CDF6A /* PlaylistDetailView.swift */; };
 		617F129A2CE1044200D6815D /* TimeInterval+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617F12992CE1044200D6815D /* TimeInterval+Extention.swift */; };
-		6184B6202D24240900149E4A /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184B61F2D24240900149E4A /* File.swift */; };
+		6184B6202D24240900149E4A /* PlaylistListFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6184B61F2D24240900149E4A /* PlaylistListFeatureTests.swift */; };
 		6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408728F308C400BF337E /* FirebaseAnalytics */; };
 		6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408928F308C400BF337E /* FirebaseAnalyticsSwift */; };
 		6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408B28F308C400BF337E /* FirebaseCrashlytics */; };
@@ -162,7 +162,7 @@
 		616AA3682C02E19A00C7705A /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
 		617C43742BB85930008BAA6C /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		617F12992CE1044200D6815D /* TimeInterval+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extention.swift"; sourceTree = "<group>"; };
-		6184B61F2D24240900149E4A /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		6184B61F2D24240900149E4A /* PlaylistListFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistListFeatureTests.swift; sourceTree = "<group>"; };
 		618C67D62AC9BA250006DA74 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D72AC9BA380006DA74 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		618C67D82AC9BA380006DA74 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -401,7 +401,7 @@
 				615321B32C26FD2C00E70580 /* MockVoiceMemoCoredataAccessor.swift */,
 				615321B52C2808C400E70580 /* MockCloudUploader.swift */,
 				613F02742D1D939E0098C091 /* PlaylistDetailFeatureTests.swift */,
-				6184B61F2D24240900149E4A /* File.swift */,
+				6184B61F2D24240900149E4A /* PlaylistListFeatureTests.swift */,
 			);
 			path = VoiLogTests;
 			sourceTree = "<group>";
@@ -703,7 +703,7 @@
 				615321B42C26FD2C00E70580 /* MockVoiceMemoCoredataAccessor.swift in Sources */,
 				613F02752D1D939F0098C091 /* PlaylistDetailFeatureTests.swift in Sources */,
 				619799F828C34A2600169FB6 /* VoiLogTests.swift in Sources */,
-				6184B6202D24240900149E4A /* File.swift in Sources */,
+				6184B6202D24240900149E4A /* PlaylistListFeatureTests.swift in Sources */,
 				613ABC832C1DE9130092F5F7 /* VoiceMemosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

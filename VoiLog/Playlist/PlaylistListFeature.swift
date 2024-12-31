@@ -72,7 +72,15 @@ struct PlaylistListFeature: Reducer {
             return .none
 
         case .createPlaylistSubmitted:
+            // 空の名前チェック
             guard !state.newPlaylistName.isEmpty else { return .none }
+
+            // プレイリスト数の上限チェック
+            guard state.playlists.count <= 3 else {
+                state.error = "プレイリストは最大3つまでしか作成できません"
+                return .none
+            }
+
             let name = state.newPlaylistName
             return .run { send in
                 do {

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  PlaylistListFeatureTests.swift
 //  VoiLogTests
 //
 //  Created by 遠藤拓弥 on 2024/12/31.
@@ -165,5 +165,26 @@ final class PlaylistListFeatureTests: XCTestCase {
 
         await store.send(.createPlaylistSubmitted)
         // 空の名前の場合は何も起こらないことを確認
+    }
+
+    func test_createPlaylist_failsWhenLimitReached() async {
+        let existingPlaylists = [
+            Playlist(id: UUID(), name: "Playlist 1"),
+            Playlist(id: UUID(), name: "Playlist 2"),
+            Playlist(id: UUID(), name: "Playlist 3")
+        ]
+
+        let store = TestStore(
+            initialState: PlaylistListFeature.State(
+                playlists: existingPlaylists,
+                isShowingCreateSheet: true,
+                newPlaylistName: "New Playlist"
+            ),
+            reducer: { PlaylistListFeature() }
+        )
+
+        await store.send(.createPlaylistSubmitted) {
+            $0.error = "プレイリストは最大3つまでしか作成できません"
+        }
     }
 }

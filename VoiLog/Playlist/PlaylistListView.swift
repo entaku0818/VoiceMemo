@@ -66,20 +66,18 @@ struct PlaylistListView: View {
 
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationView {
-                PlaylistListContent(viewStore: viewStore)
-                    .navigationTitle("プレイリスト")
-                    .toolbar {
-                        PlaylistListToolbar(viewStore: viewStore)
-                    }
-                    .sheet(
-                        isPresented: viewStore.binding(
-                            get: \.isShowingCreateSheet,
-                            send: { $0 ? .createPlaylistButtonTapped : .createPlaylistSheetDismissed }
-                        )
-                    ) {
-                        CreatePlaylistView(store: store)
-                    }
+        PlaylistListContent(viewStore: viewStore)
+            .navigationTitle("プレイリスト")
+            .toolbar {
+                PlaylistListToolbar(viewStore: viewStore)
+            }
+            .sheet(
+                isPresented: viewStore.binding(
+                    get: \.isShowingCreateSheet,
+                    send: { $0 ? .createPlaylistButtonTapped : .createPlaylistSheetDismissed }
+                )
+            ) {
+                CreatePlaylistView(store: store)
             }
             .onAppear { viewStore.send(.onAppear) }
         }
