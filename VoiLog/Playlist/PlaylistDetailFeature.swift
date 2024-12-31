@@ -136,7 +136,7 @@ struct PlaylistDetailFeature: Reducer {
                 state.isLoading = true
                 return .run { [id = state.id] send in
                     do {
-                        guard let detail = try await playlistRepository.fetch(by: id) else {
+                        guard let detail = try await playlistRepository.fetch(id) else {
                             throw PlaylistRepositoryError.notFound
                         }
                         await send(.playlistDetailLoaded(detail))
@@ -171,10 +171,10 @@ struct PlaylistDetailFeature: Reducer {
             case .saveNameButtonTapped:
                 let newName = state.editingName
 
-                return .run { [state] send in
+                return .run { [playlist = state.asPlaylist] send in
                     do {
-                        let updated = try await playlistRepository.update(state.asPlaylist, name: newName)
-                        guard let detail = try await playlistRepository.fetch(by: updated.id) else {
+                        let updated = try await playlistRepository.update(playlist, newName)
+                        guard let detail = try await playlistRepository.fetch(updated.id) else {
                             throw PlaylistRepositoryError.notFound
                         }
                         await send(.nameUpdateSuccess(detail))
@@ -201,10 +201,10 @@ struct PlaylistDetailFeature: Reducer {
                 return .none
 
             case let .removeVoice(voiceId):
-                return .run { [state] send in
+                return .run { [playlist = state.asPlaylist] send in
                     do {
-                        let updated = try await playlistRepository.removeVoice(voiceId: voiceId, from: state.asPlaylist)
-                        guard let detail = try await playlistRepository.fetch(by: updated.id) else {
+                        let updated = try await playlistRepository.removeVoice(voiceId, playlist)
+                        guard let detail = try await playlistRepository.fetch(updated.id) else {
                             throw PlaylistRepositoryError.notFound
                         }
                         await send(.voiceRemoved(detail))
@@ -284,10 +284,10 @@ struct PlaylistDetailFeature: Reducer {
                 return .none
 
             case let .addVoiceToPlaylist(voiceId):
-                return .run { [state] send in
+                return .run { [playlist = state.asPlaylist] send in
                     do {
-                        let updated = try await playlistRepository.addVoice(voiceId: voiceId, to: state.asPlaylist)
-                        guard let detail = try await playlistRepository.fetch(by: updated.id) else {
+                        let updated = try await playlistRepository.addVoice(voiceId, playlist)
+                        guard let detail = try await playlistRepository.fetch(updated.id) else {
                             throw PlaylistRepositoryError.notFound
                         }
                         await send(.voiceAddedToPlaylist(detail))

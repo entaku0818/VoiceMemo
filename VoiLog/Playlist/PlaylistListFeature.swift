@@ -17,7 +17,7 @@ struct PlaylistListFeature: Reducer {
         var newPlaylistName: String = ""
     }
 
-    enum Action {
+    enum Action: Equatable {
         case onAppear
         case playlistsLoaded([Playlist])
         case playlistsLoadingFailed(Error)
@@ -115,4 +115,43 @@ struct PlaylistListFeature: Reducer {
         }
     }
 
+}
+
+extension PlaylistListFeature.Action {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        switch (lhs, rhs) {
+        case (.onAppear, .onAppear),
+             (.createPlaylistButtonTapped, .createPlaylistButtonTapped),
+             (.createPlaylistSheetDismissed, .createPlaylistSheetDismissed),
+             (.createPlaylistSubmitted, .createPlaylistSubmitted):
+            return true
+
+        case let (.playlistsLoaded(lhs), .playlistsLoaded(rhs)):
+            return lhs == rhs
+
+        case let (.playlistsLoadingFailed(lhs), .playlistsLoadingFailed(rhs)):
+            return (lhs as NSError) == (rhs as NSError)
+
+        case let (.updateNewPlaylistName(lhs), .updateNewPlaylistName(rhs)):
+            return lhs == rhs
+
+        case let (.playlistCreated(lhs), .playlistCreated(rhs)):
+            return lhs == rhs
+
+        case let (.playlistCreationFailed(lhs), .playlistCreationFailed(rhs)):
+            return (lhs as NSError) == (rhs as NSError)
+
+        case let (.deletePlaylist(lhs), .deletePlaylist(rhs)):
+            return lhs == rhs
+
+        case let (.playlistDeleted(lhs), .playlistDeleted(rhs)):
+            return lhs == rhs
+
+        case let (.playlistDeletionFailed(lhs), .playlistDeletionFailed(rhs)):
+            return (lhs as NSError) == (rhs as NSError)
+
+        default:
+            return false
+        }
+    }
 }
