@@ -10,7 +10,6 @@ import SwiftUI
 import ComposableArchitecture
 // MARK: - PlaylistNameSection
 struct PlaylistNameSection: View {
-    let detail: PlaylistDetail
     let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
 
     var body: some View {
@@ -35,7 +34,7 @@ struct PlaylistNameSection: View {
                 }
             } else {
                 HStack {
-                    Text(detail.name)
+                    Text(viewStore.state.name)
                         .font(.title2)
                         .fontWeight(.semibold)
 
@@ -49,7 +48,7 @@ struct PlaylistNameSection: View {
                 }
             }
 
-            Text("作成日: \(detail.createdAt.formatted(date: .abbreviated, time: .shortened))")
+            Text("作成日: \(viewStore.createdAt.formatted(date: .abbreviated, time: .shortened))")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
@@ -77,17 +76,16 @@ struct AddVoiceSection: View {
 
 // MARK: - VoiceListSection
 struct VoiceListSection: View {
-    let detail: PlaylistDetail
     let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
 
     var body: some View {
         Section("音声リスト") {
-            if detail.voices.isEmpty {
+            if viewStore.voices.isEmpty {
                 Text("音声が追加されていません")
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
             } else {
-                ForEach(detail.voices, id: \.id) { voice in
+                ForEach(viewStore.voices, id: \.id) { voice in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(voice.title)
                             .font(.headline)
@@ -96,7 +94,7 @@ struct VoiceListSection: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Button {
-                            viewStore.send(.playButtonTapped(voice.id))  // Changed to pass voice.id directly
+                            viewStore.send(.playButtonTapped(voice.id))
                         } label: {
                             Image(systemName: "play.circle.fill")
                                 .font(.title2)
@@ -118,13 +116,12 @@ struct VoiceListSection: View {
 
 // MARK: - VoiceSelectionSheet
 struct VoiceSelectionSheet: View {
-    let detail: PlaylistDetail
     let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewStore.voiceMemos, id: \.uuid) { voice in // Changed from id to uuid
+                ForEach(viewStore.voiceMemos, id: \.uuid) { voice in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(voice.title)
@@ -138,7 +135,7 @@ struct VoiceSelectionSheet: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
 
-                                Text("録音日: \(voice.date.formatted(date: .abbreviated, time: .shortened))") // Changed from createdAt to date
+                                Text("録音日: \(voice.date.formatted(date: .abbreviated, time: .shortened))")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -146,7 +143,7 @@ struct VoiceSelectionSheet: View {
 
                         Spacer()
 
-                        if !detail.voices.contains(where: { $0.id == voice.uuid }) { // Changed from id to uuid
+                        if !viewStore.voices.contains(where: { $0.id == voice.uuid }) {
                             Button {
                                 viewStore.send(.addVoiceToPlaylist(voice.uuid))
                             } label: {
@@ -175,6 +172,8 @@ struct VoiceSelectionSheet: View {
         }
     }
 }
+
+// MARK: - CurrentPlayingSection
 struct CurrentPlayingSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
@@ -182,9 +181,8 @@ struct CurrentPlayingSection: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack {
                 if let currentIndex = viewStore.currentPlayingIndex,
-                   let detail = viewStore.playlistDetail,
-                   currentIndex < detail.voices.count {
-                    let currentVoice = detail.voices[currentIndex]
+                   currentIndex < viewStore.voices.count {
+                    let currentVoice = viewStore.voices[currentIndex]
                     ForEachStore(
                         store.scope(
                             state: \.voiceMemos,
@@ -219,39 +217,32 @@ struct PlaylistDetailView: View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottom) {
                 Group {
-                    if viewStore.isLoading {
-                        ProgressView()
-                    } else if let error = viewStore.error {
-                        VStack {
-                            Text("エラーが発生しました")
-                            Text(error)
-                                .foregroundColor(.red)
-                        }
-                    } else if let detail = viewStore.playlistDetail {
-                        List {
-                            PlaylistNameSection(detail: detail, viewStore: viewStore)
-                            AddVoiceSection(viewStore: viewStore)
-                            VoiceListSection(detail: detail, viewStore: viewStore)
-                        }
-                        .listStyle(InsetGroupedListStyle())
-                        .sheet(
-                            isPresented: viewStore.binding(
-                                get: \.isShowingVoiceSelection,
-                                send: PlaylistDetailFeature.Action.hideVoiceSelectionSheet
-                            )
-                        ) {
-                            VoiceSelectionSheet(detail: detail, viewStore: viewStore)
-                        }
-                    } else {
-                        Text("プレイリストが見つかりません")
-                            .foregroundColor(.secondary)
+
+                    List {
+                        PlaylistNameSection(
+                            viewStore: viewStore
+                        )
+                        AddVoiceSection(viewStore: viewStore)
+                        VoiceListSection(
+                            viewStore: viewStore
+                        )
+                    }
+                    .listStyle(InsetGroupedListStyle())
+                    .sheet(
+                        isPresented: viewStore.binding(
+                            get: \.isShowingVoiceSelection,
+                            send: PlaylistDetailFeature.Action.hideVoiceSelectionSheet
+                        )
+                    ) {
+                        VoiceSelectionSheet(
+                            viewStore: viewStore
+                        )
                     }
                 }
 
                 CurrentPlayingSection(store: store)
                     .background(Color(.systemBackground))
                     .shadow(radius: 5)
-
             }
             .navigationTitle("プレイリストの詳細")
             .navigationBarTitleDisplayMode(.inline)
@@ -268,64 +259,57 @@ struct PlaylistDetailView: View {
     let store = Store(
         initialState: PlaylistDetailFeature.State(
             id: UUID(),
-            playlistDetail: PlaylistDetail(
-                id: UUID(),
-                name: "テストプレイリスト",
-                voices: [
-                    VoiceMemoRepository.Voice(
-                        title: "テスト音声1",
-                        url: URL(string: "file://test.m4a")!,
-                        id: UUID(),
-                        text: "テストテキスト",
-                        createdAt: Date(),
-                        updatedAt: Date(),
-                        duration: 60.0,
-                        fileFormat: "m4a",
-                        samplingFrequency: 44100,
-                        quantizationBitDepth: 16,
-                        numberOfChannels: 1,
-                        isCloud: false
-                    )
-                ],
-                createdAt: Date(),
-                updatedAt: Date()
-            )
+            name: "テストプレイリスト",
+            voices: [
+                VoiceMemoRepository.Voice(
+                    title: "テスト音声1",
+                    url: URL(string: "file://test.m4a")!,
+                    id: UUID(),
+                    text: "テストテキスト",
+                    createdAt: Date(),
+                    updatedAt: Date(),
+                    duration: 60.0,
+                    fileFormat: "m4a",
+                    samplingFrequency: 44100,
+                    quantizationBitDepth: 16,
+                    numberOfChannels: 1,
+                    isCloud: false
+                )
+            ],
+            createdAt: Date(),
+            updatedAt: Date()
         )
-    )        {
-            PlaylistDetailFeature()
-                ._printChanges()
-        }
+    ) {
+        PlaylistDetailFeature()
+            ._printChanges()
+    }
 
     return PlaylistDetailView(store: store)
-
 }
 
 #Preview("プレイリスト詳細 - 再生中") {
     let store = Store(
         initialState: PlaylistDetailFeature.State(
             id: UUID(),
-            playlistDetail: PlaylistDetail(
-                id: UUID(),
-                name: "テストプレイリスト",
-                voices: [
-                    .init(
-                        title: "テスト音声1",
-                        url: URL(string: "file://test1.m4a")!,
-                        id: UUID(),
-                        text: "テストテキスト1",
-                        createdAt: Date(),
-                        updatedAt: Date(),
-                        duration: 60.0,
-                        fileFormat: "m4a",
-                        samplingFrequency: 44100,
-                        quantizationBitDepth: 16,
-                        numberOfChannels: 1,
-                        isCloud: false
-                    )
-                ],
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
+            name: "テストプレイリスト",
+            voices: [
+                .init(
+                    title: "テスト音声1",
+                    url: URL(string: "file://test1.m4a")!,
+                    id: UUID(),
+                    text: "テストテキスト1",
+                    createdAt: Date(),
+                    updatedAt: Date(),
+                    duration: 60.0,
+                    fileFormat: "m4a",
+                    samplingFrequency: 44100,
+                    quantizationBitDepth: 16,
+                    numberOfChannels: 1,
+                    isCloud: false
+                )
+            ],
+            createdAt: Date(),
+            updatedAt: Date(),
             voiceMemos: IdentifiedArrayOf(uniqueElements: [
                 .init(
                     uuid: UUID(),
@@ -344,8 +328,7 @@ struct PlaylistDetailView: View {
                 )
             ]),
             isPlaying: true,
-            currentPlayingIndex: 0,
-            currentTime: 30.0
+            currentPlayingIndex: 0
         )
     ) {
         PlaylistDetailFeature()
@@ -358,35 +341,31 @@ struct PlaylistDetailView: View {
     return PlaylistDetailView(store: store)
 }
 
-
 #Preview {
     let urlId = UUID()
     let url = URL(string: "file://test1.m4a")!
     let store = Store(
         initialState: PlaylistDetailFeature.State(
             id: UUID(),
-            playlistDetail: PlaylistDetail(
-                id: UUID(),
-                name: "テストプレイリスト",
-                voices: [
-                    .init(
-                        title: "テスト音声1",
-                        url: url,
-                        id: urlId,
-                        text: "テストテキスト1",
-                        createdAt: Date(),
-                        updatedAt: Date(),
-                        duration: 60.0,
-                        fileFormat: "m4a",
-                        samplingFrequency: 44100,
-                        quantizationBitDepth: 16,
-                        numberOfChannels: 1,
-                        isCloud: false
-                    )
-                ],
-                createdAt: Date(),
-                updatedAt: Date()
-            ),
+            name: "テストプレイリスト",
+            voices: [
+                .init(
+                    title: "テスト音声1",
+                    url: url,
+                    id: urlId,
+                    text: "テストテキスト1",
+                    createdAt: Date(),
+                    updatedAt: Date(),
+                    duration: 60.0,
+                    fileFormat: "m4a",
+                    samplingFrequency: 44100,
+                    quantizationBitDepth: 16,
+                    numberOfChannels: 1,
+                    isCloud: false
+                )
+            ],
+            createdAt: Date(),
+            updatedAt: Date(),
             voiceMemos: IdentifiedArrayOf(uniqueElements: [
                 .init(
                     uuid: urlId,
@@ -405,8 +384,7 @@ struct PlaylistDetailView: View {
                 )
             ]),
             isPlaying: true,
-            currentPlayingIndex: 0,
-            currentTime: 30.0
+            currentPlayingIndex: 0
         )
     ) {
         PlaylistDetailFeature()
