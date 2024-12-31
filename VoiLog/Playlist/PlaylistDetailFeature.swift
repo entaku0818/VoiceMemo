@@ -51,12 +51,11 @@ struct PlaylistDetailFeature: Reducer {
         case addVoiceToPlaylist(UUID)
         case voiceAddedToPlaylist(PlaylistDetail)
         case voiceAddFailedToPlaylist(Error)
-        case playButtonTapped(at: Int)
+        case playButtonTapped(UUID)
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
     @Dependency(\.voiceMemoCoredataAccessor) var voiceMemoAccessor
-    @Dependency(\.audioPlayer) var audioPlayer
     @Dependency(\.continuousClock) var clock
 
     private enum CancelID { case player }
@@ -96,15 +95,11 @@ struct PlaylistDetailFeature: Reducer {
 
         case .playbackComplete:
             logger.debug("Playback Complete - ID: \(id.description)")
-            if let currentIndex = state.currentPlayingIndex,
-               let playlist = state.playlistDetail {
-                logger.debug("Current Index: \(currentIndex), Total Voices: \(playlist.voices.count)")
-                if currentIndex + 1 < playlist.voices.count {
-                    let nextVoice = playlist.voices[currentIndex + 1]
-                    if let nextMemoId = state.voiceMemos.first(where: { $0.uuid == nextVoice.id })?.id {
-                        state.currentPlayingIndex = currentIndex + 1
-                        return .send(.voiceMemos(id: nextMemoId, action: .playButtonTapped))
-                    }
+            if let currentIndex = state.currentPlayingIndex {
+                if currentIndex + 1 < state.voiceMemos.count {
+                    let nextMemoId = state.voiceMemos[currentIndex + 1].id
+                    state.currentPlayingIndex = currentIndex + 1
+                    return .send(.voiceMemos(id: nextMemoId, action: .playButtonTapped))
                 } else {
                     logger.debug("Reached end of playlist")
                     state.isPlaying = false
@@ -305,22 +300,26 @@ struct PlaylistDetailFeature: Reducer {
             case .voiceMemos(id: let id, action: let action):
                 switch action {
                 case let .delegate(delegateAction):
+                    logger.debug("\(id.absoluteString)")
+
                     return handleVoiceMemoDelegate(state: &state, id: id, delegateAction: delegateAction)
                 default:
                     return .none
                 }
         
-            case let .playButtonTapped(index):
+            case let .playButtonTapped(voiceId):
                 guard let playlist = state.playlistDetail,
-                      index < playlist.voices.count else { return .none }
+                      let voice = playlist.voices.first(where: { $0.id == voiceId }) else {
+                    return .none
+                }
 
-                let voice = playlist.voices[index]
                 if let voiceMemo = state.voiceMemos[id: voice.url] {
+
                     return .send(.voiceMemos(id: voice.url, action: .playButtonTapped))
                 }
                 return .none
             }
-            
+
         }.forEach(\.voiceMemos, action: /Action.voiceMemos) {
             VoiceMemoReducer()
         }

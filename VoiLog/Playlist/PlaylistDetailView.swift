@@ -96,9 +96,7 @@ struct VoiceListSection: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Button {
-                            if let index = detail.voices.firstIndex(where: { $0.id == voice.id }) {
-                                viewStore.send(.playButtonTapped(at: index))
-                            }
+                            viewStore.send(.playButtonTapped(voice.id))  // Changed to pass voice.id directly
                         } label: {
                             Image(systemName: "play.circle.fill")
                                 .font(.title2)
@@ -259,6 +257,7 @@ struct PlaylistDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 viewStore.send(.onAppear)
+                viewStore.send(.loadVoiceMemos)
             }
         }
     }
