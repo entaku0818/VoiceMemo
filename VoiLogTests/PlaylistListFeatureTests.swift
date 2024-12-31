@@ -171,7 +171,8 @@ final class PlaylistListFeatureTests: XCTestCase {
         let existingPlaylists = [
             Playlist(id: UUID(), name: "Playlist 1"),
             Playlist(id: UUID(), name: "Playlist 2"),
-            Playlist(id: UUID(), name: "Playlist 3")
+            Playlist(id: UUID(), name: "Playlist 3"),
+            Playlist(id: UUID(), name: "Playlist 4")
         ]
 
         let store = TestStore(

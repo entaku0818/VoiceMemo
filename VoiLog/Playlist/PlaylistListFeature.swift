@@ -15,6 +15,8 @@ struct PlaylistListFeature: Reducer {
         var error: String?
         var isShowingCreateSheet: Bool = false
         var newPlaylistName: String = ""
+        var hasPurchasedPremium: Bool = false
+
     }
 
     enum Action: Equatable {
@@ -38,6 +40,8 @@ struct PlaylistListFeature: Reducer {
         switch action {
         case .onAppear:
             state.isLoading = true
+            state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+
             return .run { send in
                 do {
                     let playlists = try await playlistRepository.fetchAll()

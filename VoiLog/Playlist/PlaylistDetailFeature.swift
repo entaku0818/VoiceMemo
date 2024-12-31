@@ -30,6 +30,8 @@ struct PlaylistDetailFeature: Reducer {
         var currentPlayingId: VoiceMemoReducer.State.ID?
         var currentTime: TimeInterval = 0
         var playbackSpeed: AudioPlayerClient.PlaybackSpeed = .normal
+        var hasPurchasedPremium: Bool = false
+
 
         var asPlaylist: Playlist {
             Playlist(
@@ -134,6 +136,8 @@ struct PlaylistDetailFeature: Reducer {
             switch action {
             case .onAppear:
                 state.isLoading = true
+                state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+
                 return .run { [id = state.id] send in
                     do {
                         guard let detail = try await playlistRepository.fetch(id) else {

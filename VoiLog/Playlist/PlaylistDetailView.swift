@@ -215,6 +215,8 @@ struct CurrentPlayingSection: View {
 struct PlaylistDetailView: View {
     let store: StoreOf<PlaylistDetailFeature>
 
+    var admobUnitId: String
+
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             ZStack(alignment: .bottom) {
@@ -257,6 +259,11 @@ struct PlaylistDetailView: View {
                 CurrentPlayingSection(store: store)
                     .background(Color(.systemBackground))
                     .shadow(radius: 5)
+
+                if !viewStore.hasPurchasedPremium {
+                    AdmobBannerView(unitId: admobUnitId)
+                        .frame(height: 50)
+                }
             }
             .navigationTitle("プレイリストの詳細")
             .navigationBarTitleDisplayMode(.inline)
@@ -298,7 +305,7 @@ struct PlaylistDetailView: View {
             ._printChanges()
     }
 
-    return PlaylistDetailView(store: store)
+    return PlaylistDetailView(store: store, admobUnitId: "ca-app-pub-3940256099942544/6300978111")
 }
 
 #Preview("プレイリスト詳細 - 再生中") {
@@ -354,7 +361,7 @@ struct PlaylistDetailView: View {
             ._printChanges()
     }
 
-    return PlaylistDetailView(store: store)
+    return PlaylistDetailView(store: store, admobUnitId: "ca-app-pub-3940256099942544/6300978111")
 }
 
 #Preview {

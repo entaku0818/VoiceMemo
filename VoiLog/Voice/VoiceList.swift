@@ -10,6 +10,8 @@ struct VoiceMemosView: View {
     let store: StoreOf<VoiceMemos>
     let admobUnitId: String
     let recordAdmobUnitId: String
+    let playListAdmobUnitId: String
+
 
     enum AlertType {
         case deleted
@@ -19,10 +21,11 @@ struct VoiceMemosView: View {
     @State private var isDeleteConfirmationPresented = false
     @State private var selectedIndex: Int?
 
-    init(store: StoreOf<VoiceMemos>, admobUnitId: String, recordAdmobUnitId: String) {
+    init(store: StoreOf<VoiceMemos>, admobUnitId: String, recordAdmobUnitId: String,playListAdmobUnitId:String) {
         self.store = store
         self.admobUnitId = admobUnitId
         self.recordAdmobUnitId = recordAdmobUnitId
+        self.playListAdmobUnitId = playListAdmobUnitId
     }
 
     var body: some View {
@@ -34,7 +37,7 @@ struct VoiceMemosView: View {
                             NavigationLink(destination: PlaylistListView(
                                 store: Store(
                                     initialState: PlaylistListFeature.State()
-                                )                                    { PlaylistListFeature() }
+                                )                                    { PlaylistListFeature() }, admobUnitId: playListAdmobUnitId
                             )) {
                                 Label("プレイリスト", systemImage: "music.note.list")
                             }
@@ -312,7 +315,7 @@ struct VoiceMemos_Previews: PreviewProvider {
                 VoiceMemos()
             },
             admobUnitId: "",
-            recordAdmobUnitId: ""
+            recordAdmobUnitId: "", playListAdmobUnitId: ""
         )
     }
 }
