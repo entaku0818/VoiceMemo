@@ -100,19 +100,26 @@ struct VoiceMemoApp: App {
 
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
-        // 環境変数のみから読み込む
-        let variables: [(key: String, value: String?)] = [
-            ("ROLLBAR_KEY", ProcessInfo.processInfo.environment["ROLLBAR_KEY"]),
-            ("RECORD_ADMOB_KEY", ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"]),
-            ("ADMOB_KEY", ProcessInfo.processInfo.environment["ADMOB_KEY"]),
-            ("REVENUECAT_KEY", ProcessInfo.processInfo.environment["REVENUECAT_KEY"]),
-            ("PLAYLIST_ADMOB_KEY", ProcessInfo.processInfo.environment["PLAYLIST_ADMOB_KEY"])
-        ]
+        let isCI = ProcessInfo.processInfo.environment["CI"] != nil
 
-        let missingKeys = variables.filter { $0.value == nil }.map { $0.key }
+        let rollbarKey = ProcessInfo.processInfo.environment["ROLLBAR_KEY"]
+        let recordAdmobKey = ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"]
+        let admobKey = ProcessInfo.processInfo.environment["ADMOB_KEY"]
+        let revenueCatKey = ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
+        let playListAdmobKey = ProcessInfo.processInfo.environment["PLAYLIST_ADMOB_KEY"]
+
+        let missingKeys = [
+            ("ROLLBAR_KEY", rollbarKey),
+            ("RECORD_ADMOB_KEY", recordAdmobKey),
+            ("ADMOB_KEY", admobKey),
+            ("REVENUECAT_KEY", revenueCatKey),
+            ("PLAYLIST_ADMOB_KEY", playListAdmobKey)
+        ].filter { $0.1 == nil }.map { $0.0 }
 
         guard missingKeys.isEmpty else {
-            #if DEBUG
+            if isCI {
+                fatalError("Missing environment variables in CI: \(missingKeys.joined(separator: ", "))")
+            } else {
                 return EnvironmentConfig(
                     rollbarKey: Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? "",
                     admobKey: Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? "",
@@ -120,17 +127,15 @@ extension VoiceMemoApp {
                     revenueCatKey: Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? "",
                     playListAdmobKey: Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String ?? ""
                 )
-            #else
-                fatalError("Missing environment variables: \(missingKeys.joined(separator: ", "))")
-            #endif
+            }
         }
 
         return EnvironmentConfig(
-            rollbarKey: variables[0].value!,
-            admobKey: variables[1].value!,
-            recordAdmobKey: variables[2].value!,
-            revenueCatKey: variables[3].value!,
-            playListAdmobKey: variables[4].value!
+            rollbarKey: rollbarKey!,
+            admobKey: admobKey!,
+            recordAdmobKey: recordAdmobKey!,
+            revenueCatKey: revenueCatKey!,
+            playListAdmobKey: playListAdmobKey!
         )
     }
 
