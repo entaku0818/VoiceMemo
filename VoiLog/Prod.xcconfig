@@ -8,7 +8,7 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 ROLLBAR_KEY = a
-ADMOB_KEY = ca-app-pub-3940256099942544/6300978111
+ADMOB_KEY =
 REVENUECAT_KEY = a
-RECORD_ADMOB_KEY = ca-app-pub-3940256099942544/6300978111
-PLAYLIST_ADMOB_KEY = ca-app-pub-3940256099942544/6300978111
+RECORD_ADMOB_KEY =
+PLAYLIST_ADMOB_KEY = 
