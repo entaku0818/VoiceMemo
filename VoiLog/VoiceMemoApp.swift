@@ -100,23 +100,37 @@ struct VoiceMemoApp: App {
 
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
-        guard
-            let rollbarKey = ProcessInfo.processInfo.environment["ROLLBAR_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String,
-            let recordAdmobKey = ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String,
-            let admobKey = ProcessInfo.processInfo.environment["ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String,
-            let revenueCatKey = ProcessInfo.processInfo.environment["REVENUECAT_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String,
-            let playListAdmobKey = ProcessInfo.processInfo.environment["PLAYLIST_ADMOB_KEY"] ?? Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String
+        // 環境変数のみから読み込む
+        let variables: [(key: String, value: String?)] = [
+            ("ROLLBAR_KEY", ProcessInfo.processInfo.environment["ROLLBAR_KEY"]),
+            ("RECORD_ADMOB_KEY", ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"]),
+            ("ADMOB_KEY", ProcessInfo.processInfo.environment["ADMOB_KEY"]),
+            ("REVENUECAT_KEY", ProcessInfo.processInfo.environment["REVENUECAT_KEY"]),
+            ("PLAYLIST_ADMOB_KEY", ProcessInfo.processInfo.environment["PLAYLIST_ADMOB_KEY"])
+        ]
 
-        else {
-            fatalError("One or more environment variables are missing")
+        let missingKeys = variables.filter { $0.value == nil }.map { $0.key }
+
+        guard missingKeys.isEmpty else {
+            #if DEBUG
+                return EnvironmentConfig(
+                    rollbarKey: Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? "",
+                    admobKey: Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? "",
+                    recordAdmobKey: Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? "",
+                    revenueCatKey: Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? "",
+                    playListAdmobKey: Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String ?? ""
+                )
+            #else
+                fatalError("Missing environment variables: \(missingKeys.joined(separator: ", "))")
+            #endif
         }
 
         return EnvironmentConfig(
-            rollbarKey: rollbarKey,
-            admobKey: admobKey,
-            recordAdmobKey: recordAdmobKey,
-            revenueCatKey: revenueCatKey,
-            playListAdmobKey: playListAdmobKey
+            rollbarKey: variables[0].value!,
+            admobKey: variables[1].value!,
+            recordAdmobKey: variables[2].value!,
+            revenueCatKey: variables[3].value!,
+            playListAdmobKey: variables[4].value!
         )
     }
 
