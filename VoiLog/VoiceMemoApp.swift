@@ -100,7 +100,7 @@ struct VoiceMemoApp: App {
 
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
-        let isCI = ProcessInfo.processInfo.environment["CI"] != nil
+        let isCI = ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"] != nil
 
         let rollbarKey = ProcessInfo.processInfo.environment["ROLLBAR_KEY"]
         let recordAdmobKey = ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"]
