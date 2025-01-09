@@ -7,8 +7,8 @@
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
-ROLLBAR_KEY = a
-ADMOB_KEY =
-REVENUECAT_KEY = a
-RECORD_ADMOB_KEY =
-PLAYLIST_ADMOB_KEY = 
+ROLLBAR_KEY = dummy_key
+ADMOB_KEY = dummy_key
+RECORD_ADMOB_KEY = dummy_key
+REVENUECAT_KEY = dummy_key
+PLAYLIST_ADMOB_KEY = dummy_key
