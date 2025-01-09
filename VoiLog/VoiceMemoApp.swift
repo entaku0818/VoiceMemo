@@ -100,7 +100,7 @@ struct VoiceMemoApp: App {
 
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
-        let isCI = ProcessInfo.processInfo.environment["CI_XCODE_CLOUD"] != nil
+        let isCI = ProcessInfo.processInfo.environment["IS_CLOUD"] != nil
 
         let rollbarKey = ProcessInfo.processInfo.environment["ROLLBAR_KEY"]
         let recordAdmobKey = ProcessInfo.processInfo.environment["RECORD_ADMOB_KEY"]
@@ -108,17 +108,17 @@ extension VoiceMemoApp {
         let revenueCatKey = ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
         let playListAdmobKey = ProcessInfo.processInfo.environment["PLAYLIST_ADMOB_KEY"]
 
-        if isCI {
-            fatalError("Missing environment variables in CI")
-        } else {
-            return EnvironmentConfig(
-                rollbarKey: Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? "",
-                admobKey: Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? "",
-                recordAdmobKey: Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? "",
-                revenueCatKey: Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? "",
-                playListAdmobKey: Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String ?? ""
-            )
-        }
+//        if isCI {
+//            fatalError("Missing environment variables in CI")
+//        } else {
+//            return EnvironmentConfig(
+//                rollbarKey: Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? "",
+//                admobKey: Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? "",
+//                recordAdmobKey: Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? "",
+//                revenueCatKey: Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? "",
+//                playListAdmobKey: Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String ?? ""
+//            )
+//        }
 
 
         return EnvironmentConfig(
