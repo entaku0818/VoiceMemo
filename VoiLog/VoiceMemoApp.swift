@@ -108,27 +108,18 @@ extension VoiceMemoApp {
         let revenueCatKey = ProcessInfo.processInfo.environment["REVENUECAT_KEY"]
         let playListAdmobKey = ProcessInfo.processInfo.environment["PLAYLIST_ADMOB_KEY"]
 
-        let missingKeys = [
-            ("ROLLBAR_KEY", rollbarKey),
-            ("RECORD_ADMOB_KEY", recordAdmobKey),
-            ("ADMOB_KEY", admobKey),
-            ("REVENUECAT_KEY", revenueCatKey),
-            ("PLAYLIST_ADMOB_KEY", playListAdmobKey)
-        ].filter { $0.1 == nil }.map { $0.0 }
-
-        guard missingKeys.isEmpty else {
-            if isCI {
-                fatalError("Missing environment variables in CI: \(missingKeys.joined(separator: ", "))")
-            } else {
-                return EnvironmentConfig(
-                    rollbarKey: Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? "",
-                    admobKey: Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? "",
-                    recordAdmobKey: Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? "",
-                    revenueCatKey: Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? "",
-                    playListAdmobKey: Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String ?? ""
-                )
-            }
+        if isCI {
+            fatalError("Missing environment variables in CI")
+        } else {
+            return EnvironmentConfig(
+                rollbarKey: Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String ?? "",
+                admobKey: Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String ?? "",
+                recordAdmobKey: Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String ?? "",
+                revenueCatKey: Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String ?? "",
+                playListAdmobKey: Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String ?? ""
+            )
         }
+
 
         return EnvironmentConfig(
             rollbarKey: rollbarKey!,
