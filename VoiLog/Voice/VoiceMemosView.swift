@@ -259,8 +259,6 @@ struct RecordButton: View {
 
 struct VoiceMemos_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-
             VoiceMemosView(
                 store: Store(
                     initialState: VoiceMemos.State(
@@ -320,65 +318,6 @@ struct VoiceMemos_Previews: PreviewProvider {
                 recordAdmobUnitId: "", playListAdmobUnitId: ""
             )
 
-            VoiceMemosView(
-                store: Store(
-                    initialState: VoiceMemos.State(
-                        voiceMemos: [
-                            VoiceMemoReducer.State(
-                                uuid: UUID(),
-                                date: Date(),
-                                duration: 5,
-                                time: 0,
-                                mode: .notPlaying,
-                                title: "Functions",
-                                url: URL(string: "https://www.pointfree.co/functions")!,
-                                text: "",
-                                fileFormat: "",
-                                samplingFrequency: 0.0,
-                                quantizationBitDepth: 0,
-                                numberOfChannels: 0,
-                                hasPurchasedPremium: false
-                            ),
-                            VoiceMemoReducer.State(
-                                uuid: UUID(),
-                                date: Date(),
-                                duration: 5,
-                                time: 0,
-                                mode: .notPlaying,
-                                title: "",
-                                url: URL(string: "https://www.pointfree.co/untitled")!,
-                                text: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                                fileFormat: "",
-                                samplingFrequency: 0.0,
-                                quantizationBitDepth: 0,
-                                numberOfChannels: 0,
-                                hasPurchasedPremium: false
-                            )
-                        ] + (1...30).map { index in
-                            VoiceMemoReducer.State(
-                                uuid: UUID(),
-                                date: Date().addingTimeInterval(TimeInterval(index * -60)),
-                                duration: Double.random(in: 5...300),
-                                time: 0,
-                                mode: .notPlaying,
-                                title: "Memo \(index)",
-                                url: URL(string: "https://www.example.com/memo\(index)")!,
-                                text: "Sample text for memo \(index)",
-                                fileFormat: "m4a",
-                                samplingFrequency: Double.random(in: 44100...48000),
-                                quantizationBitDepth: 16,
-                                numberOfChannels: Int.random(in: 1...2),
-                                hasPurchasedPremium: Bool.random()
-                            )
-                        },
-                        isMailComposePresented: true
-                    )
-                ) {
-                    VoiceMemos()
-                },
-                admobUnitId: "",
-                recordAdmobUnitId: "", playListAdmobUnitId: ""
-            ).previewDisplayName("Mail Compose Presented")
-        }
+
     }
 }
