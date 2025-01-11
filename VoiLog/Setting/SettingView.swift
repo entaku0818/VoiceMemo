@@ -202,6 +202,17 @@ struct SettingView: View {
 
                             }
                         }
+                        Button(action: {
+                            openURL()
+                        }) {
+                            HStack {
+                                Text("お問い合わせ")
+                                    .foregroundColor(Color("Black"))
+                                Spacer()
+                                Image(systemName: "arrow.up.right.square")
+                                    .foregroundColor(.gray)
+                            }
+                        }
                         HStack {
                             Button(action: {
                                 viewStore.send(.alert(.presented(.isPurchaseAlertPresented)))
@@ -243,6 +254,11 @@ struct SettingView: View {
                 AdmobBannerView(unitId: admobUnitId).frame(width: .infinity, height: 50)
             }
         }
+    }
+
+    private func openURL() {
+        guard let url = URL(string: "https://forms.gle/oaUjL9MP1bvh9Gs46") else { return }
+        UIApplication.shared.open(url)
     }
 
 }
