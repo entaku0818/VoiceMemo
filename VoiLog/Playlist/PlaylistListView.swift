@@ -68,6 +68,12 @@ struct PlaylistListView: View {
            ) {
                CreatePlaylistView(store: store)
            }
+           .sheet(isPresented: viewStore.binding(
+               get: \.isShowingPaywall,
+               send: PlaylistListFeature.Action.paywallDismissed
+           )) {
+               PaywallView(purchaseManager: PurchaseManager.shared)
+           }
            .onAppear { viewStore.send(.onAppear) }
        }
    }

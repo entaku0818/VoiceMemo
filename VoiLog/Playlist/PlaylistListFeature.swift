@@ -16,6 +16,7 @@ struct PlaylistListFeature: Reducer {
         var isShowingCreateSheet: Bool = false
         var newPlaylistName: String = ""
         var hasPurchasedPremium: Bool = false
+        var isShowingPaywall: Bool = false
 
     }
 
@@ -32,6 +33,8 @@ struct PlaylistListFeature: Reducer {
         case deletePlaylist(UUID)
         case playlistDeleted(UUID)
         case playlistDeletionFailed(Error)
+        case showPaywall
+        case paywallDismissed
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
@@ -63,7 +66,11 @@ struct PlaylistListFeature: Reducer {
             return .none
 
         case .createPlaylistButtonTapped:
-            state.isShowingCreateSheet = true
+            if !state.hasPurchasedPremium && state.playlists.count >= 3 {
+                state.isShowingPaywall = true
+            }else{
+                state.isShowingCreateSheet = true
+            }
             return .none
 
         case .createPlaylistSheetDismissed:
@@ -76,12 +83,11 @@ struct PlaylistListFeature: Reducer {
             return .none
 
         case .createPlaylistSubmitted:
-            // 空の名前チェック
             guard !state.newPlaylistName.isEmpty else { return .none }
 
-            // プレイリスト数の上限チェック
-            guard state.playlists.count <= 3 else {
-                state.error = "プレイリストは最大3つまでしか作成できません"
+            // プレミアム未購入時のプレイリスト制限チェック
+            if !state.hasPurchasedPremium && state.playlists.count >= 3 {
+                state.isShowingPaywall = true
                 return .none
             }
 
@@ -123,6 +129,13 @@ struct PlaylistListFeature: Reducer {
 
         case let .playlistDeletionFailed(error):
             state.error = error.localizedDescription
+            return .none
+        case .showPaywall:
+            state.isShowingPaywall = true
+            return .none
+
+        case .paywallDismissed:
+            state.isShowingPaywall = false
             return .none
         }
     }

@@ -109,7 +109,7 @@ struct PaywallView: View {
                             Text("プレイリストを無制限に作成")
                                 .font(.system(size: 22, weight: .semibold, design: .rounded))
                                 .padding(.vertical, 2)
-                            Text("好きなだけプレイリストを作成して、音声を整理できます！")
+                            Text("通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！")
                                 .font(.system(size: 16, weight: .regular, design: .rounded))
                                 .foregroundColor(.secondary)
                                 .padding(.vertical, 2)
