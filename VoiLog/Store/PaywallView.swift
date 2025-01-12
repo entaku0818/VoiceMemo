@@ -1,6 +1,9 @@
 import SwiftUI
 import RevenueCat
 
+import SwiftUI
+import RevenueCat
+
 struct PaywallView: View {
     @State private var productName: String = ""
     @State private var productPrice: String = ""
@@ -24,9 +27,10 @@ struct PaywallView: View {
                     Spacer()
                     VStack(alignment: .center) {
                         Text("すべての機能が使い放題")
-                            .font(.title)
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .padding(.bottom, 4)
                         Text("今すぐ1ヶ月無料体験してみよう！")
-                            .font(.title2)
+                            .font(.system(size: 20, weight: .medium, design: .rounded))
                     }.padding(.vertical, 30)
                     Spacer()
                 }
@@ -42,7 +46,7 @@ struct PaywallView: View {
                         .foregroundStyle(.white, .purple)
                     VStack(alignment: .leading) {
                         Text("プレミアムサービスでできること")
-                            .font(.headline)
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                     }
                     Spacer()
@@ -66,10 +70,11 @@ struct PaywallView: View {
                             .frame(width: 36, height: 36)
                         VStack(alignment: .leading) {
                             Text("広告なしの使用体験")
-                                .font(.title2)
+                                .font(.system(size: 22, weight: .semibold, design: .rounded))
                                 .padding(.vertical, 2)
                             Text("全ての広告が非表示に！")
-                                .font(.subheadline)
+                                .font(.system(size: 16, weight: .regular, design: .rounded))
+                                .foregroundColor(.secondary)
                                 .padding(.vertical, 2)
                         }
                         Spacer()
@@ -83,10 +88,30 @@ struct PaywallView: View {
                             .frame(width: 36, height: 36)
                         VStack(alignment: .leading) {
                             Text("iCloud同期機能")
-                                .font(.title2)
+                                .font(.system(size: 22, weight: .semibold, design: .rounded))
                                 .padding(.vertical, 2)
                             Text("すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！")
-                                .font(.subheadline)
+                                .font(.system(size: 16, weight: .regular, design: .rounded))
+                                .foregroundColor(.secondary)
+                                .padding(.vertical, 2)
+                        }
+                        .padding(.vertical)
+                        Spacer()
+                    }
+
+                    // プレイリスト機能
+                    HStack {
+                        Spacer().frame(width: 8)
+                        Image(systemName: "music.note.list")
+                            .resizable()
+                            .frame(width: 36, height: 36)
+                        VStack(alignment: .leading) {
+                            Text("プレイリストを無制限に作成")
+                                .font(.system(size: 22, weight: .semibold, design: .rounded))
+                                .padding(.vertical, 2)
+                            Text("好きなだけプレイリストを作成して、音声を整理できます！")
+                                .font(.system(size: 16, weight: .regular, design: .rounded))
+                                .foregroundColor(.secondary)
                                 .padding(.vertical, 2)
                         }
                         .padding(.vertical)
@@ -104,10 +129,10 @@ struct PaywallView: View {
                 }) {
                     VStack {
                         Text("1ヶ月 無料でお試し")
-                            .font(.headline)
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-
                         Text("\(productPrice)/月")
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
                             .foregroundColor(.white)
                     }
                     .padding()
@@ -127,6 +152,7 @@ struct PaywallView: View {
                         await restorePurchases()
                     }
                 }
+                .font(.system(size: 18, weight: .medium, design: .rounded))
                 .padding()
                 .frame(maxWidth: .infinity)
                 .background(Color.gray)
@@ -143,10 +169,10 @@ struct PaywallView: View {
                     HStack(alignment: .center) {
                         Spacer()
                         Link("利用規約", destination: URL(string: "https://voilog.web.app/terms_of_service.html")!)
-                            .font(.body)
+                            .font(.system(size: 14, weight: .regular, design: .rounded))
                             .foregroundColor(.blue)
                         Link("プライバシーポリシー", destination: URL(string: "https://voilog.web.app/privacy_policy.html")!)
-                            .font(.body)
+                            .font(.system(size: 14, weight: .regular, design: .rounded))
                             .foregroundColor(.blue)
                         Spacer()
                     }
