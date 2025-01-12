@@ -184,8 +184,8 @@ final class PlaylistListFeatureTests: XCTestCase {
             reducer: { PlaylistListFeature() }
         )
 
-        await store.send(.createPlaylistSubmitted) {
-            $0.error = "プレイリストは最大3つまでしか作成できません"
+        await store.send(.createPlaylistButtonTapped) {
+            $0.isShowingPaywall = true
         }
     }
 }

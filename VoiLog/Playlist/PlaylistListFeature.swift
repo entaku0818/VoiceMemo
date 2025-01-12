@@ -87,7 +87,6 @@ struct PlaylistListFeature: Reducer {
 
             // プレミアム未購入時のプレイリスト制限チェック
             if !state.hasPurchasedPremium && state.playlists.count >= 3 {
-                state.isShowingPaywall = true
                 return .none
             }
 
