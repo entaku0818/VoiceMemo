@@ -45,6 +45,12 @@
             "value" : ""
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -98,6 +104,12 @@
           }
         },
         "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ""
@@ -1517,16 +1529,116 @@
       }
     },
     "エラーが発生しました" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラーが発生しました"
+          }
+        }
+      }
     },
     "エラーログを見る" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラーログを見る"
+          }
+        }
+      }
     },
     "お問い合わせ" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontakt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact Us"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contatti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お問い合わせ"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacte-nos"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Связаться с нами"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İletişim"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liên hệ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "联系我们"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "聯絡我們"
+          }
+        }
+      }
     },
     "キャンセル" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cancel"
+          }
+        }
+      }
     },
     "ご不便かけて申し訳ありません" : {
       "localizations" : {
@@ -2729,9 +2841,82 @@
         }
       }
     },
-    "プレイリストを無制限に作成" : {
-
+"プレイリストを無制限に作成": {
+  "localizations": {
+    "de": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Unbegrenzte Playlist-Erstellung"
+      }
     },
+    "en": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Create unlimited playlists"
+      }
+    },
+    "es": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Crear listas de reproducción ilimitadas"
+      }
+    },
+    "fr": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Créer des listes de lecture illimitées"
+      }
+    },
+    "it": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Crea playlist illimitate"
+      }
+    },
+    "ja": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "プレイリストを無制限に作成"
+      }
+    },
+    "pt-PT": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Criar listas de reprodução ilimitadas"
+      }
+    },
+    "ru": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Создавать неограниченное количество плейлистов"
+      }
+    },
+    "tr": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Sınırsız çalma listesi oluştur"
+      }
+    },
+    "vi": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "Tạo danh sách phát không giới hạn"
+      }
+    },
+    "zh-Hans": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "创建无限播放列表"
+      }
+    },
+    "zh-Hant": {
+      "stringUnit": {
+        "state": "translated",
+        "value": "建立無限播放清單"
+      }
+    }
+  }
+},
     "プレイリスト名" : {
       "localizations" : {
         "de" : {
@@ -4345,7 +4530,80 @@
       }
     },
     "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen Sie bis zu drei Playlists und organisieren Sie Ihre Audiodateien nach Belieben!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create up to three playlists and organize your audio as you like!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Crea hasta tres listas de reproducción y organiza tu audio como quieras!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créez jusqu'à trois listes de lecture et organisez vos audios comme vous le souhaitez !"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea fino a tre playlist e organizza i tuoi audio come preferisci!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crie até três listas de reprodução e organize seu áudio como quiser!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создавайте до трех плейлистов и организуйте свое аудио как вам нравится!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Üç adete kadar çalma listesi oluşturun ve sesinizi istediğiniz gibi düzenleyin!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo tối đa ba danh sách phát và sắp xếp âm thanh của bạn theo ý muốn!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建最多三个播放列表，随心所欲地整理您的音频！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立最多三個播放清單，隨心所欲地整理您的音訊！"
+          }
+        }
+      }
     },
     "選択した音声を削除しますか？" : {
       "localizations" : {
