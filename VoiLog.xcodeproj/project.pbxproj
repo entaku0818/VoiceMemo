@@ -1226,7 +1226,7 @@
 			repositoryURL = "https://github.com/rollbar/rollbar-apple";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				minimumVersion = 3.3.2;
 			};
 		};
 		61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {

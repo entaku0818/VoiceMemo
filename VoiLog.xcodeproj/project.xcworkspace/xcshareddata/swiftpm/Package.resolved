@@ -101,15 +101,6 @@
       }
     },
     {
-      "identity" : "kscrash",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kstenerud/KSCrash.git",
-      "state" : {
-        "revision" : "9e72c018a0ba455a89cf5770dea6e1d5258744b6",
-        "version" : "1.15.27"
-      }
-    },
-    {
       "identity" : "leveldb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/leveldb.git",
@@ -150,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/rollbar/rollbar-apple",
       "state" : {
-        "revision" : "32a1f1e78448f84a351f7c71856cd0afd212ef3c",
-        "version" : "3.0.3"
+        "revision" : "2077a05788a740eea7d804c293c7d5313169b5ed",
+        "version" : "3.3.3"
       }
     },
     {
