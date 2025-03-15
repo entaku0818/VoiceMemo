@@ -118,4 +118,14 @@ class UserDefaultsManager {
             defaults.set(newValue, forKey: "HasPurchasedProduct")
         }
     }
+
+    // チュートリアルを表示したかどうか
+    var hasSeenTutorial: Bool {
+        get {
+            defaults.bool(forKey: "HasSeenTutorial")
+        }
+        set {
+            defaults.set(newValue, forKey: "HasSeenTutorial")
+        }
+    }
 }

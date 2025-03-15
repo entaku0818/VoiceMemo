@@ -30,119 +30,125 @@ struct VoiceMemosView: View {
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            NavigationView {
-                VStack {
-                    List {
-                        Section {
-                            NavigationLink(destination: PlaylistListView(
-                                store: Store(
-                                    initialState: PlaylistListFeature.State()
-                                )                                    { PlaylistListFeature() }, admobUnitId: playListAdmobUnitId
-                            )) {
-                                Label("プレイリスト", systemImage: "music.note.list")
-                            }
-                        }
-
-                        Section {
-                            ForEachStore(
-                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-                            ) {
-                                VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
-                            }
-                            .onDelete { indexSet in
-                                for index in indexSet {
-                                    selectedIndex = index
-                                    isDeleteConfirmationPresented = true
+            ZStack {
+                NavigationView {
+                    VStack {
+                        List {
+                            Section {
+                                NavigationLink(destination: PlaylistListView(
+                                    store: Store(
+                                        initialState: PlaylistListFeature.State()
+                                    )                                    { PlaylistListFeature() }, admobUnitId: playListAdmobUnitId
+                                )) {
+                                    Label("プレイリスト", systemImage: "music.note.list")
                                 }
                             }
-                        }
-                    }
-                    if viewStore.currentMode == .playback {
-                        if let playingMemoID = viewStore.currentPlayingMemo {
-                            ForEachStore(
-                                self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-                            )                                { store in
-                                    if store.withState({ $0.id == playingMemoID }) {
-                                        PlayerView(store: store)
+
+                            Section {
+                                ForEachStore(
+                                    self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                                ) {
+                                    VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
+                                }
+                                .onDelete { indexSet in
+                                    for index in indexSet {
+                                        selectedIndex = index
+                                        isDeleteConfirmationPresented = true
                                     }
                                 }
-                        }
-                    } else if viewStore.currentMode == .recording {
-                        IfLetStore(
-                            self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
-                        ) { store in
-                            RecordingMemoView(store: store)
-                        } else: {
-                            RecordButton(permission: viewStore.audioRecorderPermission) {
-                                viewStore.send(.recordButtonTapped, animation: .spring())
-                            } settingsAction: {
-                                viewStore.send(.openSettingsButtonTapped)
                             }
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color(white: 0.95))
-                    }
+                        if viewStore.currentMode == .playback {
+                            if let playingMemoID = viewStore.currentPlayingMemo {
+                                ForEachStore(
+                                    self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                                )                                { store in
+                                        if store.withState({ $0.id == playingMemoID }) {
+                                            PlayerView(store: store)
+                                        }
+                                    }
+                            }
+                        } else if viewStore.currentMode == .recording {
+                            IfLetStore(
+                                self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
+                            ) { store in
+                                RecordingMemoView(store: store)
+                            } else: {
+                                RecordButton(permission: viewStore.audioRecorderPermission) {
+                                    viewStore.send(.recordButtonTapped, animation: .spring())
+                                } settingsAction: {
+                                    viewStore.send(.openSettingsButtonTapped)
+                                }
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color(white: 0.95))
+                        }
 
-                    if !viewStore.hasPurchasedPremium {
-                        AdmobBannerView(unitId: recordAdmobUnitId)
-                            .frame(height: 50)
+                        if !viewStore.hasPurchasedPremium {
+                            AdmobBannerView(unitId: recordAdmobUnitId)
+                                .frame(height: 50)
+                        }
                     }
-                }
-                .onAppear {
-                    checkTrackingAuthorizationStatus()
-                    viewStore.send(.onAppear)
-                }
-                .alert(store: self.store.scope(state: \.$alert, action: VoiceMemos.Action.alert))
-                .alert(isPresented: $isDeleteConfirmationPresented) {
-                    Alert(
-                        title: Text("削除しますか？"),
-                        message: Text("選択した音声を削除しますか？"),
-                        primaryButton: .destructive(Text("削除")) {
-                            if let index = selectedIndex {
-                                let voiceMemoID = viewStore.voiceMemos[index].uuid
-                                viewStore.send(.onDelete(uuid: voiceMemoID))
+                    .onAppear {
+                        checkTrackingAuthorizationStatus()
+                        viewStore.send(.onAppear)
+                    }
+                    .alert(store: self.store.scope(state: \.$alert, action: VoiceMemos.Action.alert))
+                    .alert(isPresented: $isDeleteConfirmationPresented) {
+                        Alert(
+                            title: Text("削除しますか？"),
+                            message: Text("選択した音声を削除しますか？"),
+                            primaryButton: .destructive(Text("削除")) {
+                                if let index = selectedIndex {
+                                    let voiceMemoID = viewStore.voiceMemos[index].uuid
+                                    viewStore.send(.onDelete(uuid: voiceMemoID))
+                                    selectedIndex = nil
+                                }
+                            },
+                            secondaryButton: .cancel {
                                 selectedIndex = nil
                             }
-                        },
-                        secondaryButton: .cancel {
-                            selectedIndex = nil
-                        }
-                    )
-                }
-                .fullScreenCover(
-                    isPresented: viewStore.binding(
-                        get: \.isMailComposePresented,
-                        send: VoiceMemos.Action.mailComposeDismissed
-                    )
-                ) {
-                    MailComposeViewControllerWrapper(
+                        )
+                    }
+                    .fullScreenCover(
                         isPresented: viewStore.binding(
                             get: \.isMailComposePresented,
                             send: VoiceMemos.Action.mailComposeDismissed
                         )
-                    )
-                }
-                .navigationTitle("シンプル録音")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
+                    ) {
+                        MailComposeViewControllerWrapper(
+                            isPresented: viewStore.binding(
+                                get: \.isMailComposePresented,
+                                send: VoiceMemos.Action.mailComposeDismissed
+                            )
+                        )
+                    }
+                    .navigationTitle("シンプル録音")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
 
-                        if !viewStore.hasPlayingMemo {
-                            Button(action: {
-                                viewStore.send(.toggleMode)
-                            }) {
-                                Text(viewStore.currentMode == .playback ? "再生" : "録音")
+                            if !viewStore.hasPlayingMemo {
+                                Button(action: {
+                                    viewStore.send(.toggleMode)
+                                }) {
+                                    Text(viewStore.currentMode == .playback ? "再生" : "録音")
+                                }
+                            }
+                        }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            if viewStore.recordingMemo == nil {
+                                makeToolbarContent(viewStore: viewStore)
                             }
                         }
                     }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        if viewStore.recordingMemo == nil {
-                            makeToolbarContent(viewStore: viewStore)
-                        }
-                    }
+                }
+                .navigationViewStyle(.stack)
+                
+                if viewStore.showTutorial {
+                    TutorialView(store: store)
                 }
             }
-            .navigationViewStyle(.stack)
         }
     }
 

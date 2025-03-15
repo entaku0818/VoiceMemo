@@ -24,6 +24,7 @@ struct VoiceMemos: Reducer {
         var hasPurchasedPremium = false
         var currentMode: Mode = .recording
         var currentPlayingMemo: VoiceMemoReducer.State.ID?
+        var showTutorial: Bool = false
 
         enum RecorderPermission {
             case allowed
@@ -53,6 +54,7 @@ struct VoiceMemos: Reducer {
         case syncSuccess
         case syncFailure
         case toggleMode
+        case tutorialDismissed
     }
 
     enum AlertAction: Equatable {
@@ -126,8 +128,14 @@ struct VoiceMemos: Reducer {
     private func handleOnAppear(state: inout State) -> Effect<Action> {
         let installDate = UserDefaultsManager.shared.installDate
         let reviewCount = UserDefaultsManager.shared.reviewRequestCount
+        let hasSeenTutorial = UserDefaultsManager.shared.hasSeenTutorial
 
         state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+        
+        // チュートリアル表示の判定
+        if !hasSeenTutorial {
+            state.showTutorial = true
+        }
 
         if let installDate = installDate {
             let currentDate = Date()
@@ -297,6 +305,11 @@ struct VoiceMemos: Reducer {
                 return .none
 
             case .alert(.dismiss):
+                return .none
+
+            case .tutorialDismissed:
+                state.showTutorial = false
+                UserDefaultsManager.shared.hasSeenTutorial = true
                 return .none
 
             case .mailComposeDismissed:
