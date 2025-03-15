@@ -13,7 +13,15 @@ import ComposableArchitecture
 @MainActor
 final class VoiceMemosTests: XCTestCase {
 
+    override func setUp() {
+        super.setUp()
+        // テスト前にチュートリアル表示済みに設定
+        UserDefaultsManager.shared.hasSeenTutorial = true
+    }
+
     func testOnAppear_FirstLaunch() async {
+        // チュートリアル表示済みに設定
+        UserDefaultsManager.shared.hasSeenTutorial = true
 
         let store = TestStore(initialState: VoiceMemos.State()) {
             VoiceMemos()
@@ -24,6 +32,9 @@ final class VoiceMemosTests: XCTestCase {
     }
 
     func testOnAppear_ReviewPrompt() async {
+        // チュートリアル表示済みに設定
+        UserDefaultsManager.shared.hasSeenTutorial = true
+        
         let initialDate = Calendar.current.date(byAdding: .day, value: -8, to: Date())!
         UserDefaultsManager.shared.installDate = initialDate
         UserDefaultsManager.shared.reviewRequestCount = 0
