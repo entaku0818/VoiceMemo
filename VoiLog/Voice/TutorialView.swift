@@ -18,8 +18,8 @@ struct TutorialView: View {
                 VStack(alignment: .leading, spacing: 15) {
                     TutorialItem(
                         icon: "mic.circle.fill",
-                        title: "1. 録音する",
-                        description: "マイクボタンをタップして録音を開始します",
+                        title: LocalizedStringKey("1. 録音する"),
+                        description: LocalizedStringKey("マイクボタンをタップして録音を開始します"),
                         customView: AnyView(
                             ZStack {
                                 Circle()
@@ -36,8 +36,8 @@ struct TutorialView: View {
                     
                     TutorialItem(
                         icon: "stop.circle.fill",
-                        title: "2. 録音を停止",
-                        description: "停止ボタンをタップして録音を終了します",
+                        title: LocalizedStringKey("2. 録音を停止"),
+                        description: LocalizedStringKey("停止ボタンをタップして録音を終了します"),
                         customView: AnyView(
                             ZStack {
                                 Circle()
@@ -53,8 +53,8 @@ struct TutorialView: View {
                     
                     TutorialItem(
                         icon: "play.circle.fill",
-                        title: "3. 再生する",
-                        description: "録音したメモをタップして再生できます"
+                        title: LocalizedStringKey("3. 再生する"),
+                        description: LocalizedStringKey("録音したメモをタップして再生できます")
                     )
                 }
                 .padding(.horizontal, 30)
@@ -81,11 +81,11 @@ struct TutorialView: View {
 
 struct TutorialItem: View {
     let icon: String
-    let title: String
-    let description: String
+    let title: LocalizedStringKey
+    let description: LocalizedStringKey
     let customView: AnyView?
     
-    init(icon: String, title: String, description: String, customView: AnyView? = nil) {
+    init(icon: String, title: LocalizedStringKey, description: LocalizedStringKey, customView: AnyView? = nil) {
         self.icon = icon
         self.title = title
         self.description = description
