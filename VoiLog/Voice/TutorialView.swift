@@ -10,7 +10,7 @@ struct TutorialView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 20) {
-                Text("シンプル録音へようこそ！")
+                Text(LocalizedStringKey("シンプル録音へようこそ！"))
                     .font(.title)
                     .foregroundColor(.white)
                     .padding(.top, 30)
@@ -62,7 +62,7 @@ struct TutorialView: View {
                 Button {
                     ViewStore(store, observe: { $0 }).send(.tutorialDismissed)
                 } label: {
-                    Text("始める")
+                    Text(LocalizedStringKey("始める"))
                         .font(.headline)
                         .foregroundColor(.white)
                         .frame(width: 200, height: 50)

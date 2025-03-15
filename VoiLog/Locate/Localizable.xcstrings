@@ -2242,6 +2242,82 @@
         }
       }
     },
+    "シンプル録音へようこそ！" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Willkommen bei Simple Recording!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Simple Recording!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Bienvenido a Grabación Simple!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenue sur Simple Recording !"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benvenuto in Simple Recording!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "シンプル録音へようこそ！"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bem-vindo ao Simple Recording!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добро пожаловать в Simple Recording!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simple Recording'e Hoş Geldiniz!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào mừng đến với Simple Recording!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欢迎使用简易录音！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "歡迎使用簡易錄音！"
+          }
+        }
+      }
+    },
     "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！" : {
       "localizations" : {
         "de" : {
@@ -2841,82 +2917,82 @@
         }
       }
     },
-"プレイリストを無制限に作成": {
-  "localizations": {
-    "de": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Unbegrenzte Playlist-Erstellung"
+    "プレイリストを無制限に作成" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbegrenzte Playlist-Erstellung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create unlimited playlists"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear listas de reproducción ilimitadas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer des listes de lecture illimitées"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea playlist illimitate"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プレイリストを無制限に作成"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar listas de reprodução ilimitadas"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создавать неограниченное количество плейлистов"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sınırsız çalma listesi oluştur"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo danh sách phát không giới hạn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建无限播放列表"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立無限播放清單"
+          }
+        }
       }
     },
-    "en": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Create unlimited playlists"
-      }
-    },
-    "es": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Crear listas de reproducción ilimitadas"
-      }
-    },
-    "fr": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Créer des listes de lecture illimitées"
-      }
-    },
-    "it": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Crea playlist illimitate"
-      }
-    },
-    "ja": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "プレイリストを無制限に作成"
-      }
-    },
-    "pt-PT": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Criar listas de reprodução ilimitadas"
-      }
-    },
-    "ru": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Создавать неограниченное количество плейлистов"
-      }
-    },
-    "tr": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Sınırsız çalma listesi oluştur"
-      }
-    },
-    "vi": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "Tạo danh sách phát không giới hạn"
-      }
-    },
-    "zh-Hans": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "创建无限播放列表"
-      }
-    },
-    "zh-Hant": {
-      "stringUnit": {
-        "state": "translated",
-        "value": "建立無限播放清單"
-      }
-    }
-  }
-},
     "プレイリスト名" : {
       "localizations" : {
         "de" : {
@@ -4066,6 +4142,82 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未命名"
+          }
+        }
+      }
+    },
+    "始める" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loslegen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comenzar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Iniziare"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "始める"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Começar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Начать"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Başla"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始使用"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始使用"
           }
         }
       }
