@@ -10,11 +10,9 @@
 		6101104C2C26AA830055D279 /* VoiceMemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6101104B2C26AA830055D279 /* VoiceMemoRepository.swift */; };
 		6101104E2C26B0A60055D279 /* CloudUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6101104D2C26B0A60055D279 /* CloudUploader.swift */; };
 		6104770628DDD13100141042 /* Voice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6104770428DDD13100141042 /* Voice.xcdatamodeld */; };
-		6105624F2BCC0CF700D82088 /* MockIAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6105624E2BCC0CF700D82088 /* MockIAPManager.swift */; };
 		611A244A2A83DB9800F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A244C2A83DB9800F68D7D /* InfoPlist.strings */; };
 		611A24502A83DBEC00F68D7D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 611A24522A83DBEC00F68D7D /* InfoPlist.strings */; };
 		612521152BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */; };
-		612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612521162BC26E3B002A7A3E /* PaywallView.swift */; };
 		613ABC832C1DE9130092F5F7 /* VoiceMemosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613ABC822C1DE9130092F5F7 /* VoiceMemosTests.swift */; };
 		613F02752D1D939F0098C091 /* PlaylistDetailFeatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613F02742D1D939E0098C091 /* PlaylistDetailFeatureTests.swift */; };
 		613FC7F528DE28AD0014E4B2 /* VoiceMemoCoredataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FC7F428DE28AD0014E4B2 /* VoiceMemoCoredataAccessor.swift */; };
@@ -32,7 +30,6 @@
 		615321B22C26FD1400E70580 /* VoiceMemoRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615321B12C26FD1400E70580 /* VoiceMemoRepositoryTests.swift */; };
 		615321B42C26FD2C00E70580 /* MockVoiceMemoCoredataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615321B32C26FD2C00E70580 /* MockVoiceMemoCoredataAccessor.swift */; };
 		615321B62C2808C400E70580 /* MockCloudUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615321B52C2808C400E70580 /* MockCloudUploader.swift */; };
-		6168A6422B43ACAB00B20F0F /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6168A6412B43ACAB00B20F0F /* PurchaseManager.swift */; };
 		6168BB0B2D19B06E007CDF6A /* Voice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6104770428DDD13100141042 /* Voice.xcdatamodeld */; };
 		6168BB112D1B057F007CDF6A /* PlaylistRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6168BB102D1B057F007CDF6A /* PlaylistRepository.swift */; };
 		617F129A2CE1044200D6815D /* TimeInterval+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617F12992CE1044200D6815D /* TimeInterval+Extention.swift */; };
@@ -107,11 +104,9 @@
 		6101104B2C26AA830055D279 /* VoiceMemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepository.swift; sourceTree = "<group>"; };
 		6101104D2C26B0A60055D279 /* CloudUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudUploader.swift; sourceTree = "<group>"; };
 		6104770528DDD13100141042 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		6105624E2BCC0CF700D82088 /* MockIAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIAPManager.swift; sourceTree = "<group>"; };
 		6121ECC82ADB844300B94F83 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		6124A0232ADAD4E9009444EA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		612521142BC26BEB002A7A3E /* Simple Voice Recorder - Audio.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Simple Voice Recorder - Audio.storekit"; sourceTree = "<group>"; };
-		612521162BC26E3B002A7A3E /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
 		613ABC822C1DE9130092F5F7 /* VoiceMemosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemosTests.swift; sourceTree = "<group>"; };
 		613F02742D1D939E0098C091 /* PlaylistDetailFeatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDetailFeatureTests.swift; sourceTree = "<group>"; };
 		613FC7F428DE28AD0014E4B2 /* VoiceMemoCoredataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoCoredataAccessor.swift; sourceTree = "<group>"; };
@@ -129,7 +124,6 @@
 		615321B12C26FD1400E70580 /* VoiceMemoRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceMemoRepositoryTests.swift; sourceTree = "<group>"; };
 		615321B32C26FD2C00E70580 /* MockVoiceMemoCoredataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVoiceMemoCoredataAccessor.swift; sourceTree = "<group>"; };
 		615321B52C2808C400E70580 /* MockCloudUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCloudUploader.swift; sourceTree = "<group>"; };
-		6168A6412B43ACAB00B20F0F /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		6168BB102D1B057F007CDF6A /* PlaylistRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRepository.swift; sourceTree = "<group>"; };
 		616965A72C15F309008F97AE /* en-IN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-IN"; path = "en-IN.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		616AA3682C02E19A00C7705A /* Prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Prod.xcconfig; sourceTree = "<group>"; };
@@ -169,6 +163,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		612C89D52D856C5400614ED0 /* Store */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Store; sourceTree = "<group>"; };
 		6153BE8A2D8535BA001F1D2C /* Voice */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Voice; sourceTree = "<group>"; };
 		6153BE9B2D8535C9001F1D2C /* Playlist */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Playlist; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -260,16 +255,6 @@
 			path = recordActivity;
 			sourceTree = "<group>";
 		};
-		6168A6402B43AC9A00B20F0F /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				6168A6412B43ACAB00B20F0F /* PurchaseManager.swift */,
-				612521162BC26E3B002A7A3E /* PaywallView.swift */,
-				6105624E2BCC0CF700D82088 /* MockIAPManager.swift */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
 		619440CA2904049800BF337E /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,7 +303,7 @@
 				61E43AD12A3346FD0006A9D2 /* AdmobBannerView.swift */,
 				6153BE9B2D8535C9001F1D2C /* Playlist */,
 				6153BE8A2D8535BA001F1D2C /* Voice */,
-				6168A6402B43AC9A00B20F0F /* Store */,
+				612C89D52D856C5400614ED0 /* Store */,
 				619440CA2904049800BF337E /* Setting */,
 				619799EC28C34A2500169FB6 /* Preview Content */,
 				61979A1928C44D8F00169FB6 /* AudioRecoder.swift */,
@@ -407,6 +392,7 @@
 				61458CE02C4B939400B7107E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				612C89D52D856C5400614ED0 /* Store */,
 				6153BE8A2D8535BA001F1D2C /* Voice */,
 				6153BE9B2D8535C9001F1D2C /* Playlist */,
 			);
@@ -608,8 +594,6 @@
 				61A3D8D92AB7DFE9002D8364 /* AboutSimpleRecoder.swift in Sources */,
 				61E43AD22A3346FD0006A9D2 /* AdmobBannerView.swift in Sources */,
 				614AD4372A3B522F004B5B98 /* UserDefaultsManager.swift in Sources */,
-				6105624F2BCC0CF700D82088 /* MockIAPManager.swift in Sources */,
-				6168A6422B43ACAB00B20F0F /* PurchaseManager.swift in Sources */,
 				617F129A2CE1044200D6815D /* TimeInterval+Extention.swift in Sources */,
 				61EC9B842AAC66080062533A /* Double+Extention.swift in Sources */,
 				6199AF832C4D2B8700CABC67 /* ErrorLogsView.swift in Sources */,
@@ -620,7 +604,6 @@
 				619799E628C34A2500169FB6 /* VoiceMemoApp.swift in Sources */,
 				613FC7F528DE28AD0014E4B2 /* VoiceMemoCoredataAccessor.swift in Sources */,
 				61B70F592A5100A100740093 /* AVAudioPCMBuffer+Extention.swift in Sources */,
-				612521172BC26E3B002A7A3E /* PaywallView.swift in Sources */,
 				61E43AD42A33EFF50006A9D2 /* Logger.swift in Sources */,
 				6101104C2C26AA830055D279 /* VoiceMemoRepository.swift in Sources */,
 				6168BB112D1B057F007CDF6A /* PlaylistRepository.swift in Sources */,
