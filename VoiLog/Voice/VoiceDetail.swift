@@ -10,10 +10,20 @@ import ComposableArchitecture
 
 struct VoiceMemoDetail: View {
     let store: StoreOf<VoiceMemoReducer>
+    @State private var showingAudioEditor = false
 
     @Environment(\.presentationMode) var presentationMode
 
     let admobUnitId: String
+
+    // 時間表示フォーマッター
+    private let dateComponentsFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        return formatter
+    }()
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -91,6 +101,41 @@ struct VoiceMemoDetail: View {
                     .accentColor(Color.gray)
                     .padding()
 
+                // 編集ボタンを追加
+                Button(action: {
+                    showingAudioEditor = true
+                }) {
+                    HStack {
+                        Image(systemName: "waveform")
+                        Text("音声を編集")
+                    }
+                    .frame(width: 200, height: 40)
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(8)
+                }
+                .padding(.bottom)
+                .fullScreenCover(isPresented: $showingAudioEditor) {
+                    NavigationView {
+                        // URLを正しく構築
+                        let documentsPath = NSHomeDirectory() + "/Documents"
+                        let audioFilePath = documentsPath + "/" + viewStore.url.lastPathComponent
+                        let fullURL = URL(fileURLWithPath: audioFilePath)
+                        
+                        AudioEditorView(
+                            store: Store(
+                                initialState: AudioEditorReducer.State(
+                                    memoID: viewStore.uuid,
+                                    audioURL: fullURL,
+                                    originalTitle: viewStore.title,
+                                    duration: viewStore.duration
+                                ),
+                                reducer: { AudioEditorReducer() }
+                            )
+                        )
+                    }
+                }
+
                 ScrollView {
                     Text(viewStore.text)
                 }.frame(minHeight: 50, maxHeight: 200)
@@ -132,7 +177,6 @@ struct VoiceMemoDetail: View {
         dateFormatter.locale = Locale.autoupdatingCurrent // Set to the default locale of the user's device
         return dateFormatter.string(from: date)
     }
-
 }
 
 struct VoiceDetail_Previews: PreviewProvider {
@@ -158,6 +202,5 @@ struct VoiceDetail_Previews: PreviewProvider {
                 VoiceMemoReducer()
             }, admobUnitId: ""
         )
-
     }
 }
