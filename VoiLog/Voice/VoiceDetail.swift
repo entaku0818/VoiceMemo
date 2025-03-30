@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct VoiceMemoDetail: View {
     let store: StoreOf<VoiceMemoReducer>
     @State private var showingAudioEditor = false
+    @State private var showingPaywall = false
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -103,7 +104,13 @@ struct VoiceMemoDetail: View {
 
                 // 編集ボタンを追加
                 Button(action: {
-                    showingAudioEditor = true
+                    if viewStore.hasPurchasedPremium {
+                        // プレミアム購入済みの場合は編集画面へ
+                        showingAudioEditor = true
+                    } else {
+                        // 未購入の場合はPaywallへ
+                        showingPaywall = true
+                    }
                 }) {
                     HStack {
                         Image(systemName: "waveform")
@@ -134,6 +141,9 @@ struct VoiceMemoDetail: View {
                             )
                         )
                     }
+                }
+                .sheet(isPresented: $showingPaywall) {
+                    PaywallView(purchaseManager: PurchaseManager.shared)
                 }
 
                 ScrollView {

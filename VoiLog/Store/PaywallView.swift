@@ -1,9 +1,6 @@
 import SwiftUI
 import RevenueCat
 
-import SwiftUI
-import RevenueCat
-
 struct PaywallView: View {
     @State private var productName: String = ""
     @State private var productPrice: String = ""
@@ -91,6 +88,25 @@ struct PaywallView: View {
                                 .font(.system(size: 22, weight: .semibold, design: .rounded))
                                 .padding(.vertical, 2)
                             Text("すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！")
+                                .font(.system(size: 16, weight: .regular, design: .rounded))
+                                .foregroundColor(.secondary)
+                                .padding(.vertical, 2)
+                        }
+                        .padding(.vertical)
+                        Spacer()
+                    }
+
+                    // 音声編集機能
+                    HStack {
+                        Spacer().frame(width: 8)
+                        Image(systemName: "waveform")
+                            .resizable()
+                            .frame(width: 36, height: 36)
+                        VStack(alignment: .leading) {
+                            Text("音声編集機能")
+                                .font(.system(size: 22, weight: .semibold, design: .rounded))
+                                .padding(.vertical, 2)
+                            Text("音声の分割編集ができ、使いやすく整理できます！")
                                 .font(.system(size: 16, weight: .regular, design: .rounded))
                                 .foregroundColor(.secondary)
                                 .padding(.vertical, 2)
