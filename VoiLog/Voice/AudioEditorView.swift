@@ -121,22 +121,6 @@ struct AudioEditorView: View {
                 // 編集ツールバー
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        // トリミングボタン
-                        Button(action: {
-                            viewStore.send(.trim)
-                        }) {
-                            VStack {
-                                Image(systemName: "scissors")
-                                    .font(.title2)
-                                Text("トリミング")
-                                    .font(.caption)
-                            }
-                            .frame(width: 70, height: 70)
-                            .background(Color.blue.opacity(0.1))
-                            .cornerRadius(10)
-                        }
-                        .disabled(viewStore.selectedRange == nil || viewStore.processingOperation != nil)
-                        
                         // 分割ボタン
                         Button(action: {
                             viewStore.send(.split)
@@ -154,55 +138,26 @@ struct AudioEditorView: View {
                         .disabled(viewStore.selectedRange == nil ||
                                  viewStore.selectedRange?.lowerBound != viewStore.selectedRange?.upperBound ||
                                  viewStore.processingOperation != nil)
-                        
-                        // 音量増加ボタン
-                        Button(action: {
-                            viewStore.send(.adjustVolume(1.5))
-                        }) {
-                            VStack {
-                                Image(systemName: "speaker.wave.3.fill")
-                                    .font(.title2)
-                                Text("音量+50%")
-                                    .font(.caption)
-                            }
-                            .frame(width: 70, height: 70)
-                            .background(Color.blue.opacity(0.1))
-                            .cornerRadius(10)
-                        }
-                        .disabled(viewStore.processingOperation != nil)
-                        
-                        // 音量減少ボタン
-                        Button(action: {
-                            viewStore.send(.adjustVolume(0.5))
-                        }) {
-                            VStack {
-                                Image(systemName: "speaker.wave.1.fill")
-                                    .font(.title2)
-                                Text("音量-50%")
-                                    .font(.caption)
-                            }
-                            .frame(width: 70, height: 70)
-                            .background(Color.blue.opacity(0.1))
-                            .cornerRadius(10)
-                        }
-                        .disabled(viewStore.processingOperation != nil)
                     }
                     .padding()
                 }
                 
                 // 編集ヘルプテキスト
                 if viewStore.selectedRange == nil {
-                    Text("編集したい範囲を選択してください")
+                    Text("波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)")
                         .font(.caption)
                         .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
                 } else if let range = viewStore.selectedRange, range.lowerBound == range.upperBound {
-                    Text("分割ポイントを選択しています: \(formatTime(range.lowerBound))")
+                    Text("分割ポイントを選択しています: \(formatTime(range.lowerBound))\n赤い線の位置で分割されます\n(分割すると赤い線までの前半部分が保存されます)")
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
                 } else if let range = viewStore.selectedRange {
-                    Text("選択範囲: \(formatTime(range.lowerBound)) - \(formatTime(range.upperBound))")
+                    Text("選択範囲: \(formatTime(range.lowerBound)) - \(formatTime(range.upperBound))\n(範囲をタップするとリセットされます)")
                         .font(.caption)
-                        .foregroundColor(.gray)
+                        .foregroundColor(.blue)
+                        .multilineTextAlignment(.center)
                 }
                 
                 Spacer()
@@ -248,11 +203,21 @@ struct AudioEditorView: View {
                 get: { viewStore.errorMessage != nil },
                 set: { if !$0 { viewStore.send(.errorOccurred("")) } }
             )) {
-                Alert(
-                    title: Text("エラー"),
-                    message: Text(viewStore.errorMessage ?? ""),
-                    dismissButton: .default(Text("OK"))
-                )
+                if let message = viewStore.errorMessage, message.starts(with: "分割が完了") {
+                    // 成功メッセージの場合
+                    return Alert(
+                        title: Text("処理完了"),
+                        message: Text(message),
+                        dismissButton: .default(Text("OK"))
+                    )
+                } else {
+                    // エラーメッセージの場合
+                    return Alert(
+                        title: Text("エラー"),
+                        message: Text(viewStore.errorMessage ?? ""),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
             }
             .overlay(
                 Group {

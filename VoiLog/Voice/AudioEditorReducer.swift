@@ -66,6 +66,7 @@ struct AudioEditorReducer: Reducer {
         case cancel
         case dismissEditor
         case errorOccurred(String)
+        case successNotification(String)
     }
     
     @Dependency(\.audioProcessingService) var audioProcessingService
@@ -174,6 +175,12 @@ struct AudioEditorReducer: Reducer {
                     }
                     state.audioURL = newURLs[0] // 最初の部分を現在の編集対象とする
                     state.isEdited = true
+                    
+                    // 成功メッセージ
+                    print("音声分割が完了しました。前半を保存: \(newURLs[0].lastPathComponent)")
+                    
+                    // 成功メッセージを表示
+                    state.errorMessage = "分割が完了しました。\n分割ポイントまでの「\(state.originalTitle) (前半)」\nとして保存されました。"
                     
                     // 波形データを再読み込み
                     return self.reduce(into: &state, action: .loadAudio)
@@ -399,6 +406,10 @@ struct AudioEditorReducer: Reducer {
             return .none
             
         case let .errorOccurred(message):
+            state.errorMessage = message
+            return .none
+            
+        case let .successNotification(message):
             state.errorMessage = message
             return .none
         }
