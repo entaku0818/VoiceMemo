@@ -44,6 +44,7 @@ struct AudioEditorReducer: Reducer {
         var newTitle: String = ""
         var processingOperation: EditOperation? = nil
         var errorMessage: String? = nil
+        var shouldDismiss: Bool = false
     }
     
     enum Action {
@@ -364,6 +365,7 @@ struct AudioEditorReducer: Reducer {
             switch result {
             case .success:
                 // 保存成功したら編集画面を閉じる
+                state.shouldDismiss = true
                 return .send(.dismissEditor)
             case let .failure(error):
                 state.errorMessage = "保存に失敗しました: \(error.localizedDescription)"
@@ -372,9 +374,24 @@ struct AudioEditorReducer: Reducer {
             
         case .cancel:
             // 編集をキャンセルして元に戻す
+            if state.isPlaying {
+                state.isPlaying = false
+                return .merge(
+                    .run { send in
+                        do {
+                            try await audioPlayer.stop()
+                        } catch {
+                            // エラー処理（必要に応じて）
+                        }
+                    }
+                    .cancellable(id: CancelID.playback, cancelInFlight: true),
+                    .send(.dismissEditor)
+                )
+            }
             if state.isEdited {
                 // 編集途中の一時ファイルを削除するロジックを追加
             }
+            state.shouldDismiss = true
             return .send(.dismissEditor)
             
         case .dismissEditor:

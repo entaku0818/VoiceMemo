@@ -239,6 +239,11 @@ struct AudioEditorView: View {
             .onAppear {
                 viewStore.send(.loadAudio)
             }
+            .onChange(of: viewStore.shouldDismiss) { shouldDismiss in
+                if shouldDismiss {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
             .alert(isPresented: Binding(
                 get: { viewStore.errorMessage != nil },
                 set: { if !$0 { viewStore.send(.errorOccurred("")) } }
@@ -303,7 +308,8 @@ struct AudioEditorView_Previews: PreviewProvider {
                     audioURL: URL(string: "file:///path/to/audio.m4a")!,
                     originalTitle: "テスト録音",
                     duration: 60.0,
-                    waveformData: (0..<100).map { _ in Float.random(in: 0...1) }
+                    waveformData: (0..<100).map { _ in Float.random(in: 0...1) },
+                    shouldDismiss: false
                 ),
                 reducer: { AudioEditorReducer() }
             )
