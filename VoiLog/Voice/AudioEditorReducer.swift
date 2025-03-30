@@ -41,7 +41,6 @@ struct AudioEditorReducer: Reducer {
         var isPlaying: Bool = false
         var editHistory: [EditOperation] = []
         var isEdited: Bool = false
-        var newTitle: String = ""
         var processingOperation: EditOperation? = nil
         var errorMessage: String? = nil
         var shouldDismiss: Bool = false
@@ -60,7 +59,6 @@ struct AudioEditorReducer: Reducer {
         case playPause
         case seek(to: Double)
         case updatePlaybackTime(Double)
-        case titleChanged(String)
         case save
         case saveCompleted(Result<UUID, Error>)
         case cancel
@@ -279,12 +277,12 @@ struct AudioEditorReducer: Reducer {
             state.currentPlaybackTime = time
             return .none
             
-        case let .titleChanged(title):
-            state.newTitle = title
-            return .none
-            
         case .save:
-            let newTitle = state.newTitle.isEmpty ? "\(state.originalTitle) (編集版)" : state.newTitle
+            // 現在の日時を含むタイトルを生成
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let timestamp = dateFormatter.string(from: Date())
+            let newTitle = "分割音声 \(timestamp)"
             
             return .run { [url = state.audioURL, memoID = state.memoID, newTitle] send in
                 do {

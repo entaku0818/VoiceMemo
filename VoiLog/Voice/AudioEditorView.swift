@@ -26,21 +26,9 @@ struct AudioEditorView: View {
                     
                     Spacer()
                     
-                    TextField(
-                        "タイトル",
-                        text: Binding(
-                            get: { viewStore.newTitle },
-                            set: { viewStore.send(.titleChanged($0)) }
-                        )
-                    )
-                    .multilineTextAlignment(.center)
-                    .font(.headline)
-                    .placeholder(when: viewStore.newTitle.isEmpty) {
-                        Text("\(viewStore.originalTitle) (編集版)")
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.gray)
-                            .font(.headline)
-                    }
+                    Text("音声編集中")
+                        .multilineTextAlignment(.center)
+                        .font(.headline)
                     
                     Spacer()
                     
