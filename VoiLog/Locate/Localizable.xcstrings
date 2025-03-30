@@ -654,6 +654,7 @@
 
     },
     "iCloud同期機能" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1015,6 +1016,9 @@
           }
         }
       }
+    },
+    "Premium" : {
+
     },
     "Read More" : {
 
@@ -2334,6 +2338,7 @@
       }
     },
     "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2933,6 +2938,7 @@
       }
     },
     "プレイリストを無制限に作成" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3161,6 +3167,7 @@
       }
     },
     "プレミアムサービスでできること" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3235,6 +3242,9 @@
           }
         }
       }
+    },
+    "プレミアム特典" : {
+
     },
     "マイクの音量" : {
       "localizations" : {
@@ -3699,6 +3709,7 @@
 
     },
     "全ての広告が非表示に！" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -4259,6 +4270,7 @@
 
     },
     "広告なしの使用体験" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -4727,6 +4739,7 @@
       }
     },
     "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -5215,9 +5228,6 @@
         }
       }
     },
-    "音声の分割編集ができ、使いやすく整理できます！" : {
-
-    },
     "音声リスト" : {
       "localizations" : {
         "de" : {
@@ -5450,9 +5460,6 @@
       }
     },
     "音声編集中" : {
-
-    },
-    "音声編集機能" : {
 
     },
     "音声設定" : {

@@ -20,120 +20,89 @@ struct PaywallView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                HStack(alignment: .center) {
-                    Spacer()
-                    VStack(alignment: .center) {
+                // ヘッダー部分をよりモダンなデザインに
+                ZStack {
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.blue.opacity(0.7), Color.purple.opacity(0.7)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .frame(height: 200)
+                    .cornerRadius(12)
+                    .padding(.horizontal)
+                    
+                    VStack(alignment: .center, spacing: 12) {
+                        Text("Premium")
+                            .font(.system(size: 24, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                        
                         Text("すべての機能が使い放題")
                             .font(.system(size: 32, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
                             .padding(.bottom, 4)
+                        
                         Text("今すぐ1ヶ月無料体験してみよう！")
                             .font(.system(size: 20, weight: .medium, design: .rounded))
-                    }.padding(.vertical, 30)
-                    Spacer()
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.vertical, 30)
                 }
+                .padding(.top, 20)
 
                 // プレミアム機能のヘッダー
                 HStack {
                     Spacer()
-                    Image(systemName: "music.mic.circle.fill")
+                    Image(systemName: "crown.fill")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 40, height: 40)
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.white, .purple)
-                    VStack(alignment: .leading) {
-                        Text("プレミアムサービスでできること")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                    }
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.yellow)
+                    
+                    Text("プレミアム特典")
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                    
                     Spacer()
                 }
-                .padding()
-                .background(
-                    Rectangle()
-                        .fill(Color.black)
-                        .border(.white, width: colorScheme == .dark ? 0 : 1)
-                )
-
-                Spacer().frame(minHeight: 30)
+                .padding(.vertical, 20)
 
                 // 機能リスト
-                VStack(spacing: 16) {
+                VStack(spacing: 24) {
                     // 広告非表示機能
-                    HStack {
-                        Spacer().frame(width: 8)
-                        Image(colorScheme == .dark ? .adsWhite : .adsBlack)
-                            .resizable()
-                            .frame(width: 36, height: 36)
-                        VStack(alignment: .leading) {
-                            Text("広告なしの使用体験")
-                                .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                .padding(.vertical, 2)
-                            Text("全ての広告が非表示に！")
-                                .font(.system(size: 16, weight: .regular, design: .rounded))
-                                .foregroundColor(.secondary)
-                                .padding(.vertical, 2)
-                        }
-                        Spacer()
-                    }
+                    featureRow(
+                        systemName: "rectangle.slash",
+                        title: "広告なしの使用体験",
+                        description: "全ての広告が非表示に！",
+                        systemImage: true
+                    )
 
                     // iCloud同期機能
-                    HStack {
-                        Spacer().frame(width: 8)
-                        Image(systemName: "icloud.and.arrow.up")
-                            .resizable()
-                            .frame(width: 36, height: 36)
-                        VStack(alignment: .leading) {
-                            Text("iCloud同期機能")
-                                .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                .padding(.vertical, 2)
-                            Text("すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！")
-                                .font(.system(size: 16, weight: .regular, design: .rounded))
-                                .foregroundColor(.secondary)
-                                .padding(.vertical, 2)
-                        }
-                        .padding(.vertical)
-                        Spacer()
-                    }
+                    featureRow(
+                        systemName: "icloud.and.arrow.up",
+                        title: "iCloud同期機能",
+                        description: "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！",
+                        systemImage: true
+                    )
 
                     // 音声編集機能
-                    HStack {
-                        Spacer().frame(width: 8)
-                        Image(systemName: "waveform")
-                            .resizable()
-                            .frame(width: 36, height: 36)
-                        VStack(alignment: .leading) {
-                            Text("音声編集機能")
-                                .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                .padding(.vertical, 2)
-                            Text("音声の分割編集ができ、使いやすく整理できます！")
-                                .font(.system(size: 16, weight: .regular, design: .rounded))
-                                .foregroundColor(.secondary)
-                                .padding(.vertical, 2)
-                        }
-                        .padding(.vertical)
-                        Spacer()
-                    }
+                    featureRow(
+                        systemName: "waveform",
+                        title: "音声編集機能",
+                        description: "音声の分割編集ができ、使いやすく整理できます！",
+                        systemImage: true
+                    )
 
                     // プレイリスト機能
-                    HStack {
-                        Spacer().frame(width: 8)
-                        Image(systemName: "music.note.list")
-                            .resizable()
-                            .frame(width: 36, height: 36)
-                        VStack(alignment: .leading) {
-                            Text("プレイリストを無制限に作成")
-                                .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                .padding(.vertical, 2)
-                            Text("通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！")
-                                .font(.system(size: 16, weight: .regular, design: .rounded))
-                                .foregroundColor(.secondary)
-                                .padding(.vertical, 2)
-                        }
-                        .padding(.vertical)
-                        Spacer()
-                    }
+                    featureRow(
+                        systemName: "music.note.list",
+                        title: "プレイリストを無制限に作成",
+                        description: "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！",
+                        systemImage: true
+                    )
                 }
+                .padding(.horizontal)
 
                 Spacer().frame(minHeight: 30)
 
@@ -143,24 +112,28 @@ struct PaywallView: View {
                         await purchaseProduct()
                     }
                 }) {
-                    VStack {
+                    VStack(spacing: 4) {
                         Text("1ヶ月 無料でお試し")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                         Text("\(productPrice)/月")
                             .font(.system(size: 18, weight: .medium, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundColor(.white.opacity(0.9))
                     }
-                    .padding()
                     .frame(maxWidth: .infinity)
-                    .background(Color.black)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
+                    .padding(.vertical, 16)
+                    .background(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.blue, Color.purple.opacity(0.8)]),
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
                     )
+                    .cornerRadius(16)
+                    .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.top, 10)
 
                 // リストアボタン
                 Button("リストア購入") {
@@ -169,20 +142,21 @@ struct PaywallView: View {
                     }
                 }
                 .font(.system(size: 18, weight: .medium, design: .rounded))
-                .padding()
+                .padding(.vertical, 14)
                 .frame(maxWidth: .infinity)
-                .background(Color.gray)
-                .foregroundColor(.white)
-                .cornerRadius(10)
+                .background(Color.gray.opacity(0.2))
+                .foregroundColor(colorScheme == .dark ? .white : .black)
+                .cornerRadius(16)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(colorScheme == .dark ? Color.white : Color.clear, lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(colorScheme == .dark ? Color.white.opacity(0.2) : Color.gray.opacity(0.3), lineWidth: 1)
                 )
-                .padding()
+                .padding(.horizontal)
+                .padding(.top, 12)
 
                 // フッター
                 VStack(alignment: .center) {
-                    HStack(alignment: .center) {
+                    HStack(alignment: .center, spacing: 20) {
                         Spacer()
                         Link("利用規約", destination: URL(string: "https://voilog.web.app/terms_of_service.html")!)
                             .font(.system(size: 14, weight: .regular, design: .rounded))
@@ -193,7 +167,7 @@ struct PaywallView: View {
                         Spacer()
                     }
                 }
-                .padding()
+                .padding(.vertical, 20)
 
                 Spacer()
             }
@@ -250,6 +224,49 @@ struct PaywallView: View {
             alertMessage = "リストアに失敗しました"
             showAlert = true
         }
+    }
+
+    // 機能行の共通コンポーネント
+    @ViewBuilder
+    private func featureRow(image: Image? = nil, systemName: String? = nil, title: String, description: String, systemImage: Bool) -> some View {
+        HStack(spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(LinearGradient(
+                        gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ))
+                    .frame(width: 56, height: 56)
+                
+                if systemImage, let systemName = systemName {
+                    Image(systemName: systemName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(Color.blue)
+                } else if let image = image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
+            }
+            
+            VStack(alignment: .leading, spacing: 6) {
+                Text(title)
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                
+                Text(description)
+                    .font(.system(size: 16, weight: .regular, design: .rounded))
+                    .foregroundColor(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            
+            Spacer()
+        }
+        .padding(.vertical, 8)
     }
 }
 
