@@ -137,6 +137,13 @@ struct VoiceMemos: Reducer {
             state.showTutorial = true
         }
 
+        // リポジトリからデータを取得して更新
+        let voiceMemoRepository = VoiceMemoRepository(
+            coreDataAccessor: VoiceMemoCoredataAccessor(),
+            cloudUploader: CloudUploader()
+        )
+        state.voiceMemos = IdentifiedArrayOf(uniqueElements: voiceMemoRepository.selectAllData())
+
         if let installDate = installDate {
             let currentDate = Date()
             if let interval = Calendar.current.dateComponents([.day], from: installDate, to: currentDate).day {
