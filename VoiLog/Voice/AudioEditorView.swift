@@ -41,6 +41,27 @@ struct AudioEditorView: View {
                 
                 // 波形表示
                 ZStack {
+                    // グラデーション背景を追加
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.blue.opacity(0.05), Color.purple.opacity(0.05)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 1
+                                )
+                        )
+                    
                     if viewStore.isLoadingWaveform {
                         ProgressView("波形データを読み込んでいます...")
                             .progressViewStyle(CircularProgressViewStyle())
@@ -60,6 +81,7 @@ struct AudioEditorView: View {
                                 viewStore.send(.seek(to: position))
                             }
                         )
+                        .padding(10)
                     }
                 }
                 .frame(height: 150)
@@ -67,15 +89,38 @@ struct AudioEditorView: View {
                 
                 // 再生時間表示
                 HStack {
-                    Text(formatTime(viewStore.currentPlaybackTime))
-                        .font(.caption)
-                        .monospacedDigit()
+                    ZStack {
+                        Capsule()
+                            .fill(Color.blue.opacity(0.1))
+                            .frame(height: 30)
+                        
+                        Text(formatTime(viewStore.currentPlaybackTime))
+                            .font(.system(size: 14, weight: .semibold))
+                            .monospacedDigit()
+                            .foregroundColor(.blue)
+                    }
+                    .frame(width: 70)
                     
                     Spacer()
                     
-                    Text(formatTime(viewStore.duration))
-                        .font(.caption)
-                        .monospacedDigit()
+                    // プログレスバー
+                    ProgressView(value: viewStore.currentPlaybackTime, total: viewStore.duration)
+                        .progressViewStyle(LinearProgressViewStyle(tint: Color.blue))
+                        .frame(height: 4)
+                    
+                    Spacer()
+                    
+                    ZStack {
+                        Capsule()
+                            .fill(Color.blue.opacity(0.1))
+                            .frame(height: 30)
+                        
+                        Text(formatTime(viewStore.duration))
+                            .font(.system(size: 14, weight: .semibold))
+                            .monospacedDigit()
+                            .foregroundColor(.blue)
+                    }
+                    .frame(width: 70)
                 }
                 .padding(.horizontal)
                 
