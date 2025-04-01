@@ -150,41 +150,80 @@ struct VoiceMemosView: View {
                 }
                 
                 if viewStore.showTitleDialog {
-                    Color.black.opacity(0.4)
-                        .edgesIgnoringSafeArea(.all)
-                        .overlay(
-                            VStack(spacing: 20) {
+                    ZStack {
+                        // 背景のオーバーレイ
+                        Color.black.opacity(0.4)
+                            .edgesIgnoringSafeArea(.all)
+                            .animation(.easeInOut(duration: 0.2), value: viewStore.showTitleDialog)
+                        
+                        // ダイアログカード
+                        VStack(spacing: 24) {
+                            // ヘッダー部分
+                            VStack(spacing: 8) {
                                 Text("メモのタイトルを入力")
                                     .font(.headline)
+                                    .fontWeight(.bold)
                                 
-                                TextField("タイトル", text: viewStore.binding(
-                                    get: \.tempTitle,
-                                    send: { VoiceMemos.Action.setTempTitle($0) }
-                                ))
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding(.horizontal)
-                                
-                                HStack(spacing: 20) {
-                                    Button("キャンセル") {
-                                        viewStore.send(.showTitleDialog(false))
-                                    }
-                                    .foregroundColor(.red)
-                                    
-                                    Button("保存") {
-                                        viewStore.send(.saveTitle)
-                                    }
-                                    .foregroundColor(.blue)
-                                    .disabled(viewStore.tempTitle.isEmpty)
+                                Text("このメモにわかりやすいタイトルをつけましょう")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                    .multilineTextAlignment(.center)
+                            }
+                            
+                            // 入力フィールド
+                            TextField("タイトル", text: viewStore.binding(
+                                get: \.tempTitle,
+                                send: { VoiceMemos.Action.setTempTitle($0) }
+                            ))
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding(.horizontal, 4)
+                            .submitLabel(.done)
+                            .onSubmit {
+                                if !viewStore.tempTitle.isEmpty {
+                                    viewStore.send(.saveTitle)
                                 }
                             }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color(UIColor.systemBackground))
-                            )
-                            .shadow(radius: 10)
-                            .padding(30)
+                            
+                            // ボタンエリア
+                            HStack(spacing: 16) {
+                                Button(action: {
+                                    viewStore.send(.showTitleDialog(false))
+                                }) {
+                                    Text("キャンセル")
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 8)
+                                        .font(.subheadline)
+                                }
+                                .buttonStyle(.bordered)
+                                .tint(.secondary)
+                                .controlSize(.small)
+                                
+                                Button(action: {
+                                    viewStore.send(.saveTitle)
+                                }) {
+                                    Text("保存")
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 8)
+                                        .font(.subheadline)
+                                        .fontWeight(.medium)
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(.blue)
+                                .controlSize(.small)
+                                .disabled(viewStore.tempTitle.isEmpty)
+                            }
+                            .padding(.horizontal, 16)
+                        }
+                        .padding(24)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color(UIColor.systemBackground))
                         )
+                        .shadow(color: Color.black.opacity(0.15), radius: 16, x: 0, y: 4)
+                        .padding(.horizontal, 40)
+                        .transition(.scale.combined(with: .opacity))
+                        .animation(.spring(response: 0.3), value: viewStore.showTitleDialog)
+                    }
                 }
             }
         }
