@@ -357,6 +357,9 @@ struct VoiceMemos: Reducer {
                 return .none
                 
             case let .updateMemoTitle(id, title):
+                if let index = state.voiceMemos.firstIndex(where: { $0.uuid == id }) {
+                    state.voiceMemos[index].title = title
+                }
                 let voiceMemoRepository = VoiceMemoRepository(
                     coreDataAccessor: VoiceMemoCoredataAccessor(),
                     cloudUploader: CloudUploader()

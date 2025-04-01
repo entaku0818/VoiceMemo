@@ -148,6 +148,44 @@ struct VoiceMemosView: View {
                 if viewStore.showTutorial {
                     TutorialView(store: store)
                 }
+                
+                if viewStore.showTitleDialog {
+                    Color.black.opacity(0.4)
+                        .edgesIgnoringSafeArea(.all)
+                        .overlay(
+                            VStack(spacing: 20) {
+                                Text("メモのタイトルを入力")
+                                    .font(.headline)
+                                
+                                TextField("タイトル", text: viewStore.binding(
+                                    get: \.tempTitle,
+                                    send: { VoiceMemos.Action.setTempTitle($0) }
+                                ))
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding(.horizontal)
+                                
+                                HStack(spacing: 20) {
+                                    Button("キャンセル") {
+                                        viewStore.send(.showTitleDialog(false))
+                                    }
+                                    .foregroundColor(.red)
+                                    
+                                    Button("保存") {
+                                        viewStore.send(.saveTitle)
+                                    }
+                                    .foregroundColor(.blue)
+                                    .disabled(viewStore.tempTitle.isEmpty)
+                                }
+                            }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color(UIColor.systemBackground))
+                            )
+                            .shadow(radius: 10)
+                            .padding(30)
+                        )
+                }
             }
         }
     }
