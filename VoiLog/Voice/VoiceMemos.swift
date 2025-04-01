@@ -25,6 +25,9 @@ struct VoiceMemos: Reducer {
         var currentMode: Mode = .recording
         var currentPlayingMemo: VoiceMemoReducer.State.ID?
         var showTutorial: Bool = false
+        var showTitleDialog: Bool = false
+        var newlyCreatedMemoID: UUID?
+        var tempTitle: String = ""
 
         enum RecorderPermission {
             case allowed
@@ -55,6 +58,10 @@ struct VoiceMemos: Reducer {
         case syncFailure
         case toggleMode
         case tutorialDismissed
+        case showTitleDialog(Bool)
+        case setTempTitle(String)
+        case saveTitle
+        case updateMemoTitle(id: UUID, title: String)
     }
 
     enum AlertAction: Equatable {
@@ -237,27 +244,34 @@ struct VoiceMemos: Reducer {
 
             case let .recordingMemo(.presented(.delegate(.didFinish(.success(recordingMemo))))):
                 state.recordingMemo = nil
-                state.voiceMemos.insert(
-                    VoiceMemoReducer.State(
-                        uuid: recordingMemo.uuid,
-                        date: recordingMemo.date,
-                        duration: recordingMemo.duration,
-                        time: 0,
-                        url: recordingMemo.url,
-                        text: recordingMemo.resultText,
-                        fileFormat: recordingMemo.fileFormat,
-                        samplingFrequency: recordingMemo.samplingFrequency,
-                        quantizationBitDepth: recordingMemo.quantizationBitDepth,
-                        numberOfChannels: recordingMemo.numberOfChannels,
-                        hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
-                    ),
-                    at: 0
+                
+                let newMemo = VoiceMemoReducer.State(
+                    uuid: recordingMemo.uuid,
+                    date: recordingMemo.date,
+                    duration: recordingMemo.duration,
+                    time: 0,
+                    url: recordingMemo.url,
+                    text: recordingMemo.resultText,
+                    fileFormat: recordingMemo.fileFormat,
+                    samplingFrequency: recordingMemo.samplingFrequency,
+                    quantizationBitDepth: recordingMemo.quantizationBitDepth,
+                    numberOfChannels: recordingMemo.numberOfChannels,
+                    hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
                 )
+                
+                state.voiceMemos.insert(newMemo, at: 0)
+                
                 let voiceMemoRepository = VoiceMemoRepository(
                     coreDataAccessor: VoiceMemoCoredataAccessor(),
                     cloudUploader: CloudUploader()
                 )
                 voiceMemoRepository.insert(state: recordingMemo)
+                
+                state.newlyCreatedMemoID = recordingMemo.uuid
+                state.tempTitle = ""
+                
+                state.showTitleDialog = true
+                
                 return .none
 
             case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
@@ -321,6 +335,34 @@ struct VoiceMemos: Reducer {
 
             case .mailComposeDismissed:
                 state.isMailComposePresented = false
+                return .none
+                
+            case let .showTitleDialog(isShown):
+                state.showTitleDialog = isShown
+                if !isShown {
+                    state.newlyCreatedMemoID = nil
+                }
+                return .none
+                
+            case let .setTempTitle(title):
+                state.tempTitle = title
+                return .none
+                
+            case .saveTitle:
+                if let memoID = state.newlyCreatedMemoID, !state.tempTitle.isEmpty {
+                    state.showTitleDialog = false
+                    return .send(.updateMemoTitle(id: memoID, title: state.tempTitle))
+                }
+                state.showTitleDialog = false
+                return .none
+                
+            case let .updateMemoTitle(id, title):
+                let voiceMemoRepository = VoiceMemoRepository(
+                    coreDataAccessor: VoiceMemoCoredataAccessor(),
+                    cloudUploader: CloudUploader()
+                )
+                voiceMemoRepository.updateTitle(uuid: id, newTitle: title)
+                state.newlyCreatedMemoID = nil
                 return .none
             }
         }
