@@ -339,13 +339,13 @@
     },
     "%lld." : {
       "localizations" : {
-        "en" : {
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld."
           }
         },
-        "de" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld."
@@ -455,16 +455,16 @@
     },
     "1. 録音する" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "1. Record"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "1. Aufnehmen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Record"
           }
         },
         "es" : {
@@ -653,16 +653,16 @@
     },
     "2. 録音を停止" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "2. Stop Recording"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "2. Aufnahme stoppen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Stop Recording"
           }
         },
         "es" : {
@@ -699,16 +699,16 @@
     },
     "3. 再生する" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "3. Play"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "3. Abspielen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Play"
           }
         },
         "es" : {
@@ -821,16 +821,16 @@
     },
     "Close" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Close"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Schließen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
           }
         },
         "es" : {
@@ -873,16 +873,16 @@
     },
     "Error Logs" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error Logs"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fehlerprotokolle"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error Logs"
           }
         },
         "es" : {
@@ -1307,13 +1307,13 @@
     },
     "Premium" : {
       "localizations" : {
-        "en" : {
+        "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premium"
           }
         },
-        "de" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premium"
@@ -1359,16 +1359,16 @@
     },
     "Read More" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Read More"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mehr lesen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Read More"
           }
         },
         "es" : {
@@ -1944,16 +1944,16 @@
     },
     "エラー" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fehler"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error"
           }
         },
         "es" : {
@@ -1990,16 +1990,16 @@
     },
     "エラーが発生しました" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An error has occurred"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ein Fehler ist aufgetreten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An error has occurred"
           }
         },
         "es" : {
@@ -2066,16 +2066,16 @@
     },
     "エラーログを見る" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "View Error Logs"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fehlerprotokolle anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Error Logs"
           }
         },
         "es" : {
@@ -2218,16 +2218,16 @@
     },
     "キャンセル" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cancel"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abbrechen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
           }
         },
         "es" : {
@@ -3177,16 +3177,16 @@
     },
     "タイトル" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Title"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Titel"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
           }
         },
         "es" : {
@@ -3329,16 +3329,16 @@
     },
     "デバッグ" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Debug"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Debuggen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug"
           }
         },
         "es" : {
@@ -3907,16 +3907,16 @@
     },
     "プレミアム特典" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Premium Benefits"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premium-Vorteile"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium Benefits"
           }
         },
         "es" : {
@@ -4059,16 +4059,16 @@
     },
     "マイクボタンをタップして録音を開始します" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap the microphone button to start recording"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tippen Sie auf die Mikrofontaste, um die Aufnahme zu starten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the microphone button to start recording"
           }
         },
         "es" : {
@@ -4261,6 +4261,12 @@
         }
       }
     },
+    "今すぐ1ヶ月無料体験してみよう！" : {
+
+    },
+    "作成" : {
+
+    },
     "作成日: %@" : {
       "localizations" : {
         "de" : {
@@ -4415,16 +4421,16 @@
     },
     "停止ボタンをタップして録音を終了します" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap the stop button to finish recording"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tippen Sie auf die Stopptaste, um die Aufnahme zu beenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap the stop button to finish recording"
           }
         },
         "es" : {
@@ -4491,16 +4497,16 @@
     },
     "再生" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Play"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abspielen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play"
           }
         },
         "es" : {
@@ -4567,16 +4573,16 @@
     },
     "再生していません" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Not Playing"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wird nicht abgespielt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not Playing"
           }
         },
         "es" : {
@@ -4613,16 +4619,16 @@
     },
     "処理中..." : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Processing..."
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verarbeitung..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processing..."
           }
         },
         "es" : {
@@ -4659,16 +4665,16 @@
     },
     "処理完了" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Processing Complete"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verarbeitung abgeschlossen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processing Complete"
           }
         },
         "es" : {
@@ -4705,16 +4711,16 @@
     },
     "分割" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Split"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Teilen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split"
           }
         },
         "es" : {
@@ -4751,16 +4757,16 @@
     },
     "分割ポイントを選択しています: %@\n赤い線の位置で分割されます\n(分割すると赤い線までの前半部分が保存されます)" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Auswahl des Teilungspunkts: %@\nDie Teilung erfolgt an der roten Linie\n(Bei der Teilung wird die erste Hälfte bis zur roten Linie gespeichert)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
           }
         },
         "es" : {
@@ -5023,6 +5029,310 @@
         }
       }
     },
+    "友人にアプリを教える" : {
+
+    },
+    "名称未設定" : {
+
+    },
+    "始める" : {
+
+    },
+    "完了" : {
+
+    },
+    "新規プレイリスト" : {
+
+    },
+    "次の画面のメールにて詳細に状況を教えてください。" : {
+
+    },
+    "次へ" : {
+
+    },
+    "波形データがありません" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Wellenformdaten verfügbar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No waveform data available"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay datos de forma de onda disponibles"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune donnée de forme d'onde disponible"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun dato di forma d'onda disponibile"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有波形数据"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有波形數據"
+          }
+        }
+      }
+    },
+    "波形データを読み込んでいます..." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lade Wellenformdaten..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading waveform data..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargando datos de forma de onda..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des données de forme d'onde..."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caricamento dei dati della forma d'onda..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "波形データを読み込んでいます..."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carregando dados da forma de onda..."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Загрузка данных волновой формы..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dalga formu verileri yükleniyor..."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang tải dữ liệu dạng sóng..."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在加载波形数据..."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在載入波形數據..."
+          }
+        }
+      }
+    },
+    "波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippen Sie zweimal auf die Wellenform, um die Teilungsposition anzugeben\n(Erster Tipp für den Startpunkt, zweiter Tipp für den Teilungspunkt)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toca la forma de onda dos veces para especificar la posición de división\n(Primer toque para el punto de inicio, segundo toque para el punto de división)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez appuyer deux fois sur la forme d'onde pour spécifier la position de division\n(Premier appui pour le point de départ, deuxième appui pour le point de division)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tocca due volte la forma d'onda per specificare la posizione di divisione\n(Primo tocco per il punto di partenza, secondo tocco per il punto di divisione)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toque duas vezes na forma de onda para especificar a posição de divisão\n(Primeiro toque para o ponto inicial, segundo toque para o ponto de divisão)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пожалуйста, дважды нажмите на волновую форму, чтобы указать положение разделения\n(Первое нажатие для начальной точки, второе нажатие для точки разделения)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bölme konumunu belirtmek için dalga formuna iki kez dokunun\n(Başlangıç noktası için ilk dokunuş, bölme noktası için ikinci dokunuş)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vui lòng nhấn vào dạng sóng hai lần để chỉ định vị trí chia\n(Nhấn lần đầu cho điểm bắt đầu, nhấn lần thứ hai cho điểm chia)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请点击波形两次来指定分割位置\n(第一次点击为起始点，第二次点击为分割点)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請點擊波形兩次來指定分割位置\n(第一次點擊為起始點，第二次點擊為分割點)"
+          }
+        }
+      }
+    },
+    "編集履歴:" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bearbeitungsverlauf:"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit History:"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historial de edición:"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Historique des modifications:"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronologia delle modifiche:"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編集履歴:"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histórico de edição:"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "История изменений:"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Düzenleme geçmişi:"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch sử chỉnh sửa:"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑历史:"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編輯歷史:"
+          }
+        }
+      }
+    },
+    "詳細をタップ" : {
+
+    },
+    "購入済" : {
+
+    },
+    "選択した音声を削除しますか？" : {
+
+    },
     "選択範囲: %@ - %@\n(範囲をタップするとリセットされます)" : {
       "localizations" : {
         "en" : {
@@ -5121,16 +5431,16 @@
     },
     "録音したメモをタップして再生できます" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap recorded memos to play them"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tippen Sie auf aufgezeichnete Memos, um sie abzuspielen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap recorded memos to play them"
           }
         },
         "es" : {
@@ -5481,16 +5791,16 @@
     },
     "音声を編集" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit Audio"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Audio bearbeiten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Audio"
           }
         },
         "es" : {
@@ -5709,16 +6019,16 @@
     },
     "音声編集中" : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Editing Audio"
-          }
-        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Audio wird bearbeitet"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Editing Audio"
           }
         },
         "es" : {
@@ -5858,281 +6168,7 @@
           }
         }
       }
-    },
-    "編集履歴:" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Edit History:"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bearbeitungsverlauf:"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Historial de edición:"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Historique des modifications:"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cronologia delle modifiche:"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "編集履歴:"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Histórico de edição:"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "История изменений:"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Düzenleme geçmişi:"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lịch sử chỉnh sửa:"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "编辑历史:"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "編輯歷史:"
-          }
-        }
-      }
-    },
-    "波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tippen Sie zweimal auf die Wellenform, um die Teilungsposition anzugeben\n(Erster Tipp für den Startpunkt, zweiter Tipp für den Teilungspunkt)"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toca la forma de onda dos veces para especificar la posición de división\n(Primer toque para el punto de inicio, segundo toque para el punto de división)"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Veuillez appuyer deux fois sur la forme d'onde pour spécifier la position de division\n(Premier appui pour le point de départ, deuxième appui pour le point de division)"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tocca due volte la forma d'onda per specificare la posizione di divisione\n(Primo tocco per il punto di partenza, secondo tocco per il punto di divisione)"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toque duas vezes na forma de onda para especificar a posição de divisão\n(Primeiro toque para o ponto inicial, segundo toque para o ponto de divisão)"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Пожалуйста, дважды нажмите на волновую форму, чтобы указать положение разделения\n(Первое нажатие для начальной точки, второе нажатие для точки разделения)"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bölme konumunu belirtmek için dalga formuna iki kez dokunun\n(Başlangıç noktası için ilk dokunuş, bölme noktası için ikinci dokunuş)"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vui lòng nhấn vào dạng sóng hai lần để chỉ định vị trí chia\n(Nhấn lần đầu cho điểm bắt đầu, nhấn lần thứ hai cho điểm chia)"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "请点击波形两次来指定分割位置\n(第一次点击为起始点，第二次点击为分割点)"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "請點擊波形兩次來指定分割位置\n(第一次點擊為起始點，第二次點擊為分割點)"
-          }
-        }
-      }
-    },
-    "波形データを読み込んでいます..." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Loading waveform data..."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lade Wellenformdaten..."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cargando datos de forma de onda..."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chargement des données de forme d'onde..."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Caricamento dei dati della forma d'onda..."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "波形データを読み込んでいます..."
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Carregando dados da forma de onda..."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Загрузка данных волновой формы..."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dalga formu verileri yükleniyor..."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Đang tải dữ liệu dạng sóng..."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在加载波形数据..."
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正在載入波形數據..."
-          }
-        }
-      }
-    },
-    "波形データがありません" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No waveform data available"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Keine Wellenformdaten verfügbar"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No hay datos de forma de onda disponibles"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune donnée de forme d'onde disponible"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nessun dato di forma d'onda disponibile"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "没有波形数据"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "沒有波形數據"
-          }
-        }
-      }
-    },
+    }
   },
   "version" : "1.0"
 }
