@@ -206,6 +206,12 @@
             "state" : "translated",
             "value" : "month"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@/月"
+          }
         }
       }
     },
@@ -364,6 +370,12 @@
           }
         },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld."
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld."
@@ -2324,6 +2336,12 @@
             "value" : "Aggiungi un titolo descrittivo a questo memo"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このメモにわかりやすいタイトルをつけましょう"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3018,83 +3036,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "歡迎使用簡易錄音！"
-          }
-        }
-      }
-    },
-    "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Alle Daten werden mit iCloud synchronisiert und können auf mehreren Geräten verwendet werden!"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "All data is synchronized with iCloud, allowing usage across multiple devices!"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Todos los datos se sincronizan con iCloud, lo que permite el uso en varios dispositivos."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Toutes les données sont synchronisées avec iCloud, permettant une utilisation sur plusieurs appareils !"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tutti i dati sono sincronizzati con iCloud, consentendo l'uso su più dispositivi!"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Todos os dados são sincronizados com o iCloud, permitindo o uso em vários dispositivos!"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Все данные синхронизируются с iCloud, что позволяет использовать их на нескольких устройствах!"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tüm veriler iCloud ile senkronize edilir ve birden fazla cihazda kullanılabilir!"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tất cả dữ liệu được đồng bộ hóa với iCloud, cho phép sử dụng trên nhiều thiết bị!"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有数据与iCloud同步，可在多个设备上使用！"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "所有數據與iCloud同步，可在多個設備上使用！"
           }
         }
       }
@@ -4165,6 +4106,12 @@
             "value" : "Inserisci il titolo del memo"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メモのタイトルを入力"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4262,10 +4209,24 @@
       }
     },
     "今すぐ1ヶ月無料体験してみよう！" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今すぐ1ヶ月無料体験してみよう！"
+          }
+        }
+      }
     },
     "作成" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作成"
+          }
+        }
+      }
     },
     "作成日: %@" : {
       "localizations" : {
@@ -4603,6 +4564,12 @@
             "value" : "Non in riproduzione"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再生していません"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4649,6 +4616,12 @@
             "value" : "Elaborazione..."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "処理中..."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4693,6 +4666,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Elaborazione completata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "処理完了"
           }
         },
         "zh-Hans" : {
@@ -5036,19 +5015,60 @@
 
     },
     "始める" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "始める"
+          }
+        }
+      }
     },
     "完了" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
+          }
+        }
+      }
     },
     "新規プレイリスト" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Playlist"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "新規プレイリスト"
+          }
+        }
+      }
     },
     "次の画面のメールにて詳細に状況を教えてください。" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次の画面のメールにて詳細に状況を教えてください。"
+          }
+        }
+      }
     },
     "次へ" : {
-
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "次へ"
+          }
+        }
+      }
     },
     "波形データがありません" : {
       "localizations" : {
@@ -5325,20 +5345,65 @@
       }
     },
     "詳細をタップ" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap for details"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細をタップ"
+          }
+        }
+      }
     },
     "購入済" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchased"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入済"
+          }
+        }
+      }
     },
     "選択した音声を削除しますか？" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete the selected audio?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択した音声を削除しますか？"
+          }
+        }
+      }
     },
     "選択範囲: %@ - %@\n(範囲をタップするとリセットされます)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "選択範囲: %1$@ - %2$@\n(範囲をタップするとリセットされます)"
+            "value" : "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選択範囲: %@ - %@\n(範囲をタップするとリセットされます)"
           }
         }
       }
@@ -5426,6 +5491,12 @@
             "state" : "translated",
             "value" : "Record"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "録音"
+          }
         }
       }
     },
@@ -5461,6 +5532,12 @@
             "value" : "Tocca i memo registrati per riprodurli"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "録音したメモをタップして再生できます"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5481,6 +5558,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recording"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "録音中"
           }
         }
       }
