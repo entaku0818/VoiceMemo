@@ -16,6 +16,7 @@ import UIKit
 import Firebase
 import UserNotifications
 import BackgroundTasks
+import ActivityKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -88,11 +89,11 @@ struct VoiceMemoApp: App {
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
                 UserDefaultsManager.shared.logError("applicationWillTerminate")
-
+                cleanupLiveActivities()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
                 UserDefaultsManager.shared.logError("applicationWillTerminate")
-
+                cleanupLiveActivities()
             }
         }
     }
@@ -124,6 +125,19 @@ extension VoiceMemoApp {
         let recordAdmobKey: String
         let revenueCatKey: String
         let playListAdmobKey: String
+    }
+
+    func cleanupLiveActivities() {
+        if #available(iOS 16.1, *) {
+            Task {
+                for activity in Activity<recordActivityAttributes>.activities {
+                    print("Cleaning up background activity: \(activity.id)")
+                    let finalContentState = recordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0)
+                    let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
+                    await activity.end(finalActivityContent, dismissalPolicy: .immediate)
+                }
+            }
+        }
     }
 }
 
