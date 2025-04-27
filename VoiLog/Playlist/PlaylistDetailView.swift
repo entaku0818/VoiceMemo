@@ -185,17 +185,16 @@ struct CurrentPlayingSection: View {
     var body: some View {
         VStack {
             if let currentId = store.currentPlayingId,
-               let currentVoice = store.voices.first(where: { $0.url == currentId }),
-               let voiceMemo = store.voiceMemos[id: currentVoice.url] {
-                ForEachStore(
-                    store.scope(
-                        state: \.voiceMemos,
-                        action: PlaylistDetailFeature.Action.voiceMemos
+               let currentVoice = store.voices.first(where: { $0.url == currentId }) {
+                
+                // TCA 1.5のKeyPathベースのscoping
+                if let index = store.voiceMemos.ids.firstIndex(of: currentVoice.url) {
+                    let voiceMemoKeyPath = \PlaylistDetailFeature.State.voiceMemos[index]
+                    let memoStore = store.scope(
+                        state: voiceMemoKeyPath,
+                        action: { PlaylistDetailFeature.Action.voiceMemos(id: currentVoice.url, action: $0) }
                     )
-                ) { memoStore in
-                    if memoStore.url == currentVoice.url {
-                        PlayerView(store: memoStore)
-                    }
+                    PlayerView(store: memoStore)
                 }
             } else {
                 HStack {
