@@ -187,11 +187,10 @@ struct CurrentPlayingSection: View {
             if let currentId = store.currentPlayingId,
                let currentVoice = store.voices.first(where: { $0.url == currentId }) {
                 
-                // TCA 1.5のKeyPathベースのscoping
-                if let index = store.voiceMemos.ids.firstIndex(of: currentVoice.url) {
-                    let voiceMemoKeyPath = \PlaylistDetailFeature.State.voiceMemos[index]
+                if let voiceMemo = store.voiceMemos[id: currentVoice.url] {
+                    // クロージャベースのスコープを使用
                     let memoStore = store.scope(
-                        state: voiceMemoKeyPath,
+                        state: { _ in voiceMemo },
                         action: { PlaylistDetailFeature.Action.voiceMemos(id: currentVoice.url, action: $0) }
                     )
                     PlayerView(store: memoStore)
@@ -251,15 +250,20 @@ struct PlaylistDetailView: View {
                     }
                 }
             }
+            
+            VStack(spacing: 0) {
+                // プレーヤーセクション
+                CurrentPlayingSection(store: store)
+                    .background(Color(.systemBackground))
+                    .shadow(radius: 5)
 
-            CurrentPlayingSection(store: store)
-                .background(Color(.systemBackground))
-                .shadow(radius: 5)
-
-            if !store.hasPurchasedPremium {
-                AdmobBannerView(unitId: admobUnitId)
-                    .frame(height: 50)
+                // AdMobバナー（必要なスペースを確保）
+                if !store.hasPurchasedPremium {
+                    AdmobBannerView(unitId: admobUnitId)
+                        .frame(height: 50)
+                }
             }
+            .padding(.bottom, 0)
         }
         .navigationTitle("プレイリストの詳細")
         .navigationBarTitleDisplayMode(.inline)
