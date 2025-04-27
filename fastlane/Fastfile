@@ -81,4 +81,37 @@ platform :ios do
       message: "Version Bump [ci skip]"
     )
   end
+  
+  desc "スクリーンショットを生成"
+  lane :screenshots do
+    capture_screenshots
+  end
+  
+  desc "App Store Connectのメタデータのみを更新"
+  lane :update_metadata do
+    deliver(
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      force: true
+    )
+  end
+  
+  desc "App Store Connectのスクリーンショットのみを更新"
+  lane :update_screenshots do
+    deliver(
+      skip_binary_upload: true,
+      skip_metadata: true,
+      overwrite_screenshots: true,
+      force: true
+    )
+  end
+  
+  desc "App Store Connectのメタデータとスクリーンショットを更新"
+  lane :update_store do
+    deliver(
+      skip_binary_upload: true,
+      overwrite_screenshots: true,
+      force: true
+    )
+  end
 end

@@ -1,0 +1,10 @@
+Simple Recording is a voice recording app focused on ease of use.
+
+Key features:
+• Simple recording - Start with just one tap
+• Playlist management - Organize related recordings together
+• Audio editing - Trim and extract the parts you need
+• Cloud sync - Share recordings across devices using iCloud
+• Privacy focused - All data stays only on your devices and iCloud
+
+Perfect for voice memos, lecture recordings, meeting notes, and more. Try our simple yet powerful recording app today. 

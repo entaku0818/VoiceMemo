@@ -42,4 +42,30 @@ bundle install
   bundle exec fastlane release
   ```
 
+### Xcode Cloudと併用する場合
+
+ビルドはXcode Cloudで行い、メタデータとスクリーンショットの更新のみFastlaneで管理する場合は以下のレーンを使用できます：
+
+- スクリーンショット生成:
+  ```
+  bundle exec fastlane screenshots
+  ```
+
+- メタデータのみ更新:
+  ```
+  bundle exec fastlane update_metadata
+  ```
+
+- スクリーンショットのみ更新:
+  ```
+  bundle exec fastlane update_screenshots
+  ```
+
+- メタデータとスクリーンショット両方を更新:
+  ```
+  bundle exec fastlane update_store
+  ```
+
+メタデータは `fastlane/metadata` ディレクトリ内で管理します。各言語ごとに説明文、キーワード、リリースノートなどを編集できます。
+
 詳細については、`fastlane/Fastfile`を参照してください。
