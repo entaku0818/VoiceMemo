@@ -11,25 +11,22 @@ import ComposableArchitecture
 // MARK: - PlaylistNameSection
 struct PlaylistNameSection: View {
     let name: String
-    let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
+    @Bindable var store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         Section {
-            if viewStore.isEditingName {
+            if store.isEditingName {
                 HStack {
-                    TextField("プレイリスト名", text: viewStore.binding(
-                        get: \.editingName,
-                        send: PlaylistDetailFeature.Action.updateName
-                    ))
+                    TextField("プレイリスト名", text: $store.editingName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                     Button("保存") {
-                        viewStore.send(.saveNameButtonTapped)
+                        store.send(.view(.saveNameButtonTapped))
                     }
                     .buttonStyle(.bordered)
 
                     Button("キャンセル") {
-                        viewStore.send(.cancelEditButtonTapped)
+                        store.send(.view(.cancelEditButtonTapped))
                     }
                     .buttonStyle(.bordered)
                 }
@@ -42,14 +39,14 @@ struct PlaylistNameSection: View {
                     Spacer()
 
                     Button {
-                        viewStore.send(.editButtonTapped)
+                        store.send(.view(.editButtonTapped))
                     } label: {
                         Image(systemName: "pencil")
                     }
                 }
             }
 
-            Text("作成日: \(viewStore.createdAt.formatted(date: .abbreviated, time: .shortened))")
+            Text("作成日: \(store.createdAt.formatted(date: .abbreviated, time: .shortened))")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
@@ -58,12 +55,12 @@ struct PlaylistNameSection: View {
 
 // MARK: - AddVoiceSection
 struct AddVoiceSection: View {
-    let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
+    let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         Section {
             Button {
-                viewStore.send(.showVoiceSelectionSheet)
+                store.send(.view(.showVoiceSelectionSheet))
             } label: {
                 HStack {
                     Image(systemName: "plus.circle.fill")
@@ -78,7 +75,7 @@ struct AddVoiceSection: View {
 // MARK: - VoiceListSection
 struct VoiceListSection: View {
     let voices: [VoiceMemoRepository.Voice]
-    let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
+    let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         Section("音声リスト") {
@@ -96,7 +93,7 @@ struct VoiceListSection: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Button {
-                            viewStore.send(.playButtonTapped(voice.id))
+                            store.send(.view(.playButtonTapped(voice.id)))
                         } label: {
                             Image(systemName: "play.circle.fill")
                                 .font(.title2)
@@ -105,7 +102,7 @@ struct VoiceListSection: View {
                     }
                     .swipeActions {
                         Button(role: .destructive) {
-                            viewStore.send(.removeVoice(voice.id))
+                            store.send(.view(.removeVoice(voice.id)))
                         } label: {
                             Label("削除", systemImage: "trash")
                         }
@@ -119,12 +116,12 @@ struct VoiceListSection: View {
 // MARK: - VoiceSelectionSheet
 struct VoiceSelectionSheet: View {
     let voices: [VoiceMemoRepository.Voice]
-    let viewStore: ViewStore<PlaylistDetailFeature.State, PlaylistDetailFeature.Action>
+    let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewStore.voiceMemos, id: \.uuid) { voice in
+                ForEach(store.voiceMemos, id: \.uuid) { voice in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(voice.title)
@@ -148,7 +145,7 @@ struct VoiceSelectionSheet: View {
 
                         if !voices.contains(where: { $0.id == voice.uuid }) {
                             Button {
-                                viewStore.send(.addVoiceToPlaylist(voice.uuid))
+                                store.send(.view(.addVoiceToPlaylist(voice.uuid)))
                             } label: {
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(.blue)
@@ -168,7 +165,7 @@ struct VoiceSelectionSheet: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("完了") {
-                        viewStore.send(.hideVoiceSelectionSheet)
+                        store.send(.view(.hideVoiceSelectionSheet))
                     }
                 }
             }
@@ -180,32 +177,30 @@ struct CurrentPlayingSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            VStack {
-                if let currentId = viewStore.currentPlayingId,
-                   let currentVoice = viewStore.voices.first(where: { $0.url == currentId }),
-                   let voiceMemo = viewStore.voiceMemos[id: currentVoice.url] {
-                    ForEachStore(
-                        store.scope(
-                            state: \.voiceMemos,
-                            action: PlaylistDetailFeature.Action.voiceMemos
-                        )
-                    ) { memoStore in
-                        if memoStore.withState({ $0.url == currentVoice.url }) {
-                            PlayerView(store: memoStore)
-                        }
+        VStack {
+            if let currentId = store.currentPlayingId,
+               let currentVoice = store.voices.first(where: { $0.url == currentId }),
+               let voiceMemo = store.voiceMemos[id: currentVoice.url] {
+                ForEachStore(
+                    store.scope(
+                        state: \.voiceMemos,
+                        action: PlaylistDetailFeature.Action.voiceMemos
+                    )
+                ) { memoStore in
+                    if memoStore.url == currentVoice.url {
+                        PlayerView(store: memoStore)
                     }
-                } else {
-                    HStack {
-                        Text("再生していません")
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        Image(systemName: "play.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(.secondary)
-                    }
-                    .padding()
                 }
+            } else {
+                HStack {
+                    Text("再生していません")
+                        .foregroundColor(.secondary)
+                    Spacer()
+                    Image(systemName: "play.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.secondary)
+                }
+                .padding()
             }
         }
     }
@@ -213,64 +208,58 @@ struct CurrentPlayingSection: View {
 
 // MARK: - PlaylistDetailView
 struct PlaylistDetailView: View {
-    let store: StoreOf<PlaylistDetailFeature>
-
+    @Bindable var store: StoreOf<PlaylistDetailFeature>
     var admobUnitId: String
 
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            ZStack(alignment: .bottom) {
-                Group {
-                    if viewStore.isLoading {
-                        ProgressView()
-                    } else if let error = viewStore.error {
-                        VStack {
-                            Text("エラーが発生しました")
-                            Text(error)
-                                .foregroundColor(.red)
-                        }
-                    } else {
-                        List {
-                            PlaylistNameSection(
-                                name: viewStore.name,
-                                viewStore: viewStore
-                            )
-                            AddVoiceSection(viewStore: viewStore)
-                            VoiceListSection(
-                                voices: viewStore.voices,
-                                viewStore: viewStore
-                            )
-                        }
-                        .listStyle(InsetGroupedListStyle())
-                        .sheet(
-                            isPresented: viewStore.binding(
-                                get: \.isShowingVoiceSelection,
-                                send: PlaylistDetailFeature.Action.hideVoiceSelectionSheet
-                            )
-                        ) {
-                            VoiceSelectionSheet(
-                                voices: viewStore.voices,
-                                viewStore: viewStore
-                            )
-                        }
+        ZStack(alignment: .bottom) {
+            Group {
+                if store.isLoading {
+                    ProgressView()
+                } else if let error = store.error {
+                    VStack {
+                        Text("エラーが発生しました")
+                        Text(error)
+                            .foregroundColor(.red)
+                    }
+                } else {
+                    List {
+                        PlaylistNameSection(
+                            name: store.name,
+                            store: store
+                        )
+                        AddVoiceSection(store: store)
+                        VoiceListSection(
+                            voices: store.voices,
+                            store: store
+                        )
+                    }
+                    .listStyle(InsetGroupedListStyle())
+                    .sheet(
+                        isPresented: $store.isShowingVoiceSelection
+                    ) {
+                        VoiceSelectionSheet(
+                            voices: store.voices,
+                            store: store
+                        )
                     }
                 }
-
-                CurrentPlayingSection(store: store)
-                    .background(Color(.systemBackground))
-                    .shadow(radius: 5)
-
-                if !viewStore.hasPurchasedPremium {
-                    AdmobBannerView(unitId: admobUnitId)
-                        .frame(height: 50)
-                }
             }
-            .navigationTitle("プレイリストの詳細")
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                viewStore.send(.onAppear)
-                viewStore.send(.loadVoiceMemos)
+
+            CurrentPlayingSection(store: store)
+                .background(Color(.systemBackground))
+                .shadow(radius: 5)
+
+            if !store.hasPurchasedPremium {
+                AdmobBannerView(unitId: admobUnitId)
+                    .frame(height: 50)
             }
+        }
+        .navigationTitle("プレイリストの詳細")
+        .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            store.send(.view(.onAppear))
+            store.send(.view(.loadVoiceMemos))
         }
     }
 }
@@ -355,9 +344,6 @@ struct PlaylistDetailView: View {
         )
     ) {
         PlaylistDetailFeature()
-            .forEach(\.voiceMemos, action: /PlaylistDetailFeature.Action.voiceMemos) {
-                VoiceMemoReducer()
-            }
             ._printChanges()
     }
 
@@ -411,9 +397,6 @@ struct PlaylistDetailView: View {
         )
     ) {
         PlaylistDetailFeature()
-            .forEach(\.voiceMemos, action: /PlaylistDetailFeature.Action.voiceMemos) {
-                VoiceMemoReducer()
-            }
     }
 
     return CurrentPlayingSection(store: store)
