@@ -13,6 +13,41 @@ import OSLog
 // MARK: - Feature
 @Reducer
 struct PlaylistDetailFeature {
+    enum PlaylistError: Error, Equatable {
+        case notFound
+        case networkError(String)
+        case databaseError(String)
+        case unknown(String)
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            switch (lhs, rhs) {
+            case (.notFound, .notFound):
+                return true
+            case let (.networkError(lhsMessage), .networkError(rhsMessage)):
+                return lhsMessage == rhsMessage
+            case let (.databaseError(lhsMessage), .databaseError(rhsMessage)):
+                return lhsMessage == rhsMessage
+            case let (.unknown(lhsMessage), .unknown(rhsMessage)):
+                return lhsMessage == rhsMessage
+            default:
+                return false
+            }
+        }
+        
+        static func from(_ error: Error) -> Self {
+            if let error = error as? PlaylistRepositoryError {
+                switch error {
+                case .notFound:
+                    return .notFound
+                default:
+                    return .unknown(error.localizedDescription)
+                }
+            } else {
+                return .unknown(error.localizedDescription)
+            }
+        }
+    }
+    
     @ObservableState
     struct State: Equatable {
         let id: UUID
@@ -45,15 +80,15 @@ struct PlaylistDetailFeature {
     enum Action: ViewAction, BindableAction, Equatable {
         case binding(BindingAction<State>)
         case dataLoaded(PlaylistDetail)
-        case playlistLoadingFailed(Error)
+        case playlistLoadingFailed(PlaylistError)
         case nameUpdateSuccess(PlaylistDetail)
-        case nameUpdateFailed(Error)
+        case nameUpdateFailed(PlaylistError)
         case voiceRemoved(PlaylistDetail)
-        case voiceRemovalFailed(Error)
+        case voiceRemovalFailed(PlaylistError)
         case voiceMemosLoaded([VoiceMemoReducer.State])
-        case voiceMemosLoadFailed(Error)
+        case voiceMemosLoadFailed(PlaylistError)
         case voiceAddedToPlaylist(PlaylistDetail)
-        case voiceAddFailedToPlaylist(Error)
+        case voiceAddFailedToPlaylist(PlaylistError)
         case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
         case view(View)
         
@@ -155,7 +190,7 @@ struct PlaylistDetailFeature {
                             }
                             await send(.dataLoaded(detail))
                         } catch {
-                            await send(.playlistLoadingFailed(error))
+                            await send(.playlistLoadingFailed(PlaylistError.from(error)))
                         }
                     }
 
@@ -175,7 +210,7 @@ struct PlaylistDetailFeature {
                             }
                             await send(.nameUpdateSuccess(detail))
                         } catch {
-                            await send(.nameUpdateFailed(error))
+                            await send(.nameUpdateFailed(PlaylistError.from(error)))
                         }
                     }
 
@@ -193,7 +228,7 @@ struct PlaylistDetailFeature {
                             }
                             await send(.voiceRemoved(detail))
                         } catch {
-                            await send(.voiceRemovalFailed(error))
+                            await send(.voiceRemovalFailed(PlaylistError.from(error)))
                         }
                     }
 
@@ -219,7 +254,7 @@ struct PlaylistDetailFeature {
                             }
                             await send(.voiceMemosLoaded(voices))
                         } catch {
-                            await send(.voiceMemosLoadFailed(error))
+                            await send(.voiceMemosLoadFailed(PlaylistError.from(error)))
                         }
                     }
 
@@ -240,7 +275,7 @@ struct PlaylistDetailFeature {
                             }
                             await send(.voiceAddedToPlaylist(detail))
                         } catch {
-                            await send(.voiceAddFailedToPlaylist(error))
+                            await send(.voiceAddFailedToPlaylist(PlaylistError.from(error)))
                         }
                     }
 
