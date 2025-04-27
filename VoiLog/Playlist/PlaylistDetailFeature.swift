@@ -42,7 +42,7 @@ struct PlaylistDetailFeature {
         }
     }
 
-    enum Action: ViewAction, Equatable {
+    enum Action: ViewAction, BindableAction, Equatable {
         case binding(BindingAction<State>)
         case dataLoaded(PlaylistDetail)
         case playlistLoadingFailed(Error)
