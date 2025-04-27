@@ -6,14 +6,49 @@
 //
 
 import Foundation
-
 import ComposableArchitecture
 import SwiftUI
 import OSLog
 
-
 // MARK: - Feature
-struct PlaylistDetailFeature: Reducer {
+@Reducer
+struct PlaylistDetailFeature {
+    enum PlaylistError: Error, Equatable {
+        case notFound
+        case networkError(String)
+        case databaseError(String)
+        case unknown(String)
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            switch (lhs, rhs) {
+            case (.notFound, .notFound):
+                return true
+            case let (.networkError(lhsMessage), .networkError(rhsMessage)):
+                return lhsMessage == rhsMessage
+            case let (.databaseError(lhsMessage), .databaseError(rhsMessage)):
+                return lhsMessage == rhsMessage
+            case let (.unknown(lhsMessage), .unknown(rhsMessage)):
+                return lhsMessage == rhsMessage
+            default:
+                return false
+            }
+        }
+        
+        static func from(_ error: Error) -> Self {
+            if let error = error as? PlaylistRepositoryError {
+                switch error {
+                case .notFound:
+                    return .notFound
+                default:
+                    return .unknown(error.localizedDescription)
+                }
+            } else {
+                return .unknown(error.localizedDescription)
+            }
+        }
+    }
+    
+    @ObservableState
     struct State: Equatable {
         let id: UUID
         var name: String
@@ -32,7 +67,6 @@ struct PlaylistDetailFeature: Reducer {
         var playbackSpeed: AudioPlayerClient.PlaybackSpeed = .normal
         var hasPurchasedPremium: Bool = false
 
-
         var asPlaylist: Playlist {
             Playlist(
                 id: id,
@@ -43,29 +77,66 @@ struct PlaylistDetailFeature: Reducer {
         }
     }
 
-    enum Action {
-        case onAppear
-        case playlistDetailLoaded(PlaylistDetail)
-        case playlistLoadingFailed(Error)
-        case editButtonTapped
-        case updateName(String)
-        case saveNameButtonTapped
+    enum Action: ViewAction, BindableAction, Equatable {
+        static func == (lhs: PlaylistDetailFeature.Action, rhs: PlaylistDetailFeature.Action) -> Bool {
+            switch (lhs, rhs) {
+            case (.binding, .binding):
+                return true
+            case let (.dataLoaded(lhsDetail), .dataLoaded(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.playlistLoadingFailed(lhsError), .playlistLoadingFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.nameUpdateSuccess(lhsDetail), .nameUpdateSuccess(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.nameUpdateFailed(lhsError), .nameUpdateFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceRemoved(lhsDetail), .voiceRemoved(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.voiceRemovalFailed(lhsError), .voiceRemovalFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceMemosLoaded(lhsVoices), .voiceMemosLoaded(rhsVoices)):
+                return lhsVoices == rhsVoices
+            case let (.voiceMemosLoadFailed(lhsError), .voiceMemosLoadFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceAddedToPlaylist(lhsDetail), .voiceAddedToPlaylist(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.voiceAddFailedToPlaylist(lhsError), .voiceAddFailedToPlaylist(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceMemos(lhsId, lhsAction), .voiceMemos(rhsId, rhsAction)):
+                return lhsId == rhsId && lhsAction == rhsAction
+            case let (.view(lhsView), .view(rhsView)):
+                return lhsView == rhsView
+            default:
+                return false
+            }
+        }
+        
+        case binding(BindingAction<State>)
+        case dataLoaded(PlaylistDetail)
+        case playlistLoadingFailed(PlaylistError)
         case nameUpdateSuccess(PlaylistDetail)
-        case nameUpdateFailed(Error)
-        case cancelEditButtonTapped
-        case removeVoice(UUID)
+        case nameUpdateFailed(PlaylistError)
         case voiceRemoved(PlaylistDetail)
-        case voiceRemovalFailed(Error)
-        case loadVoiceMemos
-        case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
+        case voiceRemovalFailed(PlaylistError)
         case voiceMemosLoaded([VoiceMemoReducer.State])
-        case voiceMemosLoadFailed(Error)
-        case showVoiceSelectionSheet
-        case hideVoiceSelectionSheet
-        case addVoiceToPlaylist(UUID)
+        case voiceMemosLoadFailed(PlaylistError)
         case voiceAddedToPlaylist(PlaylistDetail)
-        case voiceAddFailedToPlaylist(Error)
-        case playButtonTapped(UUID)
+        case voiceAddFailedToPlaylist(PlaylistError)
+        case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
+        case view(View)
+        
+        enum View: Equatable {
+            case onAppear
+            case editButtonTapped
+            case saveNameButtonTapped
+            case cancelEditButtonTapped
+            case removeVoice(UUID)
+            case loadVoiceMemos
+            case showVoiceSelectionSheet
+            case hideVoiceSelectionSheet
+            case addVoiceToPlaylist(UUID)
+            case playButtonTapped(UUID)
+        }
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
@@ -132,24 +203,127 @@ struct PlaylistDetailFeature: Reducer {
     }
 
     var body: some ReducerOf<Self> {
+        BindingReducer()
+        
         Reduce { state, action in
             switch action {
-            case .onAppear:
-                state.isLoading = true
-                state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+            case .binding:
+                return .none
+                
+            case let .view(viewAction):
+                switch viewAction {
+                case .onAppear:
+                    state.isLoading = true
+                    state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
 
-                return .run { [id = state.id] send in
-                    do {
-                        guard let detail = try await playlistRepository.fetch(id) else {
-                            throw PlaylistRepositoryError.notFound
+                    return .run { [id = state.id] send in
+                        do {
+                            guard let detail = try await playlistRepository.fetch(id) else {
+                                throw PlaylistRepositoryError.notFound
+                            }
+                            await send(.dataLoaded(detail))
+                        } catch {
+                            await send(.playlistLoadingFailed(PlaylistError.from(error)))
                         }
-                        await send(.playlistDetailLoaded(detail))
-                    } catch {
-                        await send(.playlistLoadingFailed(error))
                     }
+
+                case .editButtonTapped:
+                    state.isEditingName = true
+                    state.editingName = state.name
+                    return .none
+
+                case .saveNameButtonTapped:
+                    let newName = state.editingName
+
+                    return .run { [playlist = state.asPlaylist] send in
+                        do {
+                            let updated = try await playlistRepository.update(playlist, newName)
+                            guard let detail = try await playlistRepository.fetch(updated.id) else {
+                                throw PlaylistRepositoryError.notFound
+                            }
+                            await send(.nameUpdateSuccess(detail))
+                        } catch {
+                            await send(.nameUpdateFailed(PlaylistError.from(error)))
+                        }
+                    }
+
+                case .cancelEditButtonTapped:
+                    state.isEditingName = false
+                    state.editingName = ""
+                    return .none
+
+                case let .removeVoice(voiceId):
+                    return .run { [playlist = state.asPlaylist] send in
+                        do {
+                            let updated = try await playlistRepository.removeVoice(voiceId, playlist)
+                            guard let detail = try await playlistRepository.fetch(updated.id) else {
+                                throw PlaylistRepositoryError.notFound
+                            }
+                            await send(.voiceRemoved(detail))
+                        } catch {
+                            await send(.voiceRemovalFailed(PlaylistError.from(error)))
+                        }
+                    }
+
+                case .loadVoiceMemos:
+                    return .run { send in
+                        do {
+                            let voices = voiceMemoAccessor.selectAllData().map { voice in
+                                VoiceMemoReducer.State(
+                                    uuid: voice.id,
+                                    date: voice.createdAt,
+                                    duration: voice.duration,
+                                    time: 0,
+                                    mode: .notPlaying,
+                                    title: voice.title,
+                                    url: voice.url,
+                                    text: voice.text,
+                                    fileFormat: voice.fileFormat,
+                                    samplingFrequency: voice.samplingFrequency,
+                                    quantizationBitDepth: Int(voice.quantizationBitDepth),
+                                    numberOfChannels: Int(voice.numberOfChannels),
+                                    hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
+                                )
+                            }
+                            await send(.voiceMemosLoaded(voices))
+                        } catch {
+                            await send(.voiceMemosLoadFailed(PlaylistError.from(error)))
+                        }
+                    }
+
+                case .showVoiceSelectionSheet:
+                    state.isShowingVoiceSelection = true
+                    return .send(.view(.loadVoiceMemos))
+
+                case .hideVoiceSelectionSheet:
+                    state.isShowingVoiceSelection = false
+                    return .none
+
+                case let .addVoiceToPlaylist(voiceId):
+                    return .run { [playlist = state.asPlaylist] send in
+                        do {
+                            let updated = try await playlistRepository.addVoice(voiceId, playlist)
+                            guard let detail = try await playlistRepository.fetch(updated.id) else {
+                                throw PlaylistRepositoryError.notFound
+                            }
+                            await send(.voiceAddedToPlaylist(detail))
+                        } catch {
+                            await send(.voiceAddFailedToPlaylist(PlaylistError.from(error)))
+                        }
+                    }
+
+                case let .playButtonTapped(voiceId):
+                    guard let voice = state.voices.first(where: { $0.id == voiceId }) else {
+                        return .none
+                    }
+
+                    if state.voiceMemos[id: voice.url] != nil {
+                        return .send(.voiceMemos(id: voice.url, action: .playButtonTapped))
+                    }
+                    return .none
                 }
 
-            case let .playlistDetailLoaded(detail):
+            case let .dataLoaded(detail):
                 state.name = detail.name
                 state.voices = detail.voices
                 state.createdAt = detail.createdAt
@@ -163,30 +337,6 @@ struct PlaylistDetailFeature: Reducer {
                 state.error = error.localizedDescription
                 return .none
 
-            case .editButtonTapped:
-                state.isEditingName = true
-                state.editingName = state.name
-                return .none
-
-            case let .updateName(name):
-                state.editingName = name
-                return .none
-
-            case .saveNameButtonTapped:
-                let newName = state.editingName
-
-                return .run { [playlist = state.asPlaylist] send in
-                    do {
-                        let updated = try await playlistRepository.update(playlist, newName)
-                        guard let detail = try await playlistRepository.fetch(updated.id) else {
-                            throw PlaylistRepositoryError.notFound
-                        }
-                        await send(.nameUpdateSuccess(detail))
-                    } catch {
-                        await send(.nameUpdateFailed(error))
-                    }
-                }
-
             case let .nameUpdateSuccess(detail):
                 state.name = detail.name
                 state.voices = detail.voices
@@ -199,24 +349,6 @@ struct PlaylistDetailFeature: Reducer {
                 state.error = error.localizedDescription
                 return .none
 
-            case .cancelEditButtonTapped:
-                state.isEditingName = false
-                state.editingName = ""
-                return .none
-
-            case let .removeVoice(voiceId):
-                return .run { [playlist = state.asPlaylist] send in
-                    do {
-                        let updated = try await playlistRepository.removeVoice(voiceId, playlist)
-                        guard let detail = try await playlistRepository.fetch(updated.id) else {
-                            throw PlaylistRepositoryError.notFound
-                        }
-                        await send(.voiceRemoved(detail))
-                    } catch {
-                        await send(.voiceRemovalFailed(error))
-                    }
-                }
-
             case let .voiceRemoved(detail):
                 state.name = detail.name
                 state.voices = detail.voices
@@ -226,32 +358,6 @@ struct PlaylistDetailFeature: Reducer {
             case let .voiceRemovalFailed(error):
                 state.error = error.localizedDescription
                 return .none
-
-            case .loadVoiceMemos:
-                return .run { send in
-                    do {
-                        let voices = voiceMemoAccessor.selectAllData().map { voice in
-                            VoiceMemoReducer.State(
-                                uuid: voice.id,
-                                date: voice.createdAt,
-                                duration: voice.duration,
-                                time: 0,
-                                mode: .notPlaying,
-                                title: voice.title,
-                                url: voice.url,
-                                text: voice.text,
-                                fileFormat: voice.fileFormat,
-                                samplingFrequency: voice.samplingFrequency,
-                                quantizationBitDepth: Int(voice.quantizationBitDepth),
-                                numberOfChannels: Int(voice.numberOfChannels),
-                                hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
-                            )
-                        }
-                        await send(.voiceMemosLoaded(voices))
-                    } catch {
-                        await send(.voiceMemosLoadFailed(error))
-                    }
-                }
 
             case let .voiceMemosLoaded(voices):
                 state.voiceMemos = IdentifiedArray(
@@ -279,27 +385,6 @@ struct PlaylistDetailFeature: Reducer {
                 state.error = error.localizedDescription
                 return .none
 
-            case .showVoiceSelectionSheet:
-                state.isShowingVoiceSelection = true
-                return .send(.loadVoiceMemos)
-
-            case .hideVoiceSelectionSheet:
-                state.isShowingVoiceSelection = false
-                return .none
-
-            case let .addVoiceToPlaylist(voiceId):
-                return .run { [playlist = state.asPlaylist] send in
-                    do {
-                        let updated = try await playlistRepository.addVoice(voiceId, playlist)
-                        guard let detail = try await playlistRepository.fetch(updated.id) else {
-                            throw PlaylistRepositoryError.notFound
-                        }
-                        await send(.voiceAddedToPlaylist(detail))
-                    } catch {
-                        await send(.voiceAddFailedToPlaylist(error))
-                    }
-                }
-
             case let .voiceAddedToPlaylist(detail):
                 state.name = detail.name
                 state.voices = detail.voices
@@ -308,16 +393,6 @@ struct PlaylistDetailFeature: Reducer {
 
             case let .voiceAddFailedToPlaylist(error):
                 state.error = error.localizedDescription
-                return .none
-
-            case let .playButtonTapped(voiceId):
-                guard let voice = state.voices.first(where: { $0.id == voiceId }) else {
-                    return .none
-                }
-
-                if state.voiceMemos[id: voice.url] != nil {
-                    return .send(.voiceMemos(id: voice.url, action: .playButtonTapped))
-                }
                 return .none
 
             case .voiceMemos(id: let id, action: let action):

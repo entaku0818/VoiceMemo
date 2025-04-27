@@ -1,5 +1,5 @@
-@testable import VoiLog
 import Foundation
+@testable import VoiLog
 
 class MockCloudUploader: CloudUploaderProtocol {
 
