@@ -1,0 +1,7 @@
+app_identifier("com.entaku.VoiLog") # The bundle identifier of your app
+apple_id("entaku@example.com") # Your Apple Developer Portal username
+team_id("4YZQY4C47E") # Developer Portal Team ID
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

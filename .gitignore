@@ -1,2 +1,12 @@
 xcuserdata
 Prod.xcconfig
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+/build/
+*.ipa
+*.app.dSYM.zip
+.env.local

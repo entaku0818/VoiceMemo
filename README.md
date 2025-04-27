@@ -9,3 +9,37 @@
 ## 開発リソース
 
 - `VoiLog/Template/` - ComposableArchitectureを使用した機能開発用のテンプレートが含まれています。詳細は[テンプレートREADME](VoiLog/Template/README.md)を参照してください。
+
+## Fastlane
+
+プロジェクトはFastlaneを使用して自動化されています。以下のコマンドを使用できます：
+
+### セットアップ
+
+```
+bundle install
+```
+
+### 使用可能なレーン
+
+- テスト実行:
+  ```
+  bundle exec fastlane tests
+  ```
+
+- 開発用ビルド:
+  ```
+  bundle exec fastlane build
+  ```
+
+- TestFlightへのアップロード:
+  ```
+  bundle exec fastlane beta
+  ```
+
+- App Storeへのリリース:
+  ```
+  bundle exec fastlane release
+  ```
+
+詳細については、`fastlane/Fastfile`を参照してください。
