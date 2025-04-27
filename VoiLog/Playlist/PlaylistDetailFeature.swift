@@ -42,8 +42,8 @@ struct PlaylistDetailFeature {
         }
     }
 
-    enum Action: Equatable {
-        case view(ViewAction)
+    enum Action: ViewAction, Equatable {
+        case binding(BindingAction<State>)
         case dataLoaded(PlaylistDetail)
         case playlistLoadingFailed(Error)
         case nameUpdateSuccess(PlaylistDetail)
@@ -55,21 +55,20 @@ struct PlaylistDetailFeature {
         case voiceAddedToPlaylist(PlaylistDetail)
         case voiceAddFailedToPlaylist(Error)
         case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
-    }
-
-    @ViewAction(for: State.self)
-    enum ViewAction: BindableAction, Equatable {
-        case binding(BindingAction<State>)
-        case onAppear
-        case editButtonTapped
-        case saveNameButtonTapped
-        case cancelEditButtonTapped
-        case removeVoice(UUID)
-        case loadVoiceMemos
-        case showVoiceSelectionSheet
-        case hideVoiceSelectionSheet
-        case addVoiceToPlaylist(UUID)
-        case playButtonTapped(UUID)
+        case view(View)
+        
+        enum View {
+            case onAppear
+            case editButtonTapped
+            case saveNameButtonTapped
+            case cancelEditButtonTapped
+            case removeVoice(UUID)
+            case loadVoiceMemos
+            case showVoiceSelectionSheet
+            case hideVoiceSelectionSheet
+            case addVoiceToPlaylist(UUID)
+            case playButtonTapped(UUID)
+        }
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
@@ -140,11 +139,11 @@ struct PlaylistDetailFeature {
         
         Reduce { state, action in
             switch action {
+            case .binding:
+                return .none
+                
             case let .view(viewAction):
                 switch viewAction {
-                case .binding:
-                    return .none
-                    
                 case .onAppear:
                     state.isLoading = true
                     state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
