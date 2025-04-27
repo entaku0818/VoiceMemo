@@ -114,4 +114,19 @@ platform :ios do
       force: true
     )
   end
+  
+  desc "App Store Connectから現在のメタデータとスクリーンショットをダウンロード"
+  lane :download_from_store do
+    deliver(
+      skip_binary_upload: true,
+      skip_upload_metadata: true,
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+      download_metadata: true,
+      download_screenshots: true,
+      app_identifier: ENV["DELIVER_APP_IDENTIFIER"],
+      app_id: ENV["DELIVER_APP_ID"],
+      force: true
+    )
+  end
 end
