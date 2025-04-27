@@ -78,6 +78,39 @@ struct PlaylistDetailFeature {
     }
 
     enum Action: ViewAction, BindableAction, Equatable {
+        static func == (lhs: PlaylistDetailFeature.Action, rhs: PlaylistDetailFeature.Action) -> Bool {
+            switch (lhs, rhs) {
+            case (.binding, .binding):
+                return true
+            case let (.dataLoaded(lhsDetail), .dataLoaded(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.playlistLoadingFailed(lhsError), .playlistLoadingFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.nameUpdateSuccess(lhsDetail), .nameUpdateSuccess(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.nameUpdateFailed(lhsError), .nameUpdateFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceRemoved(lhsDetail), .voiceRemoved(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.voiceRemovalFailed(lhsError), .voiceRemovalFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceMemosLoaded(lhsVoices), .voiceMemosLoaded(rhsVoices)):
+                return lhsVoices == rhsVoices
+            case let (.voiceMemosLoadFailed(lhsError), .voiceMemosLoadFailed(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceAddedToPlaylist(lhsDetail), .voiceAddedToPlaylist(rhsDetail)):
+                return lhsDetail.id == rhsDetail.id
+            case let (.voiceAddFailedToPlaylist(lhsError), .voiceAddFailedToPlaylist(rhsError)):
+                return lhsError == rhsError
+            case let (.voiceMemos(lhsId, lhsAction), .voiceMemos(rhsId, rhsAction)):
+                return lhsId == rhsId && lhsAction == rhsAction
+            case let (.view(lhsView), .view(rhsView)):
+                return lhsView == rhsView
+            default:
+                return false
+            }
+        }
+        
         case binding(BindingAction<State>)
         case dataLoaded(PlaylistDetail)
         case playlistLoadingFailed(PlaylistError)
@@ -92,7 +125,7 @@ struct PlaylistDetailFeature {
         case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
         case view(View)
         
-        enum View {
+        enum View: Equatable {
             case onAppear
             case editButtonTapped
             case saveNameButtonTapped
