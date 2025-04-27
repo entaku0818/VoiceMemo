@@ -10,3 +10,5 @@ fastlane/test_output
 *.ipa
 *.app.dSYM.zip
 .env.local
+fastlane/.env
+fastlane/.env.*
