@@ -10,9 +10,10 @@ import SwiftUI
 import ComposableArchitecture
 
 // MARK: - PlaylistNameSection
+@ViewAction(for: PlaylistDetailFeature.self)
 struct PlaylistNameSection: View {
     let name: String
-    @Bindable var store: StoreOf<PlaylistDetailFeature>
+    @Perception.Bindable var store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         Section {
@@ -22,12 +23,12 @@ struct PlaylistNameSection: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                     Button("保存") {
-                        store.send(.saveNameButtonTapped)
+                        send(.saveNameButtonTapped)
                     }
                     .buttonStyle(.bordered)
 
                     Button("キャンセル") {
-                        store.send(.cancelEditButtonTapped)
+                        send(.cancelEditButtonTapped)
                     }
                     .buttonStyle(.bordered)
                 }
@@ -40,7 +41,7 @@ struct PlaylistNameSection: View {
                     Spacer()
 
                     Button {
-                        store.send(.editButtonTapped)
+                        send(.editButtonTapped)
                     } label: {
                         Image(systemName: "pencil")
                     }
@@ -55,13 +56,14 @@ struct PlaylistNameSection: View {
 }
 
 // MARK: - AddVoiceSection
+@ViewAction(for: PlaylistDetailFeature.self)
 struct AddVoiceSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         Section {
             Button {
-                store.send(.showVoiceSelectionSheet)
+                send(.showVoiceSelectionSheet)
             } label: {
                 HStack {
                     Image(systemName: "plus.circle.fill")
@@ -74,6 +76,7 @@ struct AddVoiceSection: View {
 }
 
 // MARK: - VoiceListSection
+@ViewAction(for: PlaylistDetailFeature.self)
 struct VoiceListSection: View {
     let voices: [VoiceMemoRepository.Voice]
     let store: StoreOf<PlaylistDetailFeature>
@@ -94,7 +97,7 @@ struct VoiceListSection: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Button {
-                            store.send(.playButtonTapped(voice.id))
+                            send(.playButtonTapped(voice.id))
                         } label: {
                             Image(systemName: "play.circle.fill")
                                 .font(.title2)
@@ -103,7 +106,7 @@ struct VoiceListSection: View {
                     }
                     .swipeActions {
                         Button(role: .destructive) {
-                            store.send(.removeVoice(voice.id))
+                            send(.removeVoice(voice.id))
                         } label: {
                             Label("削除", systemImage: "trash")
                         }
@@ -115,6 +118,7 @@ struct VoiceListSection: View {
 }
 
 // MARK: - VoiceSelectionSheet
+@ViewAction(for: PlaylistDetailFeature.self)
 struct VoiceSelectionSheet: View {
     let voices: [VoiceMemoRepository.Voice]
     let store: StoreOf<PlaylistDetailFeature>
@@ -146,7 +150,7 @@ struct VoiceSelectionSheet: View {
 
                         if !voices.contains(where: { $0.id == voice.uuid }) {
                             Button {
-                                store.send(.addVoiceToPlaylist(voice.uuid))
+                                send(.addVoiceToPlaylist(voice.uuid))
                             } label: {
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(.blue)
@@ -166,7 +170,7 @@ struct VoiceSelectionSheet: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("完了") {
-                        store.send(.hideVoiceSelectionSheet)
+                        send(.hideVoiceSelectionSheet)
                     }
                 }
             }
@@ -174,6 +178,7 @@ struct VoiceSelectionSheet: View {
     }
 }
 
+// MARK: - CurrentPlayingSection
 struct CurrentPlayingSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
