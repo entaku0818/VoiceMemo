@@ -1,0 +1,20 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# セキュリティ・機密ファイル管理ルール
+
+このプロジェクトでは、以下の機密ファイル・公開してはいけないファイルは必ずGit管理対象外とします。
+
+- App Store Connect APIキー（例: [fastlane/AuthKey_*.p8](mdc:fastlane/AuthKey_R2Q4FFAG8D.p8)）
+- fastlaneの環境変数ファイル（例: [fastlane/.env*](mdc:fastlane/.env.default)）
+
+これらは[.gitignore](mdc:.gitignore)で除外されています。
+
+**理由:**
+- これらのファイルには認証情報や個人情報が含まれるため、リポジトリに公開・共有してはいけません。
+- 誤ってコミットした場合は、`git rm --cached`で追跡を解除し、再度コミットしてください。
+
+**参考:**
+- fastlane公式: https://docs.fastlane.tools/best-practices/source-control/#source-control
