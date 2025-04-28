@@ -1,3 +1,0 @@
-• Bug fixes and stability improvements
-• Performance optimizations
-• Minor UI adjustments 

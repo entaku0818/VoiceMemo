@@ -40,6 +40,7 @@ platform :ios do
     
     UI.success("Xcodeプロジェクトからバージョン番号を取得しました: #{version_number}")
     
+
     deliver(
       skip_binary_upload: true,
       skip_app_version_update: false,

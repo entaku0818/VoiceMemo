@@ -1,0 +1,28 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# fastlane metadata ディレクトリ構成ルール
+
+fastlaneでApp Store Connectにアプリ情報をアップロードする際、metadataディレクトリは以下のような構成にする必要があります：
+
+- 各言語ごとにディレクトリを作成（例: `ja`, `en-US`）
+- 各言語ディレクトリ直下に、以下のテキストファイルを配置すること
+  - `description.txt`
+  - `keywords.txt`
+  - `release_notes.txt`
+  - `title.txt` など（必要に応じて）
+- サブディレクトリ（例: `description/`や`keywords/`など）は不要
+
+例：
+```
+fastlane/metadata/ja/description.txt
+fastlane/metadata/ja/keywords.txt
+fastlane/metadata/ja/release_notes.txt
+fastlane/metadata/en-US/description.txt
+fastlane/metadata/en-US/keywords.txt
+fastlane/metadata/en-US/release_notes.txt
+```
+
+詳しくは [fastlane公式ドキュメント](https://docs.fastlane.tools/actions/deliver/#metadata) も参照してください。
