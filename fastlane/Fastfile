@@ -45,15 +45,10 @@ platform :ios do
       skip_app_version_update: false,
       app_version: version_number,
       skip_metadata: false,
-      skip_screenshots: true,  # スクリーンショットのアップロードをスキップ
+      skip_screenshots: false,  # スクリーンショットのアップロードをスキップ
       force: true,
       ignore_language_directory_validation: true,
       run_precheck_before_submit: false  # precheckを無効化
     )
-  end
-
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
   end
 end
