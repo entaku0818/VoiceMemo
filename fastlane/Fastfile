@@ -16,6 +16,42 @@
 default_platform(:ios)
 
 platform :ios do
+  # 各レーンで共通して実行する認証処理
+  before_all do
+    # APIキー認証を使用する場合
+    app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
+      key_filepath: ENV["APP_STORE_CONNECT_API_KEY_KEY_FILEPATH"]
+    )
+  end
+
+  # メタデータとスクリーンショットのアップロード
+  desc "Upload metadata and screenshots to App Store Connect"
+  lane :upload_metadata do
+    # Xcodeプロジェクトからバージョン番号を取得
+    version_number = get_version_number(
+      xcodeproj: "VoiLog.xcodeproj",
+      target: "VoiLog"
+    )
+    
+    # バージョン番号が取得できなかった場合はエラー
+    UI.user_error!("バージョン番号をXcodeプロジェクトから取得できませんでした。") unless version_number && !version_number.empty?
+    
+    UI.success("Xcodeプロジェクトからバージョン番号を取得しました: #{version_number}")
+    
+    deliver(
+      skip_binary_upload: true,
+      skip_app_version_update: false,
+      app_version: version_number,
+      skip_metadata: false,
+      skip_screenshots: true,  # スクリーンショットのアップロードをスキップ
+      force: true,
+      ignore_language_directory_validation: true,
+      run_precheck_before_submit: false  # precheckを無効化
+    )
+  end
+
   desc "Description of what the lane does"
   lane :custom_lane do
     # add actions here: https://docs.fastlane.tools/actions

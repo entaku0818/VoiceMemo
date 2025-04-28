@@ -15,77 +15,21 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios tests
+### ios upload_metadata
 
 ```sh
-[bundle exec] fastlane ios tests
+[bundle exec] fastlane ios upload_metadata
 ```
 
-Run all tests
+Upload metadata and screenshots to App Store Connect
 
-### ios build
+### ios custom_lane
 
 ```sh
-[bundle exec] fastlane ios build
+[bundle exec] fastlane ios custom_lane
 ```
 
-Build app for development
-
-### ios beta
-
-```sh
-[bundle exec] fastlane ios beta
-```
-
-Submit a new Beta Build to TestFlight
-
-### ios release
-
-```sh
-[bundle exec] fastlane ios release
-```
-
-Deploy a new version to the App Store
-
-### ios screenshots
-
-```sh
-[bundle exec] fastlane ios screenshots
-```
-
-スクリーンショットを生成
-
-### ios update_metadata
-
-```sh
-[bundle exec] fastlane ios update_metadata
-```
-
-App Store Connectのメタデータのみを更新
-
-### ios update_screenshots
-
-```sh
-[bundle exec] fastlane ios update_screenshots
-```
-
-App Store Connectのスクリーンショットのみを更新
-
-### ios update_store
-
-```sh
-[bundle exec] fastlane ios update_store
-```
-
-App Store Connectのメタデータとスクリーンショットを更新
-
-### ios download_from_store
-
-```sh
-[bundle exec] fastlane ios download_from_store
-```
-
-App Store Connectから現在のメタデータとスクリーンショットをダウンロード
+Description of what the lane does
 
 ----
 
