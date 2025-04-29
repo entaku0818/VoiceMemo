@@ -1,1 +1,4 @@
-
+Fehlerbehebungen und Stabilitätsverbesserungen
+- Verbesserte App-Stabilität
+- Leistungsoptimierung
+- Verschiedene Fehlerbehebungen

@@ -1,1 +1,4 @@
-
+Correzioni di bug e miglioramenti della stabilità
+- Migliorata la stabilità dell'app
+- Ottimizzazione delle prestazioni
+- Varie correzioni di bug

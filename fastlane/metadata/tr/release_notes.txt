@@ -1,1 +1,4 @@
-
+Hata düzeltmeleri ve kararlılık iyileştirmeleri
+- Uygulama kararlılığı iyileştirildi
+- Performans optimizasyonu
+- Çeşitli hata düzeltmeleri

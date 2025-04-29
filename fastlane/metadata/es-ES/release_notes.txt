@@ -1,1 +1,4 @@
-
+Correcciones de errores y mejoras de estabilidad
+- Mejorada la estabilidad de la aplicación
+- Optimización del rendimiento
+- Varias correcciones de errores
