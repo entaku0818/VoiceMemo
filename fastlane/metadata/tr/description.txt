@@ -1,0 +1,9 @@
+Simple Recorder, kaydetmeyi her zamankinden daha basit hale getiren bir uygulamadır. Tek bir dokunuşla, hatta arka planda bile, kaydınıza başlayabilir ve kolayca diğer uygulamalarla paylaşabilirsiniz.
+
+Özellikleri:
+
+Minimalist tasarımı sayesinde kaydınızı tek bir düğmeyle başlatıp durdurabilirsiniz.
+Kayıt dosyalarınıza istediğiniz zaman, istediğiniz yerden kolayca erişin ve paylaşın.
+İş toplantıları, notlar, fikir alışverişi oturumları veya unutulmaz anlar için uygun yüksek kaliteli ses dosyaları sağlar.
+Başlangıç seviyesindeki kullanıcılar için bile kolayca gezinebilecekleri kullanıcı dostu arayüz.
+Simple Recorder ile önemli anları kaçırmayacaksınız. Sizlere önemli anları değerlendirmenizde yardımcı olmaya buradayız. Şimdi indirin ve kaydetmenin basitliğini deneyimleyin.

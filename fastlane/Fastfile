@@ -46,10 +46,11 @@ platform :ios do
       skip_app_version_update: false,
       app_version: version_number,
       skip_metadata: false,
-      skip_screenshots: false,  # スクリーンショットのアップロードをスキップ
+      skip_screenshots: false,  
       force: true,
+      overwrite_screenshots: true,
       ignore_language_directory_validation: true,
-      run_precheck_before_submit: false  # precheckを無効化
+      run_precheck_before_submit: false  
     )
   end
 end
