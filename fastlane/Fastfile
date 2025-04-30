@@ -26,8 +26,8 @@ platform :ios do
     )
   end
 
-  # メタデータとスクリーンショットのアップロード
-  desc "Upload metadata and screenshots to App Store Connect"
+  # メタデータとスクリーンショットのアップロード、審査提出
+  desc "Upload metadata and screenshots to App Store Connect and submit for review"
   lane :upload_metadata do
     # Xcodeプロジェクトからバージョン番号を取得
     version_number = get_version_number(
@@ -42,15 +42,23 @@ platform :ios do
     
 
     deliver(
-      skip_binary_upload: true,
-      skip_app_version_update: false,
-      app_version: version_number,
-      skip_metadata: false,
-      skip_screenshots: false,  
-      force: true,
-      overwrite_screenshots: true,
-      ignore_language_directory_validation: true,
-      run_precheck_before_submit: false  
+      skip_binary_upload: false,     # バイナリのアップロードを実行
+      skip_app_version_update: false, # アプリバージョンの更新をスキップしない
+      app_version: version_number,    # アプリのバージョン番号を指定
+      skip_metadata: false,          # メタデータの更新をスキップしない
+      skip_screenshots: false,       # スクリーンショットのアップロードをスキップしない
+      force: true,                   # 確認なしで強制的に実行
+      overwrite_screenshots: true,   # 既存のスクリーンショットを上書き
+      ignore_language_directory_validation: true, # 言語ディレクトリの検証を無視
+      run_precheck_before_submit: true,  # 提出前の事前チェックを実行
+      precheck_include_in_app_purchases: false,  # In-app purchasesのチェックをスキップ
+      submit_for_review: true,       # 審査提出を実行
+      automatic_release: false,      # 審査通過後の自動リリースは無効
+      submission_information: {
+        add_id_info_uses_idfa: false,  # IDFAの使用なし
+        export_compliance_uses_encryption: false,  # 暗号化なし
+        export_compliance_platform: "ios"  # プラットフォームはiOS
+      }
     )
   end
 end

@@ -21,7 +21,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane ios upload_metadata
 ```
 
-Upload metadata and screenshots to App Store Connect
+Upload metadata and screenshots to App Store Connect and submit for review
 
 ----
 
