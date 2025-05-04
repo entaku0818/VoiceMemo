@@ -62,7 +62,7 @@ struct VoiceMemoDetail: View {
 
                 }.padding()
 
-                HStack {
+                HStack (spacing: 8){
                     Button(action: {
                         viewStore.send(.toggleLoop)
                     }) {
@@ -71,7 +71,6 @@ struct VoiceMemoDetail: View {
                             .font(.system(size: 16, weight: viewStore.isLooping ? .heavy : .light))
                             .padding()
                     }
-                    Spacer()
                     Button(action: {
                         viewStore.send(.skipBy(-60))
                     }) {
@@ -100,14 +99,12 @@ struct VoiceMemoDetail: View {
                             .imageScale(.large)
                             .padding()
                     }
-                    Spacer()
                     Button(action: { viewStore.send(.onTapPlaySpeed) }) {
                         Text(viewStore.playSpeed.description)
                             .font(.system(size: 16))
                     }
-                    Spacer()
 
-                }.padding()
+                }
 
                 ProgressView(value: viewStore.time / viewStore.duration)
                     .frame(height: 10)

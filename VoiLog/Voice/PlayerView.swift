@@ -44,7 +44,7 @@ struct PlayerView: View {
                 }
                 .padding(.horizontal)
 
-                HStack(spacing: 20) {
+                HStack(spacing: 8) {
                     Spacer()
 
                     Button(action: {
@@ -105,7 +105,7 @@ struct PlayerView: View {
                     Spacer()
                 }
             }
-            .padding()
+            .padding(.all, 8)
             .background(colorScheme == .dark ? Color.black : Color.white)
         }
     }
