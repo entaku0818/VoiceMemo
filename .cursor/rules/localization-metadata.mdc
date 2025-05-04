@@ -1,0 +1,34 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Localization and Metadata Management
+
+## Supported Languages
+The app is localized in multiple languages with metadata in fastlane/metadata/[lang]:
+- English (US, GB, CA)
+- Japanese
+- French
+- German
+- Spanish
+- Italian
+- Portuguese
+- Russian
+- Chinese (Simplified and Traditional)
+- Vietnamese
+- Turkish
+- Hindi
+
+## Metadata Structure
+Each language directory contains:
+- [fastlane/metadata/ja/description.txt](mdc:fastlane/metadata/ja/description.txt) - App description
+- [fastlane/metadata/ja/release_notes.txt](mdc:fastlane/metadata/ja/release_notes.txt) - Release notes
+- [fastlane/metadata/ja/keywords.txt](mdc:fastlane/metadata/ja/keywords.txt) - Search keywords
+- Other metadata files (support URL, privacy policy, etc.)
+
+## Release Management
+- Version updates are managed through Fastlane
+- [fastlane/Fastfile](mdc:fastlane/Fastfile) controls the release process
+- Screenshots are stored in fastlane/screenshots/[lang]
+- Release notes should be updated in all supported languages before submission
