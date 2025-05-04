@@ -66,13 +66,19 @@ struct VoiceMemoDetail: View {
                     Button(action: {
                         viewStore.send(.toggleLoop)
                     }) {
-                        Image(systemName: "repeat") // You can change this icon as needed
+                        Image(systemName: "repeat")
                             .imageScale(.large)
-                            .font(.system(size: 16, weight: viewStore.isLooping ? .heavy : .light)) // 線を太くする
+                            .font(.system(size: 16, weight: viewStore.isLooping ? .heavy : .light))
                             .padding()
-
                     }
                     Spacer()
+                    Button(action: {
+                        viewStore.send(.skipBy(-60))
+                    }) {
+                        Image(systemName: "gobackward.60")
+                            .imageScale(.large)
+                            .padding()
+                    }
                     Button(action: {
                         viewStore.send(.skipBy(-10))
                     }) {
@@ -84,6 +90,13 @@ struct VoiceMemoDetail: View {
                         viewStore.send(.skipBy(10))
                     }) {
                         Image(systemName: "goforward.10")
+                            .imageScale(.large)
+                            .padding()
+                    }
+                    Button(action: {
+                        viewStore.send(.skipBy(60))
+                    }) {
+                        Image(systemName: "goforward.60")
                             .imageScale(.large)
                             .padding()
                     }

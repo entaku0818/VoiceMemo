@@ -59,6 +59,13 @@ struct PlayerView: View {
                     }
 
                     Button(action: {
+                        viewStore.send(.skipBy(-60))
+                    }) {
+                        Image(systemName: "gobackward.60")
+                            .font(.title3)
+                    }
+
+                    Button(action: {
                         viewStore.send(.skipBy(-10))
                     }) {
                         Image(systemName: "gobackward.10")
@@ -77,6 +84,13 @@ struct PlayerView: View {
                         viewStore.send(.skipBy(10))
                     }) {
                         Image(systemName: "goforward.10")
+                            .font(.title3)
+                    }
+
+                    Button(action: {
+                        viewStore.send(.skipBy(60))
+                    }) {
+                        Image(systemName: "goforward.60")
                             .font(.title3)
                     }
 
