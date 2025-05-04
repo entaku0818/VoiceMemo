@@ -1,1 +1,5 @@
+Tính năng mới:
+- Thêm chức năng tua đi/tua lại 60 giây
 
+Khác:
+- Cải tiến nhỏ và sửa lỗi

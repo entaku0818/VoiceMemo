@@ -1,3 +1,9 @@
+Nouvelles fonctionnalités :
+- Ajout de la fonction d'avance/retour rapide de 60 secondes
+
+Autres :
+- Améliorations mineures et corrections de bugs
+
 Corrections de bugs et améliorations de stabilité
 - Amélioration de la stabilité de l'application
 - Optimisation des performances

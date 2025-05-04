@@ -1,3 +1,9 @@
+Nuove funzionalità:
+- Aggiunta la funzione di avanzamento/riavvolgimento di 60 secondi
+
+Altro:
+- Miglioramenti minori e correzioni di bug
+
 Correzioni di bug e miglioramenti della stabilità
 - Migliorata la stabilità dell'app
 - Ottimizzazione delle prestazioni

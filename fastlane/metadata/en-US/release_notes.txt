@@ -1,4 +1,5 @@
-• Bug fixes and stability improvements
-- Improved app stability
-- Performance optimization
-- Various bug fixes
+New Features:
+- Added 60-second skip forward/backward functionality
+
+Other:
+- Minor improvements and bug fixes

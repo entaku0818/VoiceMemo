@@ -2,3 +2,9 @@ Correcciones de errores y mejoras de estabilidad
 - Mejorada la estabilidad de la aplicación
 - Optimización del rendimiento
 - Varias correcciones de errores
+
+Nuevas características:
+- Se agregó la función de avance/retroceso de 60 segundos
+
+Otros:
+- Mejoras menores y correcciones de errores

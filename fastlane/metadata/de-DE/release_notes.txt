@@ -2,3 +2,9 @@ Fehlerbehebungen und Stabilitätsverbesserungen
 - Verbesserte App-Stabilität
 - Leistungsoptimierung
 - Verschiedene Fehlerbehebungen
+
+Neue Funktionen:
+- 60-Sekunden Vor- und Zurückspringen hinzugefügt
+
+Sonstiges:
+- Kleinere Verbesserungen und Fehlerbehebungen

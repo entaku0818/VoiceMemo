@@ -2,3 +2,9 @@ Correções de bugs e melhorias de estabilidade
 - Melhorada a estabilidade da aplicação
 - Otimização de desempenho
 - Várias correções de bugs
+
+Novos recursos:
+- Adicionada função de avanço/retrocesso de 60 segundos
+
+Outros:
+- Pequenas melhorias e correções de bugs
