@@ -1,0 +1,36 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Audio Playback Features
+
+The app supports various playback features implemented across multiple components:
+
+## Core Playback Controls
+Located in [VoiLog/Voice/PlayerView.swift](mdc:VoiLog/Voice/PlayerView.swift):
+- Play/Pause
+- Skip forward/backward (10 and 60 seconds)
+- Playback speed control (0.5x to 2.0x)
+- Loop/Repeat functionality
+
+## Detailed Playback View
+[VoiLog/Voice/VoiceDetail.swift](mdc:VoiLog/Voice/VoiceDetail.swift) implements:
+- Progress bar
+- Time display
+- Title editing
+- Share functionality
+
+## Audio Processing
+[VoiLog/AudioPlayer.swift](mdc:VoiLog/AudioPlayer.swift) handles:
+- Audio session management
+- Playback speed implementation
+- Background playback
+- File management
+
+## Key Features
+- Multiple skip intervals (10s, 60s)
+- Variable playback speeds
+- Background audio support
+- Progress tracking
+- Loop mode

@@ -1,0 +1,32 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# VoiceMemo App Structure
+
+VoiceMemo is an iOS voice recording app built with SwiftUI and The Composable Architecture (TCA).
+
+## Core Components
+
+### Voice Recording
+The main voice recording functionality is implemented in:
+- [VoiLog/Voice/VoiceMemoReducer.swift](mdc:VoiLog/Voice/VoiceMemoReducer.swift) - Core recording logic
+- [VoiLog/Voice/PlayerView.swift](mdc:VoiLog/Voice/PlayerView.swift) - Playback UI
+- [VoiLog/Voice/VoiceDetail.swift](mdc:VoiLog/Voice/VoiceDetail.swift) - Detailed view
+
+### Audio Processing
+Audio handling and processing:
+- [VoiLog/AudioPlayer.swift](mdc:VoiLog/AudioPlayer.swift) - Audio playback management
+- [VoiLog/Voice/AudioEditorReducer.swift](mdc:VoiLog/Voice/AudioEditorReducer.swift) - Audio editing features
+
+### Playlist Management
+Playlist features:
+- [VoiLog/Playlist/PlaylistListFeature.swift](mdc:VoiLog/Playlist/PlaylistListFeature.swift) - Playlist list management
+- [VoiLog/Playlist/PlaylistDetailFeature.swift](mdc:VoiLog/Playlist/PlaylistDetailFeature.swift) - Individual playlist handling
+- [VoiLog/data/PlaylistRepository.swift](mdc:VoiLog/data/PlaylistRepository.swift) - Playlist data persistence
+
+### Metadata
+App metadata and localization:
+- [fastlane/metadata](mdc:fastlane/metadata) - App Store metadata
+- Release notes are maintained in multiple languages under fastlane/metadata/[lang]/release_notes.txt
