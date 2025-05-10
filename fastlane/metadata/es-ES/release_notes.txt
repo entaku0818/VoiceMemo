@@ -1,10 +1,6 @@
 Correcciones de errores y mejoras de estabilidad
+- Corregido el problema de tono al usar el micrófono de auriculares
 - Mejorada la estabilidad de la aplicación
-- Optimización del rendimiento
-- Varias correcciones de errores
-
-Nuevas características:
-- Se agregó la función de avance/retroceso de 60 segundos
 
 Otros:
 - Mejoras menores y correcciones de errores

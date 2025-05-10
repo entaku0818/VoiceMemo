@@ -1,5 +1,6 @@
-Tính năng mới:
-- Thêm chức năng tua đi/tua lại 60 giây
+Sửa lỗi và cải thiện tính ổn định
+- Sửa lỗi âm thanh khi sử dụng micrô tai nghe
+- Cải thiện tính ổn định của ứng dụng
 
 Khác:
-- Cải tiến nhỏ và sửa lỗi
+- Cải thiện nhỏ và sửa lỗi

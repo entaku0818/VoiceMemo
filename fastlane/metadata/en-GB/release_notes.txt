@@ -1,5 +1,6 @@
-New Features:
-- Added 60-second skip forward/backward functionality
+Bug fixes and stability improvements
+- Fixed audio pitch issue when using headphone microphone
+- Improved app stability
 
 Other:
 - Minor improvements and bug fixes

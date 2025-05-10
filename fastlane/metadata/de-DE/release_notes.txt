@@ -1,10 +1,6 @@
 Fehlerbehebungen und Stabilitätsverbesserungen
+- Behebung des Tonhöhenproblems bei Verwendung des Kopfhörer-Mikrofons
 - Verbesserte App-Stabilität
-- Leistungsoptimierung
-- Verschiedene Fehlerbehebungen
-
-Neue Funktionen:
-- 60-Sekunden Vor- und Zurückspringen hinzugefügt
 
 Sonstiges:
 - Kleinere Verbesserungen und Fehlerbehebungen

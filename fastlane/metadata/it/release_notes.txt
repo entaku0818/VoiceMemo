@@ -1,10 +1,6 @@
-Nuove funzionalità:
-- Aggiunta la funzione di avanzamento/riavvolgimento di 60 secondi
+Correzioni di bug e miglioramenti di stabilità
+- Risolto il problema del tono quando si utilizza il microfono delle cuffie
+- Migliorata la stabilità dell'app
 
 Altro:
 - Miglioramenti minori e correzioni di bug
-
-Correzioni di bug e miglioramenti della stabilità
-- Migliorata la stabilità dell'app
-- Ottimizzazione delle prestazioni
-- Varie correzioni di bug

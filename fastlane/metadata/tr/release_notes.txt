@@ -1,10 +1,6 @@
 Hata düzeltmeleri ve kararlılık iyileştirmeleri
+- Kulaklık mikrofonu kullanırken ses perdesi sorunu düzeltildi
 - Uygulama kararlılığı iyileştirildi
-- Performans optimizasyonu
-- Çeşitli hata düzeltmeleri
-
-Yeni özellikler:
-- 60 saniye ileri/geri sarma özelliği eklendi
 
 Diğer:
 - Küçük iyileştirmeler ve hata düzeltmeleri
