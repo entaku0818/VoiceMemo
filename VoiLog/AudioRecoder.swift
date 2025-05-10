@@ -131,10 +131,21 @@ private actor AudioRecorder {
 
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
+    func setupAVAudioSession() {
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.playAndRecord, options: [.allowBluetooth, .allowBluetoothA2DP])
+            try audioSession.setPreferredSampleRate(UserDefaultsManager.shared.samplingFrequency)
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            UserDefaultsManager.shared.logError("Failed to set up AVAudioSession: \(error.localizedDescription)")
+        }
+    }
+
     func start(url: URL) async -> Bool {
         self.stop()
         setupAVAudioSession()
-        beginBackgroundTask() // バックグラウンドタスクを開始
+        beginBackgroundTask()
         let stream = AsyncThrowingStream<Bool, Error> { continuation in
             do {
                 speechRecognizer = SFSpeechRecognizer(locale: Locale.current)
@@ -186,17 +197,47 @@ private actor AudioRecorder {
                 ]
 
                 let audioFile = try AVAudioFile(forWriting: url, settings: settings)
+                
+                // 入力フォーマットを取得
+                let inputFormat = inputNode.inputFormat(forBus: 0)
+                
+                // 出力フォーマットを設定
+                let outputFormat = AVAudioFormat(
+                    commonFormat: .pcmFormatFloat32,
+                    sampleRate: sampleRate,
+                    channels: 1,
+                    interleaved: false
+                )!
+                
+                // コンバーターを作成
+                let converter = AVAudioConverter(from: inputFormat, to: outputFormat)!
 
-                inputNode.installTap(onBus: 0, bufferSize: 4096, format: nil) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
+                inputNode.installTap(onBus: 0, bufferSize: 4096, format: inputFormat) { (buffer: AVAudioPCMBuffer, _: AVAudioTime) in
                     guard !self.isPaused else { return }
 
-                    self.currentTime = Double(audioFile.length) / sampleRate
+                    let currentFrame = audioFile.length
+                    self.currentTime = Double(currentFrame) / sampleRate
 
-                    self.recognitionRequest?.append(buffer)
-                    self.updateAudioLevel(buffer: buffer)
+                    // バッファを変換
+                    let convertedBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat, frameCapacity: AVAudioFrameCount(Double(buffer.frameLength) * outputFormat.sampleRate / inputFormat.sampleRate))!
+                    var error: NSError?
+                    let inputBlock: AVAudioConverterInputBlock = { inNumPackets, outStatus in
+                        outStatus.pointee = .haveData
+                        return buffer
+                    }
+                    
+                    converter.convert(to: convertedBuffer, error: &error, withInputFrom: inputBlock)
+                    
+                    if let error = error {
+                        UserDefaultsManager.shared.logError("Conversion error: \(error.localizedDescription)")
+                        return
+                    }
+
+                    self.recognitionRequest?.append(convertedBuffer)
+                    self.updateAudioLevel(buffer: convertedBuffer)
 
                     do {
-                        try audioFile.write(from: buffer)
+                        try audioFile.write(from: convertedBuffer)
                     } catch {
                         UserDefaultsManager.shared.logError(error.localizedDescription)
                         RollbarLogger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
@@ -273,16 +314,6 @@ private actor AudioRecorder {
     func resume() {
         isPaused = false
         try? audioEngine?.start()
-    }
-
-    func setupAVAudioSession() {
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetooth, .allowBluetoothA2DP, .mixWithOthers])
-            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
-        } catch {
-            UserDefaultsManager.shared.logError("Failed to set up AVAudioSession: \(error.localizedDescription)")
-        }
     }
 
     @objc func audioEngineConfigurationChange(notification: Notification) async {
