@@ -7,3 +7,7 @@ Autres :
 Corrections de bugs et améliorations de stabilité
 - Correction du problème de hauteur de son lors de l'utilisation du microphone du casque
 - Amélioration de la stabilité de l'application
+- Amélioration de la stabilité de l'enregistrement en supprimant les notifications d'enregistrement en arrière-plan
+- Amélioration de la qualité audio pour l'entrée du microphone des écouteurs
+- Optimisation de l'affichage des catégories d'applications
+- Améliorations générales de la stabilité et des performances

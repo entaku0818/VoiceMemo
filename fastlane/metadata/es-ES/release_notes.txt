@@ -4,3 +4,7 @@ Correcciones de errores y mejoras de estabilidad
 
 Otros:
 - Mejoras menores y correcciones de errores
+- Mejora de la estabilidad de grabación al eliminar las notificaciones de grabación en segundo plano
+- Mejora de la calidad de audio para la entrada del micrófono de los auriculares
+- Optimización de la visualización de categorías de aplicaciones
+- Mejoras generales de estabilidad y rendimiento

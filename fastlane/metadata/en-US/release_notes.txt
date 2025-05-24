@@ -4,3 +4,7 @@ Bug fixes and stability improvements
 
 Other:
 - Minor improvements and bug fixes
+- Improved recording stability by removing background recording notifications
+- Enhanced audio quality for headphone microphone input
+- Optimized app category display
+- Overall stability and performance improvements
