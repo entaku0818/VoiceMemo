@@ -2,8 +2,6 @@ import ComposableArchitecture
 import SwiftUI
 import Photos
 
-import ActivityKit
-
 struct RecordingMemo: Reducer {
     struct State: Equatable {
         static func == (lhs: State, rhs: State) -> Bool {
@@ -84,7 +82,6 @@ struct RecordingMemo: Reducer {
         var newUrl: URL?
         var startTime: TimeInterval
         var time: TimeInterval
-        var currentActivity: Activity<recordActivityAttributes>?
         var waveFormHeights: [Float] = []
 
         enum Mode {
@@ -120,48 +117,6 @@ struct RecordingMemo: Reducer {
     @Dependency(\.audioRecorder) var audioRecorder
     @Dependency(\.continuousClock) var clock
 
-    func startLiveActivity() -> Activity<recordActivityAttributes>? {
-        let attributes = recordActivityAttributes(name: "Recording Activity")
-        let initialContentState = recordActivityAttributes.ContentState(emoji: "🔴", recordingTime: 0)
-        let activityContent = ActivityContent(state: initialContentState, staleDate: Date().addingTimeInterval(60))
-
-        do {
-            let activity = try Activity<recordActivityAttributes>.request(attributes: attributes, content: activityContent, pushType: nil)
-            print("Activity started: \(activity.id)")
-            return activity
-        } catch {
-            print("Failed to start activity: \(error.localizedDescription)")
-            return nil
-        }
-    }
-
-    func stopLiveActivity(activity: Activity<recordActivityAttributes>?) {
-        guard let activity = activity else {
-            print("No active recording to stop")
-            return
-        }
-
-        let finalContentState = recordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0)
-        let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
-
-        Task {
-            await activity.end(finalActivityContent, dismissalPolicy: .immediate)
-            print("Activity ended: \(activity.id)")
-        }
-    }
-
-    func updateLiveActivity(activity: Activity<recordActivityAttributes>?, duration: TimeInterval) {
-        guard let activity = activity else {
-            return
-        }
-
-        let contentState = recordActivityAttributes.ContentState(emoji: "🔴", recordingTime: duration)
-        Task {
-            await activity.update(using: contentState)
-        }
-
-    }
-
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case .audioRecorderDidFinish(.success(true)):
@@ -191,15 +146,12 @@ struct RecordingMemo: Reducer {
             state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
             state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
             state.numberOfChannels = UserDefaultsManager.shared.numberOfChannels
-            let activity = state.currentActivity
-            state.currentActivity = nil
             return .run { send in
                 if let currentTime = await self.audioRecorder.currentTime() {
                     await send(.finalRecordingTime(currentTime))
                 }
                 await self.audioRecorder.stopRecording()
                 RollbarLogger.shared.logInfo("record stop")
-                stopLiveActivity(activity: activity)
             }
 
         case .togglePauseResume:
@@ -219,9 +171,6 @@ struct RecordingMemo: Reducer {
 
         case .task:
             let url = state.url
-            let activity = startLiveActivity()
-            state.currentActivity = activity
-
             return .run { send in
                 async let startRecording: Void = send(
                     .audioRecorderDidFinish(
@@ -233,7 +182,6 @@ struct RecordingMemo: Reducer {
                 // Timer for other periodic updates
                 async let generalUpdates: Void = {
                     for await _ in self.clock.timer(interval: .seconds(1)) {
-
                         await send(.getResultText)
                     }
                 }()
@@ -248,7 +196,6 @@ struct RecordingMemo: Reducer {
                 // Timer for waveform height updates
                 async let currentTimeUpdates: Void = {
                     for await _ in self.clock.timer(interval: .milliseconds(500)) {
-
                         if let currentTime = await self.audioRecorder.currentTime() {
                             await send(.timerUpdated(currentTime))
                         }
@@ -260,7 +207,6 @@ struct RecordingMemo: Reducer {
 
         case let .timerUpdated(currentTime):
             state.duration = currentTime
-            updateLiveActivity(activity: state.currentActivity, duration: currentTime)
             return .none
 
         case let .updateVolumes(volumes):
