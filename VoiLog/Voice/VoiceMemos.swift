@@ -413,4 +413,8 @@ extension VoiceMemos.State {
             return false
         }
     }
+
+    var isRecording: Bool {
+        recordingMemo != nil
+    }
 }

@@ -17,9 +17,12 @@ struct VoiceMemosView: View {
         case deleted
         case appInterview
         case mail
+        case recordingNavigation
     }
     @State private var isDeleteConfirmationPresented = false
     @State private var selectedIndex: Int?
+    @State private var isRecordingNavigationAlertPresented = false
+    @State private var pendingNavigation: (() -> Void)? = nil
 
     init(store: StoreOf<VoiceMemos>, admobUnitId: String, recordAdmobUnitId: String,playListAdmobUnitId:String) {
         self.store = store
@@ -35,13 +38,20 @@ struct VoiceMemosView: View {
                     VStack {
                         List {
                             Section {
-                                NavigationLink(destination: PlaylistListView(
-                                    store: Store(
-                                        initialState: PlaylistListFeature.State()
-                                    )                                    { PlaylistListFeature() }, admobUnitId: playListAdmobUnitId
-                                )) {
+                                Button(action: {
+                                    handleNavigation({
+                                        let destination = PlaylistListView(
+                                            store: Store(
+                                                initialState: PlaylistListFeature.State()
+                                            ) { PlaylistListFeature() },
+                                            admobUnitId: playListAdmobUnitId
+                                        )
+                                        // ここでナビゲーションを実行
+                                    }, viewStore: viewStore)
+                                }) {
                                     Label("プレイリスト", systemImage: "music.note.list")
                                 }
+                                .disabled(viewStore.recordingMemo != nil)
                             }
 
                             Section {
@@ -126,8 +136,16 @@ struct VoiceMemosView: View {
                     }
                     .navigationTitle("シンプル録音")
                     .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            if viewStore.recordingMemo != nil {
+                                HStack {
+                                    Text("シンプル録音")
+                                    Image(systemName: "record.circle")
+                                        .foregroundColor(.red)
+                                }
+                            }
+                        }
                         ToolbarItem(placement: .navigationBarLeading) {
-
                             if !viewStore.hasPlayingMemo {
                                 Button(action: {
                                     viewStore.send(.toggleMode)
@@ -141,6 +159,20 @@ struct VoiceMemosView: View {
                                 makeToolbarContent(viewStore: viewStore)
                             }
                         }
+                    }
+                    .alert(isPresented: $isRecordingNavigationAlertPresented) {
+                        Alert(
+                            title: Text("録音中です"),
+                            message: Text("録音中は他の画面に移動できません。\n録音を停止してから移動してください。"),
+                            primaryButton: .cancel(Text("録音を続ける")),
+                            secondaryButton: .destructive(Text("録音を停止")) {
+                                viewStore.send(.recordingMemo(.presented(.stopButtonTapped)))
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    pendingNavigation?()
+                                    pendingNavigation = nil
+                                }
+                            }
+                        )
                     }
                 }
                 .navigationViewStyle(.stack)
@@ -247,7 +279,12 @@ struct VoiceMemosView: View {
         return HStack {
             makeSyncStatusView(viewStore: viewStore)
             Spacer().frame(width: 10)
-            NavigationLink(destination: SettingView(store: settingStore, admobUnitId: admobUnitId)) {
+            Button(action: {
+                handleNavigation({
+                    let destination = SettingView(store: settingStore, admobUnitId: admobUnitId)
+                    // ここでナビゲーションを実行
+                }, viewStore: viewStore)
+            }) {
                 Image(systemName: "gearshape.fill")
                     .accentColor(.accentColor)
             }
@@ -265,13 +302,20 @@ struct VoiceMemosView: View {
             } else {
                 if viewStore.hasPurchasedPremium {
                     Button {
-                        viewStore.send(.synciCloud)
+                        handleNavigation({
+                            viewStore.send(.synciCloud)
+                        }, viewStore: viewStore)
                     } label: {
                         Image(systemName: "exclamationmark.icloud.fill")
                             .foregroundColor(.accentColor)
                     }
                 } else {
-                    NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
+                    Button(action: {
+                        handleNavigation({
+                            let destination = PaywallView(purchaseManager: PurchaseManager.shared)
+                            // ここでナビゲーションを実行
+                        }, viewStore: viewStore)
+                    }) {
                         Image(systemName: "exclamationmark.icloud.fill")
                             .foregroundColor(.accentColor)
                     }
@@ -302,6 +346,15 @@ struct VoiceMemosView: View {
                 @unknown default: break
                 }
             }
+        }
+    }
+
+    private func handleNavigation(_ action: @escaping () -> Void, viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) {
+        if viewStore.recordingMemo != nil {
+            pendingNavigation = action
+            isRecordingNavigationAlertPresented = true
+        } else {
+            action()
         }
     }
 }
