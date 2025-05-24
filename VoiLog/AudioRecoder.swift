@@ -134,7 +134,7 @@ private actor AudioRecorder {
     func setupAVAudioSession() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(.playAndRecord, options: [.allowBluetooth, .allowBluetoothA2DP])
+            try audioSession.setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetooth, .allowBluetoothA2DP, .mixWithOthers])
             try audioSession.setPreferredSampleRate(UserDefaultsManager.shared.samplingFrequency)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
