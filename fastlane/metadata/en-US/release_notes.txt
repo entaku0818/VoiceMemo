@@ -8,3 +8,9 @@ Other:
 - Enhanced audio quality for headphone microphone input
 - Optimized app category display
 - Overall stability and performance improvements
+
+Improved recording safety:
+• Warning when attempting to navigate away during recording
+• Option to continue recording or stop and navigate
+• Recording indicator in the navigation bar
+• Restricted access to playlist, settings, and iCloud sync during recording

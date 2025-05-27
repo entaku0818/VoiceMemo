@@ -11,3 +11,9 @@ Corrections de bugs et améliorations de stabilité
 - Amélioration de la qualité audio pour l'entrée du microphone des écouteurs
 - Optimisation de l'affichage des catégories d'applications
 - Améliorations générales de la stabilité et des performances
+
+Amélioration de la sécurité d'enregistrement :
+• Avertissement lors de la tentative de navigation pendant l'enregistrement
+• Option pour continuer l'enregistrement ou arrêter et naviguer
+• Indicateur d'enregistrement dans la barre de navigation
+• Accès restreint à la playlist, aux paramètres et à la synchronisation iCloud pendant l'enregistrement
