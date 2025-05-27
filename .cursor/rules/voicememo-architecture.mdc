@@ -1,0 +1,34 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# VoiceMemo App Architecture
+
+## Core Components
+
+The main view hierarchy is defined in [VoiLog/Voice/VoiceMemosView.swift](mdc:VoiLog/Voice/VoiceMemosView.swift), which contains:
+
+- Recording functionality
+- Playback controls
+- Voice memo list management
+- Alert/overlay handling
+
+## Key Features
+
+### Recording State Management
+- Recording state is managed through the VoiceMemoReducer
+- Recording alerts prevent other interactions during active recording
+- Custom overlay system for user feedback
+
+### UI Components
+- VoiceMemoListView: Displays recorded memos
+- RecordingMemoView: Handles active recording UI
+- PlayerView: Controls playback of recorded memos
+
+## Release Process
+
+The app uses Fastlane for deployment, configured in [fastlane/Fastfile](mdc:fastlane/Fastfile):
+- Version management through Xcode project
+- Automated metadata and screenshot uploads
+- App Store submission process

@@ -1,0 +1,34 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Release Process Guidelines
+
+## Version Management
+
+1. Update version in Xcode project
+2. Create and push git tag (e.g., v0.16.7)
+3. Create GitHub release with:
+   - Appropriate release notes
+   - Generated notes from commits
+   - Proper tag association
+
+## App Store Deployment
+
+Use Fastlane's `upload_metadata` lane in [fastlane/Fastfile](mdc:fastlane/Fastfile):
+```bash
+bundle exec fastlane ios upload_metadata
+```
+
+This will:
+- Get version from Xcode project
+- Upload metadata and screenshots
+- Submit for App Store review
+
+## Post-Release
+
+After successful deployment:
+- Verify GitHub release is properly tagged
+- Confirm App Store submission status
+- Monitor for any submission feedback

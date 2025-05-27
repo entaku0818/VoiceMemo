@@ -1,0 +1,30 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Recording Functionality Guidelines
+
+## Alert System
+
+When implementing recording-related alerts:
+- Use system background color with rounded corners
+- Include clear, concise messages in Japanese
+- Provide simple action buttons
+- Prevent other interactions during recording
+
+## State Management
+
+Recording state should:
+- Be managed through VoiceMemoReducer
+- Disable navigation and interaction when recording
+- Show appropriate visual feedback
+- Handle interruptions gracefully
+
+## UI Feedback
+
+Recording UI must:
+- Show clear recording status
+- Provide immediate visual feedback
+- Use consistent styling with the rest of the app
+- Follow iOS design guidelines
