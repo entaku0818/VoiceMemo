@@ -12,317 +12,9 @@ struct VoiceMemosView: View {
     let recordAdmobUnitId: String
     let playListAdmobUnitId: String
 
-
-    enum AlertType {
-        case deleted
-        case appInterview
-        case mail
-        case recordingNavigation
-    }
     @State private var isDeleteConfirmationPresented = false
     @State private var selectedIndex: Int?
     @State private var isRecordingNavigationAlertPresented = false
-    @State private var pendingNavigation: (() -> Void)? = nil
-
-    init(store: StoreOf<VoiceMemos>, admobUnitId: String, recordAdmobUnitId: String,playListAdmobUnitId:String) {
-        self.store = store
-        self.admobUnitId = admobUnitId
-        self.recordAdmobUnitId = recordAdmobUnitId
-        self.playListAdmobUnitId = playListAdmobUnitId
-    }
-
-    var body: some View {
-        WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ZStack {
-                NavigationView {
-                    VStack {
-                        List {
-                            Section {
-                                Button(action: {
-                                    handleNavigation({
-                                        let destination = PlaylistListView(
-                                            store: Store(
-                                                initialState: PlaylistListFeature.State()
-                                            ) { PlaylistListFeature() },
-                                            admobUnitId: playListAdmobUnitId
-                                        )
-                                        // ここでナビゲーションを実行
-                                    }, viewStore: viewStore)
-                                }) {
-                                    Label("プレイリスト", systemImage: "music.note.list")
-                                }
-                                .disabled(viewStore.recordingMemo != nil)
-                            }
-
-                            Section {
-                                ForEachStore(
-                                    self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-                                ) {
-                                    VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
-                                }
-                                .onDelete { indexSet in
-                                    for index in indexSet {
-                                        selectedIndex = index
-                                        isDeleteConfirmationPresented = true
-                                    }
-                                }
-                            }
-                        }
-                        if viewStore.currentMode == .playback {
-                            if let playingMemoID = viewStore.currentPlayingMemo {
-                                ForEachStore(
-                                    self.store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
-                                )                                { store in
-                                        if store.withState({ $0.id == playingMemoID }) {
-                                            PlayerView(store: store)
-                                        }
-                                    }
-                            }
-                        } else if viewStore.currentMode == .recording {
-                            IfLetStore(
-                                self.store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
-                            ) { store in
-                                RecordingMemoView(store: store)
-                            } else: {
-                                RecordButton(permission: viewStore.audioRecorderPermission) {
-                                    viewStore.send(.recordButtonTapped, animation: .spring())
-                                } settingsAction: {
-                                    viewStore.send(.openSettingsButtonTapped)
-                                }
-                            }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color(white: 0.95))
-                        }
-
-                        if !viewStore.hasPurchasedPremium {
-                            AdmobBannerView(unitId: recordAdmobUnitId)
-                                .frame(height: 50)
-                        }
-                    }
-                    .onAppear {
-                        checkTrackingAuthorizationStatus()
-                        viewStore.send(.onAppear)
-                    }
-                    .alert(store: self.store.scope(state: \.$alert, action: VoiceMemos.Action.alert))
-                    .alert(isPresented: $isDeleteConfirmationPresented) {
-                        Alert(
-                            title: Text("削除しますか？"),
-                            message: Text("選択した音声を削除しますか？"),
-                            primaryButton: .destructive(Text("削除")) {
-                                if let index = selectedIndex {
-                                    let voiceMemoID = viewStore.voiceMemos[index].uuid
-                                    viewStore.send(.onDelete(uuid: voiceMemoID))
-                                    selectedIndex = nil
-                                }
-                            },
-                            secondaryButton: .cancel {
-                                selectedIndex = nil
-                            }
-                        )
-                    }
-                    .fullScreenCover(
-                        isPresented: viewStore.binding(
-                            get: \.isMailComposePresented,
-                            send: VoiceMemos.Action.mailComposeDismissed
-                        )
-                    ) {
-                        MailComposeViewControllerWrapper(
-                            isPresented: viewStore.binding(
-                                get: \.isMailComposePresented,
-                                send: VoiceMemos.Action.mailComposeDismissed
-                            )
-                        )
-                    }
-                    .navigationTitle("シンプル録音")
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            if viewStore.recordingMemo != nil {
-                                HStack {
-                                    Text("シンプル録音")
-                                    Image(systemName: "record.circle")
-                                        .foregroundColor(.red)
-                                }
-                            }
-                        }
-                        ToolbarItem(placement: .navigationBarLeading) {
-                            if !viewStore.hasPlayingMemo {
-                                Button(action: {
-                                    viewStore.send(.toggleMode)
-                                }) {
-                                    Text(viewStore.currentMode == .playback ? "再生" : "録音")
-                                }
-                            }
-                        }
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            if viewStore.recordingMemo == nil {
-                                makeToolbarContent(viewStore: viewStore)
-                            }
-                        }
-                    }
-                    .alert(isPresented: $isRecordingNavigationAlertPresented) {
-                        Alert(
-                            title: Text("録音中です"),
-                            message: Text("録音中は他の画面に移動できません。\n録音を停止してから移動してください。"),
-                            primaryButton: .cancel(Text("録音を続ける")),
-                            secondaryButton: .destructive(Text("録音を停止")) {
-                                viewStore.send(.recordingMemo(.presented(.stopButtonTapped)))
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    pendingNavigation?()
-                                    pendingNavigation = nil
-                                }
-                            }
-                        )
-                    }
-                }
-                .navigationViewStyle(.stack)
-                
-                if viewStore.showTutorial {
-                    TutorialView(store: store)
-                }
-                
-                if viewStore.showTitleDialog {
-                    ZStack {
-                        // 背景のオーバーレイ
-                        Color.black.opacity(0.4)
-                            .edgesIgnoringSafeArea(.all)
-                            .animation(.easeInOut(duration: 0.2), value: viewStore.showTitleDialog)
-                        
-                        // ダイアログカード
-                        VStack(spacing: 24) {
-                            // ヘッダー部分
-                            VStack(spacing: 8) {
-                                Text("メモのタイトルを入力")
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                
-                                Text("このメモにわかりやすいタイトルをつけましょう")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                                    .multilineTextAlignment(.center)
-                            }
-                            
-                            // 入力フィールド
-                            TextField("タイトル", text: viewStore.binding(
-                                get: \.tempTitle,
-                                send: { VoiceMemos.Action.setTempTitle($0) }
-                            ))
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.horizontal, 4)
-                            .submitLabel(.done)
-                            .onSubmit {
-                                if !viewStore.tempTitle.isEmpty {
-                                    viewStore.send(.saveTitle)
-                                }
-                            }
-                            
-                            // ボタンエリア
-                            HStack(spacing: 16) {
-                                Button(action: {
-                                    viewStore.send(.showTitleDialog(false))
-                                }) {
-                                    Text("キャンセル")
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 8)
-                                        .font(.subheadline)
-                                }
-                                .buttonStyle(.bordered)
-                                .tint(.secondary)
-                                .controlSize(.small)
-                                
-                                Button(action: {
-                                    viewStore.send(.saveTitle)
-                                }) {
-                                    Text("保存")
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 8)
-                                        .font(.subheadline)
-                                        .fontWeight(.medium)
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .tint(.blue)
-                                .controlSize(.small)
-                                .disabled(viewStore.tempTitle.isEmpty)
-                            }
-                            .padding(.horizontal, 16)
-                        }
-                        .padding(24)
-                        .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(Color(UIColor.systemBackground))
-                        )
-                        .shadow(color: Color.black.opacity(0.15), radius: 16, x: 0, y: 4)
-                        .padding(.horizontal, 40)
-                        .transition(.scale.combined(with: .opacity))
-                        .animation(.spring(response: 0.3), value: viewStore.showTitleDialog)
-                    }
-                }
-            }
-        }
-    }
-
-    private func makeToolbarContent(viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) -> some View {
-        let initialState = SettingReducer.State(
-            selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
-            samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
-            quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
-            numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
-            microphonesVolume: UserDefaultsManager.shared.microphonesVolume,
-            developerSupported: UserDefaultsManager.shared.hasSupportedDeveloper,
-            hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
-        )
-
-        let settingStore = Store(initialState: initialState) {
-            SettingReducer()
-        }
-
-        return HStack {
-            makeSyncStatusView(viewStore: viewStore)
-            Spacer().frame(width: 10)
-            Button(action: {
-                handleNavigation({
-                    let destination = SettingView(store: settingStore, admobUnitId: admobUnitId)
-                    // ここでナビゲーションを実行
-                }, viewStore: viewStore)
-            }) {
-                Image(systemName: "gearshape.fill")
-                    .accentColor(.accentColor)
-            }
-        }
-    }
-
-    private func makeSyncStatusView(viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) -> some View {
-        Group {
-            if viewStore.syncStatus == .synced {
-                Image(systemName: "checkmark.icloud.fill")
-                    .foregroundColor(.accentColor)
-            } else if viewStore.syncStatus == .syncing {
-                Image(systemName: "arrow.triangle.2.circlepath.icloud.fill")
-                    .foregroundColor(.accentColor)
-            } else {
-                if viewStore.hasPurchasedPremium {
-                    Button {
-                        handleNavigation({
-                            viewStore.send(.synciCloud)
-                        }, viewStore: viewStore)
-                    } label: {
-                        Image(systemName: "exclamationmark.icloud.fill")
-                            .foregroundColor(.accentColor)
-                    }
-                } else {
-                    Button(action: {
-                        handleNavigation({
-                            let destination = PaywallView(purchaseManager: PurchaseManager.shared)
-                            // ここでナビゲーションを実行
-                        }, viewStore: viewStore)
-                    }) {
-                        Image(systemName: "exclamationmark.icloud.fill")
-                            .foregroundColor(.accentColor)
-                    }
-                }
-            }
-        }
-    }
 
     func checkTrackingAuthorizationStatus() {
         switch ATTrackingManager.trackingAuthorizationStatus {
@@ -349,12 +41,364 @@ struct VoiceMemosView: View {
         }
     }
 
-    private func handleNavigation(_ action: @escaping () -> Void, viewStore: ViewStore<VoiceMemos.State, VoiceMemos.Action>) {
-        if viewStore.recordingMemo != nil {
-            pendingNavigation = action
-            isRecordingNavigationAlertPresented = true
-        } else {
-            action()
+    init(store: StoreOf<VoiceMemos>, admobUnitId: String, recordAdmobUnitId: String, playListAdmobUnitId: String) {
+        self.store = store
+        self.admobUnitId = admobUnitId
+        self.recordAdmobUnitId = recordAdmobUnitId
+        self.playListAdmobUnitId = playListAdmobUnitId
+    }
+
+    var body: some View {
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            NavigationView {
+                VStack {
+                    VoiceMemoListView(
+                        store: store,
+                        admobUnitId: admobUnitId,
+                        playListAdmobUnitId: playListAdmobUnitId,
+                        isDeleteConfirmationPresented: $isDeleteConfirmationPresented,
+                        selectedIndex: $selectedIndex,
+                        isRecordingNavigationAlertPresented: $isRecordingNavigationAlertPresented
+                    )
+                    
+                    if viewStore.currentMode == .playback {
+                        if let playingMemoID = viewStore.currentPlayingMemo {
+                            ForEachStore(
+                                store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                            ) { store in
+                                if store.withState({ $0.id == playingMemoID }) {
+                                    PlayerView(store: store)
+                                }
+                            }
+                        }
+                    } else if viewStore.currentMode == .recording {
+                        IfLetStore(
+                            store.scope(state: \.$recordingMemo, action: VoiceMemos.Action.recordingMemo)
+                        ) { store in
+                            RecordingMemoView(store: store)
+                        } else: {
+                            RecordButton(permission: viewStore.audioRecorderPermission) {
+                                viewStore.send(.recordButtonTapped, animation: .spring())
+                            } settingsAction: {
+                                viewStore.send(.openSettingsButtonTapped)
+                            }
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color(white: 0.95))
+                    }
+                    
+                    if !viewStore.hasPurchasedPremium {
+                        AdmobBannerView(unitId: recordAdmobUnitId)
+                            .frame(height: 50)
+                    }
+                }
+                .navigationTitle("シンプル録音")
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        if viewStore.recordingMemo != nil {
+                            HStack {
+                                Text("シンプル録音")
+                                Image(systemName: "record.circle")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        if !viewStore.hasPlayingMemo {
+                            Button(action: {
+                                if viewStore.recordingMemo != nil {
+                                    isRecordingNavigationAlertPresented = true
+                                } else {
+                                    viewStore.send(.toggleMode)
+                                }
+                            }) {
+                                Text(viewStore.currentMode == .playback ? "再生" : "録音")
+                            }
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        HStack {
+                            if viewStore.syncStatus == .synced {
+                                Image(systemName: "checkmark.icloud.fill")
+                                    .foregroundColor(.accentColor)
+                            } else if viewStore.syncStatus == .syncing {
+                                Image(systemName: "arrow.triangle.2.circlepath.icloud.fill")
+                                    .foregroundColor(.accentColor)
+                            } else {
+                                if viewStore.hasPurchasedPremium {
+                                    Button {
+                                        if viewStore.recordingMemo != nil {
+                                            isRecordingNavigationAlertPresented = true
+                                        } else {
+                                            viewStore.send(.synciCloud)
+                                        }
+                                    } label: {
+                                        Image(systemName: "exclamationmark.icloud.fill")
+                                            .foregroundColor(.accentColor)
+                                    }
+                                } else {
+                                    let paywallView = PaywallView(purchaseManager: PurchaseManager.shared)
+                                    NavigationLink(
+                                        destination: paywallView,
+                                        label: {
+                                            Image(systemName: "exclamationmark.icloud.fill")
+                                                .foregroundColor(.accentColor)
+                                        }
+                                    )
+                                    .disabled(viewStore.recordingMemo != nil)
+                                    .simultaneousGesture(TapGesture().onEnded {
+                                        if viewStore.recordingMemo != nil {
+                                            isRecordingNavigationAlertPresented = true
+                                        }
+                                    })
+                                }
+                            }
+                            
+                            Spacer().frame(width: 10)
+                            
+                            let settingStore = Store(
+                                initialState: SettingReducer.State(
+                                    selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
+                                    samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
+                                    quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
+                                    numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
+                                    microphonesVolume: UserDefaultsManager.shared.microphonesVolume,
+                                    developerSupported: UserDefaultsManager.shared.hasSupportedDeveloper,
+                                    hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
+                                )
+                            ) {
+                                SettingReducer()
+                            }
+                            
+                            NavigationLink(
+                                destination: SettingView(store: settingStore, admobUnitId: admobUnitId),
+                                label: {
+                                    Image(systemName: "gearshape.fill")
+                                        .accentColor(.accentColor)
+                                }
+                            )
+                            .disabled(viewStore.recordingMemo != nil)
+                            .simultaneousGesture(TapGesture().onEnded {
+                                if viewStore.recordingMemo != nil {
+                                    isRecordingNavigationAlertPresented = true
+                                }
+                            })
+                        }
+                    }
+                }
+                .alert(isPresented: $isRecordingNavigationAlertPresented) {
+                    Alert(
+                        title: Text("録音中です"),
+                        message: Text("録音中は他の操作ができません。\n録音を停止してから操作してください。"),
+                        dismissButton: .default(Text("録音を続ける"))
+                    )
+                }
+                .alert(isPresented: $isDeleteConfirmationPresented) {
+                    Alert(
+                        title: Text("削除しますか？"),
+                        message: Text("選択した音声を削除しますか？"),
+                        primaryButton: .destructive(Text("削除")) {
+                            if let index = selectedIndex {
+                                let voiceMemoID = viewStore.voiceMemos[index].uuid
+                                viewStore.send(.onDelete(uuid: voiceMemoID))
+                                selectedIndex = nil
+                            }
+                        },
+                        secondaryButton: .cancel {
+                            selectedIndex = nil
+                        }
+                    )
+                }
+                .fullScreenCover(
+                    isPresented: viewStore.binding(
+                        get: \.isMailComposePresented,
+                        send: VoiceMemos.Action.mailComposeDismissed
+                    )
+                ) {
+                    MailComposeViewControllerWrapper(
+                        isPresented: viewStore.binding(
+                            get: \.isMailComposePresented,
+                            send: VoiceMemos.Action.mailComposeDismissed
+                        )
+                    )
+                }
+            }
+            .navigationViewStyle(.stack)
+            .onAppear {
+                checkTrackingAuthorizationStatus()
+                viewStore.send(.onAppear)
+            }
+
+            if viewStore.showTutorial {
+                TutorialView(store: store)
+            }
+            
+            if viewStore.showTitleDialog {
+                ZStack {
+                    // 背景のオーバーレイ
+                    Color.black.opacity(0.4)
+                        .edgesIgnoringSafeArea(.all)
+                        .animation(.easeInOut(duration: 0.2), value: viewStore.showTitleDialog)
+                    
+                    // ダイアログカード
+                    VStack(spacing: 24) {
+                        // ヘッダー部分
+                        VStack(spacing: 8) {
+                            Text("メモのタイトルを入力")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                            
+                            Text("このメモにわかりやすいタイトルをつけましょう")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
+                        
+                        // 入力フィールド
+                        TextField("タイトル", text: viewStore.binding(
+                            get: \.tempTitle,
+                            send: { VoiceMemos.Action.setTempTitle($0) }
+                        ))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal, 4)
+                        .submitLabel(.done)
+                        .onSubmit {
+                            if !viewStore.tempTitle.isEmpty {
+                                viewStore.send(.saveTitle)
+                            }
+                        }
+                        
+                        // ボタンエリア
+                        HStack(spacing: 16) {
+                            Button(action: {
+                                viewStore.send(.showTitleDialog(false))
+                            }) {
+                                Text("キャンセル")
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 8)
+                                    .font(.subheadline)
+                            }
+                            .buttonStyle(.bordered)
+                            .tint(.secondary)
+                            .controlSize(.small)
+                            
+                            Button(action: {
+                                viewStore.send(.saveTitle)
+                            }) {
+                                Text("保存")
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 8)
+                                    .font(.subheadline)
+                                    .fontWeight(.medium)
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.blue)
+                            .controlSize(.small)
+                            .disabled(viewStore.tempTitle.isEmpty)
+                        }
+                        .padding(.horizontal, 16)
+                    }
+                    .padding(24)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color(UIColor.systemBackground))
+                    )
+                    .shadow(color: Color.black.opacity(0.15), radius: 16, x: 0, y: 4)
+                    .padding(.horizontal, 40)
+                    .transition(.scale.combined(with: .opacity))
+                    .animation(.spring(response: 0.3), value: viewStore.showTitleDialog)
+                }
+            }
+        }
+    }
+}
+
+private struct VoiceMemoListView: View {
+    let store: StoreOf<VoiceMemos>
+    let admobUnitId: String
+    let playListAdmobUnitId: String
+    @Binding var isDeleteConfirmationPresented: Bool
+    @Binding var selectedIndex: Int?
+    @Binding var isRecordingNavigationAlertPresented: Bool
+
+    var body: some View {
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            List {
+                PlaylistSection(
+                    store: store,
+                    playListAdmobUnitId: playListAdmobUnitId,
+                    isRecordingNavigationAlertPresented: $isRecordingNavigationAlertPresented
+                )
+
+                VoiceMemoSection(
+                    store: store,
+                    admobUnitId: admobUnitId,
+                    isDeleteConfirmationPresented: $isDeleteConfirmationPresented,
+                    selectedIndex: $selectedIndex
+                )
+            }
+        }
+    }
+}
+
+private struct PlaylistSection: View {
+    let store: StoreOf<VoiceMemos>
+    let playListAdmobUnitId: String
+    @Binding var isRecordingNavigationAlertPresented: Bool
+
+    var body: some View {
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            Section {
+                let playlistStore = Store(
+                    initialState: PlaylistListFeature.State()
+                ) { PlaylistListFeature() }
+                
+                let destination = PlaylistListView(
+                    store: playlistStore,
+                    admobUnitId: playListAdmobUnitId
+                )
+                
+                NavigationLink(
+                    destination: destination,
+                    label: {
+                        Label("プレイリスト", systemImage: "music.note.list")
+                    }
+                )
+                .disabled(viewStore.recordingMemo != nil)
+                .simultaneousGesture(TapGesture().onEnded {
+                    if viewStore.recordingMemo != nil {
+                        isRecordingNavigationAlertPresented = true
+                    }
+                })
+            }
+        }
+    }
+}
+
+private struct VoiceMemoSection: View {
+    let store: StoreOf<VoiceMemos>
+    let admobUnitId: String
+    @Binding var isDeleteConfirmationPresented: Bool
+    @Binding var selectedIndex: Int?
+
+    var body: some View {
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            Section {
+                ForEachStore(
+                    store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
+                ) {
+                    VoiceMemoListItem(store: $0, admobUnitId: admobUnitId, currentMode: viewStore.currentMode)
+                }
+                .onDelete { indexSet in
+                    for index in indexSet {
+                        selectedIndex = index
+                        isDeleteConfirmationPresented = true
+                    }
+                }
+            }
         }
     }
 }
@@ -457,3 +501,5 @@ struct VoiceMemos_Previews: PreviewProvider {
 
     }
 }
+
+
