@@ -239,11 +239,19 @@ struct VoiceMemos: Reducer {
 
                 case .allowed:
                     state.recordingMemo = newRecordingMemo
+                    // 録音開始時に全てのメモの isRecording フラグを true に設定
+                    for id in state.voiceMemos.ids {
+                        state.voiceMemos[id: id]?.isRecording = true
+                    }
                     return .none
                 }
 
             case let .recordingMemo(.presented(.delegate(.didFinish(.success(recordingMemo))))):
                 state.recordingMemo = nil
+                // 録音終了時に全てのメモの isRecording フラグを false に設定
+                for id in state.voiceMemos.ids {
+                    state.voiceMemos[id: id]?.isRecording = false
+                }
                 
                 let newMemo = VoiceMemoReducer.State(
                     uuid: recordingMemo.uuid,
@@ -256,7 +264,8 @@ struct VoiceMemos: Reducer {
                     samplingFrequency: recordingMemo.samplingFrequency,
                     quantizationBitDepth: recordingMemo.quantizationBitDepth,
                     numberOfChannels: recordingMemo.numberOfChannels,
-                    hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
+                    hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct,
+                    isRecording: false
                 )
                 
                 state.voiceMemos.insert(newMemo, at: 0)

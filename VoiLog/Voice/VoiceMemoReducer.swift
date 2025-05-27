@@ -213,6 +213,7 @@ struct VoiceMemoReducer: Reducer {
         var isLooping = false
         var waveformData: [Float] = []
         var hasPurchasedPremium: Bool
+        var isRecording: Bool = false
 
         var id: URL { self.url }
 
@@ -227,11 +228,13 @@ struct VoiceMemoReducer: Reducer {
         }
     }
 }
+
 struct VoiceMemoListItem: View {
     let store: StoreOf<VoiceMemoReducer>
     @State private var showingModal = false
     let admobUnitId: String
     let currentMode: VoiceMemos.State.Mode
+    @Binding var isRecordingNavigationAlertPresented: Bool
 
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -331,10 +334,18 @@ struct VoiceMemoListItem: View {
                     }
                 }
             }
+            .allowsHitTesting(!viewStore.isRecording)
+            .opacity(viewStore.isRecording ? 0.5 : 1.0)
             .buttonStyle(.borderless)
             .frame(maxHeight: .infinity, alignment: .center)
             .padding(.horizontal)
             .listRowInsets(EdgeInsets())
+            .contentShape(Rectangle())
+            .onTapGesture {
+                if viewStore.isRecording {
+                    isRecordingNavigationAlertPresented = true
+                }
+            }
         }
     }
 }
@@ -361,7 +372,9 @@ struct VoiceMemoListItem_Previews: PreviewProvider {
             ) {
                 VoiceMemoReducer()
             },
-            admobUnitId: "", currentMode: .playback
+            admobUnitId: "", 
+            currentMode: .playback,
+            isRecordingNavigationAlertPresented: .constant(false)
         ).padding()
     }
 }
