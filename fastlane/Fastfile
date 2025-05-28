@@ -58,7 +58,8 @@ platform :ios do
         add_id_info_uses_idfa: false,  # IDFAの使用なし
         export_compliance_uses_encryption: false,  # 暗号化なし
         export_compliance_platform: "ios"  # プラットフォームはiOS
-      }
+      },
+      build_number: "latest"  # 最新のビルド番号を自動選択
     )
   end
 end
