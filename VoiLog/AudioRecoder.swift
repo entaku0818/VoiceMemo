@@ -107,6 +107,7 @@ private actor AudioRecorder {
     var isFinal = false
     var currentTime: TimeInterval = 0
     var isPaused = false
+    var isRecording = false // 録音状態を追跡
 
     var audioLevel: Float = 0.0 // 音の大きさを表すプロパティ
 
@@ -120,6 +121,13 @@ private actor AudioRecorder {
 
     func stop() {
         if currentTime < 2 { return }
+        
+        // 録音状態をfalseに設定
+        isRecording = false
+        
+        // 割り込み処理を削除
+        self.removeInterruptionHandling()
+        
         audioEngine?.stop()
         self.inputNode?.removeTap(onBus: 0)
         self.recognitionTask?.cancel()
@@ -134,7 +142,14 @@ private actor AudioRecorder {
     func setupAVAudioSession() {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(.playAndRecord, options: [.defaultToSpeaker, .allowBluetooth, .allowBluetoothA2DP, .mixWithOthers])
+            // より強力な録音継続設定
+            try audioSession.setCategory(.playAndRecord, options: [
+                .defaultToSpeaker, 
+                .allowBluetooth, 
+                .allowBluetoothA2DP, 
+                .mixWithOthers,
+                .duckOthers  // 他の音声を小さくして録音を継続
+            ])
             try audioSession.setPreferredSampleRate(UserDefaultsManager.shared.samplingFrequency)
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
@@ -146,6 +161,10 @@ private actor AudioRecorder {
         self.stop()
         setupAVAudioSession()
         beginBackgroundTask()
+        
+        // 録音状態をtrueに設定
+        isRecording = true
+        
         let stream = AsyncThrowingStream<Bool, Error> { continuation in
             do {
                 speechRecognizer = SFSpeechRecognizer(locale: Locale.current)
@@ -158,7 +177,8 @@ private actor AudioRecorder {
                     return
                 }
 
-                NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption), name: AVAudioSession.interruptionNotification, object: AVAudioSession.sharedInstance())
+                // 割り込み処理を安全に登録
+                self.setupInterruptionHandling()
 
                 inputNode.volume = Float(UserDefaultsManager.shared.microphonesVolume)
 
@@ -282,36 +302,13 @@ private actor AudioRecorder {
         }
     }
 
-    @objc func handleInterruption(notification: Notification) async {
-        guard let userInfo = notification.userInfo,
-              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
-              let interruptionType = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-            return
-        }
-
-        switch interruptionType {
-        case .began:
-            audioEngine?.pause()
-            UserDefaultsManager.shared.logError("Audio session interrupted. Audio engine paused.")
-        case .ended:
-            do {
-                try AVAudioSession.sharedInstance().setActive(true)
-                try audioEngine?.start()
-                UserDefaultsManager.shared.logError("Audio session interruption ended. Audio engine restarted.")
-            } catch {
-                UserDefaultsManager.shared.logError("Failed to reactivate audio session: \(error.localizedDescription)")
-            }
-        default:
-            break
-        }
-    }
-
     func pause() {
         isPaused = true
         audioEngine?.pause()
     }
 
     func resume() {
+        guard isRecording else { return }
         isPaused = false
         try? audioEngine?.start()
     }
@@ -343,5 +340,95 @@ private actor AudioRecorder {
 
     func fetchResultText() -> String {
         resultText
+    }
+
+    // 安全な割り込み処理の設定
+    private func setupInterruptionHandling() {
+        NotificationCenter.default.addObserver(
+            forName: AVAudioSession.interruptionNotification,
+            object: nil,
+            queue: OperationQueue.main
+        ) { [weak self] notification in
+            self?.handleInterruption(notification)
+        }
+        
+        // ルート変更の監視も追加（Bluetoothヘッドセットの接続/切断など）
+        NotificationCenter.default.addObserver(
+            forName: AVAudioSession.routeChangeNotification,
+            object: nil,
+            queue: OperationQueue.main
+        ) { [weak self] notification in
+            self?.handleRouteChange(notification)
+        }
+    }
+    
+    // 割り込み処理の削除
+    private func removeInterruptionHandling() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: AVAudioSession.interruptionNotification,
+            object: nil
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: AVAudioSession.routeChangeNotification,
+            object: nil
+        )
+    }
+
+    // 同期的な割り込み処理（クラッシュを防ぐ）
+    private func handleInterruption(_ notification: Notification) {
+        guard isRecording else { return }
+        
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+            return
+        }
+
+        switch type {
+        case .began:
+            UserDefaultsManager.shared.logError("Audio interruption began - trying to maintain recording")
+            // 録音を継続するために何もしない（duckOthersオプションで他の音を小さくする）
+            
+        case .ended:
+            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else {
+                return
+            }
+            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+            
+            if options.contains(.shouldResume) {
+                UserDefaultsManager.shared.logError("Audio interruption ended - resuming recording")
+                // AudioSessionを再アクティブ化
+                do {
+                    try AVAudioSession.sharedInstance().setActive(true)
+                } catch {
+                    UserDefaultsManager.shared.logError("Failed to reactivate audio session: \(error)")
+                }
+            }
+            
+        @unknown default:
+            break
+        }
+    }
+    
+    // ルート変更の処理
+    private func handleRouteChange(_ notification: Notification) {
+        guard isRecording else { return }
+        
+        guard let userInfo = notification.userInfo,
+              let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
+              let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else {
+            return
+        }
+        
+        switch reason {
+        case .newDeviceAvailable:
+            UserDefaultsManager.shared.logError("New audio device available")
+        case .oldDeviceUnavailable:
+            UserDefaultsManager.shared.logError("Audio device disconnected")
+        default:
+            break
+        }
     }
 }
