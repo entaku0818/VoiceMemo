@@ -9,6 +9,7 @@
 ## 開発リソース
 
 - `VoiLog/Template/` - ComposableArchitectureを使用した機能開発用のテンプレートが含まれています。詳細は[テンプレートREADME](VoiLog/Template/README.md)を参照してください。
+- [📱 音声録音割り込み処理テスト項目](AUDIO_RECORDING_TESTS.md) - アラーム、電話、通知などの割り込み処理に関する詳細なテスト項目とチェックリスト
 
 ## Fastlane
 
