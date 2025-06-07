@@ -85,6 +85,7 @@
 		616190402DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Info.plist,
 				Prod.xcconfig,
 			);
 			target = 619799E128C34A2500169FB6 /* VoiLog */;
