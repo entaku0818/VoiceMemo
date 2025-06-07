@@ -296,12 +296,7 @@ struct RecordingView: View {
       // Audio Level Meter
       AudioLevelView(audioLevel: store.volumes)
         .frame(height: 20)
-      
-      // Waveform (if available)
-      if !store.waveFormHeights.isEmpty {
-        WaveformView(heights: store.waveFormHeights)
-          .frame(height: 60)
-      }
+
     }
     .padding(.horizontal)
   }
@@ -458,81 +453,6 @@ struct RecordingView: View {
   }
 }
 
-// MARK: - Supporting Views
-
-struct RingProgressView: View {
-  var value: CGFloat
-  var lineWidth: CGFloat = 8.0
-  var outerRingColor = Color.black.opacity(0.1)
-  var innerRingColor = Color.red
-
-  var body: some View {
-    ZStack {
-      Circle()
-        .stroke(lineWidth: lineWidth)
-        .foregroundColor(outerRingColor)
-      
-      Circle()
-        .trim(from: 0.0, to: CGFloat(min(value, 1.0)))
-        .stroke(
-          style: StrokeStyle(
-            lineWidth: lineWidth,
-            lineCap: .round,
-            lineJoin: .round
-          )
-        )
-        .foregroundColor(innerRingColor)
-        .rotationEffect(.degrees(-90.0))
-    }
-    .padding(.all, lineWidth / 2)
-  }
-}
-
-struct AudioLevelView: View {
-  let audioLevel: Float
-  
-  var body: some View {
-    GeometryReader { geometry in
-      let normalizedLevel = max(0, min(1, (audioLevel + 60) / 60)) // -60dB to 0dB range
-      let width = geometry.size.width * CGFloat(normalizedLevel)
-      
-      ZStack(alignment: .leading) {
-        Rectangle()
-          .fill(Color(.systemGray5))
-        
-        Rectangle()
-          .fill(LinearGradient(
-            colors: [.green, .yellow, .red],
-            startPoint: .leading,
-            endPoint: .trailing
-          ))
-          .frame(width: width)
-      }
-    }
-    .cornerRadius(4)
-  }
-}
-
-struct WaveformView: View {
-  let heights: [Float]
-  
-  var body: some View {
-    HStack(spacing: 2) {
-      ForEach(Array(heights.enumerated()), id: \.offset) { index, height in
-        Rectangle()
-          .fill(Color.blue)
-          .frame(width: 3, height: CGFloat(height * 50) + 1)
-      }
-    }
-  }
-}
-
-private let dateComponentsFormatter: DateComponentsFormatter = {
-  let formatter = DateComponentsFormatter()
-  formatter.allowedUnits = [.minute, .second]
-  formatter.zeroFormattingBehavior = .pad
-  return formatter
-}()
 
 #Preview {
   RecordingView(

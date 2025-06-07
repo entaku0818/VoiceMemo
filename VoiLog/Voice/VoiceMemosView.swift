@@ -16,6 +16,7 @@ struct VoiceMemosView: View {
     @State private var selectedIndex: Int?
     @State private var isRecordingNavigationAlertPresented = false
 
+
     func checkTrackingAuthorizationStatus() {
         switch ATTrackingManager.trackingAuthorizationStatus {
         case .notDetermined:
@@ -342,6 +343,7 @@ struct VoiceMemosView: View {
                     )
                 )
             }
+
         }
     }
 }
@@ -473,6 +475,8 @@ struct RecordButton: View {
         }
     }
 }
+
+
 
 struct VoiceMemos_Previews: PreviewProvider {
     static var previews: some View {

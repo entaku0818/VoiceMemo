@@ -115,14 +115,18 @@ struct PlaybackFeature {
         case let .playPauseButtonTapped(id):
           if state.currentPlayingMemo == id {
             if state.playbackState == .playing {
-              state.playbackState = .paused
+              // 再生中の場合は停止
+              state.playbackState = .idle
+              state.currentPlayingMemo = nil
+              state.currentTime = 0
               return .run { _ in
-                await audioPlayer.pause()
+                try await audioPlayer.stop()
               }
             } else {
+              // 停止中の場合は再生開始
               state.playbackState = .playing
-              return .run { _ in
-                await audioPlayer.resume()
+              if let memo = state.voiceMemos.first(where: { $0.id == id }) {
+                return startPlayback(url: memo.url)
               }
             }
           } else {
@@ -142,14 +146,17 @@ struct PlaybackFeature {
           state.currentPlayingMemo = nil
           state.currentTime = 0
           return .run { _ in
-            await audioPlayer.stop()
+            try await audioPlayer.stop()
           }
           
         case let .seekTo(time):
           state.currentTime = time
-          return .run { _ in
-            await audioPlayer.seek(to: time)
+          // 既存のAudioPlayerClientにはseekメソッドがないため、
+          // 現在の再生を停止して新しい位置から再生を開始
+          if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+            return startPlayback(url: memo.url, startTime: time)
           }
+          return .none
           
         case let .toggleFavorite(id):
           if let index = state.voiceMemos.firstIndex(where: { $0.id == id }) {
@@ -239,12 +246,14 @@ struct PlaybackFeature {
     }
   }
   
-  private func startPlayback(url: URL) -> Effect<Action> {
+  private func startPlayback(url: URL, startTime: TimeInterval = 0) -> Effect<Action> {
     return .run { send in
       // 音声再生開始
       async let playback: Void = {
         do {
-          try await audioPlayer.play(url)
+          // AudioPlayerClientのplayメソッドのシグネチャに合わせる
+          // play(URL, startTime: Double, speed: PlaybackSpeed, isLooping: Bool)
+          _ = try await audioPlayer.play(url, startTime, .normal, false)
           await send(.audioPlayerDidFinish)
         } catch {
           await send(.playbackFinished)
@@ -254,8 +263,12 @@ struct PlaybackFeature {
       // 再生時間の更新
       async let timeUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
-          if let currentTime = await audioPlayer.currentTime() {
+          do {
+            let currentTime = try await audioPlayer.getCurrentTime()
             await send(.playbackTimeUpdated(currentTime))
+          } catch {
+            // エラーが発生した場合は更新を停止
+            break
           }
         }
       }()
