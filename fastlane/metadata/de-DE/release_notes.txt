@@ -1,12 +1,1 @@
-Fehlerbehebungen und Stabilitätsverbesserungen
-- Behebung des Tonhöhenproblems bei Verwendung des Kopfhörer-Mikrofons
-- Verbesserte App-Stabilität
-
-Sonstiges:
-- Kleinere Verbesserungen und Fehlerbehebungen
-
-Verbesserte Aufnahmesicherheit:
-• Warnung beim Versuch, während der Aufnahme zu navigieren
-• Option zum Fortsetzen der Aufnahme oder zum Stoppen und Navigieren
-• Aufnahmeanzeige in der Navigationsleiste
-• Eingeschränkter Zugriff auf Playlist, Einstellungen und iCloud-Synchronisierung während der Aufnahme
+Kleinere Fehlerbehebungen.

@@ -1,16 +1,1 @@
-Bug fixes and stability improvements
-- Fixed audio pitch issue when using headphone microphone
-- Improved app stability
-
-Other:
-- Minor improvements and bug fixes
-- Improved recording stability by removing background recording notifications
-- Enhanced audio quality for headphone microphone input
-- Optimized app category display
-- Overall stability and performance improvements
-
-Improved recording safety:
-• Warning when attempting to navigate away during recording
-• Option to continue recording or stop and navigate
-• Recording indicator in the navigation bar
-• Restricted access to playlist, settings, and iCloud sync during recording
+Minor bug fixes.

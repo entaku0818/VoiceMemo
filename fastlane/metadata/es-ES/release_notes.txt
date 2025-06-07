@@ -1,3 +1,5 @@
+Correcciones menores de errores.
+
 Correcciones de errores y mejoras de estabilidad
 - Corregido el problema de tono al usar el micrófono de auriculares
 - Mejorada la estabilidad de la aplicación

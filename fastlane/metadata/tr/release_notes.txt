@@ -1,6 +1,1 @@
-Hata düzeltmeleri ve kararlılık iyileştirmeleri
-- Kulaklık mikrofonu kullanırken ses perdesi sorunu düzeltildi
-- Uygulama kararlılığı iyileştirildi
-
-Diğer:
-- Küçük iyileştirmeler ve hata düzeltmeleri
+Küçük hata düzeltmeleri.

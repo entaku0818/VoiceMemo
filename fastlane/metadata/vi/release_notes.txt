@@ -1,6 +1,1 @@
-Sửa lỗi và cải thiện tính ổn định
-- Sửa lỗi âm thanh khi sử dụng micrô tai nghe
-- Cải thiện tính ổn định của ứng dụng
-
-Khác:
-- Cải thiện nhỏ và sửa lỗi
+Sửa lỗi nhỏ.

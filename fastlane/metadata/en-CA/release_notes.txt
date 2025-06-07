@@ -1,5 +1,1 @@
-New Features:
-- Added 60-second skip forward/backward functionality
-
-Other:
-- Minor improvements and bug fixes
+Minor bug fixes.

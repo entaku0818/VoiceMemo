@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.16.8] - 2024-12-19
+
+### 🐛 バグ修正
+- 録音機能の安定性向上
+- UI表示の改善
+- パフォーマンスの最適化
+
 ## [v0.16.7] - 2024-03-24
 
 ### 🔒 安全性の向上

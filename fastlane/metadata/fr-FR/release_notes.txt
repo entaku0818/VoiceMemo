@@ -4,6 +4,8 @@ Nouvelles fonctionnalités :
 Autres :
 - Améliorations mineures et corrections de bugs
 
+Corrections mineures de bugs.
+
 Corrections de bugs et améliorations de stabilité
 - Correction du problème de hauteur de son lors de l'utilisation du microphone du casque
 - Amélioration de la stabilité de l'application

@@ -1,3 +1,5 @@
+Correzioni minori di bug.
+
 Correzioni di bug e miglioramenti di stabilità
 - Risolto il problema del tono quando si utilizza il microfono delle cuffie
 - Migliorata la stabilità dell'app
