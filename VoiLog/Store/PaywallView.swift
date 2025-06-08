@@ -1,5 +1,6 @@
 import SwiftUI
 import RevenueCat
+import Dependencies
 
 struct PaywallView: View {
     @State private var productName: String = ""
@@ -10,6 +11,7 @@ struct PaywallView: View {
 
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
+    @Dependency(\.firebaseAnalytics) var analytics
 
     var purchaseManager: PurchaseManagerProtocol
 
@@ -172,9 +174,21 @@ struct PaywallView: View {
                 Spacer()
             }
             .onAppear {
+                // PaywallViewが表示されたことをAnalyticsに記録
+                analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallViewed, [
+                    "timestamp": Date().timeIntervalSince1970,
+                    "source": "paywall_view"
+                ])
+                
                 Task {
                     await fetchProductInfo()
                 }
+            }
+            .onDisappear {
+                // PaywallViewが閉じられたことをAnalyticsに記録
+                analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallDismissed, [
+                    "timestamp": Date().timeIntervalSince1970
+                ])
             }
         }
         .alert(isPresented: $showAlert) {
@@ -198,14 +212,37 @@ struct PaywallView: View {
 
     // RevenueCat用の購入処理
     func purchaseProduct() async {
+        // 購入試行をAnalyticsに記録
+        analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseAttempted, [
+            "product_name": productName,
+            "product_price": productPrice,
+            "timestamp": Date().timeIntervalSince1970
+        ])
+        
         do {
             try await purchaseManager.purchasePro()
+            
+            // 購入成功をAnalyticsに記録
+            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCompleted, [
+                "product_name": productName,
+                "product_price": productPrice,
+                "timestamp": Date().timeIntervalSince1970
+            ])
+            
             await MainActor.run {
                 alertMessage = "購入が完了しました！"
                 showAlert = true
                 presentationMode.wrappedValue.dismiss()
             }
         } catch {
+            // 購入失敗をAnalyticsに記録
+            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseFailed, [
+                "product_name": productName,
+                "product_price": productPrice,
+                "error": error.localizedDescription,
+                "timestamp": Date().timeIntervalSince1970
+            ])
+            
             await MainActor.run {
                 alertMessage = "購入に失敗しました"
                 showAlert = true
@@ -215,12 +252,29 @@ struct PaywallView: View {
 
     // RevenueCat用のリストア処理
     func restorePurchases() async {
+        // リストア試行をAnalyticsに記録
+        analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreAttempted, [
+            "timestamp": Date().timeIntervalSince1970
+        ])
+        
         do {
             try await purchaseManager.restorePurchases()
+            
+            // リストア成功をAnalyticsに記録
+            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreCompleted, [
+                "timestamp": Date().timeIntervalSince1970
+            ])
+            
             alertMessage = "購入情報が復元しました！"
             showAlert = true
             presentationMode.wrappedValue.dismiss()
         } catch {
+            // リストア失敗をAnalyticsに記録
+            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreFailed, [
+                "error": error.localizedDescription,
+                "timestamp": Date().timeIntervalSince1970
+            ])
+            
             alertMessage = "リストアに失敗しました"
             showAlert = true
         }
@@ -284,5 +338,6 @@ struct PaywallView_Previews: PreviewProvider {
                 .environment(\.colorScheme, .dark)
                 .background(.black)
         }
+        .dependency(\.firebaseAnalytics, .previewValue)
     }
 }
