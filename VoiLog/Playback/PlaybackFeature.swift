@@ -70,6 +70,8 @@ struct PlaybackFeature {
       case deleteMemo(VoiceMemo.ID)
       case confirmDelete
       case cancelDelete
+      case reloadData
+      case updateTitle(VoiceMemo.ID, String)
     }
     
     enum DelegateAction: Equatable {
@@ -79,6 +81,7 @@ struct PlaybackFeature {
 
   @Dependency(\.audioPlayer) var audioPlayer
   @Dependency(\.continuousClock) var clock
+  @Dependency(\.voiceMemoRepository) var voiceMemoRepository
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -171,6 +174,9 @@ struct PlaybackFeature {
           
         case .confirmDelete:
           if let id = state.selectedMemoForDeletion {
+            // データベースから削除
+            voiceMemoRepository.delete(id)
+            
             state.voiceMemos.removeAll { $0.id == id }
             if state.currentPlayingMemo == id {
               state.currentPlayingMemo = nil
@@ -186,6 +192,19 @@ struct PlaybackFeature {
         case .cancelDelete:
           state.selectedMemoForDeletion = nil
           state.showDeleteConfirmation = false
+          return .none
+          
+        case .reloadData:
+          return loadMemos()
+          
+        case let .updateTitle(id, newTitle):
+          // データベースでタイトルを更新
+          voiceMemoRepository.updateTitle(id, newTitle)
+          
+          // ローカル状態も更新
+          if let index = state.voiceMemos.firstIndex(where: { $0.id == id }) {
+            state.voiceMemos[index].title = newTitle
+          }
           return .none
         }
 
@@ -215,34 +234,21 @@ struct PlaybackFeature {
   
   private func loadMemos() -> Effect<Action> {
     return .run { send in
-      // シミュレートされたデータロード
-      try await clock.sleep(for: .seconds(1))
+      // データベースからデータを読み込み
+      let voiceMemoVoices = voiceMemoRepository.selectAllData()
       
-      let sampleMemos = [
+      let memos = voiceMemoVoices.map { voice in
         VoiceMemo(
-          title: "会議録音",
-          date: Date().addingTimeInterval(-3600),
-          duration: 1800,
-          url: URL(string: "file://sample1.m4a")!,
-          text: "今日の会議の内容について..."
-        ),
-        VoiceMemo(
-          title: "アイデアメモ",
-          date: Date().addingTimeInterval(-7200),
-          duration: 300,
-          url: URL(string: "file://sample2.m4a")!,
-          text: "新しいアプリのアイデア..."
-        ),
-        VoiceMemo(
-          title: "無題の録音",
-          date: Date().addingTimeInterval(-10800),
-          duration: 600,
-          url: URL(string: "file://sample3.m4a")!,
-          text: ""
+          id: voice.uuid,
+          title: voice.title.isEmpty ? "無題の録音" : voice.title,
+          date: voice.date,
+          duration: voice.duration,
+          url: voice.url,
+          text: voice.text
         )
-      ]
+      }
       
-      await send(.memosLoaded(sampleMemos))
+      await send(.memosLoaded(memos))
     }
   }
   

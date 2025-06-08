@@ -44,16 +44,8 @@ struct VoiceAppFeature {
         }
 
       case .recordingFeature(.delegate(.recordingCompleted(let result))):
-        // 録音完了時に再生画面のデータを更新
-        let newMemo = PlaybackFeature.VoiceMemo(
-          id: UUID(),
-          title: result.title,
-          date: result.date,
-          duration: result.duration,
-          url: result.url
-        )
-        state.playbackFeature.voiceMemos.insert(newMemo, at: 0)
-        return .none
+        // 録音完了時に再生画面のデータを自動更新
+        return .send(.playbackFeature(.view(.refreshRequested)))
         
       case .recordingFeature:
         return .none

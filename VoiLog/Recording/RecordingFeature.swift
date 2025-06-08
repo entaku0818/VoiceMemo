@@ -15,6 +15,7 @@ struct RecordingFeature {
     var isLoading: Bool = false
     var audioPermission: AudioPermission = .notDetermined
     var waveFormHeights: [Float] = []
+    var recordingId: UUID = UUID()
     
     enum RecordingState: Equatable {
       case idle
@@ -69,6 +70,7 @@ struct RecordingFeature {
   @Dependency(\.audioRecorder) var audioRecorder
   @Dependency(\.continuousClock) var clock
   @Dependency(\.uuid) var uuid
+  @Dependency(\.voiceMemoRepository) var voiceMemoRepository
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -87,7 +89,7 @@ struct RecordingFeature {
           
         case .stopButtonTapped:
           state.recordingState = .encoding
-          return .run { [url = createRecordingURL()] send in
+          return .run { send in
             await audioRecorder.stopRecording()
             await send(.view(.showTitleDialog(true)))
           }
@@ -107,19 +109,64 @@ struct RecordingFeature {
           
         case .titleDialogSaveButtonTapped:
           state.showTitleDialog = false
-          let result = RecordingResult(
-            url: createRecordingURL(),
+          let recordingUrl = createRecordingURL(with: state.recordingId)
+          let title = state.tempTitle.isEmpty ? "無題の録音" : state.tempTitle
+          let recordingDate = Date()
+          
+          // データベースに保存
+          let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
+            uuid: state.recordingId,
+            date: recordingDate,
             duration: state.duration,
-            title: state.tempTitle.isEmpty ? "無題の録音" : state.tempTitle,
-            date: Date()
+            resultText: state.resultText,
+            title: title,
+            fileFormat: "m4a",
+            samplingFrequency: 44100.0,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            url: recordingUrl
+          )
+          voiceMemoRepository.insert(recordingVoice)
+          
+          let result = RecordingResult(
+            url: recordingUrl,
+            duration: state.duration,
+            title: title,
+            date: recordingDate
           )
           state = State() // Reset state
           return .send(.delegate(.recordingCompleted(result)))
           
         case .titleDialogCancelButtonTapped:
           state.showTitleDialog = false
+          let recordingUrl = createRecordingURL(with: state.recordingId)
+          let title = "無題の録音"
+          let recordingDate = Date()
+          
+          // データベースに保存（タイトルなしでも保存）
+          let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
+            uuid: state.recordingId,
+            date: recordingDate,
+            duration: state.duration,
+            resultText: state.resultText,
+            title: title,
+            fileFormat: "m4a",
+            samplingFrequency: 44100.0,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            url: recordingUrl
+          )
+          voiceMemoRepository.insert(recordingVoice)
+          
+          let result = RecordingResult(
+            url: recordingUrl,
+            duration: state.duration,
+            title: title,
+            date: recordingDate
+          )
           state.tempTitle = ""
-          return .none
+          state = State() // Reset state
+          return .send(.delegate(.recordingCompleted(result)))
           
         case let .showTitleDialog(show):
           state.showTitleDialog = show
@@ -137,6 +184,7 @@ struct RecordingFeature {
         state.audioPermission = granted ? .granted : .denied
         if granted {
           state.recordingState = .recording
+          state.recordingId = uuid() // 新しい録音IDを生成
           return startRecording(state: &state)
         }
         return .none
@@ -175,7 +223,7 @@ struct RecordingFeature {
   }
   
   private func startRecording(state: inout State) -> Effect<Action> {
-    let url = createRecordingURL()
+    let url = createRecordingURL(with: state.recordingId)
     return .run { send in
       async let recording: Void = send(
         .audioRecorderDidFinish(
@@ -212,9 +260,9 @@ struct RecordingFeature {
     }
   }
   
-  private func createRecordingURL() -> URL {
+  private func createRecordingURL(with id: UUID) -> URL {
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    return documentsPath.appendingPathComponent("\(uuid()).m4a")
+    return documentsPath.appendingPathComponent("\(id.uuidString).m4a")
   }
 }
 
