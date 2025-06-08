@@ -338,6 +338,5 @@ struct PaywallView_Previews: PreviewProvider {
                 .environment(\.colorScheme, .dark)
                 .background(.black)
         }
-        .dependency(\.firebaseAnalytics, .previewValue)
     }
 }
