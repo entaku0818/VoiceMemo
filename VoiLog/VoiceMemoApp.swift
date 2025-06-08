@@ -74,6 +74,31 @@ struct VoiceMemoApp: App {
 
     var body: some Scene {
         WindowGroup {
+            #if DEBUG
+            // デバッグ時は新しいVoiceAppViewを使用
+            VoiceAppView(
+                store: Store(initialState: VoiceAppFeature.State()) {
+                    VoiceAppFeature()
+                }
+            )
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                print("applicationDidEnterBackground")
+                backgroundTaskManager.registerBackgroundTask()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                print("applicationWillEnterForeground")
+                backgroundTaskManager.endBackgroundTask()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+                UserDefaultsManager.shared.logError("applicationWillTerminate")
+                cleanupLiveActivities()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
+                UserDefaultsManager.shared.logError("applicationWillTerminate")
+                cleanupLiveActivities()
+            }
+            #else
+            // リリース時は既存のVoiceMemosViewを使用
             VoiceMemosView(
                 store: Store(initialState: VoiceMemos.State(voiceMemos: IdentifiedArrayOf(uniqueElements: voiceMemos))) {
                     VoiceMemos()
@@ -95,6 +120,7 @@ struct VoiceMemoApp: App {
                 UserDefaultsManager.shared.logError("applicationWillTerminate")
                 cleanupLiveActivities()
             }
+            #endif
         }
     }
 }
