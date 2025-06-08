@@ -18,6 +18,7 @@ struct VoiceMemoRepositoryClient {
         var date: Date
         var duration: Double
         var resultText: String
+        var title: String
         var fileFormat: String
         var samplingFrequency: Double
         var quantizationBitDepth: Int
@@ -70,7 +71,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         return VoiceMemoRepositoryClient(
             insert: { recordingVoice in
                 if let voiceEntity = NSManagedObject(entity: entity!, insertInto: managedContext) as? VoiLog.Voice {
-                    voiceEntity.title = ""
+                    voiceEntity.title = recordingVoice.title
                     voiceEntity.url = recordingVoice.url
                     voiceEntity.id = recordingVoice.uuid
                     voiceEntity.text = recordingVoice.resultText
@@ -131,6 +132,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                             date: voiceEntity.createdAt ?? Date(),
                             duration: voiceEntity.duration,
                             resultText: voiceEntity.text ?? "",
+                            title: voiceEntity.title ?? "",
                             fileFormat: voiceEntity.fileFormat ?? "",
                             samplingFrequency: voiceEntity.samplingFrequency,
                             quantizationBitDepth: Int(voiceEntity.quantizationBitDepth),
@@ -284,7 +286,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 do {
                     let (matchedRecords, _) = try await database.records(matching: query)
                     
-                    let cloudVoices = matchedRecords.compactMap { recordTuple -> VoiceMemoVoice? in
+                    let cloudVoices = matchedRecords.compactMap { recordTuple -> VoiceMemoRepositoryClient.VoiceMemoVoice? in
                         guard let record = try? recordTuple.1.get(),
                               let title = record["title"] as? String,
                               let idString = record["id"] as? String,
@@ -300,10 +302,10 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                             return nil
                         }
                         
-                        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString
+                        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString + ".m4a"
                         let fileURL = URL(fileURLWithPath: inputDocumentsPath)
                         
-                        return VoiceMemoVoice(
+                        return VoiceMemoRepositoryClient.VoiceMemoVoice(
                             uuid: id,
                             date: createdAt,
                             duration: duration,
@@ -341,7 +343,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                                 let record = try await database.record(for: recordID)
                                 if let asset = record["file"] as? CKAsset,
                                    let fileURL = asset.fileURL {
-                                    let documentsPath = NSHomeDirectory() + "/Documents/" + voiceId.uuidString
+                                    let documentsPath = NSHomeDirectory() + "/Documents/" + voiceId.uuidString + ".m4a"
                                     let destinationURL = URL(fileURLWithPath: documentsPath)
                                     
                                     if FileManager.default.fileExists(atPath: destinationURL.path) {
