@@ -8,6 +8,7 @@
 import Foundation
 import Dependencies
 import CoreData
+import CloudKit
 
 // MARK: - VoiceMemoRepository Client
 struct VoiceMemoRepositoryClient {
@@ -61,6 +62,10 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         container.viewContext.automaticallyMergesChangesFromParent = true
         let managedContext = container.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Voice", in: managedContext)
+        
+        // CloudKit setup
+        let cloudContainer = CKContainer(identifier: "iCloud.com.entaku.VoiLog")
+        let database = cloudContainer.privateCloudDatabase
         
         return VoiceMemoRepositoryClient(
             insert: { recordingVoice in
@@ -151,7 +156,16 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 } catch let error as NSError {
                     print("\(error), \(error.userInfo)")
                 }
-                // TODO: クラウドからも削除
+                
+                // CloudKitからも削除
+                Task {
+                    let recordID = CKRecord.ID(recordName: id.uuidString)
+                    do {
+                        try await database.deleteRecord(withID: recordID)
+                    } catch {
+                        print("Error deleting voice record from CloudKit: \(error)")
+                    }
+                }
             },
             update: { voiceMemoVoice in
                 let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
@@ -197,12 +211,180 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 }
             },
             syncToCloud: {
-                // TODO: クラウド同期実装
-                return true
+                // ローカルデータを取得
+                var localVoices: [VoiLog.Voice] = []
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                
+                do {
+                    localVoices = try managedContext.fetch(fetchRequest)
+                } catch {
+                    print("Error fetching local voices: \(error)")
+                    return false
+                }
+                
+                // 各ローカルボイスをCloudKitに同期
+                for voiceEntity in localVoices {
+                    guard let voiceId = voiceEntity.id,
+                          let voiceUrl = voiceEntity.url else { continue }
+                    
+                    let recordID = CKRecord.ID(recordName: voiceId.uuidString)
+                    
+                    do {
+                        // 既存レコードを取得または新規作成
+                        let record: CKRecord
+                        do {
+                            record = try await database.record(for: recordID)
+                        } catch {
+                            // レコードが存在しない場合、新規作成
+                            record = CKRecord(recordType: "Voice", recordID: recordID)
+                        }
+                        
+                        // 音声ファイルのCKAssetを作成
+                        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + voiceUrl.lastPathComponent
+                        let asset = CKAsset(fileURL: URL(fileURLWithPath: inputDocumentsPath))
+                        record["file"] = asset
+                        
+                        // メタデータをCKRecordに設定
+                        record["title"] = (voiceEntity.title ?? "") as CKRecordValue
+                        record["id"] = voiceId.uuidString as CKRecordValue
+                        record["text"] = (voiceEntity.text ?? "") as CKRecordValue
+                        record["createdAt"] = (voiceEntity.createdAt ?? Date()) as CKRecordValue
+                        record["updatedAt"] = (voiceEntity.updatedAt ?? Date()) as CKRecordValue
+                        record["duration"] = voiceEntity.duration as CKRecordValue
+                        record["fileFormat"] = (voiceEntity.fileFormat ?? "") as CKRecordValue
+                        record["samplingFrequency"] = voiceEntity.samplingFrequency as CKRecordValue
+                        record["quantizationBitDepth"] = voiceEntity.quantizationBitDepth as CKRecordValue
+                        record["numberOfChannels"] = voiceEntity.numberOfChannels as CKRecordValue
+                        
+                        // CloudKitに保存
+                        _ = try await database.save(record)
+                        
+                        // ローカルでisCloudフラグを更新
+                        voiceEntity.isCloud = true
+                        
+                    } catch {
+                        print("Error syncing voice \(voiceId) to CloudKit: \(error)")
+                        return false
+                    }
+                }
+                
+                // ローカルの変更を保存
+                do {
+                    try managedContext.save()
+                    return true
+                } catch {
+                    print("Error saving local changes after sync: \(error)")
+                    return false
+                }
             },
             checkForDifferences: {
-                // TODO: 差分チェック実装
-                return false
+                // CloudKitからすべてのボイスを取得
+                let query = CKQuery(recordType: "Voice", predicate: NSPredicate(value: true))
+                
+                do {
+                    let (matchedRecords, _) = try await database.records(matching: query)
+                    
+                    let cloudVoices = matchedRecords.compactMap { recordTuple -> VoiceMemoVoice? in
+                        guard let record = try? recordTuple.1.get(),
+                              let title = record["title"] as? String,
+                              let idString = record["id"] as? String,
+                              let id = UUID(uuidString: idString),
+                              let text = record["text"] as? String,
+                              let createdAt = record["createdAt"] as? Date,
+                              let updatedAt = record["updatedAt"] as? Date,
+                              let duration = record["duration"] as? Double,
+                              let fileFormat = record["fileFormat"] as? String,
+                              let samplingFrequency = record["samplingFrequency"] as? Double,
+                              let quantizationBitDepth = record["quantizationBitDepth"] as? Int,
+                              let numberOfChannels = record["numberOfChannels"] as? Int else {
+                            return nil
+                        }
+                        
+                        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + id.uuidString
+                        let fileURL = URL(fileURLWithPath: inputDocumentsPath)
+                        
+                        return VoiceMemoVoice(
+                            uuid: id,
+                            date: createdAt,
+                            duration: duration,
+                            title: title,
+                            url: fileURL,
+                            text: text,
+                            fileFormat: fileFormat,
+                            samplingFrequency: samplingFrequency,
+                            quantizationBitDepth: quantizationBitDepth,
+                            numberOfChannels: numberOfChannels
+                        )
+                    }
+                    
+                    // ローカルデータを取得
+                    var localVoices: [VoiLog.Voice] = []
+                    let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                    
+                    do {
+                        localVoices = try managedContext.fetch(fetchRequest)
+                    } catch {
+                        print("Error fetching local voices: \(error)")
+                        return false
+                    }
+                    
+                    let localVoiceIds = Set(localVoices.compactMap { $0.id })
+                    let cloudVoiceIds = Set(cloudVoices.map { $0.uuid })
+                    
+                    // CloudKitにあってローカルにないボイスをダウンロード
+                    let voicesToDownload = cloudVoiceIds.subtracting(localVoiceIds)
+                    for voiceId in voicesToDownload {
+                        if let cloudVoice = cloudVoices.first(where: { $0.uuid == voiceId }) {
+                            // ファイルをダウンロード
+                            let recordID = CKRecord.ID(recordName: voiceId.uuidString)
+                            do {
+                                let record = try await database.record(for: recordID)
+                                if let asset = record["file"] as? CKAsset,
+                                   let fileURL = asset.fileURL {
+                                    let documentsPath = NSHomeDirectory() + "/Documents/" + voiceId.uuidString
+                                    let destinationURL = URL(fileURLWithPath: documentsPath)
+                                    
+                                    if FileManager.default.fileExists(atPath: destinationURL.path) {
+                                        try FileManager.default.removeItem(at: destinationURL)
+                                    }
+                                    try FileManager.default.copyItem(at: fileURL, to: destinationURL)
+                                }
+                            } catch {
+                                print("Error downloading voice file \(voiceId): \(error)")
+                                continue
+                            }
+                            
+                            // ローカルデータベースに追加
+                            if let voiceEntity = NSManagedObject(entity: entity!, insertInto: managedContext) as? VoiLog.Voice {
+                                voiceEntity.title = cloudVoice.title
+                                voiceEntity.url = cloudVoice.url
+                                voiceEntity.id = cloudVoice.uuid
+                                voiceEntity.text = cloudVoice.text
+                                voiceEntity.createdAt = cloudVoice.date
+                                voiceEntity.updatedAt = Date()
+                                voiceEntity.duration = cloudVoice.duration
+                                voiceEntity.fileFormat = cloudVoice.fileFormat
+                                voiceEntity.samplingFrequency = cloudVoice.samplingFrequency
+                                voiceEntity.quantizationBitDepth = Int16(cloudVoice.quantizationBitDepth)
+                                voiceEntity.numberOfChannels = Int16(cloudVoice.numberOfChannels)
+                                voiceEntity.isCloud = true
+                            }
+                        }
+                    }
+                    
+                    // 変更を保存
+                    do {
+                        try managedContext.save()
+                        return voicesToDownload.count > 0
+                    } catch {
+                        print("Error saving downloaded voices: \(error)")
+                        return false
+                    }
+                    
+                } catch {
+                    print("Error fetching voice records from CloudKit: \(error)")
+                    return false
+                }
             }
         )
     }()
