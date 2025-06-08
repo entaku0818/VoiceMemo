@@ -108,15 +108,15 @@ struct VoiceMemosView: View {
                         }
                         
                         ToolbarItem(placement: .navigationBarLeading) {
-                            if !viewStore.hasPlayingMemo {
-                                Button(action: {
-                                    if viewStore.recordingMemo != nil {
-                                        isRecordingNavigationAlertPresented = true
-                                    } else {
-                                        viewStore.send(.toggleMode)
-                                    }
-                                }) {
-                                    Text(viewStore.currentMode == .playback ? "再生" : "録音")
+                                if !viewStore.hasPlayingMemo {
+                                    Button(action: {
+                                        if viewStore.recordingMemo != nil {
+                                            isRecordingNavigationAlertPresented = true
+                                        } else {
+                                            viewStore.send(.toggleMode)
+                                        }
+                                    }) {
+                                        Text(viewStore.currentMode == .playback ? "再生" : "録音")
                                 }
                             }
                         }

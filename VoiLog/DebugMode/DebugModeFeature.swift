@@ -95,7 +95,7 @@ struct VoiceAppView: View {
     }
     .onAppear {
       send(.onAppear)
-    }
+                      }
   }
 }
 
