@@ -250,7 +250,7 @@ struct VoiceMemoDetail: View {
         let asset = AVAsset(url: inputURL)
         
         // WAV形式用のプリセットを使用
-        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough) else {
+        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {
             completion(false)
             return
         }
