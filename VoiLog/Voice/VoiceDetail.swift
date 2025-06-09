@@ -7,11 +7,13 @@
 
 import SwiftUI
 import ComposableArchitecture
+import AVFoundation
 
 struct VoiceMemoDetail: View {
     let store: StoreOf<VoiceMemoReducer>
     @State private var showingAudioEditor = false
     @State private var showingPaywall = false
+    @State private var showingShareOptions = false
 
     @Environment(\.presentationMode) var presentationMode
 
@@ -170,23 +172,27 @@ struct VoiceMemoDetail: View {
                 viewStore.send(.onAppear)
             }
             .navigationBarItems(trailing:
-                                    Button(action: {
-                                        // シェアするコンテンツを設定
-                                        let textToShare = viewStore.title
-                                        var itemsToShare: [Any] = [textToShare]
-                                        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + viewStore.url.lastPathComponent
-
-                                        let audioFileURL = NSURL(fileURLWithPath: inputDocumentsPath)
-
-                                        itemsToShare.append(audioFileURL)
-
-                                        // UIActivityViewControllerを表示
-                                        let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
-                                        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
-                                    }) {
-                                        Image(systemName: "square.and.arrow.up")
-                                    }
+                Button(action: {
+                    showingShareOptions = true
+                }) {
+                    Image(systemName: "square.and.arrow.up")
+                }
             )
+            .actionSheet(isPresented: $showingShareOptions) {
+                ActionSheet(
+                    title: Text("シェア先を選択"),
+                    message: Text("どちらの形式でシェアしますか？"),
+                    buttons: [
+                        .default(Text("Mac用 (標準形式)")) {
+                            shareForMac(viewStore: viewStore)
+                        },
+                        .default(Text("Windows用 (WAV形式)")) {
+                            shareForWindows(viewStore: viewStore)
+                        },
+                        .cancel(Text("キャンセル"))
+                    ]
+                )
+            }
         }
     }
 
@@ -196,6 +202,88 @@ struct VoiceMemoDetail: View {
         dateFormatter.timeStyle = .medium
         dateFormatter.locale = Locale.autoupdatingCurrent // Set to the default locale of the user's device
         return dateFormatter.string(from: date)
+    }
+
+    // Mac用のシェア処理（m4aのまま）
+    private func shareForMac(viewStore: ViewStore<VoiceMemoReducer.State, VoiceMemoReducer.Action>) {
+        let textToShare = viewStore.title
+        var itemsToShare: [Any] = [textToShare]
+        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + viewStore.url.lastPathComponent
+        let audioFileURL = NSURL(fileURLWithPath: inputDocumentsPath)
+        itemsToShare.append(audioFileURL)
+        
+        presentActivityViewController(items: itemsToShare)
+    }
+    
+    // Windows用のシェア処理（WAV形式に変換）
+    private func shareForWindows(viewStore: ViewStore<VoiceMemoReducer.State, VoiceMemoReducer.Action>) {
+        let textToShare = viewStore.title
+        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + viewStore.url.lastPathComponent
+        let inputURL = URL(fileURLWithPath: inputDocumentsPath)
+        
+        // WAVファイルの出力パス
+        let baseFileName = viewStore.url.lastPathComponent.replacingOccurrences(of: ".m4a", with: "")
+        let outputFileName = "\(baseFileName)_windows.wav"
+        let outputPath = NSHomeDirectory() + "/Documents/" + outputFileName
+        let outputURL = URL(fileURLWithPath: outputPath)
+        
+        convertToWAV(inputURL: inputURL, outputURL: outputURL) { success in
+            DispatchQueue.main.async {
+                if success {
+                    var itemsToShare: [Any] = [textToShare + " (WAV形式)"]
+                    let wavFileURL = NSURL(fileURLWithPath: outputPath)
+                    itemsToShare.append(wavFileURL)
+                    self.presentActivityViewController(items: itemsToShare)
+                } else {
+                    // 変換に失敗した場合は元のファイルをシェア
+                    var itemsToShare: [Any] = [textToShare]
+                    let audioFileURL = NSURL(fileURLWithPath: inputDocumentsPath)
+                    itemsToShare.append(audioFileURL)
+                    self.presentActivityViewController(items: itemsToShare)
+                }
+            }
+        }
+    }
+    
+    // WAV形式への変換処理
+    private func convertToWAV(inputURL: URL, outputURL: URL, completion: @escaping (Bool) -> Void) {
+        let asset = AVAsset(url: inputURL)
+        
+        // WAV形式用のプリセットを使用
+        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough) else {
+            completion(false)
+            return
+        }
+        
+        // 既存のファイルがあれば削除
+        if FileManager.default.fileExists(atPath: outputURL.path) {
+            try? FileManager.default.removeItem(at: outputURL)
+        }
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileType.wav
+
+        // WAV形式の設定
+        exportSession.audioMix = nil
+        exportSession.videoComposition = nil
+        
+        exportSession.exportAsynchronously {
+            switch exportSession.status {
+            case .completed:
+                completion(true)
+            case .failed, .cancelled:
+                print("WAV変換エラー: \(exportSession.error?.localizedDescription ?? "不明なエラー")")
+                completion(false)
+            default:
+                completion(false)
+            }
+        }
+    }
+    
+    // UIActivityViewControllerを表示する共通処理
+    private func presentActivityViewController(items: [Any]) {
+        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
     }
 }
 
