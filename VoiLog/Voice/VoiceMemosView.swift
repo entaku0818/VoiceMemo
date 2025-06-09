@@ -425,9 +425,10 @@ private struct VoiceMemoSection: View {
                     store.scope(state: \.voiceMemos, action: VoiceMemos.Action.voiceMemos)
                 ) {
                     VoiceMemoListItem(
-                        store: $0, 
-                        admobUnitId: admobUnitId, 
+                        store: $0,
+                        admobUnitId: admobUnitId,
                         currentMode: viewStore.currentMode,
+                        isRecording: .constant(viewStore.recordingMemo != nil),
                         isRecordingNavigationAlertPresented: $isRecordingNavigationAlertPresented
                     )
                 }

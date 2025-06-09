@@ -234,6 +234,7 @@ struct VoiceMemoListItem: View {
     @State private var showingModal = false
     let admobUnitId: String
     let currentMode: VoiceMemos.State.Mode
+    @Binding var isRecording: Bool
     @Binding var isRecordingNavigationAlertPresented: Bool
 
     private let dateFormatter: DateFormatter = {
@@ -255,96 +256,103 @@ struct VoiceMemoListItem: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             let currentTime = viewStore.duration
-            NavigationLink {
-                VoiceMemoDetail(store: store, admobUnitId: admobUnitId)
-            } label: {
-                HStack {
 
-                    VStack(spacing: 5) {
-                        HStack {
-                            if !viewStore.title.isEmpty {
-                                Text(viewStore.title)
-                                    .font(.headline)
-                            } else {
-                                Text("名称未設定")
-                                    .font(.headline)
-                            }
-                            Spacer()
-                        }
-
-                        if !viewStore.state.fileFormat.isEmpty {
-                            HStack(spacing: 0) {
-                                Text(dateFormatter.string(from: viewStore.date))
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                Spacer()
-                                Text(viewStore.state.fileFormat)
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                Spacer()
-                                Text(viewStore.state.samplingFrequency.formattedAsKHz())
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                Text("/")
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                Text(String(viewStore.state.quantizationBitDepth) + "bit")
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                Text("/")
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                Text(String(viewStore.state.numberOfChannels) + "ch")
-                                    .font(.caption2)
-                                    .foregroundColor(.gray)
-                                    .minimumScaleFactor(0.5)
-                                    .lineLimit(1)
-                                Spacer()
-                            }
-                        }
+            Group {
+                if !isRecording {
+                    NavigationLink {
+                        VoiceMemoDetail(store: store, admobUnitId: admobUnitId)
+                    } label: {
+                        listItemContent(viewStore: viewStore, currentTime: currentTime)
                     }
-
-                    dateComponentsFormatter.string(from: currentTime).map {
-                        Text($0)
-                            .font(.footnote.monospacedDigit())
-                            .foregroundColor(Color(.systemGray))
-                    }
-
-                    if currentMode == .playback {
-                        Button(action: {
-                            viewStore.send(.playButtonTapped)
-                        }) {
-                            Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.blue)
+                } else {
+                    listItemContent(viewStore: viewStore, currentTime: currentTime)
+                        .onTapGesture {
+                            isRecordingNavigationAlertPresented = true
                         }
-                        .buttonStyle(.borderless)
-                    }
                 }
             }
-            .allowsHitTesting(!viewStore.isRecording)
-            .opacity(viewStore.isRecording ? 0.5 : 1.0)
             .buttonStyle(.borderless)
             .frame(maxHeight: .infinity, alignment: .center)
             .padding(.horizontal)
             .listRowInsets(EdgeInsets())
             .contentShape(Rectangle())
-            .onTapGesture {
-                if viewStore.isRecording {
-                    isRecordingNavigationAlertPresented = true
+        }
+    }
+
+    @ViewBuilder
+    private func listItemContent(viewStore: ViewStoreOf<VoiceMemoReducer>, currentTime: TimeInterval) -> some View {
+        HStack {
+            VStack(spacing: 5) {
+                HStack {
+                    if !viewStore.title.isEmpty {
+                        Text(viewStore.title)
+                            .font(.headline)
+                    } else {
+                        Text("名称未設定")
+                            .font(.headline)
+                    }
+                    Spacer()
                 }
+
+                if !viewStore.state.fileFormat.isEmpty {
+                    HStack(spacing: 0) {
+                        Text(dateFormatter.string(from: viewStore.date))
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Spacer()
+                        Text(viewStore.state.fileFormat)
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Spacer()
+                        Text(viewStore.state.samplingFrequency.formattedAsKHz())
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Text("/")
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Text(String(viewStore.state.quantizationBitDepth) + "bit")
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Text("/")
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Text(String(viewStore.state.numberOfChannels) + "ch")
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                        Spacer()
+                    }
+                }
+            }
+
+            dateComponentsFormatter.string(from: currentTime).map {
+                Text($0)
+                    .font(.footnote.monospacedDigit())
+                    .foregroundColor(Color(.systemGray))
+            }
+
+            if currentMode == .playback {
+                Button(action: {
+                    viewStore.send(.playButtonTapped)
+                }) {
+                    Image(systemName: viewStore.mode.isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+                }
+                .buttonStyle(.borderless)
             }
         }
     }
@@ -373,7 +381,7 @@ struct VoiceMemoListItem_Previews: PreviewProvider {
                 VoiceMemoReducer()
             },
             admobUnitId: "", 
-            currentMode: .playback,
+            currentMode: .playback, isRecording: .constant(false),
             isRecordingNavigationAlertPresented: .constant(false)
         ).padding()
     }
