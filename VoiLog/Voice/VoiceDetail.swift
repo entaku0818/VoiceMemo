@@ -186,7 +186,7 @@ struct VoiceMemoDetail: View {
                         .default(Text("Mac用 (標準形式)")) {
                             shareForMac(viewStore: viewStore)
                         },
-                        .default(Text("Windows用 (WAV形式)")) {
+                        .default(Text("Windows用 (MP4形式)")) { 
                             shareForWindows(viewStore: viewStore)
                         },
                         .cancel(Text("キャンセル"))
@@ -216,23 +216,24 @@ struct VoiceMemoDetail: View {
     }
     
     // Windows用のシェア処理（WAV形式に変換）
+    // Windows用のシェア処理（MP4形式に変換）
     private func shareForWindows(viewStore: ViewStore<VoiceMemoReducer.State, VoiceMemoReducer.Action>) {
         let textToShare = viewStore.title
         let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + viewStore.url.lastPathComponent
         let inputURL = URL(fileURLWithPath: inputDocumentsPath)
-        
-        // WAVファイルの出力パス
+
+        // MP4ファイルの出力パス
         let baseFileName = viewStore.url.lastPathComponent.replacingOccurrences(of: ".m4a", with: "")
-        let outputFileName = "\(baseFileName)_windows.wav"
+        let outputFileName = "\(baseFileName)_windows.mp4"
         let outputPath = NSHomeDirectory() + "/Documents/" + outputFileName
         let outputURL = URL(fileURLWithPath: outputPath)
-        
-        convertToWAV(inputURL: inputURL, outputURL: outputURL) { success in
+
+        convertToMP4(inputURL: inputURL, outputURL: outputURL) { success in
             DispatchQueue.main.async {
                 if success {
-                    var itemsToShare: [Any] = [textToShare + " (WAV形式)"]
-                    let wavFileURL = NSURL(fileURLWithPath: outputPath)
-                    itemsToShare.append(wavFileURL)
+                    var itemsToShare: [Any] = [textToShare + " (MP4形式)"]
+                    let mp4FileURL = NSURL(fileURLWithPath: outputPath)
+                    itemsToShare.append(mp4FileURL)
                     self.presentActivityViewController(items: itemsToShare)
                 } else {
                     // 変換に失敗した場合は元のファイルをシェア
@@ -244,42 +245,45 @@ struct VoiceMemoDetail: View {
             }
         }
     }
-    
-    // WAV形式への変換処理
-    private func convertToWAV(inputURL: URL, outputURL: URL, completion: @escaping (Bool) -> Void) {
-        let asset = AVAsset(url: inputURL)
-        
-        // WAV形式用のプリセットを使用
-        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {
-            completion(false)
-            return
-        }
-        
-        // 既存のファイルがあれば削除
-        if FileManager.default.fileExists(atPath: outputURL.path) {
-            try? FileManager.default.removeItem(at: outputURL)
-        }
-        
-        exportSession.outputURL = outputURL
-        exportSession.outputFileType = AVFileType.wav
 
-        // WAV形式の設定
-        exportSession.audioMix = nil
-        exportSession.videoComposition = nil
-        
-        exportSession.exportAsynchronously {
-            switch exportSession.status {
-            case .completed:
-                completion(true)
-            case .failed, .cancelled:
-                print("WAV変換エラー: \(exportSession.error?.localizedDescription ?? "不明なエラー")")
+    // 関数名も変更
+    private func convertToMP4(inputURL: URL, outputURL: URL, completion: @escaping (Bool) -> Void) {
+        do {
+            let asset = AVAsset(url: inputURL)
+
+            guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {
                 completion(false)
-            default:
-                completion(false)
+                return
             }
+
+            // 既存のファイルがあれば削除
+            if FileManager.default.fileExists(atPath: outputURL.path) {
+                try FileManager.default.removeItem(at: outputURL)
+            }
+
+            exportSession.outputURL = outputURL
+            exportSession.outputFileType = AVFileType.mp4  // MP4形式
+
+            exportSession.audioMix = nil
+            exportSession.videoComposition = nil
+
+            exportSession.exportAsynchronously {
+                switch exportSession.status {
+                case .completed:
+                    completion(true)
+                case .failed, .cancelled:
+                    print("MP4変換エラー: \(exportSession.error?.localizedDescription ?? "不明なエラー")")
+                    completion(false)
+                default:
+                    completion(false)
+                }
+            }
+        } catch {
+            print("MP4変換処理エラー: \(error.localizedDescription)")
+            completion(false)
         }
     }
-    
+
     // UIActivityViewControllerを表示する共通処理
     private func presentActivityViewController(items: [Any]) {
         let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
