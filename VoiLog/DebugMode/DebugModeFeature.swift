@@ -8,6 +8,7 @@ struct VoiceAppFeature {
   struct State: Equatable {
     var recordingFeature = RecordingFeature.State()
     var playbackFeature = PlaybackFeature.State()
+    var selectedTab: Int = 0  // 0=録音, 1=再生
   }
 
   enum Action: ViewAction, BindableAction {
@@ -44,8 +45,10 @@ struct VoiceAppFeature {
         }
 
       case .recordingFeature(.delegate(.recordingCompleted(let result))):
+        // 録音完了時に再生タブに自動切り替え
+        state.selectedTab = 1
         // 録音完了時に再生画面のデータを自動更新
-        return .send(.playbackFeature(.view(.refreshRequested)))
+        return .send(.playbackFeature(.view(.reloadData)))
         
       case .recordingFeature:
         return .none
@@ -62,7 +65,7 @@ struct VoiceAppView: View {
   @Perception.Bindable var store: StoreOf<VoiceAppFeature>
 
   var body: some View {
-    TabView {
+    TabView(selection: $store.selectedTab) {
       // 録音タブ
       NavigationStack {
         RecordingView(
@@ -73,6 +76,7 @@ struct VoiceAppView: View {
         Image(systemName: "record.circle")
         Text("録音")
       }
+      .tag(0)
       
       // 再生タブ
       NavigationStack {
@@ -84,6 +88,7 @@ struct VoiceAppView: View {
         Image(systemName: "play.circle")
         Text("再生")
       }
+      .tag(1)
     }
     .onAppear {
       send(.onAppear)
