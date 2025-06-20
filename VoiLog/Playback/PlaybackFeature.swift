@@ -8,13 +8,15 @@ struct PlaybackFeature {
   struct State: Equatable {
     var voiceMemos: [VoiceMemo] = []
     var searchQuery: String = ""
-    var isLoading: Bool = false
+    var isLoading = false
     var currentPlayingMemo: VoiceMemo.ID?
     var playbackState: PlaybackState = .idle
     var currentTime: TimeInterval = 0
     var selectedMemoForDeletion: VoiceMemo.ID?
-    var showDeleteConfirmation: Bool = false
-    
+    var showDeleteConfirmation = false
+    var editingMemoId: VoiceMemo.ID?
+    var editingTitle: String = ""
+
     enum PlaybackState: Equatable {
       case idle
       case playing
@@ -29,7 +31,7 @@ struct PlaybackFeature {
     var duration: TimeInterval
     var url: URL
     var text: String
-    var isFavorite: Bool = false
+    var isFavorite = false
 
     init(
       id: UUID = UUID(),
@@ -52,7 +54,7 @@ struct PlaybackFeature {
     case binding(BindingAction<State>)
     case view(View)
     case delegate(DelegateAction)
-    
+
     // Internal actions
     case memosLoaded([VoiceMemo])
     case playbackTimeUpdated(TimeInterval)
@@ -72,8 +74,12 @@ struct PlaybackFeature {
       case cancelDelete
       case reloadData
       case updateTitle(VoiceMemo.ID, String)
+      case startEditingTitle(VoiceMemo.ID)
+      case cancelEditingTitle
+      case saveEditingTitle
+      case editingTitleChanged(String)
     }
-    
+
     enum DelegateAction: Equatable {
       case memoDeleted(VoiceMemo.ID)
     }
@@ -94,11 +100,11 @@ struct PlaybackFeature {
         switch viewAction {
         case .onAppear:
           return loadMemos()
-          
+
         case .refreshRequested:
           state.isLoading = true
           return loadMemos()
-          
+
         case let .memoSelected(id):
           if state.currentPlayingMemo == id {
             // 同じメモが選択された場合は再生/一時停止を切り替え
@@ -108,13 +114,13 @@ struct PlaybackFeature {
             state.currentPlayingMemo = id
             state.playbackState = .playing
             state.currentTime = 0
-            
+
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
               return startPlayback(url: memo.url)
             }
           }
           return .none
-          
+
         case let .playPauseButtonTapped(id):
           if state.currentPlayingMemo == id {
             if state.playbackState == .playing {
@@ -137,13 +143,13 @@ struct PlaybackFeature {
             state.currentPlayingMemo = id
             state.playbackState = .playing
             state.currentTime = 0
-            
+
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
               return startPlayback(url: memo.url)
             }
           }
           return .none
-          
+
         case .stopButtonTapped:
           state.playbackState = .idle
           state.currentPlayingMemo = nil
@@ -151,7 +157,7 @@ struct PlaybackFeature {
           return .run { _ in
             try await audioPlayer.stop()
           }
-          
+
         case let .seekTo(time):
           state.currentTime = time
           // 既存のAudioPlayerClientにはseekメソッドがないため、
@@ -160,23 +166,23 @@ struct PlaybackFeature {
             return startPlayback(url: memo.url, startTime: time)
           }
           return .none
-          
+
         case let .toggleFavorite(id):
           if let index = state.voiceMemos.firstIndex(where: { $0.id == id }) {
             state.voiceMemos[index].isFavorite.toggle()
           }
           return .none
-          
+
         case let .deleteMemo(id):
           state.selectedMemoForDeletion = id
           state.showDeleteConfirmation = true
           return .none
-          
+
         case .confirmDelete:
           if let id = state.selectedMemoForDeletion {
             // データベースから削除
             voiceMemoRepository.delete(id)
-            
+
             state.voiceMemos.removeAll { $0.id == id }
             if state.currentPlayingMemo == id {
               state.currentPlayingMemo = nil
@@ -188,23 +194,51 @@ struct PlaybackFeature {
             return .send(.delegate(.memoDeleted(id)))
           }
           return .none
-          
+
         case .cancelDelete:
           state.selectedMemoForDeletion = nil
           state.showDeleteConfirmation = false
           return .none
-          
+
         case .reloadData:
           return loadMemos()
-          
+
         case let .updateTitle(id, newTitle):
           // データベースでタイトルを更新
           voiceMemoRepository.updateTitle(id, newTitle)
-          
+
           // ローカル状態も更新
           if let index = state.voiceMemos.firstIndex(where: { $0.id == id }) {
             state.voiceMemos[index].title = newTitle
           }
+          return .none
+
+        case let .startEditingTitle(id):
+          state.editingMemoId = id
+          // 現在のタイトルを編集用テキストとして設定
+          if let memo = state.voiceMemos.first(where: { $0.id == id }) {
+            state.editingTitle = memo.title
+          }
+          return .none
+
+        case .cancelEditingTitle:
+          state.editingMemoId = nil
+          state.editingTitle = ""
+          return .none
+
+        case .saveEditingTitle:
+          if let editingId = state.editingMemoId {
+            let trimmedTitle = state.editingTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+            let finalTitle = trimmedTitle.isEmpty ? "無題の録音" : trimmedTitle
+
+            // タイトルを更新
+            return .send(.view(.updateTitle(editingId, finalTitle)))
+              .concatenate(with: .send(.view(.cancelEditingTitle)))
+          }
+          return .none
+
+        case let .editingTitleChanged(newTitle):
+          state.editingTitle = newTitle
           return .none
         }
 
@@ -222,7 +256,7 @@ struct PlaybackFeature {
         state.currentPlayingMemo = nil
         state.currentTime = 0
         return .none
-        
+
       case .audioPlayerDidFinish:
         return .send(.playbackFinished)
 
@@ -231,12 +265,12 @@ struct PlaybackFeature {
       }
     }
   }
-  
+
   private func loadMemos() -> Effect<Action> {
-    return .run { send in
+    .run { send in
       // データベースからデータを読み込み
       let voiceMemoVoices = voiceMemoRepository.selectAllData()
-      
+
       let memos = voiceMemoVoices.map { voice in
         VoiceMemo(
           id: voice.uuid,
@@ -247,13 +281,13 @@ struct PlaybackFeature {
           text: voice.text
         )
       }
-      
+
       await send(.memosLoaded(memos))
     }
   }
-  
+
   private func startPlayback(url: URL, startTime: TimeInterval = 0) -> Effect<Action> {
-    return .run { send in
+    .run { send in
       // 音声再生開始
       async let playback: Void = {
         do {
@@ -265,7 +299,7 @@ struct PlaybackFeature {
           await send(.playbackFinished)
         }
       }()
-      
+
       // 再生時間の更新
       async let timeUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
@@ -278,7 +312,7 @@ struct PlaybackFeature {
           }
         }
       }()
-      
+
       _ = await (playback, timeUpdates)
     }
   }
@@ -293,10 +327,10 @@ struct PlaybackView: View {
       VStack(spacing: 0) {
         // Search Bar
         searchBarView
-        
+
         // Voice Memos List
         voiceMemosListView
-        
+
         // Playback Controls (if playing)
         if store.currentPlayingMemo != nil {
           playbackControlsView
@@ -321,7 +355,7 @@ struct PlaybackView: View {
       }
     }
   }
-  
+
   private var searchBarView: some View {
     HStack {
       Image(systemName: "magnifyingglass")
@@ -332,7 +366,7 @@ struct PlaybackView: View {
     .padding(.horizontal)
     .padding(.top, 8)
   }
-  
+
   private var voiceMemosListView: some View {
     List {
       ForEach(filteredMemos) { memo in
@@ -340,7 +374,9 @@ struct PlaybackView: View {
           memo: memo,
           isPlaying: store.currentPlayingMemo == memo.id && store.playbackState == .playing,
           isPaused: store.currentPlayingMemo == memo.id && store.playbackState == .paused,
-          currentTime: store.currentPlayingMemo == memo.id ? store.currentTime : 0
+          currentTime: store.currentPlayingMemo == memo.id ? store.currentTime : 0,
+          isEditing: store.editingMemoId == memo.id,
+          editingTitle: store.editingTitle
         ) {
           send(.memoSelected(memo.id))
         } onPlayPause: {
@@ -349,6 +385,14 @@ struct PlaybackView: View {
           send(.toggleFavorite(memo.id))
         } onDelete: {
           send(.deleteMemo(memo.id))
+        } onStartEdit: {
+          send(.startEditingTitle(memo.id))
+        } onCancelEdit: {
+          send(.cancelEditingTitle)
+        } onSaveEdit: {
+          send(.saveEditingTitle)
+        } onEditingChanged: { newTitle in
+          send(.editingTitleChanged(newTitle))
         }
       }
     }
@@ -361,11 +405,11 @@ struct PlaybackView: View {
       }
     }
   }
-  
+
   private var playbackControlsView: some View {
     VStack(spacing: 12) {
       Divider()
-      
+
       if let currentMemo = store.voiceMemos.first(where: { $0.id == store.currentPlayingMemo }) {
         VStack(spacing: 8) {
           // Now Playing Info
@@ -378,9 +422,9 @@ struct PlaybackView: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
             }
-            
+
             Spacer()
-            
+
             Button {
               send(.stopButtonTapped)
             } label: {
@@ -389,7 +433,7 @@ struct PlaybackView: View {
                 .foregroundColor(.secondary)
             }
           }
-          
+
           // Progress Slider
           VStack(spacing: 4) {
             Slider(
@@ -399,21 +443,21 @@ struct PlaybackView: View {
               ),
               in: 0...currentMemo.duration
             )
-            
+
             HStack {
               Text(formatDuration(store.currentTime))
                 .font(.caption)
                 .monospacedDigit()
-              
+
               Spacer()
-              
+
               Text(formatDuration(currentMemo.duration))
                 .font(.caption)
                 .monospacedDigit()
             }
             .foregroundColor(.secondary)
           }
-          
+
           // Playback Controls
           HStack(spacing: 32) {
             Button {
@@ -430,7 +474,7 @@ struct PlaybackView: View {
     }
     .background(Color(.systemBackground))
   }
-  
+
   private var filteredMemos: [PlaybackFeature.VoiceMemo] {
     if store.searchQuery.isEmpty {
       return store.voiceMemos
@@ -441,14 +485,14 @@ struct PlaybackView: View {
       }
     }
   }
-  
+
   private func formatDate(_ date: Date) -> String {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
     formatter.timeStyle = .short
     return formatter.string(from: date)
   }
-  
+
   private func formatDuration(_ duration: TimeInterval) -> String {
     let minutes = Int(duration) / 60
     let seconds = Int(duration) % 60
@@ -461,11 +505,17 @@ struct VoiceMemoRow: View {
   let isPlaying: Bool
   let isPaused: Bool
   let currentTime: TimeInterval
+  let isEditing: Bool
+  let editingTitle: String
   let onTap: () -> Void
   let onPlayPause: () -> Void
   let onFavoriteToggle: () -> Void
   let onDelete: () -> Void
-  
+  let onStartEdit: () -> Void
+  let onCancelEdit: () -> Void
+  let onSaveEdit: () -> Void
+  let onEditingChanged: (String) -> Void
+
   var body: some View {
     HStack(spacing: 12) {
       // Play/Pause Button
@@ -476,42 +526,82 @@ struct VoiceMemoRow: View {
           .frame(width: 30, height: 30)
       }
       .buttonStyle(.plain)
-      
+
       // Memo Info
       VStack(alignment: .leading, spacing: 4) {
-        Text(memo.title.isEmpty ? "無題の録音" : memo.title)
-          .font(.headline)
-          .lineLimit(1)
-        
+        if isEditing {
+          HStack(spacing: 8) {
+            TextField("タイトル", text: Binding(
+              get: { editingTitle },
+              set: { onEditingChanged($0) }
+            ))
+            .textFieldStyle(.roundedBorder)
+            .font(.headline)
+            .submitLabel(.done)
+            .onSubmit {
+              onSaveEdit()
+            }
+
+            Button("保存") {
+              onSaveEdit()
+            }
+            .font(.caption)
+            .buttonStyle(.borderedProminent)
+            .controlSize(.mini)
+
+            Button("キャンセル") {
+              onCancelEdit()
+            }
+            .font(.caption)
+            .buttonStyle(.bordered)
+            .controlSize(.mini)
+          }
+        } else {
+          HStack {
+            Text(memo.title.isEmpty ? "無題の録音" : memo.title)
+              .font(.headline)
+              .lineLimit(1)
+
+            Button {
+              onStartEdit()
+            } label: {
+              Image(systemName: "pencil")
+                .font(.caption)
+                .foregroundColor(.secondary)
+            }
+            .buttonStyle(.plain)
+          }
+        }
+
         HStack {
           Text(formatDate(memo.date))
             .font(.caption)
             .foregroundColor(.secondary)
-          
+
           Spacer()
-          
+
           Text(formatDuration(memo.duration))
             .font(.caption)
             .foregroundColor(.secondary)
             .monospacedDigit()
         }
-        
+
         if !memo.text.isEmpty {
           Text(memo.text)
             .font(.caption)
             .foregroundColor(.secondary)
             .lineLimit(2)
         }
-        
+
         // Progress Bar (if playing)
         if isPlaying || isPaused {
           ProgressView(value: currentTime, total: memo.duration)
             .progressViewStyle(LinearProgressViewStyle(tint: .accentColor))
         }
       }
-      
+
       Spacer()
-      
+
       // Actions
       VStack(spacing: 8) {
         Button(action: onFavoriteToggle) {
@@ -519,7 +609,7 @@ struct VoiceMemoRow: View {
             .foregroundColor(memo.isFavorite ? .yellow : .gray)
         }
         .buttonStyle(.plain)
-        
+
         Button(action: onDelete) {
           Image(systemName: "trash")
             .foregroundColor(.red)
@@ -531,7 +621,7 @@ struct VoiceMemoRow: View {
     .contentShape(Rectangle())
     .onTapGesture(perform: onTap)
   }
-  
+
   private var playButtonIcon: String {
     if isPlaying {
       return "pause.circle.fill"
@@ -541,14 +631,14 @@ struct VoiceMemoRow: View {
       return "play.circle"
     }
   }
-  
+
   private func formatDate(_ date: Date) -> String {
     let formatter = DateFormatter()
     formatter.dateStyle = .short
     formatter.timeStyle = .short
     return formatter.string(from: date)
   }
-  
+
   private func formatDuration(_ duration: TimeInterval) -> String {
     let minutes = Int(duration) / 60
     let seconds = Int(duration) % 60
@@ -562,4 +652,4 @@ struct VoiceMemoRow: View {
       PlaybackFeature()
     }
   )
-} 
+}

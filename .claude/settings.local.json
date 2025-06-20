@@ -3,7 +3,14 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "Bash(find:*)",
-      "Bash(gh issue close:*)"
+      "Bash(gh issue close:*)",
+      "Bash(gh issue list:*)",
+      "Bash(gh issue:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(swiftlint:*)",
+      "Bash(play:*)",
+      "Bash(afplay:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
