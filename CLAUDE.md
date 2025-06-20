@@ -48,17 +48,26 @@ rm -rf ~/Library/Caches/org.swift.swiftpm
 
 ### State Management: The Composable Architecture (TCA) v1.8.0
 - **Modern Patterns**: Uses `@ObservableState` and `@ViewAction` patterns
-- **Root State**: `VoiceMemos` is the main app reducer
+- **Dual Architecture**: Legacy `VoiceMemos` (production) + Modern `VoiceAppFeature` (debug/development)
 - **Feature Modules**: Each major feature has its own TCA reducer (Recording, Playback, Playlists)
 - **Dependencies**: Structured dependency injection for testability
 
 ### Core Features Structure
 ```
-/VoiLog/Voice/           # Main voice recording/playback features
-├── VoiceMemos.swift     # Root app state management
-├── RecordingMemo.swift  # Recording state and UI
+/VoiLog/Voice/           # Legacy voice recording/playback features (AVOID MODIFYING)
+├── VoiceMemos.swift     # Legacy root app state management
+├── RecordingMemo.swift  # Legacy recording state and UI
 ├── VoiceMemoReducer.swift # Individual memo management
 └── Audio*.swift         # Audio processing components
+
+/VoiLog/Recording/       # Modern recording architecture
+└── RecordingFeature.swift # New TCA recording feature with delegate pattern
+
+/VoiLog/Playback/        # Modern playback architecture  
+└── PlaybackFeature.swift # New TCA playback feature with data management
+
+/VoiLog/DebugMode/       # Main app coordinator (PREFERRED FOR MODIFICATIONS)
+└── DebugModeFeature.swift # VoiceAppFeature - coordinates Recording/Playback
 
 /VoiLog/Playlist/        # Playlist management features
 ├── PlaylistListFeature.swift # TCA feature implementation
@@ -123,16 +132,32 @@ REVENUECAT_KEY="your_revenuecat_key"
 
 ## Key Implementation Details
 
-### Audio Recording Flow
-1. **Recording Start**: `RecordingMemo` manages recording state
-2. **Completion**: Delegate pattern notifies `VoiceMemos` parent
-3. **Data Persistence**: Repository saves to Core Data and Documents
-4. **UI Update**: New memo automatically appears in list (reactive state)
+### Dual Architecture Pattern
+This project uses **two parallel architectures**:
 
-### Current Mode Switching
-- **Recording Mode**: Shows recording UI and controls
-- **Playback Mode**: Shows list of recorded memos with playback controls
-- **Shared State**: Both modes use same `voiceMemos` array
+#### Legacy Architecture (Production - `/Voice`)
+- **Entry Point**: `VoiceMemosView` (used in production builds)
+- **State Management**: `VoiceMemos` reducer with single shared state
+- **Mode Switching**: Toggle between recording/playback modes
+- **⚠️ IMPORTANT**: Avoid modifying `/Voice` directory files
+
+#### Modern Architecture (Debug/Development - `/Recording`, `/Playback`, `/DebugMode`)
+- **Entry Point**: `VoiceAppView` with `VoiceAppFeature` coordinator
+- **Tab-Based UI**: Separate Recording and Playback tabs
+- **Auto-Switch Feature**: Recording completion automatically switches to Playback tab
+- **✅ PREFERRED**: Use this architecture for new features and modifications
+
+### Audio Recording Flow (Modern Architecture)
+1. **Recording Start**: `RecordingFeature` manages recording state with modern TCA patterns
+2. **Completion**: Delegate pattern sends `recordingCompleted` to `VoiceAppFeature`
+3. **Auto Tab Switch**: `VoiceAppFeature` automatically switches to playback tab (`selectedTab = 1`)
+4. **Data Persistence**: Repository saves to Core Data and Documents
+5. **UI Update**: `PlaybackFeature` reloads data and displays new recording
+
+### Tab Management (VoiceAppFeature)
+- **Recording Tab** (tag: 0): `RecordingFeature` with recording controls
+- **Playback Tab** (tag: 1): `PlaybackFeature` with memo list and playback controls
+- **Auto-Switch Logic**: Controlled by `selectedTab` state in `VoiceAppFeature`
 
 ### Premium Features
 - **RevenueCat Integration**: Subscription and purchase management
@@ -150,12 +175,29 @@ REVENUECAT_KEY="your_revenuecat_key"
 1. Copy `/VoiLog/Template/FeatureTemplate.swift`
 2. Rename `FeatureReducer` and `FeatureView` to your feature name
 3. Implement `State`, `Action`, and `body` reducer logic
-4. Add navigation from parent feature
+4. **For Modern Architecture**: Add to `VoiceAppFeature` as a Scope
 5. Write TestStore tests
 
-### Audio Recording Modifications
-- **Core Implementation**: `AudioRecoder.swift` handles recording
-- **State Management**: `RecordingMemo.swift` manages recording UI state
+### Modifying Recording/Playback Features
+**⚠️ IMPORTANT**: Use Modern Architecture only
+
+#### For Recording Changes:
+- **Primary File**: `/VoiLog/Recording/RecordingFeature.swift`
+- **Delegate Pattern**: Send results via `recordingCompleted` delegate action
+- **Auto-Integration**: `VoiceAppFeature` handles tab switching and data sync
+
+#### For Playback Changes:
+- **Primary File**: `/VoiLog/Playback/PlaybackFeature.swift`
+- **Data Loading**: Use `reloadData` action for refresh functionality
+- **Repository Integration**: Access via `voiceMemoRepository` dependency
+
+#### For App-Level Coordination:
+- **Primary File**: `/VoiLog/DebugMode/DebugModeFeature.swift` (`VoiceAppFeature`)
+- **Tab Management**: Control via `selectedTab` state
+- **Inter-Feature Communication**: Use delegate actions and effect coordination
+
+### Audio Recording Core Modifications
+- **Core Implementation**: `AudioRecoder.swift` handles recording (shared by both architectures)
 - **Interruption Handling**: Built-in support for calls, alarms, notifications
 - **Testing**: Use comprehensive test checklist in `AUDIO_RECORDING_TESTS.md`
 
@@ -167,7 +209,22 @@ REVENUECAT_KEY="your_revenuecat_key"
 5. Handle data migration if needed
 
 ### UI Development
-- **SwiftUI + TCA**: Use `WithViewStore` for state observation
+- **Modern TCA Patterns**: Use `@ViewAction` and `@ObservableState` (preferred)
+- **Legacy Patterns**: `WithViewStore` (only for `/Voice` directory)
 - **View Actions**: Use `@ViewAction` pattern for user interactions
 - **Navigation**: Programmatic navigation via TCA state
 - **Presentation**: Sheets and alerts managed by `@PresentationState`
+
+## Development Guidelines
+
+### Architecture Decision Rules
+1. **New Features**: Always use Modern Architecture (`/Recording`, `/Playback`, `/DebugMode`)
+2. **Bug Fixes**: 
+   - For production issues: Fix in Legacy Architecture (`/Voice`)
+   - For new features: Fix in Modern Architecture
+3. **Refactoring**: Gradually migrate functionality from Legacy to Modern
+
+### Recent Implementations (Reference Examples)
+- **Auto Tab Switching**: See `VoiceAppFeature` in `DebugModeFeature.swift` (Issue #72)
+- **Recording Completion Flow**: `RecordingFeature` → `VoiceAppFeature` → `PlaybackFeature` delegation
+- **Tab State Management**: `selectedTab` binding with TabView in `VoiceAppView`
