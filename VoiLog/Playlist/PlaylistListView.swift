@@ -37,7 +37,7 @@ struct PlaylistListView: View {
                        }
                        .swipeActions {
                            Button(role: .destructive) {
-                               viewStore.send(.deletePlaylist(playlist.id))
+                               viewStore.send(.view(.deletePlaylist(playlist.id)))
                            } label: {
                                Label("削除", systemImage: "trash")
                            }
@@ -54,7 +54,7 @@ struct PlaylistListView: View {
            .toolbar {
                ToolbarItem(placement: .navigationBarTrailing) {
                    Button {
-                       viewStore.send(.createPlaylistButtonTapped)
+                       viewStore.send(.view(.createPlaylistButtonTapped))
                    } label: {
                        Image(systemName: "plus")
                    }
@@ -63,14 +63,14 @@ struct PlaylistListView: View {
            .sheet(
                isPresented: viewStore.binding(
                    get: \.isShowingCreateSheet,
-                   send: { $0 ? .createPlaylistButtonTapped : .createPlaylistSheetDismissed }
+                   send: { $0 ? .view(.createPlaylistButtonTapped) : .view(.createPlaylistSheetDismissed) }
                )
            ) {
                CreatePlaylistView(store: store)
            }
            .sheet(isPresented: viewStore.binding(
                get: \.isShowingPaywall,
-               send: PlaylistListFeature.Action.paywallDismissed
+               send: PlaylistListFeature.Action.view(.paywallDismissed)
            )) {
                PaywallView(purchaseManager: PurchaseManager.shared)
            }
@@ -107,7 +107,7 @@ struct CreatePlaylistView: View {
                     Section {
                         TextField("プレイリスト名", text: viewStore.binding(
                             get: \.newPlaylistName,
-                            send: PlaylistListFeature.Action.updateNewPlaylistName
+                            send: { PlaylistListFeature.Action.view(.updateNewPlaylistName($0)) }
                         ))
                     }
                 }
@@ -116,13 +116,13 @@ struct CreatePlaylistView: View {
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("キャンセル") {
-                            viewStore.send(.createPlaylistSheetDismissed)
+                            viewStore.send(.view(.createPlaylistSheetDismissed))
                         }
                     }
 
                     ToolbarItem(placement: .confirmationAction) {
                         Button("作成") {
-                            viewStore.send(.createPlaylistSubmitted)
+                            viewStore.send(.view(.createPlaylistSubmitted))
                         }
                         .disabled(viewStore.newPlaylistName.isEmpty)
                     }

@@ -25,35 +25,6 @@ struct PlaybackFeature {
     var selectedMemoForDetails: VoiceMemo.ID?
     var showDetailSheet = false
 
-    enum PlaybackState: Equatable {
-      case idle
-      case playing
-      case paused
-    }
-
-    enum SortOption: String, CaseIterable, Equatable {
-      case dateDescending = "日付順（新しい順）"
-      case dateAscending = "日付順（古い順）"
-      case titleAscending = "タイトル順（A-Z）"
-      case durationDescending = "時間長順（長い順）"
-      case durationAscending = "時間長順（短い順）"
-    }
-
-    enum DurationFilter: String, CaseIterable, Equatable {
-      case all = "すべて"
-      case short = "短い（1分未満）"
-      case medium = "中間（1-5分）"
-      case long = "長い（5分以上）"
-
-      func matches(duration: TimeInterval) -> Bool {
-        switch self {
-        case .all: return true
-        case .short: return duration < 60
-        case .medium: return duration >= 60 && duration < 300
-        case .long: return duration >= 300
-        }
-      }
-    }
   }
 
   struct VoiceMemo: Identifiable, Equatable {
@@ -464,118 +435,175 @@ struct PlaybackView: View {
     }
   }
 
-  private var searchBarView: some View {
-    VStack(spacing: 8) {
-      // Search text field with filter button
-      HStack {
-        Image(systemName: "magnifyingglass")
-          .foregroundColor(.gray)
-        TextField("録音を検索...", text: $store.searchQuery)
-          .textFieldStyle(.roundedBorder)
+    // 修正版: searchBarView を小さなサブビューに分割
 
-        Button {
-          send(.toggleSearchFilters)
-        } label: {
-          Image(systemName: store.showSearchFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-            .foregroundColor(.accentColor)
-            .font(.title2)
+    private var searchBarView: some View {
+        VStack(spacing: 8) {
+            searchInputSection
+
+            if store.showSearchFilters {
+                searchFiltersSection
+            }
         }
-      }
+        .padding(.horizontal)
+        .padding(.top, 8)
+    }
 
-      // Search filters (shown when expanded)
-      if store.showSearchFilters {
+    // MARK: - Search Input Section
+    private var searchInputSection: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
+
+            TextField("録音を検索...", text: $store.searchQuery)
+                .textFieldStyle(.roundedBorder)
+
+            searchFilterToggleButton
+        }
+    }
+
+    private var searchFilterToggleButton: some View {
+        Button {
+            send(.toggleSearchFilters)
+        } label: {
+            Image(systemName: store.showSearchFilters ?
+                  "line.3.horizontal.decrease.circle.fill" :
+                  "line.3.horizontal.decrease.circle")
+                .foregroundColor(.accentColor)
+                .font(.title2)
+        }
+    }
+
+    // MARK: - Search Filters Section
+    private var searchFiltersSection: some View {
         VStack(spacing: 12) {
-          // Sort options
-          VStack(alignment: .leading, spacing: 8) {
-            Text("並び順")
-              .font(.caption)
-              .foregroundColor(.secondary)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-              HStack(spacing: 8) {
-                ForEach(PlaybackFeature.State.SortOption.allCases, id: \.self) { option in
-                  Button {
-                    send(.setSortOption(option))
-                  } label: {
-                    Text(option.rawValue)
-                      .font(.caption)
-                      .padding(.horizontal, 12)
-                      .padding(.vertical, 6)
-                      .background(
-                        store.sortOption == option ? Color.accentColor : Color(.systemGray6)
-                      )
-                      .foregroundColor(
-                        store.sortOption == option ? .white : .primary
-                      )
-                      .cornerRadius(8)
-                  }
-                }
-              }
-              .padding(.horizontal, 1)
-            }
-          }
-
-          // Filter options
-          HStack {
-            // Favorites filter
-            Button {
-              send(.toggleFavoritesFilter)
-            } label: {
-              HStack(spacing: 4) {
-                Image(systemName: store.showFavoritesOnly ? "star.fill" : "star")
-                Text("お気に入り")
-              }
-              .font(.caption)
-              .padding(.horizontal, 12)
-              .padding(.vertical, 6)
-              .background(store.showFavoritesOnly ? Color.yellow : Color(.systemGray6))
-              .foregroundColor(store.showFavoritesOnly ? .black : .primary)
-              .cornerRadius(8)
-            }
-
-            Spacer()
-
-            // Duration filter
-            Menu {
-              ForEach(PlaybackFeature.State.DurationFilter.allCases, id: \.self) { filter in
-                Button {
-                  send(.setDurationFilter(filter))
-                } label: {
-                  HStack {
-                    Text(filter.rawValue)
-                    if store.durationFilter == filter {
-                      Image(systemName: "checkmark")
-                    }
-                  }
-                }
-              }
-            } label: {
-              HStack(spacing: 4) {
-                Image(systemName: "clock")
-                Text(store.durationFilter.rawValue)
-              }
-              .font(.caption)
-              .padding(.horizontal, 12)
-              .padding(.vertical, 6)
-              .background(Color(.systemGray6))
-              .foregroundColor(.primary)
-              .cornerRadius(8)
-            }
-          }
-
-          // Results count
-          if !store.voiceMemos.isEmpty {
-            Text("\(filteredMemos.count) / \(store.voiceMemos.count) 件")
-              .font(.caption2)
-              .foregroundColor(.secondary)
-          }
+            sortOptionsSection
+            filterOptionsRow
+            resultsCountView
         }
         .padding(.horizontal, 4)
-      }
     }
-    .padding(.horizontal)
-    .padding(.top, 8)
-  }
+
+    // MARK: - Sort Options
+    private var sortOptionsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("並び順")
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+            sortOptionsScrollView
+        }
+    }
+
+    private var sortOptionsScrollView: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(SortOption.allCases, id: \.self) { option in
+                    sortOptionButton(option)
+                }
+            }
+            .padding(.horizontal, 1)
+        }
+    }
+
+    private func sortOptionButton(_ option: SortOption) -> some View {
+        Button {
+            send(.setSortOption(option))
+        } label: {
+            Text(option.rawValue)
+                .font(.caption)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background(sortOptionBackgroundColor(for: option))
+                .foregroundColor(sortOptionForegroundColor(for: option))
+                .cornerRadius(8)
+        }
+    }
+
+    private func sortOptionBackgroundColor(for option: SortOption) -> Color {
+        store.sortOption == option ? Color.accentColor : Color(.systemGray6)
+    }
+
+    private func sortOptionForegroundColor(for option: SortOption) -> Color {
+        store.sortOption == option ? .white : .primary
+    }
+
+    // MARK: - Filter Options Row
+    private var filterOptionsRow: some View {
+        HStack {
+            favoritesFilterButton
+            Spacer()
+            durationFilterMenu
+        }
+    }
+
+    private var favoritesFilterButton: some View {
+        Button {
+            send(.toggleFavoritesFilter)
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: store.showFavoritesOnly ? "star.fill" : "star")
+                Text("お気に入り")
+            }
+            .font(.caption)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(favoritesFilterBackgroundColor)
+            .foregroundColor(favoritesFilterForegroundColor)
+            .cornerRadius(8)
+        }
+    }
+
+    private var favoritesFilterBackgroundColor: Color {
+        store.showFavoritesOnly ? Color.yellow : Color(.systemGray6)
+    }
+
+    private var favoritesFilterForegroundColor: Color {
+        store.showFavoritesOnly ? .black : .primary
+    }
+
+    private var durationFilterMenu: some View {
+        Menu {
+            ForEach(DurationFilter.allCases, id: \.self) { filter in
+                durationFilterMenuItem(filter)
+            }
+        } label: {
+            HStack(spacing: 4) {
+                Image(systemName: "clock")
+                Text(store.durationFilter.rawValue)
+            }
+            .font(.caption)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(Color(.systemGray6))
+            .foregroundColor(.primary)
+            .cornerRadius(8)
+        }
+    }
+
+    private func durationFilterMenuItem(_ filter: DurationFilter) -> some View {
+        Button {
+            send(.setDurationFilter(filter))
+        } label: {
+            HStack {
+                Text(filter.rawValue)
+                if store.durationFilter == filter {
+                    Image(systemName: "checkmark")
+                }
+            }
+        }
+    }
+
+    // MARK: - Results Count
+    private var resultsCountView: some View {
+        Group {
+            if !store.voiceMemos.isEmpty {
+                Text("\(filteredMemos.count) / \(store.voiceMemos.count) 件")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
 
   private var voiceMemosListView: some View {
     List {
@@ -736,7 +764,6 @@ struct PlaybackView: View {
     return String(format: "%d:%02d", minutes, seconds)
   }
 }
-
 
 struct VoiceMemoRow: View {
   let memo: PlaybackFeature.VoiceMemo

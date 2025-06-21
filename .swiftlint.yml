@@ -1,5 +1,8 @@
 # デフォルト有効で無効にするルール
 disabled_rules:
+  - cyclomatic_complexity
+  - function_body_length
+  - closure_body_length
   #- block_based_kvo
   #- class_delegate_protocol
   #- closing_brace
@@ -9,7 +12,6 @@ disabled_rules:
   #- compiler_protocol_init
   #- control_statement
   #- custom_rules
-  #- cyclomatic_complexity
   #- deployment_target
   #- discarded_notification_center_observer
   #- discouraged_direct_init
@@ -22,7 +24,6 @@ disabled_rules:
   #- for_where
   #- force_cast
   #- force_try
-  #- function_body_length
   #- function_parameter_count
   #- generic_type_name
   #- identifier_name
@@ -85,7 +86,7 @@ opt_in_rules:
   - anyobject_protocol
   - array_init
   - attributes
-  - closure_body_length
+  #- closure_body_length
   - closure_end_indentation
   - closure_spacing
   - collection_alignment
@@ -95,7 +96,7 @@ opt_in_rules:
   #- discouraged_object_literal # オブジェクトリテラルを使いたいため
   - discouraged_optional_boolean
   - discouraged_optional_collection
-  - empty_count
+  #- empty_count
   - empty_string
   - empty_xctest_method
   #- explicit_acl # できる限りACLを省略したいため

@@ -105,7 +105,7 @@ extension PlaylistRepository: DependencyKey {
                 fetchRequest.predicate = predicate
 
                 let count = try context.count(for: fetchRequest)
-                return count > 0
+                return count != 0
             }
         }
 

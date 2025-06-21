@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import ComposableArchitecture
 
-@ViewAction(for: PlaylistListFeature.self)
 struct ModernPlaylistListView: View {
     @Perception.Bindable var store: StoreOf<PlaylistListFeature>
 
@@ -20,7 +19,7 @@ struct ModernPlaylistListView: View {
                     PlaylistRowView(playlist: playlist) {
                         // プレイリスト詳細への遷移は今後実装
                     } onDelete: {
-                        send(.deletePlaylist(playlist.id))
+                        store.send(.view(.deletePlaylist(playlist.id)))
                     }
                 }
             }
@@ -29,7 +28,7 @@ struct ModernPlaylistListView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    send(.createPlaylistButtonTapped)
+                    store.send(.view(.createPlaylistButtonTapped))
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -50,7 +49,7 @@ struct ModernPlaylistListView: View {
             }
         }
         .onAppear {
-            send(.onAppear)
+            store.send(.onAppear)
         }
         .overlay {
             if store.isLoading {
@@ -108,13 +107,13 @@ struct CreatePlaylistSheet: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("キャンセル") {
-                        store.send(.createPlaylistSheetDismissed)
+                        store.send(.view(.createPlaylistSheetDismissed))
                     }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
                     Button("作成") {
-                        store.send(.createPlaylistSubmitted)
+                        store.send(.view(.createPlaylistSubmitted))
                     }
                     .disabled(store.newPlaylistName.isEmpty)
                 }

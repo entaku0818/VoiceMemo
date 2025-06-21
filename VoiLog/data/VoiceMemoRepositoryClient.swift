@@ -377,7 +377,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     // 変更を保存
                     do {
                         try managedContext.save()
-                        return voicesToDownload.count > 0
+                        return !voicesToDownload.isEmpty
                     } catch {
                         print("Error saving downloaded voices: \(error)")
                         return false
