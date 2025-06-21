@@ -1,1 +1,23 @@
-Minor bug fixes.
+Version 0.17.3
+
+[New Features]
+• Added Playlist functionality
+  - Organize your recordings with playlists
+  - Unlimited playlists available with Premium (free version limited to 3)
+
+• Added detailed voice information display
+  - View file format, sampling frequency, bit depth, and more
+  - Access details via the info button on each recording
+
+• Enhanced search functionality
+  - Multiple sort options (date, title, duration)
+  - Favorites filter and duration filter
+  - Toggle search options visibility
+
+[Improvements]
+• Fixed ViewAction protocol implementation
+• Improved code safety and performance
+• Enhanced code quality with SwiftLint compliance
+
+Thank you for using VoiLog.
+We will continue to improve the app for better user experience.
