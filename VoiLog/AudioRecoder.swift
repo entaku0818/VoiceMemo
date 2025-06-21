@@ -121,13 +121,13 @@ private actor AudioRecorder {
 
     func stop() {
         if currentTime < 2 { return }
-        
+
         // 録音状態をfalseに設定
         isRecording = false
-        
+
         // 割り込み処理を削除
         self.removeInterruptionHandling()
-        
+
         audioEngine?.stop()
         self.inputNode?.removeTap(onBus: 0)
         self.recognitionTask?.cancel()
@@ -144,9 +144,9 @@ private actor AudioRecorder {
         do {
             // より強力な録音継続設定
             try audioSession.setCategory(.playAndRecord, options: [
-                .defaultToSpeaker, 
-                .allowBluetooth, 
-                .allowBluetoothA2DP, 
+                .defaultToSpeaker,
+                .allowBluetooth,
+                .allowBluetoothA2DP,
                 .mixWithOthers,
                 .duckOthers  // 他の音声を小さくして録音を継続
             ])
@@ -161,10 +161,10 @@ private actor AudioRecorder {
         self.stop()
         setupAVAudioSession()
         beginBackgroundTask()
-        
+
         // 録音状態をtrueに設定
         isRecording = true
-        
+
         let stream = AsyncThrowingStream<Bool, Error> { continuation in
             do {
                 speechRecognizer = SFSpeechRecognizer(locale: Locale.current)
@@ -217,10 +217,10 @@ private actor AudioRecorder {
                 ]
 
                 let audioFile = try AVAudioFile(forWriting: url, settings: settings)
-                
+
                 // 入力フォーマットを取得
                 let inputFormat = inputNode.inputFormat(forBus: 0)
-                
+
                 // 出力フォーマットを設定
                 let outputFormat = AVAudioFormat(
                     commonFormat: .pcmFormatFloat32,
@@ -228,7 +228,7 @@ private actor AudioRecorder {
                     channels: 1,
                     interleaved: false
                 )!
-                
+
                 // コンバーターを作成
                 let converter = AVAudioConverter(from: inputFormat, to: outputFormat)!
 
@@ -241,13 +241,13 @@ private actor AudioRecorder {
                     // バッファを変換
                     let convertedBuffer = AVAudioPCMBuffer(pcmFormat: outputFormat, frameCapacity: AVAudioFrameCount(Double(buffer.frameLength) * outputFormat.sampleRate / inputFormat.sampleRate))!
                     var error: NSError?
-                    let inputBlock: AVAudioConverterInputBlock = { inNumPackets, outStatus in
+                    let inputBlock: AVAudioConverterInputBlock = { _, outStatus in
                         outStatus.pointee = .haveData
                         return buffer
                     }
-                    
+
                     converter.convert(to: convertedBuffer, error: &error, withInputFrom: inputBlock)
-                    
+
                     if let error = error {
                         UserDefaultsManager.shared.logError("Conversion error: \(error.localizedDescription)")
                         return
@@ -351,7 +351,7 @@ private actor AudioRecorder {
         ) { [weak self] notification in
             self?.handleInterruption(notification)
         }
-        
+
         // ルート変更の監視も追加（Bluetoothヘッドセットの接続/切断など）
         NotificationCenter.default.addObserver(
             forName: AVAudioSession.routeChangeNotification,
@@ -361,7 +361,7 @@ private actor AudioRecorder {
             self?.handleRouteChange(notification)
         }
     }
-    
+
     // 割り込み処理の削除
     private func removeInterruptionHandling() {
         NotificationCenter.default.removeObserver(
@@ -379,7 +379,7 @@ private actor AudioRecorder {
     // 同期的な割り込み処理（クラッシュを防ぐ）
     private func handleInterruption(_ notification: Notification) {
         guard isRecording else { return }
-        
+
         guard let userInfo = notification.userInfo,
               let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
               let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
@@ -390,13 +390,13 @@ private actor AudioRecorder {
         case .began:
             UserDefaultsManager.shared.logError("Audio interruption began - trying to maintain recording")
             // 録音を継続するために何もしない（duckOthersオプションで他の音を小さくする）
-            
+
         case .ended:
             guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else {
                 return
             }
             let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
-            
+
             if options.contains(.shouldResume) {
                 UserDefaultsManager.shared.logError("Audio interruption ended - resuming recording")
                 // AudioSessionを再アクティブ化
@@ -406,22 +406,22 @@ private actor AudioRecorder {
                     UserDefaultsManager.shared.logError("Failed to reactivate audio session: \(error)")
                 }
             }
-            
+
         @unknown default:
             break
         }
     }
-    
+
     // ルート変更の処理
     private func handleRouteChange(_ notification: Notification) {
         guard isRecording else { return }
-        
+
         guard let userInfo = notification.userInfo,
               let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
               let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue) else {
             return
         }
-        
+
         switch reason {
         case .newDeviceAvailable:
             UserDefaultsManager.shared.logError("New audio device available")

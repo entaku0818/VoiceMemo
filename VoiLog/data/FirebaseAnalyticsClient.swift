@@ -11,7 +11,7 @@ struct FirebaseAnalyticsClient {
 
 // MARK: - Dependency Key
 private enum FirebaseAnalyticsClientKey: DependencyKey {
-    static let liveValue: FirebaseAnalyticsClient = FirebaseAnalyticsClient(
+    static let liveValue = FirebaseAnalyticsClient(
         logEvent: { eventName, parameters in
             Analytics.logEvent(eventName, parameters: parameters)
         },
@@ -22,8 +22,8 @@ private enum FirebaseAnalyticsClientKey: DependencyKey {
             Analytics.setUserID(userId)
         }
     )
-    
-    static let previewValue: FirebaseAnalyticsClient = FirebaseAnalyticsClient(
+
+    static let previewValue = FirebaseAnalyticsClient(
         logEvent: { eventName, parameters in
             print("📊 Analytics Event: \(eventName), Parameters: \(parameters ?? [:])")
         },
@@ -34,7 +34,7 @@ private enum FirebaseAnalyticsClientKey: DependencyKey {
             print("📊 Analytics User ID: \(userId ?? "nil")")
         }
     )
-    
+
     static let testValue: FirebaseAnalyticsClient = previewValue
 }
 
@@ -58,7 +58,7 @@ extension FirebaseAnalyticsClient {
         static let paywallRestoreFailed = "paywall_restore_failed"
         static let paywallDismissed = "paywall_dismissed"
     }
-    
+
     // Recording関連のイベント
     enum RecordingEvent {
         static let recordingStarted = "recording_started"
@@ -66,7 +66,7 @@ extension FirebaseAnalyticsClient {
         static let recordingSaved = "recording_saved"
         static let recordingCancelled = "recording_cancelled"
     }
-    
+
     // Playback関連のイベント
     enum PlaybackEvent {
         static let playbackStarted = "playback_started"
@@ -74,11 +74,11 @@ extension FirebaseAnalyticsClient {
         static let playbackPaused = "playback_paused"
         static let playbackStopped = "playback_stopped"
     }
-    
+
     // User Property Keys
     enum UserProperty {
         static let premiumUser = "premium_user"
         static let totalRecordings = "total_recordings"
         static let appVersion = "app_version"
     }
-} 
+}

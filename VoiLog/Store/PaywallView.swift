@@ -32,18 +32,18 @@ struct PaywallView: View {
                     .frame(height: 200)
                     .cornerRadius(12)
                     .padding(.horizontal)
-                    
+
                     VStack(alignment: .center, spacing: 12) {
                         Text("Premium")
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                        
+
                         Text("すべての機能が使い放題")
                             .font(.system(size: 32, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .padding(.bottom, 4)
-                        
+
                         Text("今すぐ1ヶ月無料体験してみよう！")
                             .font(.system(size: 20, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
@@ -61,11 +61,11 @@ struct PaywallView: View {
                         .scaledToFit()
                         .frame(width: 30, height: 30)
                         .foregroundColor(.yellow)
-                    
+
                     Text("プレミアム特典")
                         .font(.system(size: 22, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
-                    
+
                     Spacer()
                 }
                 .padding(.vertical, 20)
@@ -179,7 +179,7 @@ struct PaywallView: View {
                     "timestamp": Date().timeIntervalSince1970,
                     "source": "paywall_view"
                 ])
-                
+
                 Task {
                     await fetchProductInfo()
                 }
@@ -218,17 +218,17 @@ struct PaywallView: View {
             "product_price": productPrice,
             "timestamp": Date().timeIntervalSince1970
         ])
-        
+
         do {
             try await purchaseManager.purchasePro()
-            
+
             // 購入成功をAnalyticsに記録
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCompleted, [
                 "product_name": productName,
                 "product_price": productPrice,
                 "timestamp": Date().timeIntervalSince1970
             ])
-            
+
             await MainActor.run {
                 alertMessage = "購入が完了しました！"
                 showAlert = true
@@ -242,7 +242,7 @@ struct PaywallView: View {
                 "error": error.localizedDescription,
                 "timestamp": Date().timeIntervalSince1970
             ])
-            
+
             await MainActor.run {
                 alertMessage = "購入に失敗しました"
                 showAlert = true
@@ -256,15 +256,15 @@ struct PaywallView: View {
         analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreAttempted, [
             "timestamp": Date().timeIntervalSince1970
         ])
-        
+
         do {
             try await purchaseManager.restorePurchases()
-            
+
             // リストア成功をAnalyticsに記録
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreCompleted, [
                 "timestamp": Date().timeIntervalSince1970
             ])
-            
+
             alertMessage = "購入情報が復元しました！"
             showAlert = true
             presentationMode.wrappedValue.dismiss()
@@ -274,7 +274,7 @@ struct PaywallView: View {
                 "error": error.localizedDescription,
                 "timestamp": Date().timeIntervalSince1970
             ])
-            
+
             alertMessage = "リストアに失敗しました"
             showAlert = true
         }
@@ -292,7 +292,7 @@ struct PaywallView: View {
                         endPoint: .bottomTrailing
                     ))
                     .frame(width: 56, height: 56)
-                
+
                 if systemImage, let systemName = systemName {
                     Image(systemName: systemName)
                         .resizable()
@@ -306,18 +306,18 @@ struct PaywallView: View {
                         .frame(width: 30, height: 30)
                 }
             }
-            
+
             VStack(alignment: .leading, spacing: 6) {
                 Text(title)
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? .white : .black)
-                
+
                 Text(description)
                     .font(.system(size: 16, weight: .regular, design: .rounded))
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            
+
             Spacer()
         }
         .padding(.vertical, 8)

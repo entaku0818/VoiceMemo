@@ -9,7 +9,7 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
-struct recordActivityAttributes: ActivityAttributes {
+struct RecordActivityAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic stateful properties about your activity go here!
         var emoji: String
@@ -20,9 +20,9 @@ struct recordActivityAttributes: ActivityAttributes {
     var name: String
 }
 
-struct recordActivityLiveActivity: Widget {
+struct RecordActivityLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        ActivityConfiguration(for: recordActivityAttributes.self) { context in
+        ActivityConfiguration(for: RecordActivityAttributes.self) { context in
             // Lock screen/banner UI goes here
             VStack {
                 HStack {
@@ -75,14 +75,14 @@ struct recordActivityLiveActivity: Widget {
     }
 }
 
-extension recordActivityAttributes {
-    fileprivate static var preview: recordActivityAttributes {
-        recordActivityAttributes(name: "World")
+extension RecordActivityAttributes {
+    fileprivate static var preview: RecordActivityAttributes {
+        RecordActivityAttributes(name: "World")
     }
 }
 
-extension recordActivityAttributes.ContentState {
-    fileprivate static var recording: recordActivityAttributes.ContentState {
-        recordActivityAttributes.ContentState(emoji: "🔴", recordingTime: 0)
+extension RecordActivityAttributes.ContentState {
+    fileprivate static var recording: RecordActivityAttributes.ContentState {
+        RecordActivityAttributes.ContentState(emoji: "🔴", recordingTime: 0)
     }
 }

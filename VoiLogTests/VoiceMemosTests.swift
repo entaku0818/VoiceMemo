@@ -34,7 +34,7 @@ final class VoiceMemosTests: XCTestCase {
     func testOnAppear_ReviewPrompt() async {
         // チュートリアル表示済みに設定
         UserDefaultsManager.shared.hasSeenTutorial = true
-        
+
         let initialDate = Calendar.current.date(byAdding: .day, value: -8, to: Date())!
         UserDefaultsManager.shared.installDate = initialDate
         UserDefaultsManager.shared.reviewRequestCount = 0

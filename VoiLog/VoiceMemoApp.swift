@@ -50,12 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var voiceMemos: [VoiceMemoReducer.State] = []
-    let DocumentsPath = NSHomeDirectory() + "/Documents"
+    let documentsPath = NSHomeDirectory() + "/Documents"
 
     var admobUnitId: String!
     var recordAdmobUnitId: String!
     var playListAdmobUnitId: String!
-
 
     private let backgroundTaskManager = BackgroundTaskManager()
 
@@ -156,9 +155,9 @@ extension VoiceMemoApp {
     func cleanupLiveActivities() {
         if #available(iOS 16.1, *) {
             Task {
-                for activity in Activity<recordActivityAttributes>.activities {
+                for activity in Activity<RecordActivityAttributes>.activities {
                     print("Cleaning up background activity: \(activity.id)")
-                    let finalContentState = recordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0)
+                    let finalContentState = RecordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0)
                     let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
                     await activity.end(finalActivityContent, dismissalPolicy: .immediate)
                 }
@@ -189,7 +188,8 @@ class BackgroundTaskManager {
 
     private func registerBackgroundTasks() {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "com.entaku.VoiLog.background", using: nil) { task in
-            self.handleBackgroundTask(task: task as! BGProcessingTask)
+            guard let processingTask = task as? BGProcessingTask else { return }
+            self.handleBackgroundTask(task: processingTask)
         }
     }
 

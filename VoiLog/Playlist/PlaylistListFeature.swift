@@ -11,12 +11,12 @@ struct PlaylistListFeature: Reducer {
 
     struct State: Equatable {
         var playlists: [Playlist] = []
-        var isLoading: Bool = false
+        var isLoading = false
         var error: String?
-        var isShowingCreateSheet: Bool = false
+        var isShowingCreateSheet = false
         var newPlaylistName: String = ""
-        var hasPurchasedPremium: Bool = false
-        var isShowingPaywall: Bool = false
+        var hasPurchasedPremium = false
+        var isShowingPaywall = false
 
     }
 
@@ -68,7 +68,7 @@ struct PlaylistListFeature: Reducer {
         case .createPlaylistButtonTapped:
             if !state.hasPurchasedPremium && state.playlists.count >= 3 {
                 state.isShowingPaywall = true
-            }else{
+            } else {
                 state.isShowingCreateSheet = true
             }
             return .none

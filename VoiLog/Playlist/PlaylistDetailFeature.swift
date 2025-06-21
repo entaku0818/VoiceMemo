@@ -18,7 +18,7 @@ struct PlaylistDetailFeature {
         case networkError(String)
         case databaseError(String)
         case unknown(String)
-        
+
         static func == (lhs: Self, rhs: Self) -> Bool {
             switch (lhs, rhs) {
             case (.notFound, .notFound):
@@ -33,7 +33,7 @@ struct PlaylistDetailFeature {
                 return false
             }
         }
-        
+
         static func from(_ error: Error) -> Self {
             if let error = error as? PlaylistRepositoryError {
                 switch error {
@@ -47,7 +47,7 @@ struct PlaylistDetailFeature {
             }
         }
     }
-    
+
     @ObservableState
     struct State: Equatable {
         let id: UUID
@@ -55,17 +55,17 @@ struct PlaylistDetailFeature {
         var voices: [VoiceMemoRepository.Voice]
         var createdAt: Date
         var updatedAt: Date
-        var isLoading: Bool = false
+        var isLoading = false
         var error: String?
-        var isEditingName: Bool = false
+        var isEditingName = false
         var editingName: String = ""
         var voiceMemos: IdentifiedArrayOf<VoiceMemoReducer.State> = []
-        var isShowingVoiceSelection: Bool = false
-        var isPlaying: Bool = false
+        var isShowingVoiceSelection = false
+        var isPlaying = false
         var currentPlayingId: VoiceMemoReducer.State.ID?
         var currentTime: TimeInterval = 0
         var playbackSpeed: AudioPlayerClient.PlaybackSpeed = .normal
-        var hasPurchasedPremium: Bool = false
+        var hasPurchasedPremium = false
 
         var asPlaylist: Playlist {
             Playlist(
@@ -110,7 +110,7 @@ struct PlaylistDetailFeature {
                 return false
             }
         }
-        
+
         case binding(BindingAction<State>)
         case dataLoaded(PlaylistDetail)
         case playlistLoadingFailed(PlaylistError)
@@ -124,7 +124,7 @@ struct PlaylistDetailFeature {
         case voiceAddFailedToPlaylist(PlaylistError)
         case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
         case view(View)
-        
+
         enum View: Equatable {
             case onAppear
             case editButtonTapped
@@ -204,12 +204,12 @@ struct PlaylistDetailFeature {
 
     var body: some ReducerOf<Self> {
         BindingReducer()
-        
+
         Reduce { state, action in
             switch action {
             case .binding:
                 return .none
-                
+
             case let .view(viewAction):
                 switch viewAction {
                 case .onAppear:

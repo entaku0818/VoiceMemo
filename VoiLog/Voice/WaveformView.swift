@@ -7,20 +7,20 @@ struct WaveformView: View {
     let duration: TimeInterval
     let onRangeSelected: (ClosedRange<Double>?) -> Void
     let onSeek: (Double) -> Void
-    
+
     @State private var isSelecting = false
     @State private var selectionStart: CGFloat = 0
     @State private var selectionEnd: CGFloat = 0
     @State private var dragOffset: CGFloat = 0
     @GestureState private var isDragging = false
-    
+
     private let barWidth: CGFloat = 2
     private let barSpacing: CGFloat = 1
     private let minBarHeight: CGFloat = 3
     private let selectionColor = Color.blue.opacity(0.3)
     private let waveformColor = Color.blue
     private let currentPositionColor = Color.red
-    
+
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
@@ -32,18 +32,18 @@ struct WaveformView: View {
                             .frame(width: barWidth, height: max(CGFloat(waveformData[index]) * geometry.size.height * 0.8, minBarHeight))
                     }
                 }
-                
+
                 // 選択範囲
                 if let selectedRange = selectedRange {
                     let startPosition = CGFloat(selectedRange.lowerBound / duration) * geometry.size.width
                     let endPosition = CGFloat(selectedRange.upperBound / duration) * geometry.size.width
-                    
+
                     Rectangle()
                         .fill(selectionColor)
                         .frame(width: endPosition - startPosition, height: geometry.size.height)
                         .position(x: startPosition + (endPosition - startPosition) / 2, y: geometry.size.height / 2)
                 }
-                
+
                 // 現在の再生位置
                 Rectangle()
                     .fill(currentPositionColor)
@@ -61,15 +61,15 @@ struct WaveformView: View {
                             selectionStart = value.startLocation.x
                         }
                         selectionEnd = value.location.x
-                        
+
                         // 選択範囲を時間に変換して通知
                         let startTime = Double(selectionStart / geometry.size.width) * duration
                         let endTime = Double(selectionEnd / geometry.size.width) * duration
-                        
+
                         // 時間の範囲を確保
                         let minTime = max(0, min(startTime, endTime))
                         let maxTime = min(duration, max(startTime, endTime))
-                        
+
                         if minTime != maxTime {
                             onRangeSelected(minTime...maxTime)
                         } else {
@@ -92,7 +92,7 @@ struct WaveformView: View {
                 if !isDragging {
                     isSelecting = false
                     onRangeSelected(nil)
-                    
+
                     // タップした位置に再生位置を移動
                     let seekPosition = Double(location.x / geometry.size.width) * duration
                     onSeek(seekPosition)
@@ -127,7 +127,7 @@ struct WaveformView_Previews: PreviewProvider {
         .padding()
         .previewLayout(.sizeThatFits)
         .previewDisplayName("選択範囲あり")
-        
+
         WaveformView(
             waveformData: generateSampleWaveformData(count: 100),
             selectedRange: nil,
@@ -141,4 +141,4 @@ struct WaveformView_Previews: PreviewProvider {
         .previewLayout(.sizeThatFits)
         .previewDisplayName("選択範囲なし")
     }
-} 
+}

@@ -64,7 +64,7 @@ struct VoiceMemoDetail: View {
 
                 }.padding()
 
-                HStack (spacing: 8){
+                HStack(spacing: 8) {
                     Button(action: {
                         viewStore.send(.toggleLoop)
                     }) {
@@ -140,7 +140,7 @@ struct VoiceMemoDetail: View {
                         let documentsPath = NSHomeDirectory() + "/Documents"
                         let audioFilePath = documentsPath + "/" + viewStore.url.lastPathComponent
                         let fullURL = URL(fileURLWithPath: audioFilePath)
-                        
+
                         AudioEditorView(
                             store: Store(
                                 initialState: AudioEditorReducer.State(
@@ -186,7 +186,7 @@ struct VoiceMemoDetail: View {
                         .default(Text("Mac用 (標準形式)")) {
                             shareForMac(viewStore: viewStore)
                         },
-                        .default(Text("Windows用 (MP4形式)")) { 
+                        .default(Text("Windows用 (MP4形式)")) {
                             shareForWindows(viewStore: viewStore)
                         },
                         .cancel(Text("キャンセル"))
@@ -211,10 +211,10 @@ struct VoiceMemoDetail: View {
         let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + viewStore.url.lastPathComponent
         let audioFileURL = NSURL(fileURLWithPath: inputDocumentsPath)
         itemsToShare.append(audioFileURL)
-        
+
         presentActivityViewController(items: itemsToShare)
     }
-    
+
     // Windows用のシェア処理（WAV形式に変換）
     // Windows用のシェア処理（MP4形式に変換）
     private func shareForWindows(viewStore: ViewStore<VoiceMemoReducer.State, VoiceMemoReducer.Action>) {

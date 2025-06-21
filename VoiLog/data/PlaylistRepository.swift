@@ -64,7 +64,7 @@ enum PlaylistRepositoryError: LocalizedError {
 // MARK: - Preview/Test Value
 extension PlaylistRepository: TestDependencyKey {
     static var previewValue: Self {
-        return Self(
+        Self(
             create: { name in
                 Playlist(id: UUID(), name: name)
             },

@@ -186,7 +186,7 @@ struct CurrentPlayingSection: View {
         VStack {
             if let currentId = store.currentPlayingId,
                let currentVoice = store.voices.first(where: { $0.url == currentId }) {
-                
+
                 if let voiceMemo = store.voiceMemos[id: currentVoice.url] {
                     // クロージャベースのスコープを使用
                     let memoStore = store.scope(
@@ -250,7 +250,7 @@ struct PlaylistDetailView: View {
                     }
                 }
             }
-            
+
             VStack(spacing: 0) {
                 // プレーヤーセクション
                 CurrentPlayingSection(store: store)

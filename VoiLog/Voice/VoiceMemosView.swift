@@ -16,7 +16,6 @@ struct VoiceMemosView: View {
     @State private var selectedIndex: Int?
     @State private var isRecordingNavigationAlertPresented = false
 
-
     func checkTrackingAuthorizationStatus() {
         switch ATTrackingManager.trackingAuthorizationStatus {
         case .notDetermined:
@@ -62,7 +61,7 @@ struct VoiceMemosView: View {
                             selectedIndex: $selectedIndex,
                             isRecordingNavigationAlertPresented: $isRecordingNavigationAlertPresented
                         )
-                        
+
                         if viewStore.currentMode == .playback {
                             if let playingMemoID = viewStore.currentPlayingMemo {
                                 ForEachStore(
@@ -89,7 +88,7 @@ struct VoiceMemosView: View {
                             .frame(maxWidth: .infinity)
                             .background(Color(white: 0.95))
                         }
-                        
+
                         if !viewStore.hasPurchasedPremium {
                             AdmobBannerView(unitId: recordAdmobUnitId)
                                 .frame(height: 50)
@@ -106,7 +105,7 @@ struct VoiceMemosView: View {
                                 }
                             }
                         }
-                        
+
                         ToolbarItem(placement: .navigationBarLeading) {
                                 if !viewStore.hasPlayingMemo {
                                     Button(action: {
@@ -117,10 +116,10 @@ struct VoiceMemosView: View {
                                         }
                                     }) {
                                         Text(viewStore.currentMode == .playback ? "再生" : "録音")
-                                }
+                                    }
                             }
                         }
-                        
+
                         ToolbarItem(placement: .navigationBarTrailing) {
                             HStack {
                                 if viewStore.syncStatus == .synced {
@@ -159,9 +158,9 @@ struct VoiceMemosView: View {
                                         }
                                     }
                                 }
-                                
+
                                 Spacer().frame(width: 10)
-                                
+
                                 let settingStore = Store(
                                     initialState: SettingReducer.State(
                                         selectedFileFormat: UserDefaultsManager.shared.selectedFileFormat,
@@ -175,7 +174,7 @@ struct VoiceMemosView: View {
                                 ) {
                                     SettingReducer()
                                 }
-                                
+
                                 NavigationLink(
                                     destination: SettingView(store: settingStore, admobUnitId: admobUnitId),
                                     label: {
@@ -203,13 +202,13 @@ struct VoiceMemosView: View {
                 if viewStore.showTutorial {
                     TutorialView(store: store)
                 }
-                
+
                 if viewStore.showTitleDialog {
                     ZStack {
                         // 背景のオーバーレイ
                         Color.black.opacity(0.4)
                             .edgesIgnoringSafeArea(.all)
-                        
+
                         // ダイアログカード
                         VStack(spacing: 24) {
                             // ヘッダー部分
@@ -217,13 +216,13 @@ struct VoiceMemosView: View {
                                 Text("メモのタイトルを入力")
                                     .font(.headline)
                                     .fontWeight(.bold)
-                                
+
                                 Text("このメモにわかりやすいタイトルをつけましょう")
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                                     .multilineTextAlignment(.center)
                             }
-                            
+
                             // 入力フィールド
                             TextField("タイトル", text: viewStore.binding(
                                 get: \.tempTitle,
@@ -237,7 +236,7 @@ struct VoiceMemosView: View {
                                     viewStore.send(.saveTitle)
                                 }
                             }
-                            
+
                             // ボタンエリア
                             HStack(spacing: 16) {
                                 Button(action: {
@@ -251,7 +250,7 @@ struct VoiceMemosView: View {
                                 .buttonStyle(.bordered)
                                 .tint(.secondary)
                                 .controlSize(.small)
-                                
+
                                 Button(action: {
                                     viewStore.send(.saveTitle)
                                 }) {
@@ -283,17 +282,17 @@ struct VoiceMemosView: View {
                     ZStack {
                         Color.black.opacity(0.4)
                             .edgesIgnoringSafeArea(.all)
-                        
+
                         VStack(spacing: 16) {
                             Text("録音中です")
                                 .font(.headline)
                                 .fontWeight(.bold)
-                            
+
                             Text("録音中は他の操作ができません。\n録音を停止してから操作してください。")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                                 .multilineTextAlignment(.center)
-                            
+
                             Button(action: {
                                 isRecordingNavigationAlertPresented = false
                             }) {
@@ -357,7 +356,7 @@ private struct VoiceMemoListView: View {
     @Binding var isRecordingNavigationAlertPresented: Bool
 
     var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
+        WithViewStore(store, observe: { $0 }) { _ in
             List {
                 PlaylistSection(
                     store: store,
@@ -388,12 +387,12 @@ private struct PlaylistSection: View {
                 let playlistStore = Store(
                     initialState: PlaylistListFeature.State()
                 ) { PlaylistListFeature() }
-                
+
                 let destination = PlaylistListView(
                     store: playlistStore,
                     admobUnitId: playListAdmobUnitId
                 )
-                
+
                 NavigationLink(
                     destination: destination,
                     label: {
@@ -477,8 +476,6 @@ struct RecordButton: View {
     }
 }
 
-
-
 struct VoiceMemos_Previews: PreviewProvider {
     static var previews: some View {
             VoiceMemosView(
@@ -540,8 +537,5 @@ struct VoiceMemos_Previews: PreviewProvider {
                 recordAdmobUnitId: "", playListAdmobUnitId: ""
             )
 
-
     }
 }
-
-

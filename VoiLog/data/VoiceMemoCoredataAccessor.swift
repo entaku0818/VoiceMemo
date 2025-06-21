@@ -34,7 +34,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
     }
 
     func insert(voice: VoiceMemoRepository.Voice, isCloud: Bool) {
-        if let voiceEntity = NSManagedObject(entity: self.entity!, insertInto: managedContext) as? Voice {
+        guard let entity = self.entity else { return }
+        if let voiceEntity = NSManagedObject(entity: entity, insertInto: managedContext) as? Voice {
             voiceEntity.title = voice.title
             voiceEntity.url = voice.url
             voiceEntity.id = voice.id
@@ -71,7 +72,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         return memoGroups.map { voiceEntity in
             VoiceMemoRepository.Voice(
                 title: voiceEntity.title ?? "",
-                url: voiceEntity.url!,
+                url: voiceEntity.url ?? URL(fileURLWithPath: ""),
                 id: voiceEntity.id ?? UUID(),
                 text: voiceEntity.text ?? "",
                 createdAt: voiceEntity.createdAt ?? Date(),
@@ -97,7 +98,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             if let voiceEntity = results.first {
                 return VoiceMemoRepository.Voice(
                     title: voiceEntity.title ?? "",
-                    url: voiceEntity.url!,
+                    url: voiceEntity.url ?? URL(fileURLWithPath: ""),
                     id: voiceEntity.id ?? UUID(),
                     text: voiceEntity.text ?? "",
                     createdAt: voiceEntity.createdAt ?? Date(),

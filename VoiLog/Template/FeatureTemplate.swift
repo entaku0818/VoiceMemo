@@ -7,14 +7,14 @@ struct FeatureReducer {
   struct State: Equatable {
     var items: [Item] = []
     var searchQuery: String = ""
-    var isLoading: Bool = false
+    var isLoading = false
   }
 
   struct Item: Identifiable, Equatable {
     var id: UUID
     var title: String
     var description: String
-    var isFavorite: Bool = false
+    var isFavorite = false
 
     init(id: UUID = UUID(), title: String, description: String) {
       self.id = id
@@ -162,4 +162,4 @@ struct FeatureView: View {
       FeatureReducer()
     }
   )
-} 
+}

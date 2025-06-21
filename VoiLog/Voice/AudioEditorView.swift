@@ -4,7 +4,7 @@ import ComposableArchitecture
 struct AudioEditorView: View {
     let store: StoreOf<AudioEditorReducer>
     @Environment(\.presentationMode) private var presentationMode
-    
+
     // 時間表示用のフォーマッタ
     private let timeFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -13,7 +13,7 @@ struct AudioEditorView: View {
         formatter.zeroFormattingBehavior = .pad
         return formatter
     }()
-    
+
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(spacing: 0) {
@@ -23,22 +23,22 @@ struct AudioEditorView: View {
                         viewStore.send(.cancel)
                     }
                     .foregroundColor(.red)
-                    
+
                     Spacer()
-                    
+
                     Text("音声編集中")
                         .multilineTextAlignment(.center)
                         .font(.headline)
-                    
+
                     Spacer()
-                    
+
                     Button("保存") {
                         viewStore.send(.save)
                     }
                     .disabled(!viewStore.isEdited)
                 }
                 .padding()
-                
+
                 // 波形表示
                 ZStack {
                     // グラデーション背景を追加
@@ -61,7 +61,7 @@ struct AudioEditorView: View {
                                     lineWidth: 1
                                 )
                         )
-                    
+
                     if viewStore.isLoadingWaveform {
                         ProgressView("波形データを読み込んでいます...")
                             .progressViewStyle(CircularProgressViewStyle())
@@ -86,35 +86,35 @@ struct AudioEditorView: View {
                 }
                 .frame(height: 150)
                 .padding()
-                
+
                 // 再生時間表示
                 HStack {
                     ZStack {
                         Capsule()
                             .fill(Color.blue.opacity(0.1))
                             .frame(height: 30)
-                        
+
                         Text(formatTime(viewStore.currentPlaybackTime))
                             .font(.system(size: 14, weight: .semibold))
                             .monospacedDigit()
                             .foregroundColor(.blue)
                     }
                     .frame(width: 70)
-                    
+
                     Spacer()
-                    
+
                     // プログレスバー
                     ProgressView(value: viewStore.currentPlaybackTime, total: viewStore.duration)
                         .progressViewStyle(LinearProgressViewStyle(tint: Color.blue))
                         .frame(height: 4)
-                    
+
                     Spacer()
-                    
+
                     ZStack {
                         Capsule()
                             .fill(Color.blue.opacity(0.1))
                             .frame(height: 30)
-                        
+
                         Text(formatTime(viewStore.duration))
                             .font(.system(size: 14, weight: .semibold))
                             .monospacedDigit()
@@ -123,7 +123,7 @@ struct AudioEditorView: View {
                     .frame(width: 70)
                 }
                 .padding(.horizontal)
-                
+
                 // 再生コントロール
                 HStack(spacing: 30) {
                     Button(action: {
@@ -132,14 +132,14 @@ struct AudioEditorView: View {
                         Image(systemName: "gobackward.5")
                             .font(.title2)
                     }
-                    
+
                     Button(action: {
                         viewStore.send(.playPause)
                     }) {
                         Image(systemName: viewStore.isPlaying ? "pause.circle.fill" : "play.circle.fill")
                             .font(.system(size: 50))
                     }
-                    
+
                     Button(action: {
                         viewStore.send(.seek(to: min(viewStore.duration, viewStore.currentPlaybackTime + 5)))
                     }) {
@@ -148,9 +148,9 @@ struct AudioEditorView: View {
                     }
                 }
                 .padding()
-                
+
                 Divider()
-                
+
                 // 編集ツールバー
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
@@ -174,7 +174,7 @@ struct AudioEditorView: View {
                     }
                     .padding()
                 }
-                
+
                 // 編集ヘルプテキスト
                 if viewStore.selectedRange == nil {
                     Text("波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)")
@@ -192,9 +192,9 @@ struct AudioEditorView: View {
                         .foregroundColor(.blue)
                         .multilineTextAlignment(.center)
                 }
-                
+
                 Spacer()
-                
+
                 // 編集履歴
                 if !viewStore.editHistory.isEmpty {
                     VStack(alignment: .leading) {
@@ -202,7 +202,7 @@ struct AudioEditorView: View {
                             .font(.caption)
                             .fontWeight(.bold)
                             .padding(.horizontal)
-                        
+
                         ScrollView {
                             VStack(alignment: .leading, spacing: 5) {
                                 ForEach(Array(viewStore.editHistory.enumerated()), id: \.offset) { index, operation in
@@ -258,12 +258,12 @@ struct AudioEditorView: View {
                         ZStack {
                             Color.black.opacity(0.5)
                                 .edgesIgnoringSafeArea(.all)
-                            
+
                             VStack {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                     .scaleEffect(1.5)
-                                
+
                                 Text("処理中...")
                                     .foregroundColor(.white)
                                     .padding(.top)
@@ -278,7 +278,7 @@ struct AudioEditorView: View {
         }
         .navigationBarHidden(true)
     }
-    
+
     private func formatTime(_ time: TimeInterval) -> String {
         timeFormatter.string(from: time) ?? "0:00"
     }
@@ -313,4 +313,4 @@ struct AudioEditorView_Previews: PreviewProvider {
             )
         )
     }
-} 
+}

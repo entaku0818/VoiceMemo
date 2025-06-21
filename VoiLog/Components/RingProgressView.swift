@@ -25,4 +25,4 @@ struct RingProgressView: View {
         }
         .padding(.all, self.lineWidth / 2)
     }
-} 
+}

@@ -24,8 +24,8 @@ struct VoiceMemos: Reducer {
         var hasPurchasedPremium = false
         var currentMode: Mode = .recording
         var currentPlayingMemo: VoiceMemoReducer.State.ID?
-        var showTutorial: Bool = false
-        var showTitleDialog: Bool = false
+        var showTutorial = false
+        var showTitleDialog = false
         var newlyCreatedMemoID: UUID?
         var tempTitle: String = ""
 
@@ -138,7 +138,7 @@ struct VoiceMemos: Reducer {
         let hasSeenTutorial = UserDefaultsManager.shared.hasSeenTutorial
 
         state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
-        
+
         // チュートリアル表示の判定
         if !hasSeenTutorial {
             state.showTutorial = true
@@ -252,7 +252,7 @@ struct VoiceMemos: Reducer {
                 for id in state.voiceMemos.ids {
                     state.voiceMemos[id: id]?.isRecording = false
                 }
-                
+
                 let newMemo = VoiceMemoReducer.State(
                     uuid: recordingMemo.uuid,
                     date: recordingMemo.date,
@@ -267,20 +267,20 @@ struct VoiceMemos: Reducer {
                     hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct,
                     isRecording: false
                 )
-                
+
                 state.voiceMemos.insert(newMemo, at: 0)
-                
+
                 let voiceMemoRepository = VoiceMemoRepository(
                     coreDataAccessor: VoiceMemoCoredataAccessor(),
                     cloudUploader: CloudUploader()
                 )
                 voiceMemoRepository.insert(state: recordingMemo)
-                
+
                 state.newlyCreatedMemoID = recordingMemo.uuid
                 state.tempTitle = ""
-                
+
                 state.showTitleDialog = true
-                
+
                 return .none
 
             case .recordingMemo(.presented(.delegate(.didFinish(.failure)))):
@@ -345,18 +345,18 @@ struct VoiceMemos: Reducer {
             case .mailComposeDismissed:
                 state.isMailComposePresented = false
                 return .none
-                
+
             case let .showTitleDialog(isShown):
                 state.showTitleDialog = isShown
                 if !isShown {
                     state.newlyCreatedMemoID = nil
                 }
                 return .none
-                
+
             case let .setTempTitle(title):
                 state.tempTitle = title
                 return .none
-                
+
             case .saveTitle:
                 if let memoID = state.newlyCreatedMemoID, !state.tempTitle.isEmpty {
                     state.showTitleDialog = false
@@ -364,7 +364,7 @@ struct VoiceMemos: Reducer {
                 }
                 state.showTitleDialog = false
                 return .none
-                
+
             case let .updateMemoTitle(id, title):
                 if let index = state.voiceMemos.firstIndex(where: { $0.uuid == id }) {
                     state.voiceMemos[index].title = title

@@ -445,5 +445,3 @@ extension AudioRecorderClient {
         )
     }
 }
-
-

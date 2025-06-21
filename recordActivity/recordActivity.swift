@@ -24,7 +24,9 @@ struct Provider: TimelineProvider {
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+            guard let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate) else {
+                continue
+            }
             let entry = SimpleEntry(date: entryDate, emoji: "😀")
             entries.append(entry)
         }
@@ -39,7 +41,7 @@ struct SimpleEntry: TimelineEntry {
     let emoji: String
 }
 
-struct recordActivityEntryView: View {
+struct RecordActivityEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
@@ -53,16 +55,16 @@ struct recordActivityEntryView: View {
     }
 }
 
-struct recordActivity: Widget {
+struct RecordActivity: Widget {
     let kind: String = "recordActivity"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             if #available(iOS 17.0, *) {
-                recordActivityEntryView(entry: entry)
+                RecordActivityEntryView(entry: entry)
                     .containerBackground(.fill.tertiary, for: .widget)
             } else {
-                recordActivityEntryView(entry: entry)
+                RecordActivityEntryView(entry: entry)
                     .padding()
                     .background()
             }
@@ -72,7 +74,7 @@ struct recordActivity: Widget {
 }
 
 #Preview(as: .systemSmall) {
-    recordActivity()
+    RecordActivity()
 } timeline: {
     SimpleEntry(date: .now, emoji: "😀")
     SimpleEntry(date: .now, emoji: "🤩")

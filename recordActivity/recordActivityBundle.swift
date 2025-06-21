@@ -9,9 +9,9 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct recordActivityBundle: WidgetBundle {
+struct RecordActivityBundle: WidgetBundle {
     var body: some Widget {
-        recordActivity()
-        recordActivityLiveActivity()
+        RecordActivity()
+        RecordActivityLiveActivity()
     }
 }

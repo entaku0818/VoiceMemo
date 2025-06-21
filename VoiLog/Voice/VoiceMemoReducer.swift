@@ -213,7 +213,7 @@ struct VoiceMemoReducer: Reducer {
         var isLooping = false
         var waveformData: [Float] = []
         var hasPurchasedPremium: Bool
-        var isRecording: Bool = false
+        var isRecording = false
 
         var id: URL { self.url }
 
@@ -380,7 +380,7 @@ struct VoiceMemoListItem_Previews: PreviewProvider {
             ) {
                 VoiceMemoReducer()
             },
-            admobUnitId: "", 
+            admobUnitId: "",
             currentMode: .playback, isRecording: .constant(false),
             isRecordingNavigationAlertPresented: .constant(false)
         ).padding()

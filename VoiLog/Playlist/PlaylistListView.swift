@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - View
 struct PlaylistListView: View {
    let store: StoreOf<PlaylistListFeature>
-    let admobUnitId:String
+    let admobUnitId: String
 
    var body: some View {
        WithViewStore(store, observe: { $0 }) { viewStore in
@@ -136,7 +136,7 @@ struct CreatePlaylistView: View {
     PlaylistListView(
         store: Store(
             initialState: PlaylistListFeature.State()
-        )            {
+        ) {
                 PlaylistListFeature()
                     ._printChanges()
         }, admobUnitId: "ca-app-pub-3940256099942544/6300978111"

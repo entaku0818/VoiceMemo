@@ -3,18 +3,18 @@ import ComposableArchitecture
 
 struct TutorialView: View {
     let store: StoreOf<VoiceMemos>
-    
+
     var body: some View {
         ZStack {
             Color.black.opacity(0.7)
                 .edgesIgnoringSafeArea(.all)
-            
+
             VStack(spacing: 20) {
                 Text(LocalizedStringKey("シンプル録音へようこそ！"))
                     .font(.title)
                     .foregroundColor(.white)
                     .padding(.top, 30)
-                
+
                 VStack(alignment: .leading, spacing: 15) {
                     TutorialItem(
                         icon: "mic.circle.fill",
@@ -25,7 +25,7 @@ struct TutorialView: View {
                                 Circle()
                                     .foregroundColor(Color(.label))
                                     .frame(width: 40, height: 40)
-                                
+
                                 Circle()
                                     .foregroundColor(Color(.systemRed))
                                     .padding(2)
@@ -33,7 +33,7 @@ struct TutorialView: View {
                             }
                         )
                     )
-                    
+
                     TutorialItem(
                         icon: "stop.circle.fill",
                         title: LocalizedStringKey("2. 録音を停止"),
@@ -43,14 +43,14 @@ struct TutorialView: View {
                                 Circle()
                                     .foregroundColor(Color(.label))
                                     .frame(width: 40, height: 40)
-                                
+
                                 RoundedRectangle(cornerRadius: 3)
                                     .foregroundColor(Color(.systemRed))
                                     .frame(width: 20, height: 20)
                             }
                         )
                     )
-                    
+
                     TutorialItem(
                         icon: "play.circle.fill",
                         title: LocalizedStringKey("3. 再生する"),
@@ -58,7 +58,7 @@ struct TutorialView: View {
                     )
                 }
                 .padding(.horizontal, 30)
-                
+
                 Button {
                     ViewStore(store, observe: { $0 }).send(.tutorialDismissed)
                 } label: {
@@ -84,14 +84,14 @@ struct TutorialItem: View {
     let title: LocalizedStringKey
     let description: LocalizedStringKey
     let customView: AnyView?
-    
+
     init(icon: String, title: LocalizedStringKey, description: LocalizedStringKey, customView: AnyView? = nil) {
         self.icon = icon
         self.title = title
         self.description = description
         self.customView = customView
     }
-    
+
     var body: some View {
         HStack(spacing: 15) {
             if let customView = customView {
@@ -101,7 +101,7 @@ struct TutorialItem: View {
                     .font(.system(size: 30))
                     .foregroundColor(.blue)
             }
-            
+
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)
                     .font(.headline)
@@ -111,4 +111,4 @@ struct TutorialItem: View {
             }
         }
     }
-} 
+}

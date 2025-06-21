@@ -105,7 +105,7 @@ extension UserDefaultsClient: DependencyKey {
             UserDefaults.standard.set(newValue, forKey: "HasSeenTutorial")
         }
     )
-    
+
     static let testValue = Self(
         logError: { _ in },
         errorLogs: { [] },
@@ -137,4 +137,4 @@ extension DependencyValues {
         get { self[UserDefaultsClient.self] }
         set { self[UserDefaultsClient.self] = newValue }
     }
-} 
+}
