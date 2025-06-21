@@ -32,6 +32,11 @@ struct PlaybackFeature {
     var url: URL
     var text: String
     var isFavorite = false
+    // Legacy compatibility fields
+    var fileFormat: String
+    var samplingFrequency: Double
+    var quantizationBitDepth: Int
+    var numberOfChannels: Int
 
     init(
       id: UUID = UUID(),
@@ -39,7 +44,11 @@ struct PlaybackFeature {
       date: Date,
       duration: TimeInterval,
       url: URL,
-      text: String = ""
+      text: String = "",
+      fileFormat: String = "",
+      samplingFrequency: Double = 44100.0,
+      quantizationBitDepth: Int = 16,
+      numberOfChannels: Int = 2
     ) {
       self.id = id
       self.title = title
@@ -47,6 +56,10 @@ struct PlaybackFeature {
       self.duration = duration
       self.url = url
       self.text = text
+      self.fileFormat = fileFormat
+      self.samplingFrequency = samplingFrequency
+      self.quantizationBitDepth = quantizationBitDepth
+      self.numberOfChannels = numberOfChannels
     }
   }
 
@@ -268,7 +281,7 @@ struct PlaybackFeature {
 
   private func loadMemos() -> Effect<Action> {
     .run { send in
-      // データベースからデータを読み込み
+      // データベースからデータを読み込み（Legacy形式で取得）
       let voiceMemoVoices = voiceMemoRepository.selectAllData()
 
       let memos = voiceMemoVoices.map { voice in
@@ -278,7 +291,11 @@ struct PlaybackFeature {
           date: voice.date,
           duration: voice.duration,
           url: voice.url,
-          text: voice.text
+          text: voice.text,
+          fileFormat: voice.fileFormat,
+          samplingFrequency: voice.samplingFrequency,
+          quantizationBitDepth: voice.quantizationBitDepth,
+          numberOfChannels: voice.numberOfChannels
         )
       }
 
