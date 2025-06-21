@@ -1,0 +1,132 @@
+//
+//  ModernPlaylistListView.swift
+//  VoiLog
+//
+//  Modern TCA implementation for playlist functionality
+//
+
+import Foundation
+import SwiftUI
+import ComposableArchitecture
+
+@ViewAction(for: PlaylistListFeature.self)
+struct ModernPlaylistListView: View {
+    @Perception.Bindable var store: StoreOf<PlaylistListFeature>
+
+    var body: some View {
+        VStack {
+            List {
+                ForEach(store.playlists, id: \.id) { playlist in
+                    PlaylistRowView(playlist: playlist) {
+                        // プレイリスト詳細への遷移は今後実装
+                    } onDelete: {
+                        send(.deletePlaylist(playlist.id))
+                    }
+                }
+            }
+        }
+        .navigationTitle("プレイリスト")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    send(.createPlaylistButtonTapped)
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .sheet(isPresented: $store.isShowingCreateSheet) {
+            CreatePlaylistSheet(store: store)
+        }
+        .sheet(isPresented: $store.isShowingPaywall) {
+            // PaywallView implementation would go here
+            Text("Premium機能が必要です")
+        }
+        .alert("エラー", isPresented: .constant(store.error != nil)) {
+            Button("OK") { }
+        } message: {
+            if let error = store.error {
+                Text(error)
+            }
+        }
+        .onAppear {
+            send(.onAppear)
+        }
+        .overlay {
+            if store.isLoading {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.1))
+            }
+        }
+    }
+}
+
+struct PlaylistRowView: View {
+    let playlist: Playlist
+    let onTap: () -> Void
+    let onDelete: () -> Void
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(playlist.name)
+                    .font(.headline)
+
+                Text(playlist.createdAt.formatted(date: .abbreviated, time: .omitted))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+        }
+        .padding(.vertical, 4)
+        .contentShape(Rectangle())
+        .onTapGesture(perform: onTap)
+        .swipeActions {
+            Button(role: .destructive) {
+                onDelete()
+            } label: {
+                Label("削除", systemImage: "trash")
+            }
+        }
+    }
+}
+
+struct CreatePlaylistSheet: View {
+    @Perception.Bindable var store: StoreOf<PlaylistListFeature>
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("プレイリスト名", text: $store.newPlaylistName)
+                }
+            }
+            .navigationTitle("新規プレイリスト")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("キャンセル") {
+                        store.send(.createPlaylistSheetDismissed)
+                    }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("作成") {
+                        store.send(.createPlaylistSubmitted)
+                    }
+                    .disabled(store.newPlaylistName.isEmpty)
+                }
+            }
+        }
+    }
+}
+
+#Preview {
+    ModernPlaylistListView(
+        store: Store(initialState: PlaylistListFeature.State()) {
+            PlaylistListFeature()
+        }
+    )
+}

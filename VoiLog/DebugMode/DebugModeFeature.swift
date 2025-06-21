@@ -8,7 +8,8 @@ struct VoiceAppFeature {
   struct State: Equatable {
     var recordingFeature = RecordingFeature.State()
     var playbackFeature = PlaybackFeature.State()
-    var selectedTab: Int = 0  // 0=録音, 1=再生
+    var playlistFeature = PlaylistListFeature.State()
+    var selectedTab: Int = 0  // 0=録音, 1=再生, 2=プレイリスト
   }
 
   enum Action: ViewAction, BindableAction {
@@ -16,6 +17,7 @@ struct VoiceAppFeature {
     case view(View)
     case recordingFeature(RecordingFeature.Action)
     case playbackFeature(PlaybackFeature.Action)
+    case playlistFeature(PlaylistListFeature.Action)
 
     enum View {
       case onAppear
@@ -24,15 +26,19 @@ struct VoiceAppFeature {
 
   var body: some Reducer<State, Action> {
     BindingReducer()
-    
+
     Scope(state: \.recordingFeature, action: \.recordingFeature) {
       RecordingFeature()
     }
-    
+
     Scope(state: \.playbackFeature, action: \.playbackFeature) {
       PlaybackFeature()
     }
-    
+
+    Scope(state: \.playlistFeature, action: \.playlistFeature) {
+      PlaylistListFeature()
+    }
+
     Reduce { state, action in
       switch action {
       case .binding:
@@ -49,11 +55,14 @@ struct VoiceAppFeature {
         state.selectedTab = 1
         // 録音完了時に再生画面のデータを自動更新
         return .send(.playbackFeature(.view(.reloadData)))
-        
+
       case .recordingFeature:
         return .none
 
       case .playbackFeature:
+        return .none
+
+      case .playlistFeature:
         return .none
       }
     }
@@ -77,7 +86,7 @@ struct VoiceAppView: View {
         Text("録音")
       }
       .tag(0)
-      
+
       // 再生タブ
       NavigationStack {
         PlaybackView(
@@ -89,10 +98,22 @@ struct VoiceAppView: View {
         Text("再生")
       }
       .tag(1)
+
+      // プレイリストタブ
+      NavigationStack {
+        ModernPlaylistListView(
+          store: store.scope(state: \.playlistFeature, action: \.playlistFeature)
+        )
+      }
+      .tabItem {
+        Image(systemName: "list.bullet")
+        Text("プレイリスト")
+      }
+      .tag(2)
     }
     .onAppear {
       send(.onAppear)
-                      }
+    }
   }
 }
 
@@ -113,4 +134,4 @@ struct VoiceAppEntryView: View {
       VoiceAppFeature()
     }
   )
-} 
+}
