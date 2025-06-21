@@ -20,7 +20,9 @@
       "Bash(swift test:*)",
       "Bash(xcrun simctl list:*)",
       "Bash(grep:*)",
-      "Bash(DISABLE_SWIFTLINT=1 xcodebuild test -project VoiLog.xcodeproj -scheme VoiLogTests -destination 'platform=iOS Simulator,id=27DF6696-320F-4647-97A7-DEA12B9425A2' -only-testing:VoiLogTests/PlaybackFeatureTests)"
+      "Bash(DISABLE_SWIFTLINT=1 xcodebuild test -project VoiLog.xcodeproj -scheme VoiLogTests -destination 'platform=iOS Simulator,id=27DF6696-320F-4647-97A7-DEA12B9425A2' -only-testing:VoiLogTests/PlaybackFeatureTests)",
+      "Bash(git tag:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   },
@@ -28,6 +30,7 @@
     "task_completion_sound": "afplay /System/Library/Sounds/Funk.aiff",
     "interruption_sound": "afplay /System/Library/Sounds/Basso.aiff",
     "error_sound": "afplay /System/Library/Sounds/Sosumi.aiff",
-    "confirmation_sound": "afplay /System/Library/Sounds/Ping.aiff"
+    "confirmation_sound": "afplay /System/Library/Sounds/Ping.aiff",
+    "pre_commit_checks": "SERIOUS_ERRORS=$(swiftlint | grep -c ': error:' || echo 0); if [ $SERIOUS_ERRORS -eq 0 ]; then echo 'SwiftLint critical errors check passed ✅'; else echo 'SwiftLint has $SERIOUS_ERRORS critical errors ❌'; fi"
   }
 }

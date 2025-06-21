@@ -22,6 +22,8 @@ struct PlaybackFeature {
     var showFavoritesOnly = false
     var durationFilter: DurationFilter = .all
     var showSearchFilters = false
+    var selectedMemoForDetails: VoiceMemo.ID?
+    var showDetailSheet = false
 
     enum PlaybackState: Equatable {
       case idle
@@ -67,6 +69,7 @@ struct PlaybackFeature {
     var samplingFrequency: Double
     var quantizationBitDepth: Int
     var numberOfChannels: Int
+    var fileSize: Int64 = 0
 
     init(
       id: UUID = UUID(),
@@ -78,7 +81,8 @@ struct PlaybackFeature {
       fileFormat: String = "",
       samplingFrequency: Double = 44100.0,
       quantizationBitDepth: Int = 16,
-      numberOfChannels: Int = 2
+      numberOfChannels: Int = 2,
+      fileSize: Int64 = 0
     ) {
       self.id = id
       self.title = title
@@ -90,6 +94,7 @@ struct PlaybackFeature {
       self.samplingFrequency = samplingFrequency
       self.quantizationBitDepth = quantizationBitDepth
       self.numberOfChannels = numberOfChannels
+      self.fileSize = fileSize
     }
   }
 
@@ -127,6 +132,10 @@ struct PlaybackFeature {
       case toggleFavoritesFilter
       case setDurationFilter(DurationFilter)
       case toggleSearchFilters
+
+      // Detail view actions
+      case showMemoDetails(VoiceMemo.ID)
+      case hideDetailSheet
     }
 
     enum DelegateAction: Equatable {
@@ -306,6 +315,16 @@ struct PlaybackFeature {
         case .toggleSearchFilters:
           state.showSearchFilters.toggle()
           return .none
+
+        case let .showMemoDetails(id):
+          state.selectedMemoForDetails = id
+          state.showDetailSheet = true
+          return .none
+
+        case .hideDetailSheet:
+          state.selectedMemoForDetails = nil
+          state.showDetailSheet = false
+          return .none
         }
 
       case let .memosLoaded(memos):
@@ -338,7 +357,17 @@ struct PlaybackFeature {
       let voiceMemoVoices = voiceMemoRepository.selectAllData()
 
       let memos = voiceMemoVoices.map { voice in
-        VoiceMemo(
+        // ファイルサイズを計算
+        let fileSize: Int64 = {
+          do {
+            let attributes = try FileManager.default.attributesOfItem(atPath: voice.url.path)
+            return attributes[.size] as? Int64 ?? 0
+          } catch {
+            return 0
+          }
+        }()
+
+        return VoiceMemo(
           id: voice.uuid,
           title: voice.title.isEmpty ? "無題の録音" : voice.title,
           date: voice.date,
@@ -348,7 +377,8 @@ struct PlaybackFeature {
           fileFormat: voice.fileFormat,
           samplingFrequency: voice.samplingFrequency,
           quantizationBitDepth: voice.quantizationBitDepth,
-          numberOfChannels: voice.numberOfChannels
+          numberOfChannels: voice.numberOfChannels,
+          fileSize: fileSize
         )
       }
 
@@ -422,6 +452,14 @@ struct PlaybackView: View {
         }
       } message: {
         Text("この録音ファイルを削除しますか？")
+      }
+      .sheet(isPresented: $store.showDetailSheet) {
+        if let selectedId = store.selectedMemoForDetails,
+           let memo = store.voiceMemos.first(where: { $0.id == selectedId }) {
+          VoiceMemoDetailView(memo: memo) {
+            send(.hideDetailSheet)
+          }
+        }
       }
     }
   }
@@ -565,6 +603,8 @@ struct PlaybackView: View {
           send(.saveEditingTitle)
         } onEditingChanged: { newTitle in
           send(.editingTitleChanged(newTitle))
+        } onInfoTap: {
+          send(.showMemoDetails(memo.id))
         }
       }
     }
@@ -697,6 +737,7 @@ struct PlaybackView: View {
   }
 }
 
+
 struct VoiceMemoRow: View {
   let memo: PlaybackFeature.VoiceMemo
   let isPlaying: Bool
@@ -712,6 +753,7 @@ struct VoiceMemoRow: View {
   let onCancelEdit: () -> Void
   let onSaveEdit: () -> Void
   let onEditingChanged: (String) -> Void
+  let onInfoTap: () -> Void
 
   var body: some View {
     HStack(spacing: 12) {
@@ -804,6 +846,12 @@ struct VoiceMemoRow: View {
         Button(action: onFavoriteToggle) {
           Image(systemName: memo.isFavorite ? "star.fill" : "star")
             .foregroundColor(memo.isFavorite ? .yellow : .gray)
+        }
+        .buttonStyle(.plain)
+
+        Button(action: onInfoTap) {
+          Image(systemName: "info.circle")
+            .foregroundColor(.blue)
         }
         .buttonStyle(.plain)
 
