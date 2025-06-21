@@ -17,10 +17,40 @@ struct PlaybackFeature {
     var editingMemoId: VoiceMemo.ID?
     var editingTitle: String = ""
 
+    // Enhanced search properties
+    var sortOption: SortOption = .dateDescending
+    var showFavoritesOnly = false
+    var durationFilter: DurationFilter = .all
+    var showSearchFilters = false
+
     enum PlaybackState: Equatable {
       case idle
       case playing
       case paused
+    }
+
+    enum SortOption: String, CaseIterable, Equatable {
+      case dateDescending = "日付順（新しい順）"
+      case dateAscending = "日付順（古い順）"
+      case titleAscending = "タイトル順（A-Z）"
+      case durationDescending = "時間長順（長い順）"
+      case durationAscending = "時間長順（短い順）"
+    }
+
+    enum DurationFilter: String, CaseIterable, Equatable {
+      case all = "すべて"
+      case short = "短い（1分未満）"
+      case medium = "中間（1-5分）"
+      case long = "長い（5分以上）"
+
+      func matches(duration: TimeInterval) -> Bool {
+        switch self {
+        case .all: return true
+        case .short: return duration < 60
+        case .medium: return duration >= 60 && duration < 300
+        case .long: return duration >= 300
+        }
+      }
     }
   }
 
@@ -91,6 +121,12 @@ struct PlaybackFeature {
       case cancelEditingTitle
       case saveEditingTitle
       case editingTitleChanged(String)
+
+      // Enhanced search actions
+      case setSortOption(SortOption)
+      case toggleFavoritesFilter
+      case setDurationFilter(DurationFilter)
+      case toggleSearchFilters
     }
 
     enum DelegateAction: Equatable {
@@ -253,6 +289,23 @@ struct PlaybackFeature {
         case let .editingTitleChanged(newTitle):
           state.editingTitle = newTitle
           return .none
+
+        // Enhanced search actions
+        case let .setSortOption(option):
+          state.sortOption = option
+          return .none
+
+        case .toggleFavoritesFilter:
+          state.showFavoritesOnly.toggle()
+          return .none
+
+        case let .setDurationFilter(filter):
+          state.durationFilter = filter
+          return .none
+
+        case .toggleSearchFilters:
+          state.showSearchFilters.toggle()
+          return .none
         }
 
       case let .memosLoaded(memos):
@@ -374,11 +427,113 @@ struct PlaybackView: View {
   }
 
   private var searchBarView: some View {
-    HStack {
-      Image(systemName: "magnifyingglass")
-        .foregroundColor(.gray)
-      TextField("録音を検索...", text: $store.searchQuery)
-        .textFieldStyle(.roundedBorder)
+    VStack(spacing: 8) {
+      // Search text field with filter button
+      HStack {
+        Image(systemName: "magnifyingglass")
+          .foregroundColor(.gray)
+        TextField("録音を検索...", text: $store.searchQuery)
+          .textFieldStyle(.roundedBorder)
+
+        Button {
+          send(.toggleSearchFilters)
+        } label: {
+          Image(systemName: store.showSearchFilters ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            .foregroundColor(.accentColor)
+            .font(.title2)
+        }
+      }
+
+      // Search filters (shown when expanded)
+      if store.showSearchFilters {
+        VStack(spacing: 12) {
+          // Sort options
+          VStack(alignment: .leading, spacing: 8) {
+            Text("並び順")
+              .font(.caption)
+              .foregroundColor(.secondary)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+              HStack(spacing: 8) {
+                ForEach(PlaybackFeature.State.SortOption.allCases, id: \.self) { option in
+                  Button {
+                    send(.setSortOption(option))
+                  } label: {
+                    Text(option.rawValue)
+                      .font(.caption)
+                      .padding(.horizontal, 12)
+                      .padding(.vertical, 6)
+                      .background(
+                        store.sortOption == option ? Color.accentColor : Color(.systemGray6)
+                      )
+                      .foregroundColor(
+                        store.sortOption == option ? .white : .primary
+                      )
+                      .cornerRadius(8)
+                  }
+                }
+              }
+              .padding(.horizontal, 1)
+            }
+          }
+
+          // Filter options
+          HStack {
+            // Favorites filter
+            Button {
+              send(.toggleFavoritesFilter)
+            } label: {
+              HStack(spacing: 4) {
+                Image(systemName: store.showFavoritesOnly ? "star.fill" : "star")
+                Text("お気に入り")
+              }
+              .font(.caption)
+              .padding(.horizontal, 12)
+              .padding(.vertical, 6)
+              .background(store.showFavoritesOnly ? Color.yellow : Color(.systemGray6))
+              .foregroundColor(store.showFavoritesOnly ? .black : .primary)
+              .cornerRadius(8)
+            }
+
+            Spacer()
+
+            // Duration filter
+            Menu {
+              ForEach(PlaybackFeature.State.DurationFilter.allCases, id: \.self) { filter in
+                Button {
+                  send(.setDurationFilter(filter))
+                } label: {
+                  HStack {
+                    Text(filter.rawValue)
+                    if store.durationFilter == filter {
+                      Image(systemName: "checkmark")
+                    }
+                  }
+                }
+              }
+            } label: {
+              HStack(spacing: 4) {
+                Image(systemName: "clock")
+                Text(store.durationFilter.rawValue)
+              }
+              .font(.caption)
+              .padding(.horizontal, 12)
+              .padding(.vertical, 6)
+              .background(Color(.systemGray6))
+              .foregroundColor(.primary)
+              .cornerRadius(8)
+            }
+          }
+
+          // Results count
+          if !store.voiceMemos.isEmpty {
+            Text("\(filteredMemos.count) / \(store.voiceMemos.count) 件")
+              .font(.caption2)
+              .foregroundColor(.secondary)
+          }
+        }
+        .padding(.horizontal, 4)
+      }
     }
     .padding(.horizontal)
     .padding(.top, 8)
@@ -493,14 +648,39 @@ struct PlaybackView: View {
   }
 
   private var filteredMemos: [PlaybackFeature.VoiceMemo] {
-    if store.searchQuery.isEmpty {
-      return store.voiceMemos
-    } else {
-      return store.voiceMemos.filter {
+    var memos = store.voiceMemos
+
+    // Apply text search filter
+    if !store.searchQuery.isEmpty {
+      memos = memos.filter {
         $0.title.localizedCaseInsensitiveContains(store.searchQuery) ||
         $0.text.localizedCaseInsensitiveContains(store.searchQuery)
       }
     }
+
+    // Apply favorites filter
+    if store.showFavoritesOnly {
+      memos = memos.filter { $0.isFavorite }
+    }
+
+    // Apply duration filter
+    memos = memos.filter { store.durationFilter.matches(duration: $0.duration) }
+
+    // Apply sorting
+    switch store.sortOption {
+    case .dateDescending:
+      memos.sort { $0.date > $1.date }
+    case .dateAscending:
+      memos.sort { $0.date < $1.date }
+    case .titleAscending:
+      memos.sort { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+    case .durationDescending:
+      memos.sort { $0.duration > $1.duration }
+    case .durationAscending:
+      memos.sort { $0.duration < $1.duration }
+    }
+
+    return memos
   }
 
   private func formatDate(_ date: Date) -> String {
