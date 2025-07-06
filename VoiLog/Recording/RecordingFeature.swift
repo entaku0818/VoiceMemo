@@ -67,7 +67,7 @@ struct RecordingFeature {
     let date: Date
   }
 
-  @Dependency(\.audioRecorder) var audioRecorder
+  @Dependency(\.longRecordingAudioClient) var longRecordingAudioClient
   @Dependency(\.continuousClock) var clock
   @Dependency(\.uuid) var uuid
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
@@ -83,14 +83,14 @@ struct RecordingFeature {
         switch viewAction {
         case .recordButtonTapped:
           return .run { send in
-            let hasPermission = await audioRecorder.requestRecordPermission()
+            let hasPermission = await longRecordingAudioClient.requestRecordPermission()
             await send(.permissionResponse(hasPermission))
           }
 
         case .stopButtonTapped:
           state.recordingState = .encoding
           return .run { send in
-            await audioRecorder.stopRecording()
+            await longRecordingAudioClient.stopRecording()
             await send(.view(.showTitleDialog(true)))
           }
 
@@ -98,12 +98,12 @@ struct RecordingFeature {
           if state.recordingState == .paused {
             state.recordingState = .recording
             return .run { _ in
-              await audioRecorder.resumeRecording()
+              await longRecordingAudioClient.resumeRecording()
             }
           } else {
             state.recordingState = .paused
             return .run { _ in
-              await audioRecorder.pauseRecording()
+              await longRecordingAudioClient.pauseRecording()
             }
           }
 
@@ -224,39 +224,35 @@ struct RecordingFeature {
 
   private func startRecording(state: inout State) -> Effect<Action> {
     let url = createRecordingURL(with: state.recordingId)
+    let configuration = RecordingConfiguration.default
+    
+    // 録音時間を初期化
+    state.duration = 0
+    
     return .run { send in
       async let recording: Void = send(
         .audioRecorderDidFinish(
-          TaskResult { try await audioRecorder.startRecording(url) }
+          TaskResult { try await longRecordingAudioClient.startRecording(url, configuration) }
         )
       )
 
       // Timer for duration updates
       async let durationUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
-          if let currentTime = await audioRecorder.currentTime() {
-            await send(.timerUpdated(currentTime))
-          }
+          let currentTime = await longRecordingAudioClient.currentTime()
+          await send(.timerUpdated(currentTime))
         }
       }()
 
       // Timer for volume updates
       async let volumeUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
-          let volume = await audioRecorder.volumes()
+          let volume = await longRecordingAudioClient.audioLevel()
           await send(.volumesUpdated(volume))
         }
       }()
 
-      // Timer for result text updates
-      async let textUpdates: Void = {
-        for await _ in clock.timer(interval: .seconds(1)) {
-          let text = await audioRecorder.resultText()
-          await send(.resultTextUpdated(text))
-        }
-      }()
-
-      _ = await (recording, durationUpdates, volumeUpdates, textUpdates)
+      _ = await (recording, durationUpdates, volumeUpdates)
     }
   }
 
