@@ -225,10 +225,10 @@ struct RecordingFeature {
   private func startRecording(state: inout State) -> Effect<Action> {
     let url = createRecordingURL(with: state.recordingId)
     let configuration = RecordingConfiguration.default
-    
+
     // 録音時間を初期化
     state.duration = 0
-    
+
     return .run { send in
       async let recording: Void = send(
         .audioRecorderDidFinish(
@@ -268,35 +268,37 @@ struct RecordingView: View {
   @State private var ringProgress: CGFloat = 0.0
 
   var body: some View {
-    NavigationStack {
-      VStack(spacing: 24) {
+    WithPerceptionTracking {
+      NavigationStack {
+        VStack(spacing: 24) {
 
-        // Recording Status and Timer
-        recordingStatusView
+          // Recording Status and Timer
+          recordingStatusView
 
-        // Audio Level Visualization
-        if store.recordingState == .recording || store.recordingState == .paused {
-          audioVisualizationView
+          // Audio Level Visualization
+          if store.recordingState == .recording || store.recordingState == .paused {
+            audioVisualizationView
+          }
+
+          // Transcription Text
+          if !store.resultText.isEmpty {
+            transcriptionView
+          }
+
+          Spacer()
+
+          // Control Buttons
+          controlButtonsView
         }
-
-        // Transcription Text
-        if !store.resultText.isEmpty {
-          transcriptionView
+        .padding()
+        .navigationTitle("録音")
+        .onAppear {
+          send(.onAppear)
         }
-
-        Spacer()
-
-        // Control Buttons
-        controlButtonsView
-      }
-      .padding()
-      .navigationTitle("録音")
-      .onAppear {
-        send(.onAppear)
-      }
-      .overlay {
-        if store.showTitleDialog {
-          titleDialogOverlay
+        .overlay {
+          if store.showTitleDialog {
+            titleDialogOverlay
+          }
         }
       }
     }

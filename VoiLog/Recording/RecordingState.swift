@@ -15,7 +15,7 @@ enum RecordingError: Error, Equatable {
     case audioSessionFailed
     case recordingFailed(String)
     case diskSpaceInsufficient
-    
+
     var localizedDescription: String {
         switch self {
         case .permissionDenied:

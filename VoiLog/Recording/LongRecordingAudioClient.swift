@@ -25,15 +25,22 @@ extension LongRecordingAudioClient: TestDependencyKey {
             startRecording: { _, _ in
                 await isRecording.setValue(true)
                 await recordingState.setValue(.recording(startTime: Date()))
-                
+
                 // シミュレーション用の時間更新
                 Task {
-                    while await isRecording.value && !isPaused.value {
+                    while true {
+                        let recording = await isRecording.value
+                        let paused = await isPaused.value
+
+                        if !recording || paused {
+                            break
+                        }
+
                         try await Task.sleep(nanoseconds: 100_000_000) // 0.1秒
                         await currentTime.withValue { $0 += 0.1 }
                     }
                 }
-                
+
                 return true
             },
             stopRecording: {
@@ -79,11 +86,11 @@ extension DependencyValues {
 extension LongRecordingAudioClient: DependencyKey {
     static var liveValue: Self {
         let audioRecorder = LongRecordingAudioRecorder()
-        
+
         return Self(
             currentTime: { await audioRecorder.getCurrentTime() },
             requestRecordPermission: { await audioRecorder.requestPermission() },
-            startRecording: { url, config in 
+            startRecording: { url, config in
                 try await audioRecorder.startRecording(url: url, configuration: config)
             },
             stopRecording: { await audioRecorder.stopRecording() },

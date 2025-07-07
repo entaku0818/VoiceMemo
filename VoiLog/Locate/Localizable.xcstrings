@@ -343,6 +343,16 @@
         }
       }
     },
+    "%lld / %lld 件" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld / %2$lld 件"
+          }
+        }
+      }
+    },
     "%lld." : {
       "localizations" : {
         "de" : {
@@ -1372,6 +1382,9 @@
         }
       }
     },
+    "Premium機能が必要です" : {
+
+    },
     "Read More" : {
       "localizations" : {
         "de" : {
@@ -2083,7 +2096,6 @@
       }
     },
     "エラーログを見る" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -2234,6 +2246,9 @@
           }
         }
       }
+    },
+    "お気に入り" : {
+
     },
     "キャンセル" : {
       "localizations" : {
@@ -3288,7 +3303,6 @@
       }
     },
     "デバッグ" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -4230,6 +4244,9 @@
           }
         }
       }
+    },
+    "並び順" : {
+
     },
     "今すぐ1ヶ月無料体験してみよう！" : {
       "localizations" : {
@@ -5392,6 +5409,9 @@
         }
       }
     },
+    "詳細情報" : {
+
+    },
     "購入済" : {
       "localizations" : {
         "en" : {
@@ -5693,6 +5713,9 @@
           }
         }
       }
+    },
+    "閉じる" : {
+
     },
     "開発者を支援する" : {
       "localizations" : {
@@ -6301,6 +6324,9 @@
           }
         }
       }
+    },
+    "音声認識テキスト" : {
+
     },
     "音声認識結果" : {
 
