@@ -433,7 +433,11 @@ struct RecordingView: View {
   private var titleDialogOverlay: some View {
     ZStack {
       Color.black.opacity(0.4)
-        .ignoresSafeArea()
+        .ignoresSafeArea(.all)
+        .onTapGesture {
+          // 背景タップでダイアログを閉じる
+          send(.titleDialogCancelButtonTapped)
+        }
 
       VStack(spacing: 20) {
         Text("録音完了")
@@ -457,19 +461,27 @@ struct RecordingView: View {
             send(.titleDialogCancelButtonTapped)
           }
           .buttonStyle(.bordered)
+          .frame(minWidth: 80)
 
           Button("保存") {
             send(.titleDialogSaveButtonTapped)
           }
           .buttonStyle(.borderedProminent)
+          .frame(minWidth: 80)
         }
       }
+      .frame(maxWidth: 320)
       .padding(24)
-      .background(Color(.systemBackground))
-      .cornerRadius(16)
-      .shadow(radius: 10)
+      .background(
+        Color(.systemBackground)
+          .clipShape(RoundedRectangle(cornerRadius: 16))
+      )
+      .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 4)
       .padding(.horizontal, 40)
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .background(Color.clear)
     }
+    .zIndex(1000)
   }
 
   private var recordingStatusText: String {

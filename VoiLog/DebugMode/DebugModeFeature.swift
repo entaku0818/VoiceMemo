@@ -9,7 +9,17 @@ struct VoiceAppFeature {
     var recordingFeature = RecordingFeature.State()
     var playbackFeature = PlaybackFeature.State()
     var playlistFeature = PlaylistListFeature.State()
-    var selectedTab: Int = 0  // 0=録音, 1=再生, 2=プレイリスト
+    var settingFeature = SettingReducer.State(
+      alert: nil,
+      selectedFileFormat: "WAV",
+      samplingFrequency: 44100.0,
+      quantizationBitDepth: 16,
+      numberOfChannels: 2,
+      microphonesVolume: 75.0,
+      developerSupported: false,
+      hasPurchasedPremium: false
+    )
+    var selectedTab: Int = 0  // 0=録音, 1=再生, 2=プレイリスト, 3=設定
   }
 
   enum Action: ViewAction, BindableAction {
@@ -18,6 +28,7 @@ struct VoiceAppFeature {
     case recordingFeature(RecordingFeature.Action)
     case playbackFeature(PlaybackFeature.Action)
     case playlistFeature(PlaylistListFeature.Action)
+    case settingFeature(SettingReducer.Action)
 
     enum View {
       case onAppear
@@ -37,6 +48,10 @@ struct VoiceAppFeature {
 
     Scope(state: \.playlistFeature, action: \.playlistFeature) {
       PlaylistListFeature()
+    }
+
+    Scope(state: \.settingFeature, action: \.settingFeature) {
+      SettingReducer()
     }
 
     Reduce { state, action in
@@ -63,6 +78,9 @@ struct VoiceAppFeature {
         return .none
 
       case .playlistFeature:
+        return .none
+
+      case .settingFeature:
         return .none
       }
     }
@@ -110,6 +128,20 @@ struct VoiceAppView: View {
         Text("プレイリスト")
       }
       .tag(2)
+
+      // 設定タブ
+      NavigationStack {
+        SettingView(
+          store: store.scope(state: \.settingFeature, action: \.settingFeature),
+          admobUnitId: "ca-app-pub-8721923248827329/5765169094"
+        )
+        .navigationTitle("設定")
+      }
+      .tabItem {
+        Image(systemName: "gearshape")
+        Text("設定")
+      }
+      .tag(3)
     }
     .onAppear {
       send(.onAppear)
