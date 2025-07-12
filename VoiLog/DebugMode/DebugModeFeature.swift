@@ -139,6 +139,7 @@ struct VoiceAppView: View {
   @Perception.Bindable var store: StoreOf<VoiceAppFeature>
   let recordAdmobUnitId: String
   let playListAdmobUnitId: String
+  let admobUnitId: String
 
   var body: some View {
     TabView(selection: $store.selectedTab) {
@@ -225,7 +226,7 @@ struct VoiceAppView: View {
       NavigationStack {
         SettingView(
           store: store.scope(state: \.settingFeature, action: \.settingFeature),
-          admobUnitId: "ca-app-pub-8721923248827329/5765169094"
+          admobUnitId: admobUnitId
         )
         .navigationTitle("設定")
       }
@@ -270,6 +271,7 @@ struct VoiceAppEntryView: View {
       VoiceAppFeature()
     },
     recordAdmobUnitId: "ca-app-pub-3940256099942544/2934735716",
-    playListAdmobUnitId: "ca-app-pub-3940256099942544/2934735716"
+    playListAdmobUnitId: "ca-app-pub-3940256099942544/2934735716",
+    admobUnitId: "ca-app-pub-3940256099942544/2934735716"
   )
 }

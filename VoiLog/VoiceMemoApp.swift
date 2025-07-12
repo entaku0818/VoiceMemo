@@ -80,7 +80,8 @@ struct VoiceMemoApp: App {
                     VoiceAppFeature()
                 },
                 recordAdmobUnitId: recordAdmobUnitId,
-                playListAdmobUnitId: playListAdmobUnitId
+                playListAdmobUnitId: playListAdmobUnitId,
+                admobUnitId: admobUnitId
             )
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
                 print("applicationDidEnterBackground")

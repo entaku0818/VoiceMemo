@@ -304,7 +304,7 @@ struct PlaylistDetailView: View {
             ._printChanges()
     }
 
-    return PlaylistDetailView(store: store, admobUnitId: "ca-app-pub-3940256099942544/6300978111")
+    return PlaylistDetailView(store: store, admobUnitId: "")
 }
 
 #Preview("プレイリスト詳細 - 再生中") {
@@ -357,7 +357,7 @@ struct PlaylistDetailView: View {
             ._printChanges()
     }
 
-    return PlaylistDetailView(store: store, admobUnitId: "ca-app-pub-3940256099942544/6300978111")
+    return PlaylistDetailView(store: store, admobUnitId: "")
 }
 
 #Preview {
