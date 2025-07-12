@@ -142,9 +142,16 @@ struct VoiceAppView: View {
     TabView(selection: $store.selectedTab) {
       // 録音タブ
       NavigationStack {
-        RecordingView(
-          store: store.scope(state: \.recordingFeature, action: \.recordingFeature)
-        )
+        VStack(spacing: 0) {
+          RecordingView(
+            store: store.scope(state: \.recordingFeature, action: \.recordingFeature)
+          )
+
+          if !store.settingFeature.hasPurchasedPremium {
+            AdmobBannerView(unitId: "ca-app-pub-8721923248827329/5765169094")
+              .frame(height: 50)
+          }
+        }
       }
       .tabItem {
         Image(systemName: "record.circle")
@@ -154,9 +161,16 @@ struct VoiceAppView: View {
 
       // 再生タブ
       NavigationStack {
-        PlaybackView(
-          store: store.scope(state: \.playbackFeature, action: \.playbackFeature)
-        )
+        VStack(spacing: 0) {
+          PlaybackView(
+            store: store.scope(state: \.playbackFeature, action: \.playbackFeature)
+          )
+
+          if !store.settingFeature.hasPurchasedPremium {
+            AdmobBannerView(unitId: "ca-app-pub-8721923248827329/5765169094")
+              .frame(height: 50)
+          }
+        }
         .toolbar {
           ToolbarItem(placement: .navigationBarTrailing) {
             if store.isSyncing {
@@ -188,9 +202,16 @@ struct VoiceAppView: View {
 
       // プレイリストタブ
       NavigationStack {
-        ModernPlaylistListView(
-          store: store.scope(state: \.playlistFeature, action: \.playlistFeature)
-        )
+        VStack(spacing: 0) {
+          ModernPlaylistListView(
+            store: store.scope(state: \.playlistFeature, action: \.playlistFeature)
+          )
+
+          if !store.settingFeature.hasPurchasedPremium {
+            AdmobBannerView(unitId: "ca-app-pub-8721923248827329/5765169094")
+              .frame(height: 50)
+          }
+        }
       }
       .tabItem {
         Image(systemName: "list.bullet")
