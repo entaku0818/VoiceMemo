@@ -20,6 +20,11 @@ struct VoiceAppFeature {
       hasPurchasedPremium: false
     )
     var selectedTab: Int = 0  // 0=録音, 1=再生, 2=プレイリスト, 3=設定
+
+    // Cloud sync state
+    var isSyncing = false
+    var syncError: String?
+    var showSyncError = false
   }
 
   enum Action: ViewAction, BindableAction {
@@ -32,8 +37,15 @@ struct VoiceAppFeature {
 
     enum View {
       case onAppear
+      case syncToCloud
+      case dismissSyncError
     }
+
+    // Internal actions
+    case syncCompleted(Result<Bool, Error>)
   }
+
+  @Dependency(\.voiceMemoRepository) var voiceMemoRepository
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -63,6 +75,25 @@ struct VoiceAppFeature {
         switch viewAction {
         case .onAppear:
           return .none
+
+        case .syncToCloud:
+          guard !state.isSyncing else { return .none }
+          state.isSyncing = true
+          state.syncError = nil
+
+          return .run { send in
+            do {
+              let success = await voiceMemoRepository.syncToCloud()
+              await send(.syncCompleted(.success(success)))
+            } catch {
+              await send(.syncCompleted(.failure(error)))
+            }
+          }
+
+        case .dismissSyncError:
+          state.showSyncError = false
+          state.syncError = nil
+          return .none
         }
 
       case .recordingFeature(.delegate(.recordingCompleted(let result))):
@@ -82,6 +113,22 @@ struct VoiceAppFeature {
 
       case .settingFeature:
         return .none
+
+      case let .syncCompleted(result):
+        state.isSyncing = false
+        switch result {
+        case .success(let success):
+          if !success {
+            state.syncError = "一部のファイルの同期に失敗しました"
+            state.showSyncError = true
+          }
+          // Reload data after sync
+          return .send(.playbackFeature(.view(.reloadData)))
+        case .failure(let error):
+          state.syncError = error.localizedDescription
+          state.showSyncError = true
+          return .none
+        }
       }
     }
   }
@@ -110,6 +157,28 @@ struct VoiceAppView: View {
         PlaybackView(
           store: store.scope(state: \.playbackFeature, action: \.playbackFeature)
         )
+        .toolbar {
+          ToolbarItem(placement: .navigationBarTrailing) {
+            if store.isSyncing {
+              HStack {
+                ProgressView()
+                  .controlSize(.mini)
+                Text("同期中")
+                  .font(.caption)
+              }
+            } else {
+              Button {
+                send(.syncToCloud)
+              } label: {
+                HStack {
+                  Image(systemName: "icloud.and.arrow.up")
+                  Text("同期")
+                }
+                .font(.caption)
+              }
+            }
+          }
+        }
       }
       .tabItem {
         Image(systemName: "play.circle")
@@ -145,6 +214,13 @@ struct VoiceAppView: View {
     }
     .onAppear {
       send(.onAppear)
+    }
+    .alert("同期エラー", isPresented: $store.showSyncError) {
+      Button("OK") {
+        send(.dismissSyncError)
+      }
+    } message: {
+      Text(store.syncError ?? "同期中にエラーが発生しました")
     }
   }
 }
