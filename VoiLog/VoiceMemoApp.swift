@@ -78,7 +78,9 @@ struct VoiceMemoApp: App {
             VoiceAppView(
                 store: Store(initialState: VoiceAppFeature.State()) {
                     VoiceAppFeature()
-                }
+                },
+                recordAdmobUnitId: recordAdmobUnitId,
+                playListAdmobUnitId: playListAdmobUnitId
             )
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
                 print("applicationDidEnterBackground")

@@ -137,6 +137,8 @@ struct VoiceAppFeature {
 @ViewAction(for: VoiceAppFeature.self)
 struct VoiceAppView: View {
   @Perception.Bindable var store: StoreOf<VoiceAppFeature>
+  let recordAdmobUnitId: String
+  let playListAdmobUnitId: String
 
   var body: some View {
     TabView(selection: $store.selectedTab) {
@@ -148,7 +150,7 @@ struct VoiceAppView: View {
           )
 
           if !store.settingFeature.hasPurchasedPremium {
-            AdmobBannerView(unitId: "ca-app-pub-8721923248827329/5765169094")
+            AdmobBannerView(unitId: recordAdmobUnitId)
               .frame(height: 50)
           }
         }
@@ -167,7 +169,7 @@ struct VoiceAppView: View {
           )
 
           if !store.settingFeature.hasPurchasedPremium {
-            AdmobBannerView(unitId: "ca-app-pub-8721923248827329/5765169094")
+            AdmobBannerView(unitId: recordAdmobUnitId)
               .frame(height: 50)
           }
         }
@@ -208,7 +210,7 @@ struct VoiceAppView: View {
           )
 
           if !store.settingFeature.hasPurchasedPremium {
-            AdmobBannerView(unitId: "ca-app-pub-8721923248827329/5765169094")
+            AdmobBannerView(unitId: playListAdmobUnitId)
               .frame(height: 50)
           }
         }
@@ -248,11 +250,16 @@ struct VoiceAppView: View {
 
 // MARK: - App Entry Point
 struct VoiceAppEntryView: View {
+  let recordAdmobUnitId: String
+  let playListAdmobUnitId: String
+
   var body: some View {
     VoiceAppView(
       store: Store(initialState: VoiceAppFeature.State()) {
         VoiceAppFeature()
-      }
+      },
+      recordAdmobUnitId: recordAdmobUnitId,
+      playListAdmobUnitId: playListAdmobUnitId
     )
   }
 }
@@ -261,6 +268,8 @@ struct VoiceAppEntryView: View {
   VoiceAppView(
     store: Store(initialState: VoiceAppFeature.State()) {
       VoiceAppFeature()
-    }
+    },
+    recordAdmobUnitId: "ca-app-pub-3940256099942544/2934735716",
+    playListAdmobUnitId: "ca-app-pub-3940256099942544/2934735716"
   )
 }
