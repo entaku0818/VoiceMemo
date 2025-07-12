@@ -253,6 +253,7 @@ struct VoiceAppView: View {
 struct VoiceAppEntryView: View {
   let recordAdmobUnitId: String
   let playListAdmobUnitId: String
+  let admobUnitId: String
 
   var body: some View {
     VoiceAppView(
@@ -260,7 +261,8 @@ struct VoiceAppEntryView: View {
         VoiceAppFeature()
       },
       recordAdmobUnitId: recordAdmobUnitId,
-      playListAdmobUnitId: playListAdmobUnitId
+      playListAdmobUnitId: playListAdmobUnitId,
+      admobUnitId: admobUnitId
     )
   }
 }
