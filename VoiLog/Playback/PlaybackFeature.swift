@@ -25,6 +25,10 @@ struct PlaybackFeature {
     var selectedMemoForDetails: VoiceMemo.ID?
     var showDetailSheet = false
 
+    // Audio Editor
+    var audioEditorState: AudioEditorReducer.State?
+    var showAudioEditor = false
+
   }
 
   struct VoiceMemo: Identifiable, Equatable {
@@ -79,6 +83,7 @@ struct PlaybackFeature {
     case playbackTimeUpdated(TimeInterval)
     case playbackFinished
     case audioPlayerDidFinish
+    case audioEditor(AudioEditorReducer.Action)
 
     enum View {
       case onAppear
@@ -107,6 +112,10 @@ struct PlaybackFeature {
       // Detail view actions
       case showMemoDetails(VoiceMemo.ID)
       case hideDetailSheet
+
+      // Audio Editor Actions
+      case showAudioEditor(VoiceMemo.ID)
+      case dismissAudioEditor
     }
 
     enum DelegateAction: Equatable {
@@ -120,6 +129,7 @@ struct PlaybackFeature {
 
   var body: some Reducer<State, Action> {
     BindingReducer()
+
     Reduce { state, action in
       switch action {
       case .binding:
@@ -296,6 +306,25 @@ struct PlaybackFeature {
           state.selectedMemoForDetails = nil
           state.showDetailSheet = false
           return .none
+
+        case let .showAudioEditor(memoID):
+          guard let memo = state.voiceMemos.first(where: { $0.id == memoID }) else {
+            return .none
+          }
+
+          state.audioEditorState = AudioEditorReducer.State(
+            memoID: memo.id,
+            audioURL: memo.url,
+            originalTitle: memo.title,
+            duration: memo.duration
+          )
+          state.showAudioEditor = true
+          return .none
+
+        case .dismissAudioEditor:
+          state.showAudioEditor = false
+          state.audioEditorState = nil
+          return .none
         }
 
       case let .memosLoaded(memos):
@@ -315,6 +344,21 @@ struct PlaybackFeature {
 
       case .audioPlayerDidFinish:
         return .send(.playbackFinished)
+
+      case .audioEditor(.save):
+        // 編集完了時にPlaybackFeatureのデータを更新
+        state.showAudioEditor = false
+        state.audioEditorState = nil
+        return .send(.view(.onAppear))
+
+      case .audioEditor(.cancel):
+        // 編集キャンセル時
+        state.showAudioEditor = false
+        state.audioEditorState = nil
+        return .none
+
+      case .audioEditor:
+        return .none
 
       case .delegate:
         return .none
@@ -430,6 +474,15 @@ struct PlaybackView: View {
           VoiceMemoDetailView(memo: memo) {
             send(.hideDetailSheet)
           }
+        }
+      }
+      .sheet(isPresented: $store.showAudioEditor) {
+        if store.audioEditorState != nil {
+          AudioEditorView(
+            store: Store(initialState: store.audioEditorState!) {
+              AudioEditorReducer()
+            }
+          )
         }
       }
     }
@@ -633,6 +686,8 @@ struct PlaybackView: View {
           send(.editingTitleChanged(newTitle))
         } onInfoTap: {
           send(.showMemoDetails(memo.id))
+        } onEditAudio: {
+          send(.showAudioEditor(memo.id))
         }
       }
     }
@@ -781,6 +836,7 @@ struct VoiceMemoRow: View {
   let onSaveEdit: () -> Void
   let onEditingChanged: (String) -> Void
   let onInfoTap: () -> Void
+  let onEditAudio: () -> Void
 
   var body: some View {
     HStack(spacing: 12) {
@@ -879,6 +935,12 @@ struct VoiceMemoRow: View {
         Button(action: onInfoTap) {
           Image(systemName: "info.circle")
             .foregroundColor(.blue)
+        }
+        .buttonStyle(.plain)
+
+        Button(action: onEditAudio) {
+          Image(systemName: "waveform.path")
+            .foregroundColor(.purple)
         }
         .buttonStyle(.plain)
 
