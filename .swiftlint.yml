@@ -3,6 +3,25 @@ disabled_rules:
   - cyclomatic_complexity
   - function_body_length
   - closure_body_length
+  - type_body_length
+  - file_length
+  - nesting
+  - switch_case_on_newline
+  - pattern_matching_keywords
+  - function_default_parameter_at_end
+  - force_unwrapping
+  - unused_capture_list
+  - redundant_optional_initialization
+  - void_return
+  - redundant_string_enum_value
+  - redundant_void_return
+  - legacy_hashing
+  - legacy_constructor
+  - multiple_closures_with_trailing_closure
+  - conditional_returns_on_newline
+  - no_grouping_extension
+  - unneeded_break_in_switch
+  - identifier_name
   #- block_based_kvo
   #- class_delegate_protocol
   #- closing_brace
@@ -165,7 +184,7 @@ opt_in_rules:
   - unneeded_parentheses_in_closure_argument
   - untyped_error_in_catch
   - unused_import
-  - unused_private_declaration
+  - unused_declaration
   - vertical_parameter_alignment_on_call
   #- vertical_whitespace_between_cases # Switch文のケース間に空白行を設けたくないこともあるため
   #- vertical_whitespace_closing_braces # 中括弧を閉じる前に空白行を設けたいことがあるため
@@ -176,7 +195,7 @@ opt_in_rules:
 # 対象のファイル・フォルダ
 # デフォルトからフォルダ名を変更していない場合、プロジェクト名と同名のフォルダを指定すればいい
 included:
-  - {プロジェクト名}
+  - VoiLog
 
 # 対象外のファイル・フォルダ
 excluded:
