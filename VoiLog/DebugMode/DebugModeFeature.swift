@@ -25,6 +25,10 @@ struct VoiceAppFeature {
     var isSyncing = false
     var syncError: String?
     var showSyncError = false
+
+    // Tutorial state
+    var tutorialFeature = TutorialFeature.State()
+    var shouldShowTutorial = false
   }
 
   enum Action: ViewAction, BindableAction {
@@ -34,11 +38,13 @@ struct VoiceAppFeature {
     case playbackFeature(PlaybackFeature.Action)
     case playlistFeature(PlaylistListFeature.Action)
     case settingFeature(SettingReducer.Action)
+    case tutorialFeature(TutorialFeature.Action)
 
     enum View {
       case onAppear
       case syncToCloud
       case dismissSyncError
+      case startTutorial
     }
 
     // Internal actions
@@ -46,6 +52,7 @@ struct VoiceAppFeature {
   }
 
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
+  @Dependency(\.userDefaults) var userDefaultsClient
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -66,6 +73,10 @@ struct VoiceAppFeature {
       SettingReducer()
     }
 
+    Scope(state: \.tutorialFeature, action: \.tutorialFeature) {
+      TutorialFeature()
+    }
+
     Reduce { state, action in
       switch action {
       case .binding:
@@ -74,7 +85,24 @@ struct VoiceAppFeature {
       case let .view(viewAction):
         switch viewAction {
         case .onAppear:
+          // 初回起動時のチュートリアル表示判定
+          let isFirstLaunch = !userDefaultsClient.bool(UserDefaultsKeys.firstLaunch)
+          let tutorialCompleted = userDefaultsClient.bool(UserDefaultsKeys.tutorialCompleted)
+
+          if isFirstLaunch {
+            userDefaultsClient.set(true, UserDefaultsKeys.firstLaunch)
+          }
+
+          if isFirstLaunch && !tutorialCompleted {
+            state.shouldShowTutorial = true
+            return .send(.tutorialFeature(.view(.start)))
+          }
+
           return .none
+
+        case .startTutorial:
+          state.shouldShowTutorial = true
+          return .send(.tutorialFeature(.view(.start)))
 
         case .syncToCloud:
           guard !state.isSyncing else { return .none }
@@ -111,7 +139,22 @@ struct VoiceAppFeature {
       case .playlistFeature:
         return .none
 
+      case .settingFeature(.delegate(.startTutorialRequested)):
+        state.shouldShowTutorial = true
+        return .send(.tutorialFeature(.view(.start)))
+
       case .settingFeature:
+        return .none
+
+      case .tutorialFeature(.delegate(.tutorialCompleted)):
+        state.shouldShowTutorial = false
+        return .none
+
+      case .tutorialFeature(.delegate(.switchToTab(let tabIndex))):
+        state.selectedTab = tabIndex
+        return .none
+
+      case .tutorialFeature:
         return .none
 
       case let .syncCompleted(result):
@@ -245,6 +288,14 @@ struct VoiceAppView: View {
       }
     } message: {
       Text(store.syncError ?? "同期中にエラーが発生しました")
+    }
+    .overlay {
+      // チュートリアルオーバーレイ
+      if store.shouldShowTutorial && store.tutorialFeature.isActive {
+        TutorialOverlayView(
+          store: store.scope(state: \.tutorialFeature, action: \.tutorialFeature)
+        )
+      }
     }
   }
 }

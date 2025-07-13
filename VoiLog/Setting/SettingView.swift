@@ -19,6 +19,12 @@ struct SettingReducer: Reducer {
         case microphonesVolume(Double)
         case supported
         case onAppear
+        case startTutorial
+        case delegate(DelegateAction)
+    }
+
+    enum DelegateAction: Equatable {
+        case startTutorialRequested
     }
 
     enum AlertAction: Equatable {
@@ -85,6 +91,10 @@ struct SettingReducer: Reducer {
             state.developerSupported = UserDefaultsManager.shared.hasSupportedDeveloper
             state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
 
+            return .none
+        case .startTutorial:
+            return .send(.delegate(.startTutorialRequested))
+        case .delegate:
             return .none
         }
     }
@@ -195,6 +205,18 @@ struct SettingView: View {
 
                     }
                     Section(header: Text("")) {
+                        Button(action: {
+                            viewStore.send(.startTutorial)
+                        }) {
+                            HStack {
+                                Text("チュートリアルを再開")
+                                    .foregroundColor(Color("Black"))
+                                Spacer()
+                                Image(systemName: "questionmark.circle")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+
                         NavigationLink(destination: AboutSimpleRecoder()) {
                             HStack {
                                 Text("アプリについて")

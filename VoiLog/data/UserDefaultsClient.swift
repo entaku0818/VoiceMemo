@@ -24,6 +24,8 @@ struct UserDefaultsClient {
     var setHasPurchasedProduct: @Sendable (Bool) -> Void
     var hasSeenTutorial: @Sendable () -> Bool
     var setHasSeenTutorial: @Sendable (Bool) -> Void
+    var bool: @Sendable (String) -> Bool
+    var set: @Sendable (Bool, String) -> Void
 }
 
 extension UserDefaultsClient: DependencyKey {
@@ -103,6 +105,12 @@ extension UserDefaultsClient: DependencyKey {
         },
         setHasSeenTutorial: { newValue in
             UserDefaults.standard.set(newValue, forKey: "HasSeenTutorial")
+        },
+        bool: { key in
+            UserDefaults.standard.bool(forKey: key)
+        },
+        set: { value, key in
+            UserDefaults.standard.set(value, forKey: key)
         }
     )
 
@@ -128,7 +136,9 @@ extension UserDefaultsClient: DependencyKey {
         hasPurchasedProduct: { false },
         setHasPurchasedProduct: { _ in },
         hasSeenTutorial: { false },
-        setHasSeenTutorial: { _ in }
+        setHasSeenTutorial: { _ in },
+        bool: { _ in false },
+        set: { _, _ in }
     )
 }
 
