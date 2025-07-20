@@ -224,6 +224,27 @@ This project uses **two parallel architectures**:
    - For new features: Fix in Modern Architecture
 3. **Refactoring**: Gradually migrate functionality from Legacy to Modern
 
+## Development Tools
+
+### Peekaboo Integration
+Peekaboo is available for capturing and analyzing UI screenshots during development:
+
+```bash
+# Capture and analyze VoiLog screens
+peekaboo --app "VoiLog" --analyze "このUIの改善点を提案してください"
+
+# Capture specific window
+peekaboo --app "VoiLog" --window-title "録音" --path ~/Desktop/recording-ui.png
+
+# Check implementation results
+peekaboo --app "Simulator" --analyze "実装した機能が正しく動作しているか確認してください"
+
+# Debug error screens
+peekaboo --app "Xcode" --analyze "表示されているエラーの解決方法を提案してください"
+```
+
+For detailed usage, see: `/docs/development/VoiLog-Peekaboo-Integration.md`
+
 ### Recent Implementations (Reference Examples)
 - **Auto Tab Switching**: See `VoiceAppFeature` in `DebugModeFeature.swift` (Issue #72)
 - **Recording Completion Flow**: `RecordingFeature` → `VoiceAppFeature` → `PlaybackFeature` delegation

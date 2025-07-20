@@ -24,6 +24,7 @@ struct PlaybackFeature {
     var showSearchFilters = false
     var selectedMemoForDetails: VoiceMemo.ID?
     var showDetailSheet = false
+    var showEnhancedDetailSheet = false
 
     // Audio Editor
     var audioEditorState: AudioEditorReducer.State?
@@ -112,6 +113,8 @@ struct PlaybackFeature {
       // Detail view actions
       case showMemoDetails(VoiceMemo.ID)
       case hideDetailSheet
+      case showEnhancedMemoDetails(VoiceMemo.ID)
+      case hideEnhancedDetailSheet
 
       // Audio Editor Actions
       case showAudioEditor(VoiceMemo.ID)
@@ -305,6 +308,16 @@ struct PlaybackFeature {
         case .hideDetailSheet:
           state.selectedMemoForDetails = nil
           state.showDetailSheet = false
+          return .none
+
+        case let .showEnhancedMemoDetails(id):
+          state.selectedMemoForDetails = id
+          state.showEnhancedDetailSheet = true
+          return .none
+
+        case .hideEnhancedDetailSheet:
+          state.selectedMemoForDetails = nil
+          state.showEnhancedDetailSheet = false
           return .none
 
         case let .showAudioEditor(memoID):

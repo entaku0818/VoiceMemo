@@ -20,6 +20,8 @@ struct PlaylistListFeature {
         var newPlaylistName: String = ""
         var hasPurchasedPremium = false
         var isShowingPaywall = false
+        var isShowingVoiceSelection = false
+        var selectedPlaylistForVoiceAddition: Playlist?
 
     }
 
@@ -35,6 +37,8 @@ struct PlaylistListFeature {
         case playlistCreationFailed(Error)
         case playlistDeleted(UUID)
         case playlistDeletionFailed(Error)
+        case voiceAddedToPlaylist(Playlist)
+        case voiceAddFailedToPlaylist(Error)
 
         enum View: Equatable {
             case createPlaylistButtonTapped
@@ -44,6 +48,10 @@ struct PlaylistListFeature {
             case deletePlaylist(UUID)
             case showPaywall
             case paywallDismissed
+            case playlistTapped(Playlist)
+            case addVoiceToPlaylist(Playlist)
+            case hideVoiceSelection
+            case addVoiceToSelectedPlaylist(UUID)
         }
     }
 
@@ -150,6 +158,47 @@ struct PlaylistListFeature {
             state.isShowingPaywall = false
             return .none
 
+        case let .view(.playlistTapped(playlist)):
+            // プレイリストタップ時に音声追加メニューを表示
+            state.selectedPlaylistForVoiceAddition = playlist
+            state.isShowingVoiceSelection = true
+            return .none
+
+        case let .view(.addVoiceToPlaylist(playlist)):
+            state.selectedPlaylistForVoiceAddition = playlist
+            state.isShowingVoiceSelection = true
+            return .none
+
+        case .view(.hideVoiceSelection):
+            state.isShowingVoiceSelection = false
+            state.selectedPlaylistForVoiceAddition = nil
+            return .none
+
+        case let .view(.addVoiceToSelectedPlaylist(voiceId)):
+            guard let playlist = state.selectedPlaylistForVoiceAddition else { return .none }
+
+            return .run { send in
+                do {
+                    let updatedPlaylist = try await playlistRepository.addVoice(voiceId, playlist)
+                    await send(.voiceAddedToPlaylist(updatedPlaylist))
+                } catch {
+                    await send(.voiceAddFailedToPlaylist(error))
+                }
+            }
+
+        case let .voiceAddedToPlaylist(updatedPlaylist):
+            // プレイリストリストを更新
+            if let index = state.playlists.firstIndex(where: { $0.id == updatedPlaylist.id }) {
+                state.playlists[index] = updatedPlaylist
+            }
+            state.isShowingVoiceSelection = false
+            state.selectedPlaylistForVoiceAddition = nil
+            return .none
+
+        case let .voiceAddFailedToPlaylist(error):
+            state.error = error.localizedDescription
+            return .none
+
         case .binding:
             return .none
         }
@@ -188,6 +237,12 @@ extension PlaylistListFeature.Action {
         case let (.playlistDeletionFailed(lhs), .playlistDeletionFailed(rhs)):
             return (lhs as NSError) == (rhs as NSError)
 
+        case let (.voiceAddedToPlaylist(lhs), .voiceAddedToPlaylist(rhs)):
+            return lhs == rhs
+
+        case let (.voiceAddFailedToPlaylist(lhs), .voiceAddFailedToPlaylist(rhs)):
+            return (lhs as NSError) == (rhs as NSError)
+
         default:
             return false
         }
@@ -201,13 +256,23 @@ extension PlaylistListFeature.Action.View {
              (.createPlaylistSheetDismissed, .createPlaylistSheetDismissed),
              (.createPlaylistSubmitted, .createPlaylistSubmitted),
              (.showPaywall, .showPaywall),
-             (.paywallDismissed, .paywallDismissed):
+             (.paywallDismissed, .paywallDismissed),
+             (.hideVoiceSelection, .hideVoiceSelection):
             return true
 
         case let (.updateNewPlaylistName(lhs), .updateNewPlaylistName(rhs)):
             return lhs == rhs
 
         case let (.deletePlaylist(lhs), .deletePlaylist(rhs)):
+            return lhs == rhs
+
+        case let (.playlistTapped(lhs), .playlistTapped(rhs)):
+            return lhs == rhs
+
+        case let (.addVoiceToPlaylist(lhs), .addVoiceToPlaylist(rhs)):
+            return lhs == rhs
+
+        case let (.addVoiceToSelectedPlaylist(lhs), .addVoiceToSelectedPlaylist(rhs)):
             return lhs == rhs
 
         default:
