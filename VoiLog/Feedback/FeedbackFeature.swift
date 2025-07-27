@@ -6,7 +6,7 @@ import MessageUI
 @Reducer
 struct FeedbackFeature {
     @ObservableState
-    struct State: Equatable {
+    struct State: Equatable, Sendable {
         var showMailComposer = false
         var showReviewRequest = false
         var appUsageCount: Int = 0
@@ -30,7 +30,7 @@ struct FeedbackFeature {
         }
     }
 
-    enum Action: ViewAction {
+    enum Action: ViewAction, Equatable {
         case view(View)
         case reviewRequestCompleted
         case incrementAppUsage
@@ -44,7 +44,6 @@ struct FeedbackFeature {
     }
 
     @Dependency(\.date) var date
-    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     var body: some Reducer<State, Action> {
         Reduce { state, action in
@@ -79,8 +78,8 @@ struct FeedbackFeature {
 
                 case .onAppear:
                     // UserDefaultsから値を読み込む
-                    state.appUsageCount = userDefaultsClient.getInt("appUsageCount")
-                    if let lastRequestDate = userDefaultsClient.getDate("lastReviewRequestDate") {
+                    state.appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount")
+                    if let lastRequestDate = UserDefaults.standard.object(forKey: "lastReviewRequestDate") as? Date {
                         state.lastReviewRequestDate = lastRequestDate
                     }
 
@@ -95,12 +94,12 @@ struct FeedbackFeature {
             case .reviewRequestCompleted:
                 state.lastReviewRequestDate = date.now
                 // UserDefaultsに保存
-                userDefaultsClient.setDate(date.now, "lastReviewRequestDate")
+                UserDefaults.standard.set(date.now, forKey: "lastReviewRequestDate")
                 return .none
 
             case .incrementAppUsage:
                 state.appUsageCount += 1
-                userDefaultsClient.setInt(state.appUsageCount, "appUsageCount")
+                UserDefaults.standard.set(state.appUsageCount, forKey: "appUsageCount")
                 return .none
             }
         }
@@ -110,7 +109,7 @@ struct FeedbackFeature {
 // MARK: - View
 
 struct FeedbackView: View {
-    @Bindable var store: StoreOf<FeedbackFeature>
+    @Perception.Bindable var store: StoreOf<FeedbackFeature>
 
     var body: some View {
         VStack(spacing: 20) {
@@ -163,11 +162,14 @@ struct FeedbackView: View {
             }
 
             Spacer()
-        }
+            }
         .padding()
         .navigationTitle("フィードバック")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $store.showMailComposer) {
+        .sheet(isPresented: Binding(
+            get: { store.showMailComposer },
+            set: { _ in store.send(.view(.mailComposerDismissed)) }
+        )) {
             MailComposerView(
                 recipients: [store.feedbackEmail],
                 subject: "VoiLogアプリのフィードバック",

@@ -124,12 +124,28 @@ actor LongRecordingAudioRecorder: NSObject {
     }
 
     func getAudioLevel() -> Float {
-        guard let recorder = audioRecorder, recorder.isRecording else { return -160.0 }
-        recorder.updateMeters()
-        // デシベル値を0-1の範囲に正規化
-        let power = recorder.averagePower(forChannel: 0)
-        let normalizedPower = max(0.0, (power + 160.0) / 160.0)
-        return normalizedPower
+        // 録音状態をチェック
+        switch state {
+        case .recording:
+            guard let recorder = audioRecorder else {
+                logger.debug("AudioLevel: レコーダーがnil、-60.0を返す")
+                return -60.0
+            }
+            recorder.updateMeters()
+            // デシベル値を取得（-160から0の範囲）
+            let power = recorder.averagePower(forChannel: 0)
+            // -60から0の範囲にクリップ
+            let clippedPower = max(-60.0, min(0.0, power))
+            
+            // デバッグログ
+            logger.debug("AudioLevel: Raw power: \(String(format: "%.2f", power)) dB, Clipped: \(String(format: "%.2f", clippedPower)) dB")
+            UserDefaultsManager.shared.logError(String(format: "LongRecordingAudioRecorder - Power: %.2f dB, Clipped: %.2f dB", power, clippedPower))
+            
+            return clippedPower
+        default:
+            // 録音中でない場合は-60.0を返す
+            return -60.0
+        }
     }
 
     func getCurrentState() -> RecordingState {

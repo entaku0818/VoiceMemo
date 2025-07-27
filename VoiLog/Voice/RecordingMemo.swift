@@ -220,6 +220,7 @@ struct RecordingMemo: Reducer {
         case .getVolumes:
             return .run { send in
                 let volume = await audioRecorder.volumes()
+                UserDefaultsManager.shared.logError(String(format: "RecordingMemo - Volume: %.2f dB", volume))
                 await send(.updateVolumes(volume))
             }
 

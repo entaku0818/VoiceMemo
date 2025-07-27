@@ -4,6 +4,8 @@ import AVFoundation
 
 @Reducer
 struct RecordingFeature {
+  enum CancelID { case recording }
+  
   @ObservableState
   struct State: Equatable {
     var recordingState: RecordingState = .idle
@@ -93,6 +95,7 @@ struct RecordingFeature {
             await longRecordingAudioClient.stopRecording()
             await send(.view(.showTitleDialog(true)))
           }
+          .merge(with: .cancel(id: CancelID.recording))
 
         case .pauseResumeButtonTapped:
           if state.recordingState == .paused {
@@ -239,21 +242,39 @@ struct RecordingFeature {
       // Timer for duration updates
       async let durationUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
-          let currentTime = await longRecordingAudioClient.currentTime()
-          await send(.timerUpdated(currentTime))
+          let state = await longRecordingAudioClient.recordingState()
+          // 録音中または一時停止中のみ更新
+          switch state {
+          case .recording, .paused:
+            let currentTime = await longRecordingAudioClient.currentTime()
+            await send(.timerUpdated(currentTime))
+          default:
+            break
+          }
         }
       }()
 
       // Timer for volume updates
       async let volumeUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
-          let volume = await longRecordingAudioClient.audioLevel()
-          await send(.volumesUpdated(volume))
+          let state = await longRecordingAudioClient.recordingState()
+          // 録音中のみ音量を更新
+          switch state {
+          case .recording:
+            let volume = await longRecordingAudioClient.audioLevel()
+            await send(.volumesUpdated(volume))
+          case .paused:
+            // 一時停止中は音量を更新しない
+            break
+          default:
+            break
+          }
         }
       }()
 
       _ = await (recording, durationUpdates, volumeUpdates)
     }
+    .cancellable(id: CancelID.recording)
   }
 
   private func createRecordingURL(with id: UUID) -> URL {
@@ -434,52 +455,53 @@ struct RecordingView: View {
     ZStack {
       Color.black.opacity(0.4)
         .ignoresSafeArea(.all)
-        .onTapGesture {
-          // 背景タップでダイアログを閉じる
-          send(.titleDialogCancelButtonTapped)
-        }
 
       VStack(spacing: 20) {
+        Spacer()
+        
         Text("録音完了")
-          .font(.headline)
+          .font(.largeTitle)
           .fontWeight(.bold)
 
         Text("この録音にタイトルをつけますか？")
-          .font(.subheadline)
+          .font(.title3)
           .foregroundColor(.secondary)
           .multilineTextAlignment(.center)
 
         TextField("タイトル", text: $store.tempTitle)
           .textFieldStyle(.roundedBorder)
+          .font(.title3)
           .submitLabel(.done)
           .onSubmit {
             send(.titleDialogSaveButtonTapped)
           }
+          .padding(.horizontal, 40)
 
-        HStack(spacing: 16) {
+        HStack(spacing: 20) {
           Button("スキップ") {
             send(.titleDialogCancelButtonTapped)
           }
           .buttonStyle(.bordered)
-          .frame(minWidth: 80)
+          .frame(minWidth: 120, minHeight: 50)
+          .font(.title3)
 
           Button("保存") {
             send(.titleDialogSaveButtonTapped)
           }
           .buttonStyle(.borderedProminent)
-          .frame(minWidth: 80)
+          .frame(minWidth: 120, minHeight: 50)
+          .font(.title3)
         }
+        .padding(.top, 20)
+        
+        Spacer()
       }
-      .frame(maxWidth: 320)
-      .padding(24)
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .padding(40)
       .background(
         Color(.systemBackground)
-          .clipShape(RoundedRectangle(cornerRadius: 16))
+          .ignoresSafeArea(.all)
       )
-      .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 4)
-      .padding(.horizontal, 40)
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(Color.clear)
     }
     .zIndex(1000)
   }

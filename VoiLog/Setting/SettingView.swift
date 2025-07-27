@@ -10,6 +10,7 @@ import ComposableArchitecture
 import StoreKit
 
 struct SettingReducer: Reducer {
+    @CasePathable
     enum Action: Equatable {
         case alert(PresentationAction<AlertAction>)
         case selectFileFormat(String)
@@ -34,7 +35,7 @@ struct SettingReducer: Reducer {
 
     }
 
-    private func reduce(into state: inout State, action: Action) -> Effect<Action> {
+    func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .selectFileFormat(fileFormat):
             state.selectedFileFormat = fileFormat

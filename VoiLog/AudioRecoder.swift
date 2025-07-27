@@ -313,7 +313,7 @@ private actor AudioRecorder {
         try? audioEngine?.start()
     }
 
-    @objc func audioEngineConfigurationChange(notification: Notification) async {
+    func audioEngineConfigurationChange(notification: Notification) async {
         UserDefaultsManager.shared.logError("AudioEngine configuration change detected")
     }
 
@@ -326,13 +326,20 @@ private actor AudioRecorder {
     }
 
     private func updateAudioLevel(buffer: AVAudioPCMBuffer) {
-        guard let channelData = buffer.floatChannelData else { return }
+        guard let channelData = buffer.floatChannelData else { 
+            UserDefaultsManager.shared.logError("AudioLevel: channelData is nil")
+            return 
+        }
         let channelDataValue = channelData.pointee
         let channelDataValueArray = stride(from: 0,
                                            to: Int(buffer.frameLength),
                                            by: buffer.stride).map { channelDataValue[$0] }
         let rms = sqrt(channelDataValueArray.map { $0 * $0 }.reduce(0, +) / Float(buffer.frameLength))
 
+        // デバッグログ出力
+        let maxValue = channelDataValueArray.max() ?? 0
+        let minValue = channelDataValueArray.min() ?? 0
+        
         // RMSが非常に小さい場合は最小値を設定
         let avgPower: Float
         if rms < 0.00001 {
@@ -342,11 +349,13 @@ private actor AudioRecorder {
             // -60dBから0dBの範囲にクリップ
             avgPower = max(-60.0, min(0.0, calculatedPower))
         }
+        
+        // デバッグ情報を詳細にログ出力
+        UserDefaultsManager.shared.logError(String(format: "AudioLevel Debug - RMS: %.6f, Power: %.2f dB, Max: %.6f, Min: %.6f, Samples: %d", 
+                                                  rms, avgPower, maxValue, minValue, buffer.frameLength))
 
         // actorのコンテキストで更新
-        Task { @MainActor in
-            self.audioLevel = avgPower
-        }
+        self.audioLevel = avgPower
     }
 
     func fetchResultText() -> String {
