@@ -109,7 +109,7 @@ private actor AudioRecorder {
     var isPaused = false
     var isRecording = false // 録音状態を追跡
 
-    var audioLevel: Float = 0.0 // 音の大きさを表すプロパティ
+    var audioLevel: Float = -60.0 // 音の大きさを表すプロパティ（デシベル単位、初期値は最小）
 
     static func requestPermission() async -> Bool {
         await withUnsafeContinuation { continuation in
@@ -332,8 +332,19 @@ private actor AudioRecorder {
                                            to: Int(buffer.frameLength),
                                            by: buffer.stride).map { channelDataValue[$0] }
         let rms = sqrt(channelDataValueArray.map { $0 * $0 }.reduce(0, +) / Float(buffer.frameLength))
-        let avgPower = 20 * log10(rms)
-        DispatchQueue.main.async {
+
+        // RMSが非常に小さい場合は最小値を設定
+        let avgPower: Float
+        if rms < 0.00001 {
+            avgPower = -60.0
+        } else {
+            let calculatedPower = 20 * log10(rms)
+            // -60dBから0dBの範囲にクリップ
+            avgPower = max(-60.0, min(0.0, calculatedPower))
+        }
+
+        // actorのコンテキストで更新
+        Task { @MainActor in
             self.audioLevel = avgPower
         }
     }

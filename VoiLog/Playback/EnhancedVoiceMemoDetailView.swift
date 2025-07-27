@@ -13,7 +13,7 @@ import Charts
 struct EnhancedVoiceMemoDetailView: View {
     let memo: PlaybackFeature.VoiceMemo
     let onDismiss: () -> Void
-    
+
     @State private var selectedTab = 0
     @State private var isAnalyzingAudio = false
     @State private var audioAnalysisData: AudioAnalysisData?
@@ -21,7 +21,7 @@ struct EnhancedVoiceMemoDetailView: View {
     @State private var isPlaying = false
     @State private var currentTime: TimeInterval = 0
     @State private var showShareSheet = false
-    
+
     var body: some View {
         WithPerceptionTracking {
             NavigationStack {
@@ -32,21 +32,21 @@ struct EnhancedVoiceMemoDetailView: View {
                             Label("基本情報", systemImage: "info.circle")
                         }
                         .tag(0)
-                    
+
                     // 音声分析タブ
                     audioAnalysisTab
                         .tabItem {
                             Label("音声分析", systemImage: "waveform")
                         }
                         .tag(1)
-                    
+
                     // メタデータタブ
                     metadataTab
                         .tabItem {
                             Label("メタデータ", systemImage: "doc.text")
                         }
                         .tag(2)
-                    
+
                     // 統計情報タブ
                     statisticsTab
                         .tabItem {
@@ -62,7 +62,7 @@ struct EnhancedVoiceMemoDetailView: View {
                             Image(systemName: "square.and.arrow.up")
                         }
                     }
-                    
+
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("閉じる") {
                             onDismiss()
@@ -78,7 +78,7 @@ struct EnhancedVoiceMemoDetailView: View {
             }
         }
     }
-    
+
     // MARK: - Basic Info Tab
     private var basicInfoTab: some View {
         ScrollView {
@@ -90,25 +90,25 @@ struct EnhancedVoiceMemoDetailView: View {
                             Text(memo.title)
                                 .font(.title2)
                                 .fontWeight(.bold)
-                            
+
                             Text(formatDate(memo.date))
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
-                        
+
                         Spacer()
-                        
+
                         Button(action: togglePlayback) {
                             Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
                                 .font(.largeTitle)
                                 .foregroundColor(.accentColor)
                         }
                     }
-                    
+
                     // プログレスバー
                     ProgressView(value: currentTime, total: memo.duration)
                         .tint(.accentColor)
-                    
+
                     HStack {
                         Text(formatDuration(currentTime))
                             .font(.caption)
@@ -124,7 +124,7 @@ struct EnhancedVoiceMemoDetailView: View {
                 .background(Color(.systemBackground))
                 .cornerRadius(12)
                 .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
-                
+
                 // 基本情報セクション
                 detailSection(title: "録音情報") {
                     InfoRow(icon: "clock", label: "再生時間", value: formatDetailedDuration(memo.duration))
@@ -132,7 +132,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     InfoRow(icon: "location", label: "録音場所", value: "位置情報なし") // 将来的に実装
                     InfoRow(icon: "tag", label: "タグ", value: "なし") // 将来的に実装
                 }
-                
+
                 // 音声認識テキスト
                 if !memo.text.isEmpty {
                     detailSection(title: "音声認識テキスト") {
@@ -143,14 +143,14 @@ struct EnhancedVoiceMemoDetailView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .background(Color(.systemGray6))
                                 .cornerRadius(8)
-                            
+
                             HStack {
                                 Label("\(memo.text.count) 文字", systemImage: "textformat.size")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
-                                
+
                                 Spacer()
-                                
+
                                 Label("\(wordCount(memo.text)) 単語", systemImage: "text.word.spacing")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
@@ -158,7 +158,7 @@ struct EnhancedVoiceMemoDetailView: View {
                         }
                     }
                 }
-                
+
                 // ファイル情報
                 detailSection(title: "ファイル情報") {
                     InfoRow(icon: "doc", label: "ファイル名", value: memo.url.lastPathComponent)
@@ -170,7 +170,7 @@ struct EnhancedVoiceMemoDetailView: View {
             .padding()
         }
     }
-    
+
     // MARK: - Audio Analysis Tab
     private var audioAnalysisTab: some View {
         ScrollView {
@@ -188,12 +188,12 @@ struct EnhancedVoiceMemoDetailView: View {
                 } else if let analysisData = audioAnalysisData {
                     // 波形ビジュアライゼーション
                     detailSection(title: "波形") {
-                        WaveformView(data: waveformData)
+                        SimpleWaveformView(data: waveformData)
                             .frame(height: 150)
                             .background(Color(.systemGray6))
                             .cornerRadius(8)
                     }
-                    
+
                     // 音声特性
                     detailSection(title: "音声特性") {
                         InfoRow(icon: "waveform", label: "平均音量", value: String(format: "%.1f dB", analysisData.averageVolume))
@@ -202,13 +202,13 @@ struct EnhancedVoiceMemoDetailView: View {
                         InfoRow(icon: "metronome", label: "サンプリングレート", value: "\(Int(memo.samplingFrequency)) Hz")
                         InfoRow(icon: "speaker.wave.2", label: "ビットレート", value: calculateBitrate())
                     }
-                    
+
                     // 周波数分析
                     detailSection(title: "周波数分析") {
                         FrequencyChart(data: analysisData.frequencyData)
                             .frame(height: 200)
                     }
-                    
+
                     // 無音検出
                     detailSection(title: "無音分析") {
                         InfoRow(icon: "speaker.slash", label: "無音時間", value: formatDuration(analysisData.silenceDuration))
@@ -220,7 +220,7 @@ struct EnhancedVoiceMemoDetailView: View {
             .padding()
         }
     }
-    
+
     // MARK: - Metadata Tab
     private var metadataTab: some View {
         ScrollView {
@@ -232,7 +232,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     InfoRow(icon: "waveform.badge.plus", label: "ビット深度", value: "\(memo.quantizationBitDepth) bit")
                     InfoRow(icon: "arrow.left.arrow.right", label: "エンディアン", value: "リトルエンディアン")
                 }
-                
+
                 // デバイス情報
                 detailSection(title: "録音デバイス") {
                     InfoRow(icon: "iphone", label: "デバイス", value: UIDevice.current.model)
@@ -240,7 +240,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     InfoRow(icon: "gear", label: "録音設定", value: "標準品質")
                     InfoRow(icon: "app.badge", label: "アプリバージョン", value: appVersion())
                 }
-                
+
                 // 拡張属性
                 detailSection(title: "拡張属性") {
                     InfoRow(icon: "checkmark.seal", label: "完全性", value: "検証済み")
@@ -251,7 +251,7 @@ struct EnhancedVoiceMemoDetailView: View {
             .padding()
         }
     }
-    
+
     // MARK: - Statistics Tab
     private var statisticsTab: some View {
         ScrollView {
@@ -263,20 +263,20 @@ struct EnhancedVoiceMemoDetailView: View {
                     InfoRow(icon: "star", label: "お気に入り", value: "未設定") // 将来的に実装
                     InfoRow(icon: "clock.arrow.circlepath", label: "最終再生", value: "なし") // 将来的に実装
                 }
-                
+
                 // ストレージ分析
                 detailSection(title: "ストレージ効率") {
                     VStack(alignment: .leading, spacing: 12) {
                         InfoRow(icon: "internaldrive", label: "圧縮率", value: calculateCompressionRatio())
                         InfoRow(icon: "arrow.down.circle", label: "1分あたりサイズ", value: calculateSizePerMinute())
-                        
+
                         // ストレージ使用量グラフ
                         StorageUsageChart(fileSize: memo.fileSize, totalSize: totalStorageUsed())
                             .frame(height: 150)
                             .padding(.top, 8)
                     }
                 }
-                
+
                 // 品質指標
                 detailSection(title: "品質指標") {
                     QualityIndicatorView(memo: memo)
@@ -285,7 +285,7 @@ struct EnhancedVoiceMemoDetailView: View {
             .padding()
         }
     }
-    
+
     // MARK: - Helper Views
     @ViewBuilder
     private func detailSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
@@ -293,7 +293,7 @@ struct EnhancedVoiceMemoDetailView: View {
             Text(title)
                 .font(.headline)
                 .fontWeight(.semibold)
-            
+
             VStack(alignment: .leading, spacing: 8) {
                 content()
             }
@@ -303,21 +303,21 @@ struct EnhancedVoiceMemoDetailView: View {
             .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
         }
     }
-    
+
     // MARK: - Helper Methods
     private func togglePlayback() {
         isPlaying.toggle()
         // TODO: 実際の再生実装
     }
-    
+
     private func analyzeAudioFile() {
         isAnalyzingAudio = true
-        
+
         // 非同期で音声ファイルを分析
         Task {
             // TODO: 実際の音声分析実装
             try? await Task.sleep(nanoseconds: 1_000_000_000) // 1秒のシミュレーション
-            
+
             await MainActor.run {
                 // ダミーデータ
                 audioAnalysisData = AudioAnalysisData(
@@ -334,7 +334,7 @@ struct EnhancedVoiceMemoDetailView: View {
             }
         }
     }
-    
+
     private func generateDetailReport() -> String {
         var report = "【音声メモ詳細レポート】\n\n"
         report += "タイトル: \(memo.title)\n"
@@ -345,19 +345,19 @@ struct EnhancedVoiceMemoDetailView: View {
         report += "サンプリングレート: \(Int(memo.samplingFrequency)) Hz\n"
         report += "ビット深度: \(memo.quantizationBitDepth) bit\n"
         report += "チャンネル: \(channelConfiguration())\n"
-        
+
         if !memo.text.isEmpty {
             report += "\n音声認識テキスト:\n\(memo.text)\n"
         }
-        
+
         return report
     }
-    
+
     private func formatDetailedDuration(_ duration: TimeInterval) -> String {
         let hours = Int(duration) / 3600
         let minutes = Int(duration) % 3600 / 60
         let seconds = Int(duration) % 60
-        
+
         if hours > 0 {
             return String(format: "%d時間 %d分 %d秒", hours, minutes, seconds)
         } else if minutes > 0 {
@@ -366,14 +366,14 @@ struct EnhancedVoiceMemoDetailView: View {
             return String(format: "%d秒", seconds)
         }
     }
-    
+
     private func formatDetailedDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy年MM月dd日 (E) HH:mm:ss"
         formatter.locale = Locale(identifier: "ja_JP")
         return formatter.string(from: date)
     }
-    
+
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -381,13 +381,13 @@ struct EnhancedVoiceMemoDetailView: View {
         formatter.locale = Locale(identifier: "ja_JP")
         return formatter.string(from: date)
     }
-    
+
     private func formatDuration(_ duration: TimeInterval) -> String {
         let minutes = Int(duration) / 60
         let seconds = Int(duration) % 60
         return String(format: "%02d:%02d", minutes, seconds)
     }
-    
+
     private func formatDetailedFileSize(_ bytes: Int64) -> String {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = [.useBytes, .useKB, .useMB]
@@ -396,7 +396,7 @@ struct EnhancedVoiceMemoDetailView: View {
         formatter.includesCount = true
         return formatter.string(fromByteCount: bytes)
     }
-    
+
     private func channelConfiguration() -> String {
         switch memo.numberOfChannels {
         case 1: return "モノラル (1ch)"
@@ -404,29 +404,29 @@ struct EnhancedVoiceMemoDetailView: View {
         default: return "\(memo.numberOfChannels)チャンネル"
         }
     }
-    
+
     private func wordCount(_ text: String) -> Int {
         // 日本語と英語の単語をカウント
         let words = text.components(separatedBy: .whitespacesAndNewlines)
         let nonEmptyWords = words.filter { !$0.isEmpty }
-        
+
         // 日本語の文字数も考慮
         let japaneseCharCount = text.filter { $0.isJapanese }.count / 5 // 平均5文字で1単語と仮定
-        
+
         return max(nonEmptyWords.count, japaneseCharCount)
     }
-    
+
     private func calculateBitrate() -> String {
         let bitrate = Double(memo.fileSize * 8) / memo.duration / 1000
         return String(format: "%.0f kbps", bitrate)
     }
-    
+
     private func calculateCompressionRatio() -> String {
         let uncompressedSize = memo.duration * memo.samplingFrequency * Double(memo.quantizationBitDepth) * Double(memo.numberOfChannels) / 8
         let ratio = uncompressedSize / Double(memo.fileSize)
         return String(format: "%.1f:1", ratio)
     }
-    
+
     private func calculateSizePerMinute() -> String {
         let sizePerMinute = Double(memo.fileSize) / (memo.duration / 60)
         let formatter = ByteCountFormatter()
@@ -434,22 +434,22 @@ struct EnhancedVoiceMemoDetailView: View {
         formatter.countStyle = .file
         return formatter.string(fromByteCount: Int64(sizePerMinute)) + "/分"
     }
-    
+
     private func totalStorageUsed() -> Int64 {
         // TODO: 実際の総ストレージ使用量を計算
         return memo.fileSize * 20 // ダミーデータ
     }
-    
+
     private func appVersion() -> String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
         return "\(version) (\(build))"
     }
-    
+
     private func generateDummyWaveform() -> [Float] {
         (0..<100).map { _ in Float.random(in: -1...1) }
     }
-    
+
     private func generateDummyFrequencyData() -> [(frequency: Float, amplitude: Float)] {
         let frequencies: [Float] = [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]
         return frequencies.map { freq in
@@ -463,19 +463,19 @@ struct InfoRow: View {
     let icon: String
     let label: String
     let value: String
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
                 .foregroundColor(.accentColor)
                 .frame(width: 20)
-            
+
             Text(label)
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .foregroundColor(.secondary)
                 .frame(minWidth: 100, alignment: .leading)
-            
+
             Text(value)
                 .font(.subheadline)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -484,21 +484,21 @@ struct InfoRow: View {
     }
 }
 
-struct WaveformView: View {
+struct SimpleWaveformView: View {
     let data: [Float]
-    
+
     var body: some View {
         GeometryReader { geometry in
             Path { path in
                 guard !data.isEmpty else { return }
-                
+
                 let width = geometry.size.width
                 let height = geometry.size.height
                 let midY = height / 2
                 let stepX = width / CGFloat(data.count - 1)
-                
+
                 path.move(to: CGPoint(x: 0, y: midY))
-                
+
                 for (index, value) in data.enumerated() {
                     let x = CGFloat(index) * stepX
                     let y = midY - (CGFloat(value) * midY * 0.8)
@@ -512,7 +512,7 @@ struct WaveformView: View {
 
 struct FrequencyChart: View {
     let data: [(frequency: Float, amplitude: Float)]
-    
+
     var body: some View {
         Chart(data, id: \.frequency) { item in
             BarMark(
@@ -533,7 +533,7 @@ struct FrequencyChart: View {
             }
         }
         .chartXAxis {
-            AxisMarks { value in
+            AxisMarks { _ in
                 AxisValueLabel(orientation: .automatic)
                     .font(.caption)
             }
@@ -544,7 +544,7 @@ struct FrequencyChart: View {
 struct StorageUsageChart: View {
     let fileSize: Int64
     let totalSize: Int64
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
@@ -555,20 +555,20 @@ struct StorageUsageChart: View {
                     .font(.caption)
                     .fontWeight(.medium)
             }
-            
+
             GeometryReader { geometry in
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color(.systemGray5))
                         .frame(height: 20)
-                    
+
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.accentColor)
                         .frame(width: geometry.size.width * CGFloat(fileSize) / CGFloat(totalSize), height: 20)
                 }
             }
             .frame(height: 20)
-            
+
             HStack {
                 Text("総使用量")
                     .font(.caption)
@@ -580,7 +580,7 @@ struct StorageUsageChart: View {
             }
         }
     }
-    
+
     private func formatFileSize(_ bytes: Int64) -> String {
         let formatter = ByteCountFormatter()
         formatter.allowedUnits = [.useKB, .useMB, .useGB]
@@ -591,7 +591,7 @@ struct StorageUsageChart: View {
 
 struct QualityIndicatorView: View {
     let memo: PlaybackFeature.VoiceMemo
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             qualityRow(label: "サンプリングレート", value: rateQuality(), color: rateColor())
@@ -600,20 +600,20 @@ struct QualityIndicatorView: View {
             qualityRow(label: "総合品質", value: overallQuality(), color: overallColor())
         }
     }
-    
+
     private func qualityRow(label: String, value: String, color: Color) -> some View {
         HStack {
             Text(label)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-            
+
             Spacer()
-            
+
             HStack(spacing: 4) {
                 Circle()
                     .fill(color)
                     .frame(width: 8, height: 8)
-                
+
                 Text(value)
                     .font(.subheadline)
                     .fontWeight(.medium)
@@ -621,7 +621,7 @@ struct QualityIndicatorView: View {
             }
         }
     }
-    
+
     private func rateQuality() -> String {
         switch memo.samplingFrequency {
         case 44100...: return "高品質"
@@ -629,7 +629,7 @@ struct QualityIndicatorView: View {
         default: return "低品質"
         }
     }
-    
+
     private func rateColor() -> Color {
         switch memo.samplingFrequency {
         case 44100...: return .green
@@ -637,7 +637,7 @@ struct QualityIndicatorView: View {
         default: return .red
         }
     }
-    
+
     private func bitDepthQuality() -> String {
         switch memo.quantizationBitDepth {
         case 24...: return "高品質"
@@ -645,7 +645,7 @@ struct QualityIndicatorView: View {
         default: return "低品質"
         }
     }
-    
+
     private func bitDepthColor() -> Color {
         switch memo.quantizationBitDepth {
         case 24...: return .green
@@ -653,7 +653,7 @@ struct QualityIndicatorView: View {
         default: return .red
         }
     }
-    
+
     private func compressionQuality() -> String {
         let bitrate = Double(memo.fileSize * 8) / memo.duration / 1000
         switch bitrate {
@@ -662,7 +662,7 @@ struct QualityIndicatorView: View {
         default: return "低品質"
         }
     }
-    
+
     private func compressionColor() -> Color {
         let bitrate = Double(memo.fileSize * 8) / memo.duration / 1000
         switch bitrate {
@@ -671,16 +671,16 @@ struct QualityIndicatorView: View {
         default: return .red
         }
     }
-    
+
     private func overallQuality() -> String {
         let scores = [
             memo.samplingFrequency >= 44100 ? 3 : (memo.samplingFrequency >= 22050 ? 2 : 1),
             memo.quantizationBitDepth >= 24 ? 3 : (memo.quantizationBitDepth >= 16 ? 2 : 1),
             (Double(memo.fileSize * 8) / memo.duration / 1000) >= 256 ? 3 : ((Double(memo.fileSize * 8) / memo.duration / 1000) >= 128 ? 2 : 1)
         ]
-        
+
         let average = Double(scores.reduce(0, +)) / Double(scores.count)
-        
+
         switch average {
         case 2.5...: return "優秀"
         case 2.0..<2.5: return "良好"
@@ -688,16 +688,16 @@ struct QualityIndicatorView: View {
         default: return "改善推奨"
         }
     }
-    
+
     private func overallColor() -> Color {
         let scores = [
             memo.samplingFrequency >= 44100 ? 3 : (memo.samplingFrequency >= 22050 ? 2 : 1),
             memo.quantizationBitDepth >= 24 ? 3 : (memo.quantizationBitDepth >= 16 ? 2 : 1),
             (Double(memo.fileSize * 8) / memo.duration / 1000) >= 256 ? 3 : ((Double(memo.fileSize * 8) / memo.duration / 1000) >= 128 ? 2 : 1)
         ]
-        
+
         let average = Double(scores.reduce(0, +)) / Double(scores.count)
-        
+
         switch average {
         case 2.5...: return .green
         case 2.0..<2.5: return .blue
@@ -709,11 +709,11 @@ struct QualityIndicatorView: View {
 
 struct ShareSheet: UIViewControllerRepresentable {
     let items: [Any]
-    
+
     func makeUIViewController(context: Context) -> UIActivityViewController {
         UIActivityViewController(activityItems: items, applicationActivities: nil)
     }
-    
+
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 

@@ -21,6 +21,7 @@ struct SettingReducer: Reducer {
         case onAppear
         case startTutorial
         case delegate(DelegateAction)
+        case feedbackFeature(FeedbackFeature.Action)
     }
 
     enum DelegateAction: Equatable {
@@ -33,7 +34,7 @@ struct SettingReducer: Reducer {
 
     }
 
-    func reduce(into state: inout State, action: Action) -> Effect<Action> {
+    private func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .selectFileFormat(fileFormat):
             state.selectedFileFormat = fileFormat
@@ -96,6 +97,15 @@ struct SettingReducer: Reducer {
             return .send(.delegate(.startTutorialRequested))
         case .delegate:
             return .none
+        case .feedbackFeature:
+            return .none
+        }
+    }
+
+    var body: some ReducerOf<Self> {
+        Reduce(self.reduce)
+        Scope(state: \.feedbackState, action: \.feedbackFeature) {
+            FeedbackFeature()
         }
     }
 
@@ -108,6 +118,7 @@ struct SettingReducer: Reducer {
         var microphonesVolume: Double
         var developerSupported: Bool
         var hasPurchasedPremium: Bool
+        var feedbackState = FeedbackFeature.State()
 
     }
 
@@ -222,6 +233,13 @@ struct SettingView: View {
                                 Text("アプリについて")
                                 Spacer()
 
+                            }
+                        }
+
+                        NavigationLink(destination: FeedbackView(store: self.store.scope(state: \.feedbackState, action: \.feedbackFeature))) {
+                            HStack {
+                                Text("フィードバック・評価")
+                                Spacer()
                             }
                         }
                         Button(action: {
