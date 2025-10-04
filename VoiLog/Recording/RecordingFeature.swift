@@ -321,6 +321,7 @@ struct RecordingView: View {
           controlButtonsView
         }
         .padding()
+        .navigationTitle("録音")
         .onAppear {
           send(.onAppear)
         }
