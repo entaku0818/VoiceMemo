@@ -479,7 +479,12 @@ struct PlaybackView: View {
           send(.cancelDelete)
         }
       } message: {
-        Text("この録音ファイルを削除しますか？")
+        if let selectedId = store.selectedMemoForDeletion,
+           let memo = store.voiceMemos.first(where: { $0.id == selectedId }) {
+          Text("\(memo.title)\n\(formatDate(memo.date))\n再生時間: \(formatDuration(memo.duration))\n\nこの録音を削除しますか？")
+        } else {
+          Text("この録音ファイルを削除しますか？")
+        }
       }
       .sheet(isPresented: $store.showDetailSheet) {
         if let selectedId = store.selectedMemoForDetails,
@@ -597,35 +602,9 @@ struct PlaybackView: View {
     // MARK: - Filter Options Row
     private var filterOptionsRow: some View {
         HStack {
-            favoritesFilterButton
             Spacer()
             durationFilterMenu
         }
-    }
-
-    private var favoritesFilterButton: some View {
-        Button {
-            send(.toggleFavoritesFilter)
-        } label: {
-            HStack(spacing: 4) {
-                Image(systemName: store.showFavoritesOnly ? "star.fill" : "star")
-                Text("お気に入り")
-            }
-            .font(.caption)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            .background(favoritesFilterBackgroundColor)
-            .foregroundColor(favoritesFilterForegroundColor)
-            .cornerRadius(8)
-        }
-    }
-
-    private var favoritesFilterBackgroundColor: Color {
-        store.showFavoritesOnly ? Color.yellow : Color(.systemGray6)
-    }
-
-    private var favoritesFilterForegroundColor: Color {
-        store.showFavoritesOnly ? .black : .primary
     }
 
     private var durationFilterMenu: some View {
