@@ -13,7 +13,7 @@ struct RecordingFeature {
     var volumes: Float = -60
     var resultText: String = ""
     var tempTitle: String = ""
-    var showTitleDialog = false
+    @Presents var alert: AlertState<Action.Alert>?
     var isLoading = false
     var audioPermission: AudioPermission = .notDetermined
     var waveFormHeights: [Float] = []
@@ -37,6 +37,7 @@ struct RecordingFeature {
     case binding(BindingAction<State>)
     case view(View)
     case delegate(DelegateAction)
+    case alert(PresentationAction<Alert>)
 
     // Internal actions
     case audioRecorderDidFinish(TaskResult<Bool>)
@@ -50,11 +51,12 @@ struct RecordingFeature {
       case recordButtonTapped
       case stopButtonTapped
       case pauseResumeButtonTapped
-      case titleDialogSaveButtonTapped
-      case titleDialogCancelButtonTapped
-      case showTitleDialog(Bool)
-      case setTempTitle(String)
       case onAppear
+    }
+
+    enum Alert: Equatable {
+      case saveWithTitle(String)
+      case skipTitle
     }
 
     enum DelegateAction: Equatable {
@@ -91,9 +93,20 @@ struct RecordingFeature {
 
         case .stopButtonTapped:
           state.recordingState = .encoding
+          state.alert = AlertState {
+            TextState("録音完了")
+          } actions: {
+            ButtonState(role: .cancel, action: .skipTitle) {
+              TextState("スキップ")
+            }
+            ButtonState(action: .saveWithTitle("")) {
+              TextState("保存")
+            }
+          } message: {
+            TextState("この録音にタイトルをつけますか？")
+          }
           return .run { send in
             await longRecordingAudioClient.stopRecording()
-            await send(.view(.showTitleDialog(true)))
           }
           .merge(with: .cancel(id: CancelID.recording))
 
@@ -109,75 +122,6 @@ struct RecordingFeature {
               await longRecordingAudioClient.pauseRecording()
             }
           }
-
-        case .titleDialogSaveButtonTapped:
-          state.showTitleDialog = false
-          let recordingUrl = createRecordingURL(with: state.recordingId)
-          let title = state.tempTitle.isEmpty ? "無題の録音" : state.tempTitle
-          let recordingDate = Date()
-
-          // データベースに保存
-          let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
-            uuid: state.recordingId,
-            date: recordingDate,
-            duration: state.duration,
-            resultText: state.resultText,
-            title: title,
-            fileFormat: "m4a",
-            samplingFrequency: 44100.0,
-            quantizationBitDepth: 16,
-            numberOfChannels: 2,
-            url: recordingUrl
-          )
-          voiceMemoRepository.insert(recordingVoice)
-
-          let result = RecordingResult(
-            url: recordingUrl,
-            duration: state.duration,
-            title: title,
-            date: recordingDate
-          )
-          state = State() // Reset state
-          return .send(.delegate(.recordingCompleted(result)))
-
-        case .titleDialogCancelButtonTapped:
-          state.showTitleDialog = false
-          let recordingUrl = createRecordingURL(with: state.recordingId)
-          let title = "無題の録音"
-          let recordingDate = Date()
-
-          // データベースに保存（タイトルなしでも保存）
-          let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
-            uuid: state.recordingId,
-            date: recordingDate,
-            duration: state.duration,
-            resultText: state.resultText,
-            title: title,
-            fileFormat: "m4a",
-            samplingFrequency: 44100.0,
-            quantizationBitDepth: 16,
-            numberOfChannels: 2,
-            url: recordingUrl
-          )
-          voiceMemoRepository.insert(recordingVoice)
-
-          let result = RecordingResult(
-            url: recordingUrl,
-            duration: state.duration,
-            title: title,
-            date: recordingDate
-          )
-          state.tempTitle = ""
-          state = State() // Reset state
-          return .send(.delegate(.recordingCompleted(result)))
-
-        case let .showTitleDialog(show):
-          state.showTitleDialog = show
-          return .none
-
-        case let .setTempTitle(title):
-          state.tempTitle = title
-          return .none
 
         case .onAppear:
           return .none
@@ -219,10 +163,75 @@ struct RecordingFeature {
         state.waveFormHeights = heights
         return .none
 
+      case let .alert(.presented(alertAction)):
+        switch alertAction {
+        case let .saveWithTitle(title):
+          let recordingUrl = createRecordingURL(with: state.recordingId)
+          let finalTitle = title.isEmpty ? state.tempTitle.isEmpty ? "無題の録音" : state.tempTitle : title
+          let recordingDate = Date()
+
+          // データベースに保存
+          let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
+            uuid: state.recordingId,
+            date: recordingDate,
+            duration: state.duration,
+            resultText: state.resultText,
+            title: finalTitle,
+            fileFormat: "m4a",
+            samplingFrequency: 44100.0,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            url: recordingUrl
+          )
+          voiceMemoRepository.insert(recordingVoice)
+
+          let result = RecordingResult(
+            url: recordingUrl,
+            duration: state.duration,
+            title: finalTitle,
+            date: recordingDate
+          )
+          state = State() // Reset state
+          return .send(.delegate(.recordingCompleted(result)))
+
+        case .skipTitle:
+          let recordingUrl = createRecordingURL(with: state.recordingId)
+          let title = "無題の録音"
+          let recordingDate = Date()
+
+          // データベースに保存（タイトルなしでも保存）
+          let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
+            uuid: state.recordingId,
+            date: recordingDate,
+            duration: state.duration,
+            resultText: state.resultText,
+            title: title,
+            fileFormat: "m4a",
+            samplingFrequency: 44100.0,
+            quantizationBitDepth: 16,
+            numberOfChannels: 2,
+            url: recordingUrl
+          )
+          voiceMemoRepository.insert(recordingVoice)
+
+          let result = RecordingResult(
+            url: recordingUrl,
+            duration: state.duration,
+            title: title,
+            date: recordingDate
+          )
+          state = State() // Reset state
+          return .send(.delegate(.recordingCompleted(result)))
+        }
+
+      case .alert(.dismiss):
+        return .none
+
       case .delegate:
         return .none
       }
     }
+    .ifLet(\.$alert, action: \.alert)
   }
 
   private func startRecording(state: inout State) -> Effect<Action> {
@@ -316,11 +325,7 @@ struct RecordingView: View {
         .onAppear {
           send(.onAppear)
         }
-        .overlay {
-          if store.showTitleDialog {
-            titleDialogOverlay
-          }
-        }
+        .alert($store.scope(state: \.alert, action: \.alert))
       }
     }
   }
@@ -449,61 +454,6 @@ struct RecordingView: View {
           .foregroundColor(.white)
       }
     }
-  }
-
-  private var titleDialogOverlay: some View {
-    ZStack {
-      Color.black.opacity(0.4)
-        .ignoresSafeArea(.all)
-
-      VStack(spacing: 20) {
-        Spacer()
-        
-        Text("録音完了")
-          .font(.largeTitle)
-          .fontWeight(.bold)
-
-        Text("この録音にタイトルをつけますか？")
-          .font(.title3)
-          .foregroundColor(.secondary)
-          .multilineTextAlignment(.center)
-
-        TextField("タイトル", text: $store.tempTitle)
-          .textFieldStyle(.roundedBorder)
-          .font(.title3)
-          .submitLabel(.done)
-          .onSubmit {
-            send(.titleDialogSaveButtonTapped)
-          }
-          .padding(.horizontal, 40)
-
-        HStack(spacing: 20) {
-          Button("スキップ") {
-            send(.titleDialogCancelButtonTapped)
-          }
-          .buttonStyle(.bordered)
-          .frame(minWidth: 120, minHeight: 50)
-          .font(.title3)
-
-          Button("保存") {
-            send(.titleDialogSaveButtonTapped)
-          }
-          .buttonStyle(.borderedProminent)
-          .frame(minWidth: 120, minHeight: 50)
-          .font(.title3)
-        }
-        .padding(.top, 20)
-        
-        Spacer()
-      }
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .padding(40)
-      .background(
-        Color(.systemBackground)
-          .ignoresSafeArea(.all)
-      )
-    }
-    .zIndex(1000)
   }
 
   private var recordingStatusText: String {
