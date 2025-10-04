@@ -332,32 +332,19 @@ struct RecordingView: View {
 
   private var recordingStatusView: some View {
     VStack(spacing: 16) {
-      ZStack {
-        // Progress Ring
-        if store.recordingState == .recording {
-          RingProgressView(value: ringProgress)
-            .frame(width: 200, height: 200)
-            .onAppear {
-              withAnimation(.linear(duration: 600).repeatForever(autoreverses: false)) {
-                ringProgress = 1.0
-              }
-            }
-        }
+      VStack(spacing: 8) {
+        // Recording Status Text
+        Text(recordingStatusText)
+          .font(.title2)
+          .fontWeight(.bold)
+          .foregroundColor(recordingStatusColor)
+          .animation(.easeInOut(duration: 1), value: store.duration)
 
-        VStack(spacing: 8) {
-          // Recording Status Text
-          Text(recordingStatusText)
-            .font(.title2)
+        // Duration
+        if let formattedDuration = dateComponentsFormatter.string(from: store.duration) {
+          Text(formattedDuration)
+            .font(.title.monospacedDigit())
             .fontWeight(.bold)
-            .foregroundColor(recordingStatusColor)
-            .animation(.easeInOut(duration: 1), value: store.duration)
-
-          // Duration
-          if let formattedDuration = dateComponentsFormatter.string(from: store.duration) {
-            Text(formattedDuration)
-              .font(.title.monospacedDigit())
-              .fontWeight(.bold)
-          }
         }
       }
     }
