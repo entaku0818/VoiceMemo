@@ -326,9 +326,9 @@ private actor AudioRecorder {
     }
 
     private func updateAudioLevel(buffer: AVAudioPCMBuffer) {
-        guard let channelData = buffer.floatChannelData else { 
+        guard let channelData = buffer.floatChannelData else {
             UserDefaultsManager.shared.logError("AudioLevel: channelData is nil")
-            return 
+            return
         }
         let channelDataValue = channelData.pointee
         let channelDataValueArray = stride(from: 0,
@@ -339,7 +339,7 @@ private actor AudioRecorder {
         // デバッグログ出力
         let maxValue = channelDataValueArray.max() ?? 0
         let minValue = channelDataValueArray.min() ?? 0
-        
+
         // RMSが非常に小さい場合は最小値を設定
         let avgPower: Float
         if rms < 0.00001 {
@@ -349,9 +349,9 @@ private actor AudioRecorder {
             // -60dBから0dBの範囲にクリップ
             avgPower = max(-60.0, min(0.0, calculatedPower))
         }
-        
+
         // デバッグ情報を詳細にログ出力
-        UserDefaultsManager.shared.logError(String(format: "AudioLevel Debug - RMS: %.6f, Power: %.2f dB, Max: %.6f, Min: %.6f, Samples: %d", 
+        UserDefaultsManager.shared.logError(String(format: "AudioLevel Debug - RMS: %.6f, Power: %.2f dB, Max: %.6f, Min: %.6f, Samples: %d",
                                                   rms, avgPower, maxValue, minValue, buffer.frameLength))
 
         // actorのコンテキストで更新

@@ -136,11 +136,11 @@ actor LongRecordingAudioRecorder: NSObject {
             let power = recorder.averagePower(forChannel: 0)
             // -60から0の範囲にクリップ
             let clippedPower = max(-60.0, min(0.0, power))
-            
+
             // デバッグログ
             logger.debug("AudioLevel: Raw power: \(String(format: "%.2f", power)) dB, Clipped: \(String(format: "%.2f", clippedPower)) dB")
             UserDefaultsManager.shared.logError(String(format: "LongRecordingAudioRecorder - Power: %.2f dB, Clipped: %.2f dB", power, clippedPower))
-            
+
             return clippedPower
         default:
             // 録音中でない場合は-60.0を返す

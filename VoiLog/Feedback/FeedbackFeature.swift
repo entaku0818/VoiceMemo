@@ -162,7 +162,7 @@ struct FeedbackView: View {
             }
 
             Spacer()
-            }
+        }
         .padding()
         .navigationTitle("フィードバック")
         .navigationBarTitleDisplayMode(.inline)

@@ -5,7 +5,7 @@ import AVFoundation
 @Reducer
 struct RecordingFeature {
   enum CancelID { case recording }
-  
+
   @ObservableState
   struct State: Equatable {
     var recordingState: RecordingState = .idle
@@ -90,7 +90,7 @@ struct RecordingFeature {
         case .stopButtonTapped:
           state.recordingState = .encoding
           state.showTitleDialog = true
-          return .run { send in
+          return .run { _ in
             await longRecordingAudioClient.stopRecording()
           }
           .merge(with: .cancel(id: CancelID.recording))
