@@ -15,7 +15,7 @@ struct TutorialFeature {
     var showSkipConfirmation = false
   }
 
-  enum Action: ViewAction, BindableAction {
+  enum Action: BindableAction {
     case binding(BindingAction<State>)
     case view(View)
     case delegate(DelegateAction)

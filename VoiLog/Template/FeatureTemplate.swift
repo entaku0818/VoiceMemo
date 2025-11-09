@@ -23,7 +23,7 @@ struct FeatureReducer {
     }
   }
 
-  enum Action: ViewAction, BindableAction {
+  enum Action: BindableAction {
     case binding(BindingAction<State>)
     case itemsLoaded([Item])
     case toggleFavorite(Item.ID)

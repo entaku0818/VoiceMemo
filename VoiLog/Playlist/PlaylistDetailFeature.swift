@@ -77,7 +77,7 @@ struct PlaylistDetailFeature {
         }
     }
 
-    enum Action: ViewAction, BindableAction {
+    enum Action: BindableAction {
 
         case binding(BindingAction<State>)
         case dataLoaded(PlaylistDetail)

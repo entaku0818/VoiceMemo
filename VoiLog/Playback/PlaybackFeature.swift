@@ -74,7 +74,7 @@ struct PlaybackFeature {
     }
   }
 
-  enum Action: ViewAction, BindableAction {
+  enum Action: BindableAction {
     case binding(BindingAction<State>)
     case view(View)
     case delegate(DelegateAction)
@@ -222,9 +222,6 @@ struct PlaybackFeature {
 
         case .confirmDelete:
           if let id = state.selectedMemoForDeletion {
-            // データベースから削除
-            voiceMemoRepository.delete(id)
-
             state.voiceMemos.removeAll { $0.id == id }
             if state.currentPlayingMemo == id {
               state.currentPlayingMemo = nil
@@ -233,7 +230,14 @@ struct PlaybackFeature {
             }
             state.selectedMemoForDeletion = nil
             state.showDeleteConfirmation = false
-            return .send(.delegate(.memoDeleted(id)))
+
+            // データベースから削除（メインスレッドで実行）
+            return .run { send in
+              await MainActor.run {
+                voiceMemoRepository.delete(id)
+              }
+              await send(.delegate(.memoDeleted(id)))
+            }
           }
           return .none
 
@@ -246,14 +250,18 @@ struct PlaybackFeature {
           return loadMemos()
 
         case let .updateTitle(id, newTitle):
-          // データベースでタイトルを更新
-          voiceMemoRepository.updateTitle(id, newTitle)
-
           // ローカル状態も更新
           if let index = state.voiceMemos.firstIndex(where: { $0.id == id }) {
             state.voiceMemos[index].title = newTitle
           }
-          return .none
+
+          // データベースでタイトルを更新（メインスレッドで実行）
+          return .run { _ in
+            await MainActor.run {
+              voiceMemoRepository.updateTitle(id, newTitle)
+            }
+          }
+
 
         case let .startEditingTitle(id):
           state.editingMemoId = id
@@ -382,7 +390,10 @@ struct PlaybackFeature {
   private func loadMemos() -> Effect<Action> {
     .run { send in
       // データベースからデータを読み込み（Legacy形式で取得）
-      let voiceMemoVoices = voiceMemoRepository.selectAllData()
+      // Core Dataアクセスはメインスレッドで実行
+      let voiceMemoVoices = await MainActor.run {
+        voiceMemoRepository.selectAllData()
+      }
 
       let memos = voiceMemoVoices.map { voice in
         // ファイルサイズを計算

@@ -30,7 +30,7 @@ struct FeedbackFeature {
         }
     }
 
-    enum Action: ViewAction, Equatable {
+    enum Action: Equatable {
         case view(View)
         case reviewRequestCompleted
         case incrementAppUsage
