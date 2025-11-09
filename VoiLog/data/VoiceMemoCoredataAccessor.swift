@@ -2,6 +2,7 @@ import Foundation
 import Dependencies
 import CoreData
 
+@MainActor
 protocol VoiceMemoCoredataAccessorProtocol {
     func insert(voice: VoiceMemoRepository.Voice, isCloud: Bool)
     func selectAllData() -> [VoiceMemoRepository.Voice]
@@ -11,6 +12,7 @@ protocol VoiceMemoCoredataAccessorProtocol {
     func updateTitle(uuid: UUID, newTitle: String)
 }
 
+@MainActor
 class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
     let container: NSPersistentContainer

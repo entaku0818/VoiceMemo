@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class VoiceMemoRepository {
 
     private let coreDataAccessor: VoiceMemoCoredataAccessorProtocol

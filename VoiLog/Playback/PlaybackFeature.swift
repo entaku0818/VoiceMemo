@@ -231,11 +231,9 @@ struct PlaybackFeature {
             state.selectedMemoForDeletion = nil
             state.showDeleteConfirmation = false
 
-            // データベースから削除（メインスレッドで実行）
+            // データベースから削除
             return .run { send in
-              await MainActor.run {
-                voiceMemoRepository.delete(id)
-              }
+              voiceMemoRepository.delete(id)
               await send(.delegate(.memoDeleted(id)))
             }
           }
@@ -255,11 +253,9 @@ struct PlaybackFeature {
             state.voiceMemos[index].title = newTitle
           }
 
-          // データベースでタイトルを更新（メインスレッドで実行）
+          // データベースでタイトルを更新
           return .run { _ in
-            await MainActor.run {
-              voiceMemoRepository.updateTitle(id, newTitle)
-            }
+            voiceMemoRepository.updateTitle(id, newTitle)
           }
 
 
@@ -390,10 +386,7 @@ struct PlaybackFeature {
   private func loadMemos() -> Effect<Action> {
     .run { send in
       // データベースからデータを読み込み（Legacy形式で取得）
-      // Core Dataアクセスはメインスレッドで実行
-      let voiceMemoVoices = await MainActor.run {
-        voiceMemoRepository.selectAllData()
-      }
+      let voiceMemoVoices = voiceMemoRepository.selectAllData()
 
       let memos = voiceMemoVoices.map { voice in
         // ファイルサイズを計算
