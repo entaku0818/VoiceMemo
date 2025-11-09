@@ -181,9 +181,12 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 }
 
 private enum VoiceMemoCoredataAccessorKey: DependencyKey {
+    @MainActor
     static let liveValue: VoiceMemoCoredataAccessorProtocol = VoiceMemoCoredataAccessor()
 
+    @MainActor
     static var previewValue: VoiceMemoCoredataAccessorProtocol = VoiceMemoCoredataAccessor()
+    @MainActor
     static var testValue: VoiceMemoCoredataAccessorProtocol = VoiceMemoCoredataAccessor()
 }
 

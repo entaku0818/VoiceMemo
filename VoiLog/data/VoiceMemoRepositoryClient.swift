@@ -52,6 +52,7 @@ struct VoiceMemoRepositoryClient {
 
 // MARK: - Dependency Key
 private enum VoiceMemoRepositoryClientKey: DependencyKey {
+    @MainActor
     static let liveValue: VoiceMemoRepositoryClient = {
         // CoreData setup
         let container = NSPersistentContainer(name: "Voice")
@@ -391,6 +392,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         )
     }()
 
+    @MainActor
     static let previewValue = VoiceMemoRepositoryClient(
         insert: { _ in },
         selectAllData: { [] },
@@ -402,6 +404,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         checkForDifferences: { false }
     )
 
+    @MainActor
     static let testValue: VoiceMemoRepositoryClient = previewValue
 }
 
