@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Perception
 import AVFoundation
 import Charts
 
@@ -23,7 +22,7 @@ struct EnhancedVoiceMemoDetailView: View {
     @State private var showShareSheet = false
 
     var body: some View {
-        WithPerceptionTracking {
+
             NavigationStack {
                 TabView(selection: $selectedTab) {
                     // 基本情報タブ
@@ -76,7 +75,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     analyzeAudioFile()
                 }
             }
-        }
+        
     }
 
     // MARK: - Basic Info Tab

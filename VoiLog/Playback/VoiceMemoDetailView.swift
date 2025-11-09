@@ -1,12 +1,10 @@
 import SwiftUI
-import Perception
 
 struct VoiceMemoDetailView: View {
   let memo: PlaybackFeature.VoiceMemo
   let onDismiss: () -> Void
 
   var body: some View {
-    WithPerceptionTracking {
       NavigationStack {
       ScrollView {
         VStack(alignment: .leading, spacing: 20) {
@@ -56,7 +54,6 @@ struct VoiceMemoDetailView: View {
         }
       }
       }
-    }
   }
 
   @ViewBuilder

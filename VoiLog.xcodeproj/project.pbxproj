@@ -893,8 +893,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.8.0;
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.19.0;
 			};
 		};
 		61A285C92A3608BB00BD7CB5 /* XCRemoteSwiftPackageReference "rollbar-apple" */ = {

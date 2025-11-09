@@ -25,7 +25,7 @@ struct PlaylistListFeature {
 
     }
 
-    enum Action: ViewAction, BindableAction, Equatable {
+    enum Action: BindableAction {
         case binding(BindingAction<State>)
         case view(View)
 
@@ -40,7 +40,7 @@ struct PlaylistListFeature {
         case voiceAddedToPlaylist(Playlist)
         case voiceAddFailedToPlaylist(Error)
 
-        enum View: Equatable {
+        enum View {
             case createPlaylistButtonTapped
             case createPlaylistSheetDismissed
             case updateNewPlaylistName(String)
