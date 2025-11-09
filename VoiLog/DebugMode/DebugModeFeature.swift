@@ -177,7 +177,6 @@ struct VoiceAppFeature {
   }
 }
 
-@ViewAction(for: VoiceAppFeature.self)
 struct VoiceAppView: View {
   @Perception.Bindable var store: StoreOf<VoiceAppFeature>
   let recordAdmobUnitId: String
@@ -228,7 +227,7 @@ struct VoiceAppView: View {
               }
             } else {
               Button {
-                send(.syncToCloud)
+                store.send(.view(.syncToCloud))
               } label: {
                 HStack {
                   Image(systemName: "icloud.and.arrow.up")
@@ -280,11 +279,11 @@ struct VoiceAppView: View {
       .tag(3)
     }
     .onAppear {
-      send(.onAppear)
+      store.send(.view(.onAppear))
     }
     .alert("同期エラー", isPresented: $store.showSyncError) {
       Button("OK") {
-        send(.dismissSyncError)
+        store.send(.view(.dismissSyncError))
       }
     } message: {
       Text(store.syncError ?? "同期中にエラーが発生しました")
