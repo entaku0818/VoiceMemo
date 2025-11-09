@@ -6,6 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 VoiLog is an iOS voice recording app ("シンプル録音" - Simple Recording) built with SwiftUI and The Composable Architecture (TCA). The app provides audio recording, playback, playlist management, and premium features via in-app purchases.
 
+## TCA Resources
+
+- **Official TCA Collection**: https://www.pointfree.co/collections/composable-architecture
+- **GitHub Repository**: https://github.com/pointfreeco/swift-composable-architecture
+
 ## Essential Commands
 
 ### Development

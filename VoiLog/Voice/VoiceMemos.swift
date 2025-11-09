@@ -210,14 +210,14 @@ struct VoiceMemos: Reducer {
             case .synciCloud:
                 state.syncStatus = .syncing
                 return .run { send in
-                    let result = await MainActor.run {
-                        let voiceMemoRepository = VoiceMemoRepository(
+                    let voiceMemoRepository = await MainActor.run {
+                        VoiceMemoRepository(
                             coreDataAccessor: VoiceMemoCoredataAccessor(),
                             cloudUploader: CloudUploader()
                         )
-                        return voiceMemoRepository.syncToCloud()
                     }
-                    await send(await result ? .syncSuccess : .syncFailure)
+                    let result = await voiceMemoRepository.syncToCloud()
+                    await send(result ? .syncSuccess : .syncFailure)
                 }
 
             case .syncSuccess:
