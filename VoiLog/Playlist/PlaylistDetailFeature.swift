@@ -236,7 +236,10 @@ struct PlaylistDetailFeature {
                 case .loadVoiceMemos:
                     return .run { send in
                         do {
-                            let voices = voiceMemoAccessor.selectAllData().map { voice in
+                            let voiceData = await MainActor.run {
+                                voiceMemoAccessor.selectAllData()
+                            }
+                            let voices = voiceData.map { voice in
                                 VoiceMemoReducer.State(
                                     uuid: voice.id,
                                     date: voice.createdAt,
