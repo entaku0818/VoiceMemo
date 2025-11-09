@@ -10,7 +10,6 @@ import SwiftUI
 import ComposableArchitecture
 
 // MARK: - PlaylistNameSection
-@ViewAction(for: PlaylistDetailFeature.self)
 struct PlaylistNameSection: View {
     let name: String
     @Perception.Bindable var store: StoreOf<PlaylistDetailFeature>
@@ -23,12 +22,12 @@ struct PlaylistNameSection: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                     Button("保存") {
-                        send(.saveNameButtonTapped)
+                        store.send(.view(.saveNameButtonTapped))
                     }
                     .buttonStyle(.bordered)
 
                     Button("キャンセル") {
-                        send(.cancelEditButtonTapped)
+                        store.send(.view(.cancelEditButtonTapped))
                     }
                     .buttonStyle(.bordered)
                 }
@@ -41,7 +40,7 @@ struct PlaylistNameSection: View {
                     Spacer()
 
                     Button {
-                        send(.editButtonTapped)
+                        store.send(.view(.editButtonTapped))
                     } label: {
                         Image(systemName: "pencil")
                     }
@@ -56,14 +55,13 @@ struct PlaylistNameSection: View {
 }
 
 // MARK: - AddVoiceSection
-@ViewAction(for: PlaylistDetailFeature.self)
 struct AddVoiceSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         Section {
             Button {
-                send(.showVoiceSelectionSheet)
+                store.send(.view(.showVoiceSelectionSheet))
             } label: {
                 HStack {
                     Image(systemName: "plus.circle.fill")
@@ -76,7 +74,6 @@ struct AddVoiceSection: View {
 }
 
 // MARK: - VoiceListSection
-@ViewAction(for: PlaylistDetailFeature.self)
 struct VoiceListSection: View {
     let voices: [VoiceMemoRepository.Voice]
     let store: StoreOf<PlaylistDetailFeature>
@@ -97,7 +94,7 @@ struct VoiceListSection: View {
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Button {
-                            send(.playButtonTapped(voice.id))
+                            store.send(.view(.playButtonTapped(voice.id)))
                         } label: {
                             Image(systemName: "play.circle.fill")
                                 .font(.title2)
@@ -106,7 +103,7 @@ struct VoiceListSection: View {
                     }
                     .swipeActions {
                         Button(role: .destructive) {
-                            send(.removeVoice(voice.id))
+                            store.send(.view(.removeVoice(voice.id)))
                         } label: {
                             Label("削除", systemImage: "trash")
                         }
@@ -118,7 +115,6 @@ struct VoiceListSection: View {
 }
 
 // MARK: - VoiceSelectionSheet
-@ViewAction(for: PlaylistDetailFeature.self)
 struct VoiceSelectionSheet: View {
     let voices: [VoiceMemoRepository.Voice]
     let store: StoreOf<PlaylistDetailFeature>
@@ -150,7 +146,7 @@ struct VoiceSelectionSheet: View {
 
                         if !voices.contains(where: { $0.id == voice.uuid }) {
                             Button {
-                                send(.addVoiceToPlaylist(voice.uuid))
+                                store.send(.view(.addVoiceToPlaylist(voice.uuid)))
                             } label: {
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(.blue)
@@ -170,7 +166,7 @@ struct VoiceSelectionSheet: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("完了") {
-                        send(.hideVoiceSelectionSheet)
+                        store.send(.view(.hideVoiceSelectionSheet))
                     }
                 }
             }
