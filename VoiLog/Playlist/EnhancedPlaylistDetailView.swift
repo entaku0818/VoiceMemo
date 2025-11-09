@@ -8,9 +8,12 @@
 import SwiftUI
 import ComposableArchitecture
 
-@ViewAction(for: EnhancedPlaylistFeature.self)
 struct EnhancedPlaylistDetailView: View {
     @Perception.Bindable var store: StoreOf<EnhancedPlaylistFeature>
+
+    private func send(_ action: EnhancedPlaylistFeature.Action.View) {
+        store.send(.view(action))
+    }
 
     var body: some View {
         NavigationStack {

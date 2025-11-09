@@ -450,9 +450,12 @@ struct PlaybackFeature {
   }
 }
 
-@ViewAction(for: PlaybackFeature.self)
 struct PlaybackView: View {
   @Perception.Bindable var store: StoreOf<PlaybackFeature>
+
+  private func send(_ action: PlaybackFeature.Action.View) {
+    store.send(.view(action))
+  }
 
   var body: some View {
     NavigationStack {

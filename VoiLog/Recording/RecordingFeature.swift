@@ -272,10 +272,13 @@ struct RecordingFeature {
   }
 }
 
-@ViewAction(for: RecordingFeature.self)
 struct RecordingView: View {
   @Perception.Bindable var store: StoreOf<RecordingFeature>
   @State private var ringProgress: CGFloat = 0.0
+
+  private func send(_ action: RecordingFeature.Action.View) {
+    store.send(.view(action))
+  }
 
   var body: some View {
     WithPerceptionTracking {

@@ -225,9 +225,12 @@ enum UserDefaultsKeys {
 }
 
 // MARK: - Tutorial Overlay View
-@ViewAction(for: TutorialFeature.self)
 struct TutorialOverlayView: View {
   @Perception.Bindable var store: StoreOf<TutorialFeature>
+
+  private func send(_ action: TutorialFeature.Action.View) {
+    store.send(.view(action))
+  }
 
   var body: some View {
     ZStack {

@@ -89,9 +89,12 @@ struct FeatureReducer {
   }
 }
 
-@ViewAction(for: FeatureReducer.self)
 struct FeatureView: View {
   @Perception.Bindable var store: StoreOf<FeatureReducer>
+
+  private func send(_ action: FeatureReducer.Action.View) {
+    store.send(.view(action))
+  }
 
   var body: some View {
     NavigationStack {

@@ -211,10 +211,13 @@ struct CurrentPlayingSection: View {
 }
 
 // MARK: - PlaylistDetailView
-@ViewAction(for: PlaylistDetailFeature.self)
 struct PlaylistDetailView: View {
     @Perception.Bindable var store: StoreOf<PlaylistDetailFeature>
     var admobUnitId: String
+
+    private func send(_ action: PlaylistDetailFeature.Action.View) {
+        store.send(.view(action))
+    }
 
     var body: some View {
         ZStack(alignment: .bottom) {
