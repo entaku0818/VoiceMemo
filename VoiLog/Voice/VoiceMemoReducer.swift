@@ -132,11 +132,13 @@ struct VoiceMemoReducer: Reducer {
 
         case let .titleTextFieldChanged(text):
             state.title = text
-            let voiceMemoRepository = VoiceMemoRepository(
-                coreDataAccessor: VoiceMemoCoredataAccessor(),
-                cloudUploader: CloudUploader()
-            )
-            voiceMemoRepository.update(state: state)
+            MainActor.assumeIsolated {
+                let voiceMemoRepository = VoiceMemoRepository(
+                    coreDataAccessor: VoiceMemoCoredataAccessor(),
+                    cloudUploader: CloudUploader()
+                )
+                voiceMemoRepository.update(state: state)
+            }
             return .none
 
         case .loadWaveformData:

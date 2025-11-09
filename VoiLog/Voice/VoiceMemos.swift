@@ -144,12 +144,15 @@ struct VoiceMemos: Reducer {
             state.showTutorial = true
         }
 
-        // リポジトリからデータを取得して更新
-        let voiceMemoRepository = VoiceMemoRepository(
-            coreDataAccessor: VoiceMemoCoredataAccessor(),
-            cloudUploader: CloudUploader()
-        )
-        state.voiceMemos = IdentifiedArrayOf(uniqueElements: voiceMemoRepository.selectAllData())
+        // リポジトリからデータを取得して更新（Legacy Architecture - メインスレッドで動作）
+        let voiceMemos = MainActor.assumeIsolated {
+            let voiceMemoRepository = VoiceMemoRepository(
+                coreDataAccessor: VoiceMemoCoredataAccessor(),
+                cloudUploader: CloudUploader()
+            )
+            return voiceMemoRepository.selectAllData()
+        }
+        state.voiceMemos = IdentifiedArrayOf(uniqueElements: voiceMemos)
 
         if let installDate = installDate {
             let currentDate = Date()
@@ -190,11 +193,13 @@ struct VoiceMemos: Reducer {
 
             case let .onDelete(uuid):
                 state.voiceMemos.removeAll { $0.uuid == uuid }
-                let voiceMemoRepository = VoiceMemoRepository(
-                    coreDataAccessor: VoiceMemoCoredataAccessor(),
-                    cloudUploader: CloudUploader()
-                )
-                voiceMemoRepository.delete(id: uuid)
+                MainActor.assumeIsolated {
+                    let voiceMemoRepository = VoiceMemoRepository(
+                        coreDataAccessor: VoiceMemoCoredataAccessor(),
+                        cloudUploader: CloudUploader()
+                    )
+                    voiceMemoRepository.delete(id: uuid)
+                }
                 return .none
 
             case .openSettingsButtonTapped:
@@ -205,20 +210,25 @@ struct VoiceMemos: Reducer {
             case .synciCloud:
                 state.syncStatus = .syncing
                 return .run { send in
+                    let result = await MainActor.run {
+                        let voiceMemoRepository = VoiceMemoRepository(
+                            coreDataAccessor: VoiceMemoCoredataAccessor(),
+                            cloudUploader: CloudUploader()
+                        )
+                        return voiceMemoRepository.syncToCloud()
+                    }
+                    await send(await result ? .syncSuccess : .syncFailure)
+                }
+
+            case .syncSuccess:
+                let voiceMemos = MainActor.assumeIsolated {
                     let voiceMemoRepository = VoiceMemoRepository(
                         coreDataAccessor: VoiceMemoCoredataAccessor(),
                         cloudUploader: CloudUploader()
                     )
-                    let result = await voiceMemoRepository.syncToCloud()
-                    await send(result ? .syncSuccess : .syncFailure)
+                    return voiceMemoRepository.selectAllData()
                 }
-
-            case .syncSuccess:
-                let voiceMemoRepository = VoiceMemoRepository(
-                    coreDataAccessor: VoiceMemoCoredataAccessor(),
-                    cloudUploader: CloudUploader()
-                )
-                state.voiceMemos = IdentifiedArrayOf(uniqueElements: voiceMemoRepository.selectAllData())
+                state.voiceMemos = IdentifiedArrayOf(uniqueElements: voiceMemos)
                 state.syncStatus = .synced
                 return .none
 
@@ -270,11 +280,13 @@ struct VoiceMemos: Reducer {
 
                 state.voiceMemos.insert(newMemo, at: 0)
 
-                let voiceMemoRepository = VoiceMemoRepository(
-                    coreDataAccessor: VoiceMemoCoredataAccessor(),
-                    cloudUploader: CloudUploader()
-                )
-                voiceMemoRepository.insert(state: recordingMemo)
+                MainActor.assumeIsolated {
+                    let voiceMemoRepository = VoiceMemoRepository(
+                        coreDataAccessor: VoiceMemoCoredataAccessor(),
+                        cloudUploader: CloudUploader()
+                    )
+                    voiceMemoRepository.insert(state: recordingMemo)
+                }
 
                 state.newlyCreatedMemoID = recordingMemo.uuid
                 state.tempTitle = ""
@@ -369,11 +381,13 @@ struct VoiceMemos: Reducer {
                 if let index = state.voiceMemos.firstIndex(where: { $0.uuid == id }) {
                     state.voiceMemos[index].title = title
                 }
-                let voiceMemoRepository = VoiceMemoRepository(
-                    coreDataAccessor: VoiceMemoCoredataAccessor(),
-                    cloudUploader: CloudUploader()
-                )
-                voiceMemoRepository.updateTitle(uuid: id, newTitle: title)
+                MainActor.assumeIsolated {
+                    let voiceMemoRepository = VoiceMemoRepository(
+                        coreDataAccessor: VoiceMemoCoredataAccessor(),
+                        cloudUploader: CloudUploader()
+                    )
+                    voiceMemoRepository.updateTitle(uuid: id, newTitle: title)
+                }
                 state.newlyCreatedMemoID = nil
                 return .none
             }
