@@ -79,14 +79,9 @@ struct AudioEditorReducer: Reducer {
             state.isLoadingWaveform = true
             return .run { [url = state.audioURL] send in
                 do {
-                    print("Loading audio file from URL: \(url.path)")
-                    print("URL absolute string: \(url.absoluteString)")
-                    print("File exists: \(FileManager.default.fileExists(atPath: url.path))")
                     let waveformData = try await audioProcessingService.generateWaveformData(for: url)
                     await send(.audioLoaded(.success(waveformData)))
                 } catch {
-                    print("Error loading audio: \(error.localizedDescription)")
-                    print("Error details: \(error)")
                     await send(.audioLoaded(.failure(error)))
                 }
             }
