@@ -19,7 +19,6 @@ struct PlaybackFeature {
 
     // Enhanced search properties
     var sortOption: SortOption = .dateDescending
-    var showFavoritesOnly = false
     var durationFilter: DurationFilter = .all
     var showSearchFilters = false
     var selectedMemoForDetails: VoiceMemo.ID?
@@ -39,7 +38,6 @@ struct PlaybackFeature {
     var duration: TimeInterval
     var url: URL
     var text: String
-    var isFavorite = false
     // Legacy compatibility fields
     var fileFormat: String
     var samplingFrequency: Double
@@ -93,7 +91,6 @@ struct PlaybackFeature {
       case playPauseButtonTapped(VoiceMemo.ID)
       case stopButtonTapped
       case seekTo(TimeInterval)
-      case toggleFavorite(VoiceMemo.ID)
       case deleteMemo(VoiceMemo.ID)
       case confirmDelete
       case cancelDelete
@@ -106,7 +103,6 @@ struct PlaybackFeature {
 
       // Enhanced search actions
       case setSortOption(SortOption)
-      case toggleFavoritesFilter
       case setDurationFilter(DurationFilter)
       case toggleSearchFilters
 
@@ -209,12 +205,6 @@ struct PlaybackFeature {
           }
           return .none
 
-        case let .toggleFavorite(id):
-          if let index = state.voiceMemos.firstIndex(where: { $0.id == id }) {
-            state.voiceMemos[index].isFavorite.toggle()
-          }
-          return .none
-
         case let .deleteMemo(id):
           state.selectedMemoForDeletion = id
           state.showDeleteConfirmation = true
@@ -289,10 +279,6 @@ struct PlaybackFeature {
         // Enhanced search actions
         case let .setSortOption(option):
           state.sortOption = option
-          return .none
-
-        case .toggleFavoritesFilter:
-          state.showFavoritesOnly.toggle()
           return .none
 
         case let .setDurationFilter(filter):
@@ -670,8 +656,6 @@ struct PlaybackView: View {
           send(.memoSelected(memo.id))
         } onPlayPause: {
           send(.playPauseButtonTapped(memo.id))
-        } onFavoriteToggle: {
-          send(.toggleFavorite(memo.id))
         } onDelete: {
           send(.deleteMemo(memo.id))
         } onStartEdit: {
@@ -779,11 +763,6 @@ struct PlaybackView: View {
       }
     }
 
-    // Apply favorites filter
-    if store.showFavoritesOnly {
-      memos = memos.filter { $0.isFavorite }
-    }
-
     // Apply duration filter
     memos = memos.filter { store.durationFilter.matches(duration: $0.duration) }
 
@@ -827,7 +806,6 @@ struct VoiceMemoRow: View {
   let editingTitle: String
   let onTap: () -> Void
   let onPlayPause: () -> Void
-  let onFavoriteToggle: () -> Void
   let onDelete: () -> Void
   let onStartEdit: () -> Void
   let onCancelEdit: () -> Void
@@ -923,13 +901,7 @@ struct VoiceMemoRow: View {
       Spacer()
 
       // Actions
-      VStack(spacing: 8) {
-        Button(action: onFavoriteToggle) {
-          Image(systemName: memo.isFavorite ? "star.fill" : "star")
-            .foregroundColor(memo.isFavorite ? .yellow : .gray)
-        }
-        .buttonStyle(.plain)
-
+      HStack(spacing: 12) {
         Button(action: onInfoTap) {
           Image(systemName: "info.circle")
             .foregroundColor(.blue)
