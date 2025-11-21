@@ -141,7 +141,7 @@ struct FeatureView: View {
         }
         .listStyle(.plain)
         .refreshable {
-          await send(.refreshRequested).finish()
+          send(.refreshRequested)
         }
         .overlay {
           if store.isLoading {

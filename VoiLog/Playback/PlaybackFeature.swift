@@ -258,7 +258,6 @@ struct PlaybackFeature {
             voiceMemoRepository.updateTitle(id, newTitle)
           }
 
-
         case let .startEditingTitle(id):
           state.editingMemoId = id
           // 現在のタイトルを編集用テキストとして設定
@@ -476,7 +475,7 @@ struct PlaybackView: View {
         send(.onAppear)
       }
       .refreshable {
-        await send(.refreshRequested).finish()
+        send(.refreshRequested)
       }
       .alert("削除確認", isPresented: $store.showDeleteConfirmation) {
         Button("削除", role: .destructive) {

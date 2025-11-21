@@ -75,7 +75,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     analyzeAudioFile()
                 }
             }
-        
+
     }
 
     // MARK: - Basic Info Tab

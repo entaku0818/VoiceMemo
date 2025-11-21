@@ -287,13 +287,19 @@ struct AudioEditorReducer: Reducer {
             return .run { [url = state.audioURL, memoID = state.memoID, newTitle] send in
                 do {
                     // 新しい音声メモとして保存
-                    let repository = VoiceMemoRepository(
-                        coreDataAccessor: VoiceMemoCoredataAccessor(),
-                        cloudUploader: CloudUploader()
-                    )
+                    let repository = await MainActor.run {
+                        VoiceMemoRepository(
+                            coreDataAccessor: VoiceMemoCoredataAccessor(),
+                            cloudUploader: CloudUploader()
+                        )
+                    }
 
                     // 元の音声メモから必要なメタデータを取得
-                    if let originalMemo = repository.fetch(uuid: memoID) {
+                    let originalMemo = await MainActor.run {
+                        repository.fetch(uuid: memoID)
+                    }
+
+                    if let originalMemo {
                         let fileURL = url
                         let audioAsset = AVAsset(url: fileURL)
                         let durationInSeconds = try await audioAsset.load(.duration).seconds
@@ -356,7 +362,9 @@ struct AudioEditorReducer: Reducer {
                         )
 
                         // レポジトリのインサートメソッドを使用
-                        repository.insert(state: newMemoState)
+                        await MainActor.run {
+                            repository.insert(state: newMemoState)
+                        }
                         await send(.saveCompleted(.success(newUUID)))
                     } else {
                         throw NSError(domain: "AudioEditor", code: 1, userInfo: [NSLocalizedDescriptionKey: "元の音声メモが見つかりませんでした"])
