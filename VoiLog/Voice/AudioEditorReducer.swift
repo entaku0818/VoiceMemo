@@ -80,10 +80,13 @@ struct AudioEditorReducer: Reducer {
             return .run { [url = state.audioURL] send in
                 do {
                     print("Loading audio file from URL: \(url.path)")
+                    print("URL absolute string: \(url.absoluteString)")
+                    print("File exists: \(FileManager.default.fileExists(atPath: url.path))")
                     let waveformData = try await audioProcessingService.generateWaveformData(for: url)
                     await send(.audioLoaded(.success(waveformData)))
                 } catch {
                     print("Error loading audio: \(error.localizedDescription)")
+                    print("Error details: \(error)")
                     await send(.audioLoaded(.failure(error)))
                 }
             }
@@ -287,16 +290,14 @@ struct AudioEditorReducer: Reducer {
             return .run { [url = state.audioURL, memoID = state.memoID, newTitle] send in
                 do {
                     // 新しい音声メモとして保存
-                    let repository = await MainActor.run {
-                        VoiceMemoRepository(
+                    let (repository, originalMemo) = MainActor.assumeIsolated {
+                        let repo = VoiceMemoRepository(
                             coreDataAccessor: VoiceMemoCoredataAccessor(),
                             cloudUploader: CloudUploader()
                         )
-                    }
-
-                    // 元の音声メモから必要なメタデータを取得
-                    let originalMemo = await MainActor.run {
-                        repository.fetch(uuid: memoID)
+                        // 元の音声メモから必要なメタデータを取得
+                        let memo = repo.fetch(uuid: memoID)
+                        return (repo, memo)
                     }
 
                     if let originalMemo {
@@ -362,7 +363,7 @@ struct AudioEditorReducer: Reducer {
                         )
 
                         // レポジトリのインサートメソッドを使用
-                        await MainActor.run {
+                        MainActor.assumeIsolated {
                             repository.insert(state: newMemoState)
                         }
                         await send(.saveCompleted(.success(newUUID)))

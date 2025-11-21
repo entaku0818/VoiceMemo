@@ -141,6 +141,13 @@ struct VoiceMemoDetail: View {
                         let audioFilePath = documentsPath + "/" + viewStore.url.lastPathComponent
                         let fullURL = URL(fileURLWithPath: audioFilePath)
 
+                        let _ = print("Original URL: \(viewStore.url)")
+                        let _ = print("Original URL path: \(viewStore.url.path)")
+                        let _ = print("Constructed URL: \(fullURL)")
+                        let _ = print("Constructed URL path: \(fullURL.path)")
+                        let _ = print("Original file exists: \(FileManager.default.fileExists(atPath: viewStore.url.path))")
+                        let _ = print("Constructed file exists: \(FileManager.default.fileExists(atPath: fullURL.path))")
+
                         AudioEditorView(
                             store: Store(
                                 initialState: AudioEditorReducer.State(
