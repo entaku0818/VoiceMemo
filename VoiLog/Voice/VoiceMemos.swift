@@ -406,8 +406,20 @@ struct VoiceMemos: Reducer {
     }
 
     private var newRecordingMemo: RecordingMemo.State {
-        RecordingMemo.State(
-            uuid: UUID(),
+        let uuid = self.uuid()
+        let url: URL
+        do {
+            url = try VoiceMemoFileManager.newRecordingURL(uuid: uuid)
+        } catch {
+            // フォールバック: 従来のDocumentsディレクトリを使用
+            print("⚠️ Failed to create VoiceMemo directory, using Documents: \(error)")
+            url = self.documentsDirectory()
+                .appendingPathComponent(uuid.uuidString)
+                .appendingPathExtension("m4a")
+        }
+
+        return RecordingMemo.State(
+            uuid: uuid,
             date: self.date.now,
             duration: 0,
             volumes: 0.0,
@@ -417,9 +429,7 @@ struct VoiceMemos: Reducer {
             samplingFrequency: 44100,
             quantizationBitDepth: 16,
             numberOfChannels: 2,
-            url: self.documentsDirectory()
-                .appendingPathComponent(self.uuid().uuidString)
-                .appendingPathExtension("m4a"),
+            url: url,
             startTime: 0,
             time: 0
         )

@@ -18,20 +18,19 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
     func generateWaveformData(for url: URL) async throws -> [Float] {
         try await withCheckedThrowingContinuation { continuation in
             do {
-                // ファイルの存在確認
-                let fileManager = FileManager.default
-                guard fileManager.fileExists(atPath: url.path) else {
+                // VoiceMemoFileManagerを使ってファイルを探す
+                guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
                     throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
                 }
 
-                print("波形データ生成開始: \(url.path)")
+                print("波形データ生成開始: \(actualURL.path)")
 
                 // AVAudioSessionを設定
                 let audioSession = AVAudioSession.sharedInstance()
                 try audioSession.setCategory(.playback, mode: .default)
                 try audioSession.setActive(true)
 
-                let audioFile = try AVAudioFile(forReading: url)
+                let audioFile = try AVAudioFile(forReading: actualURL)
                 let format = audioFile.processingFormat
                 let frameCount = UInt32(audioFile.length)
                 let sampleRate = format.sampleRate
@@ -91,13 +90,12 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
 
     // 音声のトリミング
     func trimAudio(at url: URL, range: ClosedRange<Double>) async throws -> URL {
-        // ファイルの存在確認
-        let fileManager = FileManager.default
-        guard fileManager.fileExists(atPath: url.path) else {
+        // VoiceMemoFileManagerを使ってファイルを探す
+        guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
             throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
         }
 
-        let asset = AVAsset(url: url)
+        let asset = AVAsset(url: actualURL)
         let composition = AVMutableComposition()
 
         // 新しい音声トラックを作成
@@ -251,7 +249,12 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
 
     // 音量調整
     func adjustVolume(at url: URL, level: Float, range: ClosedRange<Double>?) async throws -> URL {
-        let asset = AVAsset(url: url)
+        // VoiceMemoFileManagerを使ってファイルを探す
+        guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
+        }
+
+        let asset = AVAsset(url: actualURL)
         let composition = AVMutableComposition()
 
         // 新しい音声トラックを作成
