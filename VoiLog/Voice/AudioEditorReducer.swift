@@ -77,11 +77,21 @@ struct AudioEditorReducer: Reducer {
         switch action {
         case .loadAudio:
             state.isLoadingWaveform = true
-            return .run { [url = state.audioURL] send in
+            let url = state.audioURL
+            print("🎵 [AudioEditor] loadAudio called")
+            print("🎵 [AudioEditor] URL: \(url)")
+            print("🎵 [AudioEditor] URL.path: \(url.path)")
+            print("🎵 [AudioEditor] File exists: \(FileManager.default.fileExists(atPath: url.path))")
+
+            return .run { send in
                 do {
+                    print("🎵 [AudioEditor] Calling generateWaveformData...")
                     let waveformData = try await audioProcessingService.generateWaveformData(for: url)
+                    print("🎵 [AudioEditor] Success! Waveform count: \(waveformData.count)")
                     await send(.audioLoaded(.success(waveformData)))
                 } catch {
+                    print("🎵 [AudioEditor] Error: \(error)")
+                    print("🎵 [AudioEditor] Error description: \(error.localizedDescription)")
                     await send(.audioLoaded(.failure(error)))
                 }
             }

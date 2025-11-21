@@ -486,7 +486,7 @@ struct PlaybackView: View {
           }
         }
       }
-      .sheet(isPresented: $store.showAudioEditor) {
+      .fullScreenCover(isPresented: $store.showAudioEditor) {
         if store.audioEditorState != nil {
           AudioEditorView(
             store: Store(initialState: store.audioEditorState!) {
