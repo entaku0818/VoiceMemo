@@ -19,15 +19,32 @@ struct VoiceMemoFileManager {
     }
 
     /// 音声ファイルのURLを取得（複数の場所を探索）
-    /// - Parameter url: Core Dataに保存されているURL
+    /// - Parameters:
+    ///   - url: Core Dataに保存されているURL
+    ///   - shouldMigrate: 見つかったファイルをVoiceMemoフォルダに移動するかどうか（デフォルト: true）
     /// - Returns: 実際に存在するファイルのURL、見つからない場合はnil
-    static func findAudioFile(for url: URL) -> URL? {
+    static func findAudioFile(for url: URL, shouldMigrate: Bool = true) -> URL? {
         let fileManager = FileManager.default
         let fileName = url.lastPathComponent
 
         // 1. まず指定されたURLをそのまま試す
         if fileManager.fileExists(atPath: url.path) {
             print("📍 File found at original URL: \(url.path)")
+
+            // VoiceMemo専用ディレクトリにない場合は移動を試みる
+            if shouldMigrate && !url.path.contains("/VoiceMemos/") {
+                print("🔄 Attempting to migrate file to VoiceMemo directory...")
+                do {
+                    let migratedURL = try copyToVoiceMemoDirectory(from: url, destinationFileName: fileName)
+                    // コピー成功したら元ファイルは削除しない（安全のため）
+                    print("✅ File migrated successfully")
+                    return migratedURL
+                } catch {
+                    print("⚠️ Migration failed, using original URL: \(error.localizedDescription)")
+                    return url
+                }
+            }
+
             return url
         }
 
@@ -43,7 +60,7 @@ struct VoiceMemoFileManager {
         let documentsPath = documentsDirectory.appendingPathComponent(fileName)
         if fileManager.fileExists(atPath: documentsPath.path) {
             print("📍 File found in Documents directory: \(documentsPath.path)")
-            return documentsPath
+            return migrateIfNeeded(documentsPath, shouldMigrate: shouldMigrate)
         }
 
         // 4. Temporaryディレクトリを探す
@@ -51,14 +68,14 @@ struct VoiceMemoFileManager {
         let tempPath = tempDirectory.appendingPathComponent(fileName)
         if fileManager.fileExists(atPath: tempPath.path) {
             print("📍 File found in Temporary directory: \(tempPath.path)")
-            return tempPath
+            return migrateIfNeeded(tempPath, shouldMigrate: shouldMigrate)
         }
 
         // 5. Documentsディレクトリ内を再帰的に探す
         print("🔍 Searching recursively in Documents directory...")
         if let foundURL = searchRecursively(in: documentsDirectory, fileName: fileName) {
             print("📍 File found recursively: \(foundURL.path)")
-            return foundURL
+            return migrateIfNeeded(foundURL, shouldMigrate: shouldMigrate)
         }
 
         // 6. Cachesディレクトリを探す
@@ -66,13 +83,13 @@ struct VoiceMemoFileManager {
             let cachesPath = cachesDirectory.appendingPathComponent(fileName)
             if fileManager.fileExists(atPath: cachesPath.path) {
                 print("📍 File found in Caches directory: \(cachesPath.path)")
-                return cachesPath
+                return migrateIfNeeded(cachesPath, shouldMigrate: shouldMigrate)
             }
 
             // Cachesディレクトリ内も再帰的に探す
             if let foundURL = searchRecursively(in: cachesDirectory, fileName: fileName) {
                 print("📍 File found recursively in Caches: \(foundURL.path)")
-                return foundURL
+                return migrateIfNeeded(foundURL, shouldMigrate: shouldMigrate)
             }
         }
 
@@ -86,6 +103,22 @@ struct VoiceMemoFileManager {
         print("   - Caches (recursive)")
 
         return nil
+    }
+
+    /// ファイルを必要に応じてVoiceMemoフォルダに移動
+    private static func migrateIfNeeded(_ url: URL, shouldMigrate: Bool) -> URL {
+        guard shouldMigrate else { return url }
+        guard !url.path.contains("/VoiceMemos/") else { return url }
+
+        print("🔄 Attempting to migrate file to VoiceMemo directory...")
+        do {
+            let migratedURL = try copyToVoiceMemoDirectory(from: url, destinationFileName: url.lastPathComponent)
+            print("✅ File migrated successfully")
+            return migratedURL
+        } catch {
+            print("⚠️ Migration failed, using original URL: \(error.localizedDescription)")
+            return url
+        }
     }
 
     /// ディレクトリ内を再帰的に探索

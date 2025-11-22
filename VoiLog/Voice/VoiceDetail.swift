@@ -135,24 +135,17 @@ struct VoiceMemoDetail: View {
                 }
                 .padding(.bottom)
                 .fullScreenCover(isPresented: $showingAudioEditor) {
-                    NavigationView {
-                        let _ = print("🎬 Opening AudioEditor")
-                        let _ = print("🎬 URL: \(viewStore.url)")
-                        let _ = print("🎬 URL.path: \(viewStore.url.path)")
-                        let _ = print("🎬 File exists at path: \(FileManager.default.fileExists(atPath: viewStore.url.path))")
-
-                        AudioEditorView(
-                            store: Store(
-                                initialState: AudioEditorReducer.State(
-                                    memoID: viewStore.uuid,
-                                    audioURL: viewStore.url,
-                                    originalTitle: viewStore.title,
-                                    duration: viewStore.duration
-                                ),
-                                reducer: { AudioEditorReducer() }
-                            )
+                    AudioEditorView(
+                        store: Store(
+                            initialState: AudioEditorReducer.State(
+                                memoID: viewStore.uuid,
+                                audioURL: viewStore.url,
+                                originalTitle: viewStore.title,
+                                duration: viewStore.duration
+                            ),
+                            reducer: { AudioEditorReducer() }
                         )
-                    }
+                    )
                 }
                 .sheet(isPresented: $showingPaywall) {
                     PaywallView(purchaseManager: PurchaseManager.shared)
