@@ -4,6 +4,13 @@ import ComposableArchitecture
 // MARK: - Main App Feature
 @Reducer
 struct VoiceAppFeature {
+  enum SyncStatus: Equatable {
+    case idle
+    case syncing
+    case synced
+    case error
+  }
+
   @ObservableState
   struct State: Equatable {
     var recordingFeature = RecordingFeature.State()
@@ -23,6 +30,7 @@ struct VoiceAppFeature {
 
     // Cloud sync state
     var isSyncing = false
+    var syncStatus: SyncStatus = .idle
     var syncError: String?
     var showSyncError = false
 
@@ -49,6 +57,7 @@ struct VoiceAppFeature {
 
     // Internal actions
     case syncCompleted(Result<Bool, Error>)
+    case resetSyncStatus
   }
 
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
@@ -107,6 +116,7 @@ struct VoiceAppFeature {
         case .syncToCloud:
           guard !state.isSyncing else { return .none }
           state.isSyncing = true
+          state.syncStatus = .syncing
           state.syncError = nil
 
           return .run { send in
@@ -121,6 +131,7 @@ struct VoiceAppFeature {
         case .dismissSyncError:
           state.showSyncError = false
           state.syncError = nil
+          state.syncStatus = .idle
           return .none
         }
 
@@ -171,14 +182,28 @@ struct VoiceAppFeature {
           if !success {
             state.syncError = "一部のファイルの同期に失敗しました"
             state.showSyncError = true
+            state.syncStatus = .error
+          } else {
+            state.syncStatus = .synced
           }
-          // Reload data after sync
-          return .send(.playbackFeature(.view(.reloadData)))
+          // Reload data after sync, then reset status after 3 seconds
+          return .merge(
+            .send(.playbackFeature(.view(.reloadData))),
+            .run { send in
+              try await Task.sleep(for: .seconds(3))
+              await send(.resetSyncStatus)
+            }
+          )
         case .failure(let error):
           state.syncError = error.localizedDescription
           state.showSyncError = true
+          state.syncStatus = .error
           return .none
         }
+
+      case .resetSyncStatus:
+        state.syncStatus = .idle
+        return .none
       }
     }
   }
@@ -225,24 +250,10 @@ struct VoiceAppView: View {
         }
         .toolbar {
           ToolbarItem(placement: .navigationBarTrailing) {
-            if store.isSyncing {
-              HStack {
-                ProgressView()
-                  .controlSize(.mini)
-                Text("同期中")
-                  .font(.caption)
-              }
-            } else {
-              Button {
-                store.send(.view(.syncToCloud))
-              } label: {
-                HStack {
-                  Image(systemName: "icloud.and.arrow.up")
-                  Text("同期")
-                }
-                .font(.caption)
-              }
-            }
+            SyncStatusView(
+              syncStatus: store.syncStatus,
+              onSync: { store.send(.view(.syncToCloud)) }
+            )
           }
         }
       }
@@ -321,6 +332,52 @@ struct VoiceAppEntryView: View {
       playListAdmobUnitId: playListAdmobUnitId,
       admobUnitId: admobUnitId
     )
+  }
+}
+
+// MARK: - Sync Status View
+struct SyncStatusView: View {
+  let syncStatus: VoiceAppFeature.SyncStatus
+  let onSync: () -> Void
+
+  var body: some View {
+    switch syncStatus {
+    case .idle:
+      Button(action: onSync) {
+        HStack(spacing: 4) {
+          Image(systemName: "icloud.and.arrow.up")
+          Text("同期")
+        }
+        .font(.caption)
+      }
+
+    case .syncing:
+      HStack(spacing: 4) {
+        ProgressView()
+          .controlSize(.mini)
+        Text("同期中")
+          .font(.caption)
+          .foregroundColor(.secondary)
+      }
+
+    case .synced:
+      HStack(spacing: 4) {
+        Image(systemName: "checkmark.icloud")
+          .foregroundColor(.green)
+        Text("同期完了")
+          .font(.caption)
+          .foregroundColor(.green)
+      }
+
+    case .error:
+      HStack(spacing: 4) {
+        Image(systemName: "exclamationmark.icloud")
+          .foregroundColor(.red)
+        Text("エラー")
+          .font(.caption)
+          .foregroundColor(.red)
+      }
+    }
   }
 }
 
