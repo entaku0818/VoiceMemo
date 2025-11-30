@@ -227,14 +227,8 @@ struct VoiceAppFeature {
           } else {
             state.syncStatus = .synced
           }
-          // Reload data after sync, then reset status after 3 seconds
-          return .merge(
-            .send(.playbackFeature(.view(.reloadData))),
-            .run { send in
-              try await Task.sleep(for: .seconds(3))
-              await send(.resetSyncStatus)
-            }
-          )
+          // Reload data after sync (同期完了表示は維持)
+          return .send(.playbackFeature(.view(.reloadData)))
         case .failure(let error):
           state.syncError = error.localizedDescription
           state.showSyncError = true
@@ -247,13 +241,8 @@ struct VoiceAppFeature {
           // 差分がある場合はidleのまま（同期ボタン押下を促す）
           state.syncStatus = .idle
         } else {
-          // 差分がない場合は同期完了表示
+          // 差分がない場合は同期完了表示（維持）
           state.syncStatus = .synced
-          // 3秒後にidleに戻す
-          return .run { send in
-            try await Task.sleep(for: .seconds(3))
-            await send(.resetSyncStatus)
-          }
         }
         return .none
 

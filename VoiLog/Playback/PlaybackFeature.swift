@@ -450,9 +450,14 @@ struct PlaybackFeature {
 
 struct PlaybackView: View {
   @Perception.Bindable var store: StoreOf<PlaybackFeature>
+  @Environment(\.verticalSizeClass) var verticalSizeClass
 
   private func send(_ action: PlaybackFeature.Action.View) {
     store.send(.view(action))
+  }
+
+  private var isCompactHeight: Bool {
+    verticalSizeClass == .compact
   }
 
   var body: some View {
@@ -697,35 +702,38 @@ struct PlaybackView: View {
   }
 
   private var playbackControlsView: some View {
-    VStack(spacing: 12) {
+    VStack(spacing: isCompactHeight ? 4 : 12) {
       Divider()
 
       if let currentMemo = store.voiceMemos.first(where: { $0.id == store.currentPlayingMemo }) {
-        VStack(spacing: 8) {
-          // Now Playing Info
-          HStack {
-            VStack(alignment: .leading) {
-              Text(currentMemo.title.isEmpty ? "無題の録音" : currentMemo.title)
-                .font(.headline)
-                .lineLimit(1)
-              Text(formatDate(currentMemo.date))
-                .font(.caption)
-                .foregroundColor(.secondary)
-            }
-
-            Spacer()
-
+        if isCompactHeight {
+          // 横画面用コンパクトレイアウト
+          HStack(spacing: 12) {
             Button {
-              send(.stopButtonTapped)
+              send(.playPauseButtonTapped(currentMemo.id))
             } label: {
-              Image(systemName: "xmark.circle.fill")
+              Image(systemName: store.playbackState == .playing ? "pause.circle.fill" : "play.circle.fill")
                 .font(.title2)
-                .foregroundColor(.secondary)
+                .foregroundColor(.accentColor)
             }
-          }
 
-          // Progress Slider
-          VStack(spacing: 4) {
+            VStack(alignment: .leading, spacing: 2) {
+              Text(currentMemo.title.isEmpty ? "無題の録音" : currentMemo.title)
+                .font(.caption)
+                .lineLimit(1)
+              HStack {
+                Text(formatDuration(store.currentTime))
+                  .font(.caption2)
+                  .monospacedDigit()
+                Text("/")
+                  .font(.caption2)
+                Text(formatDuration(currentMemo.duration))
+                  .font(.caption2)
+                  .monospacedDigit()
+              }
+              .foregroundColor(.secondary)
+            }
+
             Slider(
               value: Binding(
                 get: { store.currentTime },
@@ -733,33 +741,77 @@ struct PlaybackView: View {
               ),
               in: 0...currentMemo.duration
             )
+            .frame(maxWidth: 200)
 
+            Button {
+              send(.stopButtonTapped)
+            } label: {
+              Image(systemName: "xmark.circle.fill")
+                .font(.title3)
+                .foregroundColor(.secondary)
+            }
+          }
+          .padding(.horizontal)
+          .padding(.vertical, 4)
+        } else {
+          // 縦画面用通常レイアウト
+          VStack(spacing: 8) {
             HStack {
-              Text(formatDuration(store.currentTime))
-                .font(.caption)
-                .monospacedDigit()
+              VStack(alignment: .leading) {
+                Text(currentMemo.title.isEmpty ? "無題の録音" : currentMemo.title)
+                  .font(.headline)
+                  .lineLimit(1)
+                Text(formatDate(currentMemo.date))
+                  .font(.caption)
+                  .foregroundColor(.secondary)
+              }
 
               Spacer()
 
-              Text(formatDuration(currentMemo.duration))
-                .font(.caption)
-                .monospacedDigit()
+              Button {
+                send(.stopButtonTapped)
+              } label: {
+                Image(systemName: "xmark.circle.fill")
+                  .font(.title2)
+                  .foregroundColor(.secondary)
+              }
             }
-            .foregroundColor(.secondary)
-          }
 
-          // Playback Controls
-          HStack(spacing: 32) {
-            Button {
-              send(.playPauseButtonTapped(currentMemo.id))
-            } label: {
-              Image(systemName: store.playbackState == .playing ? "pause.circle.fill" : "play.circle.fill")
-                .font(.largeTitle)
-                .foregroundColor(.accentColor)
+            VStack(spacing: 4) {
+              Slider(
+                value: Binding(
+                  get: { store.currentTime },
+                  set: { send(.seekTo($0)) }
+                ),
+                in: 0...currentMemo.duration
+              )
+
+              HStack {
+                Text(formatDuration(store.currentTime))
+                  .font(.caption)
+                  .monospacedDigit()
+
+                Spacer()
+
+                Text(formatDuration(currentMemo.duration))
+                  .font(.caption)
+                  .monospacedDigit()
+              }
+              .foregroundColor(.secondary)
+            }
+
+            HStack(spacing: 32) {
+              Button {
+                send(.playPauseButtonTapped(currentMemo.id))
+              } label: {
+                Image(systemName: store.playbackState == .playing ? "pause.circle.fill" : "play.circle.fill")
+                  .font(.largeTitle)
+                  .foregroundColor(.accentColor)
+              }
             }
           }
+          .padding()
         }
-        .padding()
       }
     }
     .background(Color(.systemBackground))

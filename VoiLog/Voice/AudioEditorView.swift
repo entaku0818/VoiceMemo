@@ -17,7 +17,7 @@ struct AudioEditorView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             VStack(spacing: 0) {
-                // ヘッダー
+                // ヘッダー（固定）
                 HStack {
                     Button("キャンセル") {
                         viewStore.send(.cancel)
@@ -39,7 +39,11 @@ struct AudioEditorView: View {
                     .frame(width: 80, alignment: .trailing)
                 }
                 .padding()
+                .background(Color(.systemBackground))
 
+                // スクロール可能なコンテンツ
+                ScrollView {
+                    VStack(spacing: 0) {
                 // 波形表示
                 ZStack {
                     // グラデーション背景を追加
@@ -194,8 +198,6 @@ struct AudioEditorView: View {
                         .multilineTextAlignment(.center)
                 }
 
-                Spacer()
-
                 // 編集履歴
                 if !viewStore.editHistory.isEmpty {
                     VStack(alignment: .leading) {
@@ -204,27 +206,26 @@ struct AudioEditorView: View {
                             .fontWeight(.bold)
                             .padding(.horizontal)
 
-                        ScrollView {
-                            VStack(alignment: .leading, spacing: 5) {
-                                ForEach(Array(viewStore.editHistory.enumerated()), id: \.offset) { index, operation in
-                                    HStack {
-                                        Text("\(index + 1).")
-                                            .font(.caption)
-                                            .foregroundColor(.gray)
-                                        Text(operation.description)
-                                            .font(.caption)
-                                    }
-                                    .padding(.horizontal)
+                        VStack(alignment: .leading, spacing: 5) {
+                            ForEach(Array(viewStore.editHistory.enumerated()), id: \.offset) { index, operation in
+                                HStack {
+                                    Text("\(index + 1).")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                    Text(operation.description)
+                                        .font(.caption)
                                 }
+                                .padding(.horizontal)
                             }
                         }
-                        .frame(height: 100)
                     }
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
                     .padding()
                 }
-            }
+                    } // VStack in ScrollView
+                } // ScrollView
+            } // Main VStack
             .onAppear {
                 viewStore.send(.loadAudio)
             }
