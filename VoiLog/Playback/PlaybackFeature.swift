@@ -340,7 +340,19 @@ struct PlaybackFeature {
         }
 
       case let .memosLoaded(memos):
-        state.voiceMemos = memos
+        // 重複チェック
+        let ids = memos.map { $0.id }
+        let uniqueIds = Set(ids)
+        if ids.count != uniqueIds.count {
+          print("⚠️ [PlaybackFeature] Duplicate IDs detected! Total: \(ids.count), Unique: \(uniqueIds.count)")
+          // 重複を除去
+          var seen = Set<UUID>()
+          let uniqueMemos = memos.filter { seen.insert($0.id).inserted }
+          state.voiceMemos = uniqueMemos
+          print("⚠️ [PlaybackFeature] After dedup: \(uniqueMemos.count) memos")
+        } else {
+          state.voiceMemos = memos
+        }
         state.isLoading = false
         return .none
 

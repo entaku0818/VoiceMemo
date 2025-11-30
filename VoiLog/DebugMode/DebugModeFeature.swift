@@ -68,6 +68,7 @@ struct VoiceAppFeature {
 
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
   @Dependency(\.userDefaults) var userDefaultsClient
+  @Dependency(\.voiceMemoCoredataAccessor) var coreDataAccessor
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -113,12 +114,25 @@ struct VoiceAppFeature {
             userDefaultsClient.set(true, UserDefaultsKeys.firstLaunch)
           }
 
-          if isFirstLaunch && !tutorialCompleted {
-            state.shouldShowTutorial = true
-            return .send(.tutorialFeature(.view(.start)))
+          // 重複データを削除（バックグラウンドで実行）
+          let cleanupEffect: Effect<Action> = .run { _ in
+            await MainActor.run {
+              let removedCount = coreDataAccessor.removeDuplicates()
+              if removedCount > 0 {
+                print("🧹 [VoiceApp] Cleaned up \(removedCount) duplicate records on startup")
+              }
+            }
           }
 
-          return .none
+          if isFirstLaunch && !tutorialCompleted {
+            state.shouldShowTutorial = true
+            return .merge(
+              cleanupEffect,
+              .send(.tutorialFeature(.view(.start)))
+            )
+          }
+
+          return cleanupEffect
 
         case .startTutorial:
           state.shouldShowTutorial = true
@@ -146,11 +160,17 @@ struct VoiceAppFeature {
           }
 
         case .checkSyncStatus:
-          // 既に同期中または確認済みの場合はスキップ
-          guard state.syncStatus != .syncing else { return .none }
+          // 既に同期中の場合はスキップ
+          print("🔄 [Sync] checkSyncStatus called, current status: \(state.syncStatus)")
+          guard state.syncStatus != .syncing else {
+            print("🔄 [Sync] Skipping - already syncing")
+            return .none
+          }
 
           return .run { send in
+            print("🔄 [Sync] Checking for differences...")
             let hasDifferences = await voiceMemoRepository.checkForDifferences()
+            print("🔄 [Sync] hasDifferences: \(hasDifferences)")
             await send(.syncStatusChecked(hasDifferences: hasDifferences))
           }
 
@@ -186,6 +206,7 @@ struct VoiceAppFeature {
 
       case .playbackFeature(.view(.onAppear)):
         // リスト画面表示時に同期状態をチェック
+        print("🔄 [Sync] PlaybackView onAppear - checking sync status")
         return .send(.view(.checkSyncStatus))
 
       case .playbackFeature(.delegate(.showPaywall)):
@@ -237,12 +258,15 @@ struct VoiceAppFeature {
         }
 
       case let .syncStatusChecked(hasDifferences):
+        print("🔄 [Sync] syncStatusChecked - hasDifferences: \(hasDifferences)")
         if hasDifferences {
           // 差分がある場合はidleのまま（同期ボタン押下を促す）
           state.syncStatus = .idle
+          print("🔄 [Sync] Status set to: idle (has differences)")
         } else {
           // 差分がない場合は同期完了表示（維持）
           state.syncStatus = .synced
+          print("🔄 [Sync] Status set to: synced (no differences)")
         }
         return .none
 

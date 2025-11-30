@@ -10,6 +10,7 @@ protocol VoiceMemoCoredataAccessorProtocol {
     func delete(id: UUID)
     func update(voice: VoiceMemoRepository.Voice)
     func updateTitle(uuid: UUID, newTitle: String)
+    func removeDuplicates() -> Int
 }
 
 @MainActor
@@ -176,6 +177,43 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             }
         } catch {
             print(error.localizedDescription)
+        }
+    }
+
+    /// 重複レコードを削除し、削除した件数を返す
+    func removeDuplicates() -> Int {
+        let fetchRequest: NSFetchRequest<Voice> = Voice.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
+
+        do {
+            let allRecords = try managedContext.fetch(fetchRequest)
+            var seenIds = Set<UUID>()
+            var duplicatesToDelete: [Voice] = []
+
+            for record in allRecords {
+                guard let recordId = record.id else { continue }
+                if seenIds.contains(recordId) {
+                    // 重複 - 削除対象に追加
+                    duplicatesToDelete.append(record)
+                } else {
+                    seenIds.insert(recordId)
+                }
+            }
+
+            // 重複を削除
+            for duplicate in duplicatesToDelete {
+                managedContext.delete(duplicate)
+            }
+
+            if !duplicatesToDelete.isEmpty {
+                try managedContext.save()
+                print("🗑️ [CoreData] Removed \(duplicatesToDelete.count) duplicate records")
+            }
+
+            return duplicatesToDelete.count
+        } catch {
+            print("❌ [CoreData] Error removing duplicates: \(error.localizedDescription)")
+            return 0
         }
     }
 }
