@@ -37,6 +37,9 @@ struct VoiceAppFeature {
     // Tutorial state
     var tutorialFeature = TutorialFeature.State()
     var shouldShowTutorial = false
+
+    // Paywall state
+    var showPaywall = false
   }
 
   enum Action: BindableAction {
@@ -54,6 +57,7 @@ struct VoiceAppFeature {
       case checkSyncStatus
       case dismissSyncError
       case startTutorial
+      case dismissPaywall
     }
 
     // Internal actions
@@ -96,6 +100,11 @@ struct VoiceAppFeature {
       case let .view(viewAction):
         switch viewAction {
         case .onAppear:
+          // 課金状態を更新
+          let hasPurchased = UserDefaultsManager.shared.hasPurchasedProduct
+          state.settingFeature.hasPurchasedPremium = hasPurchased
+          state.playbackFeature.hasPurchasedPremium = hasPurchased
+
           // 初回起動時のチュートリアル表示判定
           let isFirstLaunch = !userDefaultsClient.bool(UserDefaultsKeys.firstLaunch)
           let tutorialCompleted = userDefaultsClient.bool(UserDefaultsKeys.tutorialCompleted)
@@ -116,6 +125,12 @@ struct VoiceAppFeature {
           return .send(.tutorialFeature(.view(.start)))
 
         case .syncToCloud:
+          // 課金チェック
+          guard state.settingFeature.hasPurchasedPremium else {
+            state.showPaywall = true
+            return .none
+          }
+
           guard !state.isSyncing else { return .none }
           state.isSyncing = true
           state.syncStatus = .syncing
@@ -144,6 +159,13 @@ struct VoiceAppFeature {
           state.syncError = nil
           state.syncStatus = .idle
           return .none
+
+        case .dismissPaywall:
+          state.showPaywall = false
+          // 購入状態を更新
+          state.settingFeature.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+          state.playbackFeature.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+          return .none
         }
 
       case .recordingFeature(.delegate(.recordingWillStart)):
@@ -165,6 +187,10 @@ struct VoiceAppFeature {
       case .playbackFeature(.view(.onAppear)):
         // リスト画面表示時に同期状態をチェック
         return .send(.view(.checkSyncStatus))
+
+      case .playbackFeature(.delegate(.showPaywall)):
+        state.showPaywall = true
+        return .none
 
       case .playbackFeature:
         return .none
@@ -343,6 +369,12 @@ struct VoiceAppView: View {
           store: store.scope(state: \.tutorialFeature, action: \.tutorialFeature)
         )
       }
+    }
+    .sheet(isPresented: $store.showPaywall) {
+      PaywallView(purchaseManager: PurchaseManager.shared)
+        .onDisappear {
+          store.send(.view(.dismissPaywall))
+        }
     }
   }
 }

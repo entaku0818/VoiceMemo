@@ -23,11 +23,11 @@ struct AudioEditorView: View {
                         viewStore.send(.cancel)
                     }
                     .foregroundColor(.red)
+                    .frame(width: 80, alignment: .leading)
 
                     Spacer()
 
-                    Text("音声編集中")
-                        .multilineTextAlignment(.center)
+                    Text("音声編集")
                         .font(.headline)
 
                     Spacer()
@@ -36,6 +36,7 @@ struct AudioEditorView: View {
                         viewStore.send(.save)
                     }
                     .disabled(!viewStore.isEdited)
+                    .frame(width: 80, alignment: .trailing)
                 }
                 .padding()
 

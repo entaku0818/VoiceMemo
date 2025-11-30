@@ -29,6 +29,10 @@ struct PlaybackFeature {
     var audioEditorState: AudioEditorReducer.State?
     var showAudioEditor = false
 
+    // Premium / Paywall
+    var hasPurchasedPremium = false
+    var showPaywall = false
+
   }
 
   struct VoiceMemo: Identifiable, Equatable {
@@ -119,6 +123,7 @@ struct PlaybackFeature {
 
     enum DelegateAction: Equatable {
       case memoDeleted(VoiceMemo.ID)
+      case showPaywall
     }
   }
 
@@ -310,6 +315,11 @@ struct PlaybackFeature {
           return .none
 
         case let .showAudioEditor(memoID):
+          // 課金チェック
+          guard state.hasPurchasedPremium else {
+            return .send(.delegate(.showPaywall))
+          }
+
           guard let memo = state.voiceMemos.first(where: { $0.id == memoID }) else {
             return .none
           }
