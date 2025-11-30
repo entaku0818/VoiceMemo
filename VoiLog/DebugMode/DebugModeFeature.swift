@@ -51,12 +51,14 @@ struct VoiceAppFeature {
     enum View {
       case onAppear
       case syncToCloud
+      case checkSyncStatus
       case dismissSyncError
       case startTutorial
     }
 
     // Internal actions
     case syncCompleted(Result<Bool, Error>)
+    case syncStatusChecked(hasDifferences: Bool)
     case resetSyncStatus
   }
 
@@ -128,6 +130,15 @@ struct VoiceAppFeature {
             }
           }
 
+        case .checkSyncStatus:
+          // 既に同期中または確認済みの場合はスキップ
+          guard state.syncStatus != .syncing else { return .none }
+
+          return .run { send in
+            let hasDifferences = await voiceMemoRepository.checkForDifferences()
+            await send(.syncStatusChecked(hasDifferences: hasDifferences))
+          }
+
         case .dismissSyncError:
           state.showSyncError = false
           state.syncError = nil
@@ -150,6 +161,10 @@ struct VoiceAppFeature {
 
       case .recordingFeature:
         return .none
+
+      case .playbackFeature(.view(.onAppear)):
+        // リスト画面表示時に同期状態をチェック
+        return .send(.view(.checkSyncStatus))
 
       case .playbackFeature:
         return .none
@@ -200,6 +215,21 @@ struct VoiceAppFeature {
           state.syncStatus = .error
           return .none
         }
+
+      case let .syncStatusChecked(hasDifferences):
+        if hasDifferences {
+          // 差分がある場合はidleのまま（同期ボタン押下を促す）
+          state.syncStatus = .idle
+        } else {
+          // 差分がない場合は同期完了表示
+          state.syncStatus = .synced
+          // 3秒後にidleに戻す
+          return .run { send in
+            try await Task.sleep(for: .seconds(3))
+            await send(.resetSyncStatus)
+          }
+        }
+        return .none
 
       case .resetSyncStatus:
         state.syncStatus = .idle

@@ -25,7 +25,7 @@ final class VoiceAppFeatureTests: XCTestCase {
         await store.send(.recordingFeature(.delegate(.recordingWillStart)))
 
         // Then: 再生停止のアクションが送信される
-        await store.receive(.playbackFeature(.view(.stopButtonTapped))) {
+        await store.receive(\.playbackFeature.view.stopButtonTapped) {
             $0.playbackFeature.playbackState = .idle
             $0.playbackFeature.currentPlayingMemo = nil
             $0.playbackFeature.currentTime = 0
@@ -75,7 +75,7 @@ final class VoiceAppFeatureTests: XCTestCase {
         }
 
         // Then: データ再読み込みのアクションが送信される
-        await store.receive(.playbackFeature(.view(.reloadData)))
+        await store.receive(\.playbackFeature.view.reloadData)
     }
 
     // MARK: - Tab Switching Tests

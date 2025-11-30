@@ -374,10 +374,13 @@ struct PlaybackFeature {
       let voiceMemoVoices = voiceMemoRepository.selectAllData()
 
       let memos = voiceMemoVoices.map { voice in
+        // 実際のファイルURLを検索（パスが変わっている可能性があるため）
+        let actualURL = VoiceMemoFileManager.findAudioFile(for: voice.url, shouldMigrate: false) ?? voice.url
+
         // ファイルサイズを計算
         let fileSize: Int64 = {
           do {
-            let attributes = try FileManager.default.attributesOfItem(atPath: voice.url.path)
+            let attributes = try FileManager.default.attributesOfItem(atPath: actualURL.path)
             return attributes[.size] as? Int64 ?? 0
           } catch {
             return 0
@@ -389,7 +392,7 @@ struct PlaybackFeature {
           title: voice.title.isEmpty ? "無題の録音" : voice.title,
           date: voice.date,
           duration: voice.duration,
-          url: voice.url,
+          url: actualURL,
           text: voice.text,
           fileFormat: voice.fileFormat,
           samplingFrequency: voice.samplingFrequency,
@@ -825,8 +828,9 @@ struct VoiceMemoRow: View {
       }
       .buttonStyle(.plain)
 
-      // Memo Info
-      VStack(alignment: .leading, spacing: 4) {
+      // Memo Info - 2行レイアウト
+      VStack(alignment: .leading, spacing: 6) {
+        // 1行目: タイトル + 時間長
         if isEditing {
           HStack(spacing: 8) {
             TextField("タイトル", text: Binding(
@@ -856,39 +860,68 @@ struct VoiceMemoRow: View {
           }
         } else {
           HStack {
-            Text(memo.title.isEmpty ? "無題の録音" : memo.title)
-              .font(.headline)
-              .lineLimit(1)
+            HStack(spacing: 4) {
+              Text(memo.title.isEmpty ? "無題の録音" : memo.title)
+                .font(.headline)
+                .lineLimit(1)
 
-            Button {
-              onStartEdit()
-            } label: {
-              Image(systemName: "pencil")
-                .font(.caption)
-                .foregroundColor(.secondary)
+              Button {
+                onStartEdit()
+              } label: {
+                Image(systemName: "pencil")
+                  .font(.caption)
+                  .foregroundColor(.secondary)
+              }
+              .buttonStyle(.plain)
             }
-            .buttonStyle(.plain)
+
+            Spacer()
+
+            Text(formatDuration(memo.duration))
+              .font(.subheadline)
+              .foregroundColor(.secondary)
+              .monospacedDigit()
           }
         }
 
-        HStack {
-          Text(formatDate(memo.date))
-            .font(.caption)
-            .foregroundColor(.secondary)
+        // 2行目: 日時 + メモ内容 + アクションボタン
+        HStack(spacing: 8) {
+          // 左側: 日時とメモテキスト
+          VStack(alignment: .leading, spacing: 2) {
+            Text(formatDate(memo.date))
+              .font(.caption)
+              .foregroundColor(.secondary)
+
+            if !memo.text.isEmpty {
+              Text(memo.text)
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .lineLimit(1)
+            }
+          }
 
           Spacer()
 
-          Text(formatDuration(memo.duration))
-            .font(.caption)
-            .foregroundColor(.secondary)
-            .monospacedDigit()
-        }
+          // 右側: アクションボタン
+          HStack(spacing: 12) {
+            Button(action: onInfoTap) {
+              Image(systemName: "info.circle")
+                .foregroundColor(.blue)
+            }
+            .buttonStyle(.plain)
 
-        if !memo.text.isEmpty {
-          Text(memo.text)
-            .font(.caption)
-            .foregroundColor(.secondary)
-            .lineLimit(2)
+            Button(action: onEditAudio) {
+              Image(systemName: "waveform.path")
+                .foregroundColor(.purple)
+            }
+            .buttonStyle(.plain)
+
+            Button(action: onDelete) {
+              Image(systemName: "trash")
+                .foregroundColor(.red)
+            }
+            .buttonStyle(.plain)
+          }
         }
 
         // Progress Bar (if playing)
@@ -897,31 +930,8 @@ struct VoiceMemoRow: View {
             .progressViewStyle(LinearProgressViewStyle(tint: .accentColor))
         }
       }
-
-      Spacer()
-
-      // Actions
-      HStack(spacing: 12) {
-        Button(action: onInfoTap) {
-          Image(systemName: "info.circle")
-            .foregroundColor(.blue)
-        }
-        .buttonStyle(.plain)
-
-        Button(action: onEditAudio) {
-          Image(systemName: "waveform.path")
-            .foregroundColor(.purple)
-        }
-        .buttonStyle(.plain)
-
-        Button(action: onDelete) {
-          Image(systemName: "trash")
-            .foregroundColor(.red)
-        }
-        .buttonStyle(.plain)
-      }
     }
-    .padding(.vertical, 4)
+    .padding(.vertical, 6)
     .contentShape(Rectangle())
     .onTapGesture(perform: onTap)
   }
