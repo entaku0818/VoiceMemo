@@ -112,8 +112,8 @@ struct RecordingFeature {
             title: title,
             fileFormat: fileFormat,
             samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
-            quantizationBitDepth: Int16(UserDefaultsManager.shared.quantizationBitDepth),
-            numberOfChannels: Int16(UserDefaultsManager.shared.numberOfChannels),
+            quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
+            numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
             url: recordingUrl
           )
           voiceMemoRepository.insert(recordingVoice)
@@ -143,8 +143,8 @@ struct RecordingFeature {
             title: title,
             fileFormat: fileFormat,
             samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
-            quantizationBitDepth: Int16(UserDefaultsManager.shared.quantizationBitDepth),
-            numberOfChannels: Int16(UserDefaultsManager.shared.numberOfChannels),
+            quantizationBitDepth: UserDefaultsManager.shared.quantizationBitDepth,
+            numberOfChannels: UserDefaultsManager.shared.numberOfChannels,
             url: recordingUrl
           )
           voiceMemoRepository.insert(recordingVoice)
