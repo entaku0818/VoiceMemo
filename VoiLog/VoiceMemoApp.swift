@@ -22,14 +22,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        // Firebase初期化（必須、同期）
         FirebaseApp.configure()
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .sound, .badge]) { granted, _ in
-            if granted {
-                UNUserNotificationCenter.current().delegate = self
+        // AdMob初期化を遅延実行（UIが表示された後）
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
+        }
+
+        // 通知許可リクエストを遅延
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: [.alert, .sound, .badge]) { granted, _ in
+                if granted {
+                    DispatchQueue.main.async {
+                        UNUserNotificationCenter.current().delegate = self
+                    }
+                }
             }
         }
 
@@ -49,8 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 @main
 struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    var voiceMemos: [VoiceMemoReducer.State] = []
-    let documentsPath = NSHomeDirectory() + "/Documents"
 
     var admobUnitId: String!
     var recordAdmobUnitId: String!
@@ -64,11 +72,16 @@ struct VoiceMemoApp: App {
         self.recordAdmobUnitId = environmentConfig.recordAdmobKey
         self.playListAdmobUnitId = environmentConfig.playListAdmobKey
 
-        Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
+        // Rollbarは軽量なので同期で初期化
         RollbarLogger.shared.initialize(with: environmentConfig.rollbarKey)
 
-        let voiceMemoRepository = VoiceMemoRepository(coreDataAccessor: VoiceMemoCoredataAccessor(), cloudUploader: CloudUploader())
-        voiceMemos = voiceMemoRepository.selectAllData()
+        // RevenueCatを遅延初期化（StoreKit 2が重いため）
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
+        }
+
+        // データ読み込みも遅延（UIが先に表示されるようにする）
+        // 注: VoiceAppFeature内でreloadDataが呼ばれるので、ここでの読み込みは不要
     }
 
     var body: some Scene {
