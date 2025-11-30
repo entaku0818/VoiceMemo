@@ -88,6 +88,7 @@ struct PlaybackFeature {
     case audioPlayerDidFinish
     case audioEditor(AudioEditorReducer.Action)
 
+    @CasePathable
     enum View {
       case onAppear
       case refreshRequested

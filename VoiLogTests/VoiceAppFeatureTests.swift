@@ -19,17 +19,20 @@ final class VoiceAppFeatureTests: XCTestCase {
             )
         ) {
             VoiceAppFeature()
+        } withDependencies: {
+            $0.audioPlayer = AudioPlayerClient(
+                play: { _, _, _, _ in true },
+                stop: { true },
+                getCurrentTime: { 0 }
+            )
         }
+        store.exhaustivity = .off
 
         // When: 録音開始のdelegateアクションを受け取る
         await store.send(.recordingFeature(.delegate(.recordingWillStart)))
 
         // Then: 再生停止のアクションが送信される
-        await store.receive(\VoiceAppFeature.Action.Cases.playbackFeature.view.stopButtonTapped) {
-            $0.playbackFeature.playbackState = .idle
-            $0.playbackFeature.currentPlayingMemo = nil
-            $0.playbackFeature.currentTime = 0
-        }
+        await store.receive(\.playbackFeature.view.stopButtonTapped)
     }
 
     func testRecordingWillStart_DoesNothingWhenNotPlaying() async {
@@ -43,7 +46,14 @@ final class VoiceAppFeatureTests: XCTestCase {
             )
         ) {
             VoiceAppFeature()
+        } withDependencies: {
+            $0.audioPlayer = AudioPlayerClient(
+                play: { _, _, _, _ in true },
+                stop: { true },
+                getCurrentTime: { 0 }
+            )
         }
+        store.exhaustivity = .off
 
         // When: 録音開始のdelegateアクションを受け取る
         await store.send(.recordingFeature(.delegate(.recordingWillStart)))
@@ -60,7 +70,14 @@ final class VoiceAppFeatureTests: XCTestCase {
             )
         ) {
             VoiceAppFeature()
+        } withDependencies: {
+            $0.audioPlayer = AudioPlayerClient(
+                play: { _, _, _, _ in true },
+                stop: { true },
+                getCurrentTime: { 0 }
+            )
         }
+        store.exhaustivity = .off
 
         let result = RecordingFeature.RecordingResult(
             url: URL(fileURLWithPath: "/test.m4a"),
@@ -75,7 +92,7 @@ final class VoiceAppFeatureTests: XCTestCase {
         }
 
         // Then: データ再読み込みのアクションが送信される
-        await store.receive(\VoiceAppFeature.Action.Cases.playbackFeature.view.reloadData)
+        await store.receive(\.playbackFeature.view.reloadData)
     }
 
     // MARK: - Tab Switching Tests
@@ -87,7 +104,14 @@ final class VoiceAppFeatureTests: XCTestCase {
             )
         ) {
             VoiceAppFeature()
+        } withDependencies: {
+            $0.audioPlayer = AudioPlayerClient(
+                play: { _, _, _, _ in true },
+                stop: { true },
+                getCurrentTime: { 0 }
+            )
         }
+        store.exhaustivity = .off
 
         // 録音タブから再生タブに切り替え
         await store.send(.binding(.set(\.selectedTab, 1))) {

@@ -2127,7 +2127,6 @@
       }
     },
     "エラーログを見る" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -3357,7 +3356,6 @@
 
     },
     "デバッグ" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
