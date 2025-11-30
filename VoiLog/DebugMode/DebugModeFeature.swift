@@ -124,6 +124,13 @@ struct VoiceAppFeature {
           return .none
         }
 
+      case .recordingFeature(.delegate(.recordingWillStart)):
+        // 録音開始時に再生中の音声を停止
+        if state.playbackFeature.playbackState == .playing {
+          return .send(.playbackFeature(.view(.stopButtonTapped)))
+        }
+        return .none
+
       case .recordingFeature(.delegate(.recordingCompleted(let result))):
         // 録音完了時に再生タブに自動切り替え
         state.selectedTab = 1

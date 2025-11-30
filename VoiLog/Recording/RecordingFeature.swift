@@ -56,6 +56,7 @@ struct RecordingFeature {
     }
 
     enum DelegateAction: Equatable {
+      case recordingWillStart
       case recordingCompleted(RecordingResult)
     }
   }
@@ -177,7 +178,10 @@ struct RecordingFeature {
         if granted {
           state.recordingState = .recording
           state.recordingId = uuid() // 新しい録音IDを生成
-          return startRecording(state: &state)
+          return .merge(
+            .send(.delegate(.recordingWillStart)),
+            startRecording(state: &state)
+          )
         }
         return .none
 
