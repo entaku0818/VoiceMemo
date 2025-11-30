@@ -162,7 +162,7 @@ struct EnhancedVoiceMemoDetailView: View {
                 detailSection(title: "ファイル情報") {
                     InfoRow(icon: "doc", label: "ファイル名", value: memo.url.lastPathComponent)
                     InfoRow(icon: "folder", label: "保存場所", value: memo.url.deletingLastPathComponent().path)
-                    InfoRow(icon: "doc.badge.ellipsis", label: "ファイル形式", value: memo.fileFormat.uppercased())
+                    InfoRow(icon: "doc.badge.ellipsis", label: "ファイル形式", value: formatFileFormat(memo.fileFormat))
                     InfoRow(icon: "square.and.arrow.down", label: "ファイルサイズ", value: formatDetailedFileSize(memo.fileSize))
                 }
             }
@@ -340,7 +340,7 @@ struct EnhancedVoiceMemoDetailView: View {
         report += "録音日時: \(formatDetailedDate(memo.date))\n"
         report += "再生時間: \(formatDetailedDuration(memo.duration))\n"
         report += "ファイルサイズ: \(formatDetailedFileSize(memo.fileSize))\n"
-        report += "形式: \(memo.fileFormat.uppercased())\n"
+        report += "形式: \(formatFileFormat(memo.fileFormat))\n"
         report += "サンプリングレート: \(Int(memo.samplingFrequency)) Hz\n"
         report += "ビット深度: \(memo.quantizationBitDepth) bit\n"
         report += "チャンネル: \(channelConfiguration())\n"
@@ -394,6 +394,19 @@ struct EnhancedVoiceMemoDetailView: View {
         formatter.includesUnit = true
         formatter.includesCount = true
         return formatter.string(fromByteCount: bytes)
+    }
+
+    private func formatFileFormat(_ format: String) -> String {
+        switch format.lowercased() {
+        case "m4a", "aac", "mpeg4aac":
+            return "AAC"
+        case "wav", "linearpcm":
+            return "WAV"
+        case "":
+            return "AAC"
+        default:
+            return format.uppercased()
+        }
     }
 
     private func channelConfiguration() -> String {

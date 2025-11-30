@@ -98,7 +98,8 @@ struct RecordingFeature {
 
         case .saveWithTitle:
           state.showTitleDialog = false
-          let recordingUrl = createRecordingURL(with: state.recordingId)
+          let fileFormat = UserDefaultsManager.shared.selectedFileFormat
+          let recordingUrl = createRecordingURL(with: state.recordingId, fileFormat: fileFormat)
           let title = state.tempTitle.isEmpty ? "無題の録音" : state.tempTitle
           let recordingDate = Date()
 
@@ -109,10 +110,10 @@ struct RecordingFeature {
             duration: state.duration,
             resultText: state.resultText,
             title: title,
-            fileFormat: "m4a",
-            samplingFrequency: 44100.0,
-            quantizationBitDepth: 16,
-            numberOfChannels: 2,
+            fileFormat: fileFormat,
+            samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
+            quantizationBitDepth: Int16(UserDefaultsManager.shared.quantizationBitDepth),
+            numberOfChannels: Int16(UserDefaultsManager.shared.numberOfChannels),
             url: recordingUrl
           )
           voiceMemoRepository.insert(recordingVoice)
@@ -128,7 +129,8 @@ struct RecordingFeature {
 
         case .skipTitle:
           state.showTitleDialog = false
-          let recordingUrl = createRecordingURL(with: state.recordingId)
+          let fileFormat = UserDefaultsManager.shared.selectedFileFormat
+          let recordingUrl = createRecordingURL(with: state.recordingId, fileFormat: fileFormat)
           let title = "無題の録音"
           let recordingDate = Date()
 
@@ -139,10 +141,10 @@ struct RecordingFeature {
             duration: state.duration,
             resultText: state.resultText,
             title: title,
-            fileFormat: "m4a",
-            samplingFrequency: 44100.0,
-            quantizationBitDepth: 16,
-            numberOfChannels: 2,
+            fileFormat: fileFormat,
+            samplingFrequency: UserDefaultsManager.shared.samplingFrequency,
+            quantizationBitDepth: Int16(UserDefaultsManager.shared.quantizationBitDepth),
+            numberOfChannels: Int16(UserDefaultsManager.shared.numberOfChannels),
             url: recordingUrl
           )
           voiceMemoRepository.insert(recordingVoice)
@@ -219,7 +221,8 @@ struct RecordingFeature {
   }
 
   private func startRecording(state: inout State) -> Effect<Action> {
-    let url = createRecordingURL(with: state.recordingId)
+    let fileFormat = UserDefaultsManager.shared.selectedFileFormat
+    let url = createRecordingURL(with: state.recordingId, fileFormat: fileFormat)
     let configuration = RecordingConfiguration.default
 
     // 録音時間を初期化
@@ -270,9 +273,10 @@ struct RecordingFeature {
     .cancellable(id: CancelID.recording)
   }
 
-  private func createRecordingURL(with id: UUID) -> URL {
+  private func createRecordingURL(with id: UUID, fileFormat: String) -> URL {
     let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-    return documentsPath.appendingPathComponent("\(id.uuidString).m4a")
+    let fileExtension = fileFormat.uppercased() == "WAV" ? "wav" : "m4a"
+    return documentsPath.appendingPathComponent("\(id.uuidString).\(fileExtension)")
   }
 }
 

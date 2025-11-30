@@ -31,7 +31,7 @@ struct VoiceMemoDetailView: View {
           // ファイル情報セクション
           detailSection(title: "ファイル情報") {
             detailRow(label: "ファイルサイズ", value: formatFileSize(memo.fileSize))
-            detailRow(label: "ファイル形式", value: memo.fileFormat.isEmpty ? "m4a" : memo.fileFormat)
+            detailRow(label: "ファイル形式", value: formatFileFormat(memo.fileFormat))
             detailRow(label: "ファイルパス", value: memo.url.lastPathComponent)
           }
 
@@ -98,6 +98,19 @@ struct VoiceMemoDetailView: View {
     formatter.allowedUnits = [.useKB, .useMB]
     formatter.countStyle = .file
     return formatter.string(fromByteCount: bytes)
+  }
+
+  private func formatFileFormat(_ format: String) -> String {
+    switch format.lowercased() {
+    case "m4a", "aac", "mpeg4aac":
+      return "AAC"
+    case "wav", "linearpcm":
+      return "WAV"
+    case "":
+      return "AAC"
+    default:
+      return format.uppercased()
+    }
   }
 }
 
