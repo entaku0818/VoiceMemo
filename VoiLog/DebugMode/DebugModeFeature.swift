@@ -192,8 +192,9 @@ struct VoiceAppView: View {
             store: store.scope(state: \.recordingFeature, action: \.recordingFeature)
           )
 
-          if !store.settingFeature.hasPurchasedPremium && store.selectedTab == 0 {
-            LazyAdmobBannerView(unitId: recordAdmobUnitId, delay: 1.5)
+          if !store.settingFeature.hasPurchasedPremium {
+            AdmobBannerView(unitId: recordAdmobUnitId)
+              .frame(height: 50)
           }
         }
       }
@@ -210,8 +211,9 @@ struct VoiceAppView: View {
             store: store.scope(state: \.playbackFeature, action: \.playbackFeature)
           )
 
-          if !store.settingFeature.hasPurchasedPremium && store.selectedTab == 1 {
-            LazyAdmobBannerView(unitId: recordAdmobUnitId, delay: 1.5)
+          if !store.settingFeature.hasPurchasedPremium {
+            AdmobBannerView(unitId: recordAdmobUnitId)
+              .frame(height: 50)
           }
         }
         .toolbar {
@@ -250,8 +252,9 @@ struct VoiceAppView: View {
             store: store.scope(state: \.playlistFeature, action: \.playlistFeature)
           )
 
-          if !store.settingFeature.hasPurchasedPremium && store.selectedTab == 2 {
-            LazyAdmobBannerView(unitId: playListAdmobUnitId, delay: 1.5)
+          if !store.settingFeature.hasPurchasedPremium {
+            AdmobBannerView(unitId: playListAdmobUnitId)
+              .frame(height: 50)
           }
         }
       }
