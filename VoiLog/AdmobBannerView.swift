@@ -9,6 +9,35 @@ import GoogleMobileAds
 import UIKit
 import SwiftUI
 
+// MARK: - Lazy Loading Ad Banner
+struct LazyAdmobBannerView: View {
+    let unitId: String
+    let delay: TimeInterval
+
+    @State private var shouldLoadAd = false
+
+    init(unitId: String, delay: TimeInterval = 1.0) {
+        self.unitId = unitId
+        self.delay = delay
+    }
+
+    var body: some View {
+        Group {
+            if shouldLoadAd {
+                AdmobBannerView(unitId: unitId)
+            } else {
+                Color.clear
+            }
+        }
+        .frame(height: 50)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                shouldLoadAd = true
+            }
+        }
+    }
+}
+
 struct AdmobBannerView: UIViewRepresentable {
 
     private let unitId: String
