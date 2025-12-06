@@ -5,7 +5,6 @@ import os.log
 
 actor LongRecordingAudioRecorder: NSObject {
     private var audioRecorder: AVAudioRecorder?
-    private var currentTime: TimeInterval = 0
     private var startTime: Date?
     private var pausedDuration: TimeInterval = 0
     private var state: RecordingState = .idle
@@ -64,7 +63,6 @@ actor LongRecordingAudioRecorder: NSObject {
 
             startTime = Date()
             state = .recording(startTime: Date())
-            startTimer()
             logger.info("録音開始成功")
             return true
 
@@ -78,10 +76,9 @@ actor LongRecordingAudioRecorder: NSObject {
 
     func stopRecording() async {
         logger.info("録音停止開始")
+        let finalDuration = getCurrentTime()
         audioRecorder?.stop()
-        stopTimer()
 
-        let finalDuration = currentTime
         state = .completed(duration: finalDuration)
         logger.info("録音停止完了 - 録音時間: \(String(format: "%.2f", finalDuration))秒")
 
@@ -96,12 +93,12 @@ actor LongRecordingAudioRecorder: NSObject {
         }
 
         logger.info("録音一時停止開始")
+        let currentDuration = getCurrentTime()
         audioRecorder?.pause()
-        stopTimer()
 
         let pauseTime = Date()
-        state = .paused(startTime: startTime, pausedTime: pauseTime, duration: currentTime)
-        logger.info("録音一時停止完了 - 現在の録音時間: \(String(format: "%.2f", self.currentTime))秒")
+        state = .paused(startTime: startTime, pausedTime: pauseTime, duration: currentDuration)
+        logger.info("録音一時停止完了 - 現在の録音時間: \(String(format: "%.2f", currentDuration))秒")
     }
 
     func resumeRecording() async {
@@ -113,14 +110,14 @@ actor LongRecordingAudioRecorder: NSObject {
         logger.info("録音再開開始")
         pausedDuration += duration
         audioRecorder?.record()
-        startTimer()
 
         state = .recording(startTime: startTime)
         logger.info("録音再開完了")
     }
 
     func getCurrentTime() -> TimeInterval {
-        currentTime
+        guard let recorder = audioRecorder else { return 0 }
+        return recorder.currentTime + pausedDuration
     }
 
     func getAudioLevel() -> Float {
@@ -155,7 +152,6 @@ actor LongRecordingAudioRecorder: NSObject {
     // MARK: - Private Methods
 
     private func resetState() {
-        currentTime = 0
         pausedDuration = 0
         startTime = nil
         state = .preparing
@@ -207,47 +203,6 @@ actor LongRecordingAudioRecorder: NSObject {
         }
     }
 
-    private func startTimer() {
-        logger.debug("タイマー開始")
-        stopTimer() // Stop any existing timer first
-
-        // Task-based timer for actor compatibility
-        Task {
-            while await isRecordingActive() {
-                await updateCurrentTime()
-                try? await Task.sleep(nanoseconds: 500_000_000) // 0.5秒
-            }
-            logger.debug("タイマーループ終了")
-        }
-    }
-
-    private func stopTimer() {
-        logger.debug("タイマー停止")
-        // タイマーはisRecordingActive()がfalseになることで自動停止
-    }
-
-    private func isRecordingActive() -> Bool {
-        guard let recorder = audioRecorder else { return false }
-        switch state {
-        case .recording:
-            return recorder.isRecording
-        case .paused:
-            return true // 一時停止中でもタイマーは継続（UIの更新のため）
-        default:
-            return false
-        }
-    }
-
-    private func updateCurrentTime() {
-        guard let recorder = audioRecorder, recorder.isRecording else {
-            logger.debug("時間更新スキップ - 録音中ではない")
-            return
-        }
-        let newTime = recorder.currentTime + pausedDuration
-        currentTime = newTime
-        logger.debug("時間更新: \(String(format: "%.1f", newTime))秒")
-    }
-
     private func beginBackgroundTask() {
         endBackgroundTask() // End any existing task first
 
@@ -288,8 +243,7 @@ actor LongRecordingAudioRecorder: NSObject {
         do {
             try AVAudioSession.sharedInstance().setActive(false)
         } catch {
-            // ログ出力のみ、エラーは無視
-            print("Failed to deactivate audio session: \(error)")
+            logger.warning("Failed to deactivate audio session: \(error.localizedDescription)")
         }
     }
 
