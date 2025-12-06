@@ -221,7 +221,10 @@ struct VoiceAppFeature {
         return .none
 
       case .playbackFeature(.view(.onAppear)):
-        // リスト画面表示時に同期状態をチェック
+        // 課金ユーザーのみ同期状態をチェック
+        guard state.settingFeature.hasPurchasedPremium else {
+          return .none
+        }
         AppLogger.sync.debug("PlaybackView onAppear - checking sync status")
         return .send(.view(.checkSyncStatus))
 
