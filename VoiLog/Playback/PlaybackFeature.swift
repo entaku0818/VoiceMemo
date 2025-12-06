@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import AVFoundation
+import os.log
 
 @Reducer
 struct PlaybackFeature {
@@ -345,12 +346,12 @@ struct PlaybackFeature {
         let ids = memos.map { $0.id }
         let uniqueIds = Set(ids)
         if ids.count != uniqueIds.count {
-          print("⚠️ [PlaybackFeature] Duplicate IDs detected! Total: \(ids.count), Unique: \(uniqueIds.count)")
+          AppLogger.playback.warning("Duplicate IDs detected! Total: \(ids.count), Unique: \(uniqueIds.count)")
           // 重複を除去
           var seen = Set<UUID>()
           let uniqueMemos = memos.filter { seen.insert($0.id).inserted }
           state.voiceMemos = uniqueMemos
-          print("⚠️ [PlaybackFeature] After dedup: \(uniqueMemos.count) memos")
+          AppLogger.playback.warning("After dedup: \(uniqueMemos.count) memos")
         } else {
           state.voiceMemos = memos
         }

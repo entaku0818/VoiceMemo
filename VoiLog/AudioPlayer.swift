@@ -10,6 +10,7 @@ import ComposableArchitecture
 import Dependencies
 import Foundation
 import XCTestDynamicOverlay
+import os.log
 
 struct AudioPlayerClient {
     var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed, Bool) async throws -> Bool
@@ -122,7 +123,7 @@ private actor AudioPlayer {
             let fileURLs = try FileManager.default.contentsOfDirectory(atPath: documentsPath)
             return fileURLs
         } catch {
-            print("Error while listing files in Documents directory: \(error)")
+            AppLogger.file.error("Error while listing files in Documents directory: \(error)")
             return []
         }
     }
