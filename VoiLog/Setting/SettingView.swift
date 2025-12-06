@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import StoreKit
+import os.log
 
 struct SettingReducer: Reducer {
     @CasePathable
@@ -63,7 +64,7 @@ struct SettingReducer: Reducer {
                     try await PurchaseManager.shared.startOneTimePurchase()
                     await send(.supported)
                 } catch {
-                    print(error)
+                    AppLogger.purchase.error("Purchase failed: \(error)")
                 }
             }
 

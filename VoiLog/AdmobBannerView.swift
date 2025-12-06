@@ -8,6 +8,7 @@
 import GoogleMobileAds
 import UIKit
 import SwiftUI
+import os.log
 
 struct AdmobBannerView: UIViewRepresentable {
 
@@ -43,37 +44,33 @@ struct AdmobBannerView: UIViewRepresentable {
 
         // 広告受信時
         func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-            print("AdmobBannerView adUnitID: \(bannerView.adUnitID)")
-            print("AdmobBannerView Ad received successfully.")
-
+            AppLogger.ui.debug("AdmobBannerView ad received - adUnitID: \(bannerView.adUnitID ?? "nil")")
         }
 
         // 広告受信失敗時
         func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-            print("AdmobBannerView  Failed to load ad with error: \(error.localizedDescription)")
-            print("AdmobBannerView adUnitID: \(bannerView.adUnitID)")
-
+            AppLogger.ui.error("AdmobBannerView failed to load ad - adUnitID: \(bannerView.adUnitID ?? "nil"), error: \(error.localizedDescription)")
         }
 
         // インプレッションが記録された時
         func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
-            print("AdmobBannerView Impression has been recorded for the ad.")
+            AppLogger.ui.debug("AdmobBannerView impression recorded")
         }
 
         // 広告がクリックされた時
         func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
-            print("AdmobBannerView Ad was clicked.")
+            AppLogger.ui.debug("AdmobBannerView ad clicked")
         }
         func bannerViewWillPresentScreen(_: GADBannerView) {
-            print("AdmobBannerView \(#function) called")
+            AppLogger.ui.debug("AdmobBannerView bannerViewWillPresentScreen")
         }
 
         func bannerViewWillDismissScreen(_: GADBannerView) {
-            print("AdmobBannerView \(#function) called")
+            AppLogger.ui.debug("AdmobBannerView bannerViewWillDismissScreen")
         }
 
         func bannerViewDidDismissScreen(_: GADBannerView) {
-            print("AdmobBannerView \(#function) called")
+            AppLogger.ui.debug("AdmobBannerView bannerViewDidDismissScreen")
         }
     }
 }
