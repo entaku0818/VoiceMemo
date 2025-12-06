@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import AVFoundation
+import os.log
 
 struct VoiceMemoDetail: View {
     let store: StoreOf<VoiceMemoReducer>
@@ -265,14 +266,14 @@ struct VoiceMemoDetail: View {
                 case .completed:
                     completion(true)
                 case .failed, .cancelled:
-                    print("MP4変換エラー: \(exportSession.error?.localizedDescription ?? "不明なエラー")")
+                    AppLogger.file.error("MP4 conversion error: \(exportSession.error?.localizedDescription ?? "unknown error")")
                     completion(false)
                 default:
                     completion(false)
                 }
             }
         } catch {
-            print("MP4変換処理エラー: \(error.localizedDescription)")
+            AppLogger.file.error("MP4 conversion process error: \(error.localizedDescription)")
             completion(false)
         }
     }

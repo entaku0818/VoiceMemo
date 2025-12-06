@@ -1,6 +1,7 @@
 import Foundation
 import AVFoundation
 import Accelerate
+import os.log
 
 // 音声処理サービスのプロトコル
 protocol AudioProcessingServiceProtocol {
@@ -23,7 +24,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
                     throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
                 }
 
-                print("波形データ生成開始: \(actualURL.path)")
+                AppLogger.file.debug("Starting waveform generation: \(actualURL.path)")
 
                 // AVAudioSessionを設定
                 let audioSession = AVAudioSession.sharedInstance()

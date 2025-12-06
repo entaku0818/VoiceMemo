@@ -2,6 +2,7 @@ import Foundation
 import ComposableArchitecture
 import AVFoundation
 import Combine
+import os.log
 
 // 編集操作を表す列挙型
 enum EditOperation: Equatable {
@@ -78,20 +79,16 @@ struct AudioEditorReducer: Reducer {
         case .loadAudio:
             state.isLoadingWaveform = true
             let url = state.audioURL
-            print("🎵 [AudioEditor] loadAudio called")
-            print("🎵 [AudioEditor] URL: \(url)")
-            print("🎵 [AudioEditor] URL.path: \(url.path)")
-            print("🎵 [AudioEditor] File exists: \(FileManager.default.fileExists(atPath: url.path))")
+            AppLogger.file.debug("loadAudio called - URL: \(url.path), exists: \(FileManager.default.fileExists(atPath: url.path))")
 
             return .run { send in
                 do {
-                    print("🎵 [AudioEditor] Calling generateWaveformData...")
+                    AppLogger.file.debug("Calling generateWaveformData...")
                     let waveformData = try await audioProcessingService.generateWaveformData(for: url)
-                    print("🎵 [AudioEditor] Success! Waveform count: \(waveformData.count)")
+                    AppLogger.file.debug("Waveform generation success - count: \(waveformData.count)")
                     await send(.audioLoaded(.success(waveformData)))
                 } catch {
-                    print("🎵 [AudioEditor] Error: \(error)")
-                    print("🎵 [AudioEditor] Error description: \(error.localizedDescription)")
+                    AppLogger.file.error("Waveform generation failed: \(error.localizedDescription)")
                     await send(.audioLoaded(.failure(error)))
                 }
             }
@@ -183,7 +180,7 @@ struct AudioEditorReducer: Reducer {
                     state.isEdited = true
 
                     // 成功メッセージ
-                    print("音声分割が完了しました。前半を保存: \(newURLs[0].lastPathComponent)")
+                    AppLogger.file.info("Audio split completed. Saved first part: \(newURLs[0].lastPathComponent)")
 
                     // 成功メッセージを表示
                     state.errorMessage = "分割が完了しました。\n分割ポイントまでの「\(state.originalTitle) (前半)」\nとして保存されました。"
@@ -321,16 +318,16 @@ struct AudioEditorReducer: Reducer {
 
                         // ファイルをコピーする前にファイルの存在を確認
                         if FileManager.default.fileExists(atPath: url.path) {
-                            print("コピー元ファイルが存在します: \(url.path)")
+                            AppLogger.file.debug("Source file exists: \(url.path)")
 
                             // 保存先ディレクトリが存在することを確認
                             try FileManager.default.createDirectory(atPath: documentsPath, withIntermediateDirectories: true, attributes: nil)
 
                             // ファイルをコピー
                             try FileManager.default.copyItem(at: url, to: destinationURL)
-                            print("ファイルをコピーしました: \(destinationURL.path)")
+                            AppLogger.file.info("File copied to: \(destinationURL.path)")
                         } else {
-                            print("コピー元ファイルが存在しません: \(url.path)")
+                            AppLogger.file.error("Source file not found: \(url.path)")
                             throw NSError(domain: "AudioEditor", code: 2, userInfo: [NSLocalizedDescriptionKey: "編集したオーディオファイルが見つかりません"])
                         }
 

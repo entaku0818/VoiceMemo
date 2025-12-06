@@ -9,6 +9,7 @@ import Foundation
 import ComposableArchitecture
 import UIKit
 import StoreKit
+import os.log
 struct VoiceMemos: Reducer {
     struct State: Equatable {
         enum Mode {
@@ -412,7 +413,7 @@ struct VoiceMemos: Reducer {
             url = try VoiceMemoFileManager.newRecordingURL(uuid: uuid)
         } catch {
             // フォールバック: 従来のDocumentsディレクトリを使用
-            print("⚠️ Failed to create VoiceMemo directory, using Documents: \(error)")
+            AppLogger.file.warning("Failed to create VoiceMemo directory, using Documents: \(error.localizedDescription)")
             url = self.documentsDirectory()
                 .appendingPathComponent(uuid.uuidString)
                 .appendingPathExtension("m4a")
