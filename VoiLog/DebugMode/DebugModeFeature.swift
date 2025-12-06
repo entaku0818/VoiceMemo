@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import os.log
 
 // MARK: - Main App Feature
 @Reducer
@@ -40,6 +41,9 @@ struct VoiceAppFeature {
 
     // Paywall state
     var showPaywall = false
+
+    // Recording lock alert
+    var showRecordingLockAlert = false
   }
 
   enum Action: BindableAction {
@@ -95,6 +99,17 @@ struct VoiceAppFeature {
 
     Reduce { state, action in
       switch action {
+      case .binding(\.selectedTab):
+        // 録音中は他タブへの移動を禁止
+        let isRecording = state.recordingFeature.recordingState == .recording
+          || state.recordingFeature.recordingState == .paused
+          || state.recordingFeature.recordingState == .encoding
+        if isRecording && state.selectedTab != 0 {
+          state.selectedTab = 0  // 録音タブに戻す
+          state.showRecordingLockAlert = true
+        }
+        return .none
+
       case .binding:
         return .none
 
@@ -119,7 +134,7 @@ struct VoiceAppFeature {
             await MainActor.run {
               let removedCount = coreDataAccessor.removeDuplicates()
               if removedCount > 0 {
-                print("🧹 [VoiceApp] Cleaned up \(removedCount) duplicate records on startup")
+                AppLogger.data.info("Cleaned up \(removedCount) duplicate records on startup")
               }
             }
           }
@@ -161,16 +176,17 @@ struct VoiceAppFeature {
 
         case .checkSyncStatus:
           // 既に同期中の場合はスキップ
-          print("🔄 [Sync] checkSyncStatus called, current status: \(state.syncStatus)")
-          guard state.syncStatus != .syncing else {
-            print("🔄 [Sync] Skipping - already syncing")
+          let currentStatus = state.syncStatus
+          AppLogger.sync.debug("checkSyncStatus called, current status: \(String(describing: currentStatus))")
+          guard currentStatus != .syncing else {
+            AppLogger.sync.debug("Skipping - already syncing")
             return .none
           }
 
           return .run { send in
-            print("🔄 [Sync] Checking for differences...")
+            AppLogger.sync.debug("Checking for differences...")
             let hasDifferences = await voiceMemoRepository.checkForDifferences()
-            print("🔄 [Sync] hasDifferences: \(hasDifferences)")
+            AppLogger.sync.debug("hasDifferences: \(hasDifferences)")
             await send(.syncStatusChecked(hasDifferences: hasDifferences))
           }
 
@@ -206,7 +222,7 @@ struct VoiceAppFeature {
 
       case .playbackFeature(.view(.onAppear)):
         // リスト画面表示時に同期状態をチェック
-        print("🔄 [Sync] PlaybackView onAppear - checking sync status")
+        AppLogger.sync.debug("PlaybackView onAppear - checking sync status")
         return .send(.view(.checkSyncStatus))
 
       case .playbackFeature(.delegate(.showPaywall)):
@@ -258,15 +274,15 @@ struct VoiceAppFeature {
         }
 
       case let .syncStatusChecked(hasDifferences):
-        print("🔄 [Sync] syncStatusChecked - hasDifferences: \(hasDifferences)")
+        AppLogger.sync.debug("syncStatusChecked - hasDifferences: \(hasDifferences)")
         if hasDifferences {
           // 差分がある場合はidleのまま（同期ボタン押下を促す）
           state.syncStatus = .idle
-          print("🔄 [Sync] Status set to: idle (has differences)")
+          AppLogger.sync.debug("Status set to: idle (has differences)")
         } else {
           // 差分がない場合は同期完了表示（維持）
           state.syncStatus = .synced
-          print("🔄 [Sync] Status set to: synced (no differences)")
+          AppLogger.sync.debug("Status set to: synced (no differences)")
         }
         return .none
 
@@ -374,6 +390,11 @@ struct VoiceAppView: View {
       }
     } message: {
       Text(store.syncError ?? "同期中にエラーが発生しました")
+    }
+    .alert("録音中", isPresented: $store.showRecordingLockAlert) {
+      Button("OK", role: .cancel) {}
+    } message: {
+      Text("録音中は他の操作ができません")
     }
     .overlay {
       // チュートリアルオーバーレイ

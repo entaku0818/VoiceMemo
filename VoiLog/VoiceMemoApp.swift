@@ -17,6 +17,7 @@ import Firebase
 import UserNotifications
 import BackgroundTasks
 import ActivityKit
+import os.log
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -95,11 +96,11 @@ struct VoiceMemoApp: App {
                 admobUnitId: admobUnitId
             )
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
-                print("applicationDidEnterBackground")
+                AppLogger.general.debug("Application did enter background")
                 backgroundTaskManager.registerBackgroundTask()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                print("applicationWillEnterForeground")
+                AppLogger.general.debug("Application will enter foreground")
                 backgroundTaskManager.endBackgroundTask()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
@@ -146,7 +147,7 @@ extension VoiceMemoApp {
         if #available(iOS 16.1, *) {
             Task {
                 for activity in Activity<RecordActivityAttributes>.activities {
-                    print("Cleaning up background activity: \(activity.id)")
+                    AppLogger.general.debug("Cleaning up background activity: \(activity.id)")
                     let finalContentState = RecordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0)
                     let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
                     await activity.end(finalActivityContent, dismissalPolicy: .immediate)
@@ -204,7 +205,7 @@ class BackgroundTaskManager {
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
-            print("Could not schedule app refresh: \(error)")
+            AppLogger.general.error("Could not schedule app refresh: \(error)")
         }
     }
 }
