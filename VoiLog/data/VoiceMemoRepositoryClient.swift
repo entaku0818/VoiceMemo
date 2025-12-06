@@ -9,6 +9,7 @@ import Foundation
 import Dependencies
 import CoreData
 import CloudKit
+import os.log
 
 // MARK: - VoiceMemoRepository Client
 struct VoiceMemoRepositoryClient {
@@ -87,7 +88,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     do {
                         try managedContext.save()
                     } catch {
-                        print(error.localizedDescription)
+                        AppLogger.data.error("Repository insert failed: \(error.localizedDescription)")
                     }
                 }
             },
@@ -101,7 +102,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 do {
                     memoGroups = try managedContext.fetch(fetchRequest)
                 } catch {
-                    print(error.localizedDescription)
+                    AppLogger.data.error("Repository selectAllData failed: \(error.localizedDescription)")
                 }
 
                 return memoGroups.map { voiceEntity in
@@ -142,7 +143,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         )
                     }
                 } catch {
-                    print(error.localizedDescription)
+                    AppLogger.data.error("Repository fetch failed: \(error.localizedDescription)")
                 }
                 return nil
             },
@@ -157,7 +158,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     }
                     try managedContext.save()
                 } catch let error as NSError {
-                    print("\(error), \(error.userInfo)")
+                    AppLogger.data.error("Repository delete failed: \(error), \(error.userInfo)")
                 }
 
                 // CloudKitからも削除
@@ -166,7 +167,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     do {
                         try await database.deleteRecord(withID: recordID)
                     } catch {
-                        print("Error deleting voice record from CloudKit: \(error)")
+                        AppLogger.sync.error("Error deleting voice record from CloudKit: \(error)")
                     }
                 }
             },
@@ -193,7 +194,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         try managedContext.save()
                     }
                 } catch {
-                    print(error.localizedDescription)
+                    AppLogger.data.error("Repository update failed: \(error.localizedDescription)")
                 }
             },
             updateTitle: { uuid, newTitle in
@@ -210,7 +211,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         try managedContext.save()
                     }
                 } catch {
-                    print(error.localizedDescription)
+                    AppLogger.data.error("Repository updateTitle failed: \(error.localizedDescription)")
                 }
             },
             syncToCloud: {
@@ -221,7 +222,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 do {
                     localVoices = try managedContext.fetch(fetchRequest)
                 } catch {
-                    print("Error fetching local voices: \(error)")
+                    AppLogger.sync.error("Error fetching local voices: \(error)")
                     return false
                 }
 
@@ -266,7 +267,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         voiceEntity.isCloud = true
 
                     } catch {
-                        print("Error syncing voice \(voiceId) to CloudKit: \(error)")
+                        AppLogger.sync.error("Error syncing voice \(voiceId) to CloudKit: \(error)")
                         return false
                     }
                 }
@@ -276,7 +277,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     try managedContext.save()
                     return true
                 } catch {
-                    print("Error saving local changes after sync: \(error)")
+                    AppLogger.sync.error("Error saving local changes after sync: \(error)")
                     return false
                 }
             },
@@ -327,7 +328,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     do {
                         localVoices = try managedContext.fetch(fetchRequest)
                     } catch {
-                        print("Error fetching local voices: \(error)")
+                        AppLogger.sync.error("Error fetching local voices: \(error)")
                         return false
                     }
 
@@ -353,7 +354,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                                     try FileManager.default.copyItem(at: fileURL, to: destinationURL)
                                 }
                             } catch {
-                                print("Error downloading voice file \(voiceId): \(error)")
+                                AppLogger.sync.error("Error downloading voice file \(voiceId): \(error)")
                                 continue
                             }
 
@@ -380,12 +381,12 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         try managedContext.save()
                         return !voicesToDownload.isEmpty
                     } catch {
-                        print("Error saving downloaded voices: \(error)")
+                        AppLogger.sync.error("Error saving downloaded voices: \(error)")
                         return false
                     }
 
                 } catch {
-                    print("Error fetching voice records from CloudKit: \(error)")
+                    AppLogger.sync.error("Error fetching voice records from CloudKit: \(error)")
                     return false
                 }
             }

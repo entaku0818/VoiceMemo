@@ -1,6 +1,7 @@
 import Foundation
 import Dependencies
 import CoreData
+import os.log
 
 @MainActor
 protocol VoiceMemoCoredataAccessorProtocol {
@@ -54,7 +55,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             do {
                 try managedContext.save()
             } catch {
-                print(error.localizedDescription)
+                AppLogger.data.error("CoreData insert failed: \(error.localizedDescription)")
             }
         }
     }
@@ -69,7 +70,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
         do {
             memoGroups = try managedContext.fetch(fetchRequest)
         } catch {
-            print(error.localizedDescription)
+            AppLogger.data.error("CoreData selectAllData failed: \(error.localizedDescription)")
         }
 
         return memoGroups.map { voiceEntity in
@@ -115,7 +116,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 )
             }
         } catch {
-            print(error.localizedDescription)
+            AppLogger.data.error("CoreData fetch failed: \(error.localizedDescription)")
         }
         return nil
     }
@@ -131,7 +132,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             }
             try managedContext.save()
         } catch let error as NSError {
-            print("\(error), \(error.userInfo)")
+            AppLogger.data.error("CoreData delete failed: \(error), \(error.userInfo)")
         }
     }
 
@@ -158,7 +159,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 try managedContext.save()
             }
         } catch {
-            print(error.localizedDescription)
+            AppLogger.data.error("CoreData update failed: \(error.localizedDescription)")
         }
     }
 
@@ -176,7 +177,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 try managedContext.save()
             }
         } catch {
-            print(error.localizedDescription)
+            AppLogger.data.error("CoreData updateTitle failed: \(error.localizedDescription)")
         }
     }
 
@@ -207,12 +208,12 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
             if !duplicatesToDelete.isEmpty {
                 try managedContext.save()
-                print("🗑️ [CoreData] Removed \(duplicatesToDelete.count) duplicate records")
+                AppLogger.data.info("Removed \(duplicatesToDelete.count) duplicate records")
             }
 
             return duplicatesToDelete.count
         } catch {
-            print("❌ [CoreData] Error removing duplicates: \(error.localizedDescription)")
+            AppLogger.data.error("Error removing duplicates: \(error.localizedDescription)")
             return 0
         }
     }

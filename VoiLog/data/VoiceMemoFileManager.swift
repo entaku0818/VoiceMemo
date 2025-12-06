@@ -1,4 +1,5 @@
 import Foundation
+import os.log
 
 /// VoiceMemo専用のファイル管理クラス
 struct VoiceMemoFileManager {
@@ -14,7 +15,7 @@ struct VoiceMemoFileManager {
         let fileManager = FileManager.default
         if !fileManager.fileExists(atPath: voiceMemoDirectory.path) {
             try fileManager.createDirectory(at: voiceMemoDirectory, withIntermediateDirectories: true, attributes: nil)
-            print("📁 VoiceMemo directory created at: \(voiceMemoDirectory.path)")
+            AppLogger.file.info("VoiceMemo directory created at: \(voiceMemoDirectory.path)")
         }
     }
 
@@ -24,34 +25,73 @@ struct VoiceMemoFileManager {
     ///   - shouldMigrate: 見つかったファイルをVoiceMemoフォルダに移動するかどうか（デフォルト: true）
     /// - Returns: 実際に存在するファイルのURL、見つからない場合はnil
     static func findAudioFile(for url: URL, shouldMigrate: Bool = true) -> URL? {
-        let fileManager = FileManager.default
         let fileName = url.lastPathComponent
 
-        // 1. まず指定されたURLをそのまま試す
-        if fileManager.fileExists(atPath: url.path) {
-            print("📍 File found at original URL: \(url.path)")
+        // まず元の拡張子で探す
+        if let found = findAudioFileWithName(fileName, originalURL: url, shouldMigrate: shouldMigrate) {
+            return found
+        }
+
+        // 見つからない場合、別の拡張子で探す (.m4a <-> .wav)
+        let alternativeFileName = alternateExtension(for: fileName)
+        if alternativeFileName != fileName {
+            AppLogger.file.debug("Trying alternative extension: \(alternativeFileName)")
+            if let found = findAudioFileWithName(alternativeFileName, originalURL: url, shouldMigrate: shouldMigrate) {
+                return found
+            }
+        }
+
+        AppLogger.file.error("Audio file not found for: \(url.path)")
+        AppLogger.file.error("Searched with extensions: \(fileName), \(alternativeFileName)")
+
+        return nil
+    }
+
+    /// 拡張子を切り替える (.m4a <-> .wav)
+    private static func alternateExtension(for fileName: String) -> String {
+        let fileExtension = (fileName as NSString).pathExtension.lowercased()
+        let baseName = (fileName as NSString).deletingPathExtension
+
+        switch fileExtension {
+        case "m4a":
+            return baseName + ".wav"
+        case "wav":
+            return baseName + ".m4a"
+        default:
+            return fileName
+        }
+    }
+
+    /// 指定したファイル名で音声ファイルを探す
+    private static func findAudioFileWithName(_ fileName: String, originalURL: URL, shouldMigrate: Bool) -> URL? {
+        let fileManager = FileManager.default
+
+        // 1. 元のURLのディレクトリ + 新しいファイル名で試す
+        let originalDir = originalURL.deletingLastPathComponent()
+        let urlWithFileName = originalDir.appendingPathComponent(fileName)
+        if fileManager.fileExists(atPath: urlWithFileName.path) {
+            AppLogger.file.debug("File found at original directory: \(urlWithFileName.path)")
 
             // VoiceMemo専用ディレクトリにない場合は移動を試みる
-            if shouldMigrate && !url.path.contains("/VoiceMemos/") {
-                print("🔄 Attempting to migrate file to VoiceMemo directory...")
+            if shouldMigrate && !urlWithFileName.path.contains("/VoiceMemos/") {
+                AppLogger.file.info("Attempting to migrate file to VoiceMemo directory...")
                 do {
-                    let migratedURL = try copyToVoiceMemoDirectory(from: url, destinationFileName: fileName)
-                    // コピー成功したら元ファイルは削除しない（安全のため）
-                    print("✅ File migrated successfully")
+                    let migratedURL = try copyToVoiceMemoDirectory(from: urlWithFileName, destinationFileName: fileName)
+                    AppLogger.file.info("File migrated successfully")
                     return migratedURL
                 } catch {
-                    print("⚠️ Migration failed, using original URL: \(error.localizedDescription)")
-                    return url
+                    AppLogger.file.warning("Migration failed, using original URL: \(error.localizedDescription)")
+                    return urlWithFileName
                 }
             }
 
-            return url
+            return urlWithFileName
         }
 
         // 2. VoiceMemo専用ディレクトリ内を探す
         let voiceMemoPath = voiceMemoDirectory.appendingPathComponent(fileName)
         if fileManager.fileExists(atPath: voiceMemoPath.path) {
-            print("📍 File found in VoiceMemo directory: \(voiceMemoPath.path)")
+            AppLogger.file.debug("File found in VoiceMemo directory: \(voiceMemoPath.path)")
             return voiceMemoPath
         }
 
@@ -59,7 +99,7 @@ struct VoiceMemoFileManager {
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let documentsPath = documentsDirectory.appendingPathComponent(fileName)
         if fileManager.fileExists(atPath: documentsPath.path) {
-            print("📍 File found in Documents directory: \(documentsPath.path)")
+            AppLogger.file.debug("File found in Documents directory: \(documentsPath.path)")
             return migrateIfNeeded(documentsPath, shouldMigrate: shouldMigrate)
         }
 
@@ -67,14 +107,14 @@ struct VoiceMemoFileManager {
         let tempDirectory = URL(fileURLWithPath: NSTemporaryDirectory())
         let tempPath = tempDirectory.appendingPathComponent(fileName)
         if fileManager.fileExists(atPath: tempPath.path) {
-            print("📍 File found in Temporary directory: \(tempPath.path)")
+            AppLogger.file.debug("File found in Temporary directory: \(tempPath.path)")
             return migrateIfNeeded(tempPath, shouldMigrate: shouldMigrate)
         }
 
         // 5. Documentsディレクトリ内を再帰的に探す
-        print("🔍 Searching recursively in Documents directory...")
+        AppLogger.file.debug("Searching recursively in Documents directory...")
         if let foundURL = searchRecursively(in: documentsDirectory, fileName: fileName) {
-            print("📍 File found recursively: \(foundURL.path)")
+            AppLogger.file.debug("File found recursively: \(foundURL.path)")
             return migrateIfNeeded(foundURL, shouldMigrate: shouldMigrate)
         }
 
@@ -82,26 +122,18 @@ struct VoiceMemoFileManager {
         if let cachesDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first {
             let cachesPath = cachesDirectory.appendingPathComponent(fileName)
             if fileManager.fileExists(atPath: cachesPath.path) {
-                print("📍 File found in Caches directory: \(cachesPath.path)")
+                AppLogger.file.debug("File found in Caches directory: \(cachesPath.path)")
                 return migrateIfNeeded(cachesPath, shouldMigrate: shouldMigrate)
             }
 
             // Cachesディレクトリ内も再帰的に探す
             if let foundURL = searchRecursively(in: cachesDirectory, fileName: fileName) {
-                print("📍 File found recursively in Caches: \(foundURL.path)")
+                AppLogger.file.debug("File found recursively in Caches: \(foundURL.path)")
                 return migrateIfNeeded(foundURL, shouldMigrate: shouldMigrate)
             }
         }
 
-        print("❌ Audio file not found for: \(url.path)")
-        print("   Searched in:")
-        print("   - Original URL: \(url.path)")
-        print("   - VoiceMemo directory: \(voiceMemoPath.path)")
-        print("   - Documents directory: \(documentsPath.path)")
-        print("   - Temporary directory: \(tempPath.path)")
-        print("   - Documents (recursive)")
-        print("   - Caches (recursive)")
-
+        // 見つからなかった
         return nil
     }
 
@@ -110,13 +142,13 @@ struct VoiceMemoFileManager {
         guard shouldMigrate else { return url }
         guard !url.path.contains("/VoiceMemos/") else { return url }
 
-        print("🔄 Attempting to migrate file to VoiceMemo directory...")
+        AppLogger.file.info("Attempting to migrate file to VoiceMemo directory...")
         do {
             let migratedURL = try copyToVoiceMemoDirectory(from: url, destinationFileName: url.lastPathComponent)
-            print("✅ File migrated successfully")
+            AppLogger.file.info("File migrated successfully")
             return migratedURL
         } catch {
-            print("⚠️ Migration failed, using original URL: \(error.localizedDescription)")
+            AppLogger.file.warning("Migration failed, using original URL: \(error.localizedDescription)")
             return url
         }
     }
@@ -177,7 +209,7 @@ struct VoiceMemoFileManager {
 
         // ファイルを移動
         try fileManager.moveItem(at: sourceURL, to: destinationURL)
-        print("📦 Moved file to VoiceMemo directory: \(destinationURL.path)")
+        AppLogger.file.info("Moved file to VoiceMemo directory: \(destinationURL.path)")
 
         return destinationURL
     }
@@ -203,7 +235,7 @@ struct VoiceMemoFileManager {
 
         // ファイルをコピー
         try fileManager.copyItem(at: sourceURL, to: destinationURL)
-        print("📋 Copied file to VoiceMemo directory: \(destinationURL.path)")
+        AppLogger.file.info("Copied file to VoiceMemo directory: \(destinationURL.path)")
 
         return destinationURL
     }

@@ -5,6 +5,7 @@
 //  Created by 遠藤拓弥 on 2024/06/22.
 //
 import CloudKit
+import os.log
 
 protocol CloudUploaderProtocol {
     func saveVoice(voice: VoiceMemoRepository.Voice) async -> Bool
@@ -55,7 +56,7 @@ class CloudUploader: CloudUploaderProtocol {
             _ = try await database.save(record)
             return true
         } catch {
-            print("Error saving voice record to CloudKit: \(error)")
+            AppLogger.sync.error("Error saving voice record to CloudKit: \(error)")
             return false
         }
     }
@@ -101,7 +102,7 @@ class CloudUploader: CloudUploaderProtocol {
                 return nil
             }
         } catch {
-            print("Error fetching voice records from CloudKit: \(error.localizedDescription)")
+            AppLogger.sync.error("Error fetching voice records from CloudKit: \(error.localizedDescription)")
             return []
         }
     }
@@ -111,7 +112,7 @@ class CloudUploader: CloudUploaderProtocol {
         return await withCheckedContinuation { continuation in
             database.delete(withRecordID: recordID) { _, error in
                 if let error = error {
-                    print("Error deleting voice record from CloudKit: \(error)")
+                    AppLogger.sync.error("Error deleting voice record from CloudKit: \(error)")
                     continuation.resume(returning: false)
                 } else {
                     continuation.resume(returning: true)
@@ -139,15 +140,15 @@ class CloudUploader: CloudUploaderProtocol {
 
                     return true
                 } catch {
-                    print("Error copying file to Documents: \(error)")
+                    AppLogger.sync.error("Error copying file to Documents: \(error)")
                     return false
                 }
             } else {
-                print("No asset found for the given record ID.")
+                AppLogger.sync.warning("No asset found for the given record ID.")
                 return false
             }
         } catch {
-            print("Error fetching voice record from CloudKit: \(error)")
+            AppLogger.sync.error("Error fetching voice record from CloudKit: \(error)")
             return false
         }
     }

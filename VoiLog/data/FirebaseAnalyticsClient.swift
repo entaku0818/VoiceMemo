@@ -1,6 +1,7 @@
 import Foundation
 import Dependencies
 import FirebaseAnalytics
+import os.log
 
 // MARK: - Firebase Analytics Client
 struct FirebaseAnalyticsClient {
@@ -25,13 +26,13 @@ private enum FirebaseAnalyticsClientKey: DependencyKey {
 
     static let previewValue = FirebaseAnalyticsClient(
         logEvent: { eventName, parameters in
-            print("📊 Analytics Event: \(eventName), Parameters: \(parameters ?? [:])")
+            AppLogger.general.debug("Analytics Event: \(eventName), Parameters: \(String(describing: parameters))")
         },
         setUserProperty: { value, property in
-            print("📊 Analytics User Property: \(property) = \(value ?? "nil")")
+            AppLogger.general.debug("Analytics User Property: \(property) = \(value ?? "nil")")
         },
         setUserId: { userId in
-            print("📊 Analytics User ID: \(userId ?? "nil")")
+            AppLogger.general.debug("Analytics User ID: \(userId ?? "nil")")
         }
     )
 
