@@ -12,8 +12,8 @@ android {
         applicationId = "com.entaku.simpleRecord"
         minSdk = 29
         targetSdk = 34
-        versionCode = 3
-        versionName = "2.0.0"
+        versionCode = 4
+        versionName = "2.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
