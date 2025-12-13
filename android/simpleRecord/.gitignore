@@ -15,3 +15,9 @@
 local.properties
 app-keys
 app/release
+
+# Fastlane
+fastlane/play-store-credentials.json
+fastlane/report.xml
+fastlane/README.md
+Gemfile.lock
