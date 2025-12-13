@@ -4,7 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-VoiLog is an iOS voice recording app ("シンプル録音" - Simple Recording) built with SwiftUI and The Composable Architecture (TCA). The app provides audio recording, playback, playlist management, and premium features via in-app purchases.
+VoiLog is a cross-platform voice recording app ("シンプル録音" - Simple Recording) available on iOS and Android.
+
+- **iOS**: Built with SwiftUI and The Composable Architecture (TCA). Provides audio recording, playback, playlist management, and premium features via in-app purchases.
+- **Android**: Built with Kotlin and Jetpack Compose. Located in `android/simpleRecord/`.
 
 ## TCA Resources
 
@@ -13,7 +16,7 @@ VoiLog is an iOS voice recording app ("シンプル録音" - Simple Recording) b
 
 ## Essential Commands
 
-### Development
+### iOS Development
 ```bash
 # Setup dependencies
 bundle install
@@ -30,6 +33,23 @@ xcodebuild test -project ios/VoiLog.xcodeproj -scheme VoiLogTests -destination '
 # Code quality checks
 cd ios && swiftlint --fix && swiftlint
 ```
+
+### Android Development
+```bash
+# Build debug APK
+cd android/simpleRecord && ./gradlew assembleDebug
+
+# Build release APK
+cd android/simpleRecord && ./gradlew assembleRelease
+
+# Run tests
+cd android/simpleRecord && ./gradlew test
+
+# Clean build
+cd android/simpleRecord && ./gradlew clean
+```
+
+**Requirements**: JDK 17 (JetBrains Runtime recommended)
 
 ### Deployment (Fastlane)
 ```bash
