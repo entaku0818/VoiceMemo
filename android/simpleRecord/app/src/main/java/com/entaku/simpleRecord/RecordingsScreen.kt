@@ -52,6 +52,7 @@ fun RecordingsScreen(
     onNavigateToRecordScreen: () -> Unit,
     onRefresh: () -> Unit,
     onNavigateToPlaybackScreen: (RecordingData) -> Unit,
+    onNavigateToPlaylists: () -> Unit,
     onDeleteClick: (UUID) -> Unit,
     onEditRecordingName: (UUID, String) -> Unit,
     colorScheme: ColorScheme
@@ -86,19 +87,35 @@ fun RecordingsScreen(
             }
         }
 
-        Button(
-            onClick = onNavigateToRecordScreen,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colorScheme.primary,
-                contentColor = colorScheme.onPrimary,
-                disabledContainerColor = colorScheme.surfaceVariant,
-                disabledContentColor = colorScheme.onSurfaceVariant
-            )
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = "Start Recording")
+            Button(
+                onClick = onNavigateToPlaylists,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorScheme.secondary,
+                    contentColor = colorScheme.onSecondary,
+                    disabledContainerColor = colorScheme.surfaceVariant,
+                    disabledContentColor = colorScheme.onSurfaceVariant
+                )
+            ) {
+                Text(text = "Playlists")
+            }
+
+            Button(
+                onClick = onNavigateToRecordScreen,
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = colorScheme.primary,
+                    contentColor = colorScheme.onPrimary,
+                    disabledContainerColor = colorScheme.surfaceVariant,
+                    disabledContentColor = colorScheme.onSurfaceVariant
+                )
+            ) {
+                Text(text = "Start Recording")
+            }
         }
     }
 }
@@ -364,6 +381,7 @@ fun PreviewRecordingsScreen() {
         onNavigateToRecordScreen = {},
         onRefresh = {},
         onNavigateToPlaybackScreen = {},
+        onNavigateToPlaylists = {},
         onDeleteClick = {},
         onEditRecordingName = { a,b ->
         },

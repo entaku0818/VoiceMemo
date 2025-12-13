@@ -30,9 +30,13 @@ interface RecordingDao {
     suspend fun updateTitle(uuid: UUID, newTitle: String)
 }
 
-@Database(entities = [RecordingEntity::class], version = 1)
+@Database(
+    entities = [RecordingEntity::class, PlaylistEntity::class, PlaylistRecordingCrossRef::class],
+    version = 2
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun recordingDao(): RecordingDao
+    abstract fun playlistDao(): PlaylistDao
 
     companion object {
         @Volatile
@@ -45,6 +49,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance
