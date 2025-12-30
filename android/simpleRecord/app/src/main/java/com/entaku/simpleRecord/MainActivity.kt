@@ -36,6 +36,9 @@ import com.entaku.simpleRecord.record.RecordingRepositoryImpl
 import com.entaku.simpleRecord.record.RecordingsViewModelFactory
 import com.entaku.simpleRecord.settings.RecordingSettingsScreen
 import com.entaku.simpleRecord.settings.SettingsManager
+import com.entaku.simpleRecord.cloudsync.CloudSyncScreen
+import com.entaku.simpleRecord.cloudsync.CloudSyncViewModel
+import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
 import java.util.UUID
 
 class MainActivity : ComponentActivity() {
@@ -86,6 +89,9 @@ fun AppNavHost() {
                         },
                         onNavigateToPlaylists = {
                             navController.navigate(Screen.Playlists.route)
+                        },
+                        onNavigateToCloudSync = {
+                            navController.navigate(Screen.CloudSync.route)
                         },
                         onDeleteClick = { uuid ->
                             viewModel.deleteRecording(uuid)
@@ -224,6 +230,16 @@ fun AppNavHost() {
                         colorScheme = colorScheme
                     )
                 }
+
+                composable(Screen.CloudSync.route) {
+                    val viewModelFactory = remember { CloudSyncViewModelFactory(context) }
+                    val cloudSyncViewModel: CloudSyncViewModel = viewModel(factory = viewModelFactory)
+
+                    CloudSyncScreen(
+                        viewModel = cloudSyncViewModel,
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
             }
         }
     }
@@ -238,4 +254,5 @@ sealed class Screen(val route: String, val title: String) {
     object PlaylistDetail : Screen("playlist_detail/{playlistId}", "Playlist Detail") {
         fun createRoute(playlistId: String) = "playlist_detail/$playlistId"
     }
+    object CloudSync : Screen("cloud_sync", "Cloud Sync")
 }

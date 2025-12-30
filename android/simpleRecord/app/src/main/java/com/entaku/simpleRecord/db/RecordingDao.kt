@@ -24,6 +24,10 @@ interface RecordingDao {
     suspend fun insert(recording: RecordingEntity)
     @Query("SELECT * FROM recordings")
     fun getAllRecordings(): Flow<List<RecordingEntity>>
+    @Query("SELECT * FROM recordings")
+    suspend fun getAllRecordingsSync(): List<RecordingEntity>
+    @Query("SELECT * FROM recordings WHERE uuid = :uuid")
+    suspend fun getRecordingById(uuid: UUID): RecordingEntity?
     @Query("DELETE FROM recordings WHERE uuid = :uuid")
     suspend fun delete(uuid: UUID)
     @Query("UPDATE recordings SET title = :newTitle WHERE uuid = :uuid")

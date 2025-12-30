@@ -53,6 +53,7 @@ fun RecordingsScreen(
     onRefresh: () -> Unit,
     onNavigateToPlaybackScreen: (RecordingData) -> Unit,
     onNavigateToPlaylists: () -> Unit,
+    onNavigateToCloudSync: () -> Unit,
     onDeleteClick: (UUID) -> Unit,
     onEditRecordingName: (UUID, String) -> Unit,
     colorScheme: ColorScheme
@@ -91,17 +92,35 @@ fun RecordingsScreen(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Button(
-                onClick = onNavigateToPlaylists,
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorScheme.secondary,
-                    contentColor = colorScheme.onSecondary,
-                    disabledContainerColor = colorScheme.surfaceVariant,
-                    disabledContentColor = colorScheme.onSurfaceVariant
-                )
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(text = "Playlists")
+                Button(
+                    onClick = onNavigateToPlaylists,
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorScheme.secondary,
+                        contentColor = colorScheme.onSecondary,
+                        disabledContainerColor = colorScheme.surfaceVariant,
+                        disabledContentColor = colorScheme.onSurfaceVariant
+                    )
+                ) {
+                    Text(text = "Playlists")
+                }
+
+                Button(
+                    onClick = onNavigateToCloudSync,
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorScheme.tertiary,
+                        contentColor = colorScheme.onTertiary,
+                        disabledContainerColor = colorScheme.surfaceVariant,
+                        disabledContentColor = colorScheme.onSurfaceVariant
+                    )
+                ) {
+                    Text(text = "Cloud Sync")
+                }
             }
 
             Button(
@@ -382,9 +401,9 @@ fun PreviewRecordingsScreen() {
         onRefresh = {},
         onNavigateToPlaybackScreen = {},
         onNavigateToPlaylists = {},
+        onNavigateToCloudSync = {},
         onDeleteClick = {},
-        onEditRecordingName = { a,b ->
-        },
+        onEditRecordingName = { _, _ -> },
         colorScheme = LightColorScheme
     )
 }
