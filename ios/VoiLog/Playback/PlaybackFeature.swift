@@ -980,6 +980,12 @@ struct VoiceMemoRow: View {
 
           // 右側: アクションボタン
           HStack(spacing: 12) {
+            ShareLink(item: memo.url) {
+              Image(systemName: "square.and.arrow.up")
+                .foregroundColor(.green)
+            }
+            .buttonStyle(.plain)
+
             Button(action: onInfoTap) {
               Image(systemName: "info.circle")
                 .foregroundColor(.blue)

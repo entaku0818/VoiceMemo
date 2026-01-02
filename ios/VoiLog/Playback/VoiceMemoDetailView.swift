@@ -47,6 +47,11 @@ struct VoiceMemoDetailView: View {
       .navigationTitle("詳細情報")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          ShareLink(item: memo.url) {
+            Image(systemName: "square.and.arrow.up")
+          }
+        }
         ToolbarItem(placement: .topBarTrailing) {
           Button("閉じる") {
             onDismiss()
