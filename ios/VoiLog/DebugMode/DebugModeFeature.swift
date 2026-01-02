@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import os.log
+import StoreKit
 
 // MARK: - Main App Feature
 @Reducer
@@ -145,6 +146,31 @@ struct VoiceAppFeature {
               cleanupEffect,
               .send(.tutorialFeature(.view(.start)))
             )
+          }
+
+          // レビューリクエストの表示判定（2回目以降の起動時）
+          let appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount")
+          let lastReviewRequestDate = UserDefaults.standard.object(forKey: "lastReviewRequestDate") as? Date
+          let shouldShowReview: Bool = {
+            guard appUsageCount >= 2 else { return false }
+            if let lastRequestDate = lastReviewRequestDate {
+              let daysSinceLastRequest = Calendar.current.dateComponents([.day], from: lastRequestDate, to: Date()).day ?? 0
+              return daysSinceLastRequest >= 30
+            }
+            return true
+          }()
+
+          if shouldShowReview {
+            let reviewEffect: Effect<Action> = .run { _ in
+              try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
+              await MainActor.run {
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                  SKStoreReviewController.requestReview(in: windowScene)
+                  UserDefaults.standard.set(Date(), forKey: "lastReviewRequestDate")
+                }
+              }
+            }
+            return .merge(cleanupEffect, reviewEffect)
           }
 
           return cleanupEffect

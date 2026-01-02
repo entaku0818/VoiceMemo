@@ -18,8 +18,8 @@ struct FeedbackFeature {
         }
 
         var shouldShowReviewPrompt: Bool {
-            // アプリを10回以上使用し、前回のレビューリクエストから30日以上経過している場合
-            guard appUsageCount >= 10 else { return false }
+            // アプリを2回以上起動し、前回のレビューリクエストから30日以上経過している場合
+            guard appUsageCount >= 2 else { return false }
 
             if let lastRequestDate = lastReviewRequestDate {
                 let daysSinceLastRequest = Calendar.current.dateComponents([.day], from: lastRequestDate, to: Date()).day ?? 0

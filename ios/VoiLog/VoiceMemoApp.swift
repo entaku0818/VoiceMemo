@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        // アプリ起動回数をインクリメント
+        let appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount") + 1
+        UserDefaults.standard.set(appUsageCount, forKey: "appUsageCount")
+
         // Firebase初期化（必須、同期）
         FirebaseApp.configure()
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
