@@ -23,7 +23,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import com.entaku.simpleRecord.components.WaveformView
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -222,7 +224,8 @@ fun RecordScreen(
 
 
 
-                if (uiState.recordingState == RecordingState.RECORDING) {
+                if (uiState.recordingState == RecordingState.RECORDING ||
+                    uiState.recordingState == RecordingState.PAUSED) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -230,20 +233,24 @@ fun RecordScreen(
                     ) {
                         Text(
                             text = "Volume: ${uiState.currentVolume}%",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
 
-                        LinearProgressIndicator(
-                            progress = { uiState.currentVolume / 100f },
+                        // Waveform display
+                        WaveformView(
+                            amplitudes = uiState.amplitudeHistory,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(8.dp),
-                            color = when {
+                                .height(120.dp)
+                                .clip(RoundedCornerShape(12.dp)),
+                            waveformColor = when {
                                 uiState.currentVolume > 80 -> MaterialTheme.colorScheme.error
                                 uiState.currentVolume > 60 -> MaterialTheme.colorScheme.tertiary
                                 else -> MaterialTheme.colorScheme.primary
                             },
-                            trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                            backgroundColor = MaterialTheme.colorScheme.surfaceVariant
                         )
                     }
                 }

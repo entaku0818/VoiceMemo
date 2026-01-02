@@ -33,7 +33,8 @@ data class RecordingUiState(
     val recordingState: RecordingState = RecordingState.IDLE,
     val currentFilePath: String? = null,
     val currentVolume: Int = 0,
-    val elapsedTime: Duration = Duration.ZERO
+    val elapsedTime: Duration = Duration.ZERO,
+    val amplitudeHistory: List<Float> = emptyList()
 )
 
 class RecordViewModel(
@@ -115,7 +116,16 @@ class RecordViewModel(
                     try {
                         val amplitude = recorder.maxAmplitude
                         val normalizedVolume = (amplitude.toFloat() / 32767.0f * 100).toInt().coerceIn(0, 100)
-                        _uiState.update { it.copy(currentVolume = normalizedVolume) }
+                        val normalizedAmplitude = amplitude.toFloat() / 32767.0f
+
+                        _uiState.update { state ->
+                            val newHistory = (state.amplitudeHistory + normalizedAmplitude)
+                                .takeLast(MAX_AMPLITUDE_HISTORY)
+                            state.copy(
+                                currentVolume = normalizedVolume,
+                                amplitudeHistory = newHistory
+                            )
+                        }
                     } catch (e: IllegalStateException) {
                         e.printStackTrace()
                     }
@@ -123,6 +133,10 @@ class RecordViewModel(
                 delay(100)
             }
         }
+    }
+
+    companion object {
+        private const val MAX_AMPLITUDE_HISTORY = 100
     }
 
     fun stopRecording() {
@@ -169,7 +183,8 @@ class RecordViewModel(
                 recordingState = RecordingState.FINISHED,
                 currentFilePath = null,
                 currentVolume = 0,
-                elapsedTime = Duration.ZERO
+                elapsedTime = Duration.ZERO,
+                amplitudeHistory = emptyList()
             )
         }
         // SharedViewModelの状態を更新

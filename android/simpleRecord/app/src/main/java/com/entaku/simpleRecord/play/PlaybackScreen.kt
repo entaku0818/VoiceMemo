@@ -1,13 +1,16 @@
 package com.entaku.simpleRecord.play
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.entaku.simpleRecord.RecordingData
+import com.entaku.simpleRecord.components.PlaybackWaveformView
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -40,18 +43,33 @@ fun PlaybackScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = onPlayPause) {
-            Text(text = if (playbackState.isPlaying) "Pause" else "Play")
-        }
+        // Waveform display with playback progress
+        val progress = if (recordingData.duration > 0) {
+            (playbackState.currentPosition.toFloat() / 1000) / recordingData.duration.toFloat()
+        } else 0f
+
+        PlaybackWaveformView(
+            progress = progress,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .height(80.dp)
+                .clip(RoundedCornerShape(12.dp))
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "${playbackState.currentPosition / 1000} sec / ${recordingData.duration} sec",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LinearProgressIndicator(
-            progress = { (playbackState.currentPosition.toFloat() / 1000) / (recordingData.duration.toFloat()) },
-            modifier = Modifier.height(16.dp),
-        )
-
-        Text(text = "Time: ${playbackState.currentPosition / 1000} sec / ${recordingData.duration} sec")
+        Button(onClick = onPlayPause) {
+            Text(text = if (playbackState.isPlaying) "Pause" else "Play")
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
