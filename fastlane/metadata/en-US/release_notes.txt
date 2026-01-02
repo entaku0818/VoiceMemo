@@ -1,23 +1,20 @@
-Version 0.17.3
+Version 1.1.0
 
 [New Features]
-• Added Playlist functionality
-  - Organize your recordings with playlists
-  - Unlimited playlists available with Premium (free version limited to 3)
+• Added share functionality
+  - Share audio files with one tap from the recordings list
+  - Share also available from the detail view
 
-• Added detailed voice information display
-  - View file format, sampling frequency, bit depth, and more
-  - Access details via the info button on each recording
+• Improved recordings list UI
+  - Consolidated action buttons into a menu
+  - Access share, details, audio edit, and delete from the menu
 
-• Enhanced search functionality
-  - Multiple sort options (date, title, duration)
-  - Favorites filter and duration filter
-  - Toggle search options visibility
+• Improved app rating feature
+  - Review dialog appears on the 2nd app launch
 
 [Improvements]
-• Fixed ViewAction protocol implementation
-• Improved code safety and performance
-• Enhanced code quality with SwiftLint compliance
+• More user-friendly UI design
+• Performance and stability improvements
 
 Thank you for using VoiLog.
-We will continue to improve the app for better user experience.
+We will continue to improve the app for a better user experience.
