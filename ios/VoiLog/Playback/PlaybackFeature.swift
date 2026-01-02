@@ -978,31 +978,29 @@ struct VoiceMemoRow: View {
 
           Spacer()
 
-          // 右側: アクションボタン
-          HStack(spacing: 12) {
+          // 右側: メニューボタン
+          Menu {
             ShareLink(item: memo.url) {
-              Image(systemName: "square.and.arrow.up")
-                .foregroundColor(.green)
+              Label("共有", systemImage: "square.and.arrow.up")
             }
-            .buttonStyle(.plain)
 
             Button(action: onInfoTap) {
-              Image(systemName: "info.circle")
-                .foregroundColor(.blue)
+              Label("詳細情報", systemImage: "info.circle")
             }
-            .buttonStyle(.plain)
 
             Button(action: onEditAudio) {
-              Image(systemName: "waveform.path")
-                .foregroundColor(.purple)
+              Label("音声編集", systemImage: "waveform.path")
             }
-            .buttonStyle(.plain)
 
-            Button(action: onDelete) {
-              Image(systemName: "trash")
-                .foregroundColor(.red)
+            Divider()
+
+            Button(role: .destructive, action: onDelete) {
+              Label("削除", systemImage: "trash")
             }
-            .buttonStyle(.plain)
+          } label: {
+            Image(systemName: "ellipsis.circle")
+              .font(.title3)
+              .foregroundColor(.secondary)
           }
         }
 
