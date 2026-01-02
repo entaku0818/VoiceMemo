@@ -60,6 +60,27 @@ bundle exec fastlane upload_metadata
 bundle exec fastlane lanes
 ```
 
+### Release Checklist
+**IMPORTANT: Before submitting to App Store or Google Play, always complete these steps:**
+
+1. **Update Release Notes** (MUST DO BEFORE SUBMISSION)
+   - iOS: `fastlane/metadata/ja/release_notes.txt` and `fastlane/metadata/en-US/release_notes.txt`
+   - Android: Update in Google Play Console or fastlane metadata
+   - Include version number, new features, improvements, and bug fixes
+
+2. **Version Bump**
+   - iOS: Update `MARKETING_VERSION` in `ios/VoiLog.xcodeproj/project.pbxproj`
+   - Android: Update `versionCode` and `versionName` in `android/simpleRecord/app/build.gradle.kts`
+
+3. **Create Git Tag**
+   ```bash
+   git tag v1.x.x && git push origin v1.x.x
+   ```
+
+4. **Submit**
+   - iOS: `bundle exec fastlane upload_metadata` (after Xcode archive upload)
+   - Android: `bundle exec fastlane upload_production` (from android/simpleRecord/)
+
 ### Package Management
 ```bash
 # Update Swift packages
