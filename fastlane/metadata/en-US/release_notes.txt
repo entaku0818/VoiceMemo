@@ -1,20 +1,20 @@
-Version 1.1.0
+Version 1.2.0
 
-[New Features]
-• Added share functionality
-  - Share audio files with one tap from the recordings list
-  - Share also available from the detail view
+[New Features & Improvements]
+• Major multilingual support enhancement
+  - Complete translations for all 12 languages
+  - Japanese, English, German, Spanish, French
+  - Italian, Portuguese, Russian, Turkish
+  - Vietnamese, Simplified Chinese, Traditional Chinese
 
-• Improved recordings list UI
-  - Consolidated action buttons into a menu
-  - Access share, details, audio edit, and delete from the menu
-
-• Improved app rating feature
-  - Review dialog appears on the 2nd app launch
+• Added UI translations
+  - All recording and playback strings
+  - Settings, playlists, tutorial
+  - Feedback and sync features
 
 [Improvements]
-• More user-friendly UI design
-• Performance and stability improvements
+• More natural expressions in each language
+• Improved localization quality
 
-Thank you for using VoiLog.
-We will continue to improve the app for a better user experience.
+Thank you for using VoiLog!
+We're committed to providing a better experience for users worldwide.
