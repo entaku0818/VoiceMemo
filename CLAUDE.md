@@ -92,7 +92,7 @@ rm -rf ~/Library/Caches/org.swift.swiftpm
 
 ## Architecture Overview
 
-### State Management: The Composable Architecture (TCA) v1.8.0
+### State Management: The Composable Architecture (TCA)
 - **Modern Patterns**: Uses `@ObservableState` and `@ViewAction` patterns
 - **Dual Architecture**: Legacy `VoiceMemos` (production) + Modern `VoiceAppFeature` (debug/development)
 - **Feature Modules**: Each major feature has its own TCA reducer (Recording, Playback, Playlists)
@@ -132,11 +132,11 @@ rm -rf ~/Library/Caches/org.swift.swiftpm
 - **Audio Files**: Stored in Documents directory with URL references
 
 ### Key Dependencies
-- **ComposableArchitecture** (1.8.0): State management
-- **Firebase** (10.28.0): Analytics and Crashlytics
-- **RevenueCat** (4.40.0): In-app purchase management
-- **Google Mobile Ads** (11.5.0): Advertisement integration
-- **Rollbar** (3.3.3): Error tracking
+- **ComposableArchitecture**: State management
+- **Firebase**: Analytics and Crashlytics
+- **RevenueCat**: In-app purchase management
+- **Google Mobile Ads**: Advertisement integration
+- **Rollbar**: Error tracking
 
 ## Development Patterns
 
