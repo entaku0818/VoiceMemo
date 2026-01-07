@@ -2,6 +2,12 @@ package com.entaku.simpleRecord.play
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Repeat
+import androidx.compose.material.icons.filled.RepeatOne
+import androidx.compose.material.icons.filled.Shuffle
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,13 +27,27 @@ fun PlaybackScreen(
     onPlayPause: () -> Unit,
     onStop: () -> Unit,
     onNavigateBack: () -> Unit,
-    onSpeedChange: (Float) -> Unit
+    onSpeedChange: (Float) -> Unit,
+    onToggleRepeat: () -> Unit = {},
+    onToggleShuffle: () -> Unit = {},
+    onPlayNext: () -> Unit = {},
+    onPlayPrevious: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Track info
+        if (playbackState.isPlaylistMode) {
+            Text(
+                text = "${playbackState.currentTrackIndex + 1} / ${playbackState.playlist.size}",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+
         Text(text = "Playing: ${recordingData.title}")
 
         // 再生速度選択
@@ -67,9 +87,87 @@ fun PlaybackScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = onPlayPause) {
-            Text(text = if (playbackState.isPlaying) "Pause" else "Play")
+        // Playback controls with repeat/shuffle
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Shuffle button
+            IconButton(onClick = onToggleShuffle) {
+                Icon(
+                    imageVector = Icons.Default.Shuffle,
+                    contentDescription = "Shuffle",
+                    tint = if (playbackState.isShuffleEnabled)
+                        MaterialTheme.colorScheme.primary
+                    else
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            // Previous button
+            IconButton(
+                onClick = onPlayPrevious,
+                enabled = playbackState.isPlaylistMode
+            ) {
+                Icon(
+                    imageVector = Icons.Default.SkipPrevious,
+                    contentDescription = "Previous",
+                    tint = if (playbackState.isPlaylistMode)
+                        MaterialTheme.colorScheme.onSurface
+                    else
+                        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                )
+            }
+
+            // Play/Pause button
+            Button(onClick = onPlayPause) {
+                Text(text = if (playbackState.isPlaying) "Pause" else "Play")
+            }
+
+            // Next button
+            IconButton(
+                onClick = onPlayNext,
+                enabled = playbackState.isPlaylistMode
+            ) {
+                Icon(
+                    imageVector = Icons.Default.SkipNext,
+                    contentDescription = "Next",
+                    tint = if (playbackState.isPlaylistMode)
+                        MaterialTheme.colorScheme.onSurface
+                    else
+                        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                )
+            }
+
+            // Repeat button
+            IconButton(onClick = onToggleRepeat) {
+                Icon(
+                    imageVector = when (playbackState.repeatMode) {
+                        RepeatMode.ONE -> Icons.Default.RepeatOne
+                        else -> Icons.Default.Repeat
+                    },
+                    contentDescription = "Repeat",
+                    tint = when (playbackState.repeatMode) {
+                        RepeatMode.OFF -> MaterialTheme.colorScheme.onSurfaceVariant
+                        else -> MaterialTheme.colorScheme.primary
+                    }
+                )
+            }
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Repeat mode indicator
+        Text(
+            text = when (playbackState.repeatMode) {
+                RepeatMode.OFF -> "Repeat: Off"
+                RepeatMode.ONE -> "Repeat: One"
+                RepeatMode.ALL -> "Repeat: All"
+            },
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -128,4 +226,3 @@ fun PlaybackScreenPreview() {
         onSpeedChange = { }
     )
 }
-
