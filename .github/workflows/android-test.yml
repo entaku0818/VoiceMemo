@@ -1,6 +1,12 @@
 name: Android Test
 
 on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'android/**'
   pull_request:
     paths:
       - 'android/**'
@@ -19,16 +25,95 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
       - name: Grant execute permission for gradlew
         run: chmod +x android/simpleRecord/gradlew
 
       - name: Run unit tests
         working-directory: android/simpleRecord
-        run: ./gradlew test
+        run: ./gradlew test --stacktrace
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
-          path: android/simpleRecord/app/build/reports/tests/
+          path: |
+            android/simpleRecord/app/build/reports/tests/
+            android/simpleRecord/app/build/test-results/
+
+      - name: Test Report Summary
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: 'android/simpleRecord/app/build/test-results/test*/TEST-*.xml'
+          fail_on_failure: true
+          include_passed: true
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x android/simpleRecord/gradlew
+
+      - name: Run lint
+        working-directory: android/simpleRecord
+        run: ./gradlew lint
+
+      - name: Upload lint results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lint-results
+          path: android/simpleRecord/app/build/reports/lint-results*.html
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [test, lint]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x android/simpleRecord/gradlew
+
+      - name: Build debug APK
+        working-directory: android/simpleRecord
+        run: ./gradlew assembleDebug
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: android/simpleRecord/app/build/outputs/apk/debug/*.apk
