@@ -4,6 +4,8 @@
 <dict>
 	<key>ADMOB_KEY</key>
 	<string>$(ADMOB_KEY)</string>
+	<key>INTERSTITIAL_ADMOB_KEY</key>
+	<string>$(INTERSTITIAL_ADMOB_KEY)</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3484697221349891~3051778288</string>
 	<key>NSPrefPaneIconLabel</key>

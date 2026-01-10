@@ -1,20 +1,6 @@
-Version 1.2.0
-
-[New Features & Improvements]
-• Major multilingual support enhancement
-  - Complete translations for all 12 languages
-  - Japanese, English, German, Spanish, French
-  - Italian, Portuguese, Russian, Turkish
-  - Vietnamese, Simplified Chinese, Traditional Chinese
-
-• Added UI translations
-  - All recording and playback strings
-  - Settings, playlists, tutorial
-  - Feedback and sync features
+Version 1.2.1
 
 [Improvements]
-• More natural expressions in each language
-• Improved localization quality
+• Documentation cleanup and updates
 
 Thank you for using VoiLog!
-We're committed to providing a better experience for users worldwide.
