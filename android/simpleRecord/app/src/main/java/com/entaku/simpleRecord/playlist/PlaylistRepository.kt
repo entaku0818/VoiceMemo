@@ -19,10 +19,12 @@ interface PlaylistRepository {
     fun getAllPlaylists(): Flow<List<PlaylistData>>
     suspend fun getPlaylistById(uuid: UUID): PlaylistData?
     fun getRecordingsForPlaylist(playlistUuid: UUID): Flow<List<RecordingData>>
+    suspend fun getRecordingsForPlaylistSync(playlistUuid: UUID): List<RecordingData>
     suspend fun updatePlaylistName(uuid: UUID, newName: String)
     suspend fun deletePlaylist(uuid: UUID)
     suspend fun addRecordingToPlaylist(playlistUuid: UUID, recordingUuid: UUID)
     suspend fun removeRecordingFromPlaylist(playlistUuid: UUID, recordingUuid: UUID)
+    suspend fun reorderRecordings(playlistUuid: UUID, recordingUuids: List<UUID>)
 }
 
 class PlaylistRepositoryImpl(private val database: AppDatabase) : PlaylistRepository {
@@ -116,6 +118,27 @@ class PlaylistRepositoryImpl(private val database: AppDatabase) : PlaylistReposi
                 database.playlistDao().update(playlist.copy(updatedDate = now))
             }
             Log.d(TAG, "Recording $recordingUuid removed from playlist $playlistUuid")
+        }
+    }
+
+    override suspend fun reorderRecordings(playlistUuid: UUID, recordingUuids: List<UUID>) {
+        withContext(Dispatchers.IO) {
+            database.playlistDao().reorderRecordings(playlistUuid, recordingUuids)
+            val now = System.currentTimeMillis() / 1000
+            val playlist = database.playlistDao().getPlaylistById(playlistUuid)
+            if (playlist != null) {
+                database.playlistDao().update(playlist.copy(updatedDate = now))
+            }
+            Log.d(TAG, "Recordings reordered in playlist $playlistUuid")
+        }
+    }
+
+    override suspend fun getRecordingsForPlaylistSync(playlistUuid: UUID): List<RecordingData> {
+        return withContext(Dispatchers.IO) {
+            val crossRefs = database.playlistDao().getCrossRefsForPlaylist(playlistUuid)
+            crossRefs.mapNotNull { crossRef ->
+                database.recordingDao().getRecordingById(crossRef.recordingUuid)?.toRecordingData()
+            }
         }
     }
 

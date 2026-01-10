@@ -90,6 +90,26 @@ class PlaylistDetailViewModel(
             repository.addRecordingToPlaylist(playlistUuid, recordingUuid)
         }
     }
+
+    fun reorderRecordings(fromIndex: Int, toIndex: Int) {
+        val currentRecordings = _uiState.value.recordings.toMutableList()
+        if (fromIndex < 0 || fromIndex >= currentRecordings.size ||
+            toIndex < 0 || toIndex >= currentRecordings.size) {
+            return
+        }
+
+        val item = currentRecordings.removeAt(fromIndex)
+        currentRecordings.add(toIndex, item)
+
+        // Update UI immediately
+        _uiState.value = _uiState.value.copy(recordings = currentRecordings)
+
+        // Persist to database
+        viewModelScope.launch {
+            val recordingUuids = currentRecordings.mapNotNull { it.uuid }
+            repository.reorderRecordings(playlistUuid, recordingUuids)
+        }
+    }
 }
 
 data class PlaylistDetailUiState(

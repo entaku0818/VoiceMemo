@@ -127,15 +127,33 @@ fun AppNavHost() {
                 }
                 composable(Screen.Playback.route) {
                     val selectedRecording by sharedViewModel.selectedRecording.collectAsState()
+                    val playlistRecordings by sharedViewModel.playlistRecordings.collectAsState()
+                    val playlistStartIndex by sharedViewModel.playlistStartIndex.collectAsState()
+                    val isPlaylistMode by sharedViewModel.isPlaylistMode.collectAsState()
                     val playbackViewModel: PlaybackViewModel = viewModel()
                     val playbackState by playbackViewModel.playbackState.collectAsState()
 
-                    selectedRecording?.let { recordingData ->
-                        LaunchedEffect(recordingData.filePath) {
-                            playbackViewModel.setupMediaPlayer(recordingData.filePath)
+                    // Get current recording from playlist or single mode
+                    val currentRecording = if (playbackState.isPlaylistMode) {
+                        playbackViewModel.getCurrentRecording() ?: selectedRecording
+                    } else {
+                        selectedRecording
+                    }
+
+                    currentRecording?.let { recordingData ->
+                        LaunchedEffect(isPlaylistMode, playlistRecordings, playlistStartIndex, recordingData.filePath) {
+                            if (isPlaylistMode && playlistRecordings.isNotEmpty()) {
+                                playbackViewModel.setupPlaylist(playlistRecordings, playlistStartIndex)
+                            } else {
+                                playbackViewModel.setupMediaPlayer(recordingData.filePath)
+                            }
                         }
                         PlaybackScreen(
-                            recordingData = recordingData,
+                            recordingData = if (playbackState.isPlaylistMode) {
+                                playbackViewModel.getCurrentRecording() ?: recordingData
+                            } else {
+                                recordingData
+                            },
                             playbackState = playbackState,
                             onStop = {
                                 playbackViewModel.stopPlayback()
@@ -146,6 +164,18 @@ fun AppNavHost() {
                             onNavigateBack = { navController.popBackStack() },
                             onSpeedChange = { speed ->
                                 playbackViewModel.setPlaybackSpeed(speed)
+                            },
+                            onToggleRepeat = {
+                                playbackViewModel.toggleRepeatMode()
+                            },
+                            onToggleShuffle = {
+                                playbackViewModel.toggleShuffle()
+                            },
+                            onPlayNext = {
+                                playbackViewModel.playNext()
+                            },
+                            onPlayPrevious = {
+                                playbackViewModel.playPrevious()
                             }
                         )
                     }
@@ -225,8 +255,13 @@ fun AppNavHost() {
                             sharedViewModel.selectRecording(recordingData)
                             navController.navigate(Screen.Playback.route)
                         },
+                        onPlayAll = { recordings, startIndex ->
+                            sharedViewModel.selectPlaylist(recordings, startIndex)
+                            navController.navigate(Screen.Playback.route)
+                        },
                         onAddRecording = detailViewModel::addRecording,
                         onRemoveRecording = detailViewModel::removeRecording,
+                        onReorder = detailViewModel::reorderRecordings,
                         colorScheme = colorScheme
                     )
                 }
