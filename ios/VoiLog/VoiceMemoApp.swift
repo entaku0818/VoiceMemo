@@ -67,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 @main
 struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @State private var showSplash = true
 
     var admobUnitId: String!
     var recordAdmobUnitId: String!
@@ -94,29 +95,37 @@ struct VoiceMemoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            VoiceAppView(
-                store: Store(initialState: VoiceAppFeature.State()) {
-                    VoiceAppFeature()
-                },
-                recordAdmobUnitId: recordAdmobUnitId,
-                playListAdmobUnitId: playListAdmobUnitId,
-                admobUnitId: admobUnitId
-            )
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
-                AppLogger.general.debug("Application did enter background")
-                backgroundTaskManager.registerBackgroundTask()
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                AppLogger.general.debug("Application will enter foreground")
-                backgroundTaskManager.endBackgroundTask()
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
-                UserDefaultsManager.shared.logError("applicationWillTerminate")
-                cleanupLiveActivities()
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
-                UserDefaultsManager.shared.logError("applicationWillTerminate")
-                cleanupLiveActivities()
+            if showSplash {
+                SplashView {
+                    withAnimation {
+                        showSplash = false
+                    }
+                }
+            } else {
+                VoiceAppView(
+                    store: Store(initialState: VoiceAppFeature.State()) {
+                        VoiceAppFeature()
+                    },
+                    recordAdmobUnitId: recordAdmobUnitId,
+                    playListAdmobUnitId: playListAdmobUnitId,
+                    admobUnitId: admobUnitId
+                )
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+                    AppLogger.general.debug("Application did enter background")
+                    backgroundTaskManager.registerBackgroundTask()
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                    AppLogger.general.debug("Application will enter foreground")
+                    backgroundTaskManager.endBackgroundTask()
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+                    UserDefaultsManager.shared.logError("applicationWillTerminate")
+                    cleanupLiveActivities()
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
+                    UserDefaultsManager.shared.logError("applicationWillTerminate")
+                    cleanupLiveActivities()
+                }
             }
         }
     }

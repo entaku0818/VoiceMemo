@@ -412,10 +412,6 @@ struct VoiceAppView: View {
     }
     .onAppear {
       store.send(.view(.onAppear))
-      // 5回に1回起動時インタースティシャル広告を表示
-      DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-        InterstitialAdManager.shared.showAdIfNeeded()
-      }
     }
     .alert("同期エラー", isPresented: $store.showSyncError) {
       Button("OK") {
