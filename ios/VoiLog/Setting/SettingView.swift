@@ -282,6 +282,9 @@ struct SettingView: View {
                         NavigationLink(destination: ErrorLogsView()) {
                             Text("エラーログを見る")
                         }
+                        NavigationLink(destination: AdDebugView()) {
+                            Text("広告テスト")
+                        }
                     }
                     #endif
                 }
