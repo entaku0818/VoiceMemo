@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             GADMobileAds.sharedInstance().start { _ in
                 // 広告初期化完了後にインタースティシャル広告をプリロード
-                InterstitialAdManager.shared.preloadAd()
+                AppOpenAdManager.shared.preloadAd()
             }
         }
 

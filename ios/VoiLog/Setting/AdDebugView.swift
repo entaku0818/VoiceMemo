@@ -32,12 +32,12 @@ struct AdDebugView: View {
             }
 
             Section(header: Text("広告テスト")) {
-                Button("インタースティシャル広告をプリロード") {
-                    InterstitialAdManager.shared.preloadAd()
+                Button("App Open広告をプリロード") {
+                    AppOpenAdManager.shared.preloadAd()
                 }
 
-                Button("インタースティシャル広告を表示（条件無視）") {
-                    forceShowInterstitialAd()
+                Button("App Open広告を表示（条件無視）") {
+                    forceShowAppOpenAd()
                 }
                 .foregroundColor(.blue)
 
@@ -70,14 +70,9 @@ struct AdDebugView: View {
         .listStyle(GroupedListStyle())
     }
 
-    private func forceShowInterstitialAd() {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let rootViewController = windowScene.windows.first?.rootViewController else {
-            return
-        }
-
+    private func forceShowAppOpenAd() {
         // プリロードされた広告があれば表示
-        InterstitialAdManager.shared.showAdIfNeeded()
+        AppOpenAdManager.shared.showAdIfNeeded()
     }
 }
 
