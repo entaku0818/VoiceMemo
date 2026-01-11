@@ -25,7 +25,7 @@ final class AppOpenAdManager: NSObject {
 
     /// 広告がロード済みかどうか
     var isAdReady: Bool {
-        return appOpenAd != nil && !isAdExpired
+        appOpenAd != nil && !isAdExpired
     }
 
     /// 広告が期限切れかどうか
