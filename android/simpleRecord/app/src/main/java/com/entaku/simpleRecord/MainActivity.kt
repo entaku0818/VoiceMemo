@@ -3,6 +3,8 @@ package com.entaku.simpleRecord
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -42,10 +44,56 @@ import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
 import java.util.UUID
 
 class MainActivity : ComponentActivity() {
+    private var showingAd = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Increment launch count
+        AppOpenAdManager.getInstance(this).incrementLaunchCount()
+
+        // Show splash and ad
+        showSplashAndAd()
+    }
+
+    private fun showSplashAndAd() {
+        showingAd = true
         setContent {
-            AppNavHost()
+            SplashScreen()
+        }
+
+        // Try to show ad
+        AppOpenAdManager.getInstance(this).showAdIfNeeded(this) {
+            // Ad dismissed or not shown, proceed to main content
+            showingAd = false
+            setContent {
+                AppNavHost()
+            }
+        }
+    }
+}
+
+@Composable
+fun SplashScreen() {
+    MaterialTheme(
+        colorScheme = LightColorScheme,
+        typography = Typography
+    ) {
+        androidx.compose.foundation.layout.Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background),
+            contentAlignment = androidx.compose.ui.Alignment.Center
+        ) {
+            androidx.compose.foundation.layout.Column(
+                horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+            ) {
+                androidx.compose.material3.Text(
+                    text = "シンプル録音",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
         }
     }
 }
