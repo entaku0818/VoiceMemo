@@ -55,16 +55,9 @@ struct VoiceMemoRepositoryClient {
 private enum VoiceMemoRepositoryClientKey: DependencyKey {
     @MainActor
     static let liveValue: VoiceMemoRepositoryClient = {
-        // CoreData setup
-        let container = NSPersistentContainer(name: "Voice")
-        container.loadPersistentStores { _, error in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        }
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        let managedContext = container.viewContext
-        let entity = NSEntityDescription.entity(forEntityName: "Voice", in: managedContext)
+        // Use shared CoreData stack to prevent multiple container instances
+        let managedContext = CoreDataStack.shared.viewContext
+        let entity = CoreDataStack.shared.voiceEntity
 
         // CloudKit setup
         let cloudContainer = CKContainer(identifier: "iCloud.com.entaku.VoiLog")
@@ -215,23 +208,55 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 }
             },
             syncToCloud: {
-                // ローカルデータを取得
-                var localVoices: [VoiLog.Voice] = []
+                // THREAD SAFETY FIX: Extract data as value types BEFORE async operations
+                // to avoid accessing NSManagedObject after await suspension points.
+
+                struct VoiceData {
+                    let id: UUID
+                    let url: URL
+                    let title: String
+                    let text: String
+                    let createdAt: Date
+                    let updatedAt: Date
+                    let duration: Double
+                    let fileFormat: String
+                    let samplingFrequency: Double
+                    let quantizationBitDepth: Int16
+                    let numberOfChannels: Int16
+                }
+
+                // Step 1: Fetch and convert to value types on MainActor
+                var voiceDataList: [VoiceData] = []
                 let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
 
                 do {
-                    localVoices = try managedContext.fetch(fetchRequest)
+                    let localVoices = try managedContext.fetch(fetchRequest)
+                    voiceDataList = localVoices.compactMap { voiceEntity -> VoiceData? in
+                        guard let id = voiceEntity.id,
+                              let url = voiceEntity.url else { return nil }
+                        return VoiceData(
+                            id: id,
+                            url: url,
+                            title: voiceEntity.title ?? "",
+                            text: voiceEntity.text ?? "",
+                            createdAt: voiceEntity.createdAt ?? Date(),
+                            updatedAt: voiceEntity.updatedAt ?? Date(),
+                            duration: voiceEntity.duration,
+                            fileFormat: voiceEntity.fileFormat ?? "",
+                            samplingFrequency: voiceEntity.samplingFrequency,
+                            quantizationBitDepth: voiceEntity.quantizationBitDepth,
+                            numberOfChannels: voiceEntity.numberOfChannels
+                        )
+                    }
                 } catch {
                     AppLogger.sync.error("Error fetching local voices: \(error)")
                     return false
                 }
 
-                // 各ローカルボイスをCloudKitに同期
-                for voiceEntity in localVoices {
-                    guard let voiceId = voiceEntity.id,
-                          let voiceUrl = voiceEntity.url else { continue }
-
-                    let recordID = CKRecord.ID(recordName: voiceId.uuidString)
+                // Step 2: Sync each voice to CloudKit (using value types, not NSManagedObjects)
+                var syncedIds: [UUID] = []
+                for voiceData in voiceDataList {
+                    let recordID = CKRecord.ID(recordName: voiceData.id.uuidString)
 
                     do {
                         // 既存レコードを取得または新規作成
@@ -244,35 +269,50 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         }
 
                         // 音声ファイルのCKAssetを作成
-                        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + voiceUrl.lastPathComponent
+                        let inputDocumentsPath = NSHomeDirectory() + "/Documents/" + voiceData.url.lastPathComponent
                         let asset = CKAsset(fileURL: URL(fileURLWithPath: inputDocumentsPath))
                         record["file"] = asset
 
-                        // メタデータをCKRecordに設定
-                        record["title"] = (voiceEntity.title ?? "") as CKRecordValue
-                        record["id"] = voiceId.uuidString as CKRecordValue
-                        record["text"] = (voiceEntity.text ?? "") as CKRecordValue
-                        record["createdAt"] = (voiceEntity.createdAt ?? Date()) as CKRecordValue
-                        record["updatedAt"] = (voiceEntity.updatedAt ?? Date()) as CKRecordValue
-                        record["duration"] = voiceEntity.duration as CKRecordValue
-                        record["fileFormat"] = (voiceEntity.fileFormat ?? "") as CKRecordValue
-                        record["samplingFrequency"] = voiceEntity.samplingFrequency as CKRecordValue
-                        record["quantizationBitDepth"] = voiceEntity.quantizationBitDepth as CKRecordValue
-                        record["numberOfChannels"] = voiceEntity.numberOfChannels as CKRecordValue
+                        // メタデータをCKRecordに設定 (using value types)
+                        record["title"] = voiceData.title as CKRecordValue
+                        record["id"] = voiceData.id.uuidString as CKRecordValue
+                        record["text"] = voiceData.text as CKRecordValue
+                        record["createdAt"] = voiceData.createdAt as CKRecordValue
+                        record["updatedAt"] = voiceData.updatedAt as CKRecordValue
+                        record["duration"] = voiceData.duration as CKRecordValue
+                        record["fileFormat"] = voiceData.fileFormat as CKRecordValue
+                        record["samplingFrequency"] = voiceData.samplingFrequency as CKRecordValue
+                        record["quantizationBitDepth"] = voiceData.quantizationBitDepth as CKRecordValue
+                        record["numberOfChannels"] = voiceData.numberOfChannels as CKRecordValue
 
                         // CloudKitに保存
                         _ = try await database.save(record)
 
-                        // ローカルでisCloudフラグを更新
-                        voiceEntity.isCloud = true
+                        // Track successfully synced IDs
+                        syncedIds.append(voiceData.id)
 
                     } catch {
-                        AppLogger.sync.error("Error syncing voice \(voiceId) to CloudKit: \(error)")
+                        AppLogger.sync.error("Error syncing voice \(voiceData.id) to CloudKit: \(error)")
                         return false
                     }
                 }
 
-                // ローカルの変更を保存
+                // Step 3: Update isCloud flag on MainActor (re-fetch entities by ID)
+                for syncedId in syncedIds {
+                    let updateRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                    updateRequest.predicate = NSPredicate(format: "id == %@", syncedId as CVarArg)
+                    updateRequest.fetchLimit = 1
+
+                    do {
+                        if let voiceEntity = try managedContext.fetch(updateRequest).first {
+                            voiceEntity.isCloud = true
+                        }
+                    } catch {
+                        AppLogger.sync.error("Error updating isCloud for \(syncedId): \(error)")
+                    }
+                }
+
+                // Step 4: Save all changes
                 do {
                     try managedContext.save()
                     return true

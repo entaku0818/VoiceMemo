@@ -17,24 +17,15 @@ protocol VoiceMemoCoredataAccessorProtocol {
 @MainActor
 class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
 
-    let container: NSPersistentContainer
     var managedContext: NSManagedObjectContext
     var entity: NSEntityDescription?
 
     var entityName: String = "Voice"
 
     override init() {
-        container = NSPersistentContainer(name: entityName)
-        container.loadPersistentStores { _, error in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        }
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        self.managedContext = container.viewContext
-        if let localEntity = NSEntityDescription.entity(forEntityName: entityName, in: managedContext) {
-            self.entity = localEntity
-        }
+        // Use shared CoreDataStack to prevent multiple container instances
+        self.managedContext = CoreDataStack.shared.viewContext
+        self.entity = CoreDataStack.shared.voiceEntity
     }
 
     func insert(voice: VoiceMemoRepository.Voice, isCloud: Bool) {

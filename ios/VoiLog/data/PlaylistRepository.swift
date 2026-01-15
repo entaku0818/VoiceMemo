@@ -87,15 +87,10 @@ extension PlaylistRepository: TestDependencyKey {
 
 // MARK: - Live Value
 extension PlaylistRepository: DependencyKey {
+    @MainActor
     static var liveValue: Self {
-        let container = NSPersistentContainer(name: "Voice")
-        container.loadPersistentStores { _, error in
-            if let error = error {
-                fatalError("CoreData store failed to load: \(error.localizedDescription)")
-            }
-        }
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        let context = container.viewContext
+        // Use shared CoreDataStack to prevent multiple container instances
+        let context = CoreDataStack.shared.viewContext
 
         func checkVoiceExists(_ voiceId: UUID) async throws -> Bool {
             try await context.perform {
