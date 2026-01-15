@@ -1,6 +1,6 @@
-Version 1.3.0
+Version 1.3.1
 
-[Improvements]
-• Minor improvements
+[Bug Fixes]
+• Fixed an issue that caused the app to crash unexpectedly
 
 Thank you for using VoiLog!
