@@ -21,13 +21,30 @@ iOSアプリ(VoiLog)をApp Storeにリリースする手順。
 - `fastlane/metadata/ja/release_notes.txt` (日本語)
 - `fastlane/metadata/en-US/release_notes.txt` (英語)
 
-### Step 3: Xcodeでアーカイブ作成・アップロード
-1. Xcodeでプロジェクトを開く: `ios/VoiLog.xcodeproj`
-2. Scheme を `VoiLog` (Production) に変更
-3. Product → Archive を実行
-4. Archives window で「Distribute App」を選択
-5. 「App Store Connect」→「Upload」を選択
-6. アップロード完了を待つ
+### Step 3: アーカイブ作成・アップロード
+```bash
+# アーカイブ作成
+xcodebuild -project ios/VoiLog.xcodeproj -scheme VoiLog -configuration Release -archivePath build/VoiLog.xcarchive archive
+
+# ExportOptions.plist 作成
+cat > /tmp/ExportOptions.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store-connect</string>
+    <key>destination</key>
+    <string>upload</string>
+    <key>teamID</key>
+    <string>4YZQY4C47E</string>
+</dict>
+</plist>
+EOF
+
+# App Store Connect にアップロード
+xcodebuild -exportArchive -archivePath build/VoiLog.xcarchive -exportOptionsPlist /tmp/ExportOptions.plist -exportPath build/export
+```
 
 ### Step 4: Fastlaneでメタデータアップロード・審査提出
 ```bash
@@ -43,6 +60,18 @@ bundle exec fastlane upload_metadata
 ```bash
 git tag v1.x.x
 git push origin v1.x.x
+```
+
+### Step 6: GitHub Release作成
+```bash
+gh release create v1.x.x --title "v1.x.x" --latest --notes "$(cat <<'EOF'
+## iOS
+- 変更内容をここに記載
+
+## Android
+- 変更内容をここに記載
+EOF
+)"
 ```
 
 ## Environment Variables Required
