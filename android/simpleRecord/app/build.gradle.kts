@@ -13,6 +13,12 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+val admobPropertiesFile = rootProject.file("app-keys/admob.properties")
+val admobProperties = Properties()
+if (admobPropertiesFile.exists()) {
+    admobProperties.load(FileInputStream(admobPropertiesFile))
+}
+
 android {
     namespace = "com.entaku.simpleRecord"
     compileSdk = 35
@@ -37,6 +43,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // AdMob configuration from admob.properties
+        val admobAppId = admobProperties.getProperty("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
+        val appOpenAdUnitId = admobProperties.getProperty("APP_OPEN_AD_UNIT_ID", "ca-app-pub-3940256099942544/9257395921")
+        manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
+        buildConfigField("String", "APP_OPEN_AD_UNIT_ID", "\"$appOpenAdUnitId\"")
     }
 
     buildTypes {
@@ -58,6 +70,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.0"

@@ -16,8 +16,8 @@ class AppOpenAdManager private constructor(private val context: Context) {
     private var loadTime: Long = 0
 
     companion object {
-        // Test ad unit ID
-        private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/9257395921"
+        // Ad unit ID from BuildConfig (set via admob.properties)
+        private val AD_UNIT_ID = BuildConfig.APP_OPEN_AD_UNIT_ID
 
         // Display interval (show ad every 5 launches)
         private const val DISPLAY_INTERVAL = 5
