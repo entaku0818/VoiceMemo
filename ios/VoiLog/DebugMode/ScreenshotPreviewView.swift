@@ -63,8 +63,10 @@ struct ScreenshotPreviewView: View {
             MockPlaybackListView(language: selectedLanguage)
         case .backgroundRecording:
             MockBackgroundRecordingView(language: selectedLanguage)
-        case .lockScreenNotification:
-            MockLockScreenView(language: selectedLanguage)
+        case .waveformEditor:
+            MockWaveformEditorView(language: selectedLanguage)
+        case .playlist:
+            MockPlaylistView(language: selectedLanguage)
         case .shareSheet:
             MockShareSheetView(language: selectedLanguage)
         }
@@ -206,7 +208,8 @@ enum ScreenshotScreen: String, CaseIterable {
     case recordingList
     case playbackList
     case backgroundRecording
-    case lockScreenNotification
+    case waveformEditor
+    case playlist
     case shareSheet
 
     var shortName: String {
@@ -214,7 +217,8 @@ enum ScreenshotScreen: String, CaseIterable {
         case .recordingList: return "録音"
         case .playbackList: return "再生"
         case .backgroundRecording: return "BG"
-        case .lockScreenNotification: return "通知"
+        case .waveformEditor: return "編集"
+        case .playlist: return "リスト"
         case .shareSheet: return "共有"
         }
     }
@@ -266,20 +270,35 @@ enum ScreenshotScreen: String, CaseIterable {
             case .chineseSimplified: return "后台也能\n录音"
             case .chineseTraditional: return "背景也能\n錄音"
             }
-        case .lockScreenNotification:
+        case .waveformEditor:
             switch language {
-            case .english: return "Recording Time on\nLock Screen"
-            case .japanese: return "録音時間をロック\n画面で通知"
-            case .german: return "Aufnahmezeit auf\nSperrbildschirm"
-            case .spanish: return "Tiempo de Grabación\nen Pantalla de Bloqueo"
-            case .french: return "Durée d'Enregistrement\nsur Écran Verrouillé"
-            case .italian: return "Tempo di Registrazione\nsu Schermata di Blocco"
-            case .portuguese: return "Tempo de Gravação\nna Tela de Bloqueio"
-            case .russian: return "Время Записи на\nЭкране Блокировки"
-            case .turkish: return "Kilit Ekranında\nKayıt Süresi"
-            case .vietnamese: return "Thời Gian Ghi Âm\nTrên Màn Hình Khóa"
-            case .chineseSimplified: return "锁屏显示\n录音时间"
-            case .chineseTraditional: return "鎖屏顯示\n錄音時間"
+            case .english: return "Trim & Edit\nwith Waveform"
+            case .japanese: return "波形で簡単\nトリム編集"
+            case .german: return "Trimmen mit\nWellenform"
+            case .spanish: return "Recortar con\nForma de Onda"
+            case .french: return "Couper avec\nForme d'Onde"
+            case .italian: return "Taglia con\nForma d'Onda"
+            case .portuguese: return "Cortar com\nForma de Onda"
+            case .russian: return "Обрезка по\nВолновой Форме"
+            case .turkish: return "Dalga Formu ile\nKes"
+            case .vietnamese: return "Cắt với\nDạng Sóng"
+            case .chineseSimplified: return "波形剪辑\n轻松编辑"
+            case .chineseTraditional: return "波形剪輯\n輕鬆編輯"
+            }
+        case .playlist:
+            switch language {
+            case .english: return "Organize with\nPlaylists"
+            case .japanese: return "プレイリストで\n整理整頓"
+            case .german: return "Mit Playlists\nOrganisieren"
+            case .spanish: return "Organizar con\nListas de Reproducción"
+            case .french: return "Organiser avec\ndes Playlists"
+            case .italian: return "Organizza con\nPlaylist"
+            case .portuguese: return "Organize com\nPlaylists"
+            case .russian: return "Организуйте с\nПлейлистами"
+            case .turkish: return "Çalma Listeleriyle\nDüzenle"
+            case .vietnamese: return "Sắp Xếp với\nDanh Sách Phát"
+            case .chineseSimplified: return "播放列表\n轻松整理"
+            case .chineseTraditional: return "播放列表\n輕鬆整理"
             }
         case .shareSheet:
             switch language {
@@ -512,80 +531,230 @@ struct MockBackgroundRecordingView: View {
     }
 }
 
-// MARK: - Mock Lock Screen View
-struct MockLockScreenView: View {
+// MARK: - Mock Waveform Editor View
+struct MockWaveformEditorView: View {
     let language: AppLanguage
 
     var body: some View {
-        VStack(spacing: 20) {
-            // Lock Screen Mock
-            VStack(spacing: 20) {
+        VStack(spacing: 0) {
+            // Navigation Bar
+            HStack {
+                Button(action: {}) {
+                    Text("キャンセル")
+                        .foregroundColor(.blue)
+                }
+                Spacer()
+                Text("トリム")
+                    .fontWeight(.semibold)
+                Spacer()
+                Button(action: {}) {
+                    Text("保存")
+                        .foregroundColor(.blue)
+                }
+            }
+            .padding()
+
+            Spacer()
+
+            // Waveform
+            VStack(spacing: 16) {
+                // Time indicators
                 HStack {
-                    Text("docomo")
+                    Text("00:05")
                         .font(.caption)
-                        .foregroundColor(.white)
-
+                        .foregroundColor(.secondary)
                     Spacer()
-
-                    // Dynamic Island
-                    HStack {
-                        Image(systemName: "mic.fill")
-                            .foregroundColor(.orange)
-                            .font(.caption)
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(Color.black)
-                    .cornerRadius(20)
-
-                    Spacer()
-
-                    HStack(spacing: 4) {
-                        Image(systemName: "cellularbars")
-                        Image(systemName: "wifi")
-                        Text("27%")
-                            .font(.caption2)
-                    }
-                    .foregroundColor(.white)
+                    Text("01:17")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
                 .padding(.horizontal)
 
-                VStack(spacing: 4) {
-                    Text("12日 (土) ☀️ 渋谷区")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                    Text("13:39")
-                        .font(.system(size: 70, weight: .light))
-                        .foregroundColor(.white.opacity(0.9))
+                // Waveform visualization
+                HStack(alignment: .center, spacing: 2) {
+                    ForEach(0..<50, id: \.self) { index in
+                        let height = waveformHeight(for: index)
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(waveformColor(for: index))
+                            .frame(width: 4, height: height)
+                    }
                 }
+                .frame(height: 120)
+                .padding(.horizontal)
 
-                // Live Activity
+                // Selection handles
                 HStack {
-                    Text(language.recordingText)
-                        .foregroundColor(.white)
-                    Text("00:31")
-                        .foregroundColor(.red)
-                        .fontWeight(.medium)
+                    // Left handle
+                    VStack {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.white)
+                    }
+                    .frame(width: 30, height: 80)
+                    .background(Color.yellow)
+                    .cornerRadius(4)
+
+                    Spacer()
+
+                    // Right handle
+                    VStack {
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.white)
+                    }
+                    .frame(width: 30, height: 80)
+                    .background(Color.yellow)
+                    .cornerRadius(4)
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.black.opacity(0.8))
-                .cornerRadius(15)
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 40)
+
+                // Selected range
+                Text("選択範囲: 00:05 - 01:12")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 350)
-            .background(
-                LinearGradient(
-                    colors: [.blue.opacity(0.6), .blue.opacity(0.8)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-            )
-            .cornerRadius(40)
-            .padding(.horizontal, 20)
+
+            Spacer()
+
+            // Playback controls
+            HStack(spacing: 40) {
+                Image(systemName: "gobackward.10")
+                    .font(.title2)
+                Image(systemName: "play.circle.fill")
+                    .font(.system(size: 60))
+                    .foregroundColor(.blue)
+                Image(systemName: "goforward.10")
+                    .font(.title2)
+            }
+            .padding(.bottom, 30)
         }
-        .frame(height: 400)
+        .frame(height: 450)
+    }
+
+    private func waveformHeight(for index: Int) -> CGFloat {
+        let heights: [CGFloat] = [20, 35, 50, 70, 45, 80, 55, 40, 65, 90,
+                                  75, 50, 85, 60, 45, 70, 55, 80, 65, 40,
+                                  55, 75, 90, 60, 45, 35, 50, 70, 85, 55,
+                                  40, 65, 80, 50, 35, 60, 75, 45, 70, 55,
+                                  85, 60, 40, 75, 50, 65, 80, 45, 55, 35]
+        return heights[index % heights.count]
+    }
+
+    private func waveformColor(for index: Int) -> Color {
+        // Selected range (indices 5-45)
+        if index >= 5 && index <= 45 {
+            return .blue
+        }
+        return .gray.opacity(0.3)
+    }
+}
+
+// MARK: - Mock Playlist View
+struct MockPlaylistView: View {
+    let language: AppLanguage
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Navigation Bar
+            HStack {
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.blue)
+                }
+            }
+            .padding()
+
+            // Title
+            HStack {
+                Text("プレイリスト")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .padding(.horizontal)
+
+            // Playlist List
+            VStack(spacing: 12) {
+                ForEach(0..<3, id: \.self) { index in
+                    HStack {
+                        Image(systemName: "music.note.list")
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                            .frame(width: 50, height: 50)
+                            .background(Color.blue.opacity(0.1))
+                            .cornerRadius(8)
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(playlistName(for: index, language: language))
+                                .fontWeight(.medium)
+                            Text("\(3 + index * 2) 件の録音")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+
+                        Spacer()
+
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                    .background(Color(.secondarySystemBackground))
+                    .cornerRadius(12)
+                }
+            }
+            .padding()
+
+            Spacer()
+
+            // Tab bar mock
+            HStack {
+                Spacer()
+                VStack {
+                    Image(systemName: "record.circle")
+                    Text("録音")
+                        .font(.caption2)
+                }
+                Spacer()
+                VStack {
+                    Image(systemName: "play.circle")
+                    Text("再生")
+                        .font(.caption2)
+                }
+                Spacer()
+                VStack {
+                    Image(systemName: "list.bullet")
+                        .foregroundColor(.blue)
+                    Text("プレイリスト")
+                        .font(.caption2)
+                        .foregroundColor(.blue)
+                }
+                Spacer()
+                VStack {
+                    Image(systemName: "gearshape")
+                    Text("設定")
+                        .font(.caption2)
+                }
+                Spacer()
+            }
+            .padding(.vertical, 8)
+            .background(Color(.secondarySystemBackground))
+        }
+        .frame(height: 500)
+    }
+
+    private func playlistName(for index: Int, language: AppLanguage) -> String {
+        let names: [[String]] = [
+            ["Work Meetings", "仕事の会議", "Arbeitstreffen", "Reuniones de Trabajo"],
+            ["Study Notes", "勉強メモ", "Studiennotizen", "Notas de Estudio"],
+            ["Ideas", "アイデア", "Ideen", "Ideas"]
+        ]
+        let languageIndex: Int
+        switch language {
+        case .english: languageIndex = 0
+        case .japanese: languageIndex = 1
+        case .german: languageIndex = 2
+        default: languageIndex = 0
+        }
+        return names[index][min(languageIndex, names[index].count - 1)]
     }
 }
 
