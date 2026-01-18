@@ -33,12 +33,6 @@ struct ScreenshotPreviewView: View {
                 // Preview Area
                 ScrollView {
                     VStack(spacing: 16) {
-                        Text(selectedScreen.headerText(for: selectedLanguage))
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .padding(.top)
-
                         // Screen Preview
                         screenPreview
                             .frame(maxWidth: .infinity)
