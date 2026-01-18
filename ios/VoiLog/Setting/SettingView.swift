@@ -285,6 +285,9 @@ struct SettingView: View {
                         NavigationLink(destination: AdDebugView()) {
                             Text("広告テスト")
                         }
+                        NavigationLink(destination: ScreenshotPreviewView()) {
+                            Text("スクリーンショットプレビュー")
+                        }
                     }
                     #endif
                 }
