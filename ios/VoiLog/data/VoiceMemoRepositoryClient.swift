@@ -322,7 +322,23 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 }
             },
             checkForDifferences: {
-                // CloudKitからすべてのボイスを取得
+                // THREAD SAFETY FIX: Extract local data as value types (Set of UUIDs) BEFORE async operations
+                // to avoid accessing NSManagedObject after await suspension points.
+                // This prevents EXC_BAD_ACCESS crashes from garbage pointer dereferences.
+
+                // Step 1: Fetch local voice IDs as value types BEFORE any await
+                let localVoiceIds: Set<UUID>
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+
+                do {
+                    let localVoices = try managedContext.fetch(fetchRequest)
+                    localVoiceIds = Set(localVoices.compactMap { $0.id })
+                } catch {
+                    AppLogger.sync.error("Error fetching local voices: \(error)")
+                    return false
+                }
+
+                // Step 2: CloudKitからすべてのボイスを取得 (first await)
                 let query = CKQuery(recordType: "Voice", predicate: NSPredicate(value: true))
 
                 do {
@@ -361,21 +377,10 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         )
                     }
 
-                    // ローカルデータを取得
-                    var localVoices: [VoiLog.Voice] = []
-                    let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
-
-                    do {
-                        localVoices = try managedContext.fetch(fetchRequest)
-                    } catch {
-                        AppLogger.sync.error("Error fetching local voices: \(error)")
-                        return false
-                    }
-
-                    let localVoiceIds = Set(localVoices.compactMap { $0.id })
                     let cloudVoiceIds = Set(cloudVoices.map { $0.uuid })
 
-                    // CloudKitにあってローカルにないボイスをダウンロード
+                    // Step 3: CloudKitにあってローカルにないボイスをダウンロード
+                    // Using value types (localVoiceIds is Set<UUID>, not NSManagedObjects)
                     let voicesToDownload = cloudVoiceIds.subtracting(localVoiceIds)
                     for voiceId in voicesToDownload {
                         if let cloudVoice = cloudVoices.first(where: { $0.uuid == voiceId }) {
@@ -398,7 +403,8 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                                 continue
                             }
 
-                            // ローカルデータベースに追加
+                            // Step 4: ローカルデータベースに追加
+                            // This is safe because we're creating NEW managed objects, not accessing old ones
                             if let voiceEntity = NSManagedObject(entity: entity!, insertInto: managedContext) as? VoiLog.Voice {
                                 voiceEntity.title = cloudVoice.title
                                 voiceEntity.url = cloudVoice.url
@@ -416,7 +422,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         }
                     }
 
-                    // 変更を保存
+                    // Step 5: 変更を保存
                     do {
                         try managedContext.save()
                         return !voicesToDownload.isEmpty
