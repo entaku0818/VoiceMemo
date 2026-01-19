@@ -322,7 +322,23 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 }
             },
             checkForDifferences: {
-                // CloudKitからすべてのボイスを取得
+                // THREAD SAFETY FIX: Extract local voice IDs as value types BEFORE async operations
+                // to avoid accessing NSManagedObject after await suspension points.
+                // This prevents "garbage pointer" crashes (Rollbar #91).
+
+                // Step 1: Fetch local data and convert to value types BEFORE any await
+                let localVoiceIds: Set<UUID>
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+
+                do {
+                    let localVoices = try managedContext.fetch(fetchRequest)
+                    localVoiceIds = Set(localVoices.compactMap { $0.id })
+                } catch {
+                    AppLogger.sync.error("Error fetching local voices: \(error)")
+                    return false
+                }
+
+                // Step 2: Now safe to perform async CloudKit operations
                 let query = CKQuery(recordType: "Voice", predicate: NSPredicate(value: true))
 
                 do {
@@ -361,18 +377,8 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         )
                     }
 
-                    // ローカルデータを取得
-                    var localVoices: [VoiLog.Voice] = []
-                    let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
-
-                    do {
-                        localVoices = try managedContext.fetch(fetchRequest)
-                    } catch {
-                        AppLogger.sync.error("Error fetching local voices: \(error)")
-                        return false
-                    }
-
-                    let localVoiceIds = Set(localVoices.compactMap { $0.id })
+                    // localVoiceIds is already extracted as Set<UUID> before await
+                    let cloudVoiceIds = Set(cloudVoices.map { $0.uuid })
                     let cloudVoiceIds = Set(cloudVoices.map { $0.uuid })
 
                     // CloudKitにあってローカルにないボイスをダウンロード
