@@ -56,22 +56,6 @@ struct FullscreenScreenshotView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             .indexViewStyle(.page(backgroundDisplayMode: .always))
-
-            // Close button
-            VStack {
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        isPresented = false
-                    }) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title)
-                            .foregroundColor(.secondary)
-                            .padding()
-                    }
-                }
-                Spacer()
-            }
         }
         .statusBarHidden(true)
     }
