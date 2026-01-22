@@ -26,6 +26,23 @@ platform :ios do
     )
   end
 
+  # Firebase CrashlyticsへのdSYMアップロード
+  desc "Upload dSYMs to Firebase Crashlytics for crash symbolication"
+  lane :upload_dsyms do
+    # App Store ConnectからdSYMsをダウンロード
+    download_dsyms(
+      app_identifier: "com.entaku.VoiLog"
+    )
+
+    # Firebase CrashlyticsにdSYMsをアップロード
+    upload_symbols_to_crashlytics(
+      gsp_path: "ios/VoiLog/GoogleService-Info.plist"
+    )
+
+    # ダウンロードしたdSYMsをクリーンアップ
+    clean_build_artifacts
+  end
+
   # メタデータとスクリーンショットのアップロード、審査提出
   desc "Upload metadata and screenshots to App Store Connect and submit for review"
   lane :upload_metadata do

@@ -154,6 +154,8 @@ private actor AudioRecorder {
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
             UserDefaultsManager.shared.logError("Failed to set up AVAudioSession: \(error.localizedDescription)")
+            Crashlytics.crashlytics().log("AVAudioSession setup failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
     }
 
@@ -261,6 +263,8 @@ private actor AudioRecorder {
                     } catch {
                         UserDefaultsManager.shared.logError(error.localizedDescription)
                         RollbarLogger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
+                        Crashlytics.crashlytics().log("Audio file write failed: \(error.localizedDescription)")
+                        Crashlytics.crashlytics().record(error: error)
                         continuation.finish(throwing: error)
                     }
                 }
@@ -271,6 +275,8 @@ private actor AudioRecorder {
             } catch {
                 UserDefaultsManager.shared.logError(error.localizedDescription)
                 RollbarLogger.shared.logError(error.localizedDescription)
+                Crashlytics.crashlytics().log("Audio recording setup failed: \(error.localizedDescription)")
+                Crashlytics.crashlytics().record(error: error)
                 continuation.finish(throwing: error)
             }
         }
@@ -424,6 +430,8 @@ private actor AudioRecorder {
                     try AVAudioSession.sharedInstance().setActive(true)
                 } catch {
                     UserDefaultsManager.shared.logError("Failed to reactivate audio session: \(error)")
+                    Crashlytics.crashlytics().log("Audio session reactivation failed: \(error.localizedDescription)")
+                    Crashlytics.crashlytics().record(error: error)
                 }
             }
 

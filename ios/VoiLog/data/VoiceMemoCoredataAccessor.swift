@@ -2,6 +2,7 @@ import Foundation
 import Dependencies
 import CoreData
 import os.log
+import FirebaseCrashlytics
 
 @MainActor
 protocol VoiceMemoCoredataAccessorProtocol {
@@ -47,6 +48,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 try managedContext.save()
             } catch {
                 AppLogger.data.error("CoreData insert failed: \(error.localizedDescription)")
+                Crashlytics.crashlytics().log("CoreData insert failed: \(error.localizedDescription)")
+                Crashlytics.crashlytics().record(error: error)
             }
         }
     }
@@ -62,6 +65,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             memoGroups = try managedContext.fetch(fetchRequest)
         } catch {
             AppLogger.data.error("CoreData selectAllData failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().log("CoreData selectAllData failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
 
         return memoGroups.map { voiceEntity in
@@ -108,6 +113,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             }
         } catch {
             AppLogger.data.error("CoreData fetch failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().log("CoreData fetch failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
         return nil
     }
@@ -124,6 +131,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             try managedContext.save()
         } catch let error as NSError {
             AppLogger.data.error("CoreData delete failed: \(error), \(error.userInfo)")
+            Crashlytics.crashlytics().log("CoreData delete failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
     }
 
@@ -151,6 +160,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             }
         } catch {
             AppLogger.data.error("CoreData update failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().log("CoreData update failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
     }
 
@@ -169,6 +180,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             }
         } catch {
             AppLogger.data.error("CoreData updateTitle failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().log("CoreData updateTitle failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
         }
     }
 
@@ -205,6 +218,8 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             return duplicatesToDelete.count
         } catch {
             AppLogger.data.error("Error removing duplicates: \(error.localizedDescription)")
+            Crashlytics.crashlytics().log("CoreData removeDuplicates failed: \(error.localizedDescription)")
+            Crashlytics.crashlytics().record(error: error)
             return 0
         }
     }

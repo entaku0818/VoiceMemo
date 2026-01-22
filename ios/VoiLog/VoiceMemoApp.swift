@@ -31,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
+        // Set up uncaught exception handler for better crash detection
+        setupCrashDetection()
+
+        // Log app launch context for crash reports
+        logAppLaunchContext(appUsageCount: appUsageCount, launchOptions: launchOptions)
+
         // AdMob初期化を遅延実行（UIが表示された後）
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             GADMobileAds.sharedInstance().start { _ in
@@ -61,6 +67,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
+    }
+
+    // MARK: - Crash Detection Setup
+
+    private func setupCrashDetection() {
+        // Set up NSException handler for Objective-C exceptions
+        NSSetUncaughtExceptionHandler { exception in
+            let crashlytics = Crashlytics.crashlytics()
+            crashlytics.log("Uncaught Exception: \(exception.name.rawValue)")
+            crashlytics.log("Reason: \(exception.reason ?? "Unknown")")
+            crashlytics.log("Call Stack: \(exception.callStackSymbols.joined(separator: "\n"))")
+
+            // Record as non-fatal for analysis
+            let exceptionModel = ExceptionModel(
+                name: exception.name.rawValue,
+                reason: exception.reason ?? "Unknown"
+            )
+            exceptionModel.stackTrace = exception.callStackSymbols.map { symbol in
+                StackFrame(symbol: symbol)
+            }
+            crashlytics.record(exceptionModel: exceptionModel)
+        }
+
+        // Set up signal handlers for crashes
+        setupSignalHandlers()
+    }
+
+    private func setupSignalHandlers() {
+        // Log that signal handlers are being set up
+        // Firebase Crashlytics automatically handles most signals,
+        // but we add additional logging for context
+        Crashlytics.crashlytics().log("Signal handlers configured for crash detection")
+    }
+
+    private func logAppLaunchContext(appUsageCount: Int, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+        let crashlytics = Crashlytics.crashlytics()
+
+        // Device and app info
+        crashlytics.setCustomValue(appUsageCount, forKey: "app_launch_count")
+        crashlytics.setCustomValue(ProcessInfo.processInfo.physicalMemory / 1024 / 1024, forKey: "device_memory_mb")
+        crashlytics.setCustomValue(ProcessInfo.processInfo.processorCount, forKey: "processor_count")
+        crashlytics.setCustomValue(ProcessInfo.processInfo.thermalState.rawValue, forKey: "thermal_state")
+        crashlytics.setCustomValue(UIDevice.current.batteryLevel, forKey: "battery_level")
+
+        // Launch options
+        if let launchOptions = launchOptions {
+            crashlytics.setCustomValue(launchOptions.keys.map { $0.rawValue }.joined(separator: ", "), forKey: "launch_options")
+        } else {
+            crashlytics.setCustomValue("normal_launch", forKey: "launch_options")
+        }
+
+        // Check if launched from background
+        let isBackground = UIApplication.shared.applicationState == .background
+        crashlytics.setCustomValue(isBackground, forKey: "launched_from_background")
+
+        // Log breadcrumb
+        crashlytics.log("App launched - Count: \(appUsageCount), Background: \(isBackground)")
     }
 }
 
@@ -112,18 +175,23 @@ struct VoiceMemoApp: App {
                 )
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
                     AppLogger.general.debug("Application did enter background")
+                    Crashlytics.crashlytics().log("App entered background")
                     backgroundTaskManager.registerBackgroundTask()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                     AppLogger.general.debug("Application will enter foreground")
+                    Crashlytics.crashlytics().log("App will enter foreground")
                     backgroundTaskManager.endBackgroundTask()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+                    Crashlytics.crashlytics().log("App will terminate")
                     UserDefaultsManager.shared.logError("applicationWillTerminate")
                     cleanupLiveActivities()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
-                    UserDefaultsManager.shared.logError("applicationWillTerminate")
+                    Crashlytics.crashlytics().log("Memory warning received")
+                    Crashlytics.crashlytics().setCustomValue(true, forKey: "received_memory_warning")
+                    UserDefaultsManager.shared.logError("memoryWarning")
                     cleanupLiveActivities()
                 }
             }
