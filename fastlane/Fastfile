@@ -26,6 +26,48 @@ platform :ios do
     )
   end
 
+  # dSYMをFirebase Crashlyticsにアップロード
+  desc "Download dSYMs from App Store Connect and upload to Firebase Crashlytics"
+  lane :upload_dsyms do |options|
+    version = options[:version] || "latest"
+
+    UI.message("Downloading dSYMs for version: #{version}")
+
+    # App Store Connectから最新のdSYMをダウンロード
+    download_dsyms(
+      app_identifier: "com.entaku.VoiLog",
+      version: version
+    )
+
+    # Firebase Crashlyticsにアップロード
+    # Note: Firebase CLI must be installed: brew install firebase-cli
+    # Or use the upload-symbols binary from the Firebase SDK
+    upload_symbols_to_crashlytics(
+      gsp_path: "ios/VoiLog/GoogleService-Info.plist"
+    )
+
+    # ダウンロードしたdSYMファイルを削除
+    clean_build_artifacts
+
+    UI.success("dSYMs uploaded to Firebase Crashlytics successfully!")
+  end
+
+  # 特定のバージョンのdSYMをアップロード
+  desc "Upload dSYMs for a specific app version"
+  lane :upload_dsyms_for_version do |options|
+    version = options[:version]
+    UI.user_error!("Please specify a version: fastlane upload_dsyms_for_version version:1.3.1") unless version
+    upload_dsyms(version: version)
+  end
+
+  # リリース後のdSYMアップロード（App Store Connectでの処理完了後に実行）
+  desc "Upload dSYMs after App Store Connect processing is complete"
+  lane :post_release_dsyms do
+    UI.important("Note: Run this lane after App Store Connect has finished processing the build.")
+    UI.important("This typically takes 15-30 minutes after upload.")
+    upload_dsyms
+  end
+
   # メタデータとスクリーンショットのアップロード、審査提出
   desc "Upload metadata and screenshots to App Store Connect and submit for review"
   lane :upload_metadata do

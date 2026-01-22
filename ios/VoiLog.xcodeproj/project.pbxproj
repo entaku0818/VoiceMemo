@@ -212,6 +212,7 @@
 				619799DF28C34A2500169FB6 /* Frameworks */,
 				619799E028C34A2500169FB6 /* Resources */,
 				61458CE22C4B939400B7107E /* Embed Foundation Extensions */,
+				61DSYM0028F30B4700BF337E /* Upload dSYM to Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -393,6 +394,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint --fix \n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		61DSYM0028F30B4700BF337E /* Upload dSYM to Firebase Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Upload dSYM to Firebase Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Firebase Crashlytics dSYM Upload Script\n# Only upload for Release builds to avoid unnecessary uploads during development\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  echo \"Uploading dSYM to Firebase Crashlytics...\"\n  \n  # Path to the Firebase Crashlytics run script (SPM)\n  FIREBASE_SCRIPT=\"${BUILD_DIR%/Build/*}/SourcePackages/artifacts/firebase-ios-sdk/FirebaseCrashlytics/run\"\n  \n  if [ -f \"$FIREBASE_SCRIPT\" ]; then\n    \"$FIREBASE_SCRIPT\"\n    echo \"dSYM upload completed.\"\n  else\n    echo \"warning: Firebase Crashlytics run script not found at: $FIREBASE_SCRIPT\"\n    echo \"warning: dSYM will not be automatically uploaded. Use 'bundle exec fastlane upload_dsyms' manually.\"\n  fi\nelse\n  echo \"Skipping dSYM upload for ${CONFIGURATION} build.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
