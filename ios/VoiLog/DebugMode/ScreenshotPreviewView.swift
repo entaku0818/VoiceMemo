@@ -4,19 +4,7 @@ import SwiftUI
 // MARK: - Screenshot Preview Feature
 struct ScreenshotPreviewView: View {
     @State private var selectedLanguage: AppLanguage?
-
-    var body: some View {
-        if let language = selectedLanguage {
-            ScreenSelectionView(language: language)
-        } else {
-            LanguageSelectionView(selectedLanguage: $selectedLanguage)
-        }
-    }
-}
-
-// MARK: - Language Selection View
-struct LanguageSelectionView: View {
-    @Binding var selectedLanguage: AppLanguage?
+    @State private var showFullscreen = false
 
     var body: some View {
         NavigationStack {
@@ -24,6 +12,7 @@ struct LanguageSelectionView: View {
                 ForEach(AppLanguage.allCases, id: \.self) { language in
                     Button(action: {
                         selectedLanguage = language
+                        showFullscreen = true
                     }) {
                         HStack {
                             Text(language.displayName)
@@ -39,13 +28,19 @@ struct LanguageSelectionView: View {
             }
             .navigationTitle("Select Language")
             .navigationBarTitleDisplayMode(.inline)
+            .fullScreenCover(isPresented: $showFullscreen) {
+                if let language = selectedLanguage {
+                    FullscreenScreenshotView(language: language, isPresented: $showFullscreen)
+                }
+            }
         }
     }
 }
 
-// MARK: - Screen Selection View (Fullscreen with TabView)
-struct ScreenSelectionView: View {
+// MARK: - Fullscreen Screenshot View
+struct FullscreenScreenshotView: View {
     let language: AppLanguage
+    @Binding var isPresented: Bool
     @State private var selectedTab = 0
 
     var body: some View {
@@ -61,6 +56,22 @@ struct ScreenSelectionView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .always))
             .indexViewStyle(.page(backgroundDisplayMode: .always))
+
+            // Close button
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        isPresented = false
+                    }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.secondary)
+                            .padding()
+                    }
+                }
+                Spacer()
+            }
         }
         .statusBarHidden(true)
     }
