@@ -379,7 +379,6 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
 
                     // localVoiceIds is already extracted as Set<UUID> before await
                     let cloudVoiceIds = Set(cloudVoices.map { $0.uuid })
-                    let cloudVoiceIds = Set(cloudVoices.map { $0.uuid })
 
                     // CloudKitにあってローカルにないボイスをダウンロード
                     let voicesToDownload = cloudVoiceIds.subtracting(localVoiceIds)
