@@ -3,66 +3,83 @@ import SwiftUI
 #if DEBUG
 // MARK: - Screenshot Preview Feature
 struct ScreenshotPreviewView: View {
-    @State private var selectedLanguage: AppLanguage = .japanese
-    @State private var selectedScreen: ScreenshotScreen = .recordingList
+    @State private var selectedLanguage: AppLanguage?
+
+    var body: some View {
+        if let language = selectedLanguage {
+            ScreenSelectionView(language: language)
+        } else {
+            LanguageSelectionView(selectedLanguage: $selectedLanguage)
+        }
+    }
+}
+
+// MARK: - Language Selection View
+struct LanguageSelectionView: View {
+    @Binding var selectedLanguage: AppLanguage?
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Language Picker
-                Picker("Language", selection: $selectedLanguage) {
-                    ForEach(AppLanguage.allCases, id: \.self) { language in
-                        Text(language.displayName).tag(language)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding()
-
-                // Screen Picker
-                Picker("Screen", selection: $selectedScreen) {
-                    ForEach(ScreenshotScreen.allCases, id: \.self) { screen in
-                        Text(screen.shortName).tag(screen)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-
-                Divider()
-                    .padding(.vertical, 8)
-
-                // Preview Area
-                ScrollView {
-                    VStack(spacing: 16) {
-                        // Screen Preview
-                        screenPreview
-                            .frame(maxWidth: .infinity)
-                            .background(Color(.systemBackground))
-                            .cornerRadius(20)
-                            .shadow(radius: 10)
-                            .padding(.horizontal)
+            List {
+                ForEach(AppLanguage.allCases, id: \.self) { language in
+                    Button(action: {
+                        selectedLanguage = language
+                    }) {
+                        HStack {
+                            Text(language.displayName)
+                                .font(.headline)
+                            Spacer()
+                            Text(language.appTitle)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.vertical, 4)
                     }
                 }
             }
-            .navigationTitle("Screenshot Preview")
+            .navigationTitle("Select Language")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+}
+
+// MARK: - Screen Selection View (Fullscreen with TabView)
+struct ScreenSelectionView: View {
+    let language: AppLanguage
+    @State private var selectedTab = 0
+
+    var body: some View {
+        ZStack {
+            Color(.systemBackground)
+                .ignoresSafeArea()
+
+            TabView(selection: $selectedTab) {
+                ForEach(Array(ScreenshotScreen.allCases.enumerated()), id: \.element) { index, screen in
+                    screenPreview(for: screen)
+                        .tag(index)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .always))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
+        }
+        .statusBarHidden(true)
+    }
 
     @ViewBuilder
-    private var screenPreview: some View {
-        switch selectedScreen {
+    private func screenPreview(for screen: ScreenshotScreen) -> some View {
+        switch screen {
         case .recordingList:
-            MockRecordingListView(language: selectedLanguage)
+            MockRecordingListView(language: language)
         case .playbackList:
-            MockPlaybackListView(language: selectedLanguage)
+            MockPlaybackListView(language: language)
         case .backgroundRecording:
-            MockBackgroundRecordingView(language: selectedLanguage)
+            MockBackgroundRecordingView(language: language)
         case .waveformEditor:
-            MockWaveformEditorView(language: selectedLanguage)
+            MockWaveformEditorView(language: language)
         case .playlist:
-            MockPlaylistView(language: selectedLanguage)
+            MockPlaylistView(language: language)
         case .shareSheet:
-            MockShareSheetView(language: selectedLanguage)
+            MockShareSheetView(language: language)
         }
     }
 }
@@ -214,6 +231,28 @@ enum ScreenshotScreen: String, CaseIterable {
         case .waveformEditor: return "編集"
         case .playlist: return "リスト"
         case .shareSheet: return "共有"
+        }
+    }
+
+    var iconName: String {
+        switch self {
+        case .recordingList: return "record.circle.fill"
+        case .playbackList: return "play.circle.fill"
+        case .backgroundRecording: return "apps.iphone"
+        case .waveformEditor: return "waveform"
+        case .playlist: return "music.note.list"
+        case .shareSheet: return "square.and.arrow.up"
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .recordingList: return "Recording list screen"
+        case .playbackList: return "Playback list with controls"
+        case .backgroundRecording: return "Background recording demo"
+        case .waveformEditor: return "Waveform trim editor"
+        case .playlist: return "Playlist management"
+        case .shareSheet: return "Share sheet example"
         }
     }
 
@@ -371,7 +410,7 @@ struct MockRecordingListView: View {
                 .frame(width: 70, height: 70)
                 .padding(.bottom, 30)
         }
-        .frame(height: 500)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -473,7 +512,7 @@ struct MockPlaybackListView: View {
             }
             .padding()
         }
-        .frame(height: 550)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -521,7 +560,7 @@ struct MockBackgroundRecordingView: View {
             .cornerRadius(40)
             .padding(.horizontal, 20)
         }
-        .frame(height: 400)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -620,7 +659,7 @@ struct MockWaveformEditorView: View {
             }
             .padding(.bottom, 30)
         }
-        .frame(height: 450)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private func waveformHeight(for index: Int) -> CGFloat {
@@ -732,7 +771,7 @@ struct MockPlaylistView: View {
             .padding(.vertical, 8)
             .background(Color(.secondarySystemBackground))
         }
-        .frame(height: 500)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     private func playlistName(for index: Int, language: AppLanguage) -> String {
@@ -862,7 +901,7 @@ struct MockShareSheetView: View {
 
             Spacer()
         }
-        .frame(height: 550)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
