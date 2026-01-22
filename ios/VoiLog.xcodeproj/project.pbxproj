@@ -212,6 +212,7 @@
 				619799DF28C34A2500169FB6 /* Frameworks */,
 				619799E028C34A2500169FB6 /* Resources */,
 				61458CE22C4B939400B7107E /* Embed Foundation Extensions */,
+				61DSYM0128F30B4700BF337E /* Upload dSYM to Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -393,6 +394,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint --fix \n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		61DSYM0128F30B4700BF337E /* Upload dSYM to Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Upload dSYM to Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Skip for Debug builds\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  echo \"Skipping dSYM upload for Debug build\"\n  exit 0\nfi\n\n# Find and run Firebase Crashlytics upload script\nSCRIPT_PATH=\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n\nif [ -f \"$SCRIPT_PATH\" ]; then\n  \"$SCRIPT_PATH\"\nelse\n  echo \"warning: Firebase Crashlytics run script not found at $SCRIPT_PATH\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
