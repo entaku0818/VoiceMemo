@@ -40,28 +40,39 @@ struct FullscreenScreenshotView: View {
     let language: AppLanguage
     let onDismiss: () -> Void
     @State private var selectedTab = 0
+    @State private var dragOffset: CGFloat = 0
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            TabView(selection: $selectedTab) {
-                ForEach(Array(ScreenshotScreen.allCases.enumerated()), id: \.element) { index, screen in
-                    screenPreview(for: screen)
-                        .tag(index)
-                }
+        TabView(selection: $selectedTab) {
+            ForEach(Array(ScreenshotScreen.allCases.enumerated()), id: \.element) { index, screen in
+                screenPreview(for: screen)
+                    .tag(index)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .statusBarHidden(true)
-
-            // Close Button
-            Button(action: onDismiss) {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 32))
-                    .foregroundColor(.white)
-                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
-            }
-            .padding()
         }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .statusBarHidden(false)
+        .offset(y: dragOffset)
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    // Only allow downward swipe
+                    if value.translation.height > 0 {
+                        dragOffset = value.translation.height
+                    }
+                }
+                .onEnded { value in
+                    // Dismiss if swiped down more than 150 points
+                    if value.translation.height > 150 {
+                        onDismiss()
+                    } else {
+                        // Reset offset with animation
+                        withAnimation(.spring()) {
+                            dragOffset = 0
+                        }
+                    }
+                }
+        )
     }
 
     @ViewBuilder
