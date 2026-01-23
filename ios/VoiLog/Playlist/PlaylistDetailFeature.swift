@@ -13,6 +13,44 @@ import OSLog
 // MARK: - Feature
 @Reducer
 struct PlaylistDetailFeature {
+    // MARK: - VoiceMemo Model
+    struct VoiceMemo: Identifiable, Equatable {
+        var id: UUID
+        var title: String
+        var date: Date
+        var duration: TimeInterval
+        var url: URL
+        var text: String
+        var fileFormat: String
+        var samplingFrequency: Double
+        var quantizationBitDepth: Int
+        var numberOfChannels: Int
+
+        init(
+            id: UUID,
+            title: String,
+            date: Date,
+            duration: TimeInterval,
+            url: URL,
+            text: String = "",
+            fileFormat: String = "",
+            samplingFrequency: Double = 44100.0,
+            quantizationBitDepth: Int = 16,
+            numberOfChannels: Int = 2
+        ) {
+            self.id = id
+            self.title = title
+            self.date = date
+            self.duration = duration
+            self.url = url
+            self.text = text
+            self.fileFormat = fileFormat
+            self.samplingFrequency = samplingFrequency
+            self.quantizationBitDepth = quantizationBitDepth
+            self.numberOfChannels = numberOfChannels
+        }
+    }
+
     enum PlaylistError: Error, Equatable {
         case notFound
         case networkError(String)
@@ -48,6 +86,12 @@ struct PlaylistDetailFeature {
         }
     }
 
+    enum PlaybackState: Equatable {
+        case idle
+        case playing
+        case paused
+    }
+
     @ObservableState
     struct State: Equatable {
         let id: UUID
@@ -59,10 +103,10 @@ struct PlaylistDetailFeature {
         var error: String?
         var isEditingName = false
         var editingName: String = ""
-        var voiceMemos: IdentifiedArrayOf<VoiceMemoReducer.State> = []
+        var voiceMemos: IdentifiedArrayOf<VoiceMemo> = []
         var isShowingVoiceSelection = false
-        var isPlaying = false
-        var currentPlayingId: VoiceMemoReducer.State.ID?
+        var playbackState: PlaybackState = .idle
+        var currentPlayingId: URL?
         var currentTime: TimeInterval = 0
         var playbackSpeed: AudioPlayerClient.PlaybackSpeed = .normal
         var hasPurchasedPremium = false
@@ -86,11 +130,12 @@ struct PlaylistDetailFeature {
         case nameUpdateFailed(PlaylistError)
         case voiceRemoved(PlaylistDetail)
         case voiceRemovalFailed(PlaylistError)
-        case voiceMemosLoaded([VoiceMemoReducer.State])
+        case voiceMemosLoaded([VoiceMemo])
         case voiceMemosLoadFailed(PlaylistError)
         case voiceAddedToPlaylist(PlaylistDetail)
         case voiceAddFailedToPlaylist(PlaylistError)
-        case voiceMemos(id: VoiceMemoReducer.State.ID, action: VoiceMemoReducer.Action)
+        case playbackTimeUpdated(TimeInterval)
+        case playbackFinished
         case view(View)
 
         enum View: Equatable {
@@ -104,71 +149,18 @@ struct PlaylistDetailFeature {
             case hideVoiceSelectionSheet
             case addVoiceToPlaylist(UUID)
             case playButtonTapped(UUID)
+            case stopButtonTapped
         }
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
     @Dependency(\.voiceMemoCoredataAccessor) var voiceMemoAccessor
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.audioPlayer) var audioPlayer
 
-    private enum CancelID { case player }
+    private enum CancelID { case playback }
 
     private let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "com.voilog", category: "PlaylistDetail")
-
-    private func handleVoiceMemoDelegate(
-           state: inout State,
-           id: VoiceMemoReducer.State.ID,
-           delegateAction: VoiceMemoReducer.Action.Delegate
-       ) -> Effect<Action> {
-           switch delegateAction {
-           case .playbackFailed:
-               logger.error("Playback Failed - ID: \(id.description)")
-               state.error = "再生に失敗しました"
-               state.isPlaying = false
-               state.currentPlayingId = nil
-               return .none
-
-           case .playbackStarted:
-               logger.debug("Playback Started - ID: \(id.description)")
-               state.currentPlayingId = id
-               state.isPlaying = true
-               resetOtherMemos(state: &state, exceptId: id)
-               return .none
-
-           case let .playbackInProgress(currentTime):
-               logger.debug("Playback Progress - ID: \(id.description), Time: \(currentTime)")
-               if let index = state.voiceMemos.index(id: id) {
-                   state.voiceMemos[index].time = currentTime
-               }
-               return .none
-
-           case .playbackComplete:
-               logger.debug("Playback Complete - ID: \(id.description)")
-               if let currentId = state.currentPlayingId,
-                  let currentIndex = state.voiceMemos.index(id: currentId) {
-                   if currentIndex > 0 {  // 前の音声に移動
-                       let nextMemoId = state.voiceMemos[currentIndex - 1].id
-                       state.currentPlayingId = nextMemoId
-                       return .send(.voiceMemos(id: nextMemoId, action: .playButtonTapped))
-                   } else {
-                       logger.debug("Reached beginning of playlist")
-                       state.isPlaying = false
-                       state.currentPlayingId = nil
-                       if let index = state.voiceMemos.index(id: currentId) {
-                           state.voiceMemos[index].time = 0
-                       }
-                   }
-               }
-               return .none
-           }
-       }
-
-    private func resetOtherMemos(state: inout State, exceptId: VoiceMemoReducer.State.ID) {
-        for memoID in state.voiceMemos.ids where memoID != exceptId {
-            state.voiceMemos[id: memoID]?.mode = .notPlaying
-            state.voiceMemos[id: memoID]?.time = 0
-        }
-    }
 
     var body: some ReducerOf<Self> {
         BindingReducer()
@@ -235,31 +227,24 @@ struct PlaylistDetailFeature {
 
                 case .loadVoiceMemos:
                     return .run { send in
-                        do {
-                            let voiceData = await MainActor.run {
-                                voiceMemoAccessor.selectAllData()
-                            }
-                            let voices = voiceData.map { voice in
-                                VoiceMemoReducer.State(
-                                    uuid: voice.id,
-                                    date: voice.createdAt,
-                                    duration: voice.duration,
-                                    time: 0,
-                                    mode: .notPlaying,
-                                    title: voice.title,
-                                    url: voice.url,
-                                    text: voice.text,
-                                    fileFormat: voice.fileFormat,
-                                    samplingFrequency: voice.samplingFrequency,
-                                    quantizationBitDepth: Int(voice.quantizationBitDepth),
-                                    numberOfChannels: Int(voice.numberOfChannels),
-                                    hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
-                                )
-                            }
-                            await send(.voiceMemosLoaded(voices))
-                        } catch {
-                            await send(.voiceMemosLoadFailed(PlaylistError.from(error)))
+                        let voiceData = await MainActor.run {
+                            voiceMemoAccessor.selectAllData()
                         }
+                        let voices = voiceData.map { voice in
+                            VoiceMemo(
+                                id: voice.id,
+                                title: voice.title,
+                                date: voice.createdAt,
+                                duration: voice.duration,
+                                url: voice.url,
+                                text: voice.text,
+                                fileFormat: voice.fileFormat,
+                                samplingFrequency: voice.samplingFrequency,
+                                quantizationBitDepth: Int(voice.quantizationBitDepth),
+                                numberOfChannels: Int(voice.numberOfChannels)
+                            )
+                        }
+                        await send(.voiceMemosLoaded(voices))
                     }
 
                 case .showVoiceSelectionSheet:
@@ -284,14 +269,36 @@ struct PlaylistDetailFeature {
                     }
 
                 case let .playButtonTapped(voiceId):
-                    guard let voice = state.voices.first(where: { $0.id == voiceId }) else {
-                        return .none
+                    // 同じ音声が選択された場合は停止、異なる場合は再生開始
+                    if let currentId = state.currentPlayingId,
+                       state.voices.first(where: { $0.id == voiceId })?.url == currentId {
+                        // 停止
+                        state.playbackState = .idle
+                        state.currentPlayingId = nil
+                        state.currentTime = 0
+                        return .run { _ in
+                            try await audioPlayer.stop()
+                        }
+                        .cancellable(id: CancelID.playback, cancelInFlight: true)
+                    } else {
+                        // 新しい音声を再生
+                        guard let voice = state.voices.first(where: { $0.id == voiceId }) else {
+                            return .none
+                        }
+                        state.playbackState = .playing
+                        state.currentPlayingId = voice.url
+                        state.currentTime = 0
+                        return startPlayback(url: voice.url)
                     }
 
-                    if state.voiceMemos[id: voice.url] != nil {
-                        return .send(.voiceMemos(id: voice.url, action: .playButtonTapped))
+                case .stopButtonTapped:
+                    state.playbackState = .idle
+                    state.currentPlayingId = nil
+                    state.currentTime = 0
+                    return .run { _ in
+                        try await audioPlayer.stop()
                     }
-                    return .none
+                    .cancellable(id: CancelID.playback, cancelInFlight: true)
                 }
 
             case let .dataLoaded(detail):
@@ -331,25 +338,7 @@ struct PlaylistDetailFeature {
                 return .none
 
             case let .voiceMemosLoaded(voices):
-                state.voiceMemos = IdentifiedArray(
-                    uniqueElements: voices.map { voice in
-                        VoiceMemoReducer.State(
-                            uuid: voice.uuid,
-                            date: voice.date,
-                            duration: voice.duration,
-                            time: 0,
-                            mode: .notPlaying,
-                            title: voice.title,
-                            url: voice.url,
-                            text: voice.text,
-                            fileFormat: voice.fileFormat,
-                            samplingFrequency: voice.samplingFrequency,
-                            quantizationBitDepth: voice.quantizationBitDepth,
-                            numberOfChannels: voice.numberOfChannels,
-                            hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
-                        )
-                    }
-                )
+                state.voiceMemos = IdentifiedArray(uniqueElements: voices)
                 return .none
 
             case let .voiceMemosLoadFailed(error):
@@ -366,18 +355,56 @@ struct PlaylistDetailFeature {
                 state.error = error.localizedDescription
                 return .none
 
-            case .voiceMemos(id: let id, action: let action):
-                switch action {
-                case let .delegate(delegateAction):
-                    logger.debug("\(id.absoluteString)")
-                    return handleVoiceMemoDelegate(state: &state, id: id, delegateAction: delegateAction)
-                default:
+            case let .playbackTimeUpdated(time):
+                state.currentTime = time
+                return .none
+
+            case .playbackFinished:
+                // プレイリストの次の音声を自動再生
+                if let currentId = state.currentPlayingId,
+                   let currentIndex = state.voices.firstIndex(where: { $0.url == currentId }),
+                   currentIndex > 0 {
+                    let nextVoice = state.voices[currentIndex - 1]
+                    state.currentPlayingId = nextVoice.url
+                    state.currentTime = 0
+                    return startPlayback(url: nextVoice.url)
+                } else {
+                    // プレイリストの最初に到達したら停止
+                    state.playbackState = .idle
+                    state.currentPlayingId = nil
+                    state.currentTime = 0
                     return .none
                 }
             }
         }
-        .forEach(\.voiceMemos, action: /Action.voiceMemos) {
-            VoiceMemoReducer()
+    }
+
+    private func startPlayback(url: URL) -> Effect<Action> {
+        .run { send in
+            // 音声再生開始
+            async let playback: Void = {
+                do {
+                    _ = try await audioPlayer.play(url, 0, .normal, false)
+                    await send(.playbackFinished)
+                } catch {
+                    await send(.playbackFinished)
+                }
+            }()
+
+            // 再生時間の更新
+            async let timeUpdates: Void = {
+                for await _ in clock.timer(interval: .milliseconds(100)) {
+                    do {
+                        let currentTime = try await audioPlayer.getCurrentTime()
+                        await send(.playbackTimeUpdated(currentTime))
+                    } catch {
+                        break
+                    }
+                }
+            }()
+
+            _ = await (playback, timeUpdates)
         }
+        .cancellable(id: CancelID.playback, cancelInFlight: true)
     }
 }

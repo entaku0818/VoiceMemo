@@ -122,7 +122,7 @@ struct VoiceSelectionSheet: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(store.voiceMemos, id: \.uuid) { voice in
+                ForEach(store.voiceMemos) { voice in
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(voice.title)
@@ -144,9 +144,9 @@ struct VoiceSelectionSheet: View {
 
                         Spacer()
 
-                        if !voices.contains(where: { $0.id == voice.uuid }) {
+                        if !voices.contains(where: { $0.id == voice.id }) {
                             Button {
-                                store.send(.view(.addVoiceToPlaylist(voice.uuid)))
+                                store.send(.view(.addVoiceToPlaylist(voice.id)))
                             } label: {
                                 Image(systemName: "plus.circle.fill")
                                     .foregroundColor(.blue)
@@ -178,19 +178,67 @@ struct VoiceSelectionSheet: View {
 struct CurrentPlayingSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
+    private func formatDuration(_ duration: TimeInterval) -> String {
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        return String(format: "%d:%02d", minutes, seconds)
+    }
+
     var body: some View {
-        VStack {
+        VStack(spacing: 8) {
             if let currentId = store.currentPlayingId,
                let currentVoice = store.voices.first(where: { $0.url == currentId }) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(currentVoice.title)
+                            .font(.headline)
+                            .lineLimit(1)
+                        Text(currentVoice.createdAt.formatted(date: .abbreviated, time: .shortened))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
 
-                if let voiceMemo = store.voiceMemos[id: currentVoice.url] {
-                    // クロージャベースのスコープを使用
-                    let memoStore = store.scope(
-                        state: { _ in voiceMemo },
-                        action: { PlaylistDetailFeature.Action.voiceMemos(id: currentVoice.url, action: $0) }
-                    )
-                    PlayerView(store: memoStore)
+                    Spacer()
+
+                    Button {
+                        store.send(.view(.stopButtonTapped))
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.secondary)
+                    }
                 }
+                .padding(.horizontal)
+
+                VStack(spacing: 4) {
+                    ProgressView(value: store.currentTime, total: currentVoice.duration)
+                        .progressViewStyle(LinearProgressViewStyle(tint: .accentColor))
+
+                    HStack {
+                        Text(formatDuration(store.currentTime))
+                            .font(.caption)
+                            .monospacedDigit()
+
+                        Spacer()
+
+                        Text(formatDuration(currentVoice.duration))
+                            .font(.caption)
+                            .monospacedDigit()
+                    }
+                    .foregroundColor(.secondary)
+                }
+                .padding(.horizontal)
+
+                HStack(spacing: 32) {
+                    Button {
+                        store.send(.view(.playButtonTapped(currentVoice.id)))
+                    } label: {
+                        Image(systemName: store.playbackState == .playing ? "pause.circle.fill" : "play.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.accentColor)
+                    }
+                }
+                .padding(.bottom, 8)
             } else {
                 HStack {
                     Text("再生していません")
@@ -332,24 +380,22 @@ struct PlaylistDetailView: View {
             createdAt: Date(),
             updatedAt: Date(),
             voiceMemos: IdentifiedArrayOf(uniqueElements: [
-                .init(
-                    uuid: voiceId,
+                PlaylistDetailFeature.VoiceMemo(
+                    id: voiceId,
+                    title: "テスト音声1",
                     date: Date(),
                     duration: 60.0,
-                    time: 30.0,
-                    mode: .playing(progress: 0.5),
-                    title: "テスト音声1",
                     url: url,
                     text: "テストテキスト1",
                     fileFormat: "m4a",
                     samplingFrequency: 44100,
                     quantizationBitDepth: 16,
-                    numberOfChannels: 1,
-                    hasPurchasedPremium: false
+                    numberOfChannels: 1
                 )
             ]),
-            isPlaying: true,
-            currentPlayingId: url
+            playbackState: .playing,
+            currentPlayingId: url,
+            currentTime: 30.0
         )
     ) {
         PlaylistDetailFeature()
@@ -359,7 +405,7 @@ struct PlaylistDetailView: View {
     return PlaylistDetailView(store: store, admobUnitId: "")
 }
 
-#Preview {
+#Preview("現在再生中セクション") {
     let urlId = UUID()
     let url = URL(string: "file://test1.m4a")!
     let store = Store(
@@ -385,24 +431,22 @@ struct PlaylistDetailView: View {
             createdAt: Date(),
             updatedAt: Date(),
             voiceMemos: IdentifiedArrayOf(uniqueElements: [
-                .init(
-                    uuid: urlId,
+                PlaylistDetailFeature.VoiceMemo(
+                    id: urlId,
+                    title: "テスト音声1",
                     date: Date(),
                     duration: 60.0,
-                    time: 30.0,
-                    mode: .playing(progress: 0.5),
-                    title: "テスト音声1",
                     url: url,
                     text: "テストテキスト1",
                     fileFormat: "m4a",
                     samplingFrequency: 44100,
                     quantizationBitDepth: 16,
-                    numberOfChannels: 1,
-                    hasPurchasedPremium: false
+                    numberOfChannels: 1
                 )
             ]),
-            isPlaying: true,
-            currentPlayingId: url
+            playbackState: .playing,
+            currentPlayingId: url,
+            currentTime: 30.0
         )
     ) {
         PlaylistDetailFeature()
