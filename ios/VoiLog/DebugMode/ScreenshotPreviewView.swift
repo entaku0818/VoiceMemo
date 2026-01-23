@@ -435,63 +435,121 @@ enum ScreenshotScreen: String, CaseIterable {
     case shareSheet
 }
 
-// MARK: - Mock Recording List View
+// MARK: - Mock Recording View
 struct MockRecordingListView: View {
     let language: AppLanguage
+    @State private var isRecording = true
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Navigation Bar
-            HStack {
-                Text(language.editText)
-                    .foregroundColor(.blue)
-                Spacer()
-                Image(systemName: "gearshape")
-                    .foregroundColor(.blue)
-            }
-            .padding()
+        NavigationStack {
+            VStack(spacing: 24) {
+                // Recording Status and Timer
+                VStack(spacing: 16) {
+                    VStack(spacing: 8) {
+                        Text(isRecording ? language.recordingText : "録音準備完了")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(isRecording ? .red : .primary)
 
-            // Title
-            HStack {
-                Text(language.appTitle)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.horizontal)
-
-            // Recording List
-            VStack(spacing: 0) {
-                ForEach(0..<2) { index in
-                    HStack {
-                        Text(language.sampleRecordingTitle(index))
-                        Spacer()
-                        Text(index == 0 ? "01:17" : "01:08")
-                            .foregroundColor(.secondary)
-                        Image(systemName: "play.circle")
-                            .foregroundColor(.blue)
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.secondary)
+                        Text(isRecording ? "00:05:23" : "00:00")
+                            .font(.title.monospacedDigit())
+                            .fontWeight(.bold)
                     }
-                    .padding()
+                }
 
-                    if index < 1 {
-                        Divider()
-                            .padding(.leading)
+                // Audio Level Visualization (only when recording)
+                if isRecording {
+                    VStack(spacing: 12) {
+                        // Audio Level Meter
+                        GeometryReader { geometry in
+                            HStack(spacing: 0) {
+                                Rectangle()
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [.green, .yellow, .orange, .red],
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        )
+                                    )
+                                    .frame(width: geometry.size.width * 0.7)
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.2))
+                            }
+                        }
+                        .frame(height: 20)
+                        .cornerRadius(10)
+                    }
+                    .padding(.horizontal)
+                }
+
+                // Transcription (only when recording)
+                if isRecording {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("音声認識結果")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+
+                        ScrollView {
+                            Text("こんにちは、今日は天気が良いですね。録音のテストをしています。")
+                                .font(.body)
+                                .padding()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(12)
+                        }
+                        .frame(maxHeight: 120)
+                    }
+                    .padding(.horizontal)
+                }
+
+                Spacer()
+
+                // Control Buttons
+                HStack(spacing: 32) {
+                    if isRecording {
+                        // Stop Button
+                        Button(action: {}) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color(.systemGray))
+                                    .frame(width: 70, height: 70)
+
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color.red)
+                                    .frame(width: 25, height: 25)
+                            }
+                        }
+
+                        // Pause Button
+                        Button(action: {}) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color(.systemGray2))
+                                    .frame(width: 60, height: 60)
+
+                                Image(systemName: "pause.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    } else {
+                        // Record Button
+                        Button(action: {}) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.red)
+                                    .frame(width: 80, height: 80)
+
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 30, height: 30)
+                            }
+                        }
                     }
                 }
             }
-            .background(Color(.secondarySystemBackground))
-            .cornerRadius(10)
             .padding()
-
-            Spacer()
-
-            // Record Button
-            Circle()
-                .fill(Color.red)
-                .frame(width: 70, height: 70)
-                .padding(.bottom, 30)
+            .navigationTitle("録音")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
@@ -503,121 +561,167 @@ struct MockPlaybackListView: View {
     let language: AppLanguage
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Navigation Bar
-            HStack {
-                Text(language.playbackText)
-                    .foregroundColor(.blue)
-                    .font(.body)
-                Spacer()
-                Image(systemName: "icloud.and.arrow.up")
-                    .foregroundColor(.blue)
-                    .font(.title3)
-                Image(systemName: "gearshape")
-                    .foregroundColor(.blue)
-                    .font(.title3)
-            }
-            .padding()
-
-            // Title
-            HStack {
-                Text(language.appTitle)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.horizontal)
-            .padding(.bottom, 8)
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Title
+                HStack {
+                    Text(language.appTitle)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+                .padding(.bottom, 8)
 
             // Recording List
-            ScrollView {
-                VStack(spacing: 0) {
-                    ForEach(0..<4) { index in
-                        HStack(alignment: .center, spacing: 12) {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(language.untitled)
-                                    .font(.body)
-                                    .fontWeight(.medium)
-                                Text("2024/08/17 11:\(10 + index)")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                Text("WAV  44.1 kHz/16bit/1ch")
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-                            Text("00:\(String(format: "%02d", 3 + index * 2))")
-                                .font(.body)
-                                .foregroundColor(.secondary)
-                            Image(systemName: "play.circle")
+            List {
+                ForEach(0..<5) { index in
+                    HStack(spacing: 12) {
+                        // Play Button
+                        Button(action: {}) {
+                            Image(systemName: index == 0 ? "pause.circle.fill" : "play.circle")
                                 .font(.title2)
-                                .foregroundColor(.blue)
-                            Image(systemName: "chevron.right")
+                                .foregroundColor(index == 0 ? .red : .blue)
+                                .frame(width: 30, height: 30)
+                        }
+                        .buttonStyle(.plain)
+
+                        // Memo Info
+                        VStack(alignment: .leading, spacing: 6) {
+                            // 1行目: タイトル + 時間長
+                            HStack {
+                                HStack(spacing: 4) {
+                                    Text(index == 0 ? language.sampleRecordingTitle(0) : language.untitled)
+                                        .font(.headline)
+                                        .lineLimit(1)
+
+                                    Button {} label: {
+                                        Image(systemName: "pencil")
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    .buttonStyle(.plain)
+                                }
+
+                                Spacer()
+
+                                Text(String(format: "%d:%02d", index + 1, (index * 15) % 60))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                    .monospacedDigit()
+                            }
+
+                            // 2行目: 日時 + メニュー
+                            HStack(spacing: 8) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text("2024/08/17 11:\(10 + index)")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+
+                                    if index == 0 {
+                                        Text("家族との会話を録音しました")
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                            .lineLimit(1)
+                                    }
+                                }
+
+                                Spacer()
+
+                                Menu {
+                                    Button(action: {}) {
+                                        Label("共有", systemImage: "square.and.arrow.up")
+                                    }
+                                } label: {
+                                    Image(systemName: "ellipsis.circle")
+                                        .font(.title3)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+
+                            // Progress Bar (for playing item)
+                            if index == 0 {
+                                ProgressView(value: 0.3)
+                                    .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                            }
+                        }
+                    }
+                    .padding(.vertical, 6)
+                }
+            }
+            .listStyle(.plain)
+
+            // Playback Controls (bottom player)
+            VStack(spacing: 0) {
+                Divider()
+
+                VStack(spacing: 8) {
+                    // Title and Close
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(language.sampleRecordingTitle(0))
+                                .font(.headline)
+                                .lineLimit(1)
+                            Text("2024/08/17 11:10")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 12)
 
-                        if index < 3 {
-                            Divider()
-                                .padding(.leading, 16)
+                        Spacer()
+
+                        Button(action: {}) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.horizontal)
+
+                    // Progress and time
+                    VStack(spacing: 4) {
+                        ProgressView(value: 0.3)
+                            .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+
+                        HStack {
+                            Text("0:18")
+                                .font(.caption)
+                                .monospacedDigit()
+
+                            Spacer()
+
+                            Text("1:17")
+                                .font(.caption)
+                                .monospacedDigit()
+                        }
+                        .foregroundColor(.secondary)
+                    }
+                    .padding(.horizontal)
+
+                    // Playback controls
+                    HStack(spacing: 32) {
+                        Button(action: {}) {
+                            Image(systemName: "pause.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .padding(.bottom, 8)
+                }
+                .padding(.vertical)
+                .background(Color(.systemBackground))
+            }
+            }
+            .navigationTitle("録音ファイル")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    HStack(spacing: 12) {
+                        Button(action: {}) {
+                            Image(systemName: "icloud.and.arrow.up")
                         }
                     }
                 }
             }
-
-            Spacer()
-
-            // Playback Controls
-            VStack(spacing: 12) {
-                Text(language.untitled)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-
-                HStack(spacing: 8) {
-                    Text("00:01")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .monospacedDigit()
-                    ProgressView(value: 0.05)
-                        .tint(.blue)
-                    Text("00:20")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .monospacedDigit()
-                }
-                .padding(.horizontal, 20)
-
-                HStack(spacing: 40) {
-                    Text(language.speedStandard)
-                        .font(.caption)
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 8)
-                        .background(Color(.systemGray5))
-                        .cornerRadius(16)
-
-                    Image(systemName: "gobackward.10")
-                        .font(.title2)
-
-                    ZStack {
-                        Circle()
-                            .fill(Color.blue)
-                            .frame(width: 64, height: 64)
-                        Image(systemName: "play.fill")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                    }
-
-                    Image(systemName: "goforward.10")
-                        .font(.title2)
-
-                    Image(systemName: "repeat")
-                        .font(.title3)
-                }
-            }
-            .padding(.horizontal)
-            .padding(.bottom, 50)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
@@ -629,47 +733,94 @@ struct MockBackgroundRecordingView: View {
     let language: AppLanguage
 
     var body: some View {
-        VStack(spacing: 30) {
-            // Dynamic Island Mock
-            HStack {
-                Image(systemName: "mic.fill")
-                    .foregroundColor(.orange)
-                Spacer()
-            }
-            .padding()
-            .frame(width: 200, height: 50)
-            .background(Color.black)
-            .cornerRadius(25)
-
-            // Lock Screen Mock
-            VStack(spacing: 20) {
-                Text("docomo")
-                    .font(.caption)
-                    .foregroundColor(.white)
-
-                VStack(spacing: 4) {
-                    Text("12日 (土) ☀️ 渋谷区")
-                        .font(.caption)
-                        .foregroundColor(.white.opacity(0.8))
-                    Text("13:39")
-                        .font(.system(size: 70, weight: .light))
-                        .foregroundColor(.white.opacity(0.9))
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 250)
-            .background(
-                LinearGradient(
-                    colors: [.blue.opacity(0.6), .blue.opacity(0.8)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+        ZStack {
+            // Lock Screen Background
+            LinearGradient(
+                colors: [Color(red: 0.1, green: 0.1, blue: 0.15), Color(red: 0.05, green: 0.05, blue: 0.1)],
+                startPoint: .top,
+                endPoint: .bottom
             )
-            .cornerRadius(40)
-            .padding(.horizontal, 20)
+            .ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                // Status Bar Area
+                HStack {
+                    Text("9:41")
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.white)
+                    Spacer()
+                    Image(systemName: "wifi")
+                        .foregroundColor(.white)
+                    Image(systemName: "battery.100")
+                        .foregroundColor(.white)
+                }
+                .padding(.horizontal)
+                .padding(.top, 8)
+
+                Spacer()
+
+                // Date and Time
+                VStack(spacing: 8) {
+                    Text("金曜日 1月 24日")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.white)
+
+                    Text("9:41")
+                        .font(.system(size: 76, weight: .thin))
+                        .foregroundColor(.white)
+                }
+
+                Spacer()
+
+                // Live Activity - Recording
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        // Recording indicator
+                        ZStack {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 40, height: 40)
+                            Image(systemName: "waveform")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18))
+                        }
+
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(language.appTitle)
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.white)
+                            Text("00:05:23")
+                                .font(.system(size: 13, weight: .medium))
+                                .foregroundColor(.white.opacity(0.7))
+                                .monospacedDigit()
+                        }
+
+                        Spacer()
+
+                        // Audio level
+                        HStack(spacing: 2) {
+                            ForEach(0..<8, id: \.self) { index in
+                                RoundedRectangle(cornerRadius: 1)
+                                    .fill(Color.green.opacity(index < 6 ? 1.0 : 0.3))
+                                    .frame(width: 3, height: CGFloat(4 + index * 2))
+                            }
+                        }
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color.black.opacity(0.6))
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(.ultraThinMaterial)
+                            )
+                    )
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 40)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemBackground))
     }
 }
 
@@ -679,94 +830,134 @@ struct MockWaveformEditorView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Navigation Bar
+            // Header
             HStack {
-                Button(action: {}) {
-                    Text(language.cancel)
-                        .foregroundColor(.blue)
-                }
+                Button(language.cancel) {}
+                    .foregroundColor(.red)
+                    .frame(width: 80, alignment: .leading)
+
                 Spacer()
-                Text(language.trim)
-                    .fontWeight(.semibold)
+
+                Text("音声編集")
+                    .font(.headline)
+
                 Spacer()
-                Button(action: {}) {
-                    Text(language.save)
-                        .foregroundColor(.blue)
-                }
+
+                Button(language.save) {}
+                    .frame(width: 80, alignment: .trailing)
             }
             .padding()
+            .background(Color(.systemBackground))
 
-            Spacer()
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Waveform Display
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.blue.opacity(0.05), Color.purple.opacity(0.05)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
+                            )
 
-            // Waveform
-            VStack(spacing: 16) {
-                // Time indicators
-                HStack {
-                    Text("00:05")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("01:17")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.horizontal)
-
-                // Waveform visualization
-                HStack(alignment: .center, spacing: 2) {
-                    ForEach(0..<50, id: \.self) { index in
-                        let height = waveformHeight(for: index)
-                        RoundedRectangle(cornerRadius: 2)
-                            .fill(waveformColor(for: index))
-                            .frame(width: 4, height: height)
+                        // Waveform bars
+                        HStack(alignment: .center, spacing: 1) {
+                            ForEach(0..<80, id: \.self) { index in
+                                let height = waveformHeight(for: index)
+                                RoundedRectangle(cornerRadius: 1)
+                                    .fill(waveformColor(for: index))
+                                    .frame(width: 2, height: height)
+                            }
+                        }
+                        .padding(10)
                     }
-                }
-                .frame(height: 120)
-                .padding(.horizontal)
+                    .frame(height: 150)
+                    .padding()
 
-                // Selection handles
-                HStack {
-                    // Left handle
-                    VStack {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
+                    // Time Display
+                    HStack {
+                        ZStack {
+                            Capsule()
+                                .fill(Color.blue.opacity(0.1))
+                                .frame(height: 30)
+                            Text("00:05 / 01:17")
+                                .font(.caption.monospacedDigit())
+                                .foregroundColor(.blue)
+                        }
+                        .frame(width: 120)
                     }
-                    .frame(width: 30, height: 80)
-                    .background(Color.yellow)
-                    .cornerRadius(4)
 
-                    Spacer()
+                    // Playback Controls
+                    HStack(spacing: 32) {
+                        Button(action: {}) {
+                            Image(systemName: "gobackward.10")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
 
-                    // Right handle
-                    VStack {
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.white)
+                        Button(action: {}) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.blue)
+                                    .frame(width: 60, height: 60)
+                                Image(systemName: "play.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.white)
+                            }
+                        }
+
+                        Button(action: {}) {
+                            Image(systemName: "goforward.10")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
                     }
-                    .frame(width: 30, height: 80)
-                    .background(Color.yellow)
-                    .cornerRadius(4)
-                }
-                .padding(.horizontal, 40)
+                    .padding(.vertical)
 
-                // Selected range
-                Text("\(language.selectedRange)00:05 - 01:12")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                    // Edit Actions
+                    VStack(spacing: 16) {
+                        Button(action: {}) {
+                            HStack {
+                                Image(systemName: "scissors")
+                                    .frame(width: 30)
+                                Text("選択範囲をトリム")
+                                Spacer()
+                            }
+                            .padding()
+                            .background(Color(.secondarySystemBackground))
+                            .cornerRadius(12)
+                        }
+                        .foregroundColor(.primary)
+
+                        Button(action: {}) {
+                            HStack {
+                                Image(systemName: "trash")
+                                    .frame(width: 30)
+                                Text("選択範囲を削除")
+                                Spacer()
+                            }
+                            .padding()
+                            .background(Color(.secondarySystemBackground))
+                            .cornerRadius(12)
+                        }
+                        .foregroundColor(.red)
+                    }
+                    .padding(.horizontal)
+                }
             }
-
-            Spacer()
-
-            // Playback controls
-            HStack(spacing: 40) {
-                Image(systemName: "gobackward.10")
-                    .font(.title2)
-                Image(systemName: "play.circle.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(.blue)
-                Image(systemName: "goforward.10")
-                    .font(.title2)
-            }
-            .padding(.bottom, 30)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
@@ -782,11 +973,11 @@ struct MockWaveformEditorView: View {
     }
 
     private func waveformColor(for index: Int) -> Color {
-        // Selected range (indices 5-45)
-        if index >= 5 && index <= 45 {
-            return .blue
+        // Selected range (indices 10-60)
+        if index >= 10 && index <= 60 {
+            return Color.blue.opacity(0.8)
         }
-        return .gray.opacity(0.3)
+        return Color.gray.opacity(0.3)
     }
 }
 
@@ -795,61 +986,75 @@ struct MockPlaylistView: View {
     let language: AppLanguage
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Navigation Bar
-            HStack {
-                Spacer()
-                Button(action: {}) {
-                    Image(systemName: "plus")
-                        .foregroundColor(.blue)
-                }
-            }
-            .padding()
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(0..<3, id: \.self) { index in
+                        HStack(alignment: .top, spacing: 16) {
+                            // Playlist Icon
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [playlistGradientColors(for: index).0, playlistGradientColors(for: index).1],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
+                                    )
+                                    .frame(width: 64, height: 64)
 
-            // Title
-            HStack {
-                Text(language.playlist)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .padding(.horizontal)
+                                Image(systemName: "music.note.list")
+                                    .font(.system(size: 28))
+                                    .foregroundColor(.white)
+                            }
 
-            // Playlist List
-            VStack(spacing: 12) {
-                ForEach(0..<3, id: \.self) { index in
-                    HStack {
-                        Image(systemName: "music.note.list")
-                            .font(.title2)
-                            .foregroundColor(.blue)
-                            .frame(width: 50, height: 50)
-                            .background(Color.blue.opacity(0.1))
-                            .cornerRadius(8)
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text(playlistName(for: index, language: language))
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
 
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(playlistName(for: index, language: language))
-                                .fontWeight(.medium)
-                            Text(language.recordingCount(3 + index * 2))
+                                Text(language.recordingCount(3 + index * 2))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+
+                                Text("作成日: 2024/08/\(15 + index)")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-
-                        Spacer()
-
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.secondary)
+                        .padding()
+                        .background(Color(.secondarySystemBackground))
+                        .cornerRadius(12)
                     }
-                    .padding()
-                    .background(Color(.secondarySystemBackground))
-                    .cornerRadius(12)
+                }
+                .padding()
+            }
+            .navigationTitle(language.playlist)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {}) {
+                        Image(systemName: "plus")
+                    }
                 }
             }
-            .padding()
-
-            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
+    }
+
+    private func playlistGradientColors(for index: Int) -> (Color, Color) {
+        let gradients: [(Color, Color)] = [
+            (Color.blue, Color.purple),
+            (Color.green, Color.teal),
+            (Color.orange, Color.pink)
+        ]
+        return gradients[index % gradients.count]
     }
 
     private func playlistName(for index: Int, language: AppLanguage) -> String {
@@ -874,113 +1079,141 @@ struct MockShareSheetView: View {
     let language: AppLanguage
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Navigation Bar
-            HStack {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.secondary)
-                Text(language.appTitle)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Image(systemName: "square.and.arrow.up")
-                    .foregroundColor(.blue)
-            }
-            .padding()
+        ZStack(alignment: .bottom) {
+            // Background Dim
+            Color.black.opacity(0.3)
+                .ignoresSafeArea()
 
-            // Recording Detail
-            VStack(spacing: 12) {
-                TextField("", text: .constant(language.sampleRecordingTitle(1)))
-                    .textFieldStyle(.roundedBorder)
-                    .disabled(true)
-
-                HStack {
-                    Text("2023年8月7日 9:30:15")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("00:03")
-                        .foregroundColor(.secondary)
-                    Image(systemName: "play.circle")
-                        .foregroundColor(.blue)
-                }
-            }
-            .padding()
-
-            // Share Sheet Mock
             VStack(spacing: 0) {
-                // File Info
-                HStack {
-                    Image(systemName: "waveform")
-                        .padding(8)
-                        .background(Color.blue.opacity(0.2))
-                        .cornerRadius(8)
+                // Share Sheet Header
+                VStack(spacing: 16) {
+                    // File preview
+                    HStack(spacing: 12) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                            Image(systemName: "waveform")
+                                .font(.title)
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 60, height: 60)
 
-                    VStack(alignment: .leading) {
-                        Text("9B1AE01F-1A38-437B...")
-                            .font(.caption)
-                            .lineLimit(1)
-                        Text("\(language.audioRecording) · 311 KB")
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(language.sampleRecordingTitle(0))
+                                .font(.headline)
+                                .lineLimit(1)
+                            Text("\(language.audioRecording) • 2.1 MB")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+
+                        Spacer()
+                    }
+                    .padding()
+
+                    Divider()
+
+                    // Share Options Row 1
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 20) {
+                            shareOption(icon: "message.fill", title: "メッセージ", color: .green)
+                            shareOption(icon: "envelope.fill", title: "メール", color: .blue)
+                            shareOption(icon: "link", title: "リンク", color: .gray)
+                            shareOption(icon: "square.and.arrow.up", title: "その他", color: .gray)
+                        }
+                        .padding(.horizontal)
                     }
 
-                    Spacer()
-
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.secondary)
+                    Divider()
                 }
-                .padding()
-                .background(Color(.secondarySystemBackground))
+                .background(Color(.systemBackground))
+                .cornerRadius(radius: 16, corners: [.topLeft, .topRight])
 
-                Divider()
-
-                // Actions
+                // Action List
                 VStack(spacing: 0) {
-                    HStack {
-                        Image(systemName: "ellipsis")
-                            .frame(width: 40, height: 40)
-                            .background(Color(.systemGray5))
-                            .cornerRadius(8)
-                        Text(language.more)
-                            .font(.caption)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-
-                    Divider()
-
-                    HStack {
-                        Text(language.copy)
-                        Spacer()
-                        Image(systemName: "doc.on.doc")
-                    }
-                    .padding()
-
-                    Divider()
-
-                    HStack {
-                        Text(language.saveToFiles)
-                        Spacer()
-                        Image(systemName: "folder")
-                    }
-                    .padding()
-
-                    Divider()
-
-                    Text(language.editActions)
-                        .foregroundColor(.blue)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
+                    actionRow(icon: "doc.on.doc", title: language.copy)
+                    Divider().padding(.leading, 56)
+                    actionRow(icon: "folder", title: language.saveToFiles)
+                    Divider().padding(.leading, 56)
+                    actionRow(icon: "trash", title: "削除", color: .red)
                 }
+                .background(Color(.systemBackground))
+                .padding(.top, 8)
+
+                // Cancel Button
+                Button(action: {}) {
+                    Text(language.cancel)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(Color(.systemBackground))
+                        .cornerRadius(16)
+                }
+                .padding(.top, 8)
+                .padding(.horizontal)
+                .padding(.bottom, 34)
             }
-            .background(Color(.systemBackground))
-            .cornerRadius(15)
-            .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private func shareOption(icon: String, title: String, color: Color) -> some View {
+        VStack(spacing: 8) {
+            ZStack {
+                Circle()
+                    .fill(color.opacity(0.15))
+                    .frame(width: 60, height: 60)
+                Image(systemName: icon)
+                    .font(.title2)
+                    .foregroundColor(color)
+            }
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.primary)
+        }
+    }
+
+    private func actionRow(icon: String, title: String, color: Color = .primary) -> some View {
+        HStack(spacing: 16) {
+            Image(systemName: icon)
+                .font(.title3)
+                .foregroundColor(color)
+                .frame(width: 24)
+
+            Text(title)
+                .foregroundColor(color)
 
             Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding()
         .background(Color(.systemBackground))
+    }
+}
+
+// Custom corner radius extension
+extension View {
+    func cornerRadius(radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+}
+
+struct RoundedCorner: Shape {
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        return Path(path.cgPath)
     }
 }
 
