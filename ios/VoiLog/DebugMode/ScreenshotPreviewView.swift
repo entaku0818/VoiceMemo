@@ -4,7 +4,6 @@ import SwiftUI
 // MARK: - Screenshot Preview Feature
 struct ScreenshotPreviewView: View {
     @State private var selectedLanguage: AppLanguage?
-    @State private var showFullscreen = false
 
     var body: some View {
         NavigationStack {
@@ -12,7 +11,6 @@ struct ScreenshotPreviewView: View {
                 ForEach(AppLanguage.allCases, id: \.self) { language in
                     Button(action: {
                         selectedLanguage = language
-                        showFullscreen = true
                     }) {
                         HStack {
                             Text(language.displayName)
@@ -28,10 +26,10 @@ struct ScreenshotPreviewView: View {
             }
             .navigationTitle("Select Language")
             .navigationBarTitleDisplayMode(.inline)
-            .fullScreenCover(isPresented: $showFullscreen) {
-                if let language = selectedLanguage {
-                    FullscreenScreenshotView(language: language, isPresented: $showFullscreen)
-                }
+            .fullScreenCover(item: $selectedLanguage) { language in
+                FullscreenScreenshotView(language: language, onDismiss: {
+                    selectedLanguage = nil
+                })
             }
         }
     }
@@ -40,23 +38,18 @@ struct ScreenshotPreviewView: View {
 // MARK: - Fullscreen Screenshot View
 struct FullscreenScreenshotView: View {
     let language: AppLanguage
-    @Binding var isPresented: Bool
+    let onDismiss: () -> Void
     @State private var selectedTab = 0
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        ZStack {
-            Color(.systemBackground)
-                .ignoresSafeArea()
-
-            TabView(selection: $selectedTab) {
-                ForEach(Array(ScreenshotScreen.allCases.enumerated()), id: \.element) { index, screen in
-                    screenPreview(for: screen)
-                        .tag(index)
-                }
+        TabView(selection: $selectedTab) {
+            ForEach(Array(ScreenshotScreen.allCases.enumerated()), id: \.element) { index, screen in
+                screenPreview(for: screen)
+                    .tag(index)
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
-            .indexViewStyle(.page(backgroundDisplayMode: .always))
         }
+        .tabViewStyle(.page(indexDisplayMode: .never))
         .statusBarHidden(true)
     }
 
@@ -80,7 +73,7 @@ struct FullscreenScreenshotView: View {
 }
 
 // MARK: - Language Enum
-enum AppLanguage: String, CaseIterable {
+enum AppLanguage: String, CaseIterable, Identifiable {
     case english = "en"
     case japanese = "ja"
     case german = "de"
@@ -93,6 +86,8 @@ enum AppLanguage: String, CaseIterable {
     case vietnamese = "vi"
     case chineseSimplified = "zh-Hans"
     case chineseTraditional = "zh-Hant"
+
+    var id: String { rawValue }
 
     var displayName: String {
         switch self {
@@ -207,6 +202,227 @@ enum AppLanguage: String, CaseIterable {
             return index == 0 ? "家庭討論" : "與朋友的旅行談話"
         }
     }
+
+    var untitled: String {
+        switch self {
+        case .english: return "Untitled"
+        case .japanese: return "名称未設定"
+        case .german: return "Ohne Titel"
+        case .spanish: return "Sin título"
+        case .french: return "Sans titre"
+        case .italian: return "Senza titolo"
+        case .portuguese: return "Sem título"
+        case .russian: return "Без названия"
+        case .turkish: return "Başlıksız"
+        case .vietnamese: return "Không có tiêu đề"
+        case .chineseSimplified: return "未命名"
+        case .chineseTraditional: return "未命名"
+        }
+    }
+
+    var speedStandard: String {
+        switch self {
+        case .english: return "1x (Standard)"
+        case .japanese: return "1x (標準)"
+        case .german: return "1x (Standard)"
+        case .spanish: return "1x (Estándar)"
+        case .french: return "1x (Standard)"
+        case .italian: return "1x (Standard)"
+        case .portuguese: return "1x (Padrão)"
+        case .russian: return "1x (Стандарт)"
+        case .turkish: return "1x (Standart)"
+        case .vietnamese: return "1x (Tiêu chuẩn)"
+        case .chineseSimplified: return "1x (标准)"
+        case .chineseTraditional: return "1x (標準)"
+        }
+    }
+
+    var cancel: String {
+        switch self {
+        case .english: return "Cancel"
+        case .japanese: return "キャンセル"
+        case .german: return "Abbrechen"
+        case .spanish: return "Cancelar"
+        case .french: return "Annuler"
+        case .italian: return "Annulla"
+        case .portuguese: return "Cancelar"
+        case .russian: return "Отменить"
+        case .turkish: return "İptal"
+        case .vietnamese: return "Hủy"
+        case .chineseSimplified: return "取消"
+        case .chineseTraditional: return "取消"
+        }
+    }
+
+    var save: String {
+        switch self {
+        case .english: return "Save"
+        case .japanese: return "保存"
+        case .german: return "Speichern"
+        case .spanish: return "Guardar"
+        case .french: return "Enregistrer"
+        case .italian: return "Salva"
+        case .portuguese: return "Salvar"
+        case .russian: return "Сохранить"
+        case .turkish: return "Kaydet"
+        case .vietnamese: return "Lưu"
+        case .chineseSimplified: return "保存"
+        case .chineseTraditional: return "保存"
+        }
+    }
+
+    var trim: String {
+        switch self {
+        case .english: return "Trim"
+        case .japanese: return "トリム"
+        case .german: return "Trimmen"
+        case .spanish: return "Recortar"
+        case .french: return "Rogner"
+        case .italian: return "Taglia"
+        case .portuguese: return "Cortar"
+        case .russian: return "Обрезать"
+        case .turkish: return "Kes"
+        case .vietnamese: return "Cắt"
+        case .chineseSimplified: return "修剪"
+        case .chineseTraditional: return "修剪"
+        }
+    }
+
+    var selectedRange: String {
+        switch self {
+        case .english: return "Selection: "
+        case .japanese: return "選択範囲: "
+        case .german: return "Auswahl: "
+        case .spanish: return "Selección: "
+        case .french: return "Sélection: "
+        case .italian: return "Selezione: "
+        case .portuguese: return "Seleção: "
+        case .russian: return "Выбор: "
+        case .turkish: return "Seçim: "
+        case .vietnamese: return "Lựa chọn: "
+        case .chineseSimplified: return "选择范围: "
+        case .chineseTraditional: return "選擇範圍: "
+        }
+    }
+
+    var playlist: String {
+        switch self {
+        case .english: return "Playlist"
+        case .japanese: return "プレイリスト"
+        case .german: return "Wiedergabeliste"
+        case .spanish: return "Lista de reproducción"
+        case .french: return "Liste de lecture"
+        case .italian: return "Playlist"
+        case .portuguese: return "Lista de reprodução"
+        case .russian: return "Плейлист"
+        case .turkish: return "Çalma Listesi"
+        case .vietnamese: return "Danh sách phát"
+        case .chineseSimplified: return "播放列表"
+        case .chineseTraditional: return "播放列表"
+        }
+    }
+
+    func recordingCount(_ count: Int) -> String {
+        switch self {
+        case .english: return "\(count) recordings"
+        case .japanese: return "\(count) 件の録音"
+        case .german: return "\(count) Aufnahmen"
+        case .spanish: return "\(count) grabaciones"
+        case .french: return "\(count) enregistrements"
+        case .italian: return "\(count) registrazioni"
+        case .portuguese: return "\(count) gravações"
+        case .russian: return "\(count) записей"
+        case .turkish: return "\(count) kayıt"
+        case .vietnamese: return "\(count) bản ghi"
+        case .chineseSimplified: return "\(count) 个录音"
+        case .chineseTraditional: return "\(count) 個錄音"
+        }
+    }
+
+    var audioRecording: String {
+        switch self {
+        case .english: return "Audio Recording"
+        case .japanese: return "オーディオ録音"
+        case .german: return "Audioaufnahme"
+        case .spanish: return "Grabación de Audio"
+        case .french: return "Enregistrement Audio"
+        case .italian: return "Registrazione Audio"
+        case .portuguese: return "Gravação de Áudio"
+        case .russian: return "Аудиозапись"
+        case .turkish: return "Ses Kaydı"
+        case .vietnamese: return "Ghi Âm"
+        case .chineseSimplified: return "音频录音"
+        case .chineseTraditional: return "音訊錄音"
+        }
+    }
+
+    var more: String {
+        switch self {
+        case .english: return "More"
+        case .japanese: return "その他"
+        case .german: return "Mehr"
+        case .spanish: return "Más"
+        case .french: return "Plus"
+        case .italian: return "Altro"
+        case .portuguese: return "Mais"
+        case .russian: return "Ещё"
+        case .turkish: return "Daha Fazla"
+        case .vietnamese: return "Thêm"
+        case .chineseSimplified: return "更多"
+        case .chineseTraditional: return "更多"
+        }
+    }
+
+    var copy: String {
+        switch self {
+        case .english: return "Copy"
+        case .japanese: return "コピー"
+        case .german: return "Kopieren"
+        case .spanish: return "Copiar"
+        case .french: return "Copier"
+        case .italian: return "Copia"
+        case .portuguese: return "Copiar"
+        case .russian: return "Копировать"
+        case .turkish: return "Kopyala"
+        case .vietnamese: return "Sao chép"
+        case .chineseSimplified: return "复制"
+        case .chineseTraditional: return "複製"
+        }
+    }
+
+    var saveToFiles: String {
+        switch self {
+        case .english: return "Save to Files"
+        case .japanese: return "\"ファイル\"に保存"
+        case .german: return "In Dateien sichern"
+        case .spanish: return "Guardar en Archivos"
+        case .french: return "Enregistrer dans Fichiers"
+        case .italian: return "Salva in File"
+        case .portuguese: return "Salvar em Arquivos"
+        case .russian: return "Сохранить в Файлы"
+        case .turkish: return "Dosyalara Kaydet"
+        case .vietnamese: return "Lưu vào Tập tin"
+        case .chineseSimplified: return "存储到文件"
+        case .chineseTraditional: return "儲存到檔案"
+        }
+    }
+
+    var editActions: String {
+        switch self {
+        case .english: return "Edit Actions..."
+        case .japanese: return "アクションを編集..."
+        case .german: return "Aktionen bearbeiten..."
+        case .spanish: return "Editar Acciones..."
+        case .french: return "Modifier Actions..."
+        case .italian: return "Modifica Azioni..."
+        case .portuguese: return "Editar Ações..."
+        case .russian: return "Редактировать действия..."
+        case .turkish: return "Eylemleri Düzenle..."
+        case .vietnamese: return "Chỉnh sửa Hành động..."
+        case .chineseSimplified: return "编辑操作..."
+        case .chineseTraditional: return "編輯動作..."
+        }
+    }
 }
 
 // MARK: - Screenshot Screen Enum
@@ -217,134 +433,6 @@ enum ScreenshotScreen: String, CaseIterable {
     case waveformEditor
     case playlist
     case shareSheet
-
-    var shortName: String {
-        switch self {
-        case .recordingList: return "録音"
-        case .playbackList: return "再生"
-        case .backgroundRecording: return "BG"
-        case .waveformEditor: return "編集"
-        case .playlist: return "リスト"
-        case .shareSheet: return "共有"
-        }
-    }
-
-    var iconName: String {
-        switch self {
-        case .recordingList: return "record.circle.fill"
-        case .playbackList: return "play.circle.fill"
-        case .backgroundRecording: return "apps.iphone"
-        case .waveformEditor: return "waveform"
-        case .playlist: return "music.note.list"
-        case .shareSheet: return "square.and.arrow.up"
-        }
-    }
-
-    var description: String {
-        switch self {
-        case .recordingList: return "Recording list screen"
-        case .playbackList: return "Playback list with controls"
-        case .backgroundRecording: return "Background recording demo"
-        case .waveformEditor: return "Waveform trim editor"
-        case .playlist: return "Playlist management"
-        case .shareSheet: return "Share sheet example"
-        }
-    }
-
-    func headerText(for language: AppLanguage) -> String {
-        switch self {
-        case .recordingList:
-            switch language {
-            case .english: return "Easy Recording\nwith 1 Tap"
-            case .japanese: return "1タップで簡単録音"
-            case .german: return "Einfache Aufnahme\nmit 1 Tipp"
-            case .spanish: return "Grabación Fácil\ncon 1 Toque"
-            case .french: return "Enregistrement Facile\nen 1 Tap"
-            case .italian: return "Registrazione Facile\ncon 1 Tocco"
-            case .portuguese: return "Gravação Fácil\ncom 1 Toque"
-            case .russian: return "Легкая Запись\nОдним Нажатием"
-            case .turkish: return "1 Dokunuşla\nKolay Kayıt"
-            case .vietnamese: return "Ghi Âm Dễ Dàng\nChỉ 1 Chạm"
-            case .chineseSimplified: return "一键轻松录音"
-            case .chineseTraditional: return "一鍵輕鬆錄音"
-            }
-        case .playbackList:
-            switch language {
-            case .english: return "Continuous Playback\nof Voice List"
-            case .japanese: return "音声の一覧を\n連続再生"
-            case .german: return "Kontinuierliche Wiedergabe\nder Sprachliste"
-            case .spanish: return "Reproducción Continua\nde Lista de Voz"
-            case .french: return "Lecture Continue\nde la Liste Vocale"
-            case .italian: return "Riproduzione Continua\ndell'Elenco Vocale"
-            case .portuguese: return "Reprodução Contínua\nda Lista de Voz"
-            case .russian: return "Непрерывное Воспроизведение\nСписка Голоса"
-            case .turkish: return "Ses Listesinin\nSürekli Oynatımı"
-            case .vietnamese: return "Phát Liên Tục\nDanh Sách Giọng Nói"
-            case .chineseSimplified: return "连续播放\n语音列表"
-            case .chineseTraditional: return "連續播放\n語音列表"
-            }
-        case .backgroundRecording:
-            switch language {
-            case .english: return "Record Even in\nBackground"
-            case .japanese: return "バックグラウンド\nでも録音できる"
-            case .german: return "Aufnahme Auch im\nHintergrund"
-            case .spanish: return "Grabar Incluso en\nSegundo Plano"
-            case .french: return "Enregistrer Même en\nArrière-plan"
-            case .italian: return "Registra Anche in\nBackground"
-            case .portuguese: return "Gravar Mesmo em\nSegundo Plano"
-            case .russian: return "Запись Даже в\nФоновом Режиме"
-            case .turkish: return "Arka Planda da\nKayıt Yap"
-            case .vietnamese: return "Ghi Âm Cả Khi\nỞ Nền"
-            case .chineseSimplified: return "后台也能\n录音"
-            case .chineseTraditional: return "背景也能\n錄音"
-            }
-        case .waveformEditor:
-            switch language {
-            case .english: return "Trim & Edit\nwith Waveform"
-            case .japanese: return "波形で簡単\nトリム編集"
-            case .german: return "Trimmen mit\nWellenform"
-            case .spanish: return "Recortar con\nForma de Onda"
-            case .french: return "Couper avec\nForme d'Onde"
-            case .italian: return "Taglia con\nForma d'Onda"
-            case .portuguese: return "Cortar com\nForma de Onda"
-            case .russian: return "Обрезка по\nВолновой Форме"
-            case .turkish: return "Dalga Formu ile\nKes"
-            case .vietnamese: return "Cắt với\nDạng Sóng"
-            case .chineseSimplified: return "波形剪辑\n轻松编辑"
-            case .chineseTraditional: return "波形剪輯\n輕鬆編輯"
-            }
-        case .playlist:
-            switch language {
-            case .english: return "Organize with\nPlaylists"
-            case .japanese: return "プレイリストで\n整理整頓"
-            case .german: return "Mit Playlists\nOrganisieren"
-            case .spanish: return "Organizar con\nListas de Reproducción"
-            case .french: return "Organiser avec\ndes Playlists"
-            case .italian: return "Organizza con\nPlaylist"
-            case .portuguese: return "Organize com\nPlaylists"
-            case .russian: return "Организуйте с\nПлейлистами"
-            case .turkish: return "Çalma Listeleriyle\nDüzenle"
-            case .vietnamese: return "Sắp Xếp với\nDanh Sách Phát"
-            case .chineseSimplified: return "播放列表\n轻松整理"
-            case .chineseTraditional: return "播放列表\n輕鬆整理"
-            }
-        case .shareSheet:
-            switch language {
-            case .english: return "Easy Sharing to\nOther Apps"
-            case .japanese: return "他のアプリへ\n簡単シェア"
-            case .german: return "Einfaches Teilen mit\nAnderen Apps"
-            case .spanish: return "Compartir Fácilmente\ncon Otras Apps"
-            case .french: return "Partage Facile vers\nD'autres Apps"
-            case .italian: return "Condivisione Facile\ncon Altre App"
-            case .portuguese: return "Compartilhamento Fácil\ncom Outros Apps"
-            case .russian: return "Легкий Обмен с\nДругими Приложениями"
-            case .turkish: return "Diğer Uygulamalarla\nKolay Paylaşım"
-            case .vietnamese: return "Chia Sẻ Dễ Dàng\nVới Ứng Dụng Khác"
-            case .chineseSimplified: return "轻松分享到\n其他应用"
-            case .chineseTraditional: return "輕鬆分享到\n其他應用"
-            }
-        }
-    }
 }
 
 // MARK: - Mock Recording List View
@@ -406,6 +494,7 @@ struct MockRecordingListView: View {
                 .padding(.bottom, 30)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 }
 
@@ -419,11 +508,14 @@ struct MockPlaybackListView: View {
             HStack {
                 Text(language.playbackText)
                     .foregroundColor(.blue)
+                    .font(.body)
                 Spacer()
                 Image(systemName: "icloud.and.arrow.up")
                     .foregroundColor(.blue)
+                    .font(.title3)
                 Image(systemName: "gearshape")
                     .foregroundColor(.blue)
+                    .font(.title3)
             }
             .padding()
 
@@ -435,14 +527,16 @@ struct MockPlaybackListView: View {
                 Spacer()
             }
             .padding(.horizontal)
+            .padding(.bottom, 8)
 
             // Recording List
             ScrollView {
                 VStack(spacing: 0) {
-                    ForEach(0..<8) { index in
-                        HStack {
+                    ForEach(0..<4) { index in
+                        HStack(alignment: .center, spacing: 12) {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("名称未設定")
+                                Text(language.untitled)
+                                    .font(.body)
                                     .fontWeight(.medium)
                                 Text("2024/08/17 11:\(10 + index)")
                                     .font(.caption)
@@ -453,50 +547,67 @@ struct MockPlaybackListView: View {
                             }
                             Spacer()
                             Text("00:\(String(format: "%02d", 3 + index * 2))")
+                                .font(.body)
                                 .foregroundColor(.secondary)
                             Image(systemName: "play.circle")
+                                .font(.title2)
                                 .foregroundColor(.blue)
                             Image(systemName: "chevron.right")
+                                .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
 
-                        Divider()
-                            .padding(.leading)
+                        if index < 3 {
+                            Divider()
+                                .padding(.leading, 16)
+                        }
                     }
                 }
             }
-            .frame(height: 300)
+
+            Spacer()
 
             // Playback Controls
-            VStack(spacing: 8) {
-                Text("名称未設定")
-                    .font(.caption)
+            VStack(spacing: 12) {
+                Text(language.untitled)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
 
-                HStack {
+                HStack(spacing: 8) {
                     Text("00:01")
                         .font(.caption)
+                        .foregroundColor(.secondary)
+                        .monospacedDigit()
                     ProgressView(value: 0.05)
+                        .tint(.blue)
                     Text("00:20")
                         .font(.caption)
+                        .foregroundColor(.secondary)
+                        .monospacedDigit()
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
 
-                HStack(spacing: 30) {
-                    Text("1x (標準)")
+                HStack(spacing: 40) {
+                    Text(language.speedStandard)
                         .font(.caption)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 8)
                         .background(Color(.systemGray5))
-                        .cornerRadius(15)
+                        .cornerRadius(16)
 
                     Image(systemName: "gobackward.10")
                         .font(.title2)
 
-                    Image(systemName: "play.circle.fill")
-                        .font(.largeTitle)
-                        .foregroundColor(.blue)
+                    ZStack {
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 64, height: 64)
+                        Image(systemName: "play.fill")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                    }
 
                     Image(systemName: "goforward.10")
                         .font(.title2)
@@ -505,9 +616,11 @@ struct MockPlaybackListView: View {
                         .font(.title3)
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom, 50)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 }
 
@@ -556,6 +669,7 @@ struct MockBackgroundRecordingView: View {
             .padding(.horizontal, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 }
 
@@ -568,15 +682,15 @@ struct MockWaveformEditorView: View {
             // Navigation Bar
             HStack {
                 Button(action: {}) {
-                    Text("キャンセル")
+                    Text(language.cancel)
                         .foregroundColor(.blue)
                 }
                 Spacer()
-                Text("トリム")
+                Text(language.trim)
                     .fontWeight(.semibold)
                 Spacer()
                 Button(action: {}) {
-                    Text("保存")
+                    Text(language.save)
                         .foregroundColor(.blue)
                 }
             }
@@ -635,7 +749,7 @@ struct MockWaveformEditorView: View {
                 .padding(.horizontal, 40)
 
                 // Selected range
-                Text("選択範囲: 00:05 - 01:12")
+                Text("\(language.selectedRange)00:05 - 01:12")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -655,6 +769,7 @@ struct MockWaveformEditorView: View {
             .padding(.bottom, 30)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 
     private func waveformHeight(for index: Int) -> CGFloat {
@@ -693,7 +808,7 @@ struct MockPlaylistView: View {
 
             // Title
             HStack {
-                Text("プレイリスト")
+                Text(language.playlist)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 Spacer()
@@ -714,7 +829,7 @@ struct MockPlaylistView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(playlistName(for: index, language: language))
                                 .fontWeight(.medium)
-                            Text("\(3 + index * 2) 件の録音")
+                            Text(language.recordingCount(3 + index * 2))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -732,41 +847,9 @@ struct MockPlaylistView: View {
             .padding()
 
             Spacer()
-
-            // Tab bar mock
-            HStack {
-                Spacer()
-                VStack {
-                    Image(systemName: "record.circle")
-                    Text("録音")
-                        .font(.caption2)
-                }
-                Spacer()
-                VStack {
-                    Image(systemName: "play.circle")
-                    Text("再生")
-                        .font(.caption2)
-                }
-                Spacer()
-                VStack {
-                    Image(systemName: "list.bullet")
-                        .foregroundColor(.blue)
-                    Text("プレイリスト")
-                        .font(.caption2)
-                        .foregroundColor(.blue)
-                }
-                Spacer()
-                VStack {
-                    Image(systemName: "gearshape")
-                    Text("設定")
-                        .font(.caption2)
-                }
-                Spacer()
-            }
-            .padding(.vertical, 8)
-            .background(Color(.secondarySystemBackground))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 
     private func playlistName(for index: Int, language: AppLanguage) -> String {
@@ -836,7 +919,7 @@ struct MockShareSheetView: View {
                         Text("9B1AE01F-1A38-437B...")
                             .font(.caption)
                             .lineLimit(1)
-                        Text("オーディオ録音 · 311 KB")
+                        Text("\(language.audioRecording) · 311 KB")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }
@@ -858,7 +941,7 @@ struct MockShareSheetView: View {
                             .frame(width: 40, height: 40)
                             .background(Color(.systemGray5))
                             .cornerRadius(8)
-                        Text("その他")
+                        Text(language.more)
                             .font(.caption)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -867,7 +950,7 @@ struct MockShareSheetView: View {
                     Divider()
 
                     HStack {
-                        Text("コピー")
+                        Text(language.copy)
                         Spacer()
                         Image(systemName: "doc.on.doc")
                     }
@@ -876,7 +959,7 @@ struct MockShareSheetView: View {
                     Divider()
 
                     HStack {
-                        Text("\"ファイル\"に保存")
+                        Text(language.saveToFiles)
                         Spacer()
                         Image(systemName: "folder")
                     }
@@ -884,7 +967,7 @@ struct MockShareSheetView: View {
 
                     Divider()
 
-                    Text("アクションを編集...")
+                    Text(language.editActions)
                         .foregroundColor(.blue)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
@@ -897,6 +980,7 @@ struct MockShareSheetView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
     }
 }
 
