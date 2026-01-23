@@ -40,8 +40,12 @@ struct FullscreenScreenshotView: View {
     let language: AppLanguage
     let onDismiss: () -> Void
     @State private var selectedTab = 0
-    @State private var dragOffset: CGFloat = 0
+    @State private var dragOffset: CGSize = .zero
     @Environment(\.dismiss) var dismiss
+
+    private var isLastTab: Bool {
+        selectedTab == ScreenshotScreen.allCases.count - 1
+    }
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -52,23 +56,32 @@ struct FullscreenScreenshotView: View {
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .statusBarHidden(false)
-        .offset(y: dragOffset)
+        .offset(x: isLastTab ? dragOffset.width : 0, y: dragOffset.height)
         .gesture(
             DragGesture()
                 .onChanged { value in
-                    // Only allow downward swipe
+                    // Allow downward swipe from any tab
                     if value.translation.height > 0 {
-                        dragOffset = value.translation.height
+                        dragOffset = CGSize(width: 0, height: value.translation.height)
+                    }
+                    // Allow rightward swipe only on last tab
+                    else if isLastTab && value.translation.width > 0 {
+                        dragOffset = CGSize(width: value.translation.width, height: 0)
                     }
                 }
                 .onEnded { value in
                     // Dismiss if swiped down more than 150 points
                     if value.translation.height > 150 {
                         onDismiss()
-                    } else {
+                    }
+                    // Dismiss if swiped right more than 150 points on last tab
+                    else if isLastTab && value.translation.width > 150 {
+                        onDismiss()
+                    }
+                    else {
                         // Reset offset with animation
                         withAnimation(.spring()) {
-                            dragOffset = 0
+                            dragOffset = .zero
                         }
                     }
                 }
