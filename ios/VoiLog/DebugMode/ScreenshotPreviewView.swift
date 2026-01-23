@@ -43,14 +43,28 @@ struct FullscreenScreenshotView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            ForEach(Array(ScreenshotScreen.allCases.enumerated()), id: \.element) { index, screen in
-                screenPreview(for: screen)
-                    .tag(index)
+        ZStack(alignment: .topTrailing) {
+            TabView(selection: $selectedTab) {
+                ForEach(Array(ScreenshotScreen.allCases.enumerated()), id: \.element) { index, screen in
+                    screenPreview(for: screen)
+                        .tag(index)
+                }
             }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .statusBarHidden(true)
+
+            // Close Button
+            Button(action: {
+                dismiss()
+                onDismiss()
+            }) {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.system(size: 32))
+                    .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.3), radius: 4, x: 0, y: 2)
+            }
+            .padding()
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        .statusBarHidden(true)
     }
 
     @ViewBuilder
