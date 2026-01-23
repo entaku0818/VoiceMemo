@@ -54,10 +54,7 @@ struct FullscreenScreenshotView: View {
             .statusBarHidden(true)
 
             // Close Button
-            Button(action: {
-                dismiss()
-                onDismiss()
-            }) {
+            Button(action: onDismiss) {
                 Image(systemName: "xmark.circle.fill")
                     .font(.system(size: 32))
                     .foregroundColor(.white)
