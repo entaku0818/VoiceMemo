@@ -564,6 +564,7 @@ struct MockRecordingListView: View {
             }
             .padding()
             .navigationTitle("録音")
+            .navigationBarTitleDisplayMode(.large)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
@@ -1036,6 +1037,7 @@ struct MockPlaylistView: View {
             }
             .listStyle(.plain)
             .navigationTitle(language.playlist)
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {}) {
