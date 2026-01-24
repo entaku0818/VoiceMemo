@@ -991,54 +991,50 @@ struct MockPlaylistView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 12) {
-                    ForEach(0..<3, id: \.self) { index in
-                        HStack(alignment: .top, spacing: 16) {
-                            // Playlist Icon
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(
-                                        LinearGradient(
-                                            colors: [playlistGradientColors(for: index).0, playlistGradientColors(for: index).1],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
+            List {
+                ForEach(0..<3, id: \.self) { index in
+                    HStack(alignment: .top, spacing: 16) {
+                        // Playlist Icon
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(
+                                    LinearGradient(
+                                        colors: [playlistGradientColors(for: index).0, playlistGradientColors(for: index).1],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
                                     )
-                                    .frame(width: 64, height: 64)
+                                )
+                                .frame(width: 64, height: 64)
 
-                                Image(systemName: "music.note.list")
-                                    .font(.system(size: 28))
-                                    .foregroundColor(.white)
-                            }
+                            Image(systemName: "music.note.list")
+                                .font(.system(size: 28))
+                                .foregroundColor(.white)
+                        }
 
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text(playlistName(for: index, language: language))
-                                    .font(.headline)
-                                    .foregroundColor(.primary)
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(playlistName(for: index, language: language))
+                                .font(.headline)
+                                .foregroundColor(.primary)
 
-                                Text(language.recordingCount(3 + index * 2))
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
+                            Text(language.recordingCount(3 + index * 2))
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
 
-                                Text("作成日: 2024/08/\(15 + index)")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-
-                            Spacer()
-
-                            Image(systemName: "chevron.right")
+                            Text("作成日: 2024/08/\(15 + index)")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
-                        .padding()
-                        .background(Color(.secondarySystemBackground))
-                        .cornerRadius(12)
+
+                        Spacer()
+
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
+                    .padding(.vertical, 8)
                 }
-                .padding()
             }
+            .listStyle(.plain)
             .navigationTitle(language.playlist)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
