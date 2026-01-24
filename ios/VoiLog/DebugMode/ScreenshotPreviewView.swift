@@ -77,8 +77,7 @@ struct FullscreenScreenshotView: View {
                     // Dismiss if swiped right more than 150 points on last tab
                     else if isLastTab && value.translation.width > 150 {
                         onDismiss()
-                    }
-                    else {
+                    } else {
                         // Reset offset with animation
                         withAnimation(.spring()) {
                             dragOffset = .zero
@@ -517,26 +516,6 @@ struct MockRecordingListView: View {
                     .padding(.horizontal)
                 }
 
-                // Transcription (only when recording)
-                if isRecording {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("音声認識結果")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-
-                        ScrollView {
-                            Text("こんにちは、今日は天気が良いですね。録音のテストをしています。")
-                                .font(.body)
-                                .padding()
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(.systemGray6))
-                                .cornerRadius(12)
-                        }
-                        .frame(maxHeight: 120)
-                    }
-                    .padding(.horizontal)
-                }
-
                 Spacer()
 
                 // Control Buttons
@@ -598,17 +577,6 @@ struct MockPlaybackListView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                // Title
-                HStack {
-                    Text(language.appTitle)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    Spacer()
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 8)
-
             // Recording List
             List {
                 ForEach(0..<5) { index in
@@ -748,6 +716,7 @@ struct MockPlaybackListView: View {
             }
             }
             .navigationTitle("録音ファイル")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack(spacing: 12) {
