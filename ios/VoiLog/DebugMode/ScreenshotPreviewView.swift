@@ -55,7 +55,7 @@ struct FullscreenScreenshotView: View {
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .statusBarHidden(false)
+        .ignoresSafeArea(edges: [])
         .offset(x: isLastTab ? dragOffset.width : 0, y: dragOffset.height)
         .gesture(
             DragGesture()
@@ -566,8 +566,6 @@ struct MockRecordingListView: View {
             .navigationTitle("録音")
             .navigationBarTitleDisplayMode(.large)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemBackground))
     }
 }
 
@@ -728,8 +726,6 @@ struct MockPlaybackListView: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemBackground))
     }
 }
 
@@ -1046,8 +1042,6 @@ struct MockPlaylistView: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemBackground))
     }
 
     private func playlistGradientColors(for index: Int) -> (Color, Color) {
