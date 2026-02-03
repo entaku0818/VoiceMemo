@@ -16,10 +16,29 @@ struct ModernPlaylistListView: View {
         VStack {
             List {
                 ForEach(store.playlists, id: \.id) { playlist in
-                    PlaylistRowView(playlist: playlist) {
-                        // プレイリスト詳細への遷移は今後実装
-                    } onDelete: {
-                        store.send(.view(.deletePlaylist(playlist.id)))
+                    NavigationLink {
+                        EnhancedPlaylistDetailView(
+                            store: Store(
+                                initialState: EnhancedPlaylistFeature.State(
+                                    id: playlist.id,
+                                    name: playlist.name,
+                                    voices: [],
+                                    createdAt: playlist.createdAt,
+                                    updatedAt: playlist.updatedAt
+                                )
+                            ) {
+                                EnhancedPlaylistFeature()
+                            }
+                        )
+                    } label: {
+                        PlaylistRowContent(playlist: playlist)
+                    }
+                    .swipeActions {
+                        Button(role: .destructive) {
+                            store.send(.view(.deletePlaylist(playlist.id)))
+                        } label: {
+                            Label("削除", systemImage: "trash")
+                        }
                     }
                 }
             }
@@ -58,6 +77,26 @@ struct ModernPlaylistListView: View {
                     .background(Color.black.opacity(0.1))
             }
         }
+    }
+}
+
+struct PlaylistRowContent: View {
+    let playlist: Playlist
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(playlist.name)
+                    .font(.headline)
+
+                Text(playlist.createdAt.formatted(date: .abbreviated, time: .omitted))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+        }
+        .padding(.vertical, 4)
     }
 }
 

@@ -33,10 +33,7 @@ struct PlaylistListView: View {
                                }
                            )
                        ) {
-                           PlaylistRow(playlist: playlist) {
-                               // プレイリストタップ時の追加アクション
-                               viewStore.send(.view(.playlistTapped(playlist)))
-                           }
+                           PlaylistRow(playlist: playlist)
                        }
                        .swipeActions {
                            Button {

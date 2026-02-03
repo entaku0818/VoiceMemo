@@ -478,6 +478,7 @@ struct EnhancedVoiceSelectionView: View {
     @State private var availableVoices: [VoiceMemoRepository.Voice] = []
     @State private var searchQuery = ""
     @State private var isLoading = true
+    @Dependency(\.voiceMemoCoredataAccessor) var voiceMemoAccessor
 
     var body: some View {
         NavigationStack {
@@ -547,10 +548,9 @@ struct EnhancedVoiceSelectionView: View {
 
     private func loadVoices() {
         Task {
-            // Load voices from repository
-            // Note: This should use the actual voice memo repository
+            let voices = voiceMemoAccessor.selectAllData()
             await MainActor.run {
-                self.availableVoices = []
+                self.availableVoices = voices
                 self.isLoading = false
             }
         }
