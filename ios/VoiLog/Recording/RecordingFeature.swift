@@ -262,11 +262,14 @@ struct RecordingFeature {
       async let durationUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
           let state = await longRecordingAudioClient.recordingState()
-          // 録音中または一時停止中のみ更新
+          // 録音中のみ更新（一時停止中は更新しない）
           switch state {
-          case .recording, .paused:
+          case .recording:
             let currentTime = await longRecordingAudioClient.currentTime()
             await send(.timerUpdated(currentTime))
+          case .paused:
+            // 一時停止中は時間を更新しない
+            break
           default:
             break
           }
