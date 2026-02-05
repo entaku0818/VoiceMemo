@@ -336,6 +336,7 @@ struct RecordingView: View {
         }
         .padding()
         .navigationTitle("録音")
+        .navigationBarTitleDisplayMode(.large)
         .onAppear {
           send(.onAppear)
         }

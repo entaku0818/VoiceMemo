@@ -4,10 +4,14 @@
 <dict>
 	<key>ADMOB_KEY</key>
 	<string>$(ADMOB_KEY)</string>
-	<key>INTERSTITIAL_ADMOB_KEY</key>
-	<string>$(INTERSTITIAL_ADMOB_KEY)</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.entaku.VoiLog.background</string>
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3484697221349891~3051778288</string>
+	<key>INTERSTITIAL_ADMOB_KEY</key>
+	<string>$(INTERSTITIAL_ADMOB_KEY)</string>
 	<key>NSPrefPaneIconLabel</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>PLAYLIST_ADMOB_KEY</key>
@@ -226,11 +230,5 @@
 		<string>audio</string>
 		<string>processing</string>
 	</array>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>com.entaku.VoiLog.background</string>
-	</array>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 </dict>
 </plist>

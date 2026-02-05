@@ -1,4 +1,7 @@
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#endif
 
 #if DEBUG
 // MARK: - Screenshot Preview Feature
@@ -475,7 +478,18 @@ struct MockRecordingListView: View {
     @State private var isRecording = true
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            // Title
+            HStack {
+                Text("録音")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.top, 60)
+            .padding(.bottom, 20)
+
             VStack(spacing: 24) {
                 // Recording Status and Timer
                 VStack(spacing: 16) {
@@ -563,8 +577,6 @@ struct MockRecordingListView: View {
                 }
             }
             .padding()
-            .navigationTitle("録音")
-            .navigationBarTitleDisplayMode(.large)
         }
     }
 }
@@ -574,7 +586,22 @@ struct MockPlaybackListView: View {
     let language: AppLanguage
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            // Title and Toolbar
+            HStack {
+                Text("録音ファイル")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "icloud.and.arrow.up")
+                        .font(.title3)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 60)
+            .padding(.bottom, 20)
+
             VStack(spacing: 0) {
             // Recording List
             List {
@@ -712,18 +739,6 @@ struct MockPlaybackListView: View {
                 }
                 .padding(.vertical)
                 .background(Color(.systemBackground))
-            }
-            }
-            .navigationTitle("録音ファイル")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: 12) {
-                        Button(action: {}) {
-                            Image(systemName: "icloud.and.arrow.up")
-                        }
-                    }
-                }
             }
         }
     }
@@ -987,7 +1002,22 @@ struct MockPlaylistView: View {
     let language: AppLanguage
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            // Title and Toolbar
+            HStack {
+                Text(language.playlist)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "plus")
+                        .font(.title3)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 60)
+            .padding(.bottom, 20)
+
             List {
                 ForEach(0..<3, id: \.self) { index in
                     HStack(alignment: .top, spacing: 16) {
@@ -1032,15 +1062,6 @@ struct MockPlaylistView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle(language.playlist)
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {}) {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
         }
     }
 
@@ -1192,7 +1213,13 @@ struct MockShareSheetView: View {
     }
 }
 
+// MARK: - Preview
+#Preview {
+    ScreenshotPreviewView()
+}
+
 // Custom corner radius extension
+#if canImport(UIKit)
 extension View {
     func cornerRadius(radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
@@ -1212,9 +1239,6 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
+#endif
 
-// MARK: - Preview
-#Preview {
-    ScreenshotPreviewView()
-}
 #endif

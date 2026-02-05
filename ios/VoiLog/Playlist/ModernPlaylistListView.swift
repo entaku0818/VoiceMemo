@@ -57,8 +57,7 @@ struct ModernPlaylistListView: View {
             CreatePlaylistSheet(store: store)
         }
         .sheet(isPresented: $store.isShowingPaywall) {
-            // PaywallView implementation would go here
-            Text("Premium機能が必要です")
+            PaywallView(purchaseManager: PurchaseManager.shared)
         }
         .alert("エラー", isPresented: .constant(store.error != nil)) {
             Button("OK") { }
