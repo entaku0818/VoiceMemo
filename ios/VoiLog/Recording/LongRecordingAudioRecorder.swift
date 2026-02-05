@@ -108,7 +108,7 @@ actor LongRecordingAudioRecorder: NSObject {
         }
 
         logger.info("録音再開開始")
-        pausedDuration += duration
+        // pausedDurationの加算を削除（recorder.currentTimeが既に正しい値を持っている）
         audioRecorder?.record()
 
         state = .recording(startTime: startTime)
@@ -117,7 +117,8 @@ actor LongRecordingAudioRecorder: NSObject {
 
     func getCurrentTime() -> TimeInterval {
         guard let recorder = audioRecorder else { return 0 }
-        return recorder.currentTime + pausedDuration
+        // pausedDurationを加算しない（recorder.currentTimeが実際の録音時間）
+        return recorder.currentTime
     }
 
     func getAudioLevel() -> Float {
