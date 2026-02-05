@@ -209,32 +209,36 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     }
 
     func sampleRecordingTitle(_ index: Int) -> String {
+        let englishTitles = ["Family Discussion", "Travel Talk with Friends", "Meeting Notes", "Voice Memo", "Interview"]
+        let japaneseTitles = ["家族との話し合い", "友達との旅行の話", "会議メモ", "ボイスメモ", "インタビュー"]
+        let germanTitles = ["Familiengespräch", "Reisegespräch mit Freunden", "Besprechungsnotizen", "Sprachnotiz", "Interview"]
+        let spanishTitles = ["Discusión Familiar", "Charla de Viaje con Amigos", "Notas de Reunión", "Nota de Voz", "Entrevista"]
+        let frenchTitles = ["Discussion Familiale", "Discussion de Voyage avec des Amis", "Notes de Réunion", "Mémo Vocal", "Entretien"]
+        let italianTitles = ["Discussione Familiare", "Chiacchierata di Viaggio con Amici", "Note della Riunione", "Memo Vocale", "Intervista"]
+        let portugueseTitles = ["Discussão Familiar", "Conversa de Viagem com Amigos", "Notas da Reunião", "Nota de Voz", "Entrevista"]
+        let russianTitles = ["Семейное обсуждение", "Разговор о путешествии с друзьями", "Заметки встречи", "Голосовая заметка", "Интервью"]
+        let turkishTitles = ["Aile Tartışması", "Arkadaşlarla Seyahat Sohbeti", "Toplantı Notları", "Sesli Not", "Röportaj"]
+        let vietnameseTitles = ["Thảo luận gia đình", "Nói chuyện du lịch với bạn bè", "Ghi chú cuộc họp", "Ghi chú giọng nói", "Phỏng vấn"]
+        let chineseSimplifiedTitles = ["家庭讨论", "与朋友的旅行谈话", "会议笔记", "语音备忘录", "采访"]
+        let chineseTraditionalTitles = ["家庭討論", "與朋友的旅行談話", "會議筆記", "語音備忘錄", "採訪"]
+
+        let titles: [String]
         switch self {
-        case .english:
-            return index == 0 ? "Family Discussion" : "Travel Talk with Friends"
-        case .japanese:
-            return index == 0 ? "家族との話し合い" : "友達との旅行の話"
-        case .german:
-            return index == 0 ? "Familiengespräch" : "Reisegespräch mit Freunden"
-        case .spanish:
-            return index == 0 ? "Discusión Familiar" : "Charla de Viaje con Amigos"
-        case .french:
-            return index == 0 ? "Discussion Familiale" : "Discussion de Voyage avec des Amis"
-        case .italian:
-            return index == 0 ? "Discussione Familiare" : "Chiacchierata di Viaggio con Amici"
-        case .portuguese:
-            return index == 0 ? "Discussão Familiar" : "Conversa de Viagem com Amigos"
-        case .russian:
-            return index == 0 ? "Семейное обсуждение" : "Разговор о путешествии с друзьями"
-        case .turkish:
-            return index == 0 ? "Aile Tartışması" : "Arkadaşlarla Seyahat Sohbeti"
-        case .vietnamese:
-            return index == 0 ? "Thảo luận gia đình" : "Nói chuyện du lịch với bạn bè"
-        case .chineseSimplified:
-            return index == 0 ? "家庭讨论" : "与朋友的旅行谈话"
-        case .chineseTraditional:
-            return index == 0 ? "家庭討論" : "與朋友的旅行談話"
+        case .english: titles = englishTitles
+        case .japanese: titles = japaneseTitles
+        case .german: titles = germanTitles
+        case .spanish: titles = spanishTitles
+        case .french: titles = frenchTitles
+        case .italian: titles = italianTitles
+        case .portuguese: titles = portugueseTitles
+        case .russian: titles = russianTitles
+        case .turkish: titles = turkishTitles
+        case .vietnamese: titles = vietnameseTitles
+        case .chineseSimplified: titles = chineseSimplifiedTitles
+        case .chineseTraditional: titles = chineseTraditionalTitles
         }
+
+        return index < titles.count ? titles[index] : titles[0]
     }
 
     var untitled: String {
@@ -457,6 +461,176 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .chineseTraditional: return "編輯動作..."
         }
     }
+
+    var recordingTitle: String {
+        switch self {
+        case .english: return "Recording"
+        case .japanese: return "録音"
+        case .german: return "Aufnahme"
+        case .spanish: return "Grabación"
+        case .french: return "Enregistrement"
+        case .italian: return "Registrazione"
+        case .portuguese: return "Gravação"
+        case .russian: return "Запись"
+        case .turkish: return "Kayıt"
+        case .vietnamese: return "Ghi âm"
+        case .chineseSimplified: return "录音"
+        case .chineseTraditional: return "錄音"
+        }
+    }
+
+    var readyToRecord: String {
+        switch self {
+        case .english: return "Ready to Record"
+        case .japanese: return "録音準備完了"
+        case .german: return "Aufnahmebereit"
+        case .spanish: return "Listo para Grabar"
+        case .french: return "Prêt à Enregistrer"
+        case .italian: return "Pronto per Registrare"
+        case .portuguese: return "Pronto para Gravar"
+        case .russian: return "Готов к записи"
+        case .turkish: return "Kayda Hazır"
+        case .vietnamese: return "Sẵn sàng Ghi"
+        case .chineseSimplified: return "准备录音"
+        case .chineseTraditional: return "準備錄音"
+        }
+    }
+
+    var recordingFiles: String {
+        switch self {
+        case .english: return "Recording Files"
+        case .japanese: return "録音ファイル"
+        case .german: return "Aufnahmedateien"
+        case .spanish: return "Archivos de Grabación"
+        case .french: return "Fichiers d'Enregistrement"
+        case .italian: return "File di Registrazione"
+        case .portuguese: return "Arquivos de Gravação"
+        case .russian: return "Файлы записи"
+        case .turkish: return "Kayıt Dosyaları"
+        case .vietnamese: return "Tệp Ghi âm"
+        case .chineseSimplified: return "录音文件"
+        case .chineseTraditional: return "錄音檔案"
+        }
+    }
+
+    var audioEdit: String {
+        switch self {
+        case .english: return "Audio Edit"
+        case .japanese: return "音声編集"
+        case .german: return "Audiobearbeitung"
+        case .spanish: return "Edición de Audio"
+        case .french: return "Édition Audio"
+        case .italian: return "Modifica Audio"
+        case .portuguese: return "Edição de Áudio"
+        case .russian: return "Редактирование аудио"
+        case .turkish: return "Ses Düzenleme"
+        case .vietnamese: return "Chỉnh sửa Âm thanh"
+        case .chineseSimplified: return "音频编辑"
+        case .chineseTraditional: return "音訊編輯"
+        }
+    }
+
+    var trimSelection: String {
+        switch self {
+        case .english: return "Trim Selection"
+        case .japanese: return "選択範囲をトリム"
+        case .german: return "Auswahl zuschneiden"
+        case .spanish: return "Recortar Selección"
+        case .french: return "Rogner la Sélection"
+        case .italian: return "Ritaglia Selezione"
+        case .portuguese: return "Aparar Seleção"
+        case .russian: return "Обрезать выбранное"
+        case .turkish: return "Seçimi Kırp"
+        case .vietnamese: return "Cắt Lựa chọn"
+        case .chineseSimplified: return "修剪选择"
+        case .chineseTraditional: return "修剪選擇"
+        }
+    }
+
+    var deleteSelection: String {
+        switch self {
+        case .english: return "Delete Selection"
+        case .japanese: return "選択範囲を削除"
+        case .german: return "Auswahl löschen"
+        case .spanish: return "Eliminar Selección"
+        case .french: return "Supprimer la Sélection"
+        case .italian: return "Elimina Selezione"
+        case .portuguese: return "Excluir Seleção"
+        case .russian: return "Удалить выбранное"
+        case .turkish: return "Seçimi Sil"
+        case .vietnamese: return "Xóa Lựa chọn"
+        case .chineseSimplified: return "删除选择"
+        case .chineseTraditional: return "刪除選擇"
+        }
+    }
+
+    func sampleDate(_ index: Int) -> String {
+        switch self {
+        case .english: return "2024/08/17 11:\(10 + index)"
+        case .japanese: return "2024/08/17 11:\(10 + index)"
+        case .german: return "17.08.2024 11:\(10 + index)"
+        case .spanish: return "17/08/2024 11:\(10 + index)"
+        case .french: return "17/08/2024 11:\(10 + index)"
+        case .italian: return "17/08/2024 11:\(10 + index)"
+        case .portuguese: return "17/08/2024 11:\(10 + index)"
+        case .russian: return "17.08.2024 11:\(10 + index)"
+        case .turkish: return "17.08.2024 11:\(10 + index)"
+        case .vietnamese: return "17/08/2024 11:\(10 + index)"
+        case .chineseSimplified: return "2024/08/17 11:\(10 + index)"
+        case .chineseTraditional: return "2024/08/17 11:\(10 + index)"
+        }
+    }
+
+    func createdDate(_ index: Int) -> String {
+        switch self {
+        case .english: return "Created: 2024/08/\(15 + index)"
+        case .japanese: return "作成日: 2024/08/\(15 + index)"
+        case .german: return "Erstellt: \(15 + index).08.2024"
+        case .spanish: return "Creado: \(15 + index)/08/2024"
+        case .french: return "Créé: \(15 + index)/08/2024"
+        case .italian: return "Creato: \(15 + index)/08/2024"
+        case .portuguese: return "Criado: \(15 + index)/08/2024"
+        case .russian: return "Создано: \(15 + index).08.2024"
+        case .turkish: return "Oluşturuldu: \(15 + index).08.2024"
+        case .vietnamese: return "Tạo: \(15 + index)/08/2024"
+        case .chineseSimplified: return "创建日期: 2024/08/\(15 + index)"
+        case .chineseTraditional: return "建立日期: 2024/08/\(15 + index)"
+        }
+    }
+
+    var statusBarDate: String {
+        switch self {
+        case .english: return "Friday, January 24"
+        case .japanese: return "金曜日 1月 24日"
+        case .german: return "Freitag, 24. Januar"
+        case .spanish: return "Viernes, 24 de enero"
+        case .french: return "Vendredi 24 janvier"
+        case .italian: return "Venerdì 24 gennaio"
+        case .portuguese: return "Sexta-feira, 24 de janeiro"
+        case .russian: return "Пятница, 24 января"
+        case .turkish: return "Cuma, 24 Ocak"
+        case .vietnamese: return "Thứ Sáu, 24 tháng 1"
+        case .chineseSimplified: return "星期五 1月24日"
+        case .chineseTraditional: return "星期五 1月24日"
+        }
+    }
+
+    var sampleRecordingDescription: String {
+        switch self {
+        case .english: return "Recorded a conversation with family"
+        case .japanese: return "家族との会話を録音しました"
+        case .german: return "Gespräch mit der Familie aufgenommen"
+        case .spanish: return "Grabé una conversación con la familia"
+        case .french: return "Enregistré une conversation avec la famille"
+        case .italian: return "Registrata conversazione con la famiglia"
+        case .portuguese: return "Gravei uma conversa com a família"
+        case .russian: return "Записан разговор с семьей"
+        case .turkish: return "Aileyle sohbet kaydedildi"
+        case .vietnamese: return "Đã ghi cuộc trò chuyện với gia đình"
+        case .chineseSimplified: return "录制了与家人的对话"
+        case .chineseTraditional: return "錄製了與家人的對話"
+        }
+    }
 }
 
 // MARK: - Screenshot Screen Enum
@@ -478,7 +652,7 @@ struct MockRecordingListView: View {
         VStack(spacing: 0) {
             // Title
             HStack {
-                Text("録音")
+                Text(language.recordingTitle)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 Spacer()
@@ -491,7 +665,7 @@ struct MockRecordingListView: View {
                 // Recording Status and Timer
                 VStack(spacing: 16) {
                     VStack(spacing: 8) {
-                        Text(isRecording ? language.recordingText : "録音準備完了")
+                        Text(isRecording ? language.recordingText : language.readyToRecord)
                             .font(.title2)
                             .fontWeight(.bold)
                             .foregroundColor(isRecording ? .red : .primary)
@@ -586,7 +760,7 @@ struct MockPlaybackListView: View {
         VStack(spacing: 0) {
             // Title and Toolbar
             HStack {
-                Text("録音ファイル")
+                Text(language.recordingFiles)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 Spacer()
@@ -618,7 +792,7 @@ struct MockPlaybackListView: View {
                             // 1行目: タイトル + 時間長
                             HStack {
                                 HStack(spacing: 4) {
-                                    Text(index == 0 ? language.sampleRecordingTitle(0) : language.untitled)
+                                    Text(language.sampleRecordingTitle(index))
                                         .font(.headline)
                                         .lineLimit(1)
 
@@ -641,12 +815,12 @@ struct MockPlaybackListView: View {
                             // 2行目: 日時 + メニュー
                             HStack(spacing: 8) {
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text("2024/08/17 11:\(10 + index)")
+                                    Text(language.sampleDate(index))
                                         .font(.caption)
                                         .foregroundColor(.secondary)
 
                                     if index == 0 {
-                                        Text("家族との会話を録音しました")
+                                        Text(language.sampleRecordingDescription)
                                             .font(.caption)
                                             .foregroundColor(.secondary)
                                             .lineLimit(1)
@@ -689,7 +863,7 @@ struct MockPlaybackListView: View {
                             Text(language.sampleRecordingTitle(0))
                                 .font(.headline)
                                 .lineLimit(1)
-                            Text("2024/08/17 11:10")
+                            Text(language.sampleDate(0))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
@@ -775,7 +949,7 @@ struct MockBackgroundRecordingView: View {
 
                 // Date and Time
                 VStack(spacing: 8) {
-                    Text("金曜日 1月 24日")
+                    Text(language.statusBarDate)
                         .font(.system(size: 18, weight: .medium))
                         .foregroundColor(.white)
 
@@ -852,7 +1026,7 @@ struct MockWaveformEditorView: View {
 
                 Spacer()
 
-                Text("音声編集")
+                Text(language.audioEdit)
                     .font(.headline)
 
                 Spacer()
@@ -947,7 +1121,7 @@ struct MockWaveformEditorView: View {
                             HStack {
                                 Image(systemName: "scissors")
                                     .frame(width: 30)
-                                Text("選択範囲をトリム")
+                                Text(language.trimSelection)
                                 Spacer()
                             }
                             .padding()
@@ -960,7 +1134,7 @@ struct MockWaveformEditorView: View {
                             HStack {
                                 Image(systemName: "trash")
                                     .frame(width: 30)
-                                Text("選択範囲を削除")
+                                Text(language.deleteSelection)
                                 Spacer()
                             }
                             .padding()
@@ -1045,7 +1219,7 @@ struct MockPlaylistView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
 
-                            Text("作成日: 2024/08/\(15 + index)")
+                            Text(language.createdDate(index))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
