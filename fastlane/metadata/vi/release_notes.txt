@@ -1,1 +1,4 @@
-Sửa lỗi nhỏ.
+Phiên bản 1.3.2
+
+[Cải tiến]
+• Cập nhật hệ thống quảng cáo lên phiên bản mới nhất

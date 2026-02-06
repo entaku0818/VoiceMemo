@@ -1,14 +1,4 @@
-Correzioni minori di bug.
+Versione 1.3.2
 
-Correzioni di bug e miglioramenti di stabilità
-- Risolto il problema del tono quando si utilizza il microfono delle cuffie
-- Migliorata la stabilità dell'app
-
-Altro:
-- Miglioramenti minori e correzioni di bug
-
-Miglioramento della sicurezza durante la registrazione:
-• Avviso quando si tenta di navigare durante la registrazione
-• Opzione per continuare la registrazione o fermarsi e navigare
-• Indicatore di registrazione nella barra di navigazione
-• Accesso limitato a playlist, impostazioni e sincronizzazione iCloud durante la registrazione
+[Miglioramenti]
+• Sistema pubblicitario aggiornato all'ultima versione

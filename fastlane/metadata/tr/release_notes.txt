@@ -1,1 +1,4 @@
-Küçük hata düzeltmeleri.
+Sürüm 1.3.2
+
+[İyileştirmeler]
+• Reklam sistemi en son sürüme güncellendi

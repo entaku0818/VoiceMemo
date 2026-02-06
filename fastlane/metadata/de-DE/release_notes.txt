@@ -1,23 +1,4 @@
-Version 0.17.3
-
-[Neue Funktionen]
-• Playlist-Funktion hinzugefügt
-  - Organisieren Sie Ihre Aufnahmen mit Playlists
-  - Unbegrenzte Playlists mit Premium (kostenlose Version auf 3 begrenzt)
-
-• Detaillierte Sprachinformationsanzeige hinzugefügt
-  - Dateiformat, Abtastfrequenz, Bittiefe und mehr anzeigen
-  - Details über die Info-Taste bei jeder Aufnahme
-
-• Verbesserte Suchfunktion
-  - Mehrere Sortieroptionen (Datum, Titel, Dauer)
-  - Favoriten-Filter und Dauer-Filter
-  - Sichtbarkeit der Suchoptionen umschalten
+Version 1.3.2
 
 [Verbesserungen]
-• ViewAction-Protokollimplementierung behoben
-• Verbesserte Codesicherheit und Leistung
-• Verbesserte Codequalität mit SwiftLint-Konformität
-
-Vielen Dank für die Nutzung von VoiLog.
-Wir werden die App weiterhin für eine bessere Benutzererfahrung verbessern.
+• Werbesystem auf die neueste Version aktualisiert

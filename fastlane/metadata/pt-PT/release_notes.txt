@@ -1,8 +1,4 @@
-Correções menores de bugs.
+Versão 1.3.2
 
-Correções de erros e melhorias de estabilidade
-- Corrigido o problema de tom ao usar o microfone dos auscultadores
-- Melhorada a estabilidade da aplicação
-
-Outros:
-- Melhorias menores e correções de erros
+[Melhorias]
+• Sistema de publicidade atualizado para a versão mais recente
