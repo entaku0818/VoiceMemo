@@ -11,7 +11,7 @@ import UIKit
 final class AppOpenAdManager: NSObject {
     static let shared = AppOpenAdManager()
 
-    private var appOpenAd: GADAppOpenAd?
+    private var appOpenAd: AppOpenAd?
     private var isLoading = false
     private var loadTime: Date?
     private var onDismiss: (() -> Void)?
@@ -58,7 +58,7 @@ final class AppOpenAdManager: NSObject {
         let adUnitID = Bundle.main.object(forInfoDictionaryKey: "INTERSTITIAL_ADMOB_KEY") as? String ?? ""
         #endif
 
-        GADAppOpenAd.load(withAdUnitID: adUnitID, request: GADRequest()) { [weak self] ad, error in
+        AppOpenAd.load(with: adUnitID, request: Request()) { [weak self] ad, error in
             self?.isLoading = false
 
             if error != nil {
@@ -116,14 +116,14 @@ final class AppOpenAdManager: NSObject {
         }
 
         self.onDismiss = onDismiss
-        ad.present(fromRootViewController: rootViewController)
+        ad.present(from: rootViewController)
         return true
     }
 }
 
-// MARK: - GADFullScreenContentDelegate
-extension AppOpenAdManager: GADFullScreenContentDelegate {
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+// MARK: - FullScreenContentDelegate
+extension AppOpenAdManager: FullScreenContentDelegate {
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         appOpenAd = nil
         loadTime = nil
         // 次回のために新しい広告をプリロード
@@ -133,7 +133,7 @@ extension AppOpenAdManager: GADFullScreenContentDelegate {
         onDismiss = nil
     }
 
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         appOpenAd = nil
         loadTime = nil
         preloadAd()

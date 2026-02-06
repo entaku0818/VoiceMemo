@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         // AdMob初期化を遅延実行（UIが表示された後）
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            GADMobileAds.sharedInstance().start { _ in
+            MobileAds.shared.start { _ in
                 // 広告初期化完了後にインタースティシャル広告をプリロード
                 AppOpenAdManager.shared.preloadAd()
             }

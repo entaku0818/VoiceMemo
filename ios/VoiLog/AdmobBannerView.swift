@@ -17,22 +17,23 @@ struct AdmobBannerView: UIViewRepresentable {
         self.unitId = unitId
     }
 
-    func makeUIView(context: Context) -> GADBannerView {
-        let adSize = GADAdSizeFromCGSize(CGSize(width: 300, height: 50))
-        let view = GADBannerView(adSize: adSize)
+    func makeUIView(context: Context) -> BannerView {
+        let view = BannerView(adSize: AdSizeBanner)
 
         #if DEBUG
         view.adUnitID = "ca-app-pub-3940256099942544/2934735716"
         #else
         view.adUnitID = unitId
         #endif
-        view.rootViewController = UIApplication.shared.windows.first?.rootViewController
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            view.rootViewController = windowScene.windows.first?.rootViewController
+        }
         view.delegate = context.coordinator
-        view.load(GADRequest())
+        view.load(Request())
         return view
     }
 
-    func updateUIView(_ uiView: GADBannerView, context: Context) {
+    func updateUIView(_ uiView: BannerView, context: Context) {
     }
 
     // Adding the Coordinator for delegate handling
@@ -40,36 +41,36 @@ struct AdmobBannerView: UIViewRepresentable {
         Coordinator()
     }
 
-    class Coordinator: NSObject, GADBannerViewDelegate {
+    class Coordinator: NSObject, BannerViewDelegate {
 
         // 広告受信時
-        func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+        func bannerViewDidReceiveAd(_ bannerView: BannerView) {
             AppLogger.ui.debug("AdmobBannerView ad received - adUnitID: \(bannerView.adUnitID ?? "nil")")
         }
 
         // 広告受信失敗時
-        func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+        func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
             AppLogger.ui.error("AdmobBannerView failed to load ad - adUnitID: \(bannerView.adUnitID ?? "nil"), error: \(error.localizedDescription)")
         }
 
         // インプレッションが記録された時
-        func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+        func bannerViewDidRecordImpression(_ bannerView: BannerView) {
             AppLogger.ui.debug("AdmobBannerView impression recorded")
         }
 
         // 広告がクリックされた時
-        func bannerViewDidRecordClick(_ bannerView: GADBannerView) {
+        func bannerViewDidRecordClick(_ bannerView: BannerView) {
             AppLogger.ui.debug("AdmobBannerView ad clicked")
         }
-        func bannerViewWillPresentScreen(_: GADBannerView) {
+        func bannerViewWillPresentScreen(_: BannerView) {
             AppLogger.ui.debug("AdmobBannerView bannerViewWillPresentScreen")
         }
 
-        func bannerViewWillDismissScreen(_: GADBannerView) {
+        func bannerViewWillDismissScreen(_: BannerView) {
             AppLogger.ui.debug("AdmobBannerView bannerViewWillDismissScreen")
         }
 
-        func bannerViewDidDismissScreen(_: GADBannerView) {
+        func bannerViewDidDismissScreen(_: BannerView) {
             AppLogger.ui.debug("AdmobBannerView bannerViewDidDismissScreen")
         }
     }
