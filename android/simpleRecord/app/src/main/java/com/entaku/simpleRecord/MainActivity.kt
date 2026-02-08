@@ -275,6 +275,7 @@ fun AppNavHost() {
                         },
                         onAddRecording = detailViewModel::addRecording,
                         onRemoveRecording = detailViewModel::removeRecording,
+                        onReorderRecordings = detailViewModel::reorderRecordings,
                         colorScheme = colorScheme
                     )
                 }
