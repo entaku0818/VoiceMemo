@@ -103,8 +103,8 @@ class PlaylistDetailViewModel(
 
         // Update database with new positions
         viewModelScope.launch {
-            val updatedPositions = currentRecordings.mapIndexed { index, recording ->
-                recording.uuid to index
+            val updatedPositions = currentRecordings.mapIndexedNotNull { index, recording ->
+                recording.uuid?.let { it to index }
             }
             repository.reorderRecordings(playlistUuid, updatedPositions)
         }
