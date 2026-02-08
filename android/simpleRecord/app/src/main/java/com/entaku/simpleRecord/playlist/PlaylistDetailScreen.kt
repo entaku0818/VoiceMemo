@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Card
@@ -44,6 +46,10 @@ import androidx.compose.ui.unit.dp
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.formatTime
 import kotlinx.coroutines.launch
+import org.burnoutcrew.reorderable.ReorderableItem
+import org.burnoutcrew.reorderable.detectReorderAfterLongPress
+import org.burnoutcrew.reorderable.rememberReorderableLazyListState
+import org.burnoutcrew.reorderable.reorderable
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
@@ -56,6 +62,7 @@ fun PlaylistDetailScreen(
     onNavigateToPlayback: (RecordingData) -> Unit,
     onAddRecording: (UUID) -> Unit,
     onRemoveRecording: (UUID) -> Unit,
+    onReorderRecordings: (Int, Int) -> Unit,
     colorScheme: ColorScheme
 ) {
     var showAddRecordingSheet by remember { mutableStateOf(false) }
@@ -124,16 +131,32 @@ fun PlaylistDetailScreen(
                     }
                 }
             } else {
+                val reorderableState = rememberReorderableLazyListState(
+                    onMove = { from, to ->
+                        // Movement handled during drag
+                    },
+                    onDragEnd = { fromIndex, toIndex ->
+                        // Persist reordering when drag completes
+                        onReorderRecordings(fromIndex, toIndex)
+                    }
+                )
+
                 LazyColumn(
+                    state = reorderableState.listState,
                     contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.reorderable(reorderableState)
                 ) {
-                    items(state.recordings) { recording ->
-                        PlaylistRecordingItem(
-                            recording = recording,
-                            onItemClick = { onNavigateToPlayback(recording) },
-                            onRemoveClick = { recording.uuid?.let { onRemoveRecording(it) } }
-                        )
+                    itemsIndexed(state.recordings, key = { _, item -> item.uuid ?: "" }) { index, recording ->
+                        ReorderableItem(reorderableState, key = recording.uuid ?: "") { isDragging ->
+                            PlaylistRecordingItem(
+                                recording = recording,
+                                isDragging = isDragging,
+                                onItemClick = { onNavigateToPlayback(recording) },
+                                onRemoveClick = { recording.uuid?.let { onRemoveRecording(it) } },
+                                reorderableState = reorderableState
+                            )
+                        }
                     }
                 }
             }
@@ -162,8 +185,10 @@ fun PlaylistDetailScreen(
 @Composable
 fun PlaylistRecordingItem(
     recording: RecordingData,
+    isDragging: Boolean,
     onItemClick: () -> Unit,
-    onRemoveClick: () -> Unit
+    onRemoveClick: () -> Unit,
+    reorderableState: org.burnoutcrew.reorderable.ReorderableLazyListState
 ) {
     val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
     val formattedDate = recording.creationDate.format(formatter)
@@ -180,6 +205,20 @@ fun PlaylistRecordingItem(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Drag handle
+            Icon(
+                imageVector = Icons.Default.DragHandle,
+                contentDescription = "Reorder",
+                tint = if (isDragging) {
+                    MaterialTheme.colorScheme.primary
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
+                modifier = Modifier
+                    .padding(end = 12.dp)
+                    .detectReorderAfterLongPress(reorderableState)
+            )
+
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = recording.title,
