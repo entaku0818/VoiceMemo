@@ -90,6 +90,25 @@ class PlaylistDetailViewModel(
             repository.addRecordingToPlaylist(playlistUuid, recordingUuid)
         }
     }
+
+    fun reorderRecordings(fromIndex: Int, toIndex: Int) {
+        val currentRecordings = _uiState.value.recordings.toMutableList()
+
+        // Reorder the list
+        val item = currentRecordings.removeAt(fromIndex)
+        currentRecordings.add(toIndex, item)
+
+        // Update UI immediately
+        _uiState.value = _uiState.value.copy(recordings = currentRecordings)
+
+        // Update database with new positions
+        viewModelScope.launch {
+            val updatedPositions = currentRecordings.mapIndexed { index, recording ->
+                recording.uuid to index
+            }
+            repository.reorderRecordings(playlistUuid, updatedPositions)
+        }
+    }
 }
 
 data class PlaylistDetailUiState(
