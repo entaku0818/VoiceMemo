@@ -252,7 +252,7 @@ class PlaylistReorderingTest {
             title = title,
             creationDate = LocalDateTime.now(),
             fileExtension = "m4a",
-            khz = 44100,
+            khz = "44100",
             bitRate = 128,
             channels = 1,
             duration = 60,
