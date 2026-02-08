@@ -23,6 +23,7 @@ interface PlaylistRepository {
     suspend fun deletePlaylist(uuid: UUID)
     suspend fun addRecordingToPlaylist(playlistUuid: UUID, recordingUuid: UUID)
     suspend fun removeRecordingFromPlaylist(playlistUuid: UUID, recordingUuid: UUID)
+    suspend fun reorderRecordings(playlistUuid: UUID, reorderedRecordings: List<Pair<UUID, Int>>)
 }
 
 class PlaylistRepositoryImpl(private val database: AppDatabase) : PlaylistRepository {
@@ -116,6 +117,26 @@ class PlaylistRepositoryImpl(private val database: AppDatabase) : PlaylistReposi
                 database.playlistDao().update(playlist.copy(updatedDate = now))
             }
             Log.d(TAG, "Recording $recordingUuid removed from playlist $playlistUuid")
+        }
+    }
+
+    override suspend fun reorderRecordings(
+        playlistUuid: UUID,
+        reorderedRecordings: List<Pair<UUID, Int>>
+    ) {
+        withContext(Dispatchers.IO) {
+            try {
+                database.playlistDao().reorderRecordings(playlistUuid, reorderedRecordings)
+                val now = System.currentTimeMillis() / 1000
+                val playlist = database.playlistDao().getPlaylistById(playlistUuid)
+                if (playlist != null) {
+                    database.playlistDao().update(playlist.copy(updatedDate = now))
+                }
+                Log.d(TAG, "Playlist $playlistUuid reordered with ${reorderedRecordings.size} recordings")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error reordering recordings: ${e.message}", e)
+                throw e
+            }
         }
     }
 

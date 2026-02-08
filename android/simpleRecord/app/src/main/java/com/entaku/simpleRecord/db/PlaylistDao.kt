@@ -108,4 +108,26 @@ interface PlaylistDao {
         ORDER BY cr.position ASC
     """)
     fun getRecordingsForPlaylist(playlistUuid: UUID): Flow<List<RecordingEntity>>
+
+    // Reordering support
+    @Query("""
+        UPDATE playlist_recording_cross_ref
+        SET position = :newPosition
+        WHERE playlist_uuid = :playlistUuid AND recording_uuid = :recordingUuid
+    """)
+    suspend fun updatePosition(
+        playlistUuid: UUID,
+        recordingUuid: UUID,
+        newPosition: Int
+    )
+
+    @Transaction
+    suspend fun reorderRecordings(
+        playlistUuid: UUID,
+        reorderedRecordings: List<Pair<UUID, Int>>
+    ) {
+        reorderedRecordings.forEach { (recordingUuid, position) ->
+            updatePosition(playlistUuid, recordingUuid, position)
+        }
+    }
 }

@@ -103,6 +103,9 @@ dependencies {
     // Material Icons
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
 
+    // Drag and Drop for playlist reordering
+    implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
