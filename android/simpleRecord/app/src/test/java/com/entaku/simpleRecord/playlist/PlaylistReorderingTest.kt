@@ -2,9 +2,7 @@ package com.entaku.simpleRecord.playlist
 
 import com.entaku.simpleRecord.RecordingData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -24,7 +22,6 @@ import java.util.UUID
 class PlaylistReorderingTest {
 
     private lateinit var mockRepository: MockPlaylistRepository
-    private val testDispatcher = TestCoroutineDispatcher()
 
     @Before
     fun setup() {
@@ -32,7 +29,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - move item down in list`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - move item down in list`() = runTest {
         // Given: Playlist with 3 recordings [A, B, C]
         val playlistUuid = UUID.randomUUID()
         val recordingA = createTestRecording("Recording A", 0)
@@ -58,7 +55,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - move item up in list`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - move item up in list`() = runTest {
         // Given: Playlist with 3 recordings [A, B, C]
         val playlistUuid = UUID.randomUUID()
         val recordingA = createTestRecording("Recording A", 0)
@@ -84,7 +81,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - swap adjacent items`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - swap adjacent items`() = runTest {
         // Given: Playlist with 4 recordings [A, B, C, D]
         val playlistUuid = UUID.randomUUID()
         val recordingA = createTestRecording("Recording A", 0)
@@ -113,7 +110,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - move to first position`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - move to first position`() = runTest {
         // Given: Playlist with 5 recordings
         val playlistUuid = UUID.randomUUID()
         val recordings = (0..4).map { createTestRecording("Recording $it", it) }
@@ -134,7 +131,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - move to last position`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - move to last position`() = runTest {
         // Given: Playlist with 5 recordings
         val playlistUuid = UUID.randomUUID()
         val recordings = (0..4).map { createTestRecording("Recording $it", it) }
@@ -155,7 +152,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - no change when positions are same`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - no change when positions are same`() = runTest {
         // Given: Playlist with 3 recordings
         val playlistUuid = UUID.randomUUID()
         val recordings = (0..2).map { createTestRecording("Recording $it", it) }
@@ -175,7 +172,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - handles empty playlist`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - handles empty playlist`() = runTest {
         // Given: Empty playlist
         val playlistUuid = UUID.randomUUID()
         mockRepository.setRecordingsForPlaylist(playlistUuid, emptyList())
@@ -189,7 +186,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - handles single item playlist`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - handles single item playlist`() = runTest {
         // Given: Playlist with single recording
         val playlistUuid = UUID.randomUUID()
         val recording = createTestRecording("Recording A", 0)
@@ -204,7 +201,7 @@ class PlaylistReorderingTest {
     }
 
     @Test
-    fun `reorderRecordings - multiple reorderings persist correctly`() = testDispatcher.runBlockingTest {
+    fun `reorderRecordings - multiple reorderings persist correctly`() = runTest {
         // Given: Playlist with 3 recordings [A, B, C]
         val playlistUuid = UUID.randomUUID()
         val recordingA = createTestRecording("Recording A", 0)
