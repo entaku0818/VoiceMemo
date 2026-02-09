@@ -17,6 +17,7 @@ import java.io.IOException
 data class PlaybackState(
     val isPlaying: Boolean = false,
     val currentPosition: Int = 0,
+    val duration: Int = 0,
     val playbackSpeed: Float = 1.0f
 )
 
@@ -41,6 +42,9 @@ class PlaybackViewModel : ViewModel() {
                     _playbackState.update { it.copy(isPlaying = false, currentPosition = 0) }
                     onCompletionCallback?.invoke()
                 }
+
+                // Update duration
+                _playbackState.update { it.copy(duration = duration) }
             } catch (e: IOException) {
                 Log.e("MediaPlayer", "Failed to set data source", e)
             } catch (e: IllegalStateException) {
@@ -155,6 +159,22 @@ class PlaybackViewModel : ViewModel() {
      */
     fun getDuration(): Int {
         return mediaPlayer?.duration ?: 0
+    }
+
+    /**
+     * Seek to specific position in milliseconds
+     */
+    fun seekTo(position: Int) {
+        mediaPlayer?.let {
+            try {
+                it.seekTo(position)
+                _playbackState.update { currentState ->
+                    currentState.copy(currentPosition = position)
+                }
+            } catch (e: IllegalStateException) {
+                Log.e("MediaPlayer", "Error seeking to position", e)
+            }
+        }
     }
 
     override fun onCleared() {

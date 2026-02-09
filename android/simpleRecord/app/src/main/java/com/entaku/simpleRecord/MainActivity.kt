@@ -28,6 +28,8 @@ import com.entaku.simpleRecord.playlist.PlaylistDetailScreen
 import com.entaku.simpleRecord.playlist.PlaylistDetailViewModel
 import com.entaku.simpleRecord.playlist.PlaylistDetailViewModelFactory
 import com.entaku.simpleRecord.playlist.PlaylistListScreen
+import com.entaku.simpleRecord.playlist.PlaylistPlaybackScreen
+import com.entaku.simpleRecord.playlist.PlaylistPlaybackViewModel
 import com.entaku.simpleRecord.playlist.PlaylistRepositoryImpl
 import com.entaku.simpleRecord.playlist.PlaylistViewModel
 import com.entaku.simpleRecord.playlist.PlaylistViewModelFactory
@@ -273,10 +275,89 @@ fun AppNavHost() {
                             sharedViewModel.selectRecording(recordingData)
                             navController.navigate(Screen.Playback.route)
                         },
+                        onNavigateToPlaylistPlayback = { startIndex ->
+                            navController.navigate(Screen.PlaylistPlayback.createRoute(playlistIdString, startIndex))
+                        },
                         onAddRecording = detailViewModel::addRecording,
                         onRemoveRecording = detailViewModel::removeRecording,
                         onReorderRecordings = detailViewModel::reorderRecordings,
                         colorScheme = colorScheme
+                    )
+                }
+
+                composable(
+                    route = Screen.PlaylistPlayback.route,
+                    arguments = listOf(
+                        navArgument("playlistId") { type = NavType.StringType },
+                        navArgument("startIndex") { type = NavType.IntType; defaultValue = 0 }
+                    )
+                ) { backStackEntry ->
+                    val playlistIdString = backStackEntry.arguments?.getString("playlistId") ?: return@composable
+                    val startIndex = backStackEntry.arguments?.getInt("startIndex") ?: 0
+                    val playlistId = UUID.fromString(playlistIdString)
+
+                    val database = remember { AppDatabase.getInstance(context) }
+                    val playlistRepository = remember { PlaylistRepositoryImpl(database) }
+                    val viewModelFactory = remember { PlaylistDetailViewModelFactory(playlistRepository, playlistId) }
+                    val detailViewModel: PlaylistDetailViewModel = viewModel(factory = viewModelFactory)
+                    val playlistPlaybackViewModel: PlaylistPlaybackViewModel = viewModel()
+                    val playbackViewModel: PlaybackViewModel = viewModel()
+
+                    val detailState by detailViewModel.uiState.collectAsState()
+                    val playbackState by playlistPlaybackViewModel.state.collectAsState()
+                    val audioPlaybackState by playbackViewModel.playbackState.collectAsState()
+
+                    // Initialize playlist playback
+                    LaunchedEffect(detailState.recordings) {
+                        if (detailState.recordings.isNotEmpty()) {
+                            playlistPlaybackViewModel.startPlaylistPlayback(
+                                recordings = detailState.recordings,
+                                startIndex = startIndex
+                            )
+                        }
+                    }
+
+                    // Set up current track when changed
+                    LaunchedEffect(playbackState.currentRecording) {
+                        playbackState.currentRecording?.let { recording ->
+                            playbackViewModel.setupMediaPlayer(recording.filePath)
+                            playbackViewModel.setOnCompletionListener {
+                                playlistPlaybackViewModel.onTrackComplete()
+                            }
+                            if (playbackState.isPlaying) {
+                                playbackViewModel.playOrPause()
+                            }
+                        }
+                    }
+
+                    PlaylistPlaybackScreen(
+                        playlistName = detailState.playlist?.name ?: "Playlist",
+                        playbackState = playbackState,
+                        audioPlaybackState = audioPlaybackState,
+                        onPlayPauseClick = {
+                            playbackViewModel.playOrPause()
+                            playlistPlaybackViewModel.setPlaying(audioPlaybackState.isPlaying.not())
+                        },
+                        onNextClick = {
+                            playbackViewModel.stopPlayback()
+                            playlistPlaybackViewModel.playNext()
+                        },
+                        onPreviousClick = {
+                            playbackViewModel.stopPlayback()
+                            playlistPlaybackViewModel.playPrevious()
+                        },
+                        onRepeatClick = playlistPlaybackViewModel::toggleRepeat,
+                        onShuffleClick = playlistPlaybackViewModel::toggleShuffle,
+                        onTrackClick = { index ->
+                            playbackViewModel.stopPlayback()
+                            playlistPlaybackViewModel.jumpToTrack(index)
+                        },
+                        onSeekTo = playbackViewModel::seekTo,
+                        onBackClick = {
+                            playbackViewModel.stopPlayback()
+                            playlistPlaybackViewModel.stopPlayback()
+                            navController.popBackStack()
+                        }
                     )
                 }
 
@@ -302,6 +383,9 @@ sealed class Screen(val route: String, val title: String) {
     object Playlists : Screen("playlists", "Playlists")
     object PlaylistDetail : Screen("playlist_detail/{playlistId}", "Playlist Detail") {
         fun createRoute(playlistId: String) = "playlist_detail/$playlistId"
+    }
+    object PlaylistPlayback : Screen("playlist_playback/{playlistId}/{startIndex}", "Playlist Playback") {
+        fun createRoute(playlistId: String, startIndex: Int = 0) = "playlist_playback/$playlistId/$startIndex"
     }
     object CloudSync : Screen("cloud_sync", "Cloud Sync")
 }

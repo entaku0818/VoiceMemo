@@ -19,7 +19,10 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DragHandle
 import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Remove
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ColorScheme
@@ -60,6 +63,7 @@ fun PlaylistDetailScreen(
     allRecordings: List<RecordingData>,
     onNavigateBack: () -> Unit,
     onNavigateToPlayback: (RecordingData) -> Unit,
+    onNavigateToPlaylistPlayback: (Int) -> Unit = {},
     onAddRecording: (UUID) -> Unit,
     onRemoveRecording: (UUID) -> Unit,
     onReorderRecordings: (Int, Int) -> Unit,
@@ -131,6 +135,24 @@ fun PlaylistDetailScreen(
                     }
                 }
             } else {
+                // Play All button
+                Button(
+                    onClick = { onNavigateToPlaylistPlayback(0) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = colorScheme.primary
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 8.dp)
+                    )
+                    Text("Play All (${state.recordings.size} tracks)")
+                }
+
                 val reorderableState = rememberReorderableLazyListState(
                     onMove = { from, to ->
                         // Movement handled during drag
