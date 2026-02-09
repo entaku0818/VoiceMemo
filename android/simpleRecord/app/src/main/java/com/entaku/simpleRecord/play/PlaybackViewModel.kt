@@ -28,12 +28,19 @@ class PlaybackViewModel : ViewModel() {
 
     private var mediaPlayer: MediaPlayer? = null
     private var updateJob: Job? = null
+    private var onCompletionCallback: (() -> Unit)? = null
 
     fun setupMediaPlayer(filePath: String) {
         mediaPlayer = MediaPlayer().apply {
             try {
                 setDataSource(filePath)
                 prepare()
+
+                // Set completion listener for playlist playback
+                setOnCompletionListener {
+                    _playbackState.update { it.copy(isPlaying = false, currentPosition = 0) }
+                    onCompletionCallback?.invoke()
+                }
             } catch (e: IOException) {
                 Log.e("MediaPlayer", "Failed to set data source", e)
             } catch (e: IllegalStateException) {
@@ -128,8 +135,31 @@ class PlaybackViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Set callback to be invoked when track completes
+     * Used for playlist continuous playback
+     */
+    fun setOnCompletionListener(callback: () -> Unit) {
+        onCompletionCallback = callback
+    }
+
+    /**
+     * Clear completion callback
+     */
+    fun clearOnCompletionListener() {
+        onCompletionCallback = null
+    }
+
+    /**
+     * Get current playback duration
+     */
+    fun getDuration(): Int {
+        return mediaPlayer?.duration ?: 0
+    }
+
     override fun onCleared() {
         super.onCleared()
         stopPlayback()
+        onCompletionCallback = null
     }
 }
