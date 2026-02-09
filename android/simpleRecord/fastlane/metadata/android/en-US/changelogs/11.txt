@@ -1,0 +1,11 @@
+[New Features]
+• Drag & drop reordering for playlists
+• Continuous playlist playback
+• Repeat modes (Off/Repeat One/Repeat All)
+• Shuffle playback
+• New playlist playback screen
+
+[Improvements]
+• Major enhancements to playlist functionality
+• Improved playback controls
+• Enhanced user interface
