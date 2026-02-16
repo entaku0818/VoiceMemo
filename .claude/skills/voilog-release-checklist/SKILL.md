@@ -3,7 +3,7 @@ name: voilog-release-checklist
 description: Step-by-step release checklist for VoiLog iOS and Android app submission to App Store and Google Play. Use when preparing release, updating version, submitting to app stores, creating release, or mentioning App Store or Google Play submission.
 metadata:
   author: VoiLog Team
-  version: 2.0.0
+  version: 2.1.0
   category: deployment
   tags: [release, fastlane, app-store, google-play, ios, android]
 ---
@@ -97,30 +97,18 @@ git push origin v1.x.x
 
 ### Step 4: Archive and Upload to App Store Connect
 
-**Option A: Via Xcode (Recommended for first-time)**
-1. Open `ios/VoiLog.xcodeproj` in Xcode
-2. Select **VoiLog** scheme (NOT VoiLogDevelop)
-3. Product → Archive
-4. Distribute App → App Store Connect
-5. Wait for upload completion
+**Option A: Via Command Line (Recommended)**
 
-**Option B: Via Command Line**
+Complete workflow in one go:
 ```bash
-# Create archive
-xcodebuild -project ios/VoiLog.xcodeproj \
-  -scheme VoiLog \
-  -configuration Release \
-  -archivePath build/VoiLog.xcarchive \
-  archive
-
-# Create ExportOptions.plist
+# 1. Create ExportOptions.plist
 cat > /tmp/ExportOptions.plist << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>method</key>
-    <string>app-store-connect</string>
+    <string>app-store</string>
     <key>destination</key>
     <string>upload</string>
     <key>signingStyle</key>
@@ -131,13 +119,25 @@ cat > /tmp/ExportOptions.plist << 'EOF'
 </plist>
 EOF
 
-# Export and upload to App Store Connect
+# 2. Create archive and upload
+xcodebuild -project ios/VoiLog.xcodeproj \
+  -scheme VoiLog \
+  -configuration Release \
+  -archivePath build/VoiLog.xcarchive \
+  archive && \
 xcodebuild -exportArchive \
   -archivePath build/VoiLog.xcarchive \
   -exportOptionsPlist /tmp/ExportOptions.plist \
   -exportPath build/export \
   -allowProvisioningUpdates
 ```
+
+**Option B: Via Xcode (Alternative)**
+1. Open `ios/VoiLog.xcodeproj` in Xcode
+2. Select **VoiLog** scheme (NOT VoiLogDevelop)
+3. Product → Archive
+4. Distribute App → App Store Connect
+5. Wait for upload completion
 
 ### Step 5: Run Fastlane
 
@@ -424,7 +424,35 @@ After successful submission:
 
 ## Quick Reference
 
-### iOS One-Liner (After Step 4 complete)
+### iOS Complete Command-Line Workflow
+
+**Full automation (after version bump and commit):**
+```bash
+# Create export options
+cat > /tmp/ExportOptions.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store</string>
+    <key>destination</key>
+    <string>upload</string>
+    <key>signingStyle</key>
+    <string>automatic</string>
+    <key>teamID</key>
+    <string>4YZQY4C47E</string>
+</dict>
+</plist>
+EOF
+
+# Archive, upload, and submit for review
+xcodebuild -project ios/VoiLog.xcodeproj -scheme VoiLog -configuration Release -archivePath build/VoiLog.xcarchive archive && \
+xcodebuild -exportArchive -archivePath build/VoiLog.xcarchive -exportOptionsPlist /tmp/ExportOptions.plist -exportPath build/export -allowProvisioningUpdates && \
+bundle exec fastlane upload_metadata
+```
+
+**Metadata and submission only (after manual archive upload):**
 ```bash
 bundle exec fastlane upload_metadata
 ```
