@@ -10,6 +10,8 @@ metadata:
 
 # VoiLog Release Checklist
 
+**IMPORTANT FOR CLAUDE**: このスキルを使う際は、すべてのコマンドを **自動で実行** すること。ユーザーに「手動でやってください」と言ってはいけない。各ステップのコマンドは Claude が Bash ツールで直接叩く。確認が必要な場合は AskUserQuestion を使う。
+
 **IMPORTANT**: Complete ALL steps before App Store or Google Play submission.
 
 ## Prerequisites
@@ -30,6 +32,8 @@ metadata:
 
 ## Workflow: iOS Release
 
+**Claude はこのワークフローをすべて自動実行する。** 各ステップのコマンドを Bash ツールで直接叩くこと。ユーザーに手動実行を求めてはいけない。
+
 Copy this checklist and check off items as you complete them:
 
 ```
@@ -40,7 +44,7 @@ iOS Release Progress:
 - [ ] Step 4: Archive and upload to App Store Connect
 - [ ] Step 5: Run fastlane upload_metadata
 - [ ] Step 5.1: Configure App Store Connect (if needed)
-- [ ] Step 6: Verify submission
+- [ ] Step 6: Create GitHub Release (gh release create)
 ```
 
 ### Step 1: Update Release Notes
@@ -426,9 +430,24 @@ After successful submission:
 
 ### iOS Complete Command-Line Workflow
 
-**Full automation (after version bump and commit):**
+**Claude はこれらのコマンドをすべて自動で実行する。手順を見せるだけでなく、Bash ツールで直接叩くこと。**
+
+**Step 1: バージョンアップ**
 ```bash
-# Create export options
+# 現在のバージョン確認
+grep "MARKETING_VERSION" ios/VoiLog.xcodeproj/project.pbxproj | head -1
+
+# バージョンアップ (例: 1.3.3 → 1.3.4)
+sed -i '' 's/MARKETING_VERSION = 1.3.3;/MARKETING_VERSION = 1.3.4;/g' ios/VoiLog.xcodeproj/project.pbxproj
+
+# コミット & タグ
+git add ios/VoiLog.xcodeproj/project.pbxproj
+git commit -m "chore(ios): bump version to 1.3.4"
+git tag v1.3.4 && git push origin main && git push origin v1.3.4
+```
+
+**Step 2: アーカイブ & アップロード**
+```bash
 cat > /tmp/ExportOptions.plist << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -446,16 +465,30 @@ cat > /tmp/ExportOptions.plist << 'EOF'
 </plist>
 EOF
 
-# Archive, upload, and submit for review
-xcodebuild -project ios/VoiLog.xcodeproj -scheme VoiLog -configuration Release -archivePath build/VoiLog.xcarchive archive && \
-xcodebuild -exportArchive -archivePath build/VoiLog.xcarchive -exportOptionsPlist /tmp/ExportOptions.plist -exportPath build/export -allowProvisioningUpdates && \
-bundle exec fastlane upload_metadata
+rm -rf build/VoiLog.xcarchive
+xcodebuild -project ios/VoiLog.xcodeproj -scheme VoiLog -configuration Release \
+  -archivePath build/VoiLog.xcarchive archive 2>&1 | grep -E "error:|ARCHIVE SUCCEEDED|ARCHIVE FAILED"
+
+xcodebuild -exportArchive -archivePath build/VoiLog.xcarchive \
+  -exportOptionsPlist /tmp/ExportOptions.plist \
+  -exportPath build/export -allowProvisioningUpdates 2>&1 | tail -5
 ```
 
-**Metadata and submission only (after manual archive upload):**
+**Step 3: メタデータアップロード & 審査提出**
 ```bash
 bundle exec fastlane upload_metadata
 ```
+
+**Step 4: GitHub Release 作成**
+```bash
+gh release create v1.3.4 --title "v1.3.4" --latest --notes "## iOS
+- 変更内容"
+```
+
+**注意事項:**
+- アーカイブビルドエラーは `2>&1 | grep "error:"` で確認
+- `upload_metadata` が "build could not be added" で失敗した場合、Apple のビルド処理中。数分後に再実行
+- スクリーンショット変更なしの場合は Fastfile の `skip_screenshots: true` のまま使用
 
 ### Android One-Liner (Full build + upload)
 ```bash
