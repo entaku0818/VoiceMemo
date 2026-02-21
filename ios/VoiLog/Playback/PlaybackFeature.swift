@@ -230,7 +230,7 @@ struct PlaybackFeature {
 
             // データベースから削除
             return .run { send in
-              voiceMemoRepository.delete(id)
+              await MainActor.run { voiceMemoRepository.delete(id) }
               await send(.delegate(.memoDeleted(id)))
             }
           }
@@ -252,7 +252,7 @@ struct PlaybackFeature {
 
           // データベースでタイトルを更新
           return .run { _ in
-            voiceMemoRepository.updateTitle(id, newTitle)
+            await MainActor.run { voiceMemoRepository.updateTitle(id, newTitle) }
           }
 
         case let .startEditingTitle(id):
@@ -395,7 +395,7 @@ struct PlaybackFeature {
   private func loadMemos() -> Effect<Action> {
     .run { send in
       // データベースからデータを読み込み（Legacy形式で取得）
-      let voiceMemoVoices = voiceMemoRepository.selectAllData()
+      let voiceMemoVoices = await MainActor.run { voiceMemoRepository.selectAllData() }
 
       let memos = voiceMemoVoices.map { voice in
         // 実際のファイルURLを検索（パスが変わっている可能性があるため）

@@ -41,14 +41,14 @@ struct VoiceMemoRepositoryClient {
         var numberOfChannels: Int
     }
 
-    var insert: (RecordingVoice) -> Void
-    var selectAllData: () -> [VoiceMemoVoice]
-    var fetch: (UUID) -> RecordingVoice?
-    var delete: (UUID) -> Void
-    var update: (VoiceMemoVoice) -> Void
-    var updateTitle: (UUID, String) -> Void
-    var syncToCloud: () async -> Bool
-    var checkForDifferences: () async -> Bool
+    var insert: @MainActor (RecordingVoice) -> Void
+    var selectAllData: @MainActor () -> [VoiceMemoVoice]
+    var fetch: @MainActor (UUID) -> RecordingVoice?
+    var delete: @MainActor (UUID) -> Void
+    var update: @MainActor (VoiceMemoVoice) -> Void
+    var updateTitle: @MainActor (UUID, String) -> Void
+    var syncToCloud: @MainActor () async -> Bool
+    var checkForDifferences: @MainActor () async -> Bool
 }
 
 // MARK: - Dependency Key
