@@ -122,7 +122,7 @@ struct RecordingFeature {
             numberOfChannels: state.recordingChannels,
             url: recordingUrl
           )
-          voiceMemoRepository.insert(recordingVoice)
+          MainActor.assumeIsolated { voiceMemoRepository.insert(recordingVoice) }
 
           let result = RecordingResult(
             url: recordingUrl,
@@ -154,7 +154,7 @@ struct RecordingFeature {
             numberOfChannels: state.recordingChannels,
             url: recordingUrl
           )
-          voiceMemoRepository.insert(recordingVoice)
+          MainActor.assumeIsolated { voiceMemoRepository.insert(recordingVoice) }
 
           let result = RecordingResult(
             url: recordingUrl,
