@@ -46,9 +46,9 @@ platform :ios do
       skip_app_version_update: false, # アプリバージョンの更新をスキップしない
       app_version: version_number,    # アプリのバージョン番号を指定
       skip_metadata: false,          # メタデータの更新をスキップしない
-      skip_screenshots: false,       # スクリーンショットのアップロードをスキップしない
+      skip_screenshots: true,        # スクリーンショットはスキップ（別途更新する場合は false に変更）
       force: true,                   # 確認なしで強制的に実行
-      overwrite_screenshots: true,   # 既存のスクリーンショットを上書き
+      overwrite_screenshots: false,  # skip_screenshots: true の場合は不要
       ignore_language_directory_validation: true, # 言語ディレクトリの検証を無視
       run_precheck_before_submit: true,  # 提出前の事前チェックを実行
       precheck_include_in_app_purchases: false,  # In-app purchasesのチェックをスキップ
