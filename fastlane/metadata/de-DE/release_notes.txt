@@ -1,4 +1,1 @@
-Version 1.3.2
-
-[Verbesserungen]
-• Werbesystem auf die neueste Version aktualisiert
+Einen Absturz behoben, der beim Anzeigen der Wiedergabesteuerung aufgetreten ist.

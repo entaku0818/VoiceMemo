@@ -1,4 +1,1 @@
-Versión 1.3.2
-
-[Mejoras]
-• Sistema de publicidad actualizado a la última versión
+Se corrigió un fallo que ocurría al mostrar los controles de reproducción.

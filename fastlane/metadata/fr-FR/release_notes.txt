@@ -1,4 +1,1 @@
-Version 1.3.2
-
-[Améliorations]
-• Système publicitaire mis à jour vers la dernière version
+Correction d'un plantage survenant lors de l'affichage des contrôles de lecture.

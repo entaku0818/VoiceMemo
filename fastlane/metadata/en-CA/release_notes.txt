@@ -1,1 +1,1 @@
-Minor bug fixes.
+Fixed a crash that occurred when displaying playback controls.

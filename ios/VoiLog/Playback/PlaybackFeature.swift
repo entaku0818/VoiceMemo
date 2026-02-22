@@ -753,7 +753,7 @@ struct PlaybackView: View {
                 get: { store.currentTime },
                 set: { send(.seekTo($0)) }
               ),
-              in: 0...currentMemo.duration
+              in: 0...max(currentMemo.duration, 0.001)
             )
             .frame(maxWidth: 200)
 
@@ -797,7 +797,7 @@ struct PlaybackView: View {
                   get: { store.currentTime },
                   set: { send(.seekTo($0)) }
                 ),
-                in: 0...currentMemo.duration
+                in: 0...max(currentMemo.duration, 0.001)
               )
 
               HStack {

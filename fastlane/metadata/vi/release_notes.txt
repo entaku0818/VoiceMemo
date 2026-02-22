@@ -1,4 +1,1 @@
-Phiên bản 1.3.2
-
-[Cải tiến]
-• Cập nhật hệ thống quảng cáo lên phiên bản mới nhất
+Đã sửa lỗi crash xảy ra khi hiển thị điều khiển phát lại.

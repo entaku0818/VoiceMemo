@@ -1,4 +1,1 @@
-Versione 1.3.2
-
-[Miglioramenti]
-• Sistema pubblicitario aggiornato all'ultima versione
+Risolto un crash che si verificava durante la visualizzazione dei controlli di riproduzione.

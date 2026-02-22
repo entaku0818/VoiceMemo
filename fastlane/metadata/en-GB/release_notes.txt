@@ -1,6 +1,1 @@
-Bug fixes and stability improvements
-- Fixed audio pitch issue when using headphone microphone
-- Improved app stability
-
-Other:
-- Minor improvements and bug fixes
+Fixed a crash that occurred when displaying playback controls.
