@@ -134,6 +134,10 @@ struct PlaybackFeature {
     }
   }
 
+  enum CancelID: Hashable {
+    case playback
+  }
+
   @Dependency(\.audioPlayer) var audioPlayer
   @Dependency(\.continuousClock) var clock
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
@@ -178,9 +182,10 @@ struct PlaybackFeature {
               state.playbackState = .idle
               state.currentPlayingMemo = nil
               state.currentTime = 0
-              return .run { _ in
-                try await audioPlayer.stop()
-              }
+              return .merge(
+                .cancel(id: CancelID.playback),
+                .run { _ in try await audioPlayer.stop() }
+              )
             } else {
               // 停止中の場合は再生開始
               state.playbackState = .playing
@@ -204,9 +209,10 @@ struct PlaybackFeature {
           state.playbackState = .idle
           state.currentPlayingMemo = nil
           state.currentTime = 0
-          return .run { _ in
-            try await audioPlayer.stop()
-          }
+          return .merge(
+            .cancel(id: CancelID.playback),
+            .run { _ in try await audioPlayer.stop() }
+          )
 
         case let .seekTo(time):
           state.currentTime = time
@@ -471,6 +477,7 @@ struct PlaybackFeature {
 
       _ = await (playback, timeUpdates)
     }
+    .cancellable(id: CancelID.playback, cancelInFlight: true)
   }
 }
 
