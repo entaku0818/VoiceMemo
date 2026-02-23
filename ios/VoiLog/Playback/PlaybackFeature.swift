@@ -30,6 +30,9 @@ struct PlaybackFeature {
     var audioEditorState: AudioEditorReducer.State?
     var showAudioEditor = false
 
+    // Playback speed
+    var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
+
     // Premium / Paywall
     var hasPurchasedPremium = false
     var showPaywall = false
@@ -121,6 +124,8 @@ struct PlaybackFeature {
       // Audio Editor Actions
       case showAudioEditor(VoiceMemo.ID)
       case dismissAudioEditor
+
+      case onTapPlaySpeed
     }
 
     enum DelegateAction: Equatable {
@@ -161,7 +166,7 @@ struct PlaybackFeature {
             state.currentTime = 0
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
-              return startPlayback(url: memo.url)
+              return startPlayback(url: memo.url, playSpeed: state.playSpeed)
             }
           }
           return .none
@@ -180,7 +185,7 @@ struct PlaybackFeature {
               // 停止中の場合は再生開始
               state.playbackState = .playing
               if let memo = state.voiceMemos.first(where: { $0.id == id }) {
-                return startPlayback(url: memo.url)
+                return startPlayback(url: memo.url, playSpeed: state.playSpeed)
               }
             }
           } else {
@@ -190,7 +195,7 @@ struct PlaybackFeature {
             state.currentTime = 0
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
-              return startPlayback(url: memo.url)
+              return startPlayback(url: memo.url, playSpeed: state.playSpeed)
             }
           }
           return .none
@@ -208,7 +213,7 @@ struct PlaybackFeature {
           // 既存のAudioPlayerClientにはseekメソッドがないため、
           // 現在の再生を停止して新しい位置から再生を開始
           if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
-            return startPlayback(url: memo.url, startTime: time)
+            return startPlayback(url: memo.url, startTime: time, playSpeed: state.playSpeed)
           }
           return .none
 
@@ -339,6 +344,13 @@ struct PlaybackFeature {
           state.showAudioEditor = false
           state.audioEditorState = nil
           return .none
+
+        case .onTapPlaySpeed:
+          state.playSpeed = state.playSpeed.next()
+          guard state.playbackState == .playing,
+                let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo })
+          else { return .none }
+          return startPlayback(url: memo.url, startTime: state.currentTime, playSpeed: state.playSpeed)
         }
 
       case let .memosLoaded(memos):
@@ -430,14 +442,14 @@ struct PlaybackFeature {
     }
   }
 
-  private func startPlayback(url: URL, startTime: TimeInterval = 0) -> Effect<Action> {
+  private func startPlayback(url: URL, startTime: TimeInterval = 0, playSpeed: AudioPlayerClient.PlaybackSpeed = .normal) -> Effect<Action> {
     .run { send in
       // 音声再生開始
       async let playback: Void = {
         do {
           // AudioPlayerClientのplayメソッドのシグネチャに合わせる
           // play(URL, startTime: Double, speed: PlaybackSpeed, isLooping: Bool)
-          _ = try await audioPlayer.play(url, startTime, .normal, false)
+          _ = try await audioPlayer.play(url, startTime, playSpeed, false)
           await send(.audioPlayerDidFinish)
         } catch {
           await send(.playbackFinished)
@@ -731,6 +743,17 @@ struct PlaybackView: View {
                 .foregroundColor(.accentColor)
             }
 
+            Button {
+              send(.onTapPlaySpeed)
+            } label: {
+              Text(store.playSpeed.description)
+                .font(.caption2)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 3)
+                .background(Color.gray.opacity(0.2))
+                .clipShape(Capsule())
+            }
+
             VStack(alignment: .leading, spacing: 2) {
               Text(currentMemo.title.isEmpty ? "無題の録音" : currentMemo.title)
                 .font(.caption)
@@ -815,6 +838,17 @@ struct PlaybackView: View {
             }
 
             HStack(spacing: 32) {
+              Button {
+                send(.onTapPlaySpeed)
+              } label: {
+                Text(store.playSpeed.description)
+                  .font(.caption)
+                  .padding(.horizontal, 8)
+                  .padding(.vertical, 4)
+                  .background(Color.gray.opacity(0.2))
+                  .clipShape(Capsule())
+              }
+
               Button {
                 send(.playPauseButtonTapped(currentMemo.id))
               } label: {
