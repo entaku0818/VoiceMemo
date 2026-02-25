@@ -1,1 +1,2 @@
 Fixed a crash that occurred when displaying playback controls.
+Improved clarity of subscription terms: the price charged after the free trial and auto-renewal information are now clearly displayed.
