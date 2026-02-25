@@ -44,8 +44,8 @@ struct PaywallView: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom, 4)
 
-                        Text("今すぐ1ヶ月無料体験してみよう！")
-                            .font(.system(size: 20, weight: .medium, design: .rounded))
+                        Text("1ヶ月無料体験 → その後\(productPrice.isEmpty ? "" : " \(productPrice)")/月")
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
                     }
@@ -115,11 +115,11 @@ struct PaywallView: View {
                     }
                 }) {
                     VStack(spacing: 4) {
-                        Text("1ヶ月 無料でお試し")
+                        Text("1ヶ月無料で試す")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                        Text("\(productPrice)/月")
-                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                        Text("その後 \(productPrice)/月（自動更新）")
+                            .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
                     }
                     .frame(maxWidth: .infinity)
@@ -136,6 +136,14 @@ struct PaywallView: View {
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
+
+                // サブスクリプション条件の説明（Guideline 3.1.2 対応）
+                Text("1ヶ月の無料トライアル終了後、\(productPrice.isEmpty ? "サブスクリプション料金" : productPrice)/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。")
+                    .font(.system(size: 12, weight: .regular))
+                    .foregroundColor(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+                    .padding(.top, 8)
 
                 // リストアボタン
                 Button("リストア購入") {
