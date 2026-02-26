@@ -47,6 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     DispatchQueue.main.async {
                         UNUserNotificationCenter.current().delegate = self
                     }
+                    // 初回インストール時のみ D1/D3 リテンション通知をスケジュール
+                    if UserDefaultsManager.shared.installDate == nil {
+                        UserDefaultsManager.shared.installDate = Date()
+                        NotificationScheduler.shared.scheduleD1Notification()
+                        NotificationScheduler.shared.scheduleD3Notification()
+                    }
                 }
             }
         }

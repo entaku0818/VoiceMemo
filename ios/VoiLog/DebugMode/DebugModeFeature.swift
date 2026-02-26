@@ -45,6 +45,9 @@ struct VoiceAppFeature {
 
     // Recording lock alert
     var showRecordingLockAlert = false
+
+    // First recording celebration
+    var showFirstRecordingCelebration = false
   }
 
   enum Action: BindableAction {
@@ -63,6 +66,7 @@ struct VoiceAppFeature {
       case dismissSyncError
       case startTutorial
       case dismissPaywall
+      case dismissFirstRecordingCelebration
     }
 
     // Internal actions
@@ -228,6 +232,10 @@ struct VoiceAppFeature {
           state.settingFeature.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
           state.playbackFeature.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
           return .none
+
+        case .dismissFirstRecordingCelebration:
+          state.showFirstRecordingCelebration = false
+          return .none
         }
 
       case .recordingFeature(.delegate(.recordingWillStart)):
@@ -235,13 +243,41 @@ struct VoiceAppFeature {
         if state.playbackFeature.playbackState == .playing {
           return .send(.playbackFeature(.view(.stopButtonTapped)))
         }
+        // チュートリアルの tryRecording ステップ中はオーバーレイを非表示
+        if state.shouldShowTutorial && state.tutorialFeature.currentStep == .tryRecording {
+          state.shouldShowTutorial = false
+        }
         return .none
 
-      case .recordingFeature(.delegate(.recordingCompleted(let result))):
+      case .recordingFeature(.delegate(.recordingCompleted)):
         // 録音完了時に再生タブに自動切り替え
         state.selectedTab = 1
-        // 録音完了時に再生画面のデータを自動更新
-        return .send(.playbackFeature(.view(.reloadData)))
+
+        // チュートリアルの tryRecording ステップ中なら自動完了
+        if state.tutorialFeature.currentStep == .tryRecording {
+          state.shouldShowTutorial = false
+          return .merge(
+            .send(.tutorialFeature(.view(.complete))),
+            .send(.playbackFeature(.view(.reloadData))),
+            .run { _ in NotificationScheduler.shared.cancelRetentionNotifications() }
+          )
+        }
+
+        // 初回録音判定 → 祝福モーダル + 通知キャンセル
+        let isFirstRecording = !userDefaultsClient.bool(UserDefaultsKeys.firstRecordingCompleted)
+        if isFirstRecording {
+          userDefaultsClient.set(true, UserDefaultsKeys.firstRecordingCompleted)
+          state.showFirstRecordingCelebration = true
+        }
+
+        return .merge(
+          .send(.playbackFeature(.view(.reloadData))),
+          .run { [isFirstRecording] _ in
+            if isFirstRecording {
+              NotificationScheduler.shared.cancelRetentionNotifications()
+            }
+          }
+        )
 
       case .recordingFeature:
         return .none
@@ -438,6 +474,23 @@ struct VoiceAppView: View {
         .onDisappear {
           store.send(.view(.dismissPaywall))
         }
+    }
+    .sheet(isPresented: $store.showFirstRecordingCelebration) {
+      FirstRecordingCelebrationView(
+        onShare: {
+          store.send(.view(.dismissFirstRecordingCelebration))
+        },
+        onEditTitle: {
+          store.send(.view(.dismissFirstRecordingCelebration))
+        },
+        onRecordAgain: {
+          store.send(.view(.dismissFirstRecordingCelebration))
+          store.send(.binding(.set(\.selectedTab, 0)))
+        },
+        onDismiss: {
+          store.send(.view(.dismissFirstRecordingCelebration))
+        }
+      )
     }
   }
 }

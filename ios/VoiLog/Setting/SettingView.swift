@@ -24,6 +24,8 @@ struct SettingReducer: Reducer {
         case startTutorial
         case delegate(DelegateAction)
         case feedbackFeature(FeedbackFeature.Action)
+        case toggleDailyReminder(Bool)
+        case setDailyReminderTime(Date)
     }
 
     enum DelegateAction: Equatable {
@@ -93,6 +95,9 @@ struct SettingReducer: Reducer {
         case .onAppear:
             state.developerSupported = UserDefaultsManager.shared.hasSupportedDeveloper
             state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+            state.dailyReminderEnabled = UserDefaults.standard.bool(forKey: "DailyReminderEnabled")
+            state.dailyReminderHour = UserDefaults.standard.object(forKey: "DailyReminderHour") as? Int ?? 9
+            state.dailyReminderMinute = UserDefaults.standard.object(forKey: "DailyReminderMinute") as? Int ?? 0
 
             return .none
         case .startTutorial:
@@ -100,6 +105,29 @@ struct SettingReducer: Reducer {
         case .delegate:
             return .none
         case .feedbackFeature:
+            return .none
+        case let .toggleDailyReminder(enabled):
+            state.dailyReminderEnabled = enabled
+            UserDefaults.standard.set(enabled, forKey: "DailyReminderEnabled")
+            if enabled {
+                NotificationScheduler.shared.scheduleDailyReminder(
+                    hour: state.dailyReminderHour,
+                    minute: state.dailyReminderMinute
+                )
+            } else {
+                NotificationScheduler.shared.cancelDailyReminder()
+            }
+            return .none
+        case let .setDailyReminderTime(date):
+            let hour = Calendar.current.component(.hour, from: date)
+            let minute = Calendar.current.component(.minute, from: date)
+            state.dailyReminderHour = hour
+            state.dailyReminderMinute = minute
+            UserDefaults.standard.set(hour, forKey: "DailyReminderHour")
+            UserDefaults.standard.set(minute, forKey: "DailyReminderMinute")
+            if state.dailyReminderEnabled {
+                NotificationScheduler.shared.scheduleDailyReminder(hour: hour, minute: minute)
+            }
             return .none
         }
     }
@@ -121,7 +149,9 @@ struct SettingReducer: Reducer {
         var developerSupported: Bool
         var hasPurchasedPremium: Bool
         var feedbackState = FeedbackFeature.State()
-
+        var dailyReminderEnabled = false
+        var dailyReminderHour: Int = 9
+        var dailyReminderMinute: Int = 0
     }
 
 }
@@ -277,6 +307,28 @@ struct SettingView: View {
                         }
 
                     }
+                    Section(header: Text("通知設定")) {
+                        Toggle("毎日のリマインダー", isOn: Binding(
+                            get: { viewStore.dailyReminderEnabled },
+                            set: { viewStore.send(.toggleDailyReminder($0)) }
+                        ))
+                        if viewStore.dailyReminderEnabled {
+                            DatePicker(
+                                "時刻",
+                                selection: Binding(
+                                    get: {
+                                        var components = DateComponents()
+                                        components.hour = viewStore.dailyReminderHour
+                                        components.minute = viewStore.dailyReminderMinute
+                                        return Calendar.current.date(from: components) ?? Date()
+                                    },
+                                    set: { viewStore.send(.setDailyReminderTime($0)) }
+                                ),
+                                displayedComponents: .hourAndMinute
+                            )
+                        }
+                    }
+
                     #if DEBUG
                     Section(header: Text("デバッグ")) {
                         NavigationLink(destination: ErrorLogsView()) {
