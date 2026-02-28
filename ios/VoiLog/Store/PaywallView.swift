@@ -208,13 +208,17 @@ struct PaywallView: View {
     func fetchProductInfo() async {
         do {
             let (name, price) = try await purchaseManager.fetchProPlan()
-            productName = name
-            productPrice = price
+            await MainActor.run {
+                productName = name
+                productPrice = price
+            }
         } catch {
-            productName = "製品情報の取得に失敗しました"
-            productPrice = ""
-            showAlert = true
-            alertMessage = "製品情報の取得に失敗しました"
+            await MainActor.run {
+                productName = "製品情報の取得に失敗しました"
+                productPrice = ""
+                showAlert = true
+                alertMessage = "製品情報の取得に失敗しました"
+            }
         }
     }
 
@@ -273,9 +277,11 @@ struct PaywallView: View {
                 "timestamp": Date().timeIntervalSince1970
             ])
 
-            alertMessage = "購入情報が復元しました！"
-            showAlert = true
-            presentationMode.wrappedValue.dismiss()
+            await MainActor.run {
+                alertMessage = "購入情報が復元しました！"
+                showAlert = true
+                presentationMode.wrappedValue.dismiss()
+            }
         } catch {
             // リストア失敗をAnalyticsに記録
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreFailed, [
@@ -283,8 +289,10 @@ struct PaywallView: View {
                 "timestamp": Date().timeIntervalSince1970
             ])
 
-            alertMessage = "リストアに失敗しました"
-            showAlert = true
+            await MainActor.run {
+                alertMessage = "リストアに失敗しました"
+                showAlert = true
+            }
         }
     }
 
