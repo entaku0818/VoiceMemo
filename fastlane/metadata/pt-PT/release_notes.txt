@@ -1,1 +1,13 @@
-Corrigida uma falha que ocorria ao exibir os controlos de reprodução.
+Versão 1.4.0
+
+[Novas funcionalidades]
+- Controlo de velocidade de reprodução (0,5x a 2,0x)
+
+[Melhorias]
+- Integração simplificada para novos utilizadores
+- Modal de celebração após a primeira gravação
+- Notificações de lembrete diário
+
+[Correções]
+- Corrigida uma falha ao exibir os controlos de reprodução
+- Atualizações de UI do paywall executadas no thread principal

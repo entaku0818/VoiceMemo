@@ -1,1 +1,13 @@
-Einen Absturz behoben, der beim Anzeigen der Wiedergabesteuerung aufgetreten ist.
+Version 1.4.0
+
+[Neue Funktionen]
+- Wiedergabegeschwindigkeitssteuerung (0,5x bis 2,0x)
+
+[Verbesserungen]
+- Vereinfachtes Onboarding für neue Benutzer
+- Feiern-Modal nach der ersten Aufnahme hinzugefügt
+- Tägliche Erinnerungsbenachrichtigungen hinzugefügt
+
+[Fehlerbehebungen]
+- Absturz bei Anzeige der Wiedergabesteuerung behoben
+- UI-Aktualisierungen der Paywall auf dem Haupt-Thread ausgeführt

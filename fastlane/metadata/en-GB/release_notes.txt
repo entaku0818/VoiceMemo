@@ -1,1 +1,13 @@
-Fixed a crash that occurred when displaying playback controls.
+Version 1.4.0
+
+[New Features]
+- Playback speed control (0.5x to 2.0x)
+
+[Improvements]
+- Simplified onboarding experience for new users
+- Added celebration modal after first recording
+- Added daily reminder notifications (configurable time in Settings)
+
+[Bug Fixes]
+- Fixed crash when displaying playback controls
+- Fixed paywall UI updates to run on the main thread

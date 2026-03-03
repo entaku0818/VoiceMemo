@@ -1,1 +1,13 @@
-Đã sửa lỗi crash xảy ra khi hiển thị điều khiển phát lại.
+Phiên bản 1.4.0
+
+[Tính năng mới]
+- Điều chỉnh tốc độ phát (0,5x đến 2,0x)
+
+[Cải tiến]
+- Đơn giản hóa trải nghiệm giới thiệu cho người dùng mới
+- Thêm màn hình chúc mừng sau lần ghi âm đầu tiên
+- Thêm thông báo nhắc nhở hàng ngày
+
+[Sửa lỗi]
+- Sửa lỗi crash khi hiển thị điều khiển phát lại
+- Cập nhật UI paywall chạy trên luồng chính

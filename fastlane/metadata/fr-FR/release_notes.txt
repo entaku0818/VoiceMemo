@@ -1,1 +1,13 @@
-Correction d'un plantage survenant lors de l'affichage des contrôles de lecture.
+Version 1.4.0
+
+[Nouvelles fonctionnalités]
+- Contrôle de la vitesse de lecture (0,5x à 2,0x)
+
+[Améliorations]
+- Intégration simplifiée pour les nouveaux utilisateurs
+- Modal de célébration après le premier enregistrement
+- Notifications de rappel quotidien
+
+[Corrections]
+- Correction d'un plantage lors de l'affichage des contrôles de lecture
+- Corrections des mises à jour UI sur le thread principal

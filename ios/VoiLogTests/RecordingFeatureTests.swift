@@ -89,9 +89,9 @@ final class RecordingFeatureTests: XCTestCase {
             $0.duration = 0
         }
 
-        // 録音が進む
+        // 録音が進む（1tick=100msのみ発火させてキュー汚染を防ぐ）
         currentTime = 5.0
-        await clock.advance(by: .seconds(5))
+        await clock.advance(by: .milliseconds(100))
         await store.receive(\.timerUpdated) {
             $0.duration = 5.0
         }
@@ -103,7 +103,7 @@ final class RecordingFeatureTests: XCTestCase {
         }
 
         // タイマーが進んでも時間は更新されない
-        await clock.advance(by: .seconds(1))
+        await clock.advance(by: .milliseconds(100))
 
         // When: 再開
         recordingState = .recording(startTime: Date())
@@ -113,7 +113,7 @@ final class RecordingFeatureTests: XCTestCase {
 
         // Then: タイマーが再開され、時間が更新される
         currentTime = 6.0
-        await clock.advance(by: .seconds(1))
+        await clock.advance(by: .milliseconds(100))
         await store.receive(\.timerUpdated) {
             $0.duration = 6.0
         }

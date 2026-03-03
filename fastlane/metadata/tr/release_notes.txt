@@ -1,1 +1,13 @@
-Oynatma kontrolleri görüntülenirken oluşan bir çökme sorunu düzeltildi.
+Sürüm 1.4.0
+
+[Yeni Özellikler]
+- Oynatma hızı kontrolü (0,5x ile 2,0x arası)
+
+[İyileştirmeler]
+- Yeni kullanıcılar için basitleştirilmiş katılım deneyimi
+- İlk kayıttan sonra kutlama modalı eklendi
+- Günlük hatırlatıcı bildirimleri eklendi
+
+[Hata Düzeltmeleri]
+- Oynatma kontrolleri görüntülenirken oluşan çökme düzeltildi
+- Paywall UI güncellemeleri ana iş parçacığında çalıştırıldı
