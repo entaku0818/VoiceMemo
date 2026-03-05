@@ -26,6 +26,8 @@ struct SettingReducer: Reducer {
         case feedbackFeature(FeedbackFeature.Action)
         case toggleDailyReminder(Bool)
         case setDailyReminderTime(Date)
+        case restorePurchases
+        case restoreResponse(Bool)
     }
 
     enum DelegateAction: Equatable {
@@ -35,7 +37,7 @@ struct SettingReducer: Reducer {
     enum AlertAction: Equatable {
         case isPurchaseAlertPresented
         case purchaseProduct
-
+        case restoreResult
     }
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
@@ -70,6 +72,9 @@ struct SettingReducer: Reducer {
                 }
             }
 
+        case .alert(.presented(.restoreResult)):
+            return .none
+
         case .alert(.presented(.isPurchaseAlertPresented)):
             if state.developerSupported {return .none}
             state.alert = AlertState(
@@ -100,6 +105,33 @@ struct SettingReducer: Reducer {
             state.dailyReminderMinute = UserDefaults.standard.object(forKey: "DailyReminderMinute") as? Int ?? 0
 
             return .none
+        case .restorePurchases:
+            return .run { send in
+                do {
+                    try await PurchaseManager.shared.restorePurchases()
+                    await send(.restoreResponse(true))
+                } catch {
+                    await send(.restoreResponse(false))
+                }
+            }
+
+        case let .restoreResponse(success):
+            if success {
+                state.alert = AlertState(
+                    title: TextState("購入を復元しました"),
+                    message: TextState("プレミアム機能が利用可能になりました。"),
+                    dismissButton: .default(TextState("OK"), action: .send(.restoreResult))
+                )
+                state.hasPurchasedPremium = true
+            } else {
+                state.alert = AlertState(
+                    title: TextState("復元に失敗しました"),
+                    message: TextState("購入履歴が見つかりませんでした。"),
+                    dismissButton: .default(TextState("OK"), action: .send(.restoreResult))
+                )
+            }
+            return .none
+
         case .startTutorial:
             return .send(.delegate(.startTutorialRequested))
         case .delegate:
@@ -307,6 +339,20 @@ struct SettingView: View {
                         }
 
                     }
+                    Section(header: Text("購入")) {
+                        Button(action: {
+                            viewStore.send(.restorePurchases)
+                        }) {
+                            HStack {
+                                Text("購入を復元")
+                                    .foregroundColor(Color("Black"))
+                                Spacer()
+                                Image(systemName: "arrow.counterclockwise")
+                                    .foregroundColor(.blue)
+                            }
+                        }
+                    }
+
                     Section(header: Text("通知設定")) {
                         Toggle("毎日のリマインダー", isOn: Binding(
                             get: { viewStore.dailyReminderEnabled },
