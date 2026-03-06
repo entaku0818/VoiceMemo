@@ -1,13 +1,10 @@
-Phiên bản 1.4.0
+Phiên bản 1.4.1
 
 [Tính năng mới]
-- Điều chỉnh tốc độ phát (0,5x đến 2,0x)
+- Phát lại vòng lặp AB: đặt điểm A và B để lặp lại một đoạn cụ thể
 
 [Cải tiến]
-- Đơn giản hóa trải nghiệm giới thiệu cho người dùng mới
-- Thêm màn hình chúc mừng sau lần ghi âm đầu tiên
-- Thêm thông báo nhắc nhở hàng ngày
+- Thêm nút Khôi phục giao dịch mua trong Cài đặt
 
 [Sửa lỗi]
-- Sửa lỗi crash khi hiển thị điều khiển phát lại
-- Cập nhật UI paywall chạy trên luồng chính
+- Sửa lỗi đánh máy trong tên tệp

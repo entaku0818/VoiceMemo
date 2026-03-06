@@ -1,13 +1,10 @@
-Version 1.4.0
+Version 1.4.1
 
 [New Features]
-- Playback speed control (0.5x to 2.0x)
+- AB loop playback: Set A and B points to repeat a specific section
 
 [Improvements]
-- Simplified onboarding experience for new users
-- Added celebration modal after first recording
-- Added daily reminder notifications (configurable time in Settings)
+- Added Restore Purchases button in Settings
 
 [Bug Fixes]
-- Fixed crash when displaying playback controls
-- Fixed paywall UI updates to run on the main thread
+- Fixed file naming typos

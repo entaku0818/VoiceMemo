@@ -22,7 +22,7 @@ Start with: `/ios/VoiLog/Template/FeatureTemplate.swift`
 **Primary locations** (PREFERRED for modifications):
 - Recording: `/ios/VoiLog/Recording/RecordingFeature.swift`
 - Playback: `/ios/VoiLog/Playback/PlaybackFeature.swift`
-- App Coordinator: `/ios/VoiLog/DebugMode/DebugModeFeature.swift` (VoiceAppFeature)
+- App Coordinator: `/ios/VoiLog/DebugMode/VoiceAppFeature.swift` (VoiceAppFeature)
 
 **Legacy location** (AVOID modifications):
 - `/ios/VoiLog/Voice/` - Legacy production code
@@ -318,7 +318,7 @@ case .view(.saveData):
 
 ### Pattern 2: Auto Tab Switching
 
-See `/ios/VoiLog/DebugMode/DebugModeFeature.swift` for reference:
+See `/ios/VoiLog/DebugMode/VoiceAppFeature.swift` for reference:
 - Recording completion → Auto switch to playback tab
 - Use `selectedTab` state
 - Send `reloadData` action to target tab
@@ -387,5 +387,5 @@ await store.receive(.second)
 For detailed examples:
 - Recording Feature: `/ios/VoiLog/Recording/RecordingFeature.swift`
 - Playback Feature: `/ios/VoiLog/Playback/PlaybackFeature.swift`
-- App Coordinator: `/ios/VoiLog/DebugMode/DebugModeFeature.swift`
+- App Coordinator: `/ios/VoiLog/DebugMode/VoiceAppFeature.swift`
 - Official TCA Docs: https://github.com/pointfreeco/swift-composable-architecture

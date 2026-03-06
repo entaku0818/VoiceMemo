@@ -1,13 +1,10 @@
-Version 1.4.0
+Version 1.4.1
 
 [Nouvelles fonctionnalités]
-- Contrôle de la vitesse de lecture (0,5x à 2,0x)
+- Lecture en boucle AB : définissez des points A et B pour répéter une section spécifique
 
 [Améliorations]
-- Intégration simplifiée pour les nouveaux utilisateurs
-- Modal de célébration après le premier enregistrement
-- Notifications de rappel quotidien
+- Ajout d'un bouton Restaurer les achats dans les paramètres
 
 [Corrections]
-- Correction d'un plantage lors de l'affichage des contrôles de lecture
-- Corrections des mises à jour UI sur le thread principal
+- Correction de fautes de frappe dans les noms de fichiers

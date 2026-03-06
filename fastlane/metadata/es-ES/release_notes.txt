@@ -1,13 +1,10 @@
-Versión 1.4.0
+Versión 1.4.1
 
 [Nuevas funciones]
-- Control de velocidad de reproducción (0,5x a 2,0x)
+- Reproducción en bucle AB: establece puntos A y B para repetir una sección específica
 
 [Mejoras]
-- Incorporación simplificada para nuevos usuarios
-- Modal de celebración después de la primera grabación
-- Notificaciones de recordatorio diario
+- Se añadió el botón Restaurar compras en Configuración
 
 [Correcciones]
-- Corregido un fallo al mostrar los controles de reproducción
-- Correcciones de actualización de UI en el hilo principal
+- Se corrigieron errores tipográficos en nombres de archivos

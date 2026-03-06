@@ -33,6 +33,10 @@ struct PlaybackFeature {
     // Playback speed
     var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
 
+    // AB Loop
+    var abLoopStart: TimeInterval? = nil
+    var abLoopEnd: TimeInterval? = nil
+
     // Premium / Paywall
     var hasPurchasedPremium = false
     var showPaywall = false
@@ -126,6 +130,11 @@ struct PlaybackFeature {
       case dismissAudioEditor
 
       case onTapPlaySpeed
+
+      // AB Loop actions
+      case setABPointA
+      case setABPointB
+      case clearABLoop
     }
 
     enum DelegateAction: Equatable {
@@ -168,6 +177,8 @@ struct PlaybackFeature {
             state.currentPlayingMemo = id
             state.playbackState = .playing
             state.currentTime = 0
+            state.abLoopStart = nil
+            state.abLoopEnd = nil
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
               return startPlayback(url: memo.url, playSpeed: state.playSpeed)
@@ -198,6 +209,8 @@ struct PlaybackFeature {
             state.currentPlayingMemo = id
             state.playbackState = .playing
             state.currentTime = 0
+            state.abLoopStart = nil
+            state.abLoopEnd = nil
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
               return startPlayback(url: memo.url, playSpeed: state.playSpeed)
@@ -209,6 +222,8 @@ struct PlaybackFeature {
           state.playbackState = .idle
           state.currentPlayingMemo = nil
           state.currentTime = 0
+          state.abLoopStart = nil
+          state.abLoopEnd = nil
           return .merge(
             .cancel(id: CancelID.playback),
             .run { _ in try await audioPlayer.stop() }
@@ -357,6 +372,27 @@ struct PlaybackFeature {
                 let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo })
           else { return .none }
           return startPlayback(url: memo.url, startTime: state.currentTime, playSpeed: state.playSpeed)
+
+        case .setABPointA:
+          state.abLoopStart = state.currentTime
+          // If B point is at or before new A, clear it
+          if let end = state.abLoopEnd, end <= state.currentTime {
+            state.abLoopEnd = nil
+          }
+          return .none
+
+        case .setABPointB:
+          // Only set B if A is set and current time is after A
+          guard let start = state.abLoopStart, state.currentTime > start else {
+            return .none
+          }
+          state.abLoopEnd = state.currentTime
+          return .none
+
+        case .clearABLoop:
+          state.abLoopStart = nil
+          state.abLoopEnd = nil
+          return .none
         }
 
       case let .memosLoaded(memos):
@@ -378,6 +414,13 @@ struct PlaybackFeature {
 
       case let .playbackTimeUpdated(time):
         state.currentTime = time
+        // AB loop: seek back to A when current time reaches B
+        if let loopStart = state.abLoopStart,
+           let loopEnd = state.abLoopEnd,
+           time >= loopEnd,
+           let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+          return startPlayback(url: memo.url, startTime: loopStart, playSpeed: state.playSpeed)
+        }
         return .none
 
       case .playbackFinished:
@@ -844,7 +887,7 @@ struct PlaybackView: View {
               .foregroundColor(.secondary)
             }
 
-            HStack(spacing: 32) {
+            HStack(spacing: 16) {
               Button {
                 send(.onTapPlaySpeed)
               } label: {
@@ -854,6 +897,43 @@ struct PlaybackView: View {
                   .padding(.vertical, 4)
                   .background(Color.gray.opacity(0.2))
                   .clipShape(Capsule())
+              }
+
+              // AB Loop buttons
+              Button {
+                send(.setABPointA)
+              } label: {
+                let aLabel = store.abLoopStart.map { "A:\(formatDuration($0))" } ?? "A"
+                let aColor = store.abLoopStart != nil ? Color.orange.opacity(0.3) : Color.gray.opacity(0.2)
+                Text(aLabel)
+                  .font(.caption)
+                  .padding(.horizontal, 8)
+                  .padding(.vertical, 4)
+                  .background(aColor)
+                  .clipShape(Capsule())
+              }
+
+              Button {
+                send(.setABPointB)
+              } label: {
+                let bLabel = store.abLoopEnd.map { "B:\(formatDuration($0))" } ?? "B"
+                let bColor = store.abLoopEnd != nil ? Color.blue.opacity(0.3) : Color.gray.opacity(0.2)
+                Text(bLabel)
+                  .font(.caption)
+                  .padding(.horizontal, 8)
+                  .padding(.vertical, 4)
+                  .background(bColor)
+                  .clipShape(Capsule())
+              }
+
+              if store.abLoopStart != nil || store.abLoopEnd != nil {
+                Button {
+                  send(.clearABLoop)
+                } label: {
+                  Image(systemName: "repeat.1.circle")
+                    .font(.caption)
+                    .foregroundColor(.orange)
+                }
               }
 
               Button {

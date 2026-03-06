@@ -1,13 +1,10 @@
-Versione 1.4.0
+Versione 1.4.1
 
 [Nuove funzionalità]
-- Controllo della velocità di riproduzione (da 0,5x a 2,0x)
+- Riproduzione in loop AB: imposta i punti A e B per ripetere una sezione specifica
 
 [Miglioramenti]
-- Onboarding semplificato per i nuovi utenti
-- Modal di celebrazione dopo la prima registrazione
-- Notifiche di promemoria giornaliero
+- Aggiunto pulsante Ripristina acquisti nelle Impostazioni
 
 [Correzioni]
-- Risolto un crash durante la visualizzazione dei controlli di riproduzione
-- Aggiornamenti UI del paywall eseguiti sul thread principale
+- Corretti errori di battitura nei nomi dei file

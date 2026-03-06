@@ -1,13 +1,10 @@
-Versão 1.4.0
+Versão 1.4.1
 
 [Novas funcionalidades]
-- Controlo de velocidade de reprodução (0,5x a 2,0x)
+- Reprodução em loop AB: define pontos A e B para repetir uma secção específica
 
 [Melhorias]
-- Integração simplificada para novos utilizadores
-- Modal de celebração após a primeira gravação
-- Notificações de lembrete diário
+- Adicionado botão Restaurar compras nas Definições
 
 [Correções]
-- Corrigida uma falha ao exibir os controlos de reprodução
-- Atualizações de UI do paywall executadas no thread principal
+- Corrigidos erros de digitação nos nomes de ficheiros
