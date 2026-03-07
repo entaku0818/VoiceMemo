@@ -1,6 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
-import FirebaseFirestore
+import FirebaseFunctions
 
 // MARK: - Feedback Category
 
@@ -96,12 +96,12 @@ struct FeedbackFeature {
 }
 
 private func sendFeedback(category: String, message: String) async throws {
-    let db = Firestore.firestore()
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
     let osVersion = UIDevice.current.systemVersion
     let deviceModel = UIDevice.current.model
 
+    let functions = Functions.functions(region: "asia-northeast1")
     let data: [String: Any] = [
         "category": category,
         "message": message,
@@ -109,10 +109,9 @@ private func sendFeedback(category: String, message: String) async throws {
         "buildNumber": buildNumber,
         "osVersion": osVersion,
         "deviceModel": deviceModel,
-        "createdAt": FieldValue.serverTimestamp()
     ]
 
-    try await db.collection("feedbacks").addDocument(data: data)
+    _ = try await functions.httpsCallable("submitFeedback").call(data)
 }
 
 // MARK: - View

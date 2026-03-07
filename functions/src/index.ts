@@ -1,10 +1,12 @@
-import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import * as https from "https";
+import {onCall, HttpsError} from "firebase-functions/v2/https";
+import {defineSecret} from "firebase-functions/params";
+import {getFirestore} from "firebase-admin/firestore";
 
 admin.initializeApp();
 
-const SLACK_WEBHOOK_URL = functions.config().slack.webhook_url;
+const slackWebhookUrl = defineSecret("SLACK_WEBHOOK_URL");
 
 interface FeedbackData {
   category: string;
@@ -13,15 +15,28 @@ interface FeedbackData {
   buildNumber: string;
   osVersion: string;
   deviceModel: string;
-  createdAt: admin.firestore.Timestamp;
 }
 
-export const onFeedbackCreated = functions
-  .region("asia-northeast1")
-  .firestore.document("feedbacks/{feedbackId}")
-  .onCreate(async (snap) => {
-    const data = snap.data() as FeedbackData;
+export const submitFeedback = onCall(
+  {
+    region: "asia-northeast1",
+    secrets: [slackWebhookUrl],
+  },
+  async (request) => {
+    const data = request.data as FeedbackData;
 
+    if (!data.category || !data.message) {
+      throw new HttpsError("invalid-argument", "category and message are required");
+    }
+
+    // Firestore に保存 (app-data database, asia-northeast1)
+    const db = getFirestore("app-data");
+    await db.collection("feedbacks").add({
+      ...data,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    // Slack に通知
     const categoryEmoji: Record<string, string> = {
       "バグ報告": "🐛",
       "機能要望": "✨",
@@ -63,8 +78,11 @@ export const onFeedbackCreated = functions
       ],
     };
 
-    await postToSlack(SLACK_WEBHOOK_URL, payload);
-  });
+    await postToSlack(slackWebhookUrl.value(), payload);
+
+    return {success: true};
+  }
+);
 
 function postToSlack(webhookUrl: string, payload: object): Promise<void> {
   return new Promise((resolve, reject) => {
