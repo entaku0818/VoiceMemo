@@ -152,31 +152,6 @@ struct VoiceAppFeature {
             )
           }
 
-          // レビューリクエストの表示判定（2回目以降の起動時）
-          let appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount")
-          let lastReviewRequestDate = UserDefaults.standard.object(forKey: "lastReviewRequestDate") as? Date
-          let shouldShowReview: Bool = {
-            guard appUsageCount >= 2 else { return false }
-            if let lastRequestDate = lastReviewRequestDate {
-              let daysSinceLastRequest = Calendar.current.dateComponents([.day], from: lastRequestDate, to: Date()).day ?? 0
-              return daysSinceLastRequest >= 30
-            }
-            return true
-          }()
-
-          if shouldShowReview {
-            let reviewEffect: Effect<Action> = .run { _ in
-              try? await Task.sleep(nanoseconds: 2_000_000_000) // 2秒待機
-              await MainActor.run {
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                  SKStoreReviewController.requestReview(in: windowScene)
-                  UserDefaults.standard.set(Date(), forKey: "lastReviewRequestDate")
-                }
-              }
-            }
-            return .merge(cleanupEffect, reviewEffect)
-          }
-
           return cleanupEffect
 
         case .startTutorial:
@@ -270,8 +245,22 @@ struct VoiceAppFeature {
           state.showFirstRecordingCelebration = true
         }
 
+        // 録音回数をインクリメントしてレビューリクエスト判定（Apple側で年3回まで自動制限）
+        let recordingCount = UserDefaults.standard.integer(forKey: "appUsageCount") + 1
+        UserDefaults.standard.set(recordingCount, forKey: "appUsageCount")
+
+        let reviewEffect: Effect<Action> = recordingCount >= 2 ? .run { _ in
+          try? await Task.sleep(nanoseconds: 2_000_000_000)
+          await MainActor.run {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+              SKStoreReviewController.requestReview(in: windowScene)
+            }
+          }
+        } : .none
+
         return .merge(
           .send(.playbackFeature(.view(.reloadData))),
+          reviewEffect,
           .run { [isFirstRecording] _ in
             if isFirstRecording {
               NotificationScheduler.shared.cancelRetentionNotifications()
