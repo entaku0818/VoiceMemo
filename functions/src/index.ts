@@ -31,7 +31,9 @@ export const onFeedbackCreated = functions
     const emoji = categoryEmoji[data.category] ?? "💬";
 
     const payload = {
-      text: `${emoji} *新しいフィードバックが届きました*`,
+      username: "VoiLog Feedback",
+      icon_emoji: ":microphone:",
+      text: `${emoji} *VoiLog に新しいフィードバックが届きました*`,
       attachments: [
         {
           color: data.category === "バグ報告" ? "#e74c3c" : "#2ecc71",
