@@ -24,6 +24,8 @@ struct SettingReducer: Reducer {
         case startTutorial
         case delegate(DelegateAction)
         case feedbackFeature(FeedbackFeature.Action)
+        case showFeedbackForm
+        case dismissFeedbackForm
         case toggleDailyReminder(Bool)
         case setDailyReminderTime(Date)
         case restorePurchases
@@ -138,6 +140,12 @@ struct SettingReducer: Reducer {
             return .none
         case .feedbackFeature:
             return .none
+        case .showFeedbackForm:
+            state.showFeedbackSheet = true
+            return .none
+        case .dismissFeedbackForm:
+            state.showFeedbackSheet = false
+            return .none
         case let .toggleDailyReminder(enabled):
             state.dailyReminderEnabled = enabled
             UserDefaults.standard.set(enabled, forKey: "DailyReminderEnabled")
@@ -181,6 +189,7 @@ struct SettingReducer: Reducer {
         var developerSupported: Bool
         var hasPurchasedPremium: Bool
         var feedbackState = FeedbackFeature.State()
+        var showFeedbackSheet = false
         var dailyReminderEnabled = false
         var dailyReminderHour: Int = 9
         var dailyReminderMinute: Int = 0
@@ -300,21 +309,16 @@ struct SettingView: View {
                             }
                         }
 
-                        NavigationLink(destination: FeedbackView(store: self.store.scope(state: \.feedbackState, action: \.feedbackFeature))) {
+                        Button {
+                            store.send(.showFeedbackForm)
+                        } label: {
                             HStack {
-                                Text("フィードバック・評価")
+                                Text("フィードバック")
+                                    .foregroundColor(.primary)
                                 Spacer()
-                            }
-                        }
-                        Button(action: {
-                            openURL()
-                        }) {
-                            HStack {
-                                Text("お問い合わせ")
-                                    .foregroundColor(Color("Black"))
-                                Spacer()
-                                Image(systemName: "arrow.up.right.square")
-                                    .foregroundColor(.gray)
+                                Image(systemName: "chevron.right")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
                             }
                         }
                         HStack {
@@ -395,16 +399,17 @@ struct SettingView: View {
             }
             .alert(store: self.store.scope(state: \.$alert, action: SettingReducer.Action.alert))
             .listStyle(GroupedListStyle())
+            .fullScreenCover(isPresented: Binding(
+                get: { viewStore.showFeedbackSheet },
+                set: { if !$0 { viewStore.send(.dismissFeedbackForm) } }
+            )) {
+                FeedbackFormView(store: self.store.scope(state: \.feedbackState, action: \.feedbackFeature))
+            }
 
             if !viewStore.hasPurchasedPremium {
                 AdmobBannerView(unitId: admobUnitId).frame(width: .infinity, height: 50)
             }
         }
-    }
-
-    private func openURL() {
-        guard let url = URL(string: "https://forms.gle/oaUjL9MP1bvh9Gs46") else { return }
-        UIApplication.shared.open(url)
     }
 
 }

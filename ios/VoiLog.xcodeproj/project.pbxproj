@@ -10,6 +10,7 @@
 		61458CD22C4B939300B7107E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61458CD12C4B939300B7107E /* WidgetKit.framework */; };
 		61458CD42C4B939300B7107E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61458CD32C4B939300B7107E /* SwiftUI.framework */; };
 		61458CE12C4B939400B7107E /* recordActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 61458CCF2C4B939300B7107E /* recordActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		542BADCD8F494676B8B9A3AD /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F9456643A2A64967BC09CD11 /* FirebaseFirestore */; };
 		6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408728F308C400BF337E /* FirebaseAnalytics */; };
 		6194408A28F308C400BF337E /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408928F308C400BF337E /* FirebaseAnalyticsSwift */; };
 		6194408C28F308C400BF337E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6194408B28F308C400BF337E /* FirebaseCrashlytics */; };
@@ -127,6 +128,7 @@
 				61A91BC02BC245660033532A /* RevenueCatUI in Frameworks */,
 				61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */,
 				6194408828F308C400BF337E /* FirebaseAnalytics in Frameworks */,
+				542BADCD8F494676B8B9A3AD /* FirebaseFirestore in Frameworks */,
 				61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,6 +234,7 @@
 				61A285CA2A3608BB00BD7CB5 /* RollbarNotifier */,
 				61A91BBD2BC245660033532A /* RevenueCat */,
 				61A91BBF2BC245660033532A /* RevenueCatUI */,
+				F9456643A2A64967BC09CD11 /* FirebaseFirestore */,
 			);
 			productName = VoiceMemo;
 			productReference = 619799E228C34A2500169FB6 /* VoiLog.app */;
@@ -984,6 +987,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = RevenueCatUI;
+		};
+		F9456643A2A64967BC09CD11 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6194408628F308C400BF337E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

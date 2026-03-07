@@ -1,237 +1,181 @@
 import SwiftUI
 import ComposableArchitecture
-import StoreKit
-import MessageUI
+import FirebaseFirestore
+
+// MARK: - Feedback Category
+
+enum FeedbackCategory: String, CaseIterable, Equatable {
+    case bug = "バグ報告"
+    case feature = "機能要望"
+    case other = "その他"
+}
+
+// MARK: - Feedback Feature
 
 @Reducer
 struct FeedbackFeature {
     @ObservableState
-    struct State: Equatable, Sendable {
-        var showMailComposer = false
-        var showReviewRequest = false
-        var appUsageCount: Int = 0
-        var lastReviewRequestDate: Date?
-        var feedbackEmail = "support@voilog.app" // 適切なサポートメールアドレスに変更してください
+    struct State: Equatable {
+        var category: FeedbackCategory = .other
+        var message: String = ""
+        var isSending = false
+        var showSuccessAlert = false
+        var showErrorAlert = false
+        var errorMessage: String = ""
 
-        var canSendEmail: Bool {
-            MFMailComposeViewController.canSendMail()
-        }
-
-        var shouldShowReviewPrompt: Bool {
-            // アプリを2回以上起動し、前回のレビューリクエストから30日以上経過している場合
-            guard appUsageCount >= 2 else { return false }
-
-            if let lastRequestDate = lastReviewRequestDate {
-                let daysSinceLastRequest = Calendar.current.dateComponents([.day], from: lastRequestDate, to: Date()).day ?? 0
-                return daysSinceLastRequest >= 30
-            }
-
-            return true
+        var canSubmit: Bool {
+            !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isSending
         }
     }
 
-    enum Action: Equatable {
+    enum Action: BindableAction, Equatable {
+        case binding(BindingAction<State>)
         case view(View)
-        case reviewRequestCompleted
-        case incrementAppUsage
+        case sendCompleted(Result<Void, FeedbackError>)
 
-        enum View {
-            case feedbackButtonTapped
-            case reviewButtonTapped
-            case mailComposerDismissed
-            case onAppear
+        enum View: Equatable {
+            case submitTapped
+            case dismissSuccessAlert
+            case dismissErrorAlert
         }
     }
 
-    @Dependency(\.date) var date
+    enum FeedbackError: Error, Equatable {
+        case sendFailed(String)
+    }
 
     var body: some Reducer<State, Action> {
+        BindingReducer()
+
         Reduce { state, action in
             switch action {
-            case let .view(viewAction):
-                switch viewAction {
-                case .feedbackButtonTapped:
-                    if state.canSendEmail {
-                        state.showMailComposer = true
-                    } else {
-                        // メールが送信できない場合は、サポートページを開くなどの代替手段を提供
-                        if let url = URL(string: "https://voilog.app/support") {
-                            UIApplication.shared.open(url)
-                        }
-                    }
-                    return .none
-
-                case .reviewButtonTapped:
-                    return .run { send in
-                        // App Storeでのレビューをリクエスト
-                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                            await MainActor.run {
-                                SKStoreReviewController.requestReview(in: windowScene)
-                            }
-                        }
-                        await send(.reviewRequestCompleted)
-                    }
-
-                case .mailComposerDismissed:
-                    state.showMailComposer = false
-                    return .none
-
-                case .onAppear:
-                    // UserDefaultsから値を読み込む
-                    state.appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount")
-                    if let lastRequestDate = UserDefaults.standard.object(forKey: "lastReviewRequestDate") as? Date {
-                        state.lastReviewRequestDate = lastRequestDate
-                    }
-
-                    // 自動レビューリクエストの判定
-                    if state.shouldShowReviewPrompt {
-                        state.showReviewRequest = true
-                        return .send(.view(.reviewButtonTapped))
-                    }
-                    return .none
-                }
-
-            case .reviewRequestCompleted:
-                state.lastReviewRequestDate = date.now
-                // UserDefaultsに保存
-                UserDefaults.standard.set(date.now, forKey: "lastReviewRequestDate")
+            case .binding:
                 return .none
 
-            case .incrementAppUsage:
-                state.appUsageCount += 1
-                UserDefaults.standard.set(state.appUsageCount, forKey: "appUsageCount")
+            case .view(.submitTapped):
+                guard state.canSubmit else { return .none }
+                state.isSending = true
+
+                let category = state.category.rawValue
+                let message = state.message
+
+                return .run { send in
+                    do {
+                        try await sendFeedback(category: category, message: message)
+                        await send(.sendCompleted(.success(())))
+                    } catch {
+                        await send(.sendCompleted(.failure(.sendFailed(error.localizedDescription))))
+                    }
+                }
+
+            case .sendCompleted(.success):
+                state.isSending = false
+                state.message = ""
+                state.category = .other
+                state.showSuccessAlert = true
+                return .none
+
+            case let .sendCompleted(.failure(error)):
+                state.isSending = false
+                if case let .sendFailed(msg) = error {
+                    state.errorMessage = msg
+                }
+                state.showErrorAlert = true
+                return .none
+
+            case .view(.dismissSuccessAlert):
+                state.showSuccessAlert = false
+                return .none
+
+            case .view(.dismissErrorAlert):
+                state.showErrorAlert = false
                 return .none
             }
         }
     }
+}
+
+private func sendFeedback(category: String, message: String) async throws {
+    let db = Firestore.firestore()
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+    let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
+    let osVersion = UIDevice.current.systemVersion
+    let deviceModel = UIDevice.current.model
+
+    let data: [String: Any] = [
+        "category": category,
+        "message": message,
+        "appVersion": appVersion,
+        "buildNumber": buildNumber,
+        "osVersion": osVersion,
+        "deviceModel": deviceModel,
+        "createdAt": FieldValue.serverTimestamp()
+    ]
+
+    try await db.collection("feedbacks").addDocument(data: data)
 }
 
 // MARK: - View
 
-struct FeedbackView: View {
+struct FeedbackFormView: View {
     @Perception.Bindable var store: StoreOf<FeedbackFeature>
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        VStack(spacing: 20) {
-            // フィードバックセクション
-            VStack(alignment: .leading, spacing: 12) {
-                Label("フィードバック", systemImage: "envelope")
-                    .font(.headline)
-
-                Text("ご意見・ご要望をお聞かせください")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-
-                Button(action: {
-                    store.send(.view(.feedbackButtonTapped))
-                }) {
-                    HStack {
-                        Image(systemName: "envelope.fill")
-                        Text("フィードバックを送信")
-                        Spacer()
-                        Image(systemName: "chevron.right")
+        NavigationStack {
+            Form {
+                Section("カテゴリ") {
+                    Picker("カテゴリ", selection: $store.category) {
+                        ForEach(FeedbackCategory.allCases, id: \.self) { category in
+                            Text(category.rawValue).tag(category)
+                        }
                     }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
+                    .pickerStyle(.segmented)
+                }
+
+                Section("内容") {
+                    TextEditor(text: $store.message)
+                        .frame(minHeight: 120)
                 }
             }
-
-            // アプリ評価セクション
-            VStack(alignment: .leading, spacing: 12) {
-                Label("アプリを評価", systemImage: "star")
-                    .font(.headline)
-
-                Text("App Storeでレビューを書いてください")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-
-                Button(action: {
-                    store.send(.view(.reviewButtonTapped))
-                }) {
-                    HStack {
-                        Image(systemName: "star.fill")
-                        Text("App Storeで評価する")
-                        Spacer()
-                        Image(systemName: "chevron.right")
+            .navigationTitle("フィードバック")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("キャンセル") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    if store.isSending {
+                        ProgressView()
+                    } else {
+                        Button("送信") {
+                            store.send(.view(.submitTapped))
+                        }
+                        .disabled(!store.canSubmit)
                     }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
                 }
             }
-
-            Spacer()
+            .alert("送信しました", isPresented: $store.showSuccessAlert) {
+                Button("OK") {
+                    store.send(.view(.dismissSuccessAlert))
+                    dismiss()
+                }
+            } message: {
+                Text("フィードバックありがとうございます。")
+            }
+            .alert("送信に失敗しました", isPresented: $store.showErrorAlert) {
+                Button("OK") { store.send(.view(.dismissErrorAlert)) }
+            } message: {
+                Text(store.errorMessage)
+            }
         }
-        .padding()
-        .navigationTitle("フィードバック")
-        .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: Binding(
-            get: { store.showMailComposer },
-            set: { _ in store.send(.view(.mailComposerDismissed)) }
-        )) {
-            MailComposerView(
-                recipients: [store.feedbackEmail],
-                subject: "VoiLogアプリのフィードバック",
-                messageBody: createFeedbackEmailBody()
-            )
-        }
-        .onAppear {
-            store.send(.view(.onAppear))
-        }
-    }
-
-    private func createFeedbackEmailBody() -> String {
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-        let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
-        let osVersion = UIDevice.current.systemVersion
-        let deviceModel = UIDevice.current.model
-
-        return """
-
-
-        ―――――――――――――――
-        アプリ情報:
-        バージョン: \(appVersion) (\(buildNumber))
-        iOS: \(osVersion)
-        デバイス: \(deviceModel)
-        ―――――――――――――――
-        """
     }
 }
 
-// MARK: - Mail Composer
-
-struct MailComposerView: UIViewControllerRepresentable {
-    let recipients: [String]
-    let subject: String
-    let messageBody: String
-    @Environment(\.dismiss) var dismiss
-
-    func makeUIViewController(context: Context) -> MFMailComposeViewController {
-        let mailComposer = MFMailComposeViewController()
-        mailComposer.setToRecipients(recipients)
-        mailComposer.setSubject(subject)
-        mailComposer.setMessageBody(messageBody, isHTML: false)
-        mailComposer.mailComposeDelegate = context.coordinator
-        return mailComposer
-    }
-
-    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-        let parent: MailComposerView
-
-        init(_ parent: MailComposerView) {
-            self.parent = parent
+#Preview {
+    FeedbackFormView(
+        store: Store(initialState: FeedbackFeature.State()) {
+            FeedbackFeature()
         }
-
-        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-            parent.dismiss()
-        }
-    }
+    )
 }
