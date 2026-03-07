@@ -94,3 +94,5 @@ fastlane/AuthKey_*.p8
 
 # Environment variables
 fastlane/.env*
+functions/node_modules/
+functions/lib/
