@@ -1,9 +1,25 @@
-Simple Recorder is an app dedicated to effortless recording. With just one tap, you can begin your recording, even in the background, and easily share it with other apps, making the recording process simpler than ever.
+Simple Voice Recorder is an easy-to-use voice recording app that starts with just one tap. Supports high-quality audio, background recording, and a range of playback features.
 
-Features:
+Recording formats: lossless PCM (WAV) and compressed AAC (M4A).
+Sample rate: 8kHz–192kHz. Bit depth: 8/16/24/32-bit.
 
-Start and stop your recording with a single button thanks to its minimalist design.
-Easily share and access your recording files anytime, anywhere.
-Provides high-quality audio files suitable for business meetings, memos, brainstorming sessions, or any memorable moments.
-User-friendly interface that's easy for beginners to navigate.
-With Simple Recorder, you'll never miss those essential moments. We're here to help you cherish moments that matter. Download now and experience the simplicity of recording.
+[Recording]
+・High-quality WAV / AAC(M4A) recording
+・Background recording
+・Start recording with a single tap
+
+[Playback]
+・Background playback
+・A-B loop repeat (loop any section)
+・Playback speed control (0.5x–2.0x)
+・10s / 60s skip forward & back
+・Repeat (one track / all)
+・Playlist creation & management
+・Rename & reorder files
+
+[Other]
+・iCloud sync
+・Easy file sharing
+・Simple and clean design
+
+From business meetings to language learning and everyday voice memos — download now and experience hassle-free recording.

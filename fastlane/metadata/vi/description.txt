@@ -1,9 +1,25 @@
-Simple Recorder là ứng dụng dành riêng cho việc ghi âm một cách dễ dàng. Chỉ với một lần chạm, bạn có thể bắt đầu ghi âm, ngay cả khi ứng dụng chạy ở chế độ nền, và dễ dàng chia sẻ nó với các ứng dụng khác, làm cho quá trình ghi âm trở nên đơn giản hơn bao giờ hết.
+Simple Voice Recorder là ứng dụng ghi âm dễ sử dụng, khởi động chỉ với một lần chạm. Hỗ trợ âm thanh chất lượng cao, ghi âm nền và nhiều tính năng phát lại.
 
-Tính năng:
+Định dạng: PCM không nén (WAV) và AAC nén (M4A).
+Tần số lấy mẫu: 8kHz–192kHz. Độ sâu bit: 8/16/24/32-bit.
 
-Bắt đầu và dừng ghi âm chỉ với một nút nhấn nhờ thiết kế tối giản.
-Dễ dàng chia sẻ và truy cập các tệp ghi âm của bạn bất cứ lúc nào, ở bất cứ đâu.
-Cung cấp các tệp âm thanh chất lượng cao phù hợp cho các cuộc họp kinh doanh, ghi chú, buổi brainstorming, hoặc bất kỳ khoảnh khắc đáng nhớ nào.
-Giao diện thân thiện với người dùng, dễ dàng sử dụng ngay cả với người mới bắt đầu.
-Với Simple Recorder, bạn sẽ không bao giờ bỏ lỡ những khoảnh khắc quan trọng. Chúng tôi ở đây để giúp bạn ghi lại những khoảnh khắc có ý nghĩa. Tải xuống ngay bây giờ và trải nghiệm sự đơn giản của việc ghi âm.
+[Ghi âm]
+・Ghi âm WAV / AAC(M4A) chất lượng cao
+・Ghi âm nền
+・Bắt đầu ghi âm chỉ với một lần chạm
+
+[Phát lại]
+・Phát lại nền
+・Lặp A-B (lặp lại bất kỳ đoạn nào)
+・Điều chỉnh tốc độ phát (0,5x–2,0x)
+・Tua nhanh/lùi 10s / 60s
+・Lặp lại (một bài / tất cả)
+・Tạo và quản lý danh sách phát
+・Đổi tên và sắp xếp lại tệp
+
+[Khác]
+・Đồng bộ iCloud
+・Chia sẻ tệp dễ dàng
+・Thiết kế đơn giản, gọn gàng
+
+Từ cuộc họp công việc đến học ngoại ngữ và ghi chú hàng ngày — tải xuống ngay và trải nghiệm việc ghi âm không rắc rối.

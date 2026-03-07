@@ -1014,6 +1014,10 @@ struct VoiceMemoRow: View {
   let onInfoTap: () -> Void
   let onEditAudio: () -> Void
 
+  @State private var convertedURL: URL?
+  @State private var showPCShareSheet = false
+  @State private var isConverting = false
+
   var body: some View {
     HStack(spacing: 12) {
       // Play/Pause Button
@@ -1105,6 +1109,36 @@ struct VoiceMemoRow: View {
               Label("共有", systemImage: "square.and.arrow.up")
             }
 
+            Menu {
+              Button {
+                Task {
+                  isConverting = true
+                  convertedURL = try? await AudioExporter.convert(from: memo.url, to: .m4a)
+                  if convertedURL != nil { showPCShareSheet = true }
+                  isConverting = false
+                }
+              } label: {
+                Label("Mac向け (M4A)", systemImage: "desktopcomputer")
+              }
+              Button {
+                Task {
+                  isConverting = true
+                  convertedURL = try? await AudioExporter.convert(from: memo.url, to: .wav)
+                  if convertedURL != nil { showPCShareSheet = true }
+                  isConverting = false
+                }
+              } label: {
+                Label("Windows向け (WAV)", systemImage: "pc")
+              }
+            } label: {
+              if isConverting {
+                Label("変換中...", systemImage: "hourglass")
+              } else {
+                Label("PC向けに共有", systemImage: "desktopcomputer")
+              }
+            }
+            .disabled(isConverting)
+
             Button(action: onInfoTap) {
               Label("詳細情報", systemImage: "info.circle")
             }
@@ -1122,6 +1156,13 @@ struct VoiceMemoRow: View {
             Image(systemName: "ellipsis.circle")
               .font(.title3)
               .foregroundColor(.secondary)
+              .frame(width: 44, height: 44)
+              .contentShape(Rectangle())
+          }
+          .sheet(isPresented: $showPCShareSheet) {
+            if let url = convertedURL {
+              ShareSheet(items: [url])
+            }
           }
         }
 

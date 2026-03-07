@@ -1,9 +1,25 @@
-Simple Recorder, kaydetmeyi her zamankinden daha basit hale getiren bir uygulamadır. Tek bir dokunuşla, hatta arka planda bile, kaydınıza başlayabilir ve kolayca diğer uygulamalarla paylaşabilirsiniz.
+Simple Voice Recorder, tek dokunuşla başlayan kullanımı kolay bir ses kayıt uygulamasıdır. Yüksek kaliteli ses, arka plan kaydı ve çeşitli oynatma özellikleri sunar.
 
-Özellikleri:
+Formatlar: Kayıpsız PCM (WAV) ve sıkıştırılmış AAC (M4A).
+Örnekleme hızı: 8kHz–192kHz. Bit derinliği: 8/16/24/32-bit.
 
-Minimalist tasarımı sayesinde kaydınızı tek bir düğmeyle başlatıp durdurabilirsiniz.
-Kayıt dosyalarınıza istediğiniz zaman, istediğiniz yerden kolayca erişin ve paylaşın.
-İş toplantıları, notlar, fikir alışverişi oturumları veya unutulmaz anlar için uygun yüksek kaliteli ses dosyaları sağlar.
-Başlangıç seviyesindeki kullanıcılar için bile kolayca gezinebilecekleri kullanıcı dostu arayüz.
-Simple Recorder ile önemli anları kaçırmayacaksınız. Sizlere önemli anları değerlendirmenizde yardımcı olmaya buradayız. Şimdi indirin ve kaydetmenin basitliğini deneyimleyin.
+[Kayıt]
+・Yüksek kaliteli WAV / AAC(M4A) kaydı
+・Arka planda kayıt
+・Tek dokunuşla kayda başla
+
+[Oynatma]
+・Arka planda oynatma
+・A-B döngüsü (istediğiniz bölümü tekrarlayın)
+・Oynatma hızı kontrolü (0,5x–2,0x)
+・10s / 60s ileri/geri sarma
+・Tekrar (tek parça / tümü)
+・Çalma listesi oluşturma ve yönetme
+・Dosyaları yeniden adlandırma ve sıralama
+
+[Diğer]
+・iCloud senkronizasyonu
+・Kolay dosya paylaşımı
+・Sade ve temiz tasarım
+
+İş toplantılarından dil öğrenimine ve günlük sesli notlara kadar — hemen indirin ve sorunsuz kayıt deneyimini yaşayın.

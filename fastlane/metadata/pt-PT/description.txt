@@ -1,9 +1,25 @@
-Simple Recorder é um aplicativo dedicado à gravação sem esforço. Com apenas um toque, você pode começar sua gravação, até mesmo em segundo plano, e compartilhá-la facilmente com outros aplicativos, tornando o processo de gravação mais simples do que nunca.
+Simple Voice Recorder é um aplicativo de gravação de voz fácil de usar que começa com um único toque. Suporta áudio de alta qualidade, gravação em segundo plano e diversas funções de reprodução.
 
-Características:
+Formatos: PCM sem perdas (WAV) e AAC comprimido (M4A).
+Taxa de amostragem: 8kHz–192kHz. Profundidade de bits: 8/16/24/32-bit.
 
-- Comece e pare sua gravação com um único botão, graças ao seu design minimalista.
-- Compartilhe e acesse seus arquivos de gravação facilmente a qualquer hora, em qualquer lugar.
-- Fornece arquivos de áudio de alta qualidade adequados para reuniões de negócios, memorandos, sessões de brainstorming ou quaisquer momentos memoráveis.
-- Interface amigável que é fácil para iniciantes navegarem.
-- Com o Simple Recorder, você nunca perderá esses momentos essenciais. Estamos aqui para ajudá-lo a valorizar os momentos que importam. Baixe agora e experimente a simplicidade da gravação.
+[Gravação]
+・Gravação WAV / AAC(M4A) de alta qualidade
+・Gravação em segundo plano
+・Iniciar gravação com um toque
+
+[Reprodução]
+・Reprodução em segundo plano
+・Loop A-B (repetir qualquer trecho)
+・Controle de velocidade (0,5x–2,0x)
+・Avançar/retroceder 10s / 60s
+・Repetição (uma faixa / todas)
+・Criação e gestão de playlists
+・Renomear e reordenar ficheiros
+
+[Outros]
+・Sincronização iCloud
+・Partilha fácil de ficheiros
+・Design simples e limpo
+
+De reuniões de trabalho ao aprendizado de idiomas e notas de voz diárias — descarregue agora e experimente uma gravação sem complicações.
