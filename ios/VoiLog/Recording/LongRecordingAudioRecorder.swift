@@ -26,7 +26,10 @@ actor LongRecordingAudioRecorder: NSObject {
         return granted
     }
 
+    private var recordingConfiguration: RecordingConfiguration = .default
+
     func startRecording(url: URL, configuration: RecordingConfiguration) async throws -> Bool {
+        recordingConfiguration = configuration
         logger.info("録音開始: \(url.lastPathComponent), フォーマット: \(configuration.fileFormat.rawValue)")
 
         // 前回の状態をリセット
@@ -167,9 +170,15 @@ actor LongRecordingAudioRecorder: NSObject {
         let session = AVAudioSession.sharedInstance()
 
         do {
+            // ノイズキャンセリング or AGC が有効な場合は .voiceChat モードを使用
+            let useVoiceProcessing = recordingConfiguration.noiseCancellationEnabled
+                || recordingConfiguration.autoGainControlEnabled
+            let mode: AVAudioSession.Mode = useVoiceProcessing ? .voiceChat : .default
+            logger.debug("オーディオモード: \(useVoiceProcessing ? "voiceChat（ノイズキャンセリング/AGC有効）" : "default")")
+
             try session.setCategory(
                 .playAndRecord,
-                mode: .default,
+                mode: mode,
                 options: [
                     .defaultToSpeaker,
                     .allowBluetooth,

@@ -128,4 +128,19 @@ class UserDefaultsManager {
             defaults.set(newValue, forKey: "HasSeenTutorial")
         }
     }
+
+    var noiseCancellationEnabled: Bool {
+        get { defaults.bool(forKey: "NoiseCancellationEnabled") }
+        set { defaults.set(newValue, forKey: "NoiseCancellationEnabled") }
+    }
+
+    var autoGainControlEnabled: Bool {
+        get { defaults.bool(forKey: "AutoGainControlEnabled") }
+        set { defaults.set(newValue, forKey: "AutoGainControlEnabled") }
+    }
+
+    var selectedRecordingPreset: String {
+        get { defaults.string(forKey: "SelectedRecordingPreset") ?? RecordingPreset.memo.rawValue }
+        set { defaults.set(newValue, forKey: "SelectedRecordingPreset") }
+    }
 }

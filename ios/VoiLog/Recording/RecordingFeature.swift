@@ -23,6 +23,10 @@ struct RecordingFeature {
     var recordingSamplingFrequency: Double = 44100.0
     var recordingBitDepth: Int = 16
     var recordingChannels: Int = 1
+    // プリセット
+    var selectedPreset: RecordingPreset = .memo
+    var noiseCancellationEnabled = true
+    var autoGainControlEnabled = true
 
     enum RecordingState: Equatable {
       case idle
@@ -58,6 +62,9 @@ struct RecordingFeature {
       case saveWithTitle
       case skipTitle
       case onAppear
+      case presetSelected(RecordingPreset)
+      case noiseCancellationToggled(Bool)
+      case autoGainControlToggled(Bool)
     }
 
     enum DelegateAction: Equatable {
@@ -179,6 +186,38 @@ struct RecordingFeature {
           }
 
         case .onAppear:
+          let preset = RecordingPreset(rawValue: UserDefaultsManager.shared.selectedRecordingPreset) ?? .memo
+          state.selectedPreset = preset
+          if preset != .custom {
+            state.noiseCancellationEnabled = preset.noiseCancellationEnabled
+            state.autoGainControlEnabled = preset.autoGainControlEnabled
+          } else {
+            state.noiseCancellationEnabled = UserDefaultsManager.shared.noiseCancellationEnabled
+            state.autoGainControlEnabled = UserDefaultsManager.shared.autoGainControlEnabled
+          }
+          return .none
+
+        case let .presetSelected(preset):
+          state.selectedPreset = preset
+          UserDefaultsManager.shared.selectedRecordingPreset = preset.rawValue
+          if preset != .custom {
+            state.noiseCancellationEnabled = preset.noiseCancellationEnabled
+            state.autoGainControlEnabled = preset.autoGainControlEnabled
+          }
+          return .none
+
+        case let .noiseCancellationToggled(enabled):
+          state.noiseCancellationEnabled = enabled
+          state.selectedPreset = .custom
+          UserDefaultsManager.shared.noiseCancellationEnabled = enabled
+          UserDefaultsManager.shared.selectedRecordingPreset = RecordingPreset.custom.rawValue
+          return .none
+
+        case let .autoGainControlToggled(enabled):
+          state.autoGainControlEnabled = enabled
+          state.selectedPreset = .custom
+          UserDefaultsManager.shared.autoGainControlEnabled = enabled
+          UserDefaultsManager.shared.selectedRecordingPreset = RecordingPreset.custom.rawValue
           return .none
         }
 
@@ -245,7 +284,9 @@ struct RecordingFeature {
       fileFormat: audioFileFormat,
       quality: .high,
       sampleRate: samplingFrequency,
-      numberOfChannels: channels
+      numberOfChannels: channels,
+      noiseCancellationEnabled: state.noiseCancellationEnabled,
+      autoGainControlEnabled: state.autoGainControlEnabled
     )
 
     // 録音時間を初期化
@@ -319,6 +360,11 @@ struct RecordingView: View {
       NavigationStack {
         VStack(spacing: 24) {
 
+          // Preset Selector
+          if store.recordingState == .idle {
+            presetSelectorView
+          }
+
           // Recording Status and Timer
           recordingStatusView
 
@@ -354,6 +400,61 @@ struct RecordingView: View {
         } message: {
           Text("この録音にタイトルをつけますか？")
         }
+      }
+    }
+  }
+
+  private var presetSelectorView: some View {
+    VStack(spacing: 8) {
+      ScrollView(.horizontal, showsIndicators: false) {
+        HStack(spacing: 12) {
+          ForEach(RecordingPreset.allCases, id: \.self) { preset in
+            Button {
+              send(.presetSelected(preset))
+            } label: {
+              VStack(spacing: 4) {
+                Text(preset.icon)
+                  .font(.title2)
+                Text(preset.displayName)
+                  .font(.caption2)
+                  .fontWeight(store.selectedPreset == preset ? .bold : .regular)
+              }
+              .padding(.horizontal, 12)
+              .padding(.vertical, 8)
+              .background(store.selectedPreset == preset ? Color.accentColor.opacity(0.15) : Color(.systemGray6))
+              .foregroundColor(store.selectedPreset == preset ? .accentColor : .primary)
+              .cornerRadius(12)
+              .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                  .stroke(store.selectedPreset == preset ? Color.accentColor : Color.clear, lineWidth: 1.5)
+              )
+            }
+          }
+        }
+        .padding(.horizontal)
+      }
+
+      if store.selectedPreset == .custom {
+        VStack(spacing: 0) {
+          Toggle("ノイズキャンセリング", isOn: Binding(
+            get: { store.noiseCancellationEnabled },
+            set: { send(.noiseCancellationToggled($0)) }
+          ))
+          .padding(.horizontal)
+          .padding(.vertical, 10)
+
+          Divider().padding(.leading)
+
+          Toggle("音量の自動調整", isOn: Binding(
+            get: { store.autoGainControlEnabled },
+            set: { send(.autoGainControlToggled($0)) }
+          ))
+          .padding(.horizontal)
+          .padding(.vertical, 10)
+        }
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
+        .padding(.horizontal)
       }
     }
   }

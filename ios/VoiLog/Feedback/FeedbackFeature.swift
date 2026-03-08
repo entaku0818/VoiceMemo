@@ -31,7 +31,7 @@ struct FeedbackFeature {
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case view(View)
-        case sendCompleted(Result<Void, FeedbackError>)
+        case sendCompleted(Result<Bool, FeedbackError>)
 
         enum View: Equatable {
             case submitTapped
@@ -62,7 +62,7 @@ struct FeedbackFeature {
                 return .run { send in
                     do {
                         try await sendFeedback(category: category, message: message)
-                        await send(.sendCompleted(.success(())))
+                        await send(.sendCompleted(.success(true)))
                     } catch {
                         await send(.sendCompleted(.failure(.sendFailed(error.localizedDescription))))
                     }

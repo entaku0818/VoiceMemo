@@ -6,12 +6,16 @@ struct RecordingConfiguration: Equatable {
     let quality: AudioQuality
     let sampleRate: Double
     let numberOfChannels: Int
+    let noiseCancellationEnabled: Bool
+    let autoGainControlEnabled: Bool
 
     static let `default` = RecordingConfiguration(
         fileFormat: .m4a,
         quality: .high,
         sampleRate: 44100,
-        numberOfChannels: 1
+        numberOfChannels: 1,
+        noiseCancellationEnabled: false,
+        autoGainControlEnabled: false
     )
 
     enum AudioFileFormat: String, CaseIterable {
