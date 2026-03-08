@@ -955,7 +955,6 @@ struct QualityIndicatorView: View {
     }
 }
 
-
 // MARK: - Data Models
 struct AudioAnalysisData {
     let averageVolume: Double

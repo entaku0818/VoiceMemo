@@ -108,7 +108,7 @@ private func sendFeedback(category: String, message: String) async throws {
         "appVersion": appVersion,
         "buildNumber": buildNumber,
         "osVersion": osVersion,
-        "deviceModel": deviceModel,
+        "deviceModel": deviceModel
     ]
 
     _ = try await functions.httpsCallable("submitFeedback").call(data)
