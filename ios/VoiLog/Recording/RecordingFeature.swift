@@ -434,28 +434,28 @@ struct RecordingView: View {
         .padding(.horizontal)
       }
 
-      if store.selectedPreset == .custom {
-        VStack(spacing: 0) {
-          Toggle("ノイズキャンセリング", isOn: Binding(
-            get: { store.noiseCancellationEnabled },
-            set: { send(.noiseCancellationToggled($0)) }
-          ))
-          .padding(.horizontal)
-          .padding(.vertical, 10)
-
-          Divider().padding(.leading)
-
-          Toggle("音量の自動調整", isOn: Binding(
-            get: { store.autoGainControlEnabled },
-            set: { send(.autoGainControlToggled($0)) }
-          ))
-          .padding(.horizontal)
-          .padding(.vertical, 10)
-        }
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
+      VStack(spacing: 0) {
+        Toggle("ノイズキャンセリング", isOn: Binding(
+          get: { store.noiseCancellationEnabled },
+          set: { send(.noiseCancellationToggled($0)) }
+        ))
+        .disabled(store.selectedPreset != .custom)
         .padding(.horizontal)
+        .padding(.vertical, 10)
+
+        Divider().padding(.leading)
+
+        Toggle("音量の自動調整", isOn: Binding(
+          get: { store.autoGainControlEnabled },
+          set: { send(.autoGainControlToggled($0)) }
+        ))
+        .disabled(store.selectedPreset != .custom)
+        .padding(.horizontal)
+        .padding(.vertical, 10)
       }
+      .background(Color(.systemGray6))
+      .cornerRadius(12)
+      .padding(.horizontal)
     }
   }
 
