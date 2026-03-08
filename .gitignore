@@ -96,3 +96,9 @@ fastlane/AuthKey_*.p8
 fastlane/.env*
 functions/node_modules/
 functions/lib/
+
+# Playwright CLI
+.playwright-mcp/
+
+# Firebase debug log
+firebase-debug.log
