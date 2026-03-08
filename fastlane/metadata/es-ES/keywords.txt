@@ -1,1 +1,1 @@
-Grabación,Transcripción,Grabar,Fondo,Karaoke,Radio,Dormir,Hablar,Micrófono,Conversión,Captura
+entrevista,reunión,conferencia,podcast,transcribir,memo,fondo,alta calidad,audio,diario

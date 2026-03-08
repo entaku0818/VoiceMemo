@@ -1,10 +1,5 @@
 Versione 1.4.1
 
-[Nuove funzionalità]
-- Riproduzione in loop AB: imposta i punti A e B per ripetere una sezione specifica
-
 [Miglioramenti]
-- Aggiunto pulsante Ripristina acquisti nelle Impostazioni
-
-[Correzioni]
-- Corretti errori di battitura nei nomi dei file
+- Nome dell'app e parole chiave migliorati per una migliore visibilità
+- Correzioni di bug minori e miglioramenti della stabilità

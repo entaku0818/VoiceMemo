@@ -1,10 +1,5 @@
 Versión 1.4.1
 
-[Nuevas funciones]
-- Reproducción en bucle AB: establece puntos A y B para repetir una sección específica
-
 [Mejoras]
-- Se añadió el botón Restaurar compras en Configuración
-
-[Correcciones]
-- Se corrigieron errores tipográficos en nombres de archivos
+- Nombre de la app y palabras clave mejoradas para mayor visibilidad
+- Correcciones de errores menores y mejoras de estabilidad

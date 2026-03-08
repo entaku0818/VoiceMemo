@@ -1,10 +1,5 @@
 Versão 1.4.1
 
-[Novas funcionalidades]
-- Reprodução em loop AB: define pontos A e B para repetir uma secção específica
-
 [Melhorias]
-- Adicionado botão Restaurar compras nas Definições
-
-[Correções]
-- Corrigidos erros de digitação nos nomes de ficheiros
+- Nome do app e palavras-chave melhorados para maior visibilidade
+- Correções de bugs menores e melhorias de estabilidade

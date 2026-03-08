@@ -1,10 +1,5 @@
 Sürüm 1.4.1
 
-[Yeni Özellikler]
-- AB döngü oynatma: belirli bir bölümü tekrarlamak için A ve B noktaları belirleyin
-
 [İyileştirmeler]
-- Ayarlar'a Satın Almaları Geri Yükle düğmesi eklendi
-
-[Hata Düzeltmeleri]
-- Dosya adlarındaki yazım hataları düzeltildi
+- Uygulama adı ve anahtar kelimeler iyileştirildi
+- Küçük hata düzeltmeleri ve kararlılık iyileştirmeleri

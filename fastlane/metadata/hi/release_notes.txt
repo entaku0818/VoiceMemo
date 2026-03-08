@@ -1,10 +1,5 @@
-संस्करण 1.4.1
+Version 1.4.1
 
-[नई सुविधाएँ]
-- AB लूप प्लेबैक: किसी विशेष भाग को दोहराने के लिए A और B बिंदु सेट करें
-
-[सुधार]
-- सेटिंग में खरीदारी पुनर्स्थापित करें बटन जोड़ा गया
-
-[बग फिक्स]
-- फ़ाइल नाम की टाइपो ठीक की गईं
+[Improvements]
+- Improved app name and keywords for better discoverability
+- Minor bug fixes and stability improvements

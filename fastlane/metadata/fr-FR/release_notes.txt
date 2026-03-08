@@ -1,10 +1,5 @@
 Version 1.4.1
 
-[Nouvelles fonctionnalités]
-- Lecture en boucle AB : définissez des points A et B pour répéter une section spécifique
-
 [Améliorations]
-- Ajout d'un bouton Restaurer les achats dans les paramètres
-
-[Corrections]
-- Correction de fautes de frappe dans les noms de fichiers
+- Nom de l'app et mots-clés améliorés pour une meilleure visibilité
+- Corrections mineures et améliorations de la stabilité

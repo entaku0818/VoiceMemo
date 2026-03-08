@@ -1,10 +1,5 @@
 Version 1.4.1
 
-[Neue Funktionen]
-- AB-Schleifenwiedergabe: A- und B-Punkte setzen, um einen bestimmten Abschnitt zu wiederholen
-
 [Verbesserungen]
-- Schaltfläche „Käufe wiederherstellen" in den Einstellungen hinzugefügt
-
-[Fehlerbehebungen]
-- Tippfehler in Dateinamen behoben
+- App-Name und Keywords für bessere Auffindbarkeit optimiert
+- Kleinere Fehlerbehebungen und Stabilitätsverbesserungen

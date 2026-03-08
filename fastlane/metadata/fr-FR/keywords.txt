@@ -1,1 +1,1 @@
-Enregistrement,Transcription,Arrière-plan,Karaoké,Radio,Sommeil,Parler,Micro, Conversion,Capture
+entretien,réunion,conférence,podcast,transcrire,mémo,arrière-plan,haute qualité,audio,journal

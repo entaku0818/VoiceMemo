@@ -42,8 +42,8 @@ platform :ios do
     
 
     deliver(
-      skip_binary_upload: false,     # バイナリのアップロードを実行
-      skip_app_version_update: false, # アプリバージョンの更新をスキップしない
+      skip_binary_upload: true,      # バイナリのアップロードをスキップ
+      skip_app_version_update: false, # App Store Connect に新バージョンを作成
       app_version: version_number,    # アプリのバージョン番号を指定
       skip_metadata: false,          # メタデータの更新をスキップしない
       skip_screenshots: true,        # スクリーンショットはスキップ（別途更新する場合は false に変更）

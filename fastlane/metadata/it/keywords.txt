@@ -1,1 +1,1 @@
-egistrazione,Trascrizione,Registra,Sfondo,Karaoke,Radio,Sonno,Conversazione,Microfono,memo vocali
+intervista,riunione,lezione,podcast,trascrivere,memo,sottofondo,alta qualità,audio,diario

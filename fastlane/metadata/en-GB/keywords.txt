@@ -1,1 +1,1 @@
-Recording,Transcription,Record,Background,Karaoke,Radio,Sleep,Talk,Mic,Conversion,capture,extraction
+interview,meeting,lecture,podcast,transcribe,memo,background,high quality,audio,journal

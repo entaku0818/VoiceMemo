@@ -1,1 +1,1 @@
-Kayıt,Transkripsiyon,Arka Plan,Karaoke,Radyo,Uyku Konuşma,Mikrofon,Dönüşüm,Yakalama,Çıkarma
+röportaj,toplantı,ders,podcast,transkript,not,arka plan,yüksek kalite,ses,günlük

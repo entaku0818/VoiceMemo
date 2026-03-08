@@ -1,1 +1,1 @@
-Simple Voice Recorder - Audio
+Simple Voice Recorder & Memo

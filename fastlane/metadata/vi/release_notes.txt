@@ -1,10 +1,5 @@
 Phiên bản 1.4.1
 
-[Tính năng mới]
-- Phát lại vòng lặp AB: đặt điểm A và B để lặp lại một đoạn cụ thể
-
 [Cải tiến]
-- Thêm nút Khôi phục giao dịch mua trong Cài đặt
-
-[Sửa lỗi]
-- Sửa lỗi đánh máy trong tên tệp
+- Cải thiện tên ứng dụng và từ khóa để dễ tìm kiếm hơn
+- Sửa lỗi nhỏ và cải thiện độ ổn định

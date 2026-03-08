@@ -1,1 +1,1 @@
-Aufnahme,Transkription,Aufzeichnen,Hintergrund,Karaoke,Radio,Schlafen,Reden,microphone,Konvertierung
+Interview,Meeting,Vorlesung,Podcast,Transkription,Memo,Hintergrund,Hochwertig,Audio,Tagebuch
