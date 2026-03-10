@@ -52,7 +52,9 @@ private actor LiveActivityManager {
             recordingTime: 0,
             isPaused: false
         )
-        let activityContent = ActivityContent(state: contentState, staleDate: nil)
+        // staleDate を8時間後に設定（クラッシュ時の自動消去用）
+        let staleDate = Date().addingTimeInterval(8 * 60 * 60)
+        let activityContent = ActivityContent(state: contentState, staleDate: staleDate)
 
         do {
             currentActivity = try Activity.request(

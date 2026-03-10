@@ -294,11 +294,11 @@ struct RecordingFeature {
 
       case .audioRecorderDidFinish(.success(false)):
         state.recordingState = .idle
-        return .none
+        return .run { send in await liveActivityClient.endActivity() }
 
-      case let .audioRecorderDidFinish(.failure(error)):
+      case .audioRecorderDidFinish(.failure):
         state.recordingState = .idle
-        return .none
+        return .run { send in await liveActivityClient.endActivity() }
 
       case let .timerUpdated(time):
         let previousSecond = Int(state.duration)
