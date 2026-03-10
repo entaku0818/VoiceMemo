@@ -87,6 +87,7 @@ struct RecordingFeature {
   @Dependency(\.continuousClock) var clock
   @Dependency(\.uuid) var uuid
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
+  @Dependency(\.liveActivityClient) var liveActivityClient
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -108,6 +109,7 @@ struct RecordingFeature {
           state.showTitleDialog = true
           return .run { _ in
             await longRecordingAudioClient.stopRecording()
+            await liveActivityClient.endActivity()
           }
           .merge(with: .cancel(id: CancelID.recording))
 
@@ -222,13 +224,17 @@ struct RecordingFeature {
         case .pauseResumeButtonTapped:
           if state.recordingState == .paused {
             state.recordingState = .recording
-            return .run { _ in
+            let duration = state.duration
+            return .run { send in
               await longRecordingAudioClient.resumeRecording()
+              await liveActivityClient.updateActivity(duration, false)
             }
           } else {
             state.recordingState = .paused
-            return .run { _ in
+            let duration = state.duration
+            return .run { send in
               await longRecordingAudioClient.pauseRecording()
+              await liveActivityClient.updateActivity(duration, true)
             }
           }
 
@@ -275,7 +281,10 @@ struct RecordingFeature {
           state.recordingId = uuid() // 新しい録音IDを生成
           return .merge(
             .send(.delegate(.recordingWillStart)),
-            startRecording(state: &state)
+            startRecording(state: &state),
+            .run { send in
+              await liveActivityClient.startActivity()
+            }
           )
         }
         return .none
@@ -292,8 +301,15 @@ struct RecordingFeature {
         return .none
 
       case let .timerUpdated(time):
+        let previousSecond = Int(state.duration)
         state.duration = time
-        return .none
+        let currentSecond = Int(time)
+        // Only update Live Activity once per second to avoid excessive updates
+        guard currentSecond != previousSecond else { return .none }
+        let isPaused = state.recordingState == .paused
+        return .run { send in
+          await liveActivityClient.updateActivity(time, isPaused)
+        }
 
       case let .volumesUpdated(volume):
         state.volumes = volume
