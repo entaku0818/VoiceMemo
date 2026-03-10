@@ -19,6 +19,7 @@ struct VoiceMemoRepositoryClient {
         var date: Date
         var duration: Double
         var resultText: String
+        var timestampedText: String?
         var title: String
         var fileFormat: String
         var samplingFrequency: Double
@@ -35,6 +36,7 @@ struct VoiceMemoRepositoryClient {
         var title: String
         var url: URL
         var text: String
+        var timestampedText: String?
         var fileFormat: String
         var samplingFrequency: Double
         var quantizationBitDepth: Int
@@ -70,6 +72,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     voiceEntity.url = recordingVoice.url
                     voiceEntity.id = recordingVoice.uuid
                     voiceEntity.text = recordingVoice.resultText
+                    voiceEntity.timestampedText = recordingVoice.timestampedText
                     voiceEntity.createdAt = recordingVoice.date
                     voiceEntity.updatedAt = Date()
                     voiceEntity.duration = recordingVoice.duration
@@ -106,6 +109,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         title: voiceEntity.title ?? "",
                         url: voiceEntity.url!,
                         text: voiceEntity.text ?? "",
+                        timestampedText: voiceEntity.timestampedText,
                         fileFormat: voiceEntity.fileFormat ?? "",
                         samplingFrequency: voiceEntity.samplingFrequency,
                         quantizationBitDepth: Int(voiceEntity.quantizationBitDepth),
@@ -127,6 +131,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                             date: voiceEntity.createdAt ?? Date(),
                             duration: voiceEntity.duration,
                             resultText: voiceEntity.text ?? "",
+                            timestampedText: voiceEntity.timestampedText,
                             title: voiceEntity.title ?? "",
                             fileFormat: voiceEntity.fileFormat ?? "",
                             samplingFrequency: voiceEntity.samplingFrequency,
@@ -176,6 +181,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         voiceEntity.title = voiceMemoVoice.title
                         voiceEntity.url = voiceMemoVoice.url
                         voiceEntity.text = voiceMemoVoice.text
+                        voiceEntity.timestampedText = voiceMemoVoice.timestampedText
                         voiceEntity.createdAt = voiceMemoVoice.date
                         voiceEntity.updatedAt = Date()
                         voiceEntity.duration = voiceMemoVoice.duration

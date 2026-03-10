@@ -50,6 +50,7 @@ struct PlaybackFeature {
     var duration: TimeInterval
     var url: URL
     var text: String
+    var timestampedText: String?
     // Legacy compatibility fields
     var fileFormat: String
     var samplingFrequency: Double
@@ -64,6 +65,7 @@ struct PlaybackFeature {
       duration: TimeInterval,
       url: URL,
       text: String = "",
+      timestampedText: String? = nil,
       fileFormat: String = "",
       samplingFrequency: Double = 44100.0,
       quantizationBitDepth: Int = 16,
@@ -76,6 +78,7 @@ struct PlaybackFeature {
       self.duration = duration
       self.url = url
       self.text = text
+      self.timestampedText = timestampedText
       self.fileFormat = fileFormat
       self.samplingFrequency = samplingFrequency
       self.quantizationBitDepth = quantizationBitDepth
@@ -479,6 +482,7 @@ struct PlaybackFeature {
           duration: voice.duration,
           url: actualURL,
           text: voice.text,
+          timestampedText: voice.timestampedText,
           fileFormat: voice.fileFormat,
           samplingFrequency: voice.samplingFrequency,
           quantizationBitDepth: voice.quantizationBitDepth,

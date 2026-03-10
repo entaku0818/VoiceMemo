@@ -10,6 +10,7 @@ struct LongRecordingAudioClient {
     var resumeRecording: @Sendable () async -> Void
     var audioLevel: @Sendable () async -> Float
     var recordingState: @Sendable () async -> RecordingState
+    var recognizeAudio: @Sendable (URL) async -> (String, [TimestampedSegment])?
 }
 
 extension LongRecordingAudioClient: TestDependencyKey {
@@ -60,7 +61,8 @@ extension LongRecordingAudioClient: TestDependencyKey {
                 await recordingState.setValue(.recording(startTime: Date()))
             },
             audioLevel: { 0.5 }, // プレビュー用の固定値
-            recordingState: { await recordingState.value }
+            recordingState: { await recordingState.value },
+            recognizeAudio: { _ in nil }
         )
     }
 
@@ -72,7 +74,8 @@ extension LongRecordingAudioClient: TestDependencyKey {
         pauseRecording: unimplemented("\(Self.self).pauseRecording"),
         resumeRecording: unimplemented("\(Self.self).resumeRecording"),
         audioLevel: unimplemented("\(Self.self).audioLevel", placeholder: 0.0),
-        recordingState: unimplemented("\(Self.self).recordingState", placeholder: .idle)
+        recordingState: unimplemented("\(Self.self).recordingState", placeholder: .idle),
+        recognizeAudio: unimplemented("\(Self.self).recognizeAudio", placeholder: nil)
     )
 }
 
@@ -97,7 +100,8 @@ extension LongRecordingAudioClient: DependencyKey {
             pauseRecording: { await audioRecorder.pauseRecording() },
             resumeRecording: { await audioRecorder.resumeRecording() },
             audioLevel: { await audioRecorder.getAudioLevel() },
-            recordingState: { await audioRecorder.getCurrentState() }
+            recordingState: { await audioRecorder.getCurrentState() },
+            recognizeAudio: { url in await SpeechRecognizer.recognize(url: url) }
         )
     }
 }
