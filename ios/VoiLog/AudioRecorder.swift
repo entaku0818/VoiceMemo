@@ -15,6 +15,7 @@ struct AudioRecorderClient {
     var volumes: @Sendable () async -> Float
     var waveFormHeights: @Sendable () async -> [Float]
     var resultText: @Sendable () async -> String
+    var timestampedSegments: @Sendable () async -> [TimestampedSegment]
 }
 
 extension AudioRecorderClient: TestDependencyKey {
@@ -55,7 +56,8 @@ extension AudioRecorderClient: TestDependencyKey {
             },
             volumes: { 0.0 }, // Add some stub values here if needed
             waveFormHeights: { [] },
-            resultText: { "" }
+            resultText: { "" },
+            timestampedSegments: { [] }
         )
     }
 
@@ -70,7 +72,8 @@ extension AudioRecorderClient: TestDependencyKey {
         resumeRecording: unimplemented("\(Self.self).resumeRecording"),
         volumes: unimplemented("\(Self.self).volumes", placeholder: 0.0),
         waveFormHeights: unimplemented("\(Self.self).waveFormHeights", placeholder: []),
-        resultText: unimplemented("\(Self.self).resultText", placeholder: "")
+        resultText: unimplemented("\(Self.self).resultText", placeholder: ""),
+        timestampedSegments: unimplemented("\(Self.self).timestampedSegments", placeholder: [])
     )
 }
 
@@ -93,7 +96,8 @@ extension AudioRecorderClient: DependencyKey {
             resumeRecording: { await audioRecorder.resume() },
             volumes: { await audioRecorder.amplitude() },
             waveFormHeights: { await audioRecorder.getWaveFormHeights() },
-            resultText: { await audioRecorder.fetchResultText() }
+            resultText: { await audioRecorder.fetchResultText() },
+            timestampedSegments: { await audioRecorder.fetchTimestampedSegments() }
         )
     }
 }
@@ -104,6 +108,7 @@ private actor AudioRecorder {
     var audioEngine: AVAudioEngine?
     var inputNode: AVAudioInputNode?
     var resultText: String = ""
+    var timestampedSegments: [TimestampedSegment] = []
     var isFinal = false
     var currentTime: TimeInterval = 0
     var isPaused = false
@@ -194,6 +199,14 @@ private actor AudioRecorder {
                     if let result = result {
                         self.isFinal = result.isFinal
                         self.resultText = result.bestTranscription.formattedString
+                        self.timestampedSegments = result.bestTranscription.segments.map { segment in
+                            TimestampedSegment(
+                                text: segment.substring,
+                                timestamp: segment.timestamp,
+                                duration: segment.duration,
+                                confidence: segment.confidence
+                            )
+                        }
                     }
 
                     if self.isFinal {
@@ -360,6 +373,10 @@ private actor AudioRecorder {
 
     func fetchResultText() -> String {
         resultText
+    }
+
+    func fetchTimestampedSegments() -> [TimestampedSegment] {
+        timestampedSegments
     }
 
     // 安全な割り込み処理の設定

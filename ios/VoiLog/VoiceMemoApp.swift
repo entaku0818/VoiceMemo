@@ -170,7 +170,7 @@ extension VoiceMemoApp {
             Task {
                 for activity in Activity<RecordActivityAttributes>.activities {
                     AppLogger.general.debug("Cleaning up background activity: \(activity.id)")
-                    let finalContentState = RecordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0)
+                    let finalContentState = RecordActivityAttributes.ContentState(emoji: "⏹️", recordingTime: 0, isPaused: false)
                     let finalActivityContent = ActivityContent(state: finalContentState, staleDate: Date())
                     await activity.end(finalActivityContent, dismissalPolicy: .immediate)
                 }

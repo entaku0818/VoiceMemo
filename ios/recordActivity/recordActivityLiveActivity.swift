@@ -11,58 +11,99 @@ import SwiftUI
 
 struct RecordActivityAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
         var emoji: String
-        var recordingTime: TimeInterval // 録音時間を追加
+        var recordingTime: TimeInterval
+        var isPaused: Bool
+
+        init(emoji: String = "🔴", recordingTime: TimeInterval = 0, isPaused: Bool = false) {
+            self.emoji = emoji
+            self.recordingTime = recordingTime
+            self.isPaused = isPaused
+        }
     }
 
-    // Fixed non-changing properties about your activity go here!
     var name: String
 }
 
 struct RecordActivityLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: RecordActivityAttributes.self) { context in
-            // Lock screen/banner UI goes here
-            VStack {
-                HStack {
-                    Spacer().frame(width: 16)
-                    Text("録音中") // 録音時間を表示
+            // Lock Screen / Banner UI
+            HStack(spacing: 16) {
+                // Recording indicator
+                ZStack {
+                    Circle()
+                        .fill(context.state.isPaused ? Color.orange : Color.red)
+                        .frame(width: 40, height: 40)
+                    Image(systemName: context.state.isPaused ? "pause.fill" : "mic.fill")
+                        .font(.system(size: 18))
                         .foregroundColor(.white)
-                    Text("\(formatTimeInterval(context.state.recordingTime))") // 録音時間を表示
-                        .font(.largeTitle) // フォントサイズを大きく設定
-                        .foregroundColor(.red)
-                    Spacer()
                 }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(context.state.isPaused ? "一時停止中" : "録音中")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    Text(formatTimeInterval(context.state.recordingTime))
+                        .font(.title2.monospacedDigit().bold())
+                        .foregroundColor(.primary)
+                }
+
+                Spacer()
+
+                Text("シンプル録音")
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
             }
-            .activityBackgroundTint(Color.black)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .activityBackgroundTint(Color(.systemBackground))
             .activitySystemActionForegroundColor(Color.red)
 
         } dynamicIsland: { context in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("録音中")
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    Text("\(context.state.emoji)")
-                }
-                DynamicIslandExpandedRegion(.bottom) {
-                    VStack {
-                        HStack {
-                            Text(formatTimeInterval(context.state.recordingTime))
-                                .font(.largeTitle) // フォントサイズを大きく設定
-                            Spacer()
+                    HStack(spacing: 8) {
+                        ZStack {
+                            Circle()
+                                .fill(context.state.isPaused ? Color.orange : Color.red)
+                                .frame(width: 32, height: 32)
+                            Image(systemName: context.state.isPaused ? "pause.fill" : "mic.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(.white)
                         }
+                        Text(context.state.isPaused ? "一時停止" : "録音中")
+                            .font(.subheadline.bold())
+                            .foregroundColor(.primary)
                     }
                 }
+                DynamicIslandExpandedRegion(.trailing) {
+                    Text(formatTimeInterval(context.state.recordingTime))
+                        .font(.title3.monospacedDigit().bold())
+                        .foregroundColor(context.state.isPaused ? .orange : .red)
+                }
+                DynamicIslandExpandedRegion(.bottom) {
+                    Text("シンプル録音")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
             } compactLeading: {
-                Text("録音中")
+                HStack(spacing: 4) {
+                    Circle()
+                        .fill(context.state.isPaused ? Color.orange : Color.red)
+                        .frame(width: 8, height: 8)
+                    Image(systemName: "mic.fill")
+                        .font(.caption2)
+                        .foregroundColor(context.state.isPaused ? .orange : .red)
+                }
             } compactTrailing: {
-                Text("\(context.state.emoji)")
+                Text(formatTimeInterval(context.state.recordingTime))
+                    .font(.caption.monospacedDigit())
+                    .foregroundColor(context.state.isPaused ? .orange : .red)
             } minimal: {
-                Text(context.state.emoji)
+                Image(systemName: context.state.isPaused ? "pause.circle.fill" : "mic.circle.fill")
+                    .foregroundColor(context.state.isPaused ? .orange : .red)
             }
             .keylineTint(Color.red)
         }
@@ -83,6 +124,10 @@ extension RecordActivityAttributes {
 
 extension RecordActivityAttributes.ContentState {
     fileprivate static var recording: RecordActivityAttributes.ContentState {
-        RecordActivityAttributes.ContentState(emoji: "🔴", recordingTime: 0)
+        RecordActivityAttributes.ContentState(emoji: "🔴", recordingTime: 65, isPaused: false)
+    }
+
+    fileprivate static var paused: RecordActivityAttributes.ContentState {
+        RecordActivityAttributes.ContentState(emoji: "⏸️", recordingTime: 65, isPaused: true)
     }
 }

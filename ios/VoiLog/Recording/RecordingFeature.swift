@@ -27,6 +27,8 @@ struct RecordingFeature {
     var selectedPreset: RecordingPreset = .memo
     var noiseCancellationEnabled = true
     var autoGainControlEnabled = true
+    // タイムスタンプ付き文字起こし
+    var timestampedSegments: [TimestampedSegment] = []
 
     enum RecordingState: Equatable {
       case idle
@@ -54,6 +56,7 @@ struct RecordingFeature {
     case resultTextUpdated(String)
     case waveFormHeightsUpdated([Float])
     case permissionResponse(Bool)
+    case transcriptionCompleted(UUID, String?)
 
     enum View {
       case recordButtonTapped
@@ -84,6 +87,7 @@ struct RecordingFeature {
   @Dependency(\.continuousClock) var clock
   @Dependency(\.uuid) var uuid
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
+  @Dependency(\.liveActivityClient) var liveActivityClient
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -105,6 +109,7 @@ struct RecordingFeature {
           state.showTitleDialog = true
           return .run { _ in
             await longRecordingAudioClient.stopRecording()
+            await liveActivityClient.endActivity()
           }
           .merge(with: .cancel(id: CancelID.recording))
 
@@ -115,13 +120,26 @@ struct RecordingFeature {
           let recordingUrl = createRecordingURL(with: state.recordingId, fileFormat: fileFormat)
           let title = state.tempTitle.isEmpty ? "無題の録音" : state.tempTitle
           let recordingDate = Date()
+          let recordingId = state.recordingId
+
+          // タイムスタンプ付き文字起こしをJSON化
+          let segments = state.timestampedSegments
+          let resultText = state.resultText
+          let timestampedText: String?
+          if !segments.isEmpty {
+            let transcription = TimestampedTranscription(segments: segments, fullText: resultText)
+            timestampedText = transcription.toJSON()
+          } else {
+            timestampedText = nil
+          }
 
           // データベースに保存
           let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
-            uuid: state.recordingId,
+            uuid: recordingId,
             date: recordingDate,
             duration: state.duration,
-            resultText: state.resultText,
+            resultText: resultText,
+            timestampedText: timestampedText,
             title: title,
             fileFormat: fileFormat,
             samplingFrequency: state.recordingSamplingFrequency,
@@ -138,7 +156,16 @@ struct RecordingFeature {
             date: recordingDate
           )
           state = State() // Reset state
-          return .send(.delegate(.recordingCompleted(result)))
+          return .merge(
+            .send(.delegate(.recordingCompleted(result))),
+            .run { [timestampedText] send in
+              guard timestampedText == nil else { return }
+              if let (text, segs) = await longRecordingAudioClient.recognizeAudio(recordingUrl) {
+                let transcription = TimestampedTranscription(segments: segs, fullText: text)
+                await send(.transcriptionCompleted(recordingId, transcription.toJSON()))
+              }
+            }
+          )
 
         case .skipTitle:
           state.showTitleDialog = false
@@ -147,13 +174,26 @@ struct RecordingFeature {
           let recordingUrl = createRecordingURL(with: state.recordingId, fileFormat: fileFormat)
           let title = "無題の録音"
           let recordingDate = Date()
+          let recordingId = state.recordingId
+
+          // タイムスタンプ付き文字起こしをJSON化
+          let segments = state.timestampedSegments
+          let resultText = state.resultText
+          let timestampedText: String?
+          if !segments.isEmpty {
+            let transcription = TimestampedTranscription(segments: segments, fullText: resultText)
+            timestampedText = transcription.toJSON()
+          } else {
+            timestampedText = nil
+          }
 
           // データベースに保存
           let recordingVoice = VoiceMemoRepositoryClient.RecordingVoice(
-            uuid: state.recordingId,
+            uuid: recordingId,
             date: recordingDate,
             duration: state.duration,
-            resultText: state.resultText,
+            resultText: resultText,
+            timestampedText: timestampedText,
             title: title,
             fileFormat: fileFormat,
             samplingFrequency: state.recordingSamplingFrequency,
@@ -170,18 +210,31 @@ struct RecordingFeature {
             date: recordingDate
           )
           state = State() // Reset state
-          return .send(.delegate(.recordingCompleted(result)))
+          return .merge(
+            .send(.delegate(.recordingCompleted(result))),
+            .run { [timestampedText] send in
+              guard timestampedText == nil else { return }
+              if let (text, segs) = await longRecordingAudioClient.recognizeAudio(recordingUrl) {
+                let transcription = TimestampedTranscription(segments: segs, fullText: text)
+                await send(.transcriptionCompleted(recordingId, transcription.toJSON()))
+              }
+            }
+          )
 
         case .pauseResumeButtonTapped:
           if state.recordingState == .paused {
             state.recordingState = .recording
-            return .run { _ in
+            let duration = state.duration
+            return .run { send in
               await longRecordingAudioClient.resumeRecording()
+              await liveActivityClient.updateActivity(duration, false)
             }
           } else {
             state.recordingState = .paused
-            return .run { _ in
+            let duration = state.duration
+            return .run { send in
               await longRecordingAudioClient.pauseRecording()
+              await liveActivityClient.updateActivity(duration, true)
             }
           }
 
@@ -228,7 +281,10 @@ struct RecordingFeature {
           state.recordingId = uuid() // 新しい録音IDを生成
           return .merge(
             .send(.delegate(.recordingWillStart)),
-            startRecording(state: &state)
+            startRecording(state: &state),
+            .run { send in
+              await liveActivityClient.startActivity()
+            }
           )
         }
         return .none
@@ -238,15 +294,22 @@ struct RecordingFeature {
 
       case .audioRecorderDidFinish(.success(false)):
         state.recordingState = .idle
-        return .none
+        return .run { send in await liveActivityClient.endActivity() }
 
-      case let .audioRecorderDidFinish(.failure(error)):
+      case .audioRecorderDidFinish(.failure):
         state.recordingState = .idle
-        return .none
+        return .run { send in await liveActivityClient.endActivity() }
 
       case let .timerUpdated(time):
+        let previousSecond = Int(state.duration)
         state.duration = time
-        return .none
+        let currentSecond = Int(time)
+        // Only update Live Activity once per second to avoid excessive updates
+        guard currentSecond != previousSecond else { return .none }
+        let isPaused = state.recordingState == .paused
+        return .run { send in
+          await liveActivityClient.updateActivity(time, isPaused)
+        }
 
       case let .volumesUpdated(volume):
         state.volumes = volume
@@ -258,6 +321,31 @@ struct RecordingFeature {
 
       case let .waveFormHeightsUpdated(heights):
         state.waveFormHeights = heights
+        return .none
+
+      case let .transcriptionCompleted(id, json):
+        // Update DB record with transcription result
+        if let json = json {
+          MainActor.assumeIsolated {
+            if let voice = voiceMemoRepository.fetch(id) {
+              let fullText = TimestampedTranscription.fromJSON(json)?.fullText ?? voice.resultText
+              let updated = VoiceMemoRepositoryClient.VoiceMemoVoice(
+                uuid: voice.uuid,
+                date: voice.date,
+                duration: voice.duration,
+                title: voice.title,
+                url: voice.url,
+                text: fullText,
+                timestampedText: json,
+                fileFormat: voice.fileFormat,
+                samplingFrequency: voice.samplingFrequency,
+                quantizationBitDepth: voice.quantizationBitDepth,
+                numberOfChannels: voice.numberOfChannels
+              )
+              voiceMemoRepository.update(updated)
+            }
+          }
+        }
         return .none
 
       case .delegate:
