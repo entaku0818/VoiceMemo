@@ -90,6 +90,12 @@ struct FullscreenScreenshotView: View {
     @ViewBuilder
     private func screenPreview(for screen: ScreenshotScreen) -> some View {
         switch screen {
+        case .aiRecording:
+            MockAIRecordingView(language: language)
+        case .useCase:
+            MockUseCaseView(language: language)
+        case .timestampedTranscription:
+            MockTimestampedTranscriptionView(language: language)
         case .recordingList:
             MockRecordingListView(language: language)
         case .playbackList:
@@ -631,10 +637,166 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .chineseTraditional: return "錄製了與家人的對話"
         }
     }
+
+    var aiTranscriptionLabel: String {
+        switch self {
+        case .english: return "Transcribing..."
+        case .japanese: return "AI文字起こし中..."
+        case .german: return "Transkribierung..."
+        case .spanish: return "Transcribiendo..."
+        case .french: return "Transcription en cours..."
+        case .italian: return "Trascrizione in corso..."
+        case .portuguese: return "Transcrevendo..."
+        case .russian: return "Транскрибирование..."
+        case .turkish: return "Transkript oluşturuluyor..."
+        case .vietnamese: return "Đang chuyển văn bản..."
+        case .chineseSimplified: return "AI转录中..."
+        case .chineseTraditional: return "AI轉錄中..."
+        }
+    }
+
+    var aiTranscriptionCaption: String {
+        switch self {
+        case .english: return "Record & Transcribe Instantly"
+        case .japanese: return "録音してすぐAI文字起こし"
+        case .german: return "Aufnehmen & sofort transkribieren"
+        case .spanish: return "Graba y transcribe al instante"
+        case .french: return "Enregistrez et transcrivez instantanément"
+        case .italian: return "Registra e trascrivi istantaneamente"
+        case .portuguese: return "Grave e transcreva instantaneamente"
+        case .russian: return "Записывайте и транскрибируйте мгновенно"
+        case .turkish: return "Kaydet ve anında transkript al"
+        case .vietnamese: return "Ghi âm và chuyển văn bản ngay lập tức"
+        case .chineseSimplified: return "录音后即刻AI转录"
+        case .chineseTraditional: return "錄音後即刻AI轉錄"
+        }
+    }
+
+    var useCaseCaption: String {
+        switch self {
+        case .english: return "For Meetings, Lectures & Interviews"
+        case .japanese: return "会議・講義・インタビューに"
+        case .german: return "Für Meetings, Vorlesungen & Interviews"
+        case .spanish: return "Para reuniones, clases y entrevistas"
+        case .french: return "Pour réunions, cours et interviews"
+        case .italian: return "Per riunioni, lezioni e interviste"
+        case .portuguese: return "Para reuniões, aulas e entrevistas"
+        case .russian: return "Для встреч, лекций и интервью"
+        case .turkish: return "Toplantılar, Dersler ve Röportajlar için"
+        case .vietnamese: return "Cho cuộc họp, bài giảng và phỏng vấn"
+        case .chineseSimplified: return "适用于会议、讲座和采访"
+        case .chineseTraditional: return "適用於會議、講座和採訪"
+        }
+    }
+
+    var timestampCaption: String {
+        switch self {
+        case .english: return "Timestamped Transcription"
+        case .japanese: return "タイムスタンプ付き文字起こし"
+        case .german: return "Transkription mit Zeitstempel"
+        case .spanish: return "Transcripción con marcas de tiempo"
+        case .french: return "Transcription horodatée"
+        case .italian: return "Trascrizione con timestamp"
+        case .portuguese: return "Transcrição com carimbo de tempo"
+        case .russian: return "Транскрипция с временными метками"
+        case .turkish: return "Zaman Damgalı Transkript"
+        case .vietnamese: return "Phiên âm có dấu thời gian"
+        case .chineseSimplified: return "带时间戳的文字转录"
+        case .chineseTraditional: return "帶時間戳的文字轉錄"
+        }
+    }
+
+    var transcriptionTitle: String {
+        switch self {
+        case .english: return "Transcription"
+        case .japanese: return "文字起こし"
+        case .german: return "Transkription"
+        case .spanish: return "Transcripción"
+        case .french: return "Transcription"
+        case .italian: return "Trascrizione"
+        case .portuguese: return "Transcrição"
+        case .russian: return "Транскрипция"
+        case .turkish: return "Transkript"
+        case .vietnamese: return "Phiên âm"
+        case .chineseSimplified: return "文字转录"
+        case .chineseTraditional: return "文字轉錄"
+        }
+    }
+
+    func useCaseSampleTitle(_ index: Int) -> String {
+        let en = ["Meeting Notes", "Economics Lecture Vol.3", "Interview with Mr. Smith", "Idea Memo", "English Speaking Practice"]
+        let ja = ["会議メモ", "経済学 第3回講義", "田中さんへのインタビュー", "アイデアメモ", "英語スピーキング練習"]
+        let de = ["Besprechungsnotizen", "Wirtschaft Vorlesung 3", "Interview mit Herrn Müller", "Ideen-Memo", "Englisch Sprechübung"]
+        let es = ["Notas de Reunión", "Clase de Economía Vol.3", "Entrevista con el Sr. García", "Memo de Ideas", "Práctica de Inglés"]
+        let fr = ["Notes de Réunion", "Cours d'Économie Vol.3", "Interview avec M. Dupont", "Mémo d'Idées", "Pratique Anglais"]
+        let it = ["Note della Riunione", "Lezione di Economia Vol.3", "Intervista con il Sig. Rossi", "Memo Idee", "Pratica Inglese"]
+        let pt = ["Notas da Reunião", "Aula de Economia Vol.3", "Entrevista com Sr. Silva", "Memo de Ideias", "Prática de Inglês"]
+        let ru = ["Заметки встречи", "Лекция по экономике №3", "Интервью с г-ном Ивановым", "Заметки идей", "Практика английского"]
+        let tr = ["Toplantı Notları", "Ekonomi Dersi 3. Bölüm", "Bay Yılmaz ile Röportaj", "Fikir Notu", "İngilizce Konuşma Pratiği"]
+        let vi = ["Ghi chú cuộc họp", "Bài giảng Kinh tế số 3", "Phỏng vấn Ông Nguyễn", "Ghi chú ý tưởng", "Luyện nói tiếng Anh"]
+        let zhS = ["会议笔记", "经济学第3讲", "采访张先生", "创意备忘录", "英语口语练习"]
+        let zhT = ["會議筆記", "經濟學第3講", "採訪張先生", "創意備忘錄", "英語口語練習"]
+
+        let titles: [String]
+        switch self {
+        case .english: titles = en
+        case .japanese: titles = ja
+        case .german: titles = de
+        case .spanish: titles = es
+        case .french: titles = fr
+        case .italian: titles = it
+        case .portuguese: titles = pt
+        case .russian: titles = ru
+        case .turkish: titles = tr
+        case .vietnamese: titles = vi
+        case .chineseSimplified: titles = zhS
+        case .chineseTraditional: titles = zhT
+        }
+        return index < titles.count ? titles[index] : titles[0]
+    }
+
+    func transcriptionSampleText(_ index: Int) -> String {
+        let en = [
+            "Today's meeting begins. First, let's review last week's progress...",
+            "Sales were up 15% month-over-month, exceeding our target.",
+            "Let's discuss the next project. The budget is approximately...",
+            "Regarding Q4 planning, we'll start with the marketing team."
+        ]
+        let ja = [
+            "本日の会議を始めます。まず先週の進捗について確認します...",
+            "売上は前月比15%増で、目標を達成しました。",
+            "次のプロジェクトについて議論します。予算はおよそ...",
+            "Q4の計画を確認します。まずマーケティングチームから..."
+        ]
+        let de = [
+            "Wir beginnen das heutige Meeting. Zuerst überprüfen wir den Fortschritt...",
+            "Der Umsatz stieg um 15% gegenüber dem Vormonat und übertraf unser Ziel.",
+            "Lass uns das nächste Projekt besprechen. Das Budget beträgt ca...",
+            "Zur Q4-Planung beginnen wir mit dem Marketing-Team."
+        ]
+        let generic = [
+            "The meeting begins. Reviewing last week's progress...",
+            "Results exceeded targets by 15% this month.",
+            "Discussing the upcoming project scope and budget...",
+            "Q4 planning session with the marketing department."
+        ]
+
+        let texts: [String]
+        switch self {
+        case .english: texts = en
+        case .japanese: texts = ja
+        case .german: texts = de
+        default: texts = generic
+        }
+        return index < texts.count ? texts[index] : texts[0]
+    }
 }
 
 // MARK: - Screenshot Screen Enum
 enum ScreenshotScreen: String, CaseIterable {
+    case aiRecording
+    case useCase
+    case timestampedTranscription
     case recordingList
     case playbackList
     case backgroundRecording
@@ -1382,6 +1544,349 @@ struct MockShareSheetView: View {
         }
         .padding()
         .background(Color(.systemBackground))
+    }
+}
+
+// MARK: - Mock AI Recording View
+struct MockAIRecordingView: View {
+    let language: AppLanguage
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Title
+            HStack {
+                Text(language.recordingTitle)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.top, 60)
+            .padding(.bottom, 20)
+
+            VStack(spacing: 20) {
+                // Recording Status and Timer
+                VStack(spacing: 8) {
+                    Text(language.recordingText)
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(.red)
+                    Text("00:02:45")
+                        .font(.title.monospacedDigit())
+                        .fontWeight(.bold)
+                }
+
+                // Audio Level Meter
+                GeometryReader { geometry in
+                    HStack(spacing: 0) {
+                        Rectangle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [.green, .yellow, .orange, .red],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .frame(width: geometry.size.width * 0.65)
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                    }
+                }
+                .frame(height: 20)
+                .cornerRadius(10)
+                .padding(.horizontal)
+
+                // AI Transcription Card
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "sparkles")
+                            .foregroundColor(.blue)
+                        Text(language.aiTranscriptionLabel)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.blue)
+                    }
+
+                    VStack(alignment: .leading, spacing: 6) {
+                        ForEach(0..<3, id: \.self) { index in
+                            Text(language.transcriptionSampleText(index))
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                                .lineLimit(2)
+                        }
+
+                        // Typing indicator
+                        HStack(spacing: 4) {
+                            ForEach(0..<3, id: \.self) { _ in
+                                Circle()
+                                    .fill(Color.blue.opacity(0.6))
+                                    .frame(width: 6, height: 6)
+                            }
+                        }
+                        .padding(.top, 2)
+                    }
+                }
+                .padding(14)
+                .background(Color.blue.opacity(0.07))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.blue.opacity(0.2), lineWidth: 1)
+                )
+                .padding(.horizontal)
+
+                Spacer()
+
+                // Control Buttons
+                HStack(spacing: 32) {
+                    Button(action: {}) {
+                        ZStack {
+                            Circle()
+                                .fill(Color(.systemGray))
+                                .frame(width: 70, height: 70)
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.red)
+                                .frame(width: 25, height: 25)
+                        }
+                    }
+                    Button(action: {}) {
+                        ZStack {
+                            Circle()
+                                .fill(Color(.systemGray2))
+                                .frame(width: 60, height: 60)
+                            Image(systemName: "pause.fill")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                        }
+                    }
+                }
+                .padding(.bottom, 40)
+            }
+            .padding()
+        }
+    }
+}
+
+// MARK: - Mock Use Case View
+struct MockUseCaseView: View {
+    let language: AppLanguage
+
+    private let useCaseColors: [Color] = [.orange, .purple, .blue, .green, .red]
+    private let useCaseIcons = ["mic.fill", "graduationcap.fill", "person.fill", "lightbulb.fill", "waveform"]
+    private let useCaseDurations = ["45:23", "1:23:45", "15:42", "3:21", "8:05"]
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Title and Toolbar
+            HStack {
+                Text(language.recordingFiles)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "icloud.and.arrow.up")
+                        .font(.title3)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 60)
+            .padding(.bottom, 20)
+
+            VStack(spacing: 0) {
+                List {
+                    ForEach(0..<5) { index in
+                        HStack(spacing: 12) {
+                            // Color icon
+                            ZStack {
+                                Circle()
+                                    .fill(useCaseColors[index])
+                                    .frame(width: 36, height: 36)
+                                Image(systemName: useCaseIcons[index])
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                            }
+
+                            // Memo Info
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack {
+                                    Text(language.useCaseSampleTitle(index))
+                                        .font(.headline)
+                                        .lineLimit(1)
+                                    Spacer()
+                                    Text(useCaseDurations[index])
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                        .monospacedDigit()
+                                }
+                                HStack {
+                                    Text(language.sampleDate(index))
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                    Spacer()
+                                    Image(systemName: "ellipsis.circle")
+                                        .font(.title3)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+                .listStyle(.plain)
+
+                // Mini player
+                VStack(spacing: 0) {
+                    Divider()
+                    VStack(spacing: 8) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(language.useCaseSampleTitle(0))
+                                    .font(.headline)
+                                    .lineLimit(1)
+                                Text(language.sampleDate(0))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            Spacer()
+                            Button(action: {}) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.horizontal)
+
+                        VStack(spacing: 4) {
+                            ProgressView(value: 0.25)
+                                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                            HStack {
+                                Text("11:21")
+                                    .font(.caption)
+                                    .monospacedDigit()
+                                Spacer()
+                                Text("45:23")
+                                    .font(.caption)
+                                    .monospacedDigit()
+                            }
+                            .foregroundColor(.secondary)
+                        }
+                        .padding(.horizontal)
+
+                        Button(action: {}) {
+                            Image(systemName: "pause.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(.bottom, 8)
+                    }
+                    .padding(.top, 8)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Mock Timestamped Transcription View
+struct MockTimestampedTranscriptionView: View {
+    let language: AppLanguage
+
+    private let timestamps = ["00:00", "00:18", "00:42", "01:23"]
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Title and Export button
+            HStack {
+                Text(language.transcriptionTitle)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.title3)
+                }
+            }
+            .padding(.horizontal)
+            .padding(.top, 60)
+            .padding(.bottom, 20)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(Array(timestamps.enumerated()), id: \.offset) { index, ts in
+                        HStack(alignment: .top, spacing: 12) {
+                            Text(ts)
+                                .font(.subheadline.monospacedDigit())
+                                .foregroundColor(.blue)
+                                .frame(width: 44, alignment: .leading)
+                                .padding(.top, 2)
+
+                            Text(language.transcriptionSampleText(index))
+                                .font(.body)
+                                .foregroundColor(.primary)
+                                .fixedSize(horizontal: false, vertical: true)
+
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 12)
+
+                        if index < timestamps.count - 1 {
+                            Divider()
+                                .padding(.leading, 68)
+                        }
+                    }
+                }
+            }
+
+            Spacer()
+
+            // Mini player
+            VStack(spacing: 0) {
+                Divider()
+                VStack(spacing: 8) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(language.useCaseSampleTitle(0))
+                                .font(.headline)
+                                .lineLimit(1)
+                            Text(language.sampleDate(0))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        Spacer()
+                        Button(action: {}) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title2)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.horizontal)
+
+                    VStack(spacing: 4) {
+                        ProgressView(value: 0.38)
+                            .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                        HStack {
+                            Text("00:18")
+                                .font(.caption)
+                                .monospacedDigit()
+                            Spacer()
+                            Text("45:23")
+                                .font(.caption)
+                                .monospacedDigit()
+                        }
+                        .foregroundColor(.secondary)
+                    }
+                    .padding(.horizontal)
+
+                    Button(action: {}) {
+                        Image(systemName: "pause.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.bottom, 8)
+                }
+                .padding(.top, 8)
+            }
+        }
     }
 }
 
