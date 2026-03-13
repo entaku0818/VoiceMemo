@@ -225,14 +225,14 @@ struct RecordingFeature {
           if state.recordingState == .paused {
             state.recordingState = .recording
             let duration = state.duration
-            return .run { send in
+            return .run { _ in
               await longRecordingAudioClient.resumeRecording()
               await liveActivityClient.updateActivity(duration, false)
             }
           } else {
             state.recordingState = .paused
             let duration = state.duration
-            return .run { send in
+            return .run { _ in
               await longRecordingAudioClient.pauseRecording()
               await liveActivityClient.updateActivity(duration, true)
             }
@@ -282,7 +282,7 @@ struct RecordingFeature {
           return .merge(
             .send(.delegate(.recordingWillStart)),
             startRecording(state: &state),
-            .run { send in
+            .run { _ in
               await liveActivityClient.startActivity()
             }
           )
@@ -294,11 +294,11 @@ struct RecordingFeature {
 
       case .audioRecorderDidFinish(.success(false)):
         state.recordingState = .idle
-        return .run { send in await liveActivityClient.endActivity() }
+        return .run { _ in await liveActivityClient.endActivity() }
 
       case .audioRecorderDidFinish(.failure):
         state.recordingState = .idle
-        return .run { send in await liveActivityClient.endActivity() }
+        return .run { _ in await liveActivityClient.endActivity() }
 
       case let .timerUpdated(time):
         let previousSecond = Int(state.duration)
@@ -307,7 +307,7 @@ struct RecordingFeature {
         // Only update Live Activity once per second to avoid excessive updates
         guard currentSecond != previousSecond else { return .none }
         let isPaused = state.recordingState == .paused
-        return .run { send in
+        return .run { _ in
           await liveActivityClient.updateActivity(time, isPaused)
         }
 
@@ -438,6 +438,7 @@ struct RecordingFeature {
 struct RecordingView: View {
   @Perception.Bindable var store: StoreOf<RecordingFeature>
   @State private var ringProgress: CGFloat = 0.0
+  @State private var showAudioSettings: Bool = false
 
   private func send(_ action: RecordingFeature.Action.View) {
     store.send(.view(action))
@@ -522,28 +523,75 @@ struct RecordingView: View {
         .padding(.horizontal)
       }
 
-      VStack(spacing: 0) {
-        Toggle("ノイズキャンセリング", isOn: Binding(
-          get: { store.noiseCancellationEnabled },
-          set: { send(.noiseCancellationToggled($0)) }
-        ))
-        .disabled(store.selectedPreset != .custom)
-        .padding(.horizontal)
-        .padding(.vertical, 10)
-
-        Divider().padding(.leading)
-
-        Toggle("音量の自動調整", isOn: Binding(
-          get: { store.autoGainControlEnabled },
-          set: { send(.autoGainControlToggled($0)) }
-        ))
-        .disabled(store.selectedPreset != .custom)
-        .padding(.horizontal)
-        .padding(.vertical, 10)
+      Button {
+        withAnimation(.easeInOut(duration: 0.2)) {
+          showAudioSettings.toggle()
+        }
+      } label: {
+        HStack {
+          Text("音声設定")
+            .font(.caption)
+            .foregroundColor(.secondary)
+          Image(systemName: showAudioSettings ? "chevron.up" : "chevron.down")
+            .font(.caption2)
+            .foregroundColor(.secondary)
+        }
       }
-      .background(Color(.systemGray6))
-      .cornerRadius(12)
-      .padding(.horizontal)
+
+      if showAudioSettings {
+        VStack(spacing: 0) {
+          // フォーマット
+          HStack {
+            Text("フォーマット")
+              .font(.subheadline)
+            Spacer()
+            Text(store.selectedPreset.fileFormat.uppercased())
+              .font(.subheadline)
+              .foregroundColor(.secondary)
+          }
+          .padding(.horizontal)
+          .padding(.vertical, 10)
+
+          Divider().padding(.leading)
+
+          // サンプルレート
+          HStack {
+            Text("サンプルレート")
+              .font(.subheadline)
+            Spacer()
+            Text(store.selectedPreset.sampleRate >= 1000
+              ? String(format: "%.0f kHz", store.selectedPreset.sampleRate / 1000)
+              : String(format: "%.0f Hz", store.selectedPreset.sampleRate))
+              .font(.subheadline)
+              .foregroundColor(.secondary)
+          }
+          .padding(.horizontal)
+          .padding(.vertical, 10)
+
+          Divider().padding(.leading)
+
+          Toggle("ノイズキャンセリング", isOn: Binding(
+            get: { store.noiseCancellationEnabled },
+            set: { send(.noiseCancellationToggled($0)) }
+          ))
+          .disabled(store.selectedPreset != .custom)
+          .padding(.horizontal)
+          .padding(.vertical, 10)
+
+          Divider().padding(.leading)
+
+          Toggle("音量の自動調整", isOn: Binding(
+            get: { store.autoGainControlEnabled },
+            set: { send(.autoGainControlToggled($0)) }
+          ))
+          .disabled(store.selectedPreset != .custom)
+          .padding(.horizontal)
+          .padding(.vertical, 10)
+        }
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
+        .padding(.horizontal)
+      }
     }
   }
 

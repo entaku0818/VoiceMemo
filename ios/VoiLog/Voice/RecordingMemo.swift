@@ -445,7 +445,8 @@ extension AudioRecorderClient {
             },
             resultText: {
                 resultText
-            }
+            },
+            timestampedSegments: { [] }
         )
     }
 }
