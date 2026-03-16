@@ -27,7 +27,8 @@ final class RecordingFeatureTests: XCTestCase {
                 pauseRecording: {},
                 resumeRecording: {},
                 audioLevel: { 0.5 },
-                recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) }
+                recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) },
+                recognizeAudio: { _ in nil }
             )
         }
 
@@ -66,7 +67,8 @@ final class RecordingFeatureTests: XCTestCase {
                 pauseRecording: {},
                 resumeRecording: {},
                 audioLevel: { 0.5 },
-                recordingState: { recordingState }
+                recordingState: { recordingState },
+                recognizeAudio: { _ in nil }
             )
             $0.voiceMemoRepository = .init(
                 insert: { _ in },
@@ -141,7 +143,8 @@ final class RecordingFeatureTests: XCTestCase {
                 pauseRecording: {},
                 resumeRecording: {},
                 audioLevel: { 0.5 },
-                recordingState: { .recording(startTime: Date()) }
+                recordingState: { .recording(startTime: Date()) },
+                recognizeAudio: { _ in nil }
             )
             $0.voiceMemoRepository = .init(
                 insert: { _ in },
@@ -199,7 +202,8 @@ final class RecordingFeatureTests: XCTestCase {
                 pauseRecording: {},
                 resumeRecording: {},
                 audioLevel: { 0.5 },
-                recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) }
+                recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) },
+                recognizeAudio: { _ in nil }
             )
         }
 
@@ -237,7 +241,8 @@ final class RecordingFeatureTests: XCTestCase {
                 pauseRecording: {},
                 resumeRecording: {},
                 audioLevel: { -30.0 },  // 新しい音量値
-                recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) }
+                recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) },
+                recognizeAudio: { _ in nil }
             )
         }
 

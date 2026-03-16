@@ -438,7 +438,7 @@ struct RecordingFeature {
 struct RecordingView: View {
   @Perception.Bindable var store: StoreOf<RecordingFeature>
   @State private var ringProgress: CGFloat = 0.0
-  @State private var showAudioSettings: Bool = false
+  @State private var showAudioSettings = false
 
   private func send(_ action: RecordingFeature.Action.View) {
     store.send(.view(action))
