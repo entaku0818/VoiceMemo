@@ -1,5 +1,7 @@
-Versão 1.4.1
+Version 1.4.2
 
-[Melhorias]
-- Nome do app e palavras-chave melhorados para maior visibilidade
-- Correções de bugs menores e melhorias de estabilidade
+[Improvements]
+- Recording screen audio settings now displayed in a sheet via gear icon
+
+[Fixes]
+- Fixed issue where feedback form could not be typed in or submitted

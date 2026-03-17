@@ -1,5 +1,7 @@
-版本 1.4.1
+Version 1.4.2
 
-[改进]
-- 优化了应用名称和关键词，提升搜索可见度
-- 修复了小错误并提高了稳定性
+[Improvements]
+- Recording screen audio settings now displayed in a sheet via gear icon
+
+[Fixes]
+- Fixed issue where feedback form could not be typed in or submitted
