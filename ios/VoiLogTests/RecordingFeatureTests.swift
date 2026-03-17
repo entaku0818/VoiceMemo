@@ -219,6 +219,154 @@ final class RecordingFeatureTests: XCTestCase {
         await store.finish()
     }
 
+    // MARK: - Preset Selection Tests
+
+    func testPresetSelected_UpdatesStateAndUserDefaults() async {
+        let store = TestStore(initialState: RecordingFeature.State()) {
+            RecordingFeature()
+        } withDependencies: {
+            $0.longRecordingAudioClient = .init(
+                currentTime: { 0 },
+                requestRecordPermission: { true },
+                startRecording: { _, _ in true },
+                stopRecording: {},
+                pauseRecording: {},
+                resumeRecording: {},
+                audioLevel: { 0 },
+                recordingState: { .idle },
+                recognizeAudio: { _ in nil }
+            )
+        }
+
+        await store.send(.view(.presetSelected(.meeting))) {
+            $0.selectedPreset = .meeting
+            $0.noiseCancellationEnabled = RecordingPreset.meeting.noiseCancellationEnabled
+            $0.autoGainControlEnabled = RecordingPreset.meeting.autoGainControlEnabled
+        }
+
+        XCTAssertEqual(UserDefaultsManager.shared.selectedRecordingPreset, RecordingPreset.meeting.rawValue)
+    }
+
+    func testPresetSelected_Music_DisablesNoiseCancellationAndAutoGain() async {
+        let store = TestStore(
+            initialState: RecordingFeature.State(
+                noiseCancellationEnabled: true,
+                autoGainControlEnabled: true
+            )
+        ) {
+            RecordingFeature()
+        } withDependencies: {
+            $0.longRecordingAudioClient = .init(
+                currentTime: { 0 },
+                requestRecordPermission: { true },
+                startRecording: { _, _ in true },
+                stopRecording: {},
+                pauseRecording: {},
+                resumeRecording: {},
+                audioLevel: { 0 },
+                recordingState: { .idle },
+                recognizeAudio: { _ in nil }
+            )
+        }
+
+        await store.send(.view(.presetSelected(.music))) {
+            $0.selectedPreset = .music
+            $0.noiseCancellationEnabled = false
+            $0.autoGainControlEnabled = false
+        }
+    }
+
+    func testPresetSelected_Custom_DoesNotOverrideToggles() async {
+        let store = TestStore(
+            initialState: RecordingFeature.State(
+                selectedPreset: .memo,
+                noiseCancellationEnabled: false,
+                autoGainControlEnabled: false
+            )
+        ) {
+            RecordingFeature()
+        } withDependencies: {
+            $0.longRecordingAudioClient = .init(
+                currentTime: { 0 },
+                requestRecordPermission: { true },
+                startRecording: { _, _ in true },
+                stopRecording: {},
+                pauseRecording: {},
+                resumeRecording: {},
+                audioLevel: { 0 },
+                recordingState: { .idle },
+                recognizeAudio: { _ in nil }
+            )
+        }
+
+        await store.send(.view(.presetSelected(.custom))) {
+            $0.selectedPreset = .custom
+            // noiseCancellationEnabled / autoGainControlEnabled は変わらない
+        }
+    }
+
+    func testNoiseCancellationToggled_SwitchesToCustomPreset() async {
+        let store = TestStore(
+            initialState: RecordingFeature.State(
+                selectedPreset: .memo,
+                noiseCancellationEnabled: true
+            )
+        ) {
+            RecordingFeature()
+        } withDependencies: {
+            $0.longRecordingAudioClient = .init(
+                currentTime: { 0 },
+                requestRecordPermission: { true },
+                startRecording: { _, _ in true },
+                stopRecording: {},
+                pauseRecording: {},
+                resumeRecording: {},
+                audioLevel: { 0 },
+                recordingState: { .idle },
+                recognizeAudio: { _ in nil }
+            )
+        }
+
+        await store.send(.view(.noiseCancellationToggled(false))) {
+            $0.noiseCancellationEnabled = false
+            $0.selectedPreset = .custom
+        }
+
+        XCTAssertFalse(UserDefaultsManager.shared.noiseCancellationEnabled)
+        XCTAssertEqual(UserDefaultsManager.shared.selectedRecordingPreset, RecordingPreset.custom.rawValue)
+    }
+
+    func testAutoGainControlToggled_SwitchesToCustomPreset() async {
+        let store = TestStore(
+            initialState: RecordingFeature.State(
+                selectedPreset: .memo,
+                autoGainControlEnabled: true
+            )
+        ) {
+            RecordingFeature()
+        } withDependencies: {
+            $0.longRecordingAudioClient = .init(
+                currentTime: { 0 },
+                requestRecordPermission: { true },
+                startRecording: { _, _ in true },
+                stopRecording: {},
+                pauseRecording: {},
+                resumeRecording: {},
+                audioLevel: { 0 },
+                recordingState: { .idle },
+                recognizeAudio: { _ in nil }
+            )
+        }
+
+        await store.send(.view(.autoGainControlToggled(false))) {
+            $0.autoGainControlEnabled = false
+            $0.selectedPreset = .custom
+        }
+
+        XCTAssertFalse(UserDefaultsManager.shared.autoGainControlEnabled)
+        XCTAssertEqual(UserDefaultsManager.shared.selectedRecordingPreset, RecordingPreset.custom.rawValue)
+    }
+
     // MARK: - Volume Update Tests
 
     func testPausedRecording_DoesNotUpdateVolume() async {

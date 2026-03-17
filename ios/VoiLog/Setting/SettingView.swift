@@ -23,7 +23,6 @@ struct SettingReducer: Reducer {
         case onAppear
         case startTutorial
         case delegate(DelegateAction)
-        case feedbackFeature(FeedbackFeature.Action)
         case showFeedbackForm
         case dismissFeedbackForm
         case toggleDailyReminder(Bool)
@@ -138,8 +137,6 @@ struct SettingReducer: Reducer {
             return .send(.delegate(.startTutorialRequested))
         case .delegate:
             return .none
-        case .feedbackFeature:
-            return .none
         case .showFeedbackForm:
             state.showFeedbackSheet = true
             return .none
@@ -174,9 +171,6 @@ struct SettingReducer: Reducer {
 
     var body: some ReducerOf<Self> {
         Reduce(self.reduce)
-        Scope(state: \.feedbackState, action: \.feedbackFeature) {
-            FeedbackFeature()
-        }
     }
 
     struct State: Equatable {
@@ -188,7 +182,6 @@ struct SettingReducer: Reducer {
         var microphonesVolume: Double
         var developerSupported: Bool
         var hasPurchasedPremium: Bool
-        var feedbackState = FeedbackFeature.State()
         var showFeedbackSheet = false
         var dailyReminderEnabled = false
         var dailyReminderHour: Int = 9
@@ -403,7 +396,7 @@ struct SettingView: View {
                 get: { viewStore.showFeedbackSheet },
                 set: { if !$0 { viewStore.send(.dismissFeedbackForm) } }
             )) {
-                FeedbackFormView(store: self.store.scope(state: \.feedbackState, action: \.feedbackFeature))
+                FeedbackFormView()
             }
 
             if !viewStore.hasPurchasedPremium {

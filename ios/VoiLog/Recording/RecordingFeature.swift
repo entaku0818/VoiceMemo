@@ -449,10 +449,6 @@ struct RecordingView: View {
       NavigationStack {
         VStack(spacing: 24) {
 
-          // Preset Selector
-          if store.recordingState == .idle {
-            presetSelectorView
-          }
 
           // Recording Status and Timer
           recordingStatusView
@@ -494,103 +490,109 @@ struct RecordingView: View {
   }
 
   private var presetSelectorView: some View {
-    VStack(spacing: 8) {
-      ScrollView(.horizontal, showsIndicators: false) {
-        HStack(spacing: 12) {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack(spacing: 12) {
+        ForEach(RecordingPreset.allCases, id: \.self) { preset in
+          Button {
+            send(.presetSelected(preset))
+          } label: {
+            VStack(spacing: 4) {
+              Text(preset.icon)
+                .font(.title2)
+              Text(preset.displayName)
+                .font(.caption2)
+                .fontWeight(store.selectedPreset == preset ? .bold : .regular)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(store.selectedPreset == preset ? Color.accentColor.opacity(0.15) : Color(.systemGray6))
+            .foregroundColor(store.selectedPreset == preset ? .accentColor : .primary)
+            .cornerRadius(12)
+            .overlay(
+              RoundedRectangle(cornerRadius: 12)
+                .stroke(store.selectedPreset == preset ? Color.accentColor : Color.clear, lineWidth: 1.5)
+            )
+          }
+        }
+      }
+      .padding(.horizontal)
+    }
+  }
+
+  private var audioSettingsSheet: some View {
+    NavigationStack {
+      List {
+        Section("プリセット") {
           ForEach(RecordingPreset.allCases, id: \.self) { preset in
             Button {
               send(.presetSelected(preset))
             } label: {
-              VStack(spacing: 4) {
+              HStack(spacing: 12) {
                 Text(preset.icon)
-                  .font(.title2)
-                Text(preset.displayName)
-                  .font(.caption2)
-                  .fontWeight(store.selectedPreset == preset ? .bold : .regular)
+                  .font(.title3)
+                  .frame(width: 32)
+                VStack(alignment: .leading, spacing: 2) {
+                  Text(preset.displayName)
+                    .foregroundColor(.primary)
+                    .fontWeight(store.selectedPreset == preset ? .semibold : .regular)
+                  Text(preset.description)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+                }
+                Spacer()
+                if store.selectedPreset == preset {
+                  Image(systemName: "checkmark")
+                    .foregroundColor(.accentColor)
+                    .fontWeight(.semibold)
+                }
               }
-              .padding(.horizontal, 12)
-              .padding(.vertical, 8)
-              .background(store.selectedPreset == preset ? Color.accentColor.opacity(0.15) : Color(.systemGray6))
-              .foregroundColor(store.selectedPreset == preset ? .accentColor : .primary)
-              .cornerRadius(12)
-              .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                  .stroke(store.selectedPreset == preset ? Color.accentColor : Color.clear, lineWidth: 1.5)
-              )
             }
           }
         }
-        .padding(.horizontal)
-      }
 
-      Button {
-        withAnimation(.easeInOut(duration: 0.2)) {
-          showAudioSettings.toggle()
-        }
-      } label: {
-        HStack {
-          Text("音声設定")
-            .font(.caption)
-            .foregroundColor(.secondary)
-          Image(systemName: showAudioSettings ? "chevron.up" : "chevron.down")
-            .font(.caption2)
-            .foregroundColor(.secondary)
-        }
-      }
-
-      if showAudioSettings {
-        VStack(spacing: 0) {
-          // フォーマット
+        Section("詳細") {
           HStack {
             Text("フォーマット")
-              .font(.subheadline)
             Spacer()
             Text(store.selectedPreset.fileFormat.uppercased())
-              .font(.subheadline)
               .foregroundColor(.secondary)
           }
-          .padding(.horizontal)
-          .padding(.vertical, 10)
 
-          Divider().padding(.leading)
-
-          // サンプルレート
           HStack {
             Text("サンプルレート")
-              .font(.subheadline)
             Spacer()
             Text(store.selectedPreset.sampleRate >= 1000
               ? String(format: "%.0f kHz", store.selectedPreset.sampleRate / 1000)
               : String(format: "%.0f Hz", store.selectedPreset.sampleRate))
-              .font(.subheadline)
               .foregroundColor(.secondary)
           }
-          .padding(.horizontal)
-          .padding(.vertical, 10)
+        }
 
-          Divider().padding(.leading)
-
+        Section {
           Toggle("ノイズキャンセリング", isOn: Binding(
             get: { store.noiseCancellationEnabled },
             set: { send(.noiseCancellationToggled($0)) }
           ))
           .disabled(store.selectedPreset != .custom)
-          .padding(.horizontal)
-          .padding(.vertical, 10)
-
-          Divider().padding(.leading)
 
           Toggle("音量の自動調整", isOn: Binding(
             get: { store.autoGainControlEnabled },
             set: { send(.autoGainControlToggled($0)) }
           ))
           .disabled(store.selectedPreset != .custom)
-          .padding(.horizontal)
-          .padding(.vertical, 10)
+        } footer: {
+          if store.selectedPreset != .custom {
+            Text("トグルを変更するには「カスタム」を選択してください")
+          }
         }
-        .background(Color(.systemGray6))
-        .cornerRadius(12)
-        .padding(.horizontal)
+      }
+      .navigationTitle(store.selectedPreset.displayName + " の設定")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .confirmationAction) {
+          Button("完了") { showAudioSettings = false }
+        }
       }
     }
   }
@@ -646,8 +648,26 @@ struct RecordingView: View {
   private var controlButtonsView: some View {
     HStack(spacing: 32) {
       if store.recordingState == .idle {
-        // Record Button
         recordButton
+          .overlay(alignment: .trailing) {
+            Button {
+              showAudioSettings = true
+            } label: {
+              Image(systemName: "gearshape")
+                .font(.title2)
+                .foregroundColor(.secondary)
+                .frame(width: 44, height: 44)
+                .background(Color(.systemGray6))
+                .clipShape(Circle())
+            }
+            .sheet(isPresented: $showAudioSettings) {
+              audioSettingsSheet
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+            }
+            .offset(x: 64)
+          }
+          .frame(maxWidth: .infinity)
       } else {
         // Stop Button
         stopButton

@@ -99,6 +99,7 @@ functions/lib/
 
 # Playwright CLI
 .playwright-mcp/
+.playwright-cli/
 
 # Firebase debug log
 firebase-debug.log

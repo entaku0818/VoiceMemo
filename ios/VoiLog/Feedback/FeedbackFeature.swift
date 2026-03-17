@@ -1,95 +1,84 @@
 import SwiftUI
-import ComposableArchitecture
 import FirebaseFunctions
 
 // MARK: - Feedback Category
 
-enum FeedbackCategory: String, CaseIterable, Equatable {
+enum FeedbackCategory: String, CaseIterable {
     case bug = "バグ報告"
     case feature = "機能要望"
     case other = "その他"
 }
 
-// MARK: - Feedback Feature
+// MARK: - View
 
-@Reducer
-struct FeedbackFeature {
-    @ObservableState
-    struct State: Equatable {
-        var category: FeedbackCategory = .other
-        var message: String = ""
-        var isSending = false
-        var showSuccessAlert = false
-        var showErrorAlert = false
-        var errorMessage: String = ""
+struct FeedbackFormView: View {
+    @Environment(\.dismiss) var dismiss
+    @State private var category: FeedbackCategory = .feature
+    @State private var message: String = ""
+    @State private var isSending = false
+    @State private var showSuccessAlert = false
+    @State private var showErrorAlert = false
+    @State private var errorMessage: String = ""
 
-        var canSubmit: Bool {
-            !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isSending
-        }
+    private var canSubmit: Bool {
+        !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isSending
     }
 
-    enum Action: BindableAction, Equatable {
-        case binding(BindingAction<State>)
-        case view(View)
-        case sendCompleted(Result<Bool, FeedbackError>)
-
-        enum View: Equatable {
-            case submitTapped
-            case dismissSuccessAlert
-            case dismissErrorAlert
-        }
-    }
-
-    enum FeedbackError: Error, Equatable {
-        case sendFailed(String)
-    }
-
-    var body: some Reducer<State, Action> {
-        BindingReducer()
-
-        Reduce { state, action in
-            switch action {
-            case .binding:
-                return .none
-
-            case .view(.submitTapped):
-                guard state.canSubmit else { return .none }
-                state.isSending = true
-
-                let category = state.category.rawValue
-                let message = state.message
-
-                return .run { send in
-                    do {
-                        try await sendFeedback(category: category, message: message)
-                        await send(.sendCompleted(.success(true)))
-                    } catch {
-                        await send(.sendCompleted(.failure(.sendFailed(error.localizedDescription))))
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("カテゴリ") {
+                    Picker("カテゴリ", selection: $category) {
+                        ForEach(FeedbackCategory.allCases, id: \.self) { c in
+                            Text(c.rawValue).tag(c)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+                Section("内容") {
+                    TextEditor(text: $message)
+                        .frame(minHeight: 120)
+                }
+            }
+            .navigationTitle("フィードバック")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("キャンセル") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    if isSending {
+                        ProgressView()
+                    } else {
+                        Button("送信") { submit() }
+                            .disabled(!canSubmit)
                     }
                 }
+            }
+            .alert("送信しました", isPresented: $showSuccessAlert) {
+                Button("OK") { dismiss() }
+            } message: {
+                Text("フィードバックありがとうございます。")
+            }
+            .alert("送信に失敗しました", isPresented: $showErrorAlert) {
+                Button("OK") { }
+            } message: {
+                Text(errorMessage)
+            }
+        }
+    }
 
-            case .sendCompleted(.success):
-                state.isSending = false
-                state.message = ""
-                state.category = .other
-                state.showSuccessAlert = true
-                return .none
-
-            case let .sendCompleted(.failure(error)):
-                state.isSending = false
-                if case let .sendFailed(msg) = error {
-                    state.errorMessage = msg
-                }
-                state.showErrorAlert = true
-                return .none
-
-            case .view(.dismissSuccessAlert):
-                state.showSuccessAlert = false
-                return .none
-
-            case .view(.dismissErrorAlert):
-                state.showErrorAlert = false
-                return .none
+    private func submit() {
+        isSending = true
+        Task {
+            do {
+                try await sendFeedback(category: category.rawValue, message: message)
+                isSending = false
+                showSuccessAlert = true
+            } catch {
+                isSending = false
+                errorMessage = error.localizedDescription
+                showErrorAlert = true
             }
         }
     }
@@ -110,71 +99,9 @@ private func sendFeedback(category: String, message: String) async throws {
         "osVersion": osVersion,
         "deviceModel": deviceModel
     ]
-
     _ = try await functions.httpsCallable("submitFeedback").call(data)
 }
 
-// MARK: - View
-
-struct FeedbackFormView: View {
-    @Perception.Bindable var store: StoreOf<FeedbackFeature>
-    @Environment(\.dismiss) var dismiss
-
-    var body: some View {
-        NavigationStack {
-            Form {
-                Section("カテゴリ") {
-                    Picker("カテゴリ", selection: $store.category) {
-                        ForEach(FeedbackCategory.allCases, id: \.self) { category in
-                            Text(category.rawValue).tag(category)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                }
-
-                Section("内容") {
-                    TextEditor(text: $store.message)
-                        .frame(minHeight: 120)
-                }
-            }
-            .navigationTitle("フィードバック")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("キャンセル") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    if store.isSending {
-                        ProgressView()
-                    } else {
-                        Button("送信") {
-                            store.send(.view(.submitTapped))
-                        }
-                        .disabled(!store.canSubmit)
-                    }
-                }
-            }
-            .alert("送信しました", isPresented: $store.showSuccessAlert) {
-                Button("OK") {
-                    store.send(.view(.dismissSuccessAlert))
-                    dismiss()
-                }
-            } message: {
-                Text("フィードバックありがとうございます。")
-            }
-            .alert("送信に失敗しました", isPresented: $store.showErrorAlert) {
-                Button("OK") { store.send(.view(.dismissErrorAlert)) }
-            } message: {
-                Text(store.errorMessage)
-            }
-        }
-    }
-}
-
 #Preview {
-    FeedbackFormView(
-        store: Store(initialState: FeedbackFeature.State()) {
-            FeedbackFeature()
-        }
-    )
+    FeedbackFormView()
 }
