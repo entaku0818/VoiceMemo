@@ -12,17 +12,17 @@ struct DeveloperAppItem: Identifiable {
     let id = UUID()
     let name: String
     let subtitle: String
-    let searchTerm: String
+    let appId: Int
 }
 
 private let developerApps: [DeveloperAppItem] = [
-    .init(name: "シンプル文字起こし", subtitle: "音声文字起こし", searchTerm: "シンプル文字起こし"),
-    .init(name: "読み上げナレーター", subtitle: "テキスト読み上げ", searchTerm: "読み上げナレーター"),
-    .init(name: "One Task Steps", subtitle: "シンプルタスク管理", searchTerm: "One Task Steps"),
-    .init(name: "スマート動画プレイヤー", subtitle: "動画プレイヤー", searchTerm: "スマート動画プレイヤー"),
-    .init(name: "CountDown - イベントタイマー", subtitle: "カウントダウンタイマー", searchTerm: "CountDown イベントタイマー"),
-    .init(name: "レトロフォト - クラシック撮影", subtitle: "フィルム風カメラ", searchTerm: "レトロフォト クラシック撮影"),
-    .init(name: "Speedmeter - GPS速度計", subtitle: "スピードメーター", searchTerm: "Speedmeter GPS速度計")
+    .init(name: "シンプル文字起こし", subtitle: "音声文字起こし", appId: 6504149514),
+    .init(name: "読み上げナレーター", subtitle: "テキスト読み上げ", appId: 6478449537),
+    .init(name: "One Task Steps", subtitle: "シンプルタスク管理", appId: 6748559225),
+    .init(name: "スマート動画プレイヤー", subtitle: "動画プレイヤー", appId: 6740053785),
+    .init(name: "CountDown - イベントタイマー", subtitle: "カウントダウンタイマー", appId: 6745453926),
+    .init(name: "レトロフォト - クラシック撮影", subtitle: "フィルム風カメラ", appId: 6468934085),
+    .init(name: "Speedmeter - GPS速度計", subtitle: "スピードメーター", appId: 6756532069)
 ]
 
 // MARK: - Section View
@@ -84,13 +84,10 @@ private struct DeveloperAppRowView: View {
     }
 
     private func fetchAppInfo() async {
-        guard
-            let encoded = app.searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-            let searchURL = URL(string: "https://itunes.apple.com/search?term=\(encoded)&country=jp&media=software&limit=1")
-        else { return }
+        guard let lookupURL = URL(string: "https://itunes.apple.com/lookup?id=\(app.appId)&country=jp") else { return }
 
         do {
-            let (data, _) = try await URLSession.shared.data(from: searchURL)
+            let (data, _) = try await URLSession.shared.data(from: lookupURL)
             let response = try JSONDecoder().decode(AppSearchResponse.self, from: data)
             if let result = response.results.first {
                 artworkURL = URL(string: result.artworkUrl100)
