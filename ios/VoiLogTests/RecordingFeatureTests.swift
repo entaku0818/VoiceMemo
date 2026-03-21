@@ -30,6 +30,11 @@ final class RecordingFeatureTests: XCTestCase {
                 recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) },
                 recognizeAudio: { _ in nil }
             )
+            $0.liveActivityClient = .init(
+                startActivity: {},
+                updateActivity: { _, _ in },
+                endActivity: {}
+            )
         }
 
         // When: 一時停止ボタンをタップ
@@ -79,6 +84,11 @@ final class RecordingFeatureTests: XCTestCase {
                 updateTitle: { _, _ in },
                 syncToCloud: { true },
                 checkForDifferences: { false }
+            )
+            $0.liveActivityClient = .init(
+                startActivity: {},
+                updateActivity: { _, _ in },
+                endActivity: {}
             )
         }
 
@@ -155,6 +165,11 @@ final class RecordingFeatureTests: XCTestCase {
                 updateTitle: { _, _ in },
                 syncToCloud: { true },
                 checkForDifferences: { false }
+            )
+            $0.liveActivityClient = .init(
+                startActivity: {},
+                updateActivity: { _, _ in },
+                endActivity: {}
             )
         }
 
