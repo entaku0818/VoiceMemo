@@ -449,7 +449,6 @@ struct RecordingView: View {
       NavigationStack {
         VStack(spacing: 24) {
 
-
           // Recording Status and Timer
           recordingStatusView
 

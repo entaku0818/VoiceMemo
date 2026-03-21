@@ -19,7 +19,6 @@ struct VoiceAppFeature {
     var playbackFeature = PlaybackFeature.State()
     var playlistFeature = PlaylistListFeature.State()
     var settingFeature = SettingReducer.State(
-      alert: nil,
       selectedFileFormat: "WAV",
       samplingFrequency: 44100.0,
       quantizationBitDepth: 16,

@@ -1,7 +1,5 @@
-Version 1.4.2
+संस्करण 1.4.3
 
-[Improvements]
-- Recording screen audio settings now displayed in a sheet via gear icon
-
-[Fixes]
-- Fixed issue where feedback form could not be typed in or submitted
+[सुधार]
+- सेटिंग्स स्क्रीन में सुधार किया गया
+- अन्य छोटे सुधार
