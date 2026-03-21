@@ -16,7 +16,6 @@ struct DeveloperAppItem: Identifiable {
 }
 
 private let developerApps: [DeveloperAppItem] = [
-    .init(name: "Speedmeter - GPS速度計", subtitle: "スピードメーター", searchTerm: "Speedmeter GPS速度計"),
     .init(name: "One Task Steps", subtitle: "シンプルタスク管理", searchTerm: "One Task Steps"),
     .init(name: "CountDown - イベントタイマー", subtitle: "カウントダウンタイマー", searchTerm: "CountDown イベントタイマー"),
     .init(name: "スマート動画プレイヤー", subtitle: "動画プレイヤー", searchTerm: "スマート動画プレイヤー"),
