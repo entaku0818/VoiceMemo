@@ -16,10 +16,13 @@ struct DeveloperAppItem: Identifiable {
 }
 
 private let developerApps: [DeveloperAppItem] = [
+    .init(name: "シンプル文字起こし", subtitle: "音声文字起こし", searchTerm: "シンプル文字起こし"),
+    .init(name: "読み上げナレーター", subtitle: "テキスト読み上げ", searchTerm: "読み上げナレーター"),
     .init(name: "One Task Steps", subtitle: "シンプルタスク管理", searchTerm: "One Task Steps"),
     .init(name: "スマート動画プレイヤー", subtitle: "動画プレイヤー", searchTerm: "スマート動画プレイヤー"),
-    .init(name: "シンプル文字起こし", subtitle: "音声文字起こし", searchTerm: "シンプル文字起こし"),
-    .init(name: "読み上げナレーター", subtitle: "テキスト読み上げ", searchTerm: "読み上げナレーター")
+    .init(name: "CountDown - イベントタイマー", subtitle: "カウントダウンタイマー", searchTerm: "CountDown イベントタイマー"),
+    .init(name: "レトロフォト - クラシック撮影", subtitle: "フィルム風カメラ", searchTerm: "レトロフォト クラシック撮影"),
+    .init(name: "Speedmeter - GPS速度計", subtitle: "スピードメーター", searchTerm: "Speedmeter GPS速度計")
 ]
 
 // MARK: - Section View
