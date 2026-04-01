@@ -26,7 +26,14 @@ clear_previous_screenshots(true)
 override_status_bar(true)
 
 # Arguments to pass to the app on launch. See https://docs.fastlane.tools/actions/snapshot/#launch-arguments
-# launch_arguments(["-favColor red"])
+launch_arguments([
+  "--screenshots",
+  "--screen 0",   # recording
+  "--screen 1",   # playback
+  "--screen 2",   # playlist
+  "--screen 3",   # settings
+  "--screen 4",   # premium
+])
 
 # For more information about all available options run
 # fastlane action snapshot 
