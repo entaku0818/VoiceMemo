@@ -108,6 +108,8 @@ struct FullscreenScreenshotView: View {
             MockPlaylistView(language: language)
         case .shareSheet:
             MockShareSheetView(language: language)
+        case .premium:
+            MockPremiumView(language: language)
         }
     }
 }
@@ -755,6 +757,108 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         return index < titles.count ? titles[index] : titles[0]
     }
 
+    var premiumScreenHeadline: String {
+        switch self {
+        case .english: return "Go Premium"
+        case .japanese: return "プレミアムで\nもっと自由に"
+        case .german: return "Jetzt Premium\nwerden"
+        case .spanish: return "Hazte Premium"
+        case .french: return "Passez Premium"
+        case .italian: return "Passa a Premium"
+        case .portuguese: return "Seja Premium"
+        case .russian: return "Перейдите\nна Premium"
+        case .turkish: return "Premium'a\nGeçin"
+        case .vietnamese: return "Nâng cấp\nPremium"
+        case .chineseSimplified: return "升级到\nPremium"
+        case .chineseTraditional: return "升級到\nPremium"
+        }
+    }
+
+    var premiumNoAds: String {
+        switch self {
+        case .english: return "No Ads"
+        case .japanese: return "広告なし"
+        case .german: return "Keine Werbung"
+        case .spanish: return "Sin anuncios"
+        case .french: return "Sans publicité"
+        case .italian: return "Nessuna pubblicità"
+        case .portuguese: return "Sem anúncios"
+        case .russian: return "Без рекламы"
+        case .turkish: return "Reklamsız"
+        case .vietnamese: return "Không có quảng cáo"
+        case .chineseSimplified: return "无广告"
+        case .chineseTraditional: return "無廣告"
+        }
+    }
+
+    var premiumOffline: String {
+        switch self {
+        case .english: return "Works Offline"
+        case .japanese: return "オフラインでも使える"
+        case .german: return "Offline verfügbar"
+        case .spanish: return "Funciona sin conexión"
+        case .french: return "Fonctionne hors ligne"
+        case .italian: return "Funziona offline"
+        case .portuguese: return "Funciona offline"
+        case .russian: return "Работает офлайн"
+        case .turkish: return "Çevrimdışı çalışır"
+        case .vietnamese: return "Hoạt động ngoại tuyến"
+        case .chineseSimplified: return "离线使用"
+        case .chineseTraditional: return "離線使用"
+        }
+    }
+
+    var premiumUnlimited: String {
+        switch self {
+        case .english: return "Unlimited Recording"
+        case .japanese: return "無制限で録音"
+        case .german: return "Unbegrenzte Aufnahme"
+        case .spanish: return "Grabación ilimitada"
+        case .french: return "Enregistrement illimité"
+        case .italian: return "Registrazione illimitata"
+        case .portuguese: return "Gravação ilimitada"
+        case .russian: return "Без ограничений"
+        case .turkish: return "Sınırsız Kayıt"
+        case .vietnamese: return "Ghi âm không giới hạn"
+        case .chineseSimplified: return "无限录音"
+        case .chineseTraditional: return "無限錄音"
+        }
+    }
+
+    var premiumICloud: String {
+        switch self {
+        case .english: return "iCloud Sync"
+        case .japanese: return "iCloud同期"
+        case .german: return "iCloud-Synchronisation"
+        case .spanish: return "Sincronización iCloud"
+        case .french: return "Synchronisation iCloud"
+        case .italian: return "Sincronizzazione iCloud"
+        case .portuguese: return "Sincronização iCloud"
+        case .russian: return "Синхронизация iCloud"
+        case .turkish: return "iCloud Senkronizasyonu"
+        case .vietnamese: return "Đồng bộ iCloud"
+        case .chineseSimplified: return "iCloud同步"
+        case .chineseTraditional: return "iCloud同步"
+        }
+    }
+
+    var premiumCTAButton: String {
+        switch self {
+        case .english: return "Start Free Trial"
+        case .japanese: return "無料トライアルを開始"
+        case .german: return "Kostenlos testen"
+        case .spanish: return "Iniciar prueba gratuita"
+        case .french: return "Démarrer l'essai gratuit"
+        case .italian: return "Inizia la prova gratuita"
+        case .portuguese: return "Iniciar teste gratuito"
+        case .russian: return "Начать бесплатный период"
+        case .turkish: return "Ücretsiz Denemeyi Başlat"
+        case .vietnamese: return "Bắt đầu dùng thử miễn phí"
+        case .chineseSimplified: return "开始免费试用"
+        case .chineseTraditional: return "開始免費試用"
+        }
+    }
+
     func transcriptionSampleText(_ index: Int) -> String {
         let en = [
             "Today's meeting begins. First, let's review last week's progress...",
@@ -803,6 +907,7 @@ enum ScreenshotScreen: String, CaseIterable {
     case waveformEditor
     case playlist
     case shareSheet
+    case premium
 }
 
 // MARK: - Mock Recording View
@@ -1885,6 +1990,124 @@ struct MockTimestampedTranscriptionView: View {
                     .padding(.bottom, 8)
                 }
                 .padding(.top, 8)
+            }
+        }
+    }
+}
+
+// MARK: - Mock Premium View
+struct MockPremiumView: View {
+    let language: AppLanguage
+
+    private let cyanTop = Color(red: 0, green: 200 / 255, blue: 224 / 255)
+    private let cyanBottom = Color(red: 0, green: 110 / 255, blue: 160 / 255)
+    private let gold = Color(red: 1, green: 215 / 255, blue: 0)
+
+    private let features: [(iconName: String, keyPath: KeyPath<AppLanguage, String>) ] = [
+        ("nosign", \.premiumNoAds),
+        ("wifi.slash", \.premiumOffline),
+        ("waveform.badge.plus", \.premiumUnlimited),
+        ("icloud.fill", \.premiumICloud)
+    ]
+
+    var body: some View {
+        ZStack {
+            LinearGradient(
+                colors: [cyanTop, cyanBottom],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                Spacer().frame(height: 72)
+
+                // Crown badge
+                VStack(spacing: 8) {
+                    ZStack {
+                        Circle()
+                            .fill(gold.opacity(0.2))
+                            .frame(width: 84, height: 84)
+                        Circle()
+                            .strokeBorder(gold.opacity(0.6), lineWidth: 2)
+                            .frame(width: 84, height: 84)
+                        Image(systemName: "crown.fill")
+                            .font(.system(size: 38))
+                            .foregroundColor(gold)
+                    }
+
+                    Text("PREMIUM")
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .tracking(3)
+                        .foregroundColor(gold)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 5)
+                        .background(gold.opacity(0.18))
+                        .clipShape(Capsule())
+                        .overlay(
+                            Capsule().strokeBorder(gold.opacity(0.5), lineWidth: 1)
+                        )
+                }
+
+                Spacer().frame(height: 36)
+
+                // Headline
+                Text(language.premiumScreenHeadline)
+                    .font(.system(size: 36, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(4)
+                    .padding(.horizontal, 32)
+
+                Spacer().frame(height: 44)
+
+                // Feature cards
+                VStack(spacing: 16) {
+                    ForEach(features, id: \.iconName) { feature in
+                        HStack(spacing: 16) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.white.opacity(0.18))
+                                    .frame(width: 44, height: 44)
+                                Image(systemName: feature.iconName)
+                                    .font(.system(size: 18, weight: .semibold))
+                                    .foregroundColor(.white)
+                            }
+                            Text(language[keyPath: feature.keyPath])
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(.white)
+                            Spacer()
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 22))
+                                .foregroundColor(gold)
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 14)
+                        .background(Color.white.opacity(0.12))
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .strokeBorder(Color.white.opacity(0.25), lineWidth: 1)
+                        )
+                    }
+                }
+                .padding(.horizontal, 24)
+
+                Spacer()
+
+                // CTA Button
+                Text(language.premiumCTAButton)
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundColor(cyanBottom)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 18)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .shadow(color: Color.black.opacity(0.15), radius: 8, y: 4)
+                    .padding(.horizontal, 24)
+
+                Spacer().frame(height: 52)
             }
         }
     }
