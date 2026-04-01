@@ -10,7 +10,7 @@ final class NotificationScheduler {
     func scheduleD1Notification() {
         let content = UNMutableNotificationContent()
         content.title = "VoiLog"
-        content.body = NSLocalizedString("まだ録音が残っていません。今日の予定を記録しましょう 🎙", comment: "D1 notification body: no recordings yet")
+        content.body = NSLocalizedString("今日のひとこと、声で残しませんか？30秒でOK 🎙", comment: "D1 notification body: no recordings yet")
         content.sound = .default
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 24 * 60 * 60, repeats: false)
@@ -22,7 +22,7 @@ final class NotificationScheduler {
     func scheduleD3Notification() {
         let content = UNMutableNotificationContent()
         content.title = "VoiLog"
-        content.body = NSLocalizedString("久しぶりですね。新しい録音を始めましょう 🎙", comment: "D3 notification body: long absence")
+        content.body = NSLocalizedString("この3日間の気づき、まだ間に合います 🎙", comment: "D3 notification body: long absence")
         content.sound = .default
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3 * 24 * 60 * 60, repeats: false)
@@ -41,7 +41,7 @@ final class NotificationScheduler {
     func scheduleDailyReminder(hour: Int, minute: Int) {
         let content = UNMutableNotificationContent()
         content.title = "VoiLog"
-        content.body = NSLocalizedString("今日の録音を忘れずに 🎙", comment: "Daily reminder notification body")
+        content.body = NSLocalizedString("今日どんな1日でしたか？声で残す時間です 🎙", comment: "Daily reminder notification body")
         content.sound = .default
 
         var dateComponents = DateComponents()

@@ -9332,83 +9332,6 @@
         }
       }
     },
-    "まだ録音が残っていません。今日の予定を記録しましょう 🎙": {
-      "comment": "D1 notification body: no recordings yet",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Noch keine Aufnahmen vorhanden. Fang an, deinen Tag festzuhalten 🎙"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Your ideas fade fast. Take 30 sec to capture them 🎙"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Aún no tienes grabaciones. Empieza a registrar tu día 🎙"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Aucun enregistrement pour l'instant. Commencez à capturer votre journée 🎙"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Nessuna registrazione ancora. Inizia a catturare la tua giornata 🎙"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "まだ録音が残っていません。今日の予定を記録しましょう 🎙"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Ainda não tem gravações. Comece a registar o seu dia 🎙"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Записей пока нет. Начните записывать свой день 🎙"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Henüz kayıt yok. Gününüzü kaydetmeye başlayın 🎙"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Bạn chưa có bản ghi nào. Hãy bắt đầu ghi lại ngày của bạn 🎙"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "还没有录音。开始记录你的今天吧 🎙"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "還沒有錄音。開始記錄你的今天吧 🎙"
-          }
-        }
-      }
-    },
     "メタデータ": {
       "localizations": {
         "de": {
@@ -10243,83 +10166,6 @@
         }
       }
     },
-    "久しぶりですね。新しい録音を始めましょう 🎙": {
-      "comment": "D3 notification body: long absence",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Schön, dich wiederzusehen! Starte eine neue Aufnahme 🎙"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Your last 3 days are still worth remembering 🎙"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "¡Bienvenido de nuevo! Empieza una nueva grabación 🎙"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Bon retour ! Commencez un nouvel enregistrement 🎙"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Bentornato! Inizia una nuova registrazione 🎙"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "久しぶりですね。新しい録音を始めましょう 🎙"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Bem-vindo de volta! Inicie uma nova gravação 🎙"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "С возвращением! Начните новую запись 🎙"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Tekrar hoş geldiniz! Yeni bir kayıt başlatın 🎙"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Chào mừng trở lại! Hãy bắt đầu ghi âm mới 🎙"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "好久不见！开始新的录音吧 🎙"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "好久不見！開始新的錄音吧 🎙"
-          }
-        }
-      }
-    },
     "今すぐ1ヶ月無料体験してみよう！": {
       "extractionState": "stale",
       "localizations": {
@@ -10399,83 +10245,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "立即免費試用1個月！"
-          }
-        }
-      }
-    },
-    "今日の録音を忘れずに 🎙": {
-      "comment": "Daily reminder notification body",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Vergiss nicht, heute aufzunehmen 🎙"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "How was your day? Time for your daily voice note 🎙"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "No olvides grabar hoy 🎙"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "N'oubliez pas d'enregistrer aujourd'hui 🎙"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Non dimenticare di registrare oggi 🎙"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "今日の録音を忘れずに 🎙"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Não se esqueça de gravar hoje 🎙"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Не забудьте записать сегодня 🎙"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Bugün kayıt yapmayı unutmayın 🎙"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Đừng quên ghi âm hôm nay 🎙"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "别忘了今天的录音 🎙"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "別忘了今天的錄音 🎙"
           }
         }
       }
@@ -24686,6 +24455,234 @@
           "stringUnit": {
             "state": "translated",
             "value": "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。"
+          }
+        }
+      }
+    },
+    "今日のひとこと、声で残しませんか？30秒でOK 🎙": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record today's thought in 30 seconds 🎙"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日のひとこと、声で残しませんか？30秒でOK 🎙"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Halte deinen heutigen Gedanken in 30 Sekunden fest 🎙"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Graba el pensamiento de hoy en 30 segundos 🎙"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrez votre pensée du jour en 30 secondes 🎙"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra il pensiero di oggi in 30 secondi 🎙"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grave o pensamento de hoje em 30 segundos 🎙"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Запишите мысль дня за 30 секунд 🎙"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugünün düşüncesini 30 saniyede kaydet 🎙"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ghi lại suy nghĩ hôm nay trong 30 giây 🎙"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30秒录下今天的一句话 🎙"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "30秒錄下今天的一句話 🎙"
+          }
+        }
+      }
+    },
+    "この3日間の気づき、まだ間に合います 🎙": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your insights from the past 3 days — it's not too late 🎙"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この3日間の気づき、まだ間に合います 🎙"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deine Erkenntnisse der letzten 3 Tage — es ist noch nicht zu spät 🎙"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus ideas de los últimos 3 días — aún estás a tiempo 🎙"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vos découvertes des 3 derniers jours — il est encore temps 🎙"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le tue intuizioni degli ultimi 3 giorni — c'è ancora tempo 🎙"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "As suas descobertas dos últimos 3 dias — ainda está a tempo 🎙"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ваши открытия за последние 3 дня — ещё не поздно 🎙"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Son 3 günün keşifleri — hâlâ geç değil 🎙"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Những khám phá 3 ngày qua — vẫn chưa muộn 🎙"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "过去3天的感悟，现在录还来得及 🎙"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "過去3天的感悟，現在錄還來得及 🎙"
+          }
+        }
+      }
+    },
+    "今日どんな1日でしたか？声で残す時間です 🎙": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How was your day? Time to capture it in your voice 🎙"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日どんな1日でしたか？声で残す時間です 🎙"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wie war dein Tag? Zeit, ihn mit deiner Stimme festzuhalten 🎙"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cómo fue tu día? Es hora de capturarlo con tu voz 🎙"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comment s'est passée votre journée ? Il est temps de la capturer avec votre voix 🎙"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com'è andata oggi? È il momento di catturarla con la tua voce 🎙"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Como foi o seu dia? É hora de captá-lo com a sua voz 🎙"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Каким выдался ваш день? Пора записать его своим голосом 🎙"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Günün nasıldı? Sesine kaydetme zamanı 🎙"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hôm nay của bạn thế nào? Đã đến lúc ghi lại bằng giọng nói 🎙"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天过得怎么样？用声音留下这一天吧 🎙"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天過得怎麼樣？用聲音留下這一天吧 🎙"
           }
         }
       }
