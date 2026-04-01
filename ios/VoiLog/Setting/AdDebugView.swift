@@ -15,7 +15,7 @@ struct AdDebugView: View {
         List {
             Section(header: Text("起動回数")) {
                 HStack {
-                    Text("現在の起動回数")
+                    Text(String(localized: "現在の起動回数"))
                     Spacer()
                     Text("\(appUsageCount)")
                         .foregroundColor(.secondary)
@@ -26,22 +26,22 @@ struct AdDebugView: View {
                         UserDefaults.standard.set(newValue, forKey: "appUsageCount")
                     }
 
-                Text("5回に1回（5, 10, 15...回目）に広告表示")
+                Text(String(localized: "5回に1回（5, 10, 15...回目）に広告表示"))
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
 
             Section(header: Text("広告テスト")) {
-                Button("App Open広告をプリロード") {
+                Button(String(localized: "App Open広告をプリロード")) {
                     AppOpenAdManager.shared.preloadAd()
                 }
 
-                Button("App Open広告を表示（条件無視）") {
+                Button(String(localized: "App Open広告を表示（条件無視）")) {
                     forceShowAppOpenAd()
                 }
                 .foregroundColor(.blue)
 
-                Button("次回起動で広告表示（カウント調整）") {
+                Button(String(localized: "次回起動で広告表示（カウント調整）")) {
                     let nextAdCount = ((appUsageCount / 5) + 1) * 5 - 1
                     appUsageCount = nextAdCount
                     UserDefaults.standard.set(nextAdCount, forKey: "appUsageCount")
@@ -51,17 +51,17 @@ struct AdDebugView: View {
 
             Section(header: Text("情報")) {
                 HStack {
-                    Text("次の広告表示")
+                    Text(String(localized: "次の広告表示"))
                     Spacer()
                     let nextAd = ((appUsageCount / 5) + 1) * 5
-                    Text("\(nextAd)回目の起動")
+                    Text(String(format: String(localized: "Launch #%lld"), nextAd))
                         .foregroundColor(.secondary)
                 }
 
                 HStack {
                     Text("プレミアムユーザー")
                     Spacer()
-                    Text(UserDefaultsManager.shared.hasPurchasedProduct ? "はい" : "いいえ")
+                    Text(UserDefaultsManager.shared.hasPurchasedProduct ? String(localized: "はい") : String(localized: "いいえ"))
                         .foregroundColor(.secondary)
                 }
             }

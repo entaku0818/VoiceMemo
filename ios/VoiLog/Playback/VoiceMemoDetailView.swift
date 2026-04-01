@@ -9,13 +9,13 @@ struct VoiceMemoDetailView: View {
       ScrollView {
         VStack(alignment: .leading, spacing: 20) {
           // 基本情報セクション
-          detailSection(title: "基本情報") {
+          detailSection(title: String(localized: "基本情報")) {
             detailRow(label: "タイトル", value: memo.title)
             detailRow(label: "録音日時", value: DateFormatter.dateTimeFormatter.string(from: memo.date))
             detailRow(label: "再生時間", value: formatDuration(memo.duration))
             if !memo.text.isEmpty {
               VStack(alignment: .leading, spacing: 4) {
-                Text("音声認識テキスト")
+                Text(String(localized: "音声認識テキスト"))
                   .font(.subheadline)
                   .fontWeight(.medium)
                   .foregroundColor(.secondary)
@@ -29,14 +29,14 @@ struct VoiceMemoDetailView: View {
           }
 
           // ファイル情報セクション
-          detailSection(title: "ファイル情報") {
+          detailSection(title: String(localized: "ファイル情報")) {
             detailRow(label: "ファイルサイズ", value: formatFileSize(memo.fileSize))
             detailRow(label: "ファイル形式", value: formatFileFormat(memo.fileFormat))
             detailRow(label: "ファイルパス", value: memo.url.lastPathComponent)
           }
 
           // 音質設定セクション
-          detailSection(title: "音質設定") {
+          detailSection(title: String(localized: "音質設定")) {
             detailRow(label: "サンプリング周波数", value: "\(Int(memo.samplingFrequency)) Hz")
             detailRow(label: "ビット深度", value: "\(memo.quantizationBitDepth) bit")
             detailRow(label: "チャンネル数", value: memo.numberOfChannels == 1 ? "モノラル" : "ステレオ")
@@ -44,7 +44,7 @@ struct VoiceMemoDetailView: View {
         }
         .padding()
       }
-      .navigationTitle("詳細情報")
+      .navigationTitle(String(localized: "詳細情報"))
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
@@ -53,7 +53,7 @@ struct VoiceMemoDetailView: View {
           }
         }
         ToolbarItem(placement: .topBarTrailing) {
-          Button("閉じる") {
+          Button(String(localized: "閉じる")) {
             onDismiss()
           }
         }

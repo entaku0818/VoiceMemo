@@ -38,13 +38,13 @@ struct PaywallView: View {
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
 
-                        Text("すべての機能が使い放題")
+                        Text(String(localized: "すべての機能が使い放題"))
                             .font(.system(size: 32, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .padding(.bottom, 4)
 
-                        Text("1ヶ月無料体験 → その後\(productPrice.isEmpty ? "" : " \(productPrice)")/月")
+                        Text(String(localized: "1ヶ月無料体験 → その後\(productPrice.isEmpty ? "" : " \(productPrice)")/月"))
                             .font(.system(size: 18, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
                             .multilineTextAlignment(.center)
@@ -62,7 +62,7 @@ struct PaywallView: View {
                         .frame(width: 30, height: 30)
                         .foregroundColor(.yellow)
 
-                    Text("プレミアム特典")
+                    Text(String(localized: "プレミアム特典"))
                         .font(.system(size: 22, weight: .bold, design: .rounded))
                         .foregroundColor(colorScheme == .dark ? .white : .black)
 
@@ -75,32 +75,32 @@ struct PaywallView: View {
                     // 広告非表示機能
                     featureRow(
                         systemName: "rectangle.slash",
-                        title: "広告なしの使用体験",
-                        description: "全ての広告が非表示に！",
+                        title: String(localized: "広告なしの使用体験"),
+                        description: String(localized: "全ての広告が非表示に！"),
                         systemImage: true
                     )
 
                     // iCloud同期機能
                     featureRow(
                         systemName: "icloud.and.arrow.up",
-                        title: "iCloud同期機能",
-                        description: "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！",
+                        title: String(localized: "iCloud同期機能"),
+                        description: String(localized: "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！"),
                         systemImage: true
                     )
 
                     // 音声編集機能
                     featureRow(
                         systemName: "waveform",
-                        title: "音声編集機能",
-                        description: "音声の分割編集ができ、使いやすく整理できます！",
+                        title: String(localized: "音声編集機能"),
+                        description: String(localized: "音声の分割編集ができ、使いやすく整理できます！"),
                         systemImage: true
                     )
 
                     // プレイリスト機能
                     featureRow(
                         systemName: "music.note.list",
-                        title: "プレイリストを無制限に作成",
-                        description: "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！",
+                        title: String(localized: "プレイリストを無制限に作成"),
+                        description: String(localized: "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！"),
                         systemImage: true
                     )
                 }
@@ -115,10 +115,10 @@ struct PaywallView: View {
                     }
                 }) {
                     VStack(spacing: 4) {
-                        Text("1ヶ月無料で試す")
+                        Text(String(localized: "1ヶ月無料で試す"))
                             .font(.system(size: 20, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
-                        Text("その後 \(productPrice)/月（自動更新）")
+                        Text("その後 \(productPrice)\(String(localized: "月（自動更新）"))")
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.9))
                     }
@@ -138,7 +138,7 @@ struct PaywallView: View {
                 .padding(.top, 10)
 
                 // サブスクリプション条件の説明（Guideline 3.1.2 対応）
-                Text("1ヶ月の無料トライアル終了後、\(productPrice.isEmpty ? "サブスクリプション料金" : productPrice)/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。")
+                Text(String(localized: "1ヶ月の無料トライアル終了後、\(productPrice.isEmpty ? String(localized: "サブスクリプション料金") : productPrice)/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。"))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -146,7 +146,7 @@ struct PaywallView: View {
                     .padding(.top, 8)
 
                 // リストアボタン
-                Button("リストア購入") {
+                Button(String(localized: "リストア購入")) {
                     Task {
                         await restorePurchases()
                     }
@@ -168,10 +168,10 @@ struct PaywallView: View {
                 VStack(alignment: .center) {
                     HStack(alignment: .center, spacing: 20) {
                         Spacer()
-                        Link("利用規約", destination: URL(string: "https://voilog.web.app/terms_of_service.html")!)
+                        Link(String(localized: "利用規約"), destination: URL(string: "https://voilog.web.app/terms_of_service.html")!)
                             .font(.system(size: 14, weight: .regular, design: .rounded))
                             .foregroundColor(.blue)
-                        Link("プライバシーポリシー", destination: URL(string: "https://voilog.web.app/privacy_policy.html")!)
+                        Link(String(localized: "プライバシーポリシー"), destination: URL(string: "https://voilog.web.app/privacy_policy.html")!)
                             .font(.system(size: 14, weight: .regular, design: .rounded))
                             .foregroundColor(.blue)
                         Spacer()
@@ -214,10 +214,10 @@ struct PaywallView: View {
             }
         } catch {
             await MainActor.run {
-                productName = "製品情報の取得に失敗しました"
+                productName = String(localized: "製品情報の取得に失敗しました")
                 productPrice = ""
                 showAlert = true
-                alertMessage = "製品情報の取得に失敗しました"
+                alertMessage = String(localized: "製品情報の取得に失敗しました")
             }
         }
     }
@@ -242,7 +242,7 @@ struct PaywallView: View {
             ])
 
             await MainActor.run {
-                alertMessage = "購入が完了しました！"
+                alertMessage = String(localized: "購入が完了しました！")
                 showAlert = true
                 presentationMode.wrappedValue.dismiss()
             }
@@ -256,7 +256,7 @@ struct PaywallView: View {
             ])
 
             await MainActor.run {
-                alertMessage = "購入に失敗しました"
+                alertMessage = String(localized: "購入に失敗しました")
                 showAlert = true
             }
         }
@@ -278,7 +278,7 @@ struct PaywallView: View {
             ])
 
             await MainActor.run {
-                alertMessage = "購入情報が復元しました！"
+                alertMessage = String(localized: "購入情報が復元しました！")
                 showAlert = true
                 presentationMode.wrappedValue.dismiss()
             }
@@ -290,7 +290,7 @@ struct PaywallView: View {
             ])
 
             await MainActor.run {
-                alertMessage = "リストアに失敗しました"
+                alertMessage = String(localized: "リストアに失敗しました")
                 showAlert = true
             }
         }

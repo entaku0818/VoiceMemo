@@ -300,7 +300,7 @@ struct PlaybackFeature {
         case .saveEditingTitle:
           if let editingId = state.editingMemoId {
             let trimmedTitle = state.editingTitle.trimmingCharacters(in: .whitespacesAndNewlines)
-            let finalTitle = trimmedTitle.isEmpty ? "無題の録音" : trimmedTitle
+            let finalTitle = trimmedTitle.isEmpty ? String(localized: "無題の録音") : trimmedTitle
 
             // タイトルを更新
             return .send(.view(.updateTitle(editingId, finalTitle)))
@@ -477,7 +477,7 @@ struct PlaybackFeature {
 
         return VoiceMemo(
           id: voice.uuid,
-          title: voice.title.isEmpty ? "無題の録音" : voice.title,
+          title: voice.title.isEmpty ? String(localized: "無題の録音") : voice.title,
           date: voice.date,
           duration: voice.duration,
           url: actualURL,
@@ -554,26 +554,26 @@ struct PlaybackView: View {
           playbackControlsView
         }
       }
-      .navigationTitle("録音ファイル")
+      .navigationTitle(String(localized: "録音ファイル"))
       .onAppear {
         send(.onAppear)
       }
       .refreshable {
         send(.refreshRequested)
       }
-      .alert("削除確認", isPresented: $store.showDeleteConfirmation) {
-        Button("削除", role: .destructive) {
+      .alert(String(localized: "削除確認"), isPresented: $store.showDeleteConfirmation) {
+        Button(String(localized: "削除"), role: .destructive) {
           send(.confirmDelete)
         }
-        Button("キャンセル", role: .cancel) {
+        Button(String(localized: "キャンセル"), role: .cancel) {
           send(.cancelDelete)
         }
       } message: {
         if let selectedId = store.selectedMemoForDeletion,
            let memo = store.voiceMemos.first(where: { $0.id == selectedId }) {
-          Text("\(memo.title)\n\(formatDate(memo.date))\n再生時間: \(formatDuration(memo.duration))\n\nこの録音を削除しますか？")
+          Text("\(memo.title)\n\(formatDate(memo.date))\n\(String(localized: "再生時間:")) \(formatDuration(memo.duration))\n\n\(String(localized: "この録音を削除しますか？"))")
         } else {
-          Text("この録音ファイルを削除しますか？")
+          Text(String(localized: "この録音ファイルを削除しますか？"))
         }
       }
       .sheet(isPresented: $store.showDetailSheet) {
@@ -616,7 +616,7 @@ struct PlaybackView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
 
-            TextField("録音を検索...", text: $store.searchQuery)
+            TextField(String(localized: "録音を検索..."), text: $store.searchQuery)
                 .textFieldStyle(.roundedBorder)
 
             searchFilterToggleButton
@@ -648,7 +648,7 @@ struct PlaybackView: View {
     // MARK: - Sort Options
     private var sortOptionsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("並び順")
+            Text(String(localized: "並び順"))
                 .font(.caption)
                 .foregroundColor(.secondary)
 
@@ -671,7 +671,7 @@ struct PlaybackView: View {
         Button {
             send(.setSortOption(option))
         } label: {
-            Text(option.rawValue)
+            Text(option.displayName)
                 .font(.caption)
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
@@ -705,7 +705,7 @@ struct PlaybackView: View {
         } label: {
             HStack(spacing: 4) {
                 Image(systemName: "clock")
-                Text(store.durationFilter.rawValue)
+                Text(store.durationFilter.displayName)
             }
             .font(.caption)
             .padding(.horizontal, 12)
@@ -721,7 +721,7 @@ struct PlaybackView: View {
             send(.setDurationFilter(filter))
         } label: {
             HStack {
-                Text(filter.rawValue)
+                Text(filter.displayName)
                 if store.durationFilter == filter {
                     Image(systemName: "checkmark")
                 }
@@ -733,7 +733,7 @@ struct PlaybackView: View {
     private var resultsCountView: some View {
         Group {
             if !store.voiceMemos.isEmpty {
-                Text("\(filteredMemos.count) / \(store.voiceMemos.count) 件")
+                Text(String(format: String(localized: "%lld / %lld 件"), filteredMemos.count, store.voiceMemos.count))
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
@@ -809,7 +809,7 @@ struct PlaybackView: View {
             }
 
             VStack(alignment: .leading, spacing: 2) {
-              Text(currentMemo.title.isEmpty ? "無題の録音" : currentMemo.title)
+              Text(currentMemo.title.isEmpty ? String(localized: "無題の録音") : currentMemo.title)
                 .font(.caption)
                 .lineLimit(1)
               HStack {
@@ -849,7 +849,7 @@ struct PlaybackView: View {
           VStack(spacing: 8) {
             HStack {
               VStack(alignment: .leading) {
-                Text(currentMemo.title.isEmpty ? "無題の録音" : currentMemo.title)
+                Text(currentMemo.title.isEmpty ? String(localized: "無題の録音") : currentMemo.title)
                   .font(.headline)
                   .lineLimit(1)
                 Text(formatDate(currentMemo.date))
@@ -1038,7 +1038,7 @@ struct VoiceMemoRow: View {
         // 1行目: タイトル + 時間長
         if isEditing {
           HStack(spacing: 8) {
-            TextField("タイトル", text: Binding(
+            TextField(String(localized: "タイトル"), text: Binding(
               get: { editingTitle },
               set: { onEditingChanged($0) }
             ))
@@ -1049,14 +1049,14 @@ struct VoiceMemoRow: View {
               onSaveEdit()
             }
 
-            Button("保存") {
+            Button(String(localized: "保存")) {
               onSaveEdit()
             }
             .font(.caption)
             .buttonStyle(.borderedProminent)
             .controlSize(.mini)
 
-            Button("キャンセル") {
+            Button(String(localized: "キャンセル")) {
               onCancelEdit()
             }
             .font(.caption)
@@ -1066,7 +1066,7 @@ struct VoiceMemoRow: View {
         } else {
           HStack {
             HStack(spacing: 4) {
-              Text(memo.title.isEmpty ? "無題の録音" : memo.title)
+              Text(memo.title.isEmpty ? String(localized: "無題の録音") : memo.title)
                 .font(.headline)
                 .lineLimit(1)
 
@@ -1110,7 +1110,7 @@ struct VoiceMemoRow: View {
           // 右側: メニューボタン
           Menu {
             ShareLink(item: memo.url) {
-              Label("共有", systemImage: "square.and.arrow.up")
+              Label(String(localized: "共有"), systemImage: "square.and.arrow.up")
             }
 
             Menu {
@@ -1122,7 +1122,7 @@ struct VoiceMemoRow: View {
                   isConverting = false
                 }
               } label: {
-                Label("Mac向け (M4A)", systemImage: "desktopcomputer")
+                Label(String(localized: "Mac向け (M4A)"), systemImage: "desktopcomputer")
               }
               Button {
                 Task {
@@ -1132,29 +1132,29 @@ struct VoiceMemoRow: View {
                   isConverting = false
                 }
               } label: {
-                Label("Windows向け (WAV)", systemImage: "pc")
+                Label(String(localized: "Windows向け (WAV)"), systemImage: "pc")
               }
             } label: {
               if isConverting {
-                Label("変換中...", systemImage: "hourglass")
+                Label(String(localized: "変換中..."), systemImage: "hourglass")
               } else {
-                Label("PC向けに共有", systemImage: "desktopcomputer")
+                Label(String(localized: "PC向けに共有"), systemImage: "desktopcomputer")
               }
             }
             .disabled(isConverting)
 
             Button(action: onInfoTap) {
-              Label("詳細情報", systemImage: "info.circle")
+              Label(String(localized: "詳細情報"), systemImage: "info.circle")
             }
 
             Button(action: onEditAudio) {
-              Label("音声編集", systemImage: "waveform.path")
+              Label(String(localized: "音声編集"), systemImage: "waveform.path")
             }
 
             Divider()
 
             Button(role: .destructive, action: onDelete) {
-              Label("削除", systemImage: "trash")
+              Label(String(localized: "削除"), systemImage: "trash")
             }
           } label: {
             Image(systemName: "ellipsis.circle")

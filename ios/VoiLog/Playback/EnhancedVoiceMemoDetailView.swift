@@ -37,39 +37,39 @@ struct EnhancedVoiceMemoDetailView: View {
                     // 基本情報タブ
                     basicInfoTab
                         .tabItem {
-                            Label("基本情報", systemImage: "info.circle")
+                            Label(String(localized: "基本情報"), systemImage: "info.circle")
                         }
                         .tag(0)
 
                     // 音声分析タブ
                     audioAnalysisTab
                         .tabItem {
-                            Label("音声分析", systemImage: "waveform")
+                            Label(String(localized: "音声分析"), systemImage: "waveform")
                         }
                         .tag(1)
 
                     // メタデータタブ
                     metadataTab
                         .tabItem {
-                            Label("メタデータ", systemImage: "doc.text")
+                            Label(String(localized: "メタデータ"), systemImage: "doc.text")
                         }
                         .tag(2)
 
                     // 文字起こしタブ
                     transcriptionTab
                         .tabItem {
-                            Label("文字起こし", systemImage: "text.bubble")
+                            Label(String(localized: "文字起こし"), systemImage: "text.bubble")
                         }
                         .tag(3)
 
                     // 統計情報タブ
                     statisticsTab
                         .tabItem {
-                            Label("統計", systemImage: "chart.bar")
+                            Label(String(localized: "統計"), systemImage: "chart.bar")
                         }
                         .tag(4)
                 }
-                .navigationTitle("詳細情報")
+                .navigationTitle(String(localized: "詳細情報"))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -79,7 +79,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     }
 
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button("閉じる") {
+                        Button(String(localized: "閉じる")) {
                             onDismiss()
                         }
                     }
@@ -147,16 +147,16 @@ struct EnhancedVoiceMemoDetailView: View {
                 .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
 
                 // 基本情報セクション
-                detailSection(title: "録音情報") {
-                    InfoRow(icon: "clock", label: "再生時間", value: formatDetailedDuration(memo.duration))
-                    InfoRow(icon: "calendar", label: "録音日時", value: formatDetailedDate(memo.date))
+                detailSection(title: String(localized: "録音情報")) {
+                    InfoRow(icon: "clock", label: String(localized: "再生時間"), value: formatDetailedDuration(memo.duration))
+                    InfoRow(icon: "calendar", label: String(localized: "録音日時"), value: formatDetailedDate(memo.date))
                     InfoRow(icon: "location", label: "録音場所", value: "位置情報なし") // 将来的に実装
                     InfoRow(icon: "tag", label: "タグ", value: "なし") // 将来的に実装
                 }
 
                 // 音声認識テキスト
                 if !memo.text.isEmpty {
-                    detailSection(title: "音声認識テキスト") {
+                    detailSection(title: String(localized: "音声認識テキスト")) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(memo.text)
                                 .font(.body)
@@ -166,13 +166,13 @@ struct EnhancedVoiceMemoDetailView: View {
                                 .cornerRadius(8)
 
                             HStack {
-                                Label("\(memo.text.count) 文字", systemImage: "textformat.size")
+                                Label(String(format: String(localized: "%lld 文字"), memo.text.count), systemImage: "textformat.size")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
 
                                 Spacer()
 
-                                Label("\(wordCount(memo.text)) 単語", systemImage: "text.word.spacing")
+                                Label(String(format: String(localized: "%lld 単語"), wordCount(memo.text)), systemImage: "text.word.spacing")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -181,11 +181,11 @@ struct EnhancedVoiceMemoDetailView: View {
                 }
 
                 // ファイル情報
-                detailSection(title: "ファイル情報") {
-                    InfoRow(icon: "doc", label: "ファイル名", value: memo.url.lastPathComponent)
-                    InfoRow(icon: "folder", label: "保存場所", value: memo.url.deletingLastPathComponent().path)
-                    InfoRow(icon: "doc.badge.ellipsis", label: "ファイル形式", value: formatFileFormat(memo.fileFormat))
-                    InfoRow(icon: "square.and.arrow.down", label: "ファイルサイズ", value: formatDetailedFileSize(memo.fileSize))
+                detailSection(title: String(localized: "ファイル情報")) {
+                    InfoRow(icon: "doc", label: String(localized: "ファイル名"), value: memo.url.lastPathComponent)
+                    InfoRow(icon: "folder", label: String(localized: "保存場所"), value: memo.url.deletingLastPathComponent().path)
+                    InfoRow(icon: "doc.badge.ellipsis", label: String(localized: "ファイル形式"), value: formatFileFormat(memo.fileFormat))
+                    InfoRow(icon: "square.and.arrow.down", label: String(localized: "ファイルサイズ"), value: formatDetailedFileSize(memo.fileSize))
                 }
             }
             .padding()
@@ -200,7 +200,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     VStack {
                         ProgressView()
                             .scaleEffect(1.5)
-                        Text("音声を分析中...")
+                        Text(String(localized: "音声を分析中..."))
                             .font(.headline)
                             .padding(.top)
                     }
@@ -208,7 +208,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     .padding(50)
                 } else if let analysisData = audioAnalysisData {
                     // 波形ビジュアライゼーション
-                    detailSection(title: "波形") {
+                    detailSection(title: String(localized: "波形")) {
                         SimpleWaveformView(data: waveformData)
                             .frame(height: 150)
                             .background(Color(.systemGray6))
@@ -216,25 +216,25 @@ struct EnhancedVoiceMemoDetailView: View {
                     }
 
                     // 音声特性
-                    detailSection(title: "音声特性") {
-                        InfoRow(icon: "waveform", label: "平均音量", value: String(format: "%.1f dB", analysisData.averageVolume))
-                        InfoRow(icon: "speaker.wave.3", label: "ピーク音量", value: String(format: "%.1f dB", analysisData.peakVolume))
-                        InfoRow(icon: "waveform.path.ecg", label: "ダイナミックレンジ", value: String(format: "%.1f dB", analysisData.dynamicRange))
-                        InfoRow(icon: "metronome", label: "サンプリングレート", value: "\(Int(memo.samplingFrequency)) Hz")
-                        InfoRow(icon: "speaker.wave.2", label: "ビットレート", value: calculateBitrate())
+                    detailSection(title: String(localized: "音声特性")) {
+                        InfoRow(icon: "waveform", label: String(localized: "平均音量"), value: String(format: "%.1f dB", analysisData.averageVolume))
+                        InfoRow(icon: "speaker.wave.3", label: String(localized: "ピーク音量"), value: String(format: "%.1f dB", analysisData.peakVolume))
+                        InfoRow(icon: "waveform.path.ecg", label: String(localized: "ダイナミックレンジ"), value: String(format: "%.1f dB", analysisData.dynamicRange))
+                        InfoRow(icon: "metronome", label: String(localized: "サンプリングレート"), value: "\(Int(memo.samplingFrequency)) Hz")
+                        InfoRow(icon: "speaker.wave.2", label: String(localized: "ビットレート"), value: calculateBitrate())
                     }
 
                     // 周波数分析
-                    detailSection(title: "周波数分析") {
+                    detailSection(title: String(localized: "周波数分析")) {
                         FrequencyChart(data: analysisData.frequencyData)
                             .frame(height: 200)
                     }
 
                     // 無音検出
-                    detailSection(title: "無音分析") {
-                        InfoRow(icon: "speaker.slash", label: "無音時間", value: formatDuration(analysisData.silenceDuration))
-                        InfoRow(icon: "percent", label: "無音比率", value: String(format: "%.1f%%", analysisData.silenceRatio * 100))
-                        InfoRow(icon: "scissors", label: "無音区間数", value: "\(analysisData.silenceSegments.count)")
+                    detailSection(title: String(localized: "無音分析")) {
+                        InfoRow(icon: "speaker.slash", label: String(localized: "無音時間"), value: formatDuration(analysisData.silenceDuration))
+                        InfoRow(icon: "percent", label: String(localized: "無音比率"), value: String(format: "%.1f%%", analysisData.silenceRatio * 100))
+                        InfoRow(icon: "scissors", label: String(localized: "無音区間数"), value: "\(analysisData.silenceSegments.count)")
                     }
                 }
             }
@@ -247,7 +247,7 @@ struct EnhancedVoiceMemoDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 // 技術的メタデータ
-                detailSection(title: "技術的メタデータ") {
+                detailSection(title: String(localized: "技術的メタデータ")) {
                     InfoRow(icon: "cpu", label: "エンコーダー", value: "Core Audio")
                     InfoRow(icon: "antenna.radiowaves.left.and.right", label: "チャンネル", value: channelConfiguration())
                     InfoRow(icon: "waveform.badge.plus", label: "ビット深度", value: "\(memo.quantizationBitDepth) bit")
@@ -255,7 +255,7 @@ struct EnhancedVoiceMemoDetailView: View {
                 }
 
                 // デバイス情報
-                detailSection(title: "録音デバイス") {
+                detailSection(title: String(localized: "録音デバイス")) {
                     InfoRow(icon: "iphone", label: "デバイス", value: UIDevice.current.model)
                     InfoRow(icon: "mic", label: "マイク", value: "内蔵マイク")
                     InfoRow(icon: "gear", label: "録音設定", value: "標準品質")
@@ -263,7 +263,7 @@ struct EnhancedVoiceMemoDetailView: View {
                 }
 
                 // 拡張属性
-                detailSection(title: "拡張属性") {
+                detailSection(title: String(localized: "拡張属性")) {
                     InfoRow(icon: "checkmark.seal", label: "完全性", value: "検証済み")
                     InfoRow(icon: "lock", label: "暗号化", value: "なし")
                     InfoRow(icon: "tag.circle", label: "カスタムタグ", value: "未設定")
@@ -305,7 +305,7 @@ struct EnhancedVoiceMemoDetailView: View {
                     .padding(.horizontal)
 
                     // タイムスタンプ付きセグメント
-                    detailSection(title: "タイムスタンプ付き文字起こし") {
+                    detailSection(title: String(localized: "タイムスタンプ付き文字起こし")) {
                         VStack(alignment: .leading, spacing: 12) {
                             ForEach(transcription.segments) { segment in
                                 Button {
@@ -336,7 +336,7 @@ struct EnhancedVoiceMemoDetailView: View {
 
                     // 全文テキスト
                     if !transcription.fullText.isEmpty {
-                        detailSection(title: "全文") {
+                        detailSection(title: String(localized: "全文")) {
                             Text(transcription.fullText)
                                 .font(.body)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -349,7 +349,7 @@ struct EnhancedVoiceMemoDetailView: View {
                             .font(.system(size: 48))
                             .foregroundColor(.secondary)
 
-                        Text("文字起こしデータがありません")
+                        Text(String(localized: "文字起こしデータがありません"))
                             .font(.headline)
                             .foregroundColor(.secondary)
 
@@ -371,7 +371,7 @@ struct EnhancedVoiceMemoDetailView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 // 使用統計
-                detailSection(title: "使用統計") {
+                detailSection(title: String(localized: "使用統計")) {
                     InfoRow(icon: "play.circle", label: "再生回数", value: "0回") // 将来的に実装
                     InfoRow(icon: "square.and.arrow.up", label: "共有回数", value: "0回") // 将来的に実装
                     InfoRow(icon: "star", label: "お気に入り", value: "未設定") // 将来的に実装
@@ -379,7 +379,7 @@ struct EnhancedVoiceMemoDetailView: View {
                 }
 
                 // ストレージ分析
-                detailSection(title: "ストレージ効率") {
+                detailSection(title: String(localized: "ストレージ効率")) {
                     VStack(alignment: .leading, spacing: 12) {
                         InfoRow(icon: "internaldrive", label: "圧縮率", value: calculateCompressionRatio())
                         InfoRow(icon: "arrow.down.circle", label: "1分あたりサイズ", value: calculateSizePerMinute())
@@ -392,7 +392,7 @@ struct EnhancedVoiceMemoDetailView: View {
                 }
 
                 // 品質指標
-                detailSection(title: "品質指標") {
+                detailSection(title: String(localized: "品質指標")) {
                     QualityIndicatorView(memo: memo)
                 }
             }

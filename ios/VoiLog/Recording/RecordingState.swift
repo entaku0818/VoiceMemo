@@ -19,15 +19,15 @@ enum RecordingError: Error, Equatable {
     var localizedDescription: String {
         switch self {
         case .permissionDenied:
-            return "マイクへのアクセス許可が必要です"
+            return String(localized: "マイクへのアクセス許可が必要です")
         case .fileCreationFailed:
-            return "録音ファイルの作成に失敗しました"
+            return String(localized: "録音ファイルの作成に失敗しました")
         case .audioSessionFailed:
-            return "オーディオセッションの設定に失敗しました"
+            return String(localized: "オーディオセッションの設定に失敗しました")
         case .recordingFailed(let message):
-            return "録音エラー: \(message)"
+            return String(localized: "録音エラー: \(message)")
         case .diskSpaceInsufficient:
-            return "ストレージ容量が不足しています"
+            return String(localized: "ストレージ容量が不足しています")
         }
     }
 }

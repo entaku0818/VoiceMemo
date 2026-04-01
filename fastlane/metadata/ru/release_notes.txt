@@ -1,5 +1,7 @@
-Версия 1.4.3
+Version 1.4.4
 
-[Улучшения]
-- Улучшен экран настроек
-- Различные незначительные улучшения
+[Improvements]
+- Improved English localization across the entire app
+- Updated notification messages with more natural English phrasing
+- Localized all screens including Settings, Recording, and Playback
+- Various minor improvements

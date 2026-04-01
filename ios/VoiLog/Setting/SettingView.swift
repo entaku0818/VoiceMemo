@@ -209,38 +209,38 @@ struct SettingView: View {
         )) {
             FeedbackFormView()
         }
-        .alert("開発者を支援する", isPresented: Binding(
+        .alert(String(localized: "開発者を支援する"), isPresented: Binding(
             get: { store.showPurchaseConfirmAlert },
             set: { if !$0 { store.send(.dismissPurchaseConfirmAlert) } }
         )) {
-            Button("次へ") { store.send(.purchaseProduct) }
+            Button(String(localized: "次へ")) { store.send(.purchaseProduct) }
             Button("キャンセル", role: .cancel) { store.send(.dismissPurchaseConfirmAlert) }
         } message: {
-            Text("ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。")
+            Text(String(localized: "ご支援いただける場合は次の画面で購入お願いいたします。開発費用に利用させていただきます。"))
         }
-        .alert("サポートありがとうございます！", isPresented: Binding(
+        .alert(String(localized: "サポートありがとうございます！"), isPresented: Binding(
             get: { store.showPurchaseSuccessAlert },
             set: { if !$0 { store.send(.dismissInfoAlert) } }
         )) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("いただいたサポートは開発費用として大切に利用させていただきます。")
+            Text(String(localized: "いただいたサポートは開発費用として大切に利用させていただきます。"))
         }
-        .alert("購入を復元しました", isPresented: Binding(
+        .alert(String(localized: "購入を復元しました"), isPresented: Binding(
             get: { store.showRestoreSuccessAlert },
             set: { if !$0 { store.send(.dismissInfoAlert) } }
         )) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("プレミアム機能が利用可能になりました。")
+            Text(String(localized: "プレミアム機能が利用可能になりました。"))
         }
-        .alert("復元に失敗しました", isPresented: Binding(
+        .alert(String(localized: "復元に失敗しました"), isPresented: Binding(
             get: { store.showRestoreFailureAlert },
             set: { if !$0 { store.send(.dismissInfoAlert) } }
         )) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("購入履歴が見つかりませんでした。")
+            Text(String(localized: "購入履歴が見つかりませんでした。"))
         }
 
         if !store.hasPurchasedPremium {
@@ -250,10 +250,10 @@ struct SettingView: View {
 
     @ViewBuilder
     private var audioSettingsSection: some View {
-        Section(header: Text("音声設定")) {
+        Section(header: Text(String(localized: "音声設定"))) {
             NavigationLink(destination: FileFormatView(store: store)) {
                 HStack {
-                    Text("ファイル形式")
+                    Text(String(localized: "ファイル形式"))
                     Spacer()
                     Text(store.selectedFileFormat)
                 }
@@ -261,7 +261,7 @@ struct SettingView: View {
 
             NavigationLink(destination: SamplingFrequencyView(store: store)) {
                 HStack {
-                    Text("サンプリング周波数")
+                    Text(String(localized: "サンプリング周波数"))
                     Spacer()
                     Text("\(String(store.samplingFrequency))Hz")
                 }
@@ -269,7 +269,7 @@ struct SettingView: View {
 
             NavigationLink(destination: QuantizationBitDepthView(store: store)) {
                 HStack {
-                    Text("量子化ビット数")
+                    Text(String(localized: "量子化ビット数"))
                     Spacer()
                     Text("\(store.quantizationBitDepth)bit")
                 }
@@ -278,7 +278,7 @@ struct SettingView: View {
             #if DEBUG
             NavigationLink(destination: NumberOfChannelsView(store: store)) {
                 HStack {
-                    Text("チャネル")
+                    Text(String(localized: "チャネル"))
                     Spacer()
                     Text("\(store.numberOfChannels)")
                 }
@@ -294,7 +294,7 @@ struct SettingView: View {
                 store.send(.startTutorial)
             } label: {
                 HStack {
-                    Text("チュートリアルを再開")
+                    Text(String(localized: "チュートリアルを再開"))
                         .foregroundColor(Color("Black"))
                     Spacer()
                     Image(systemName: "questionmark.circle")
@@ -303,14 +303,14 @@ struct SettingView: View {
             }
 
             NavigationLink(destination: AboutSimpleRecoder()) {
-                Text("アプリについて")
+                Text(String(localized: "アプリについて"))
             }
 
             Button {
                 store.send(.showFeedbackForm)
             } label: {
                 HStack {
-                    Text("フィードバック")
+                    Text(String(localized: "フィードバック"))
                         .foregroundColor(.primary)
                     Spacer()
                     Image(systemName: "chevron.right")
@@ -323,11 +323,11 @@ struct SettingView: View {
                 store.send(.showSupportDeveloperAlert)
             } label: {
                 HStack {
-                    Text("開発者を支援する")
+                    Text(String(localized: "開発者を支援する"))
                         .foregroundColor(Color("Black"))
                     Spacer()
                     if store.developerSupported {
-                        Text("購入済")
+                        Text(String(localized: "購入済"))
                             .foregroundColor(Color("Black"))
                         Image(systemName: "checkmark")
                             .foregroundColor(.green)
@@ -339,12 +339,12 @@ struct SettingView: View {
 
     @ViewBuilder
     private var purchaseSection: some View {
-        Section(header: Text("購入")) {
+        Section(header: Text(String(localized: "購入"))) {
             Button {
                 store.send(.restorePurchases)
             } label: {
                 HStack {
-                    Text("購入を復元")
+                    Text(String(localized: "購入を復元"))
                         .foregroundColor(Color("Black"))
                     Spacer()
                     Image(systemName: "arrow.counterclockwise")
@@ -356,14 +356,14 @@ struct SettingView: View {
 
     @ViewBuilder
     private var notificationSection: some View {
-        Section(header: Text("通知設定")) {
-            Toggle("毎日のリマインダー", isOn: Binding(
+        Section(header: Text(String(localized: "通知設定"))) {
+            Toggle(String(localized: "毎日のリマインダー"), isOn: Binding(
                 get: { store.dailyReminderEnabled },
                 set: { store.send(.toggleDailyReminder($0)) }
             ))
             if store.dailyReminderEnabled {
                 DatePicker(
-                    "時刻",
+                    String(localized: "時刻"),
                     selection: Binding(
                         get: { store.dailyReminderDate },
                         set: { store.send(.setDailyReminderTime($0)) }
@@ -376,15 +376,15 @@ struct SettingView: View {
 
     #if DEBUG
     private var debugSection: some View {
-        Section(header: Text("デバッグ")) {
+        Section(header: Text(String(localized: "デバッグ"))) {
             NavigationLink(destination: ErrorLogsView()) {
-                Text("エラーログを見る")
+                Text(String(localized: "エラーログを見る"))
             }
             NavigationLink(destination: AdDebugView()) {
-                Text("広告テスト")
+                Text(String(localized: "広告テスト"))
             }
             NavigationLink(destination: ScreenshotPreviewView()) {
-                Text("スクリーンショットプレビュー")
+                Text(String(localized: "スクリーンショットプレビュー"))
             }
         }
     }
@@ -406,16 +406,16 @@ private struct PremiumBannerView: View {
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.white, .purple)
                 VStack(alignment: .leading) {
-                    Text("1ヶ月無料！")
+                    Text(String(localized: "1ヶ月無料！"))
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    Text("プレミアムサービス")
+                    Text(String(localized: "プレミアムサービス"))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                 }
                 Spacer()
-                Text("詳細をタップ")
+                Text(String(localized: "詳細をタップ"))
                     .font(.caption2)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -475,7 +475,7 @@ struct FileFormatView: View {
 
     var body: some View {
         SelectionListView(
-            title: "ファイル形式",
+            title: String(localized: "ファイル形式"),
             items: Array(Constants.FileFormat.allCases),
             itemLabel: { $0.rawValue },
             isSelected: { $0.rawValue == store.selectedFileFormat },
@@ -489,7 +489,7 @@ struct SamplingFrequencyView: View {
 
     var body: some View {
         SelectionListView(
-            title: "サンプリング周波数",
+            title: String(localized: "サンプリング周波数"),
             items: Array(Constants.SamplingFrequency.allCases),
             itemLabel: { $0.stringValue },
             isSelected: { $0.rawValue == store.samplingFrequency },
@@ -503,7 +503,7 @@ struct QuantizationBitDepthView: View {
 
     var body: some View {
         SelectionListView(
-            title: "量子化ビット数",
+            title: String(localized: "量子化ビット数"),
             items: Array(Constants.QuantizationBitDepth.allCases),
             itemLabel: { $0.stringValue },
             isSelected: { $0.rawValue == store.quantizationBitDepth },
@@ -517,7 +517,7 @@ struct NumberOfChannelsView: View {
 
     var body: some View {
         SelectionListView(
-            title: "チャネル",
+            title: String(localized: "チャネル"),
             items: Array(Constants.NumberOfChannels.allCases),
             itemLabel: { "\($0.rawValue)" },
             isSelected: { $0.rawValue == store.numberOfChannels },
@@ -531,7 +531,7 @@ struct MicrophonesVolumeView: View {
 
     var body: some View {
         SelectionListView(
-            title: "マイクの音量",
+            title: String(localized: "マイクの音量"),
             items: Array(Constants.MicrophonesVolume.allCases),
             itemLabel: { "\(Int($0.rawValue))" },
             isSelected: { $0.rawValue == store.microphonesVolume },

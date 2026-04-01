@@ -43,7 +43,7 @@ struct ModernPlaylistListView: View {
                 }
             }
         }
-        .navigationTitle("プレイリスト")
+        .navigationTitle(String(localized: "プレイリスト"))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -137,20 +137,20 @@ struct CreatePlaylistSheet: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("プレイリスト名", text: $store.newPlaylistName)
+                    TextField(String(localized: "プレイリスト名"), text: $store.newPlaylistName)
                 }
             }
-            .navigationTitle("新規プレイリスト")
+            .navigationTitle(String(localized: "新規プレイリスト"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("キャンセル") {
+                    Button(String(localized: "キャンセル")) {
                         store.send(.view(.createPlaylistSheetDismissed))
                     }
                 }
 
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("作成") {
+                    Button(String(localized: "作成")) {
                         store.send(.view(.createPlaylistSubmitted))
                     }
                     .disabled(store.newPlaylistName.isEmpty)

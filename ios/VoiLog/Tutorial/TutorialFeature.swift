@@ -118,7 +118,7 @@ enum TutorialStep: String, CaseIterable, Equatable {
     case .welcome:
       return "VoiLogへようこそ！"
     case .tryRecording:
-      return "録音してみよう"
+      return String(localized: "録音してみよう")
     case .complete:
       return "チュートリアル完了"
     }
@@ -129,7 +129,7 @@ enum TutorialStep: String, CaseIterable, Equatable {
     case .welcome:
       return "会議・講義・アイデアを\nワンタップで録音保存。\n実際に試してみましょう！"
     case .tryRecording:
-      return "下の録音ボタンをタップしてください"
+      return String(localized: "下の録音ボタンをタップしてください")
     case .complete:
       return "チュートリアル完了です！\nVoiLogをお楽しみください。"
     }
@@ -193,9 +193,9 @@ struct TutorialOverlayView: View {
           .allowsHitTesting(false)
 
         VStack(spacing: 8) {
-          Text("⏺ 録音してみよう")
+          Text("⏺ \(String(localized: "録音してみよう"))")
             .font(.headline)
-          Text("下の録音ボタンをタップしてください")
+          Text(String(localized: "下の録音ボタンをタップしてください"))
             .font(.subheadline)
             .foregroundColor(.secondary)
             .multilineTextAlignment(.center)
@@ -211,11 +211,11 @@ struct TutorialOverlayView: View {
         .padding(.horizontal, 16)
         .padding(.top, 60)
       }
-      .alert("チュートリアルをスキップ", isPresented: $store.showSkipConfirmation) {
+      .alert(String(localized: "チュートリアルをスキップ"), isPresented: $store.showSkipConfirmation) {
         Button("スキップ", role: .destructive) { send(.confirmSkip) }
         Button("キャンセル", role: .cancel) { send(.cancelSkip) }
       } message: {
-        Text("チュートリアルをスキップしますか？\n後で設定画面から再度確認できます。")
+        Text(String(localized: "チュートリアルをスキップしますか？\n後で設定画面から再度確認できます。"))
       }
     } else {
       // welcome: フルスクリーンオーバーレイカード
@@ -280,11 +280,11 @@ struct TutorialOverlayView: View {
           Spacer()
         }
       }
-      .alert("チュートリアルをスキップ", isPresented: $store.showSkipConfirmation) {
+      .alert(String(localized: "チュートリアルをスキップ"), isPresented: $store.showSkipConfirmation) {
         Button("スキップ", role: .destructive) { send(.confirmSkip) }
         Button("キャンセル", role: .cancel) { send(.cancelSkip) }
       } message: {
-        Text("チュートリアルをスキップしますか？\n後で設定画面から再度確認できます。")
+        Text(String(localized: "チュートリアルをスキップしますか？\n後で設定画面から再度確認できます。"))
       }
     }
   }
@@ -302,7 +302,7 @@ struct TutorialOverlayView: View {
 
     return VStack(spacing: 8) {
       HStack {
-        Text("ステップ \(currentIndex + 1) / \(visibleSteps)")
+        Text(String(format: NSLocalizedString("ステップ %lld / %lld", comment: ""), currentIndex + 1, visibleSteps))
           .font(.caption)
           .foregroundColor(.secondary)
         Spacer()

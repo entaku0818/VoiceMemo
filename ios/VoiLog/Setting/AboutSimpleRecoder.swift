@@ -23,7 +23,7 @@ struct AboutSimpleRecoder: View {
             }) {
                 HStack {
                     Image(systemName: "hands.sparkles")
-                    Text("AppStoreでレビューを書く")
+                    Text(String(localized: "AppStoreでレビューを書く"))
                     Spacer()
                 }
             }
@@ -33,7 +33,7 @@ struct AboutSimpleRecoder: View {
             }) {
                 HStack {
                     Image(systemName: "person.wave.2")
-                    Text("友人にアプリを教える")
+                    Text(String(localized: "友人にアプリを教える"))
                     Spacer()
                 }
             }
@@ -43,7 +43,7 @@ struct AboutSimpleRecoder: View {
 
         }
         .listStyle(GroupedListStyle())
-        .navigationTitle("アプリについて")
+        .navigationTitle(String(localized: "アプリについて"))
 
     }
 

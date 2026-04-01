@@ -1,5 +1,7 @@
-Phiên bản 1.4.3
+Version 1.4.4
 
-[Cải tiến]
-- Cải thiện màn hình Cài đặt
-- Nhiều cải tiến nhỏ khác
+[Improvements]
+- Improved English localization across the entire app
+- Updated notification messages with more natural English phrasing
+- Localized all screens including Settings, Recording, and Playback
+- Various minor improvements

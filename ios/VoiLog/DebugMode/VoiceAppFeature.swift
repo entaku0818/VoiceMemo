@@ -311,7 +311,7 @@ struct VoiceAppFeature {
         switch result {
         case .success(let success):
           if !success {
-            state.syncError = "一部のファイルの同期に失敗しました"
+            state.syncError = String(localized: "一部のファイルの同期に失敗しました")
             state.showSyncError = true
             state.syncStatus = .error
           } else {
@@ -370,7 +370,7 @@ struct VoiceAppView: View {
       }
       .tabItem {
         Image(systemName: "record.circle")
-        Text("録音")
+        Text(String(localized: "録音"))
       }
       .tag(0)
 
@@ -397,7 +397,7 @@ struct VoiceAppView: View {
       }
       .tabItem {
         Image(systemName: "play.circle")
-        Text("再生")
+        Text(String(localized: "再生"))
       }
       .tag(1)
 
@@ -416,7 +416,7 @@ struct VoiceAppView: View {
       }
       .tabItem {
         Image(systemName: "list.bullet")
-        Text("プレイリスト")
+        Text(String(localized: "プレイリスト"))
       }
       .tag(2)
 
@@ -426,28 +426,28 @@ struct VoiceAppView: View {
           store: store.scope(state: \.settingFeature, action: \.settingFeature),
           admobUnitId: admobUnitId
         )
-        .navigationTitle("設定")
+        .navigationTitle(String(localized: "設定"))
       }
       .tabItem {
         Image(systemName: "gearshape")
-        Text("設定")
+        Text(String(localized: "設定"))
       }
       .tag(3)
     }
     .onAppear {
       store.send(.view(.onAppear))
     }
-    .alert("同期エラー", isPresented: $store.showSyncError) {
+    .alert(String(localized: "同期エラー"), isPresented: $store.showSyncError) {
       Button("OK") {
         store.send(.view(.dismissSyncError))
       }
     } message: {
-      Text(store.syncError ?? "同期中にエラーが発生しました")
+      Text(store.syncError ?? String(localized: "同期中にエラーが発生しました"))
     }
-    .alert("録音中", isPresented: $store.showRecordingLockAlert) {
+    .alert(String(localized: "録音中"), isPresented: $store.showRecordingLockAlert) {
       Button("OK", role: .cancel) {}
     } message: {
-      Text("録音中は他の操作ができません")
+      Text(String(localized: "録音中は他の操作ができません"))
     }
     .overlay {
       // チュートリアルオーバーレイ
@@ -512,7 +512,7 @@ struct SyncStatusView: View {
       Button(action: onSync) {
         HStack(spacing: 4) {
           Image(systemName: "icloud.and.arrow.up")
-          Text("同期")
+          Text(String(localized: "同期"))
         }
         .font(.caption)
       }
@@ -521,7 +521,7 @@ struct SyncStatusView: View {
       HStack(spacing: 4) {
         ProgressView()
           .controlSize(.mini)
-        Text("同期中")
+        Text(String(localized: "同期中"))
           .font(.caption)
           .foregroundColor(.secondary)
       }
@@ -530,7 +530,7 @@ struct SyncStatusView: View {
       HStack(spacing: 4) {
         Image(systemName: "checkmark.icloud")
           .foregroundColor(.green)
-        Text("同期完了")
+        Text(String(localized: "同期完了"))
           .font(.caption)
           .foregroundColor(.green)
       }
@@ -539,7 +539,7 @@ struct SyncStatusView: View {
       HStack(spacing: 4) {
         Image(systemName: "exclamationmark.icloud")
           .foregroundColor(.red)
-        Text("エラー")
+        Text(String(localized: "エラー"))
           .font(.caption)
           .foregroundColor(.red)
       }

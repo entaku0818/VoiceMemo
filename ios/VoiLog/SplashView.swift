@@ -27,7 +27,7 @@ struct SplashView: View {
                         .shadow(radius: 10)
 
                     // アプリ名
-                    Text("シンプル録音")
+                    Text(String(localized: "シンプル録音"))
                         .font(.headline)
                         .foregroundColor(.secondary)
                 }

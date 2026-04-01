@@ -27,7 +27,7 @@ struct EnhancedPlaylistDetailView: View {
                 // Voice Memos List
                 voiceMemosListView
             }
-            .navigationTitle(store.isEditingName ? "プレイリスト編集" : store.name)
+            .navigationTitle(store.isEditingName ? String(localized: "プレイリスト編集") : store.name)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -72,17 +72,17 @@ struct EnhancedPlaylistDetailView: View {
     private var editButton: some View {
         if store.isEditingName {
             HStack {
-                Button("キャンセル") {
+                Button(String(localized: "キャンセル")) {
                     send(.cancelEditButtonTapped)
                 }
 
-                Button("保存") {
+                Button(String(localized: "保存")) {
                     send(.saveNameButtonTapped)
                 }
                 .fontWeight(.semibold)
             }
         } else {
-            Button("編集") {
+            Button(String(localized: "編集")) {
                 send(.editButtonTapped)
             }
         }
@@ -123,7 +123,7 @@ struct EnhancedPlaylistDetailView: View {
     private func currentlyPlayingInfoView(memo: EnhancedPlaylistFeature.EnhancedVoiceMemoState) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
-                Text(memo.title.isEmpty ? "無題の録音" : memo.title)
+                Text(memo.title.isEmpty ? String(localized: "無題の録音") : memo.title)
                     .font(.headline)
                     .lineLimit(1)
 
@@ -255,8 +255,8 @@ struct EnhancedPlaylistDetailView: View {
     }
 
     private var nameEditingSection: some View {
-        Section("プレイリスト名") {
-            TextField("プレイリスト名", text: $store.editingName)
+        Section(String(localized: "プレイリスト名")) {
+            TextField(String(localized: "プレイリスト名"), text: $store.editingName)
                 .textFieldStyle(.roundedBorder)
                 .submitLabel(.done)
                 .onSubmit {
@@ -266,9 +266,9 @@ struct EnhancedPlaylistDetailView: View {
     }
 
     private var voiceMemosSection: some View {
-        Section("録音ファイル (\(store.voiceMemos.count)件)") {
+        Section(String(localized: "録音ファイル (\(store.voiceMemos.count)件)")) {
             if store.voiceMemos.isEmpty {
-                Text("録音ファイルがありません")
+                Text(String(localized: "録音ファイルがありません"))
                     .foregroundColor(.secondary)
                     .italic()
             } else {
@@ -312,11 +312,11 @@ struct EnhancedPlaylistDetailView: View {
                     }
                 }
             }
-            .navigationTitle("再生モード")
+            .navigationTitle(String(localized: "再生モード"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("完了") {
+                    Button(String(localized: "完了")) {
                         send(.hidePlaybackModeSelection)
                     }
                 }
@@ -346,11 +346,11 @@ struct EnhancedPlaylistDetailView: View {
                     }
                 }
             }
-            .navigationTitle("リピートモード")
+            .navigationTitle(String(localized: "リピートモード"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("完了") {
+                    Button(String(localized: "完了")) {
                         send(.hideRepeatModeSelection)
                     }
                 }
@@ -402,7 +402,7 @@ struct EnhancedVoiceMemoRow: View {
 
             // Memo Info
             VStack(alignment: .leading, spacing: 4) {
-                Text(memo.title.isEmpty ? "無題の録音" : memo.title)
+                Text(memo.title.isEmpty ? String(localized: "無題の録音") : memo.title)
                     .font(.headline)
                     .lineLimit(1)
                     .foregroundColor(isCurrentlyPlaying ? .accentColor : .primary)
@@ -489,11 +489,11 @@ struct EnhancedVoiceSelectionView: View {
                 // Voice List
                 voiceList
             }
-            .navigationTitle("録音ファイルを追加")
+            .navigationTitle(String(localized: "録音ファイルを追加"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("キャンセル", action: onCancel)
+                    Button(String(localized: "キャンセル"), action: onCancel)
                 }
             }
             .onAppear {
@@ -528,7 +528,7 @@ struct EnhancedVoiceSelectionView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.black.opacity(0.1))
             } else if filteredVoices.isEmpty {
-                Text("録音ファイルがありません")
+                Text(String(localized: "録音ファイルがありません"))
                     .foregroundColor(.secondary)
                     .italic()
             }
@@ -570,7 +570,7 @@ struct VoiceSelectionRow: View {
                     .foregroundColor(.accentColor)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(voice.title.isEmpty ? "無題の録音" : voice.title)
+                    Text(voice.title.isEmpty ? String(localized: "無題の録音") : voice.title)
                         .font(.headline)
                         .lineLimit(1)
                         .foregroundColor(.primary)

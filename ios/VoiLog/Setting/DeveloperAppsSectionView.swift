@@ -10,8 +10,8 @@ import UIKit
 
 struct DeveloperAppItem: Identifiable {
     let id = UUID()
-    let name: String
-    let subtitle: String
+    let name: String      // localization key (Japanese fallback)
+    let subtitle: String  // localization key (Japanese fallback)
     let appId: Int
 }
 
@@ -29,7 +29,7 @@ private let developerApps: [DeveloperAppItem] = [
 
 struct DeveloperAppsSectionView: View {
     var body: some View {
-        Section(header: Text("開発者の他のアプリ")) {
+        Section(header: Text(String(localized: "開発者の他のアプリ"))) {
             ForEach(developerApps) { app in
                 DeveloperAppRowView(app: app)
             }
@@ -44,6 +44,11 @@ private struct DeveloperAppRowView: View {
 
     @State private var artworkURL: URL?
     @State private var storeURL: URL?
+    @State private var fetchedName: String?
+
+    private var displayName: String {
+        fetchedName ?? NSLocalizedString(app.name, comment: "")
+    }
 
     var body: some View {
         Button {
@@ -63,10 +68,10 @@ private struct DeveloperAppRowView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(app.name)
+                    Text(displayName)
                         .font(.body)
                         .foregroundColor(.primary)
-                    Text(app.subtitle)
+                    Text(NSLocalizedString(app.subtitle, comment: ""))
                         .font(.caption)
                         .foregroundColor(.secondary)
                 }
@@ -84,18 +89,29 @@ private struct DeveloperAppRowView: View {
     }
 
     private func fetchAppInfo() async {
-        guard let lookupURL = URL(string: "https://itunes.apple.com/lookup?id=\(app.appId)&country=jp") else { return }
-
-        do {
-            let (data, _) = try await URLSession.shared.data(from: lookupURL)
-            let response = try JSONDecoder().decode(AppSearchResponse.self, from: data)
-            if let result = response.results.first {
-                artworkURL = URL(string: result.artworkUrl100)
-                storeURL = URL(string: result.trackViewUrl)
-            }
-        } catch {
-            // アイコン取得失敗時はプレースホルダーのまま表示
+        let locale = Locale.current.region?.identifier.lowercased() ?? "jp"
+        if let result = await lookup(country: locale) {
+            apply(result)
+        } else if locale != "us", let result = await lookup(country: "us") {
+            apply(result)
         }
+    }
+
+    private func lookup(country: String) async -> AppSearchResult? {
+        guard let url = URL(string: "https://itunes.apple.com/lookup?id=\(app.appId)&country=\(country)") else { return nil }
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let response = try JSONDecoder().decode(AppSearchResponse.self, from: data)
+            return response.results.first
+        } catch {
+            return nil
+        }
+    }
+
+    private func apply(_ result: AppSearchResult) {
+        artworkURL = URL(string: result.artworkUrl100)
+        storeURL = URL(string: result.trackViewUrl)
+        fetchedName = result.trackName
     }
 }
 
@@ -108,6 +124,8 @@ private struct AppSearchResponse: Decodable {
 private struct AppSearchResult: Decodable {
     let artworkUrl100: String
     let trackViewUrl: String
+    let trackName: String
+    let description: String?
 }
 
 // MARK: - Preview

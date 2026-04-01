@@ -19,6 +19,16 @@ enum SortOption: String, CaseIterable, Equatable {
   case titleAscending = "タイトル順（A-Z）"
   case durationDescending = "時間長順（長い順）"
   case durationAscending = "時間長順（短い順）"
+
+  var displayName: String {
+    switch self {
+    case .dateDescending: return String(localized: "日付順（新しい順）")
+    case .dateAscending: return String(localized: "日付順（古い順）")
+    case .titleAscending: return String(localized: "タイトル順（A-Z）")
+    case .durationDescending: return String(localized: "時間長順（長い順）")
+    case .durationAscending: return String(localized: "時間長順（短い順）")
+    }
+  }
 }
 
 enum DurationFilter: String, CaseIterable, Equatable {
@@ -26,6 +36,15 @@ enum DurationFilter: String, CaseIterable, Equatable {
   case short = "短い（1分未満）"
   case medium = "中間（1-5分）"
   case long = "長い（5分以上）"
+
+  var displayName: String {
+    switch self {
+    case .all: return String(localized: "すべて")
+    case .short: return String(localized: "短い（1分未満）")
+    case .medium: return String(localized: "中間（1-5分）")
+    case .long: return String(localized: "長い（5分以上）")
+    }
+  }
 
   func matches(duration: TimeInterval) -> Bool {
     switch self {

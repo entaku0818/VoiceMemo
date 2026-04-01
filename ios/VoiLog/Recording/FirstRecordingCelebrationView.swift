@@ -17,11 +17,11 @@ struct FirstRecordingCelebrationView: View {
                 .foregroundColor(.green)
 
             VStack(spacing: 8) {
-                Text("🎉 保存されました！")
+                Text(String(localized: "🎉 保存されました！"))
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Text("初めての録音が完了しました")
+                Text(String(localized: "初めての録音が完了しました"))
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -32,7 +32,7 @@ struct FirstRecordingCelebrationView: View {
                 Button(action: onEditTitle) {
                     HStack {
                         Image(systemName: "pencil")
-                        Text("タイトルを編集する")
+                        Text(String(localized: "タイトルを編集する"))
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -44,7 +44,7 @@ struct FirstRecordingCelebrationView: View {
                 Button(action: onShare) {
                     HStack {
                         Image(systemName: "square.and.arrow.up")
-                        Text("録音を共有する")
+                        Text(String(localized: "録音を共有する"))
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -56,7 +56,7 @@ struct FirstRecordingCelebrationView: View {
                 Button(action: onRecordAgain) {
                     HStack {
                         Image(systemName: "mic.circle")
-                        Text("もう一度録音する")
+                        Text(String(localized: "もう一度録音する"))
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -68,7 +68,7 @@ struct FirstRecordingCelebrationView: View {
             .padding(.horizontal, 24)
 
             Button(action: onDismiss) {
-                Text("閉じる")
+                Text(String(localized: "閉じる"))
                     .foregroundColor(.secondary)
                     .font(.footnote)
             }

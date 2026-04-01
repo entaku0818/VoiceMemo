@@ -118,7 +118,7 @@ struct RecordingFeature {
           // 録音開始時に保存した設定を使用
           let fileFormat = state.recordingFileFormat
           let recordingUrl = createRecordingURL(with: state.recordingId, fileFormat: fileFormat)
-          let title = state.tempTitle.isEmpty ? "無題の録音" : state.tempTitle
+          let title = state.tempTitle.isEmpty ? String(localized: "無題の録音") : state.tempTitle
           let recordingDate = Date()
           let recordingId = state.recordingId
 
@@ -172,7 +172,7 @@ struct RecordingFeature {
           // 録音開始時に保存した設定を使用
           let fileFormat = state.recordingFileFormat
           let recordingUrl = createRecordingURL(with: state.recordingId, fileFormat: fileFormat)
-          let title = "無題の録音"
+          let title = String(localized: "無題の録音")
           let recordingDate = Date()
           let recordingId = state.recordingId
 
@@ -468,21 +468,21 @@ struct RecordingView: View {
           controlButtonsView
         }
         .padding()
-        .navigationTitle("録音")
+        .navigationTitle(String(localized: "録音"))
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
           send(.onAppear)
         }
-        .alert("録音完了", isPresented: $store.showTitleDialog) {
-          TextField("タイトル", text: $store.tempTitle)
-          Button("保存") {
+        .alert(String(localized: "録音完了"), isPresented: $store.showTitleDialog) {
+          TextField(String(localized: "タイトル"), text: $store.tempTitle)
+          Button(String(localized: "保存")) {
             send(.saveWithTitle)
           }
-          Button("スキップ", role: .cancel) {
+          Button(String(localized: "スキップ"), role: .cancel) {
             send(.skipTitle)
           }
         } message: {
-          Text("この録音にタイトルをつけますか？")
+          Text(String(localized: "この録音にタイトルをつけますか？"))
         }
       }
     }
@@ -586,11 +586,11 @@ struct RecordingView: View {
           }
         }
       }
-      .navigationTitle(store.selectedPreset.displayName + " の設定")
+      .navigationTitle(store.selectedPreset.settingsTitle)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .confirmationAction) {
-          Button("完了") { showAudioSettings = false }
+          Button(String(localized: "完了")) { showAudioSettings = false }
         }
       }
     }
@@ -628,7 +628,7 @@ struct RecordingView: View {
 
   private var transcriptionView: some View {
     VStack(alignment: .leading, spacing: 8) {
-      Text("音声認識結果")
+      Text(String(localized: "音声認識結果"))
         .font(.headline)
         .foregroundColor(.secondary)
 
@@ -730,13 +730,13 @@ struct RecordingView: View {
   private var recordingStatusText: String {
     switch store.recordingState {
     case .idle:
-      return "録音準備完了"
+      return String(localized: "録音準備完了")
     case .recording:
-      return "録音中"
+      return String(localized: "録音中")
     case .paused:
-      return "一時停止中"
+      return String(localized: "一時停止中")
     case .encoding:
-      return "保存中..."
+      return String(localized: "保存中...")
     }
   }
 

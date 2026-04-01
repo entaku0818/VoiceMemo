@@ -151,11 +151,11 @@ struct CreatePlaylistView: View {
 
                     ToolbarItem(placement: .confirmationAction) {
                         Menu {
-                            Button("作成のみ") {
+                            Button(String(localized: "作成のみ")) {
                                 viewStore.send(.view(.createPlaylistSubmitted))
                             }
 
-                            Button("作成して音声追加") {
+                            Button(String(localized: "作成して音声追加")) {
                                 viewStore.send(.view(.createPlaylistSubmitted))
                                 // 作成後に音声選択を表示するために少し遅延
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -194,7 +194,7 @@ struct PlaylistVoiceSelectionView: View {
                 // Voice List
                 voiceList
             }
-            .navigationTitle("「\(playlistName)」に追加")
+            .navigationTitle(String(localized: "「\(playlistName)」に追加"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -212,7 +212,7 @@ struct PlaylistVoiceSelectionView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
 
-            TextField("録音を検索...", text: $searchQuery)
+            TextField(String(localized: "録音を検索..."), text: $searchQuery)
                 .textFieldStyle(.roundedBorder)
         }
         .padding(.horizontal)
@@ -234,7 +234,7 @@ struct PlaylistVoiceSelectionView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.black.opacity(0.1))
             } else if filteredVoices.isEmpty {
-                Text("録音ファイルがありません")
+                Text(String(localized: "録音ファイルがありません"))
                     .foregroundColor(.secondary)
                     .italic()
             }
@@ -275,7 +275,7 @@ struct VoiceSelectionRowForPlaylist: View {
                     .foregroundColor(.accentColor)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(voice.title.isEmpty ? "無題の録音" : voice.title)
+                    Text(voice.title.isEmpty ? String(localized: "無題の録音") : voice.title)
                         .font(.headline)
                         .lineLimit(1)
                         .foregroundColor(.primary)

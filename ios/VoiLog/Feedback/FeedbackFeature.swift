@@ -4,9 +4,17 @@ import FirebaseFunctions
 // MARK: - Feedback Category
 
 enum FeedbackCategory: String, CaseIterable {
-    case bug = "バグ報告"
-    case feature = "機能要望"
-    case other = "その他"
+    case bug = "bug"
+    case feature = "feature"
+    case other = "other"
+
+    var displayName: String {
+        switch self {
+        case .bug: return String(localized: "バグ報告")
+        case .feature: return String(localized: "機能要望")
+        case .other: return String(localized: "その他")
+        }
+    }
 }
 
 // MARK: - View
@@ -27,40 +35,40 @@ struct FeedbackFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("カテゴリ") {
-                    Picker("カテゴリ", selection: $category) {
+                Section(String(localized: "カテゴリ")) {
+                    Picker(String(localized: "カテゴリ"), selection: $category) {
                         ForEach(FeedbackCategory.allCases, id: \.self) { c in
-                            Text(c.rawValue).tag(c)
+                            Text(c.displayName).tag(c)
                         }
                     }
                     .pickerStyle(.segmented)
                 }
-                Section("内容") {
+                Section(String(localized: "内容")) {
                     TextEditor(text: $message)
                         .frame(minHeight: 120)
                 }
             }
-            .navigationTitle("フィードバック")
+            .navigationTitle(String(localized: "フィードバック"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("キャンセル") { dismiss() }
+                    Button(String(localized: "キャンセル")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     if isSending {
                         ProgressView()
                     } else {
-                        Button("送信") { submit() }
+                        Button(String(localized: "送信")) { submit() }
                             .disabled(!canSubmit)
                     }
                 }
             }
-            .alert("送信しました", isPresented: $showSuccessAlert) {
+            .alert(String(localized: "送信しました"), isPresented: $showSuccessAlert) {
                 Button("OK") { dismiss() }
             } message: {
-                Text("フィードバックありがとうございます。")
+                Text(String(localized: "フィードバックありがとうございます。"))
             }
-            .alert("送信に失敗しました", isPresented: $showErrorAlert) {
+            .alert(String(localized: "送信に失敗しました"), isPresented: $showErrorAlert) {
                 Button("OK") { }
             } message: {
                 Text(errorMessage)
