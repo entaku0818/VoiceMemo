@@ -18,9 +18,17 @@ struct EnhancedPlaylistFeature {
 
     // MARK: - Playback Modes
     enum PlaybackMode: String, CaseIterable, Equatable {
-        case sequential = "順次再生"
-        case shuffle = "シャッフル"
-        case random = "ランダム"
+        case sequential = "sequential"
+        case shuffle = "shuffle"
+        case random = "random"
+
+        var displayName: String {
+            switch self {
+            case .sequential: return String(localized: "順次再生")
+            case .shuffle: return String(localized: "シャッフル")
+            case .random: return String(localized: "ランダム")
+            }
+        }
 
         var icon: String {
             switch self {
@@ -32,9 +40,17 @@ struct EnhancedPlaylistFeature {
     }
 
     enum RepeatMode: String, CaseIterable, Equatable {
-        case off = "リピートオフ"
-        case one = "1曲リピート"
-        case all = "全曲リピート"
+        case off = "off"
+        case one = "one"
+        case all = "all"
+
+        var displayName: String {
+            switch self {
+            case .off: return String(localized: "リピートオフ")
+            case .one: return String(localized: "1曲リピート")
+            case .all: return String(localized: "全曲リピート")
+            }
+        }
 
         var icon: String {
             switch self {

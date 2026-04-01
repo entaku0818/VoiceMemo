@@ -521,7 +521,7 @@ struct RecordingView: View {
   private var audioSettingsSheet: some View {
     NavigationStack {
       List {
-        Section("プリセット") {
+        Section(String(localized: "プリセット")) {
           ForEach(RecordingPreset.allCases, id: \.self) { preset in
             Button {
               send(.presetSelected(preset))
@@ -550,16 +550,16 @@ struct RecordingView: View {
           }
         }
 
-        Section("詳細") {
+        Section(String(localized: "詳細")) {
           HStack {
-            Text("フォーマット")
+            Text(String(localized: "フォーマット"))
             Spacer()
             Text(store.selectedPreset.fileFormat.uppercased())
               .foregroundColor(.secondary)
           }
 
           HStack {
-            Text("サンプルレート")
+            Text(String(localized: "サンプルレート"))
             Spacer()
             Text(store.selectedPreset.sampleRate >= 1000
               ? String(format: "%.0f kHz", store.selectedPreset.sampleRate / 1000)
@@ -569,20 +569,20 @@ struct RecordingView: View {
         }
 
         Section {
-          Toggle("ノイズキャンセリング", isOn: Binding(
+          Toggle(String(localized: "ノイズキャンセリング"), isOn: Binding(
             get: { store.noiseCancellationEnabled },
             set: { send(.noiseCancellationToggled($0)) }
           ))
           .disabled(store.selectedPreset != .custom)
 
-          Toggle("音量の自動調整", isOn: Binding(
+          Toggle(String(localized: "音量の自動調整"), isOn: Binding(
             get: { store.autoGainControlEnabled },
             set: { send(.autoGainControlToggled($0)) }
           ))
           .disabled(store.selectedPreset != .custom)
         } footer: {
           if store.selectedPreset != .custom {
-            Text("トグルを変更するには「カスタム」を選択してください")
+            Text(String(localized: "トグルを変更するには「カスタム」を選択してください"))
           }
         }
       }

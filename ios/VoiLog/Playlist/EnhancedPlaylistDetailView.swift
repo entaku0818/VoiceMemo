@@ -150,7 +150,7 @@ struct EnhancedPlaylistDetailView: View {
             Button {
                 send(.showPlaybackModeSelection)
             } label: {
-                Label(store.playbackMode.rawValue, systemImage: store.playbackMode.icon)
+                Label(store.playbackMode.displayName, systemImage: store.playbackMode.icon)
                     .font(.caption)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
@@ -165,7 +165,7 @@ struct EnhancedPlaylistDetailView: View {
             Button {
                 send(.showRepeatModeSelection)
             } label: {
-                Label(store.repeatMode.rawValue, systemImage: store.repeatMode.icon)
+                Label(store.repeatMode.displayName, systemImage: store.repeatMode.icon)
                     .font(.caption)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
@@ -299,7 +299,7 @@ struct EnhancedPlaylistDetailView: View {
                         send(.setPlaybackMode(mode))
                     } label: {
                         HStack {
-                            Label(mode.rawValue, systemImage: mode.icon)
+                            Label(mode.displayName, systemImage: mode.icon)
                                 .foregroundColor(.primary)
 
                             Spacer()
@@ -333,7 +333,7 @@ struct EnhancedPlaylistDetailView: View {
                         send(.setRepeatMode(mode))
                     } label: {
                         HStack {
-                            Label(mode.rawValue, systemImage: mode.icon)
+                            Label(mode.displayName, systemImage: mode.icon)
                                 .foregroundColor(.primary)
 
                             Spacer()
