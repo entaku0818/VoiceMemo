@@ -1,7 +1,8 @@
-Version 1.4.4
+版本 1.4.5
 
-[Improvements]
-- Improved English localization across the entire app
-- Updated notification messages with more natural English phrasing
-- Localized all screens including Settings, Recording, and Playback
-- Various minor improvements
+[問題修復]
+- 修正了播放清單播放時關閉付費牆導致崩潰的問題
+- 修正了偶發性資料載入錯誤導致應用程式無法啟動的問題
+
+[改進]
+- 其他細節優化

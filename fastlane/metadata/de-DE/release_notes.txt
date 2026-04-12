@@ -1,7 +1,8 @@
-Version 1.4.4
+Version 1.4.5
 
-[Improvements]
-- Improved English localization across the entire app
-- Updated notification messages with more natural English phrasing
-- Localized all screens including Settings, Recording, and Playback
-- Various minor improvements
+[Fehlerbehebungen]
+- Absturz beim Schließen des Paywalls während der Playlist-Wiedergabe behoben
+- Seltenes Problem behoben, bei dem die App aufgrund eines Ladefehlers nicht startete
+
+[Verbesserungen]
+- Verschiedene kleinere Verbesserungen

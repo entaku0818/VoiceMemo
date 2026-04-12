@@ -1,7 +1,8 @@
-Version 1.4.4
+Version 1.4.5
+
+[Bug Fixes]
+- Fixed a crash that occurred when dismissing the paywall during playlist playback
+- Fixed a rare issue where the app failed to launch due to a data loading error
 
 [Improvements]
-- Improved English localization across the entire app
-- Updated notification messages with more natural English phrasing
-- Localized all screens including Settings, Recording, and Playback
 - Various minor improvements

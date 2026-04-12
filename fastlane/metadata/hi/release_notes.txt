@@ -1,7 +1,8 @@
-Version 1.4.4
+संस्करण 1.4.5
 
-[Improvements]
-- Improved English localization across the entire app
-- Updated notification messages with more natural English phrasing
-- Localized all screens including Settings, Recording, and Playback
-- Various minor improvements
+[बग फिक्स]
+- प्लेलिस्ट चलाने के दौरान paywall बंद करने पर क्रैश की समस्या ठीक की गई
+- डेटा लोडिंग त्रुटि के कारण ऐप लॉन्च न होने की दुर्लभ समस्या ठीक की गई
+
+[सुधार]
+- विभिन्न छोटे सुधार

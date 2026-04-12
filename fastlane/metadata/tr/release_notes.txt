@@ -1,7 +1,8 @@
-Version 1.4.4
+Sürüm 1.4.5
 
-[Improvements]
-- Improved English localization across the entire app
-- Updated notification messages with more natural English phrasing
-- Localized all screens including Settings, Recording, and Playback
-- Various minor improvements
+[Hata Düzeltmeleri]
+- Çalma listesi oynatılırken ödeme duvarı kapatıldığında yaşanan çökme sorunu düzeltildi
+- Uygulamanın veri yükleme hatası nedeniyle başlamadığı nadir sorun düzeltildi
+
+[İyileştirmeler]
+- Çeşitli küçük iyileştirmeler
