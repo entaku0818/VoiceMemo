@@ -1,7 +1,6 @@
-Simple Voice Recorder is an easy-to-use voice recording app that starts with just one tap. Supports high-quality audio, background recording, and a range of playback features.
+Capture meetings, lectures, and ideas instantly — just one tap to start. Background recording keeps going even when you switch apps.
 
-Recording formats: lossless PCM (WAV) and compressed AAC (M4A).
-Sample rate: 8kHz–192kHz. Bit depth: 8/16/24/32-bit.
+From language learning to interviews, VoiLog records in high-quality WAV or AAC and keeps everything organized with playlists.
 
 [Recording]
 ・High-quality WAV / AAC(M4A) recording
