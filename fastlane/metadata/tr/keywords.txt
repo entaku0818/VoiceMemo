@@ -1,1 +1,1 @@
-röportaj,toplantı,ders,podcast,transkript,not,arka plan,yüksek kalite,ses,günlük
+röportaj,toplantı,ders,podcast,transkript,not,arka plan,yüksek kalite,ses,günlük,kayıt,ses notu

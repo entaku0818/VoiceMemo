@@ -1,1 +1,1 @@
-interview,meeting,lecture,podcast,transcribe,memo,background,high quality,audio,journal
+interview,meeting,lecture,podcast,transcribe,memo,background,high quality,audio,journal,notes,voice

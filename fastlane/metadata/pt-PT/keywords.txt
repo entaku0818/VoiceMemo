@@ -1,1 +1,1 @@
-entrevista,reunião,aula,podcast,transcrever,memo,fundo,alta qualidade,áudio,diário
+entrevista,reunião,aula,podcast,transcrever,memo,fundo,alta qualidade,áudio,diário,notas,voz

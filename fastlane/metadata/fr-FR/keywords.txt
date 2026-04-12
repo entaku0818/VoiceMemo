@@ -1,1 +1,1 @@
-entretien,réunion,conférence,podcast,transcrire,mémo,arrière-plan,haute qualité,audio,journal
+entretien,réunion,conférence,podcast,transcrire,mémo,arrière-plan,haute qualité,audio,journal,notes
