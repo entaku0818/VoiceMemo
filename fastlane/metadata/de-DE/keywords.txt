@@ -1,1 +1,1 @@
-Interview,Meeting,Vorlesung,Podcast,Transkription,Memo,Hintergrund,Hochwertig,Audio,Tagebuch,Notizen,Stimme
+Interview,Meeting,Vorlesung,Podcast,Transkription,Memo,Hintergrund,Hochwertig,Audio,Tagebuch,Notizen
