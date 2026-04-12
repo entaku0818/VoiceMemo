@@ -19,9 +19,23 @@ final class CoreDataStack {
 
     private init() {
         container = NSPersistentContainer(name: "Voice")
-        container.loadPersistentStores { _, error in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+        container.loadPersistentStores { storeDescription, loadError in
+            if loadError != nil {
+                // Attempt recovery by removing the corrupted store file
+                if let storeURL = storeDescription.url {
+                    try? FileManager.default.removeItem(at: storeURL)
+                    try? FileManager.default.removeItem(at: storeURL.appendingPathExtension("shm"))
+                    try? FileManager.default.removeItem(at: storeURL.appendingPathExtension("wal"))
+                }
+            }
+        }
+        // Retry after potential recovery
+        if container.persistentStoreCoordinator.persistentStores.isEmpty {
+            container.loadPersistentStores { _, retryError in
+                if let retryError = retryError as NSError? {
+                    // Log but do not crash — app will degrade gracefully
+                    print("[CoreDataStack] Persistent store unavailable: \(retryError)")
+                }
             }
         }
         container.viewContext.automaticallyMergesChangesFromParent = true

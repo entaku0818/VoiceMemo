@@ -310,7 +310,7 @@ struct EnhancedPlaylistFeature {
 
             case let .playbackTimeUpdated(time):
                 state.currentTime = time
-                if let index = state.currentPlayingIndex {
+                if let index = state.currentPlayingIndex, index < state.voiceMemos.count {
                     state.voiceMemos[index].currentTime = time
                 }
                 return .none
