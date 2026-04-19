@@ -91,25 +91,95 @@ struct FullscreenScreenshotView: View {
     private func screenPreview(for screen: ScreenshotScreen) -> some View {
         switch screen {
         case .aiRecording:
-            MockAIRecordingView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .aiRecording),
+                subtitle: language.screenshotSubtitle(for: .aiRecording),
+                screen: .aiRecording,
+                language: language
+            ) {
+                PhoneFrameView { MockAIRecordingView(language: language) }
+            }
         case .useCase:
-            MockUseCaseView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .useCase),
+                subtitle: language.screenshotSubtitle(for: .useCase),
+                screen: .useCase,
+                language: language
+            ) {
+                PhoneFrameView { MockUseCaseView(language: language) }
+            }
         case .timestampedTranscription:
-            MockTimestampedTranscriptionView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .timestampedTranscription),
+                subtitle: language.screenshotSubtitle(for: .timestampedTranscription),
+                screen: .timestampedTranscription,
+                language: language
+            ) {
+                PhoneFrameView { MockTimestampedTranscriptionView(language: language) }
+            }
         case .recordingList:
-            MockRecordingListView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .recordingList),
+                subtitle: language.screenshotSubtitle(for: .recordingList),
+                screen: .recordingList,
+                language: language
+            ) {
+                PhoneFrameView { MockRecordingListView(language: language) }
+            }
         case .playbackList:
-            MockPlaybackListView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .playbackList),
+                subtitle: language.screenshotSubtitle(for: .playbackList),
+                screen: .playbackList,
+                language: language
+            ) {
+                PhoneFrameView { MockPlaybackListView(language: language) }
+            }
         case .backgroundRecording:
-            MockBackgroundRecordingView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .backgroundRecording),
+                subtitle: language.screenshotSubtitle(for: .backgroundRecording),
+                screen: .backgroundRecording,
+                language: language
+            ) {
+                MockBackgroundRecordingView(language: language)
+            }
         case .waveformEditor:
-            MockWaveformEditorView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .waveformEditor),
+                subtitle: language.screenshotSubtitle(for: .waveformEditor),
+                screen: .waveformEditor,
+                language: language
+            ) {
+                PhoneFrameView { MockWaveformEditorView(language: language) }
+            }
         case .playlist:
-            MockPlaylistView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .playlist),
+                subtitle: language.screenshotSubtitle(for: .playlist),
+                screen: .playlist,
+                language: language
+            ) {
+                PhoneFrameView { MockPlaylistView(language: language) }
+            }
         case .shareSheet:
-            MockShareSheetView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .shareSheet),
+                subtitle: language.screenshotSubtitle(for: .shareSheet),
+                screen: .shareSheet,
+                language: language
+            ) {
+                PhoneFrameView { MockShareSheetView(language: language) }
+            }
         case .premium:
-            MockPremiumView(language: language)
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .premium),
+                subtitle: language.screenshotSubtitle(for: .premium),
+                screen: .premium,
+                language: language
+            ) {
+                PhoneFrameView { MockPremiumView(language: language) }
+            }
         }
     }
 }
@@ -213,6 +283,23 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         case .vietnamese: return "Đang ghi"
         case .chineseSimplified: return "录音中"
         case .chineseTraditional: return "錄音中"
+        }
+    }
+
+    var lockScreenDate: String {
+        switch self {
+        case .japanese: return "4月19日(土)"
+        case .english: return "Saturday, Apr 19"
+        case .german: return "Sa., 19. Apr."
+        case .spanish: return "Sáb., 19 abr."
+        case .french: return "Sam. 19 avr."
+        case .italian: return "Sab, 19 apr"
+        case .portuguese: return "Sáb, 19 abr."
+        case .russian: return "Суб, 19 апр."
+        case .turkish: return "Cmt, 19 Nis"
+        case .vietnamese: return "T7, 19 Th4"
+        case .chineseSimplified: return "4月19日 周六"
+        case .chineseTraditional: return "4月19日 週六"
         }
     }
 
@@ -894,6 +981,318 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         }
         return index < texts.count ? texts[index] : texts[0]
     }
+
+    // MARK: - Screenshot Subtitles
+    func screenshotSubtitle(for screen: ScreenshotScreen) -> String {
+        switch screen {
+        case .recordingList:
+            switch self {
+            case .japanese: return "いつでも・どこでも手軽に"
+            case .english: return "Anytime, Anywhere"
+            case .german: return "Jederzeit und überall"
+            case .spanish: return "En cualquier momento"
+            case .french: return "N'importe où, n'importe quand"
+            case .italian: return "Sempre e ovunque"
+            case .portuguese: return "A qualquer hora e lugar"
+            case .russian: return "В любое время и месте"
+            case .turkish: return "Her zaman, her yerde"
+            case .vietnamese: return "Mọi lúc, mọi nơi"
+            case .chineseSimplified: return "随时随地轻松录音"
+            case .chineseTraditional: return "隨時隨地輕鬆錄音"
+            }
+        case .playbackList:
+            switch self {
+            case .japanese: return "録音をすぐに確認"
+            case .english: return "Review Recordings Instantly"
+            case .german: return "Aufnahmen sofort prüfen"
+            case .spanish: return "Revisa grabaciones al instante"
+            case .french: return "Réécoutez instantanément"
+            case .italian: return "Riproduci subito"
+            case .portuguese: return "Ouça gravações de imediato"
+            case .russian: return "Мгновенный просмотр записей"
+            case .turkish: return "Kayıtları anında kontrol et"
+            case .vietnamese: return "Xem lại bản ghi ngay lập tức"
+            case .chineseSimplified: return "立即回听录音"
+            case .chineseTraditional: return "立即回聽錄音"
+            }
+        case .aiRecording:
+            switch self {
+            case .japanese: return "話した内容を自動でテキスト化"
+            case .english: return "Auto Speech-to-Text Transcription"
+            case .german: return "Automatische Sprachtranskription"
+            case .spanish: return "Transcripción automática de voz"
+            case .french: return "Transcription automatique"
+            case .italian: return "Trascrizione automatica"
+            case .portuguese: return "Transcrição automática de voz"
+            case .russian: return "Автоматическая транскрипция речи"
+            case .turkish: return "Konuşmayı otomatik metne dönüştür"
+            case .vietnamese: return "Tự động chuyển giọng nói thành văn bản"
+            case .chineseSimplified: return "自动将语音转为文字"
+            case .chineseTraditional: return "自動將語音轉為文字"
+            }
+        case .timestampedTranscription:
+            switch self {
+            case .japanese: return "時刻付きで内容を確認"
+            case .english: return "Review Content with Timestamps"
+            case .german: return "Inhalt mit Zeitstempel prüfen"
+            case .spanish: return "Revisa contenido con marcas de tiempo"
+            case .french: return "Consultez avec horodatage"
+            case .italian: return "Rivedi con timestamp"
+            case .portuguese: return "Revise com marcação de tempo"
+            case .russian: return "Просмотр содержимого с метками времени"
+            case .turkish: return "Zaman damgasıyla içeriği incele"
+            case .vietnamese: return "Xem nội dung kèm dấu thời gian"
+            case .chineseSimplified: return "带时间戳查看内容"
+            case .chineseTraditional: return "帶時間戳查看內容"
+            }
+        case .backgroundRecording:
+            switch self {
+            case .japanese: return "画面を閉じても録音継続"
+            case .english: return "Continues Recording with Screen Off"
+            case .german: return "Aufnahme auch bei gesperrtem Bildschirm"
+            case .spanish: return "Graba con la pantalla apagada"
+            case .french: return "Enregistre même écran éteint"
+            case .italian: return "Registra anche con schermo spento"
+            case .portuguese: return "Grava com a tela bloqueada"
+            case .russian: return "Запись при заблокированном экране"
+            case .turkish: return "Ekran kapalıyken kayıt devam eder"
+            case .vietnamese: return "Tiếp tục ghi khi tắt màn hình"
+            case .chineseSimplified: return "关屏后仍继续录音"
+            case .chineseTraditional: return "關屏後仍繼續錄音"
+            }
+        case .waveformEditor:
+            switch self {
+            case .japanese: return "不要な部分を簡単にカット"
+            case .english: return "Easily Trim Unwanted Parts"
+            case .german: return "Überflüssige Teile einfach kürzen"
+            case .spanish: return "Recorta partes innecesarias fácilmente"
+            case .french: return "Supprimez facilement les parties inutiles"
+            case .italian: return "Ritaglia facilmente le parti non necessarie"
+            case .portuguese: return "Corte partes desnecessárias com facilidade"
+            case .russian: return "Легко удаляйте лишние фрагменты"
+            case .turkish: return "Gereksiz kısımları kolayca kırp"
+            case .vietnamese: return "Dễ dàng cắt bỏ phần không cần"
+            case .chineseSimplified: return "轻松剪掉不需要的部分"
+            case .chineseTraditional: return "輕鬆剪掉不需要的部分"
+            }
+        case .playlist:
+            switch self {
+            case .japanese: return "テーマ別に整理・管理"
+            case .english: return "Organize & Manage by Theme"
+            case .german: return "Nach Thema ordnen und verwalten"
+            case .spanish: return "Organiza y gestiona por tema"
+            case .french: return "Organisez et gérez par thème"
+            case .italian: return "Organizza e gestisci per tema"
+            case .portuguese: return "Organize e gerencie por tema"
+            case .russian: return "Организуйте и управляйте по темам"
+            case .turkish: return "Temaya göre düzenle ve yönet"
+            case .vietnamese: return "Sắp xếp và quản lý theo chủ đề"
+            case .chineseSimplified: return "按主题整理与管理"
+            case .chineseTraditional: return "按主題整理與管理"
+            }
+        case .shareSheet:
+            switch self {
+            case .japanese: return "メールやメモアプリに転送"
+            case .english: return "Share via Email or Notes App"
+            case .german: return "Per E-Mail oder Notizen teilen"
+            case .spanish: return "Envía por correo o notas"
+            case .french: return "Partagez par e-mail ou notes"
+            case .italian: return "Condividi via email o note"
+            case .portuguese: return "Compartilhe por e-mail ou notas"
+            case .russian: return "Отправьте по почте или в заметки"
+            case .turkish: return "E-posta veya not uygulamasıyla paylaş"
+            case .vietnamese: return "Chia sẻ qua email hoặc ghi chú"
+            case .chineseSimplified: return "通过邮件或备忘录分享"
+            case .chineseTraditional: return "通過郵件或備忘錄分享"
+            }
+        case .useCase:
+            switch self {
+            case .japanese: return "会議・授業・インタビューに"
+            case .english: return "For Meetings, Classes & Interviews"
+            case .german: return "Für Meetings, Kurse und Interviews"
+            case .spanish: return "Para reuniones, clases y entrevistas"
+            case .french: return "Pour réunions, cours et interviews"
+            case .italian: return "Per riunioni, lezioni e interviste"
+            case .portuguese: return "Para reuniões, aulas e entrevistas"
+            case .russian: return "Для встреч, занятий и интервью"
+            case .turkish: return "Toplantılar, dersler ve röportajlar için"
+            case .vietnamese: return "Dành cho họp, học và phỏng vấn"
+            case .chineseSimplified: return "适用于会议、授课和采访"
+            case .chineseTraditional: return "適用於會議、授課和採訪"
+            }
+        case .premium:
+            switch self {
+            case .japanese: return "広告なし・全機能アンロック"
+            case .english: return "No Ads, All Features Unlocked"
+            case .german: return "Ohne Werbung, alles freigeschaltet"
+            case .spanish: return "Sin anuncios, todo desbloqueado"
+            case .french: return "Sans pub, tout débloqué"
+            case .italian: return "Senza pubblicità, tutto sbloccato"
+            case .portuguese: return "Sem anúncios, tudo desbloqueado"
+            case .russian: return "Без рекламы, все функции открыты"
+            case .turkish: return "Reklamsız, tüm özellikler açık"
+            case .vietnamese: return "Không quảng cáo, mở khóa tất cả"
+            case .chineseSimplified: return "无广告·解锁全部功能"
+            case .chineseTraditional: return "無廣告·解鎖全部功能"
+            }
+        }
+    }
+
+    // MARK: - Screenshot Captions
+    func screenshotCaption(for screen: ScreenshotScreen) -> String {
+        switch screen {
+        case .recordingList:
+            switch self {
+            case .japanese: return "ワンタップで\n録音開始"
+            case .english: return "One Tap to\nStart Recording"
+            case .german: return "Mit einem Tap\nAufnahme starten"
+            case .spanish: return "Un toque para\nempezar a grabar"
+            case .french: return "Un tap pour\ncommencer"
+            case .italian: return "Un tap per\niniziare"
+            case .portuguese: return "Um toque para\ncomeçar a gravar"
+            case .russian: return "Одно нажатие\nдля записи"
+            case .turkish: return "Bir dokunuşla\nkaydetmeye başla"
+            case .vietnamese: return "Một chạm để\nbắt đầu ghi"
+            case .chineseSimplified: return "轻触一下\n开始录音"
+            case .chineseTraditional: return "輕觸一下\n開始錄音"
+            }
+        case .playbackList:
+            switch self {
+            case .japanese: return "録音を再生"
+            case .english: return "Play Your\nRecordings"
+            case .german: return "Aufnahmen\nwiedergeben"
+            case .spanish: return "Reproduce tus\ngrabaciones"
+            case .french: return "Lire vos\nenregistrements"
+            case .italian: return "Riproduci le\nregistrazioni"
+            case .portuguese: return "Reproduza suas\ngravações"
+            case .russian: return "Воспроизводите\nзаписи"
+            case .turkish: return "Kayıtlarınızı\noynatın"
+            case .vietnamese: return "Phát lại\nbản ghi của bạn"
+            case .chineseSimplified: return "播放您的\n录音文件"
+            case .chineseTraditional: return "播放您的\n錄音檔案"
+            }
+        case .backgroundRecording:
+            switch self {
+            case .japanese: return "バックグラウンド\nでも録音できる"
+            case .english: return "Record Even in\nBackground"
+            case .german: return "Auch im\nHintergrund aufnehmen"
+            case .spanish: return "Graba incluso en\nsegundo plano"
+            case .french: return "Enregistre même\nen arrière-plan"
+            case .italian: return "Registra anche in\nbackground"
+            case .portuguese: return "Grave mesmo em\nsegundo plano"
+            case .russian: return "Запись даже в\nфоновом режиме"
+            case .turkish: return "Arka planda bile\nkayıt yapın"
+            case .vietnamese: return "Ghi âm ngay cả\nkhi nền"
+            case .chineseSimplified: return "后台也能\n继续录音"
+            case .chineseTraditional: return "背景也能\n繼續錄音"
+            }
+        case .playlist:
+            switch self {
+            case .japanese: return "録音を\nプレイリストに"
+            case .english: return "Organize into\nPlaylists"
+            case .german: return "In Wiedergabelisten\nordnen"
+            case .spanish: return "Organiza en\nlistas de reproducción"
+            case .french: return "Organisez en\nlistes de lecture"
+            case .italian: return "Organizza in\nplaylist"
+            case .portuguese: return "Organize em\nlistas de reprodução"
+            case .russian: return "Организуйте\nв плейлисты"
+            case .turkish: return "Çalma listelerine\norganize edin"
+            case .vietnamese: return "Sắp xếp vào\ndanh sách phát"
+            case .chineseSimplified: return "整理到\n播放列表"
+            case .chineseTraditional: return "整理到\n播放列表"
+            }
+        case .waveformEditor:
+            switch self {
+            case .japanese: return "音声をかんたんに\nトリミング＆編集"
+            case .english: return "Easy Audio\nTrimming & Editing"
+            case .german: return "Audio einfach\nschneiden & bearbeiten"
+            case .spanish: return "Recorta y edita\naudio fácilmente"
+            case .french: return "Rogner et éditer\nl'audio facilement"
+            case .italian: return "Taglia e modifica\nl'audio facilmente"
+            case .portuguese: return "Corte e edite\naudio facilmente"
+            case .russian: return "Легко обрезайте\nи редактируйте аудио"
+            case .turkish: return "Sesi kolayca\nkırp ve düzenle"
+            case .vietnamese: return "Dễ dàng cắt\nvà chỉnh sửa âm thanh"
+            case .chineseSimplified: return "轻松剪辑\n音频录音"
+            case .chineseTraditional: return "輕鬆剪輯\n音訊錄音"
+            }
+        case .aiRecording:
+            switch self {
+            case .japanese: return "録音して\nすぐAI文字起こし"
+            case .english: return "Record & Transcribe\nInstantly with AI"
+            case .german: return "Aufnehmen &\nsofort transkribieren"
+            case .spanish: return "Graba y transcribe\nal instante con IA"
+            case .french: return "Enregistrez et\ntranscrivez avec l'IA"
+            case .italian: return "Registra e trascrivi\nistantaneamente con AI"
+            case .portuguese: return "Grave e transcreva\ncom IA"
+            case .russian: return "Запись и\nтранскрипция с AI"
+            case .turkish: return "Kaydet ve AI ile\nanında transkript al"
+            case .vietnamese: return "Ghi âm và\nchuyển văn bản AI"
+            case .chineseSimplified: return "录音后\nAI即刻转录"
+            case .chineseTraditional: return "錄音後\nAI即刻轉錄"
+            }
+        case .useCase:
+            switch self {
+            case .japanese: return "会議・講義・\nインタビューに"
+            case .english: return "For Meetings,\nLectures & Interviews"
+            case .german: return "Für Meetings,\nVorlesungen & Interviews"
+            case .spanish: return "Para reuniones,\nclases y entrevistas"
+            case .french: return "Pour réunions,\ncours et interviews"
+            case .italian: return "Per riunioni,\nlezioni e interviste"
+            case .portuguese: return "Para reuniões,\naulas e entrevistas"
+            case .russian: return "Для встреч,\nлекций и интервью"
+            case .turkish: return "Toplantılar, Dersler\nve Röportajlar için"
+            case .vietnamese: return "Cho họp, bài giảng\nvà phỏng vấn"
+            case .chineseSimplified: return "适用于会议\n讲座和采访"
+            case .chineseTraditional: return "適用於會議\n講座和採訪"
+            }
+        case .timestampedTranscription:
+            switch self {
+            case .japanese: return "タイムスタンプ付き\n文字起こし"
+            case .english: return "Timestamped\nTranscription"
+            case .german: return "Transkription\nmit Zeitstempel"
+            case .spanish: return "Transcripción\ncon marcas de tiempo"
+            case .french: return "Transcription\nhorodatée"
+            case .italian: return "Trascrizione\ncon timestamp"
+            case .portuguese: return "Transcrição\ncom carimbo de tempo"
+            case .russian: return "Транскрипция\nс временными метками"
+            case .turkish: return "Zaman Damgalı\nTranskript"
+            case .vietnamese: return "Phiên âm\ncó dấu thời gian"
+            case .chineseSimplified: return "带时间戳的\n文字转录"
+            case .chineseTraditional: return "帶時間戳的\n文字轉錄"
+            }
+        case .shareSheet:
+            switch self {
+            case .japanese: return "録音を\n簡単に共有"
+            case .english: return "Share Recordings\nEasily"
+            case .german: return "Aufnahmen\neinfach teilen"
+            case .spanish: return "Comparte\ngrabaciones fácilmente"
+            case .french: return "Partagez\nfacilement"
+            case .italian: return "Condividi\nfacilmente"
+            case .portuguese: return "Compartilhe\nfacilmente"
+            case .russian: return "Легко делитесь\nзаписями"
+            case .turkish: return "Kayıtları\nkolayca paylaşın"
+            case .vietnamese: return "Chia sẻ\nbản ghi dễ dàng"
+            case .chineseSimplified: return "轻松分享\n录音文件"
+            case .chineseTraditional: return "輕鬆分享\n錄音檔案"
+            }
+        case .premium:
+            switch self {
+            case .japanese: return "プレミアムで\nもっと自由に"
+            case .english: return "Go Premium\nfor More Freedom"
+            case .german: return "Premium für\nmehr Freiheit"
+            case .spanish: return "Hazte Premium\npara más libertad"
+            case .french: return "Passez Premium\npour plus de liberté"
+            case .italian: return "Vai Premium\nper più libertà"
+            case .portuguese: return "Seja Premium\npara mais liberdade"
+            case .russian: return "Перейдите на\nPremium"
+            case .turkish: return "Daha Fazlası\niçin Premium'a Geçin"
+            case .vietnamese: return "Nâng cấp Premium\ncho nhiều tự do hơn"
+            case .chineseSimplified: return "升级Premium\n获得更多自由"
+            case .chineseTraditional: return "升級Premium\n獲得更多自由"
+            }
+        }
+    }
 }
 
 // MARK: - Screenshot Screen Enum
@@ -908,6 +1307,144 @@ enum ScreenshotScreen: String, CaseIterable {
     case playlist
     case shareSheet
     case premium
+
+    var backgroundGradient: LinearGradient {
+        switch self {
+        case .recordingList, .aiRecording:
+            return LinearGradient(colors: [.blue, .purple], startPoint: .top, endPoint: .bottom)
+        case .playbackList, .timestampedTranscription:
+            return LinearGradient(colors: [.indigo, .blue], startPoint: .top, endPoint: .bottom)
+        case .waveformEditor, .shareSheet:
+            return LinearGradient(colors: [.green, Color(red: 0, green: 0.5, blue: 0.5)], startPoint: .top, endPoint: .bottom)
+        case .backgroundRecording:
+            return LinearGradient(colors: [Color(red: 0.05, green: 0.1, blue: 0.3), .blue], startPoint: .top, endPoint: .bottom)
+        case .playlist, .useCase:
+            return LinearGradient(colors: [.orange, .pink], startPoint: .top, endPoint: .bottom)
+        case .premium:
+            return LinearGradient(colors: [Color(red: 1, green: 0.84, blue: 0), .orange], startPoint: .top, endPoint: .bottom)
+        }
+    }
+}
+
+// MARK: - Screenshot Page View (Caption + Content)
+struct ScreenshotPageView<Content: View>: View {
+    let caption: String
+    let subtitle: String
+    let screen: ScreenshotScreen
+    let language: AppLanguage
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        GeometryReader { _ in
+            ZStack {
+                screen.backgroundGradient.ignoresSafeArea()
+
+                VStack(spacing: 0) {
+                    Text(caption)
+                        .font(.system(size: 40, weight: .bold))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 36)
+                        .padding(.top, 50)
+                        .padding(.bottom, 6)
+                        .frame(maxWidth: .infinity)
+
+                    Text(subtitle)
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundColor(.white.opacity(0.9))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 36)
+                        .padding(.bottom, 18)
+                        .frame(maxWidth: .infinity)
+
+                    content()
+                        .padding(.horizontal, 28)
+
+                    Spacer(minLength: 0)
+
+                    HStack(spacing: 6) {
+                        Text("🎙")
+                            .font(.system(size: 16))
+                        Text(language.appTitle)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.primary)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color.white)
+                    .clipShape(Capsule())
+                    .padding(.bottom, 40)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Phone Frame View (iPhone mockup wrapper)
+struct PhoneFrameView<Content: View>: View {
+    @ViewBuilder let content: () -> Content
+
+    private let designWidth: CGFloat = 390
+    private let designHeight: CGFloat = 844
+
+    var body: some View {
+        GeometryReader { geo in
+            let scale = geo.size.width / designWidth
+            let frameH = designHeight * scale
+
+            ZStack(alignment: .topLeading) {
+                // Phone body background + shadow
+                RoundedRectangle(cornerRadius: 44 * scale)
+                    .fill(Color.white)
+                    .shadow(color: .black.opacity(0.12), radius: 12 * scale, y: 4 * scale)
+                    .frame(width: geo.size.width, height: frameH)
+
+                // Scaled app content clipped to phone shape
+                ZStack(alignment: .topLeading) {
+                    content()
+                        .frame(width: designWidth, height: designHeight)
+                        .scaleEffect(scale, anchor: .topLeading)
+                }
+                .frame(width: geo.size.width, height: frameH, alignment: .topLeading)
+                .clipped()
+                .clipShape(RoundedRectangle(cornerRadius: 44 * scale))
+
+                // Phone border on top
+                RoundedRectangle(cornerRadius: 44 * scale)
+                    .stroke(Color.black, lineWidth: 3)
+                    .frame(width: geo.size.width, height: frameH)
+
+                // Status bar + Dynamic Island overlay
+                VStack(spacing: 0) {
+                    HStack {
+                        Text("20:53")
+                            .font(.system(size: 14 * scale, weight: .semibold))
+                        Spacer()
+                        HStack(spacing: 4 * scale) {
+                            Image(systemName: "cellularbars")
+                                .font(.system(size: 11 * scale))
+                            Image(systemName: "wifi")
+                                .font(.system(size: 11 * scale))
+                            Image(systemName: "battery.100")
+                                .font(.system(size: 11 * scale))
+                        }
+                    }
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 22 * scale)
+                    .padding(.top, 12 * scale)
+
+                    // Dynamic Island
+                    Capsule()
+                        .fill(Color.black)
+                        .frame(width: 120 * scale, height: 32 * scale)
+                        .padding(.top, 4 * scale)
+                }
+                .frame(width: geo.size.width)
+            }
+            .frame(width: geo.size.width, height: frameH)
+        }
+        .aspectRatio(designWidth / designHeight, contentMode: .fit)
+    }
 }
 
 // MARK: - Mock Recording View
@@ -1188,94 +1725,146 @@ struct MockBackgroundRecordingView: View {
     let language: AppLanguage
 
     var body: some View {
-        ZStack {
-            // Lock Screen Background
-            LinearGradient(
-                colors: [Color(red: 0.1, green: 0.1, blue: 0.15), Color(red: 0.05, green: 0.05, blue: 0.1)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+        VStack(spacing: 20) {
+            // Dynamic Island close-up — shows orange mic + waveform + timer
+            ZStack {
+                Capsule()
+                    .fill(
+                        LinearGradient(
+                            colors: [Color(white: 0.80), Color(white: 0.52), Color(white: 0.72), Color(white: 0.62)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 290, height: 84)
 
-            VStack(spacing: 0) {
-                // Status Bar Area
-                HStack {
-                    Text("9:41")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.white)
-                    Spacer()
-                    Image(systemName: "wifi")
-                        .foregroundColor(.white)
-                    Image(systemName: "battery.100")
-                        .foregroundColor(.white)
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
+                Capsule()
+                    .fill(Color.black)
+                    .frame(width: 268, height: 64)
 
-                Spacer()
-
-                // Date and Time
-                VStack(spacing: 8) {
-                    Text(language.statusBarDate)
-                        .font(.system(size: 18, weight: .medium))
-                        .foregroundColor(.white)
-
-                    Text("9:41")
-                        .font(.system(size: 76, weight: .thin))
-                        .foregroundColor(.white)
-                }
-
-                Spacer()
-
-                // Live Activity - Recording
-                VStack(spacing: 12) {
-                    HStack(spacing: 12) {
-                        // Recording indicator
-                        ZStack {
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: 40, height: 40)
-                            Image(systemName: "waveform")
-                                .foregroundColor(.white)
-                                .font(.system(size: 18))
-                        }
-
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(language.appTitle)
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(.white)
-                            Text("00:05:23")
-                                .font(.system(size: 13, weight: .medium))
-                                .foregroundColor(.white.opacity(0.7))
-                                .monospacedDigit()
-                        }
-
-                        Spacer()
-
-                        // Audio level
-                        HStack(spacing: 2) {
-                            ForEach(0..<8, id: \.self) { index in
-                                RoundedRectangle(cornerRadius: 1)
-                                    .fill(Color.green.opacity(index < 6 ? 1.0 : 0.3))
-                                    .frame(width: 3, height: CGFloat(4 + index * 2))
-                            }
+                HStack(spacing: 0) {
+                    Spacer().frame(width: 24)
+                    Image(systemName: "mic.fill")
+                        .font(.system(size: 24))
+                        .foregroundColor(.orange)
+                    Spacer().frame(width: 10)
+                    // Waveform bars
+                    HStack(alignment: .center, spacing: 2.5) {
+                        ForEach([0.45, 0.75, 1.0, 0.6, 0.85, 0.5, 0.9, 0.65], id: \.self) { h in
+                            RoundedRectangle(cornerRadius: 1.5)
+                                .fill(Color.orange.opacity(0.85))
+                                .frame(width: 3, height: CGFloat(h) * 20)
                         }
                     }
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.black.opacity(0.6))
-                            .background(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .fill(.ultraThinMaterial)
-                            )
-                    )
+                    Spacer()
+                    Text("02:47")
+                        .font(.system(size: 13, weight: .semibold, design: .monospaced))
+                        .foregroundColor(.orange)
+                    Spacer().frame(width: 16)
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 40)
+                .frame(width: 268)
             }
+            .padding(.top, 4)
+
+            // Partial iPhone showing lock screen
+            ZStack(alignment: .top) {
+                RoundedRectangle(cornerRadius: 44)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0.24, green: 0.30, blue: 0.52),
+                                Color(red: 0.12, green: 0.16, blue: 0.36)
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 44)
+                            .stroke(Color(white: 0.35), lineWidth: 2)
+                    )
+
+                VStack(alignment: .center, spacing: 0) {
+                    // Status bar
+                    HStack(spacing: 0) {
+                        HStack(spacing: 2) {
+                            Image(systemName: "cellularbars").font(.system(size: 10))
+                            Image(systemName: "wifi").font(.system(size: 10))
+                        }
+                        .foregroundColor(.white)
+                        Spacer()
+                        // Dynamic Island with mic indicator
+                        ZStack {
+                            Capsule()
+                                .fill(Color.black)
+                                .frame(width: 108, height: 30)
+                            HStack(spacing: 5) {
+                                Image(systemName: "mic.fill")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(.orange)
+                                Spacer()
+                            }
+                            .padding(.leading, 12)
+                            .frame(width: 108)
+                        }
+                        Spacer()
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 2)
+                                .stroke(Color.white.opacity(0.8), lineWidth: 1)
+                                .frame(width: 22, height: 12)
+                            HStack {
+                                RoundedRectangle(cornerRadius: 1)
+                                    .fill(Color.green)
+                                    .frame(width: 14, height: 8)
+                                Spacer()
+                            }
+                            .padding(.horizontal, 2)
+                            .frame(width: 22)
+                        }
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.top, 12)
+
+                    // Localized date
+                    Text(language.lockScreenDate)
+                        .font(.system(size: 15, weight: .regular))
+                        .foregroundColor(.white.opacity(0.85))
+                        .padding(.top, 20)
+
+                    // Large time (universally understood)
+                    Text("13:39")
+                        .font(.system(size: 88, weight: .thin))
+                        .foregroundColor(.white)
+                        .padding(.top, 2)
+
+                    Spacer()
+
+                    // Recording Live Activity banner
+                    HStack(spacing: 8) {
+                        Image(systemName: "mic.fill")
+                            .font(.system(size: 13))
+                            .foregroundColor(.orange)
+                        Text(language.recordingText)
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Text("02:47")
+                            .font(.system(size: 13, weight: .medium, design: .monospaced))
+                            .foregroundColor(.orange)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .background(Color.white.opacity(0.12))
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 310)
+            .clipped()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.bottom, 8)
     }
 }
 
@@ -2116,5 +2705,677 @@ struct MockPremiumView: View {
 // MARK: - Preview
 #Preview {
     ScreenshotPreviewView()
+}
+
+// MARK: - JA Previews
+#Preview("JA-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.japanese.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .japanese
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .japanese) }
+    }
+}
+
+#Preview("JA-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.japanese.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .japanese
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .japanese) }
+    }
+}
+
+#Preview("JA-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.japanese.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .japanese
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .japanese) }
+    }
+}
+
+#Preview("JA-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.japanese.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .japanese
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .japanese) }
+    }
+}
+
+#Preview("JA-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.japanese.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .japanese
+    ) {
+        MockBackgroundRecordingView(language: .japanese)
+    }
+}
+
+// MARK: - EN Previews
+#Preview("EN-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.english.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.english.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .english
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .english) }
+    }
+}
+
+#Preview("EN-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.english.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.english.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .english
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .english) }
+    }
+}
+
+#Preview("EN-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.english.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.english.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .english
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .english) }
+    }
+}
+
+#Preview("EN-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.english.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.english.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .english
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .english) }
+    }
+}
+
+#Preview("EN-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.english.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.english.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .english
+    ) {
+        MockBackgroundRecordingView(language: .english)
+    }
+}
+
+// MARK: - DE Previews
+#Preview("DE-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.german.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.german.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .german
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .german) }
+    }
+}
+
+#Preview("DE-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.german.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.german.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .german
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .german) }
+    }
+}
+
+#Preview("DE-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.german.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.german.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .german
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .german) }
+    }
+}
+
+#Preview("DE-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.german.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.german.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .german
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .german) }
+    }
+}
+
+#Preview("DE-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.german.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.german.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .german
+    ) {
+        MockBackgroundRecordingView(language: .german)
+    }
+}
+
+// MARK: - ES Previews
+#Preview("ES-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.spanish.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .spanish
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .spanish) }
+    }
+}
+
+#Preview("ES-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.spanish.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .spanish
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .spanish) }
+    }
+}
+
+#Preview("ES-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.spanish.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .spanish
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .spanish) }
+    }
+}
+
+#Preview("ES-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.spanish.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .spanish
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .spanish) }
+    }
+}
+
+#Preview("ES-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.spanish.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .spanish
+    ) {
+        MockBackgroundRecordingView(language: .spanish)
+    }
+}
+
+// MARK: - FR Previews
+#Preview("FR-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.french.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.french.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .french
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .french) }
+    }
+}
+
+#Preview("FR-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.french.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.french.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .french
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .french) }
+    }
+}
+
+#Preview("FR-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.french.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.french.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .french
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .french) }
+    }
+}
+
+#Preview("FR-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.french.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.french.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .french
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .french) }
+    }
+}
+
+#Preview("FR-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.french.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.french.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .french
+    ) {
+        MockBackgroundRecordingView(language: .french)
+    }
+}
+
+// MARK: - IT Previews
+#Preview("IT-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.italian.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.italian.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .italian
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .italian) }
+    }
+}
+
+#Preview("IT-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.italian.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.italian.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .italian
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .italian) }
+    }
+}
+
+#Preview("IT-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.italian.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.italian.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .italian
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .italian) }
+    }
+}
+
+#Preview("IT-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.italian.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.italian.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .italian
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .italian) }
+    }
+}
+
+#Preview("IT-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.italian.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.italian.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .italian
+    ) {
+        MockBackgroundRecordingView(language: .italian)
+    }
+}
+
+// MARK: - PT Previews
+#Preview("PT-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.portuguese.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .portuguese
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .portuguese) }
+    }
+}
+
+#Preview("PT-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.portuguese.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .portuguese
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .portuguese) }
+    }
+}
+
+#Preview("PT-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.portuguese.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .portuguese
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .portuguese) }
+    }
+}
+
+#Preview("PT-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.portuguese.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .portuguese
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .portuguese) }
+    }
+}
+
+#Preview("PT-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.portuguese.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .portuguese
+    ) {
+        MockBackgroundRecordingView(language: .portuguese)
+    }
+}
+
+// MARK: - RU Previews
+#Preview("RU-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.russian.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.russian.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .russian
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .russian) }
+    }
+}
+
+#Preview("RU-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.russian.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.russian.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .russian
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .russian) }
+    }
+}
+
+#Preview("RU-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.russian.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.russian.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .russian
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .russian) }
+    }
+}
+
+#Preview("RU-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.russian.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.russian.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .russian
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .russian) }
+    }
+}
+
+#Preview("RU-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.russian.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.russian.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .russian
+    ) {
+        MockBackgroundRecordingView(language: .russian)
+    }
+}
+
+// MARK: - TR Previews
+#Preview("TR-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.turkish.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .turkish
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .turkish) }
+    }
+}
+
+#Preview("TR-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.turkish.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .turkish
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .turkish) }
+    }
+}
+
+#Preview("TR-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.turkish.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .turkish
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .turkish) }
+    }
+}
+
+#Preview("TR-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.turkish.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .turkish
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .turkish) }
+    }
+}
+
+#Preview("TR-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.turkish.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .turkish
+    ) {
+        MockBackgroundRecordingView(language: .turkish)
+    }
+}
+
+// MARK: - VI Previews
+#Preview("VI-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.vietnamese.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .vietnamese
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .vietnamese) }
+    }
+}
+
+#Preview("VI-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.vietnamese.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .vietnamese
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .vietnamese) }
+    }
+}
+
+#Preview("VI-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.vietnamese.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .vietnamese
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .vietnamese) }
+    }
+}
+
+#Preview("VI-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.vietnamese.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .vietnamese
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .vietnamese) }
+    }
+}
+
+#Preview("VI-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.vietnamese.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .vietnamese
+    ) {
+        MockBackgroundRecordingView(language: .vietnamese)
+    }
+}
+
+// MARK: - ZH_HANS Previews
+#Preview("ZH_HANS-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .chineseSimplified
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .chineseSimplified) }
+    }
+}
+
+#Preview("ZH_HANS-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .chineseSimplified
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseSimplified) }
+    }
+}
+
+#Preview("ZH_HANS-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .chineseSimplified
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .chineseSimplified) }
+    }
+}
+
+#Preview("ZH_HANS-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .chineseSimplified
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .chineseSimplified) }
+    }
+}
+
+#Preview("ZH_HANS-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .chineseSimplified
+    ) {
+        MockBackgroundRecordingView(language: .chineseSimplified)
+    }
+}
+
+// MARK: - ZH_HANT Previews
+#Preview("ZH_HANT-aiRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .aiRecording),
+        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .aiRecording),
+        screen: .aiRecording,
+        language: .chineseTraditional
+    ) {
+        PhoneFrameView { MockAIRecordingView(language: .chineseTraditional) }
+    }
+}
+
+#Preview("ZH_HANT-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .chineseTraditional
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseTraditional) }
+    }
+}
+
+#Preview("ZH_HANT-useCase") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .useCase),
+        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .useCase),
+        screen: .useCase,
+        language: .chineseTraditional
+    ) {
+        PhoneFrameView { MockUseCaseView(language: .chineseTraditional) }
+    }
+}
+
+#Preview("ZH_HANT-recordingList") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .recordingList),
+        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .recordingList),
+        screen: .recordingList,
+        language: .chineseTraditional
+    ) {
+        PhoneFrameView { MockRecordingListView(language: .chineseTraditional) }
+    }
+}
+
+#Preview("ZH_HANT-backgroundRecording") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .backgroundRecording),
+        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .backgroundRecording),
+        screen: .backgroundRecording,
+        language: .chineseTraditional
+    ) {
+        MockBackgroundRecordingView(language: .chineseTraditional)
+    }
 }
 #endif
