@@ -161,15 +161,19 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
 
     // 音声の分割
     func splitAudio(at url: URL, atTime: Double) async throws -> [URL] {
-        // 前半部分のトリミング
-        let firstRange = 0.0...atTime
-        let firstPart = try await trimAudio(at: url, range: firstRange)
+        guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
+        }
 
-        // 後半部分のトリミング
-        let asset = AVAsset(url: url)
+        let asset = AVAsset(url: actualURL)
         let duration = try await asset.load(.duration).seconds
-        let secondRange = atTime...duration
-        let secondPart = try await trimAudio(at: url, range: secondRange)
+
+        guard atTime > 0, atTime < duration else {
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "分割ポイントが無効です（0秒または音声の終端以降）"])
+        }
+
+        let firstPart = try await trimAudio(at: url, range: 0.0...atTime)
+        let secondPart = try await trimAudio(at: url, range: atTime...duration)
 
         return [firstPart, secondPart]
     }

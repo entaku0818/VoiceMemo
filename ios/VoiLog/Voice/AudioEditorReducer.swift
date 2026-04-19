@@ -292,12 +292,11 @@ struct AudioEditorReducer: Reducer {
             return .run { [url = state.audioURL, memoID = state.memoID, newTitle] send in
                 do {
                     // 新しい音声メモとして保存
-                    let (repository, originalMemo) = MainActor.assumeIsolated {
+                    let (repository, originalMemo) = await MainActor.run {
                         let repo = VoiceMemoRepository(
                             coreDataAccessor: VoiceMemoCoredataAccessor(),
                             cloudUploader: CloudUploader()
                         )
-                        // 元の音声メモから必要なメタデータを取得
                         let memo = repo.fetch(uuid: memoID)
                         return (repo, memo)
                     }
@@ -364,8 +363,7 @@ struct AudioEditorReducer: Reducer {
                             time: 0
                         )
 
-                        // レポジトリのインサートメソッドを使用
-                        MainActor.assumeIsolated {
+                        await MainActor.run {
                             repository.insert(state: newMemoState)
                         }
                         await send(.saveCompleted(.success(newUUID)))
