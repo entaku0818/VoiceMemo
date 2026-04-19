@@ -127,11 +127,12 @@ struct AudioEditorReducer: Reducer {
             }
 
         case let .trimCompleted(result):
+            let completedOperation = state.processingOperation
             state.processingOperation = nil
 
             switch result {
             case let .success(newURL):
-                if let trim = state.processingOperation, case let .trim(startTime, endTime) = trim {
+                if let trim = completedOperation, case let .trim(startTime, endTime) = trim {
                     state.editHistory.append(.trim(startTime: startTime, endTime: endTime))
                     state.duration = endTime - startTime
                 } else if let selectedRange = state.selectedRange {
@@ -169,12 +170,13 @@ struct AudioEditorReducer: Reducer {
             }
 
         case let .splitCompleted(result):
+            let completedOperation = state.processingOperation
             state.processingOperation = nil
 
             switch result {
             case let .success(newURLs):
                 if newURLs.count >= 1 {
-                    if let split = state.processingOperation, case let .split(atTime) = split {
+                    if let split = completedOperation, case let .split(atTime) = split {
                         state.editHistory.append(.split(atTime: atTime))
                     }
                     state.audioURL = newURLs[0] // 最初の部分を現在の編集対象とする
