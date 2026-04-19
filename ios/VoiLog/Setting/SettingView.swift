@@ -25,6 +25,7 @@ struct SettingReducer {
         case dismissFeedbackForm
         case toggleDailyReminder(Bool)
         case setDailyReminderTime(Date)
+        case toggleTranscription(Bool)
         case showSupportDeveloperAlert
         case purchaseProduct
         case supported
@@ -89,6 +90,7 @@ struct SettingReducer {
             state.dailyReminderEnabled = UserDefaults.standard.bool(forKey: "DailyReminderEnabled")
             state.dailyReminderHour = UserDefaults.standard.object(forKey: "DailyReminderHour") as? Int ?? 9
             state.dailyReminderMinute = UserDefaults.standard.object(forKey: "DailyReminderMinute") as? Int ?? 0
+            state.isTranscriptionEnabled = UserDefaultsManager.shared.isTranscriptionEnabled
             return .none
         case .restorePurchases:
             return .run { send in
@@ -134,6 +136,10 @@ struct SettingReducer {
                 NotificationScheduler.shared.cancelDailyReminder()
             }
             return .none
+        case let .toggleTranscription(enabled):
+            state.isTranscriptionEnabled = enabled
+            UserDefaultsManager.shared.isTranscriptionEnabled = enabled
+            return .none
         case let .setDailyReminderTime(date):
             let hour = Calendar.current.component(.hour, from: date)
             let minute = Calendar.current.component(.minute, from: date)
@@ -162,6 +168,7 @@ struct SettingReducer {
         var dailyReminderEnabled = false
         var dailyReminderHour: Int = 9
         var dailyReminderMinute: Int = 0
+        var isTranscriptionEnabled = UserDefaultsManager.shared.isTranscriptionEnabled
         var showPurchaseConfirmAlert = false
         var showPurchaseSuccessAlert = false
         var showRestoreSuccessAlert = false
@@ -194,6 +201,7 @@ struct SettingView: View {
                 generalSection
                 purchaseSection
                 notificationSection
+                transcriptionSection
                 DeveloperAppsSectionView()
 
                 #if DEBUG
@@ -371,6 +379,16 @@ struct SettingView: View {
                     displayedComponents: .hourAndMinute
                 )
             }
+        }
+    }
+
+    @ViewBuilder
+    private var transcriptionSection: some View {
+        Section(header: Text(String(localized: "文字起こし"))) {
+            Toggle(String(localized: "文字起こし"), isOn: Binding(
+                get: { store.isTranscriptionEnabled },
+                set: { store.send(.toggleTranscription($0)) }
+            ))
         }
     }
 

@@ -160,6 +160,7 @@ struct RecordingFeature {
             .send(.delegate(.recordingCompleted(result))),
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
+              guard UserDefaultsManager.shared.isTranscriptionEnabled else { return }
               if let (text, segs) = await longRecordingAudioClient.recognizeAudio(recordingUrl) {
                 let transcription = TimestampedTranscription(segments: segs, fullText: text)
                 await send(.transcriptionCompleted(recordingId, transcription.toJSON()))
@@ -214,6 +215,7 @@ struct RecordingFeature {
             .send(.delegate(.recordingCompleted(result))),
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
+              guard UserDefaultsManager.shared.isTranscriptionEnabled else { return }
               if let (text, segs) = await longRecordingAudioClient.recognizeAudio(recordingUrl) {
                 let transcription = TimestampedTranscription(segments: segs, fullText: text)
                 await send(.transcriptionCompleted(recordingId, transcription.toJSON()))

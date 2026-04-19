@@ -143,4 +143,9 @@ class UserDefaultsManager {
         get { defaults.string(forKey: "SelectedRecordingPreset") ?? RecordingPreset.memo.rawValue }
         set { defaults.set(newValue, forKey: "SelectedRecordingPreset") }
     }
+
+    var isTranscriptionEnabled: Bool {
+        get { defaults.object(forKey: "TranscriptionEnabled") as? Bool ?? true }
+        set { defaults.set(newValue, forKey: "TranscriptionEnabled") }
+    }
 }
