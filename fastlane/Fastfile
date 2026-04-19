@@ -62,4 +62,30 @@ platform :ios do
       build_number: "latest"  # 最新のビルド番号を自動選択
     )
   end
+
+  lane :upload_metadata_only do
+    version_number = get_version_number(
+      xcodeproj: "ios/VoiLog.xcodeproj",
+      target: "VoiLog"
+    )
+    app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
+      issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
+      key_content: ENV["APP_STORE_CONNECT_API_KEY_CONTENT"]
+    )
+    deliver(
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_metadata: false,
+      app_version: version_number,
+      skip_app_version_update: true,   # 既存バージョンのメタデータを更新（新規作成しない）
+      use_live_version: true,          # 公開済みバージョンのメタデータを更新（promotional_text等）
+      submit_for_review: false,
+      automatic_release: false,
+      force: true,
+      ignore_language_directory_validation: true,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+    )
+  end
 end
