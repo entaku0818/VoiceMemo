@@ -47,6 +47,7 @@ struct AudioEditorReducer: Reducer {
         var shouldDismiss = false
     }
 
+    @CasePathable
     enum Action {
         case loadAudio
         case audioLoaded(Result<[Float], Error>)
