@@ -119,7 +119,6 @@ final class AudioEditorReducerTests: XCTestCase {
         } withDependencies: {
             $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([firstURL, secondURL]))
         }
-
         await store.send(.split) {
             $0.processingOperation = .split(atTime: 5.0)
         }
@@ -133,7 +132,8 @@ final class AudioEditorReducerTests: XCTestCase {
                 "テスト録音 (前半)"
             )
         }
-        await store.receive(\.audioLoaded) {
+        // audioLoaded は waveform 生成後に非同期で届く。simulator のスケジューラ遅延に余裕を持たせる
+        await store.receive(\.audioLoaded, timeout: .seconds(10)) {
             $0.isLoadingWaveform = false
         }
     }
