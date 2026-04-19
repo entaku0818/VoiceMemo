@@ -102,6 +102,38 @@ final class AudioEditorReducerTests: XCTestCase {
         }
     }
 
+    // MARK: - adjustVolume
+
+    /// adjustVolume 成功時に editHistory に記録される（nil順序バグの回帰テスト）
+    func testAdjustVolume_success_updatesEditHistory() async {
+        let store = TestStore(
+            initialState: AudioEditorReducer.State(
+                memoID: testID,
+                audioURL: testURL,
+                originalTitle: "テスト録音",
+                duration: 10.0,
+                selectedRange: 2.0...8.0
+            )
+        ) {
+            AudioEditorReducer()
+        } withDependencies: {
+            $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
+        }
+
+        await store.send(.adjustVolume(0.5)) {
+            $0.processingOperation = .adjustVolume(level: 0.5, range: 2.0...8.0)
+        }
+        await store.receive(\.adjustVolumeCompleted) {
+            $0.processingOperation = nil
+            $0.isEdited = true
+            $0.isLoadingWaveform = true
+            $0.editHistory = [.adjustVolume(level: 0.5, range: 2.0...8.0)]
+        }
+        await store.receive(\.audioLoaded, timeout: .seconds(10)) {
+            $0.isLoadingWaveform = false
+        }
+    }
+
     /// 正常な中間点で分割成功した場合、audioURL が更新され isEdited = true になる
     func testSplit_validMidpoint_updatesURL() async {
         let firstURL = URL(fileURLWithPath: "/tmp/first.m4a")
@@ -127,6 +159,7 @@ final class AudioEditorReducerTests: XCTestCase {
             $0.audioURL = firstURL
             $0.isEdited = true
             $0.isLoadingWaveform = true
+            $0.editHistory = [.split(atTime: 5.0)]
             $0.errorMessage = String(
                 format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。"),
                 "テスト録音 (前半)"

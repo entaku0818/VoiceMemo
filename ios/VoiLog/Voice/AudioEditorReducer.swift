@@ -215,11 +215,12 @@ struct AudioEditorReducer: Reducer {
             }
 
         case let .adjustVolumeCompleted(result):
+            let completedOperation = state.processingOperation
             state.processingOperation = nil
 
             switch result {
             case let .success(newURL):
-                if let adjustVolume = state.processingOperation, case let .adjustVolume(level, range) = adjustVolume {
+                if let adjustVolume = completedOperation, case let .adjustVolume(level, range) = adjustVolume {
                     state.editHistory.append(.adjustVolume(level: level, range: range))
                 }
                 state.audioURL = newURL
