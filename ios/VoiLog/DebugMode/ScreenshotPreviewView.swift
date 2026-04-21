@@ -117,15 +117,6 @@ struct FullscreenScreenshotView: View {
             ) {
                 PhoneFrameView { MockTimestampedTranscriptionView(language: language) }
             }
-        case .recordingList:
-            ScreenshotPageView(
-                caption: language.screenshotCaption(for: .recordingList),
-                subtitle: language.screenshotSubtitle(for: .recordingList),
-                screen: .recordingList,
-                language: language
-            ) {
-                PhoneFrameView { MockRecordingListView(language: language) }
-            }
         case .playbackList:
             ScreenshotPageView(
                 caption: language.screenshotCaption(for: .playbackList),
@@ -985,21 +976,6 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     // MARK: - Screenshot Subtitles
     func screenshotSubtitle(for screen: ScreenshotScreen) -> String {
         switch screen {
-        case .recordingList:
-            switch self {
-            case .japanese: return "いつでも・どこでも手軽に"
-            case .english: return "Anytime, Anywhere"
-            case .german: return "Jederzeit und überall"
-            case .spanish: return "En cualquier momento"
-            case .french: return "N'importe où, n'importe quand"
-            case .italian: return "Sempre e ovunque"
-            case .portuguese: return "A qualquer hora e lugar"
-            case .russian: return "В любое время и месте"
-            case .turkish: return "Her zaman, her yerde"
-            case .vietnamese: return "Mọi lúc, mọi nơi"
-            case .chineseSimplified: return "随时随地轻松录音"
-            case .chineseTraditional: return "隨時隨地輕鬆錄音"
-            }
         case .playbackList:
             switch self {
             case .japanese: return "録音をすぐに確認"
@@ -1141,21 +1117,6 @@ enum AppLanguage: String, CaseIterable, Identifiable {
     // MARK: - Screenshot Captions
     func screenshotCaption(for screen: ScreenshotScreen) -> String {
         switch screen {
-        case .recordingList:
-            switch self {
-            case .japanese: return "ワンタップで\n録音開始"
-            case .english: return "One Tap to\nStart Recording"
-            case .german: return "Mit einem Tap\nAufnahme starten"
-            case .spanish: return "Un toque para\nempezar a grabar"
-            case .french: return "Un tap pour\ncommencer"
-            case .italian: return "Un tap per\niniziare"
-            case .portuguese: return "Um toque para\ncomeçar a gravar"
-            case .russian: return "Одно нажатие\nдля записи"
-            case .turkish: return "Bir dokunuşla\nkaydetmeye başla"
-            case .vietnamese: return "Một chạm để\nbắt đầu ghi"
-            case .chineseSimplified: return "轻触一下\n开始录音"
-            case .chineseTraditional: return "輕觸一下\n開始錄音"
-            }
         case .playbackList:
             switch self {
             case .japanese: return "録音を再生"
@@ -1300,7 +1261,6 @@ enum ScreenshotScreen: String, CaseIterable {
     case aiRecording
     case useCase
     case timestampedTranscription
-    case recordingList
     case playbackList
     case backgroundRecording
     case waveformEditor
@@ -1310,7 +1270,7 @@ enum ScreenshotScreen: String, CaseIterable {
 
     var backgroundGradient: LinearGradient {
         switch self {
-        case .recordingList, .aiRecording:
+        case .aiRecording:
             return LinearGradient(colors: [.blue, .purple], startPoint: .top, endPoint: .bottom)
         case .playbackList, .timestampedTranscription:
             return LinearGradient(colors: [.indigo, .blue], startPoint: .top, endPoint: .bottom)
@@ -1337,12 +1297,12 @@ struct ScreenshotPageView<Content: View>: View {
     var body: some View {
         GeometryReader { _ in
             ZStack {
-                screen.backgroundGradient.ignoresSafeArea()
+                Color.white.ignoresSafeArea()
 
                 VStack(spacing: 0) {
                     Text(caption)
                         .font(.system(size: 40, weight: .bold))
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 36)
                         .padding(.top, 50)
@@ -1351,7 +1311,7 @@ struct ScreenshotPageView<Content: View>: View {
 
                     Text(subtitle)
                         .font(.system(size: 18, weight: .regular))
-                        .foregroundColor(.white.opacity(0.9))
+                        .foregroundColor(Color(white: 0.3))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 36)
                         .padding(.bottom, 18)
@@ -1401,7 +1361,9 @@ struct PhoneFrameView<Content: View>: View {
 
                 // Scaled app content clipped to phone shape
                 ZStack(alignment: .topLeading) {
+                    Color.white
                     content()
+                        .preferredColorScheme(.light)
                         .frame(width: designWidth, height: designHeight)
                         .scaleEffect(scale, anchor: .topLeading)
                 }
@@ -1411,7 +1373,7 @@ struct PhoneFrameView<Content: View>: View {
 
                 // Phone border on top
                 RoundedRectangle(cornerRadius: 44 * scale)
-                    .stroke(Color.black, lineWidth: 3)
+                    .stroke(Color(white: 0.75), lineWidth: 2)
                     .frame(width: geo.size.width, height: frameH)
 
                 // Status bar + Dynamic Island overlay
@@ -1429,7 +1391,7 @@ struct PhoneFrameView<Content: View>: View {
                                 .font(.system(size: 11 * scale))
                         }
                     }
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .padding(.horizontal, 22 * scale)
                     .padding(.top, 12 * scale)
 
@@ -2741,17 +2703,6 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("JA-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.japanese.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .japanese
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .japanese) }
-    }
-}
-
 #Preview("JA-backgroundRecording") {
     ScreenshotPageView(
         caption: AppLanguage.japanese.screenshotCaption(for: .backgroundRecording),
@@ -2794,17 +2745,6 @@ struct MockPremiumView: View {
         language: .english
     ) {
         PhoneFrameView { MockUseCaseView(language: .english) }
-    }
-}
-
-#Preview("EN-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.english.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.english.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .english
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .english) }
     }
 }
 
@@ -2853,17 +2793,6 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("DE-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.german.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.german.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .german
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .german) }
-    }
-}
-
 #Preview("DE-backgroundRecording") {
     ScreenshotPageView(
         caption: AppLanguage.german.screenshotCaption(for: .backgroundRecording),
@@ -2906,17 +2835,6 @@ struct MockPremiumView: View {
         language: .spanish
     ) {
         PhoneFrameView { MockUseCaseView(language: .spanish) }
-    }
-}
-
-#Preview("ES-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.spanish.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .spanish
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .spanish) }
     }
 }
 
@@ -2965,17 +2883,6 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("FR-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.french.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.french.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .french
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .french) }
-    }
-}
-
 #Preview("FR-backgroundRecording") {
     ScreenshotPageView(
         caption: AppLanguage.french.screenshotCaption(for: .backgroundRecording),
@@ -3018,17 +2925,6 @@ struct MockPremiumView: View {
         language: .italian
     ) {
         PhoneFrameView { MockUseCaseView(language: .italian) }
-    }
-}
-
-#Preview("IT-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.italian.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.italian.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .italian
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .italian) }
     }
 }
 
@@ -3077,17 +2973,6 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("PT-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.portuguese.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .portuguese
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .portuguese) }
-    }
-}
-
 #Preview("PT-backgroundRecording") {
     ScreenshotPageView(
         caption: AppLanguage.portuguese.screenshotCaption(for: .backgroundRecording),
@@ -3130,17 +3015,6 @@ struct MockPremiumView: View {
         language: .russian
     ) {
         PhoneFrameView { MockUseCaseView(language: .russian) }
-    }
-}
-
-#Preview("RU-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.russian.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.russian.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .russian
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .russian) }
     }
 }
 
@@ -3189,17 +3063,6 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("TR-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.turkish.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .turkish
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .turkish) }
-    }
-}
-
 #Preview("TR-backgroundRecording") {
     ScreenshotPageView(
         caption: AppLanguage.turkish.screenshotCaption(for: .backgroundRecording),
@@ -3242,17 +3105,6 @@ struct MockPremiumView: View {
         language: .vietnamese
     ) {
         PhoneFrameView { MockUseCaseView(language: .vietnamese) }
-    }
-}
-
-#Preview("VI-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.vietnamese.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .vietnamese
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .vietnamese) }
     }
 }
 
@@ -3301,17 +3153,6 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("ZH_HANS-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .chineseSimplified
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .chineseSimplified) }
-    }
-}
-
 #Preview("ZH_HANS-backgroundRecording") {
     ScreenshotPageView(
         caption: AppLanguage.chineseSimplified.screenshotCaption(for: .backgroundRecording),
@@ -3354,17 +3195,6 @@ struct MockPremiumView: View {
         language: .chineseTraditional
     ) {
         PhoneFrameView { MockUseCaseView(language: .chineseTraditional) }
-    }
-}
-
-#Preview("ZH_HANT-recordingList") {
-    ScreenshotPageView(
-        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .recordingList),
-        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .recordingList),
-        screen: .recordingList,
-        language: .chineseTraditional
-    ) {
-        PhoneFrameView { MockRecordingListView(language: .chineseTraditional) }
     }
 }
 

@@ -1,8 +1,8 @@
-Versione 1.4.5
+Versione 1.5.0
 
-[Correzioni di bug]
-- Risolto un crash alla chiusura del paywall durante la riproduzione della playlist
-- Risolto un problema raro che impediva l'avvio dell'app per un errore di caricamento
+[Nuove funzionalità]
+- Ripeti un brano: tocca il pulsante di ripetizione durante la riproduzione per ripetere in loop la registrazione corrente
 
 [Miglioramenti]
+- Aggiunto interruttore on/off per la trascrizione nelle Impostazioni
 - Vari miglioramenti minori

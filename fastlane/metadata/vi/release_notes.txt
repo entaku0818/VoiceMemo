@@ -1,8 +1,8 @@
-Phiên bản 1.4.5
+Phiên bản 1.5.0
 
-[Sửa lỗi]
-- Sửa lỗi crash khi đóng màn hình paywall trong khi phát playlist
-- Sửa lỗi hiếm gặp khiến ứng dụng không khởi động được
+[Tính năng mới]
+- Lặp lại một bài: nhấn nút lặp lại trong khi phát để phát vòng lại bản ghi hiện tại
 
 [Cải tiến]
-- Nhiều cải tiến nhỏ khác
+- Thêm nút bật/tắt chuyển đổi giọng nói thành văn bản trong Cài đặt
+- Các cải tiến nhỏ khác

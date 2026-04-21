@@ -1,8 +1,8 @@
-Sürüm 1.4.5
+Sürüm 1.5.0
 
-[Hata Düzeltmeleri]
-- Çalma listesi oynatılırken ödeme duvarı kapatıldığında yaşanan çökme sorunu düzeltildi
-- Uygulamanın veri yükleme hatası nedeniyle başlamadığı nadir sorun düzeltildi
+[Yeni Özellikler]
+- Bir parçayı tekrarla: Mevcut kaydı döngüye almak için oynatma sırasında tekrar düğmesine dokunun
 
 [İyileştirmeler]
+- Ayarlar'a transkripsiyon için açma/kapatma düğmesi eklendi
 - Çeşitli küçük iyileştirmeler

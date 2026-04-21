@@ -1,8 +1,8 @@
-Versión 1.4.5
+Versión 1.5.0
 
-[Correcciones de errores]
-- Corregido un fallo al cerrar el paywall durante la reproducción de listas
-- Corregido un problema poco frecuente que impedía el inicio de la app por error de carga
+[Nuevas funciones]
+- Repetición de una pista: toca el botón de repetir durante la reproducción para reproducir en bucle la grabación actual
 
 [Mejoras]
-- Varias mejoras menores
+- Se ha añadido un interruptor de activación/desactivación para la transcripción en Ajustes
+- Otras mejoras menores

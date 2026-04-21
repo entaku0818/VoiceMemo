@@ -1,8 +1,8 @@
-Version 1.4.5
+Version 1.5.0
 
-[Fehlerbehebungen]
-- Absturz beim Schließen des Paywalls während der Playlist-Wiedergabe behoben
-- Seltenes Problem behoben, bei dem die App aufgrund eines Ladefehlers nicht startete
+[Neue Funktionen]
+- Einzeltitel-Wiederholen hinzugefügt: Tippen Sie während der Wiedergabe auf die Wiederholen-Taste, um die aktuelle Aufnahme zu wiederholen
 
 [Verbesserungen]
-- Verschiedene kleinere Verbesserungen
+- Ein/Aus-Schalter für die Transkription in den Einstellungen hinzugefügt
+- Weitere kleinere Verbesserungen

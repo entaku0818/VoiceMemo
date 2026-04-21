@@ -37,6 +37,9 @@ struct PlaybackFeature {
     var abLoopStart: TimeInterval? = nil
     var abLoopEnd: TimeInterval? = nil
 
+    // Repeat
+    var isRepeatOne = false
+
     // Premium / Paywall
     var hasPurchasedPremium = false
     var showPaywall = false
@@ -138,6 +141,8 @@ struct PlaybackFeature {
       case setABPointA
       case setABPointB
       case clearABLoop
+
+      case toggleRepeatOne
     }
 
     enum DelegateAction: Equatable {
@@ -396,6 +401,10 @@ struct PlaybackFeature {
           state.abLoopStart = nil
           state.abLoopEnd = nil
           return .none
+
+        case .toggleRepeatOne:
+          state.isRepeatOne.toggle()
+          return .none
         }
 
       case let .memosLoaded(memos):
@@ -433,6 +442,9 @@ struct PlaybackFeature {
         return .none
 
       case .audioPlayerDidFinish:
+        if state.isRepeatOne, let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+          return startPlayback(url: memo.url, startTime: 0, playSpeed: state.playSpeed)
+        }
         return .send(.playbackFinished)
 
       case .audioEditor(.save):
@@ -938,6 +950,14 @@ struct PlaybackView: View {
                     .font(.caption)
                     .foregroundColor(.orange)
                 }
+              }
+
+              Button {
+                send(.toggleRepeatOne)
+              } label: {
+                Image(systemName: store.isRepeatOne ? "repeat.1" : "repeat")
+                  .font(.body)
+                  .foregroundColor(store.isRepeatOne ? .accentColor : .secondary)
               }
 
               Button {

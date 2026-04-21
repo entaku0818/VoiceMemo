@@ -1,8 +1,8 @@
-Version 1.4.5
+Version 1.5.0
 
-[Corrections de bugs]
-- Correction d'un crash lors de la fermeture du paywall pendant la lecture de playlist
-- Correction d'un problème rare empêchant le lancement de l'app en raison d'une erreur de chargement
+[Nouvelles fonctionnalités]
+- Répétition d'une piste : appuyez sur le bouton de répétition pendant la lecture pour rejouer l'enregistrement en boucle
 
 [Améliorations]
+- Ajout d'un interrupteur d'activation/désactivation pour la transcription dans les Réglages
 - Diverses améliorations mineures

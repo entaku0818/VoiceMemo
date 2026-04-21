@@ -1,8 +1,8 @@
-Version 1.4.5
+Version 1.5.0
 
-[Bug Fixes]
-- Fixed a crash that occurred when dismissing the paywall during playlist playback
-- Fixed a rare issue where the app failed to launch due to a data loading error
+[New Features]
+- Added repeat one feature: tap the repeat button during playback to loop the current recording
 
 [Improvements]
+- Added on/off toggle for transcription in Settings
 - Various minor improvements
