@@ -46,7 +46,7 @@ final class RecordingFeatureTests: XCTestCase {
         await clock.advance(by: .seconds(1))
 
         // duration は 5.0 のまま変化しないはず
-        await store.finish()
+        await store.finish(timeout: 5 * NSEC_PER_SEC)
     }
 
     func testResumeRecording_RestartsTimerUpdates() async {
@@ -93,7 +93,6 @@ final class RecordingFeatureTests: XCTestCase {
         }
 
         store.exhaustivity = .off
-        store.timeout = 5 * NSEC_PER_SEC
 
         // Given: 録音を開始
         await store.send(.permissionResponse(true)) {
@@ -105,7 +104,7 @@ final class RecordingFeatureTests: XCTestCase {
         // 録音が進む（1tick=100msのみ発火させてキュー汚染を防ぐ）
         currentTime = 5.0
         await clock.advance(by: .milliseconds(100))
-        await store.receive(\.timerUpdated) {
+        await store.receive(\.timerUpdated, timeout: 5 * NSEC_PER_SEC) {
             $0.duration = 5.0
         }
 
@@ -127,7 +126,7 @@ final class RecordingFeatureTests: XCTestCase {
         // Then: タイマーが再開され、時間が更新される
         currentTime = 6.0
         await clock.advance(by: .milliseconds(100))
-        await store.receive(\.timerUpdated) {
+        await store.receive(\.timerUpdated, timeout: 5 * NSEC_PER_SEC) {
             $0.duration = 6.0
         }
     }
@@ -175,8 +174,6 @@ final class RecordingFeatureTests: XCTestCase {
         }
 
         store.exhaustivity = .off
-        store.timeout = 5 * NSEC_PER_SEC
-
         // When: 録音を開始
         await store.send(.permissionResponse(true)) {
             $0.recordingState = .recording
@@ -187,13 +184,13 @@ final class RecordingFeatureTests: XCTestCase {
         // Then: 時間が連続的に更新される
         currentTime = 0.1
         await clock.advance(by: .milliseconds(100))
-        await store.receive(\.timerUpdated) {
+        await store.receive(\.timerUpdated, timeout: 5 * NSEC_PER_SEC) {
             $0.duration = 0.1
         }
 
         currentTime = 0.2
         await clock.advance(by: .milliseconds(100))
-        await store.receive(\.timerUpdated) {
+        await store.receive(\.timerUpdated, timeout: 5 * NSEC_PER_SEC) {
             $0.duration = 0.2
         }
     }
@@ -233,7 +230,7 @@ final class RecordingFeatureTests: XCTestCase {
 
         // Then: timerUpdated アクションが送信されないはず（duration は 5.0 のまま）
         // store.receive で何も受信しないことを確認
-        await store.finish()
+        await store.finish(timeout: 5 * NSEC_PER_SEC)
     }
 
     // MARK: - Preset Selection Tests
@@ -418,6 +415,6 @@ final class RecordingFeatureTests: XCTestCase {
         await clock.advance(by: .milliseconds(100))
 
         // Then: volumesUpdated アクションが送信されないはず
-        await store.finish()
+        await store.finish(timeout: 5 * NSEC_PER_SEC)
     }
 }

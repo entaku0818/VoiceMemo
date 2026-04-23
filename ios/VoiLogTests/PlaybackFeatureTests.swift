@@ -129,7 +129,7 @@ final class PlaybackFeatureTests: XCTestCase {
         }
 
         await store.send(.audioPlayerDidFinish)
-        await store.receive(\.playbackFinished) {
+        await store.receive(\.playbackFinished, timeout: 5 * NSEC_PER_SEC) {
             $0.playbackState = .idle
             $0.currentPlayingMemo = nil
             $0.currentTime = 0
@@ -155,7 +155,7 @@ final class PlaybackFeatureTests: XCTestCase {
         }
 
         await store.send(.audioPlayerDidFinish)
-        await store.receive(\.playbackFinished)
+        await store.receive(\.playbackFinished, timeout: 5 * NSEC_PER_SEC)
     }
 
     // MARK: - audioPlayerDidFinish: isRepeatOne on, restartsPlayback

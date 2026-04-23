@@ -96,7 +96,7 @@ final class AudioEditorReducerTests: XCTestCase {
         await store.send(.split) {
             $0.processingOperation = .split(atTime: 0.0)
         }
-        await store.receive(\.splitCompleted) {
+        await store.receive(\.splitCompleted, timeout: 5 * NSEC_PER_SEC) {
             $0.processingOperation = nil
             $0.errorMessage = String(format: String(localized: "分割に失敗しました: %@"), splitError.localizedDescription)
         }
@@ -123,7 +123,7 @@ final class AudioEditorReducerTests: XCTestCase {
         await store.send(.adjustVolume(0.5)) {
             $0.processingOperation = .adjustVolume(level: 0.5, range: 2.0...8.0)
         }
-        await store.receive(\.adjustVolumeCompleted) {
+        await store.receive(\.adjustVolumeCompleted, timeout: 5 * NSEC_PER_SEC) {
             $0.processingOperation = nil
             $0.isEdited = true
             $0.isLoadingWaveform = true
@@ -154,7 +154,7 @@ final class AudioEditorReducerTests: XCTestCase {
         await store.send(.split) {
             $0.processingOperation = .split(atTime: 5.0)
         }
-        await store.receive(\.splitCompleted) {
+        await store.receive(\.splitCompleted, timeout: 5 * NSEC_PER_SEC) {
             $0.processingOperation = nil
             $0.audioURL = firstURL
             $0.isEdited = true

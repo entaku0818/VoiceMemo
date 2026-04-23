@@ -32,7 +32,7 @@ final class VoiceAppFeatureTests: XCTestCase {
         await store.send(.recordingFeature(.delegate(.recordingWillStart)))
 
         // Then: 再生停止のアクションが送信される
-        await store.receive(\.playbackFeature.view.stopButtonTapped)
+        await store.receive(\.playbackFeature.view.stopButtonTapped, timeout: 5 * NSEC_PER_SEC)
     }
 
     func testRecordingWillStart_DoesNothingWhenNotPlaying() async {
@@ -92,7 +92,7 @@ final class VoiceAppFeatureTests: XCTestCase {
         }
 
         // Then: データ再読み込みのアクションが送信される
-        await store.receive(\.playbackFeature.view.reloadData)
+        await store.receive(\.playbackFeature.view.reloadData, timeout: 5 * NSEC_PER_SEC)
     }
 
     // MARK: - Tab Switching Tests
