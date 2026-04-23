@@ -93,6 +93,7 @@ final class RecordingFeatureTests: XCTestCase {
         }
 
         store.exhaustivity = .off
+        store.timeout = 5 * NSEC_PER_SEC
 
         // Given: 録音を開始
         await store.send(.permissionResponse(true)) {
@@ -174,6 +175,7 @@ final class RecordingFeatureTests: XCTestCase {
         }
 
         store.exhaustivity = .off
+        store.timeout = 5 * NSEC_PER_SEC
 
         // When: 録音を開始
         await store.send(.permissionResponse(true)) {

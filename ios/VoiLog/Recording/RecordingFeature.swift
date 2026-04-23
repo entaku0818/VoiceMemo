@@ -389,43 +389,18 @@ struct RecordingFeature {
         )
       )
 
-      // Timer for duration updates
-      async let durationUpdates: Void = {
+      async let timerUpdates: Void = {
         for await _ in clock.timer(interval: .milliseconds(100)) {
           let state = await longRecordingAudioClient.recordingState()
-          // 録音中のみ更新（一時停止中は更新しない）
-          switch state {
-          case .recording:
-            let currentTime = await longRecordingAudioClient.currentTime()
-            await send(.timerUpdated(currentTime))
-          case .paused:
-            // 一時停止中は時間を更新しない
-            break
-          default:
-            break
-          }
+          guard case .recording = state else { continue }
+          let currentTime = await longRecordingAudioClient.currentTime()
+          let volume = await longRecordingAudioClient.audioLevel()
+          await send(.timerUpdated(currentTime))
+          await send(.volumesUpdated(volume))
         }
       }()
 
-      // Timer for volume updates
-      async let volumeUpdates: Void = {
-        for await _ in clock.timer(interval: .milliseconds(100)) {
-          let state = await longRecordingAudioClient.recordingState()
-          // 録音中のみ音量を更新
-          switch state {
-          case .recording:
-            let volume = await longRecordingAudioClient.audioLevel()
-            await send(.volumesUpdated(volume))
-          case .paused:
-            // 一時停止中は音量を更新しない
-            break
-          default:
-            break
-          }
-        }
-      }()
-
-      _ = await (recording, durationUpdates, volumeUpdates)
+      _ = await (recording, timerUpdates)
     }
     .cancellable(id: CancelID.recording)
   }
