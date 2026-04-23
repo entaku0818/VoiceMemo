@@ -23,13 +23,16 @@ struct FeedbackFormView: View {
     @Environment(\.dismiss) var dismiss
     @State private var category: FeedbackCategory = .feature
     @State private var message: String = ""
+    @State private var email: String = ""
     @State private var isSending = false
     @State private var showSuccessAlert = false
     @State private var showErrorAlert = false
     @State private var errorMessage: String = ""
 
     private var canSubmit: Bool {
-        !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isSending
+        !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+        !isSending
     }
 
     var body: some View {
@@ -46,6 +49,12 @@ struct FeedbackFormView: View {
                 Section(String(localized: "内容")) {
                     TextEditor(text: $message)
                         .frame(minHeight: 120)
+                }
+                Section(String(localized: "メールアドレス")) {
+                    TextField(String(localized: "返信先メールアドレス"), text: $email)
+                        .keyboardType(.emailAddress)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
                 }
             }
             .navigationTitle(String(localized: "フィードバック"))
@@ -80,7 +89,7 @@ struct FeedbackFormView: View {
         isSending = true
         Task {
             do {
-                try await sendFeedback(category: category.rawValue, message: message)
+                try await sendFeedback(category: category.rawValue, message: message, email: email)
                 isSending = false
                 showSuccessAlert = true
             } catch {
@@ -92,14 +101,14 @@ struct FeedbackFormView: View {
     }
 }
 
-private func sendFeedback(category: String, message: String) async throws {
+private func sendFeedback(category: String, message: String, email: String) async throws {
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
     let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
     let osVersion = UIDevice.current.systemVersion
     let deviceModel = UIDevice.current.model
 
     let functions = Functions.functions(region: "asia-northeast1")
-    let data: [String: Any] = [
+    var data: [String: Any] = [
         "category": category,
         "message": message,
         "appVersion": appVersion,
@@ -107,6 +116,7 @@ private func sendFeedback(category: String, message: String) async throws {
         "osVersion": osVersion,
         "deviceModel": deviceModel
     ]
+    data["email"] = email
     _ = try await functions.httpsCallable("submitFeedback").call(data)
 }
 

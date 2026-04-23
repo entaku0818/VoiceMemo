@@ -11,6 +11,7 @@ const slackWebhookUrl = defineSecret("SLACK_WEBHOOK_URL");
 interface FeedbackData {
   category: string;
   message: string;
+  email?: string;
   appVersion: string;
   buildNumber: string;
   osVersion: string;
@@ -68,6 +69,11 @@ export const submitFeedback = onCall(
               value: `${data.deviceModel} / iOS ${data.osVersion}`,
               short: true,
             },
+            ...(data.email ? [{
+              title: "メールアドレス",
+              value: data.email,
+              short: true,
+            }] : []),
             {
               title: "内容",
               value: data.message,
