@@ -64,98 +64,104 @@ final class PlaybackFeatureTests: XCTestCase {
     // MARK: - toggleRepeatOne: false → true
 
     func testToggleRepeatOne_falseBecomesTrue() async {
-        let store = TestStore(initialState: PlaybackFeature.State()) {
-            PlaybackFeature()
-        } withDependencies: {
-            $0.voiceMemoRepository = mockRepository()
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
-        }
-        store.exhaustivity = .off
+        await withMainSerialExecutor {
+            let store = TestStore(initialState: PlaybackFeature.State()) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+            store.exhaustivity = .off
 
-        await store.send(.view(.toggleRepeatOne)) {
-            $0.isRepeatOne = true
+            await store.send(.view(.toggleRepeatOne)) {
+                $0.isRepeatOne = true
+            }
         }
     }
 
     // MARK: - toggleRepeatOne: true → false（独立ストアで検証）
 
     func testToggleRepeatOne_trueBecomeFalse() async {
-        // false→true にしてから false→true の逆を検証するため
-        // 同じストアで 2回トグルする
-        let store = TestStore(initialState: PlaybackFeature.State()) {
-            PlaybackFeature()
-        } withDependencies: {
-            $0.voiceMemoRepository = mockRepository()
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
-        }
-        store.exhaustivity = .off
+        await withMainSerialExecutor {
+            let store = TestStore(initialState: PlaybackFeature.State()) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+            store.exhaustivity = .off
 
-        // 1回目: false → true
-        await store.send(.view(.toggleRepeatOne)) {
-            $0.isRepeatOne = true
-        }
-        // 2回目: true → false（リグレッション: isRepeatOne がトグルできる）
-        await store.send(.view(.toggleRepeatOne)) {
-            $0.isRepeatOne = false
+            // 1回目: false → true
+            await store.send(.view(.toggleRepeatOne)) {
+                $0.isRepeatOne = true
+            }
+            // 2回目: true → false（リグレッション: isRepeatOne がトグルできる）
+            await store.send(.view(.toggleRepeatOne)) {
+                $0.isRepeatOne = false
+            }
         }
     }
 
     // MARK: - audioPlayerDidFinish: isRepeatOne off
 
     func testAudioPlayerDidFinish_repeatOneOff_sendsPlaybackFinished() async {
-        var initial = PlaybackFeature.State()
-        initial.isRepeatOne = false
-        initial.voiceMemos = [makeMemo()]
-        initial.currentPlayingMemo = testID
-        initial.playbackState = .playing
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.isRepeatOne = false
+            initial.voiceMemos = [makeMemo()]
+            initial.currentPlayingMemo = testID
+            initial.playbackState = .playing
 
-        let store = TestStore(initialState: initial) {
-            PlaybackFeature()
-        } withDependencies: {
-            $0.voiceMemoRepository = mockRepository()
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
-        }
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
 
-        await store.send(.audioPlayerDidFinish)
-        await store.receive(\.playbackFinished, timeout: 5 * NSEC_PER_SEC) {
-            $0.playbackState = .idle
-            $0.currentPlayingMemo = nil
-            $0.currentTime = 0
+            await store.send(.audioPlayerDidFinish)
+            await store.receive(\.playbackFinished) {
+                $0.playbackState = .idle
+                $0.currentPlayingMemo = nil
+                $0.currentTime = 0
+            }
         }
     }
 
     // MARK: - audioPlayerDidFinish: isRepeatOne on, no memo
 
     func testAudioPlayerDidFinish_repeatOneOn_noCurrentMemo_fallsThrough() async {
-        var initial = PlaybackFeature.State()
-        initial.isRepeatOne = true
-        // currentPlayingMemo = nil のままなのでメモが見つからず playbackFinished に落ちる
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.isRepeatOne = true
+            // currentPlayingMemo = nil のままなのでメモが見つからず playbackFinished に落ちる
 
-        let store = TestStore(initialState: initial) {
-            PlaybackFeature()
-        } withDependencies: {
-            $0.voiceMemoRepository = mockRepository()
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+
+            await store.send(.audioPlayerDidFinish)
+            await store.receive(\.playbackFinished)
         }
-
-        await store.send(.audioPlayerDidFinish)
-        await store.receive(\.playbackFinished, timeout: 5 * NSEC_PER_SEC)
     }
 
     // MARK: - audioPlayerDidFinish: isRepeatOne on, restartsPlayback

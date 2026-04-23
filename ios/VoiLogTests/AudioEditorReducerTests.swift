@@ -29,44 +29,48 @@ final class AudioEditorReducerTests: XCTestCase {
 
     /// 選択範囲が nil の場合は .split が即時エラー（effect 発行なし）
     func testSplit_noSelectionRange_showsError() async {
-        let store = TestStore(
-            initialState: AudioEditorReducer.State(
-                memoID: testID,
-                audioURL: testURL,
-                originalTitle: "テスト録音",
-                duration: 10.0,
-                selectedRange: nil
-            )
-        ) {
-            AudioEditorReducer()
-        } withDependencies: {
-            $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
-        }
+        await withMainSerialExecutor {
+            let store = TestStore(
+                initialState: AudioEditorReducer.State(
+                    memoID: testID,
+                    audioURL: testURL,
+                    originalTitle: "テスト録音",
+                    duration: 10.0,
+                    selectedRange: nil
+                )
+            ) {
+                AudioEditorReducer()
+            } withDependencies: {
+                $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
+            }
 
-        // String(localized:) でロケール非依存に reducer と同じ文字列を参照
-        await store.send(.split) {
-            $0.errorMessage = String(localized: "分割するポイントを選択してください。")
+            // String(localized:) でロケール非依存に reducer と同じ文字列を参照
+            await store.send(.split) {
+                $0.errorMessage = String(localized: "分割するポイントを選択してください。")
+            }
         }
     }
 
     /// 選択範囲が点でない（範囲選択）場合は .split が即時エラー
     func testSplit_rangeSelection_showsError() async {
-        let store = TestStore(
-            initialState: AudioEditorReducer.State(
-                memoID: testID,
-                audioURL: testURL,
-                originalTitle: "テスト録音",
-                duration: 10.0,
-                selectedRange: 2.0...5.0
-            )
-        ) {
-            AudioEditorReducer()
-        } withDependencies: {
-            $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
-        }
+        await withMainSerialExecutor {
+            let store = TestStore(
+                initialState: AudioEditorReducer.State(
+                    memoID: testID,
+                    audioURL: testURL,
+                    originalTitle: "テスト録音",
+                    duration: 10.0,
+                    selectedRange: 2.0...5.0
+                )
+            ) {
+                AudioEditorReducer()
+            } withDependencies: {
+                $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
+            }
 
-        await store.send(.split) {
-            $0.errorMessage = String(localized: "分割するポイントを選択してください。")
+            await store.send(.split) {
+                $0.errorMessage = String(localized: "分割するポイントを選択してください。")
+            }
         }
     }
 
@@ -74,31 +78,33 @@ final class AudioEditorReducerTests: XCTestCase {
 
     /// atTime=0 等で splitAudio が throw した場合、errorMessage が設定されクラッシュしない
     func testSplit_serviceThrows_setsErrorMessage() async {
-        let splitError = NSError(
-            domain: "AudioProcessing",
-            code: 1,
-            userInfo: [NSLocalizedDescriptionKey: "分割ポイントが無効です（0秒または音声の終端以降）"]
-        )
-        let store = TestStore(
-            initialState: AudioEditorReducer.State(
-                memoID: testID,
-                audioURL: testURL,
-                originalTitle: "テスト録音",
-                duration: 10.0,
-                selectedRange: 0.0...0.0
+        await withMainSerialExecutor {
+            let splitError = NSError(
+                domain: "AudioProcessing",
+                code: 1,
+                userInfo: [NSLocalizedDescriptionKey: "分割ポイントが無効です（0秒または音声の終端以降）"]
             )
-        ) {
-            AudioEditorReducer()
-        } withDependencies: {
-            $0.audioProcessingService = MockAudioProcessingService(splitResult: .failure(splitError))
-        }
+            let store = TestStore(
+                initialState: AudioEditorReducer.State(
+                    memoID: testID,
+                    audioURL: testURL,
+                    originalTitle: "テスト録音",
+                    duration: 10.0,
+                    selectedRange: 0.0...0.0
+                )
+            ) {
+                AudioEditorReducer()
+            } withDependencies: {
+                $0.audioProcessingService = MockAudioProcessingService(splitResult: .failure(splitError))
+            }
 
-        await store.send(.split) {
-            $0.processingOperation = .split(atTime: 0.0)
-        }
-        await store.receive(\.splitCompleted, timeout: 5 * NSEC_PER_SEC) {
-            $0.processingOperation = nil
-            $0.errorMessage = String(format: String(localized: "分割に失敗しました: %@"), splitError.localizedDescription)
+            await store.send(.split) {
+                $0.processingOperation = .split(atTime: 0.0)
+            }
+            await store.receive(\.splitCompleted) {
+                $0.processingOperation = nil
+                $0.errorMessage = String(format: String(localized: "分割に失敗しました: %@"), splitError.localizedDescription)
+            }
         }
     }
 
@@ -106,68 +112,71 @@ final class AudioEditorReducerTests: XCTestCase {
 
     /// adjustVolume 成功時に editHistory に記録される（nil順序バグの回帰テスト）
     func testAdjustVolume_success_updatesEditHistory() async {
-        let store = TestStore(
-            initialState: AudioEditorReducer.State(
-                memoID: testID,
-                audioURL: testURL,
-                originalTitle: "テスト録音",
-                duration: 10.0,
-                selectedRange: 2.0...8.0
-            )
-        ) {
-            AudioEditorReducer()
-        } withDependencies: {
-            $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
-        }
+        await withMainSerialExecutor {
+            let store = TestStore(
+                initialState: AudioEditorReducer.State(
+                    memoID: testID,
+                    audioURL: testURL,
+                    originalTitle: "テスト録音",
+                    duration: 10.0,
+                    selectedRange: 2.0...8.0
+                )
+            ) {
+                AudioEditorReducer()
+            } withDependencies: {
+                $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
+            }
 
-        await store.send(.adjustVolume(0.5)) {
-            $0.processingOperation = .adjustVolume(level: 0.5, range: 2.0...8.0)
-        }
-        await store.receive(\.adjustVolumeCompleted, timeout: 5 * NSEC_PER_SEC) {
-            $0.processingOperation = nil
-            $0.isEdited = true
-            $0.isLoadingWaveform = true
-            $0.editHistory = [.adjustVolume(level: 0.5, range: 2.0...8.0)]
-        }
-        await store.receive(\.audioLoaded, timeout: .seconds(10)) {
-            $0.isLoadingWaveform = false
+            await store.send(.adjustVolume(0.5)) {
+                $0.processingOperation = .adjustVolume(level: 0.5, range: 2.0...8.0)
+            }
+            await store.receive(\.adjustVolumeCompleted) {
+                $0.processingOperation = nil
+                $0.isEdited = true
+                $0.isLoadingWaveform = true
+                $0.editHistory = [.adjustVolume(level: 0.5, range: 2.0...8.0)]
+            }
+            await store.receive(\.audioLoaded) {
+                $0.isLoadingWaveform = false
+            }
         }
     }
 
     /// 正常な中間点で分割成功した場合、audioURL が更新され isEdited = true になる
     func testSplit_validMidpoint_updatesURL() async {
-        let firstURL = URL(fileURLWithPath: "/tmp/first.m4a")
-        let secondURL = URL(fileURLWithPath: "/tmp/second.m4a")
-        let store = TestStore(
-            initialState: AudioEditorReducer.State(
-                memoID: testID,
-                audioURL: testURL,
-                originalTitle: "テスト録音",
-                duration: 10.0,
-                selectedRange: 5.0...5.0
-            )
-        ) {
-            AudioEditorReducer()
-        } withDependencies: {
-            $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([firstURL, secondURL]))
-        }
-        await store.send(.split) {
-            $0.processingOperation = .split(atTime: 5.0)
-        }
-        await store.receive(\.splitCompleted, timeout: 5 * NSEC_PER_SEC) {
-            $0.processingOperation = nil
-            $0.audioURL = firstURL
-            $0.isEdited = true
-            $0.isLoadingWaveform = true
-            $0.editHistory = [.split(atTime: 5.0)]
-            $0.errorMessage = String(
-                format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。"),
-                "テスト録音 (前半)"
-            )
-        }
-        // audioLoaded は waveform 生成後に非同期で届く。simulator のスケジューラ遅延に余裕を持たせる
-        await store.receive(\.audioLoaded, timeout: .seconds(10)) {
-            $0.isLoadingWaveform = false
+        await withMainSerialExecutor {
+            let firstURL = URL(fileURLWithPath: "/tmp/first.m4a")
+            let secondURL = URL(fileURLWithPath: "/tmp/second.m4a")
+            let store = TestStore(
+                initialState: AudioEditorReducer.State(
+                    memoID: testID,
+                    audioURL: testURL,
+                    originalTitle: "テスト録音",
+                    duration: 10.0,
+                    selectedRange: 5.0...5.0
+                )
+            ) {
+                AudioEditorReducer()
+            } withDependencies: {
+                $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([firstURL, secondURL]))
+            }
+            await store.send(.split) {
+                $0.processingOperation = .split(atTime: 5.0)
+            }
+            await store.receive(\.splitCompleted) {
+                $0.processingOperation = nil
+                $0.audioURL = firstURL
+                $0.isEdited = true
+                $0.isLoadingWaveform = true
+                $0.editHistory = [.split(atTime: 5.0)]
+                $0.errorMessage = String(
+                    format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。"),
+                    "テスト録音 (前半)"
+                )
+            }
+            await store.receive(\.audioLoaded) {
+                $0.isLoadingWaveform = false
+            }
         }
     }
 }

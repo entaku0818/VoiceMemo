@@ -8,124 +8,132 @@ final class VoiceAppFeatureTests: XCTestCase {
     // MARK: - Recording Will Start Tests
 
     func testRecordingWillStart_StopsPlaybackWhenPlaying() async {
-        // Given: 再生中の状態
-        var playbackState = PlaybackFeature.State()
-        playbackState.playbackState = .playing
-        playbackState.currentPlayingMemo = UUID()
+        await withMainSerialExecutor {
+            // Given: 再生中の状態
+            var playbackState = PlaybackFeature.State()
+            playbackState.playbackState = .playing
+            playbackState.currentPlayingMemo = UUID()
 
-        let store = TestStore(
-            initialState: VoiceAppFeature.State(
-                playbackFeature: playbackState
-            )
-        ) {
-            VoiceAppFeature()
-        } withDependencies: {
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
+            let store = TestStore(
+                initialState: VoiceAppFeature.State(
+                    playbackFeature: playbackState
+                )
+            ) {
+                VoiceAppFeature()
+            } withDependencies: {
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+            store.exhaustivity = .off
+
+            // When: 録音開始のdelegateアクションを受け取る
+            await store.send(.recordingFeature(.delegate(.recordingWillStart)))
+
+            // Then: 再生停止のアクションが送信される
+            await store.receive(\.playbackFeature.view.stopButtonTapped)
         }
-        store.exhaustivity = .off
-
-        // When: 録音開始のdelegateアクションを受け取る
-        await store.send(.recordingFeature(.delegate(.recordingWillStart)))
-
-        // Then: 再生停止のアクションが送信される
-        await store.receive(\.playbackFeature.view.stopButtonTapped, timeout: 5 * NSEC_PER_SEC)
     }
 
     func testRecordingWillStart_DoesNothingWhenNotPlaying() async {
-        // Given: 再生していない状態
-        var playbackState = PlaybackFeature.State()
-        playbackState.playbackState = .idle
+        await withMainSerialExecutor {
+            // Given: 再生していない状態
+            var playbackState = PlaybackFeature.State()
+            playbackState.playbackState = .idle
 
-        let store = TestStore(
-            initialState: VoiceAppFeature.State(
-                playbackFeature: playbackState
-            )
-        ) {
-            VoiceAppFeature()
-        } withDependencies: {
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
+            let store = TestStore(
+                initialState: VoiceAppFeature.State(
+                    playbackFeature: playbackState
+                )
+            ) {
+                VoiceAppFeature()
+            } withDependencies: {
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+            store.exhaustivity = .off
+
+            // When: 録音開始のdelegateアクションを受け取る
+            await store.send(.recordingFeature(.delegate(.recordingWillStart)))
+
+            // Then: 何も起こらない（追加のアクションなし）
         }
-        store.exhaustivity = .off
-
-        // When: 録音開始のdelegateアクションを受け取る
-        await store.send(.recordingFeature(.delegate(.recordingWillStart)))
-
-        // Then: 何も起こらない（追加のアクションなし）
     }
 
     // MARK: - Recording Completed Tests
 
     func testRecordingCompleted_SwitchesToPlaybackTab() async {
-        let store = TestStore(
-            initialState: VoiceAppFeature.State(
-                selectedTab: 0  // 録音タブ
+        await withMainSerialExecutor {
+            let store = TestStore(
+                initialState: VoiceAppFeature.State(
+                    selectedTab: 0  // 録音タブ
+                )
+            ) {
+                VoiceAppFeature()
+            } withDependencies: {
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+            store.exhaustivity = .off
+
+            let result = RecordingFeature.RecordingResult(
+                url: URL(fileURLWithPath: "/test.m4a"),
+                duration: 10.0,
+                title: "Test Recording",
+                date: Date()
             )
-        ) {
-            VoiceAppFeature()
-        } withDependencies: {
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
+
+            // When: 録音完了のdelegateアクションを受け取る
+            await store.send(.recordingFeature(.delegate(.recordingCompleted(result)))) {
+                $0.selectedTab = 1  // 再生タブに切り替え
+            }
+
+            // Then: データ再読み込みのアクションが送信される
+            await store.receive(\.playbackFeature.view.reloadData)
         }
-        store.exhaustivity = .off
-
-        let result = RecordingFeature.RecordingResult(
-            url: URL(fileURLWithPath: "/test.m4a"),
-            duration: 10.0,
-            title: "Test Recording",
-            date: Date()
-        )
-
-        // When: 録音完了のdelegateアクションを受け取る
-        await store.send(.recordingFeature(.delegate(.recordingCompleted(result)))) {
-            $0.selectedTab = 1  // 再生タブに切り替え
-        }
-
-        // Then: データ再読み込みのアクションが送信される
-        await store.receive(\.playbackFeature.view.reloadData, timeout: 5 * NSEC_PER_SEC)
     }
 
     // MARK: - Tab Switching Tests
 
     func testTabSwitching_UpdatesSelectedTab() async {
-        let store = TestStore(
-            initialState: VoiceAppFeature.State(
-                selectedTab: 0
-            )
-        ) {
-            VoiceAppFeature()
-        } withDependencies: {
-            $0.audioPlayer = AudioPlayerClient(
-                play: { _, _, _, _ in true },
-                stop: { true },
-                getCurrentTime: { 0 }
-            )
-        }
-        store.exhaustivity = .off
+        await withMainSerialExecutor {
+            let store = TestStore(
+                initialState: VoiceAppFeature.State(
+                    selectedTab: 0
+                )
+            ) {
+                VoiceAppFeature()
+            } withDependencies: {
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+            store.exhaustivity = .off
 
-        // 録音タブから再生タブに切り替え
-        await store.send(.binding(.set(\.selectedTab, 1))) {
-            $0.selectedTab = 1
-        }
+            // 録音タブから再生タブに切り替え
+            await store.send(.binding(.set(\.selectedTab, 1))) {
+                $0.selectedTab = 1
+            }
 
-        // 再生タブからプレイリストタブに切り替え
-        await store.send(.binding(.set(\.selectedTab, 2))) {
-            $0.selectedTab = 2
-        }
+            // 再生タブからプレイリストタブに切り替え
+            await store.send(.binding(.set(\.selectedTab, 2))) {
+                $0.selectedTab = 2
+            }
 
-        // 設定タブに切り替え
-        await store.send(.binding(.set(\.selectedTab, 3))) {
-            $0.selectedTab = 3
+            // 設定タブに切り替え
+            await store.send(.binding(.set(\.selectedTab, 3))) {
+                $0.selectedTab = 3
+            }
         }
     }
 }
