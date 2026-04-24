@@ -1,5 +1,1 @@
-Phiên bản 1.5.1
 
-[Cải tiến]
-- Thêm trường địa chỉ email vào biểu mẫu phản hồi
-- Nhiều cải tiến nhỏ khác

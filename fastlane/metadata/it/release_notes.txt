@@ -1,5 +1,1 @@
-Versione 1.5.1
 
-[Miglioramenti]
-- Campo e-mail aggiunto al modulo di feedback
-- Vari miglioramenti minori

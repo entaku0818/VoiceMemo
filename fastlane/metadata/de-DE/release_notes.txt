@@ -1,5 +1,1 @@
-Version 1.5.1
 
-[Verbesserungen]
-- E-Mail-Adressfeld im Feedback-Formular hinzugefügt
-- Verschiedene kleinere Verbesserungen

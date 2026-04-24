@@ -1,5 +1,1 @@
-Sürüm 1.5.1
 
-[İyileştirmeler]
-- Geri bildirim formuna e-posta adresi alanı eklendi
-- Çeşitli küçük iyileştirmeler

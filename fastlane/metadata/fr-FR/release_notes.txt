@@ -1,5 +1,1 @@
-Version 1.5.1
 
-[Améliorations]
-- Champ d'adresse e-mail ajouté au formulaire de commentaires
-- Diverses améliorations mineures

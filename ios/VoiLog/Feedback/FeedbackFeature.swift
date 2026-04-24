@@ -30,9 +30,7 @@ struct FeedbackFormView: View {
     @State private var errorMessage: String = ""
 
     private var canSubmit: Bool {
-        !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-        !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-        !isSending
+        !message.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isSending
     }
 
     var body: some View {
@@ -50,7 +48,7 @@ struct FeedbackFormView: View {
                     TextEditor(text: $message)
                         .frame(minHeight: 120)
                 }
-                Section(String(localized: "メールアドレス")) {
+                Section(String(localized: "メールアドレス（任意）")) {
                     TextField(String(localized: "返信先メールアドレス"), text: $email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
