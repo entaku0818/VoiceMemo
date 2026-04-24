@@ -1,8 +1,5 @@
-Version 1.5.0
-
-[Neue Funktionen]
-- Einzeltitel-Wiederholen hinzugefügt: Tippen Sie während der Wiedergabe auf die Wiederholen-Taste, um die aktuelle Aufnahme zu wiederholen
+Version 1.5.1
 
 [Verbesserungen]
-- Ein/Aus-Schalter für die Transkription in den Einstellungen hinzugefügt
-- Weitere kleinere Verbesserungen
+- E-Mail-Adressfeld im Feedback-Formular hinzugefügt
+- Verschiedene kleinere Verbesserungen

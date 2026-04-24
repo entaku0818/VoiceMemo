@@ -1,8 +1,5 @@
-Phiên bản 1.5.0
-
-[Tính năng mới]
-- Lặp lại một bài: nhấn nút lặp lại trong khi phát để phát vòng lại bản ghi hiện tại
+Phiên bản 1.5.1
 
 [Cải tiến]
-- Thêm nút bật/tắt chuyển đổi giọng nói thành văn bản trong Cài đặt
-- Các cải tiến nhỏ khác
+- Thêm trường địa chỉ email vào biểu mẫu phản hồi
+- Nhiều cải tiến nhỏ khác

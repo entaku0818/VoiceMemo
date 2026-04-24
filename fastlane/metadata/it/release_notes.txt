@@ -1,8 +1,5 @@
-Versione 1.5.0
-
-[Nuove funzionalità]
-- Ripeti un brano: tocca il pulsante di ripetizione durante la riproduzione per ripetere in loop la registrazione corrente
+Versione 1.5.1
 
 [Miglioramenti]
-- Aggiunto interruttore on/off per la trascrizione nelle Impostazioni
+- Campo e-mail aggiunto al modulo di feedback
 - Vari miglioramenti minori

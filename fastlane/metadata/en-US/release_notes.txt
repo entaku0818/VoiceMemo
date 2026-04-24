@@ -1,8 +1,5 @@
-Version 1.5.0
-
-[New Features]
-- Added repeat one feature: tap the repeat button during playback to loop the current recording
+Version 1.5.1
 
 [Improvements]
-- Added on/off toggle for transcription in Settings
+- Added email address field to the feedback form
 - Various minor improvements

@@ -1,8 +1,5 @@
-Version 1.5.0
-
-[Nouvelles fonctionnalités]
-- Répétition d'une piste : appuyez sur le bouton de répétition pendant la lecture pour rejouer l'enregistrement en boucle
+Version 1.5.1
 
 [Améliorations]
-- Ajout d'un interrupteur d'activation/désactivation pour la transcription dans les Réglages
+- Champ d'adresse e-mail ajouté au formulaire de commentaires
 - Diverses améliorations mineures

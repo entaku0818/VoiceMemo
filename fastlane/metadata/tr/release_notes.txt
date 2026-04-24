@@ -1,8 +1,5 @@
-Sürüm 1.5.0
-
-[Yeni Özellikler]
-- Bir parçayı tekrarla: Mevcut kaydı döngüye almak için oynatma sırasında tekrar düğmesine dokunun
+Sürüm 1.5.1
 
 [İyileştirmeler]
-- Ayarlar'a transkripsiyon için açma/kapatma düğmesi eklendi
+- Geri bildirim formuna e-posta adresi alanı eklendi
 - Çeşitli küçük iyileştirmeler
