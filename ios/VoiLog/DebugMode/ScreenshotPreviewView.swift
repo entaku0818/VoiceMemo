@@ -1008,18 +1008,18 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             }
         case .timestampedTranscription:
             switch self {
-            case .japanese: return "時刻付きで内容を確認"
-            case .english: return "Review Content with Timestamps"
-            case .german: return "Inhalt mit Zeitstempel prüfen"
-            case .spanish: return "Revisa contenido con marcas de tiempo"
-            case .french: return "Consultez avec horodatage"
-            case .italian: return "Rivedi con timestamp"
-            case .portuguese: return "Revise com marcação de tempo"
-            case .russian: return "Просмотр содержимого с метками времени"
-            case .turkish: return "Zaman damgasıyla içeriği incele"
-            case .vietnamese: return "Xem nội dung kèm dấu thời gian"
-            case .chineseSimplified: return "带时间戳查看内容"
-            case .chineseTraditional: return "帶時間戳查看內容"
+            case .japanese: return "タイムスタンプ付きで振り返りも簡単"
+            case .english: return "Find key moments fast with timestamps"
+            case .german: return "Wichtige Momente per Zeitstempel finden"
+            case .spanish: return "Timestamps para encontrar momentos clave"
+            case .french: return "Horodatage pour retrouver les moments clés"
+            case .italian: return "Timestamp per ritrovare i momenti chiave"
+            case .portuguese: return "Timestamps para encontrar momentos importantes"
+            case .russian: return "Метки времени для ключевых моментов"
+            case .turkish: return "Önemli anları zaman damgasıyla bulun"
+            case .vietnamese: return "Dấu thời gian tìm lại khoảnh khắc quan trọng"
+            case .chineseSimplified: return "时间戳快速定位关键内容"
+            case .chineseTraditional: return "時間戳快速定位關鍵內容"
             }
         case .backgroundRecording:
             switch self {
@@ -1209,18 +1209,18 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             }
         case .timestampedTranscription:
             switch self {
-            case .japanese: return "タイムスタンプ付き\n文字起こし"
-            case .english: return "Timestamped\nTranscription"
-            case .german: return "Transkription\nmit Zeitstempel"
-            case .spanish: return "Transcripción\ncon marcas de tiempo"
-            case .french: return "Transcription\nhorodatée"
-            case .italian: return "Trascrizione\ncon timestamp"
-            case .portuguese: return "Transcrição\ncom carimbo de tempo"
-            case .russian: return "Транскрипция\nс временными метками"
-            case .turkish: return "Zaman Damgalı\nTranskript"
-            case .vietnamese: return "Phiên âm\ncó dấu thời gian"
-            case .chineseSimplified: return "带时间戳的\n文字转录"
-            case .chineseTraditional: return "帶時間戳的\n文字轉錄"
+            case .japanese: return "話した言葉が\nテキストに"
+            case .english: return "Voice to Text\nwith Timestamps"
+            case .german: return "Sprache zu Text\nmit Zeitstempel"
+            case .spanish: return "Voz a texto\ncon timestamps"
+            case .french: return "Voix en texte\navec horodatage"
+            case .italian: return "Voce in testo\ncon timestamp"
+            case .portuguese: return "Voz para texto\ncom timestamp"
+            case .russian: return "Речь в текст\nс метками"
+            case .turkish: return "Sesten Metne\nZaman Damgalı"
+            case .vietnamese: return "Giọng nói\nthành văn bản"
+            case .chineseSimplified: return "语音转文字\n带时间戳"
+            case .chineseTraditional: return "語音轉文字\n帶時間戳"
             }
         case .shareSheet:
             switch self {
@@ -1260,9 +1260,9 @@ enum AppLanguage: String, CaseIterable, Identifiable {
 enum ScreenshotScreen: String, CaseIterable {
     case aiRecording
     case useCase
-    case timestampedTranscription
     case playbackList
     case backgroundRecording
+    case timestampedTranscription
     case waveformEditor
     case playlist
     case shareSheet
