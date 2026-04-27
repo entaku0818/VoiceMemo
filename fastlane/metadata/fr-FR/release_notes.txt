@@ -1,1 +1,8 @@
+Version 1.5.3
 
+[Nouveau]
+· Écran de gestion des playlists ajouté aux captures App Store
+
+[Améliorations]
+· Qualité des captures App Store améliorée
+· Autres améliorations mineures

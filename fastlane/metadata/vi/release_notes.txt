@@ -1,1 +1,8 @@
+Phiên bản 1.5.3
 
+[Mới]
+· Thêm màn hình quản lý danh sách phát vào ảnh chụp App Store
+
+[Cải tiến]
+· Cải thiện chất lượng ảnh chụp màn hình App Store
+· Các cải tiến nhỏ khác

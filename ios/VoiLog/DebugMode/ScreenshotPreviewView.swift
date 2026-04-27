@@ -1305,7 +1305,7 @@ struct ScreenshotPageView<Content: View>: View {
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 36)
-                        .padding(.top, 50)
+                        .padding(.top, language == .vietnamese ? 70 : 50)
                         .padding(.bottom, 6)
                         .frame(maxWidth: .infinity)
 
@@ -1889,6 +1889,8 @@ struct MockPlaylistView: View {
                 Text(language.playlist)
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
                 Spacer()
                 Button(action: {}) {
                     Image(systemName: "plus")
@@ -1899,50 +1901,59 @@ struct MockPlaylistView: View {
             .padding(.top, 60)
             .padding(.bottom, 20)
 
-            List {
+            VStack(spacing: 0) {
                 ForEach(0..<3, id: \.self) { index in
-                    HStack(alignment: .top, spacing: 16) {
-                        // Playlist Icon
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(
-                                    LinearGradient(
-                                        colors: [playlistGradientColors(for: index).0, playlistGradientColors(for: index).1],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
+                    VStack(spacing: 0) {
+                        HStack(alignment: .top, spacing: 16) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [playlistGradientColors(for: index).0, playlistGradientColors(for: index).1],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        )
                                     )
-                                )
-                                .frame(width: 64, height: 64)
+                                    .frame(width: 64, height: 64)
 
-                            Image(systemName: "music.note.list")
-                                .font(.system(size: 28))
-                                .foregroundColor(.white)
-                        }
+                                Image(systemName: "music.note.list")
+                                    .font(.system(size: 28))
+                                    .foregroundColor(.white)
+                            }
 
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text(playlistName(for: index, language: language))
-                                .font(.headline)
-                                .foregroundColor(.primary)
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text(playlistName(for: index, language: language))
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
 
-                            Text(language.recordingCount(3 + index * 2))
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+                                Text(language.recordingCount(3 + index * 2))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
 
-                            Text(language.createdDate(index))
+                                Text(language.createdDate(index))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
 
-                        Spacer()
-
-                        Image(systemName: "chevron.right")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
+                        if index < 2 {
+                            Divider().padding(.leading, 96)
+                        }
                     }
-                    .padding(.vertical, 8)
+                    .background(Color(uiColor: .systemBackground))
                 }
             }
-            .listStyle(.plain)
+            .background(Color(uiColor: .systemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .padding(.horizontal, 16)
         }
     }
 
@@ -1956,19 +1967,53 @@ struct MockPlaylistView: View {
     }
 
     private func playlistName(for index: Int, language: AppLanguage) -> String {
-        let names: [[String]] = [
-            ["Work Meetings", "仕事の会議", "Arbeitstreffen", "Reuniones de Trabajo"],
-            ["Study Notes", "勉強メモ", "Studiennotizen", "Notas de Estudio"],
-            ["Ideas", "アイデア", "Ideen", "Ideas"]
-        ]
-        let languageIndex: Int
-        switch language {
-        case .english: languageIndex = 0
-        case .japanese: languageIndex = 1
-        case .german: languageIndex = 2
-        default: languageIndex = 0
+        switch index {
+        case 0:
+            switch language {
+            case .english: return "Work Meetings"
+            case .japanese: return "仕事の会議"
+            case .german: return "Arbeitstreffen"
+            case .spanish: return "Reuniones de trabajo"
+            case .french: return "Réunions de travail"
+            case .italian: return "Riunioni di lavoro"
+            case .portuguese: return "Reuniões de trabalho"
+            case .russian: return "Рабочие встречи"
+            case .turkish: return "İş Toplantıları"
+            case .vietnamese: return "Cuộc họp công việc"
+            case .chineseSimplified: return "工作会议"
+            case .chineseTraditional: return "工作會議"
+            }
+        case 1:
+            switch language {
+            case .english: return "Study Notes"
+            case .japanese: return "勉強メモ"
+            case .german: return "Studiennotizen"
+            case .spanish: return "Notas de estudio"
+            case .french: return "Notes d'étude"
+            case .italian: return "Note di studio"
+            case .portuguese: return "Notas de estudo"
+            case .russian: return "Учебные заметки"
+            case .turkish: return "Çalışma Notları"
+            case .vietnamese: return "Ghi chú học tập"
+            case .chineseSimplified: return "学习笔记"
+            case .chineseTraditional: return "學習筆記"
+            }
+        default:
+            switch language {
+            case .english: return "Ideas"
+            case .japanese: return "アイデア"
+            case .german: return "Ideen"
+            case .spanish: return "Ideas"
+            case .french: return "Idées"
+            case .italian: return "Idee"
+            case .portuguese: return "Ideias"
+            case .russian: return "Идеи"
+            case .turkish: return "Fikirler"
+            case .vietnamese: return "Ý tưởng"
+            case .chineseSimplified: return "创意"
+            case .chineseTraditional: return "創意"
+            }
         }
-        return names[index][min(languageIndex, names[index].count - 1)]
     }
 }
 
@@ -3097,6 +3142,139 @@ struct MockPremiumView: View {
         language: .chineseTraditional
     ) {
         MockBackgroundRecordingView(language: .chineseTraditional)
+    }
+}
+
+// MARK: - Playlist Previews (5th screenshot)
+#Preview("JA-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.japanese.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .japanese
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .japanese) }
+    }
+}
+
+#Preview("EN-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.english.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.english.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .english
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .english) }
+    }
+}
+
+#Preview("DE-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.german.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.german.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .german
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .german) }
+    }
+}
+
+#Preview("ES-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.spanish.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .spanish
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .spanish) }
+    }
+}
+
+#Preview("FR-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.french.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.french.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .french
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .french) }
+    }
+}
+
+#Preview("IT-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.italian.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.italian.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .italian
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .italian) }
+    }
+}
+
+#Preview("PT-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.portuguese.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .portuguese
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .portuguese) }
+    }
+}
+
+#Preview("RU-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.russian.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.russian.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .russian
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .russian) }
+    }
+}
+
+#Preview("TR-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.turkish.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .turkish
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .turkish) }
+    }
+}
+
+#Preview("VI-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.vietnamese.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .vietnamese
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .vietnamese) }
+    }
+}
+
+#Preview("ZH_HANS-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .chineseSimplified
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .chineseSimplified) }
+    }
+}
+
+#Preview("ZH_HANT-playlist") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .playlist),
+        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .playlist),
+        screen: .playlist,
+        language: .chineseTraditional
+    ) {
+        PhoneFrameView { MockPlaylistView(language: .chineseTraditional) }
     }
 }
 #endif

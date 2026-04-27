@@ -1,1 +1,8 @@
+Versión 1.5.3
 
+[Nuevo]
+· Pantalla de gestión de listas de reproducción añadida a las capturas de App Store
+
+[Mejoras]
+· Mejora de la calidad de las capturas de App Store
+· Otras mejoras menores

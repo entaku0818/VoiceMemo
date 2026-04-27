@@ -1,1 +1,8 @@
+Version 1.5.3
 
+[New]
+· Added playlist management screen to App Store screenshots
+
+[Improvements]
+· Improved App Store screenshot quality
+· Other minor improvements

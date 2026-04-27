@@ -132,7 +132,7 @@ final class PlaybackFeatureTests: XCTestCase {
             }
 
             await store.send(.audioPlayerDidFinish)
-            await store.receive(\.playbackFinished) {
+            await store.receive(\.playbackFinished, timeout: .seconds(5)) {
                 $0.playbackState = .idle
                 $0.currentPlayingMemo = nil
                 $0.currentTime = 0

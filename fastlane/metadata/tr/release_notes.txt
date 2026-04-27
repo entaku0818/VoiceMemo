@@ -1,1 +1,8 @@
+Sürüm 1.5.3
 
+[Yeni]
+· App Store ekran görüntülerine çalma listesi yönetim ekranı eklendi
+
+[İyileştirmeler]
+· App Store ekran görüntüsü kalitesi iyileştirildi
+· Diğer küçük iyileştirmeler
