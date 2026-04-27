@@ -63,6 +63,23 @@ platform :ios do
     )
   end
 
+  desc "Upload screenshots only to App Store Connect (no metadata, no submission)"
+  lane :upload_screenshots do
+    deliver(
+      skip_binary_upload: true,
+      skip_app_version_update: true,
+      skip_metadata: true,
+      skip_screenshots: false,
+      overwrite_screenshots: true,
+      force: true,
+      ignore_language_directory_validation: true,
+      submit_for_review: false,
+      automatic_release: false,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+    )
+  end
+
   lane :upload_metadata_only do
     version_number = get_version_number(
       xcodeproj: "ios/VoiLog.xcodeproj",
