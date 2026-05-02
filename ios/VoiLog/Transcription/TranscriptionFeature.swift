@@ -288,8 +288,17 @@ struct TranscriptionView: View {
                 Text(msg)
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                Button("再試行") { store.send(.startTapped) }
-                    .buttonStyle(.borderedProminent)
+                    .textSelection(.enabled)
+                HStack(spacing: 8) {
+                    Button("再試行") { store.send(.startTapped) }
+                        .buttonStyle(.borderedProminent)
+                    Button {
+                        UIPasteboard.general.string = msg
+                    } label: {
+                        Label("コピー", systemImage: "doc.on.doc")
+                    }
+                    .buttonStyle(.bordered)
+                }
             }
             .padding(.vertical, 12)
         }
