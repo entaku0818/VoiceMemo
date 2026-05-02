@@ -96,10 +96,11 @@ func handleUploadURL(w http.ResponseWriter, r *http.Request) {
 	blobName := fmt.Sprintf("%s/%s.%s", uid, fileID, body.Extension)
 
 	opts := &storage.SignedURLOptions{
-		Method:      "PUT",
-		Expires:     time.Now().Add(15 * time.Minute),
-		ContentType: "audio/" + body.Extension,
-		Scheme:      storage.SigningSchemeV4,
+		GoogleAccessID: getEnv("SERVICE_ACCOUNT_EMAIL", "voilog-transcription@voilog.iam.gserviceaccount.com"),
+		Method:         "PUT",
+		Expires:        time.Now().Add(15 * time.Minute),
+		ContentType:    "audio/" + body.Extension,
+		Scheme:         storage.SigningSchemeV4,
 	}
 	url, err := storageClient.Bucket(bucketName).SignedURL(blobName, opts)
 	if err != nil {
@@ -159,7 +160,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Gemini で文字起こし
-	model := geminiClient.GenerativeModel("gemini-2.0-flash")
+	model := geminiClient.GenerativeModel(getEnv("GEMINI_MODEL", "gemini-2.5-flash"))
 	prompt := fmt.Sprintf(`この音声を文字起こしして、以下のJSON形式のみを返してください。
 言語: %s
 
@@ -192,9 +193,10 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// JSONパース試行、失敗したら生テキストを返す
+	// markdown コードブロックを除去してからJSONパース
+	text = stripMarkdownFence(text)
 	var result map[string]any
-	if err := json.Unmarshal([]byte(strings.TrimSpace(text)), &result); err != nil {
+	if err := json.Unmarshal([]byte(text), &result); err != nil {
 		result = map[string]any{
 			"transcription": text,
 			"segments":      []any{},
@@ -204,6 +206,20 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
+}
+
+func stripMarkdownFence(s string) string {
+	s = strings.TrimSpace(s)
+	if strings.HasPrefix(s, "```") {
+		if idx := strings.Index(s, "\n"); idx != -1 {
+			s = s[idx+1:]
+		}
+		if strings.HasSuffix(s, "```") {
+			s = s[:len(s)-3]
+		}
+		s = strings.TrimSpace(s)
+	}
+	return s
 }
 
 func main() {
