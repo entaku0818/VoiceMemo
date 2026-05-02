@@ -99,7 +99,7 @@ func handleUploadURL(w http.ResponseWriter, r *http.Request) {
 		GoogleAccessID: getEnv("SERVICE_ACCOUNT_EMAIL", "voilog-transcription@voilog.iam.gserviceaccount.com"),
 		Method:         "PUT",
 		Expires:        time.Now().Add(15 * time.Minute),
-		ContentType:    "audio/" + body.Extension,
+		ContentType:    audioMIMEType(body.Extension),
 		Scheme:         storage.SigningSchemeV4,
 	}
 	url, err := storageClient.Bucket(bucketName).SignedURL(blobName, opts)
@@ -206,6 +206,13 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
+}
+
+func audioMIMEType(ext string) string {
+	if ext == "m4a" || ext == "mp4" {
+		return "audio/mp4"
+	}
+	return "audio/" + ext
 }
 
 func stripMarkdownFence(s string) string {
