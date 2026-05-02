@@ -50,7 +50,11 @@ func init() {
 		log.Fatalf("storage client: %v", err)
 	}
 
-	geminiClient, err = genai.NewClient(ctx, option.WithoutAuthentication())
+	geminiAPIKey := getEnv("GEMINI_API_KEY", "")
+	if geminiAPIKey == "" {
+		log.Fatal("GEMINI_API_KEY is required")
+	}
+	geminiClient, err = genai.NewClient(ctx, option.WithAPIKey(geminiAPIKey))
 	if err != nil {
 		log.Fatalf("gemini client: %v", err)
 	}
