@@ -30,6 +30,10 @@ struct PlaybackFeature {
     var audioEditorState: AudioEditorReducer.State?
     var showAudioEditor = false
 
+    // Transcription
+    var selectedMemoForTranscription: VoiceMemo.ID?
+    var showTranscriptionSheet = false
+
     // Playback speed
     var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
 
@@ -134,6 +138,10 @@ struct PlaybackFeature {
       // Audio Editor Actions
       case showAudioEditor(VoiceMemo.ID)
       case dismissAudioEditor
+
+      // Transcription
+      case showTranscription(VoiceMemo.ID)
+      case hideTranscription
 
       case onTapPlaySpeed
 
@@ -374,6 +382,16 @@ struct PlaybackFeature {
           state.audioEditorState = nil
           return .none
 
+        case let .showTranscription(memoID):
+          state.selectedMemoForTranscription = memoID
+          state.showTranscriptionSheet = true
+          return .none
+
+        case .hideTranscription:
+          state.showTranscriptionSheet = false
+          state.selectedMemoForTranscription = nil
+          return .none
+
         case .onTapPlaySpeed:
           state.playSpeed = state.playSpeed.next()
           guard state.playbackState == .playing,
@@ -596,6 +614,16 @@ struct PlaybackView: View {
           }
         }
       }
+      .sheet(isPresented: $store.showTranscriptionSheet) {
+        if let memoID = store.selectedMemoForTranscription,
+           let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
+          TranscriptionView(
+            store: Store(initialState: TranscriptionFeature.State(audioURL: memo.url)) {
+              TranscriptionFeature()
+            }
+          )
+        }
+      }
       .fullScreenCover(isPresented: $store.showAudioEditor) {
         if store.audioEditorState != nil {
           AudioEditorView(
@@ -780,6 +808,8 @@ struct PlaybackView: View {
           send(.showMemoDetails(memo.id))
         } onEditAudio: {
           send(.showAudioEditor(memo.id))
+        } onTranscribe: {
+          send(.showTranscription(memo.id))
         }
       }
     }
@@ -1037,6 +1067,7 @@ struct VoiceMemoRow: View {
   let onEditingChanged: (String) -> Void
   let onInfoTap: () -> Void
   let onEditAudio: () -> Void
+  let onTranscribe: () -> Void
 
   @State private var convertedURL: URL?
   @State private var showPCShareSheet = false
@@ -1162,6 +1193,10 @@ struct VoiceMemoRow: View {
               }
             }
             .disabled(isConverting)
+
+            Button(action: onTranscribe) {
+              Label(String(localized: "文字起こし"), systemImage: "text.bubble")
+            }
 
             Button(action: onInfoTap) {
               Label(String(localized: "詳細情報"), systemImage: "info.circle")

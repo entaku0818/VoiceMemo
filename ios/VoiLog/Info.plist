@@ -4,6 +4,8 @@
 <dict>
 	<key>ADMOB_KEY</key>
 	<string>$(ADMOB_KEY)</string>
+	<key>TRANSCRIPTION_SERVER_URL</key>
+	<string>https://voilog-transcription-950571144078.asia-northeast1.run.app</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.entaku.VoiLog.background</string>

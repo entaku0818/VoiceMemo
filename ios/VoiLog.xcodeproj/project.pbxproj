@@ -20,6 +20,7 @@
 		61D17BCE2F5BD97800FB1EAA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 61D17BCD2F5BD97800FB1EAA /* FirebaseFirestore */; };
 		61D17BD02F5BD97800FB1EAA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 61D17BCF2F5BD97800FB1EAA /* FirebaseStorage */; };
 		61D17BD22F5BD97800FB1EAA /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 61D17BD12F5BD97800FB1EAA /* FirebaseFunctions */; };
+		B78550F5C6D209E15FF72B54 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4A996C419D74D828583BD732 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,21 +71,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		61618F902DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		61618F902DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "VoiLog" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				recordActivityLiveActivity.swift,
 			);
 			target = 619799E128C34A2500169FB6 /* VoiLog */;
 		};
-		61618F912DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		61618F912DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "recordActivityExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 61458CCE2C4B939300B7107E /* recordActivityExtension */;
 		};
-		616190402DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		616190402DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLog" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -92,7 +93,7 @@
 			);
 			target = 619799E128C34A2500169FB6 /* VoiLog */;
 		};
-		616190412DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		616190412DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLogTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				data/Voice.xcdatamodeld,
@@ -102,10 +103,54 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		61618F782DF3FBD200801BB0 /* VoiLogTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VoiLogTests; sourceTree = "<group>"; };
-		61618F812DF3FBE000801BB0 /* VoiLogUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VoiLogUITests; sourceTree = "<group>"; };
-		61618F892DF3FBE100801BB0 /* recordActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (61618F902DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 61618F912DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = recordActivity; sourceTree = "<group>"; };
-		616190052DF3FC3B00801BB0 /* VoiLog */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (616190402DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 616190412DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = VoiLog; sourceTree = "<group>"; };
+		61618F782DF3FBD200801BB0 /* VoiLogTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = VoiLogTests;
+			sourceTree = "<group>";
+		};
+		61618F812DF3FBE000801BB0 /* VoiLogUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = VoiLogUITests;
+			sourceTree = "<group>";
+		};
+		61618F892DF3FBE100801BB0 /* recordActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				61618F902DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "VoiLog" target */,
+				61618F912DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "recordActivityExtension" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = recordActivity;
+			sourceTree = "<group>";
+		};
+		616190052DF3FC3B00801BB0 /* VoiLog */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				616190402DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLog" target */,
+				616190412DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLogTests" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = VoiLog;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +177,7 @@
 				61D17BD22F5BD97800FB1EAA /* FirebaseFunctions in Frameworks */,
 				61A285CB2A3608BB00BD7CB5 /* RollbarNotifier in Frameworks */,
 				61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */,
+				B78550F5C6D209E15FF72B54 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +284,7 @@
 				61D17BCD2F5BD97800FB1EAA /* FirebaseFirestore */,
 				61D17BCF2F5BD97800FB1EAA /* FirebaseStorage */,
 				61D17BD12F5BD97800FB1EAA /* FirebaseFunctions */,
+				4A996C419D74D828583BD732 /* FirebaseAuth */,
 			);
 			productName = VoiceMemo;
 			productReference = 619799E228C34A2500169FB6 /* VoiLog.app */;
@@ -951,6 +998,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4A996C419D74D828583BD732 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FirebaseAuth;
+		};
 		61979A1328C34F5C00169FB6 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 61979A1228C34F5C00169FB6 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;

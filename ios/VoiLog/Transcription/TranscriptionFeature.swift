@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import Foundation
+import FirebaseAuth
 
 // MARK: - Firebase Auth Dependency
 
@@ -11,9 +12,22 @@ struct FirebaseAuthClient {
 extension FirebaseAuthClient: DependencyKey {
     static let liveValue = FirebaseAuthClient(
         currentUserIDToken: {
-            // Firebase Anonymous Auth requires FirebaseAuth SDK to be added to the target.
-            // Until then, return an empty token — server auth is skipped in development.
-            return ""
+            if Auth.auth().currentUser == nil {
+                try await Auth.auth().signInAnonymously()
+            }
+            guard let user = Auth.auth().currentUser else {
+                throw TranscriptionError.notAuthenticated
+            }
+            return try await withCheckedThrowingContinuation { cont in
+                user.getIDToken { token, error in
+                    if let error { cont.resume(throwing: error); return }
+                    guard let token else {
+                        cont.resume(throwing: TranscriptionError.notAuthenticated)
+                        return
+                    }
+                    cont.resume(returning: token)
+                }
+            }
         }
     )
 }
