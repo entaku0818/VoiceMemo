@@ -103,3 +103,6 @@ functions/lib/
 
 # Firebase debug log
 firebase-debug.log
+
+# Go binaries
+server/transcription/voilog-transcription
