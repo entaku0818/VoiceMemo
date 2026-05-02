@@ -2285,46 +2285,51 @@ struct MockUseCaseView: View {
             .padding(.bottom, 20)
 
             VStack(spacing: 0) {
-                List {
+                VStack(spacing: 0) {
                     ForEach(0..<5) { index in
-                        HStack(spacing: 12) {
-                            // Color icon
-                            ZStack {
-                                Circle()
-                                    .fill(useCaseColors[index])
-                                    .frame(width: 36, height: 36)
-                                Image(systemName: useCaseIcons[index])
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                            }
-
-                            // Memo Info
-                            VStack(alignment: .leading, spacing: 4) {
-                                HStack {
-                                    Text(language.useCaseSampleTitle(index))
-                                        .font(.headline)
-                                        .lineLimit(1)
-                                    Spacer()
-                                    Text(useCaseDurations[index])
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                        .monospacedDigit()
-                                }
-                                HStack {
-                                    Text(language.sampleDate(index))
+                        VStack(spacing: 0) {
+                            HStack(spacing: 12) {
+                                ZStack {
+                                    Circle()
+                                        .fill(useCaseColors[index])
+                                        .frame(width: 36, height: 36)
+                                    Image(systemName: useCaseIcons[index])
                                         .font(.caption)
-                                        .foregroundColor(.secondary)
-                                    Spacer()
-                                    Image(systemName: "ellipsis.circle")
-                                        .font(.title3)
-                                        .foregroundColor(.secondary)
+                                        .foregroundColor(.white)
                                 }
+
+                                VStack(alignment: .leading, spacing: 4) {
+                                    HStack {
+                                        Text(language.useCaseSampleTitle(index))
+                                            .font(.headline)
+                                            .lineLimit(1)
+                                        Spacer()
+                                        Text(useCaseDurations[index])
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                            .monospacedDigit()
+                                    }
+                                    HStack {
+                                        Text(language.sampleDate(index))
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                        Spacer()
+                                        Image(systemName: "ellipsis.circle")
+                                            .font(.title3)
+                                            .foregroundColor(.secondary)
+                                    }
+                                }
+                            }
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 16)
+
+                            if index < 4 {
+                                Divider().padding(.leading, 64)
                             }
                         }
-                        .padding(.vertical, 4)
                     }
                 }
-                .listStyle(.plain)
+                .background(Color(.systemBackground))
 
                 // Mini player
                 VStack(spacing: 0) {
