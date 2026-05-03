@@ -27,6 +27,34 @@ final class ScreenshotRenderTests: XCTestCase {
         try? FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
     }
 
+    func testRenderAIRecordingScreenshots() throws {
+        for (language, code) in languages {
+            let view = ScreenshotPageView(
+                caption: language.screenshotCaption(for: .aiRecording),
+                subtitle: language.screenshotSubtitle(for: .aiRecording),
+                screen: .aiRecording,
+                language: language
+            ) {
+                PhoneFrameView { MockAIRecordingView(language: language) }
+            }
+            try renderAndSave(view: view, filename: "\(code)_00_airecording.png")
+        }
+    }
+
+    func testRenderPlaybackListScreenshots() throws {
+        for (language, code) in languages {
+            let view = ScreenshotPageView(
+                caption: language.screenshotCaption(for: .playbackList),
+                subtitle: language.screenshotSubtitle(for: .playbackList),
+                screen: .playbackList,
+                language: language
+            ) {
+                PhoneFrameView { MockPlaybackListView(language: language) }
+            }
+            try renderAndSave(view: view, filename: "\(code)_01_playbacklist.png")
+        }
+    }
+
     func testRenderPlaylistScreenshots() throws {
         for (language, code) in languages {
             let view = ScreenshotPageView(
@@ -38,6 +66,34 @@ final class ScreenshotRenderTests: XCTestCase {
                 PhoneFrameView { MockPlaylistView(language: language) }
             }
             try renderAndSave(view: view, filename: "\(code)_05_playlist.png")
+        }
+    }
+
+    func testRenderWaveformEditorScreenshots() throws {
+        for (language, code) in languages {
+            let view = ScreenshotPageView(
+                caption: language.screenshotCaption(for: .waveformEditor),
+                subtitle: language.screenshotSubtitle(for: .waveformEditor),
+                screen: .waveformEditor,
+                language: language
+            ) {
+                PhoneFrameView { MockWaveformEditorView(language: language) }
+            }
+            try renderAndSave(view: view, filename: "\(code)_03_waveformeditor.png")
+        }
+    }
+
+    func testRenderBackgroundRecordingScreenshots() throws {
+        for (language, code) in languages {
+            let view = ScreenshotPageView(
+                caption: language.screenshotCaption(for: .backgroundRecording),
+                subtitle: language.screenshotSubtitle(for: .backgroundRecording),
+                screen: .backgroundRecording,
+                language: language
+            ) {
+                MockBackgroundRecordingView(language: language)
+            }
+            try renderAndSave(view: view, filename: "\(code)_04_backgroundrecording.png")
         }
     }
 
