@@ -2148,16 +2148,12 @@ struct MockUseCaseView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Title and Toolbar
+            // Title
             HStack {
                 Text(language.recordingFiles)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "icloud.and.arrow.up")
-                        .font(.title3)
-                }
             }
             .padding(.horizontal)
             .padding(.top, 60)
@@ -2259,6 +2255,7 @@ struct MockUseCaseView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
 
