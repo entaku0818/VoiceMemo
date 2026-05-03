@@ -56,6 +56,7 @@ final class PlaybackFeatureTests: XCTestCase {
             delete: { _ in },
             update: { _ in },
             updateTitle: { _, _ in },
+            updateTags: { _, _ in },
             syncToCloud: { true },
             checkForDifferences: { false }
         )

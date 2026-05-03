@@ -85,6 +85,7 @@ final class RecordingFeatureTests: XCTestCase {
                     delete: { _ in },
                     update: { _ in },
                     updateTitle: { _, _ in },
+                    updateTags: { _, _ in },
                     syncToCloud: { true },
                     checkForDifferences: { false }
                 )
@@ -168,6 +169,7 @@ final class RecordingFeatureTests: XCTestCase {
                     delete: { _ in },
                     update: { _ in },
                     updateTitle: { _, _ in },
+                    updateTags: { _, _ in },
                     syncToCloud: { true },
                     checkForDifferences: { false }
                 )
