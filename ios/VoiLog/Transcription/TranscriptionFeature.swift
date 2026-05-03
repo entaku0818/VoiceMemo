@@ -242,139 +242,182 @@ struct TranscriptionFeature {
 
 struct TranscriptionView: View {
     @Perception.Bindable var store: StoreOf<TranscriptionFeature>
+    var onSaved: ((String) -> Void)?
+    var onDismiss: (() -> Void)?
+
+    @State private var showShareSheet = false
+    @State private var shareText = ""
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    statusSection
-                    if let result = store.result {
-                        resultSection(result)
-                    }
-                }
-                .padding()
-            }
-            .navigationTitle("文字起こし")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                if store.status == .idle {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("開始") { store.send(.startTapped) }
-                    }
-                }
+            Group {
                 if case .done = store.status, let result = store.result {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("保存") {
-                            store.send(.delegate(.transcriptionSaved(text: result.transcription)))
+                    resultView(result)
+                } else {
+                    statusView
+                }
+            }
+            .navigationTitle(String(localized: "文字起こし"))
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        onDismiss?()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    if store.status == .idle {
+                        Button(String(localized: "開始")) { store.send(.startTapped) }
+                            .fontWeight(.semibold)
+                    } else if case .done = store.status, let result = store.result {
+                        HStack(spacing: 16) {
+                            Button {
+                                shareText = result.transcription
+                                showShareSheet = true
+                            } label: {
+                                Image(systemName: "square.and.arrow.up")
+                            }
+                            Button(String(localized: "保存")) {
+                                store.send(.delegate(.transcriptionSaved(text: result.transcription)))
+                                onSaved?(result.transcription)
+                                onDismiss?()
+                            }
+                            .fontWeight(.semibold)
                         }
                     }
                 }
             }
-        }
-    }
-
-    @ViewBuilder
-    private var statusSection: some View {
-        switch store.status {
-        case .idle:
-            VStack(spacing: 8) {
-                Image(systemName: "waveform.and.mic")
-                    .font(.largeTitle)
-                    .foregroundStyle(.blue)
-                Text("音声をGemini AIで文字起こしします")
-                    .foregroundStyle(.secondary)
+            .sheet(isPresented: $showShareSheet) {
+                ShareSheet(items: [shareText])
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 24)
-
-        case .uploading:
-            progressRow("音声をアップロード中...")
-
-        case .transcribing:
-            progressRow("文字起こし中...")
-
-        case .done:
-            Label("完了", systemImage: "checkmark.circle.fill")
-                .foregroundStyle(.green)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
-
-        case let .failed(msg):
-            VStack(alignment: .leading, spacing: 8) {
-                Label("エラー", systemImage: "exclamationmark.triangle.fill")
-                    .foregroundStyle(.red)
-                Text(msg)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .textSelection(.enabled)
-                HStack(spacing: 8) {
-                    Button("再試行") { store.send(.startTapped) }
-                        .buttonStyle(.borderedProminent)
-                    Button {
-                        UIPasteboard.general.string = msg
-                    } label: {
-                        Label("コピー", systemImage: "doc.on.doc")
-                    }
-                    .buttonStyle(.bordered)
-                }
-            }
-            .padding(.vertical, 12)
         }
     }
 
-    private func progressRow(_ label: String) -> some View {
-        HStack(spacing: 12) {
-            ProgressView()
-            Text(label).foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 24)
-    }
-
-    private func resultSection(_ result: TranscriptionFeature.State.Result) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            if !result.summary.isEmpty {
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("要約").font(.headline)
-                    Text(result.summary)
+    private var statusView: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            switch store.status {
+            case .idle:
+                VStack(spacing: 16) {
+                    Image(systemName: "waveform.and.mic")
+                        .font(.system(size: 52))
+                        .foregroundStyle(.blue)
+                    Text(String(localized: "Gemini AIで文字起こし"))
+                        .font(.title3.bold())
+                    Text(String(localized: "音声ファイルをアップロードして\nAIが自動で書き起こします"))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                    Button(String(localized: "文字起こしを開始")) { store.send(.startTapped) }
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
+                        .padding(.top, 8)
                 }
                 .padding()
-                .background(Color(.secondarySystemBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+            case .uploading:
+                progressView(String(localized: "音声をアップロード中..."))
+            case .transcribing:
+                progressView(String(localized: "文字起こし中..."))
+            case let .failed(msg):
+                VStack(alignment: .leading, spacing: 12) {
+                    Label(String(localized: "エラーが発生しました"), systemImage: "exclamationmark.triangle.fill")
+                        .font(.headline)
+                        .foregroundStyle(.red)
+                    Text(msg)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .textSelection(.enabled)
+                    HStack(spacing: 12) {
+                        Button(String(localized: "再試行")) { store.send(.startTapped) }
+                            .buttonStyle(.borderedProminent)
+                        Button {
+                            UIPasteboard.general.string = msg
+                        } label: {
+                            Label("コピー", systemImage: "doc.on.doc")
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            case .done:
+                EmptyView()
             }
+            Spacer()
+        }
+    }
 
-            VStack(alignment: .leading, spacing: 6) {
-                Text("全文").font(.headline)
+    private func progressView(_ label: String) -> some View {
+        VStack(spacing: 16) {
+            ProgressView()
+                .scaleEffect(1.4)
+            Text(label)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    private func resultView(_ result: TranscriptionFeature.State.Result) -> some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                if !result.summary.isEmpty {
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "sparkles")
+                                .foregroundStyle(.blue)
+                            Text(String(localized: "要約"))
+                                .font(.subheadline.bold())
+                                .foregroundStyle(.blue)
+                        }
+                        Text(result.summary)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.blue.opacity(0.06))
+
+                    Divider()
+                }
+
                 if result.segments.isEmpty {
                     Text(result.transcription)
                         .font(.body)
                         .textSelection(.enabled)
+                        .padding(.horizontal)
+                        .padding(.vertical, 12)
                 } else {
-                    ForEach(Array(result.segments.enumerated()), id: \.offset) { _, seg in
-                        HStack(alignment: .top, spacing: 10) {
+                    ForEach(Array(result.segments.enumerated()), id: \.offset) { index, seg in
+                        HStack(alignment: .top, spacing: 12) {
                             VStack(alignment: .leading, spacing: 3) {
+                                Text(seg.time)
+                                    .font(.subheadline.monospacedDigit())
+                                    .foregroundStyle(.blue)
+                                    .frame(width: 44, alignment: .leading)
                                 if let speaker = seg.speaker, !speaker.isEmpty {
                                     Text(speaker)
-                                        .font(.caption.bold())
-                                        .padding(.horizontal, 6)
-                                        .padding(.vertical, 2)
-                                        .background(speakerColor(speaker).opacity(0.15))
+                                        .font(.caption2.bold())
                                         .foregroundStyle(speakerColor(speaker))
+                                        .padding(.horizontal, 5)
+                                        .padding(.vertical, 2)
+                                        .background(speakerColor(speaker).opacity(0.12))
                                         .clipShape(Capsule())
                                 }
-                                Text(seg.time)
-                                    .font(.caption.monospacedDigit())
-                                    .foregroundStyle(.secondary)
                             }
-                            .frame(width: 52, alignment: .leading)
+                            .padding(.top, 2)
                             Text(seg.text)
                                 .font(.body)
                                 .textSelection(.enabled)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .padding(.vertical, 2)
+                        .padding(.horizontal)
+                        .padding(.vertical, 12)
+
+                        if index < result.segments.count - 1 {
+                            Divider().padding(.leading, 68)
+                        }
                     }
                 }
             }

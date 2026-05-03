@@ -71,21 +71,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		61618F902DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "VoiLog" target */ = {
+		61618F902DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				recordActivityLiveActivity.swift,
 			);
 			target = 619799E128C34A2500169FB6 /* VoiLog */;
 		};
-		61618F912DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "recordActivityExtension" target */ = {
+		61618F912DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 61458CCE2C4B939300B7107E /* recordActivityExtension */;
 		};
-		616190402DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLog" target */ = {
+		616190402DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -93,7 +93,7 @@
 			);
 			target = 619799E128C34A2500169FB6 /* VoiLog */;
 		};
-		616190412DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLogTests" target */ = {
+		616190412DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				data/Voice.xcdatamodeld,
@@ -103,54 +103,10 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		61618F782DF3FBD200801BB0 /* VoiLogTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = VoiLogTests;
-			sourceTree = "<group>";
-		};
-		61618F812DF3FBE000801BB0 /* VoiLogUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = VoiLogUITests;
-			sourceTree = "<group>";
-		};
-		61618F892DF3FBE100801BB0 /* recordActivity */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				61618F902DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "VoiLog" target */,
-				61618F912DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "recordActivityExtension" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = recordActivity;
-			sourceTree = "<group>";
-		};
-		616190052DF3FC3B00801BB0 /* VoiLog */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				616190402DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLog" target */,
-				616190412DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLogTests" target */,
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = VoiLog;
-			sourceTree = "<group>";
-		};
+		61618F782DF3FBD200801BB0 /* VoiLogTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VoiLogTests; sourceTree = "<group>"; };
+		61618F812DF3FBE000801BB0 /* VoiLogUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VoiLogUITests; sourceTree = "<group>"; };
+		61618F892DF3FBE100801BB0 /* recordActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (61618F902DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 61618F912DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = recordActivity; sourceTree = "<group>"; };
+		616190052DF3FC3B00801BB0 /* VoiLog */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (616190402DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 616190412DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = VoiLog; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */

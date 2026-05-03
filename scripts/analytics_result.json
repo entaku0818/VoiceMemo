@@ -1,0 +1,38 @@
+{
+  "3/8-3/12": {
+    "impressions": 17739,
+    "taps": 817,
+    "ctr_pct": 4.61,
+    "page_views": 739,
+    "cvr_pct": 24.76,
+    "installs": 183,
+    "sessions": 7763
+  },
+  "3/13-3/17": {
+    "impressions": 14025,
+    "taps": 700,
+    "ctr_pct": 4.99,
+    "page_views": 519,
+    "cvr_pct": 26.4,
+    "installs": 137,
+    "sessions": 6375
+  },
+  "3/18-3/31": {
+    "impressions": 32494,
+    "taps": 1734,
+    "ctr_pct": 5.34,
+    "page_views": 1277,
+    "cvr_pct": 25.22,
+    "installs": 322,
+    "sessions": 12454
+  },
+  "4/1-4/12": {
+    "impressions": 13322,
+    "taps": 823,
+    "ctr_pct": 6.18,
+    "page_views": 637,
+    "cvr_pct": 37.52,
+    "installs": 239,
+    "sessions": 8753
+  }
+}

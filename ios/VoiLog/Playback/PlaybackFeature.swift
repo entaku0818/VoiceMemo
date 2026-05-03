@@ -30,9 +30,13 @@ struct PlaybackFeature {
     var audioEditorState: AudioEditorReducer.State?
     var showAudioEditor = false
 
-    // Transcription
+    // Transcription (Gemini)
     var selectedMemoForTranscription: VoiceMemo.ID?
     var showTranscriptionSheet = false
+
+    // Apple transcription (timestampedText viewer)
+    var selectedMemoForAppleTranscription: VoiceMemo.ID?
+    var showAppleTranscriptionSheet = false
 
     // Tag picker
     var selectedMemoForTagPicker: VoiceMemo.ID?
@@ -146,9 +150,14 @@ struct PlaybackFeature {
       case showAudioEditor(VoiceMemo.ID)
       case dismissAudioEditor
 
-      // Transcription
+      // Transcription (Gemini)
       case showTranscription(VoiceMemo.ID)
       case hideTranscription
+      case geminiTranscriptionSaved(VoiceMemo.ID, String)
+
+      // Apple transcription viewer
+      case showAppleTranscription(VoiceMemo.ID)
+      case hideAppleTranscription
 
       // Tag actions
       case showTagPicker(VoiceMemo.ID)
@@ -404,6 +413,24 @@ struct PlaybackFeature {
           state.selectedMemoForTranscription = nil
           return .none
 
+        case let .geminiTranscriptionSaved(memoID, text):
+          state.showTranscriptionSheet = false
+          state.selectedMemoForTranscription = nil
+          if let idx = state.voiceMemos.firstIndex(where: { $0.id == memoID }) {
+            state.voiceMemos[idx].text = text
+          }
+          return .none
+
+        case let .showAppleTranscription(memoID):
+          state.selectedMemoForAppleTranscription = memoID
+          state.showAppleTranscriptionSheet = true
+          return .none
+
+        case .hideAppleTranscription:
+          state.showAppleTranscriptionSheet = false
+          state.selectedMemoForAppleTranscription = nil
+          return .none
+
         case let .showTagPicker(memoID):
           state.selectedMemoForTagPicker = memoID
           state.showTagPicker = true
@@ -641,7 +668,7 @@ struct PlaybackView: View {
           Text(String(localized: "この録音ファイルを削除しますか？"))
         }
       }
-      .sheet(isPresented: $store.showDetailSheet) {
+      .fullScreenCover(isPresented: $store.showDetailSheet) {
         if let selectedId = store.selectedMemoForDetails,
            let memo = store.voiceMemos.first(where: { $0.id == selectedId }) {
           VoiceMemoDetailView(memo: memo) {
@@ -649,14 +676,24 @@ struct PlaybackView: View {
           }
         }
       }
-      .sheet(isPresented: $store.showTranscriptionSheet) {
+      .fullScreenCover(isPresented: $store.showTranscriptionSheet) {
         if let memoID = store.selectedMemoForTranscription,
            let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
           TranscriptionView(
             store: Store(initialState: TranscriptionFeature.State(audioURL: memo.url)) {
               TranscriptionFeature()
-            }
+            },
+            onSaved: { text in send(.geminiTranscriptionSaved(memoID, text)) },
+            onDismiss: { send(.hideTranscription) }
           )
+        }
+      }
+      .fullScreenCover(isPresented: $store.showAppleTranscriptionSheet) {
+        if let memoID = store.selectedMemoForAppleTranscription,
+           let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
+          AppleTranscriptionView(memo: memo) {
+            send(.hideAppleTranscription)
+          }
         }
       }
       .sheet(isPresented: $store.showTagPicker) {
@@ -858,6 +895,8 @@ struct PlaybackView: View {
           send(.showTranscription(memo.id))
         } onEditTags: {
           send(.showTagPicker(memo.id))
+        } onShowAppleTranscription: {
+          send(.showAppleTranscription(memo.id))
         }
       }
     }
@@ -1117,6 +1156,7 @@ struct VoiceMemoRow: View {
   let onEditAudio: () -> Void
   let onTranscribe: () -> Void
   let onEditTags: () -> Void
+  let onShowAppleTranscription: (() -> Void)?
 
   @State private var convertedURL: URL?
   @State private var showPCShareSheet = false
@@ -1206,6 +1246,26 @@ struct VoiceMemoRow: View {
           }
         }
 
+        // 文字起こし済みバッジ + ショートカットボタン
+        if memo.timestampedText != nil || !memo.text.isEmpty {
+          Button {
+            onShowAppleTranscription?()
+          } label: {
+            HStack(spacing: 4) {
+              Image(systemName: "text.bubble.fill")
+                .font(.caption2)
+              Text(String(localized: "文字起こし"))
+                .font(.caption2.bold())
+            }
+            .foregroundStyle(.blue)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color.blue.opacity(0.1))
+            .clipShape(Capsule())
+          }
+          .buttonStyle(.plain)
+        }
+
         // 2行目: 日時 + メモ内容 + アクションボタン
         HStack(spacing: 8) {
           // 左側: 日時とメモテキスト
@@ -1213,13 +1273,6 @@ struct VoiceMemoRow: View {
             Text(formatDate(memo.date))
               .font(.caption)
               .foregroundColor(.secondary)
-
-            if !memo.text.isEmpty {
-              Text(memo.text)
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .lineLimit(1)
-            }
           }
 
           Spacer()

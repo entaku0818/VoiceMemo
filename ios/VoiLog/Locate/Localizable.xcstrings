@@ -1860,6 +1860,9 @@
     "45:23" : {
 
     },
+    "78%" : {
+
+    },
     "App Open広告をプリロード" : {
       "localizations" : {
         "de" : {
@@ -3450,6 +3453,9 @@
           }
         }
       }
+    },
+    "REC" : {
+
     },
     "Recording" : {
       "extractionState" : "manual",
@@ -8207,6 +8213,9 @@
           }
         }
       }
+    },
+    "タグを編集" : {
+
     },
     "チャネル" : {
       "localizations" : {

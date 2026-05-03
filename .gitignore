@@ -89,6 +89,9 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+# Temporary files
+temp/
+
 # App Store Connect API Key
 fastlane/AuthKey_*.p8
 
