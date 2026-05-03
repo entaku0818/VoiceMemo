@@ -1318,22 +1318,9 @@ struct ScreenshotPageView<Content: View>: View {
                         .frame(maxWidth: .infinity)
 
                     content()
-                        .padding(.horizontal, 28)
+                        .padding(.horizontal, 12)
 
                     Spacer(minLength: 0)
-
-                    HStack(spacing: 6) {
-                        Text("🎙")
-                            .font(.system(size: 16))
-                        Text(language.appTitle)
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.primary)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color.white)
-                    .clipShape(Capsule())
-                    .padding(.bottom, 40)
                 }
             }
         }
