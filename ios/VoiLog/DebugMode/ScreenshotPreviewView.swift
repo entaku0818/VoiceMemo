@@ -1496,13 +1496,13 @@ struct MockPlaybackListView: View {
                                 .font(.caption).foregroundColor(.secondary)
                         }
                         Spacer()
-                        Image(systemName: "pause.circle.fill")
-                            .font(.largeTitle).foregroundColor(.blue)
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.title2).foregroundColor(.secondary)
                     }
                     .padding(.horizontal)
 
-                    ProgressView(value: 0.3)
-                        .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                    // 実際のミニプレイヤーに合わせ Slider を使用
+                    Slider(value: .constant(0.3), in: 0...1)
                         .padding(.horizontal)
 
                     HStack {
@@ -1511,6 +1511,28 @@ struct MockPlaybackListView: View {
                         Text("1:17").font(.caption).monospacedDigit()
                     }
                     .foregroundColor(.secondary)
+                    .padding(.horizontal)
+
+                    HStack(spacing: 16) {
+                        Text("1x")
+                            .font(.caption)
+                            .padding(.horizontal, 8).padding(.vertical, 4)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(Capsule())
+                        Text("A").font(.caption)
+                            .padding(.horizontal, 8).padding(.vertical, 4)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(Capsule())
+                        Text("B").font(.caption)
+                            .padding(.horizontal, 8).padding(.vertical, 4)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(Capsule())
+                        Image(systemName: "repeat")
+                            .font(.body).foregroundColor(.secondary)
+                        Spacer()
+                        Image(systemName: "pause.circle.fill")
+                            .font(.largeTitle).foregroundColor(.accentColor)
+                    }
                     .padding(.horizontal)
                     .padding(.bottom, 34)
                 }
@@ -1752,6 +1774,12 @@ struct MockBackgroundRecordingView: View {
 struct MockWaveformEditorView: View {
     let language: AppLanguage
 
+    private let heights: [CGFloat] = [20, 35, 50, 70, 45, 80, 55, 40, 65, 90,
+                                       75, 50, 85, 60, 45, 70, 55, 80, 65, 40,
+                                       55, 75, 90, 60, 45, 35, 50, 70, 85, 55,
+                                       40, 65, 80, 50, 35, 60, 75, 45, 70, 55,
+                                       85, 60, 40, 75, 50, 65, 80, 45, 55, 35]
+
     var body: some View {
         VStack(spacing: 0) {
             // Header
@@ -1759,14 +1787,10 @@ struct MockWaveformEditorView: View {
                 Button(language.cancel) {}
                     .foregroundColor(.red)
                     .frame(width: 80, alignment: .leading)
-
                 Spacer()
-
                 Text(language.audioEdit)
                     .font(.headline)
-
                 Spacer()
-
                 Button(language.save) {}
                     .frame(width: 80, alignment: .trailing)
             }
@@ -1774,135 +1798,138 @@ struct MockWaveformEditorView: View {
             .padding(.top, 50)
             .background(Color(.systemBackground))
 
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Waveform Display
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [Color.blue.opacity(0.05), Color.purple.opacity(0.05)]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
+            // ScrollView を使わず VStack で直接展開（ImageRenderer 対応）
+            VStack(spacing: 16) {
+                // Waveform + trim selection overlay
+                ZStack {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.blue.opacity(0.05), Color.purple.opacity(0.05)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 1
                                 )
-                            )
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.purple.opacity(0.2)]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
-                                    )
-                            )
+                        )
 
-                        // Waveform bars
-                        HStack(alignment: .center, spacing: 1) {
-                            ForEach(0..<80, id: \.self) { index in
-                                let height = waveformHeight(for: index)
-                                RoundedRectangle(cornerRadius: 1)
-                                    .fill(waveformColor(for: index))
-                                    .frame(width: 2, height: height)
+                    GeometryReader { geo in
+                        let w = geo.size.width
+                        let h = geo.size.height
+                        // trim: 25%〜75% の範囲を選択中として表示
+                        let trimStart = w * 0.25
+                        let trimEnd   = w * 0.75
+                        let playPos   = w * 0.40
+
+                        ZStack(alignment: .leading) {
+                            // 波形バー（全て同色）
+                            HStack(alignment: .center, spacing: 1) {
+                                ForEach(0..<80, id: \.self) { i in
+                                    RoundedRectangle(cornerRadius: 1)
+                                        .fill(Color.blue)
+                                        .frame(width: 2, height: heights[i % heights.count])
+                                }
                             }
-                        }
-                        .padding(10)
-                    }
-                    .frame(height: 150)
-                    .padding()
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
 
-                    // Time Display
-                    HStack {
-                        ZStack {
-                            Capsule()
-                                .fill(Color.blue.opacity(0.1))
-                                .frame(height: 30)
-                            Text("00:05 / 01:17")
-                                .font(.caption.monospacedDigit())
-                                .foregroundColor(.blue)
-                        }
-                        .frame(width: 120)
-                    }
+                            // 選択範囲オーバーレイ（青い半透明矩形）
+                            Rectangle()
+                                .fill(Color.blue.opacity(0.25))
+                                .frame(width: trimEnd - trimStart, height: h)
+                                .offset(x: trimStart)
 
-                    // Playback Controls
-                    HStack(spacing: 32) {
-                        Button(action: {}) {
-                            Image(systemName: "gobackward.10")
-                                .font(.title2)
-                                .foregroundColor(.blue)
-                        }
+                            // トリム左ハンドル
+                            Rectangle()
+                                .fill(Color.blue)
+                                .frame(width: 3, height: h)
+                                .offset(x: trimStart)
 
-                        Button(action: {}) {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.blue)
-                                    .frame(width: 60, height: 60)
-                                Image(systemName: "play.fill")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                            }
-                        }
+                            // トリム右ハンドル
+                            Rectangle()
+                                .fill(Color.blue)
+                                .frame(width: 3, height: h)
+                                .offset(x: trimEnd - 3)
 
-                        Button(action: {}) {
-                            Image(systemName: "goforward.10")
-                                .font(.title2)
-                                .foregroundColor(.blue)
+                            // 再生位置（赤いライン）
+                            Rectangle()
+                                .fill(Color.red)
+                                .frame(width: 2, height: h)
+                                .offset(x: playPos)
                         }
                     }
-                    .padding(.vertical)
-
-                    // Edit Actions
-                    VStack(spacing: 16) {
-                        Button(action: {}) {
-                            HStack {
-                                Image(systemName: "scissors")
-                                    .frame(width: 30)
-                                Text(language.trimSelection)
-                                Spacer()
-                            }
-                            .padding()
-                            .background(Color(.secondarySystemBackground))
-                            .cornerRadius(12)
-                        }
-                        .foregroundColor(.primary)
-
-                        Button(action: {}) {
-                            HStack {
-                                Image(systemName: "trash")
-                                    .frame(width: 30)
-                                Text(language.deleteSelection)
-                                Spacer()
-                            }
-                            .padding()
-                            .background(Color(.secondarySystemBackground))
-                            .cornerRadius(12)
-                        }
-                        .foregroundColor(.red)
-                    }
-                    .padding(.horizontal)
+                    .padding(10)
                 }
+                .frame(height: 150)
+                .padding(.horizontal)
+
+                // 時間表示 + プログレスバー
+                HStack {
+                    ZStack {
+                        Capsule().fill(Color.blue.opacity(0.1)).frame(height: 30)
+                        Text("00:31").font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundColor(.blue)
+                    }.frame(width: 70)
+                    Spacer()
+                    ProgressView(value: 0.4, total: 1.0)
+                        .progressViewStyle(LinearProgressViewStyle(tint: Color.blue))
+                        .frame(height: 4)
+                    Spacer()
+                    ZStack {
+                        Capsule().fill(Color.blue.opacity(0.1)).frame(height: 30)
+                        Text("01:17").font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundColor(.blue)
+                    }.frame(width: 70)
+                }.padding(.horizontal)
+
+                // 再生コントロール
+                HStack(spacing: 30) {
+                    Button(action: {}) {
+                        Image(systemName: "gobackward.5").font(.title2).foregroundColor(.blue)
+                    }
+                    Button(action: {}) {
+                        Image(systemName: "play.circle.fill").font(.system(size: 50)).foregroundColor(.blue)
+                    }
+                    Button(action: {}) {
+                        Image(systemName: "goforward.5").font(.title2).foregroundColor(.blue)
+                    }
+                }
+
+                Divider()
+
+                // 編集ツールバー（分割ボタン）
+                HStack {
+                    VStack(spacing: 4) {
+                        Image(systemName: "scissors.badge.ellipsis").font(.title2)
+                        Text(String(localized: "分割")).font(.caption)
+                    }
+                    .frame(width: 70, height: 70)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(10)
+                    .foregroundColor(.blue)
+                }
+
+                // 選択範囲の情報テキスト
+                Text("00:19 - 00:57")
+                    .font(.caption.monospacedDigit())
+                    .foregroundColor(.blue)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.blue.opacity(0.1))
+                    .cornerRadius(8)
             }
+            .padding(.top, 12)
+
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
-    }
-
-    private func waveformHeight(for index: Int) -> CGFloat {
-        let heights: [CGFloat] = [20, 35, 50, 70, 45, 80, 55, 40, 65, 90,
-                                  75, 50, 85, 60, 45, 70, 55, 80, 65, 40,
-                                  55, 75, 90, 60, 45, 35, 50, 70, 85, 55,
-                                  40, 65, 80, 50, 35, 60, 75, 45, 70, 55,
-                                  85, 60, 40, 75, 50, 65, 80, 45, 55, 35]
-        return heights[index % heights.count]
-    }
-
-    private func waveformColor(for index: Int) -> Color {
-        // Selected range (indices 10-60)
-        if index >= 10 && index <= 60 {
-            return Color.blue.opacity(0.8)
-        }
-        return Color.gray.opacity(0.3)
     }
 }
 
