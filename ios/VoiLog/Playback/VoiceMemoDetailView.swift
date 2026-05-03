@@ -27,6 +27,7 @@ struct VoiceMemoDetailView: View {
               }
             }
 
+            #if DEBUG
             transcriptionRow(
               icon: "waveform.and.mic",
               label: String(localized: "Gemini AIで文字起こし"),
@@ -34,6 +35,7 @@ struct VoiceMemoDetailView: View {
             ) {
               onShowGeminiTranscription?()
             }
+            #endif
           }
 
           // ファイル情報セクション

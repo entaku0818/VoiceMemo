@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -183,7 +184,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 		genai.Text(prompt),
 	)
 	if err != nil {
-		log.Printf("gemini error: %v", err)
+		log.Printf("gemini error: %s", redactAPIKey(err.Error()))
 		http.Error(w, `{"error":"Transcription failed"}`, http.StatusInternalServerError)
 		return
 	}
@@ -210,6 +211,12 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
+}
+
+var apiKeyPattern = regexp.MustCompile(`[?&]key=[^&"'\s]+`)
+
+func redactAPIKey(s string) string {
+	return apiKeyPattern.ReplaceAllString(s, "&key=REDACTED")
 }
 
 func audioMIMEType(ext string) string {
