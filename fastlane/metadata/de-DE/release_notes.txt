@@ -1,8 +1,7 @@
-Version 1.5.3
-
-[Neu]
-· Playlist-Verwaltungsbildschirm zu App Store-Screenshots hinzugefügt
+Version 1.6.0
 
 [Verbesserungen]
-· Qualität der App Store-Screenshots verbessert
-· Weitere kleinere Verbesserungen
+· App Store-Screenshots mit Wellenform-Editor und Playlist-Ansichten überarbeitet
+· Anzeige der Aufnahmeliste verbessert
+· Visuelle Qualität auf allen Bildschirmen verbessert
+· Allgemeine Stabilitätsverbesserungen

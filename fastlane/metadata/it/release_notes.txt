@@ -1,8 +1,7 @@
-Versione 1.5.3
-
-[Novità]
-· Aggiunta schermata di gestione playlist agli screenshot App Store
+Versione 1.6.0
 
 [Miglioramenti]
-· Migliorata la qualità degli screenshot App Store
-· Altre piccole migliorie
+· Screenshot dell'App Store aggiornati con editor forma d'onda e viste playlist
+· Visualizzazione dell'elenco registrazioni migliorata
+· Qualità visiva migliorata su tutte le schermate
+· Miglioramenti generali della stabilità

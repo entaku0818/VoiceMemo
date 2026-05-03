@@ -1,8 +1,7 @@
-Phiên bản 1.5.3
-
-[Mới]
-· Thêm màn hình quản lý danh sách phát vào ảnh chụp App Store
+Phiên bản 1.6.0
 
 [Cải tiến]
-· Cải thiện chất lượng ảnh chụp màn hình App Store
-· Các cải tiến nhỏ khác
+· Làm mới ảnh chụp màn hình App Store với trình chỉnh sửa dạng sóng và chế độ xem danh sách phát
+· Cải thiện hiển thị danh sách ghi âm
+· Nâng cao chất lượng hình ảnh trên tất cả các màn hình
+· Cải thiện độ ổn định chung

@@ -1,8 +1,7 @@
-Versão 1.5.3
-
-[Novidade]
-· Ecrã de gestão de playlists adicionado às capturas App Store
+Versão 1.6.0
 
 [Melhorias]
-· Melhorada a qualidade das capturas App Store
-· Outras melhorias menores
+· Capturas de ecrã da App Store renovadas com editor de forma de onda e vistas de lista de reprodução
+· Melhoria na exibição da lista de gravações
+· Qualidade visual melhorada em todos os ecrãs
+· Melhorias gerais de estabilidade

@@ -1,8 +1,7 @@
-Version 1.5.3
-
-[New]
-· Added playlist management screen to App Store screenshots
+Version 1.6.0
 
 [Improvements]
-· Improved App Store screenshot quality
-· Other minor improvements
+· Refreshed App Store screenshots with waveform editor & playlist views
+· Improved recording list display
+· Enhanced visual quality across screens
+· General stability improvements
