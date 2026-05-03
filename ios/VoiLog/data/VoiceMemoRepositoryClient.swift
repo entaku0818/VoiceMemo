@@ -41,6 +41,7 @@ struct VoiceMemoRepositoryClient {
         var samplingFrequency: Double
         var quantizationBitDepth: Int
         var numberOfChannels: Int
+        var tags: [String] = []
     }
 
     var insert: @MainActor (RecordingVoice) -> Void
@@ -49,6 +50,7 @@ struct VoiceMemoRepositoryClient {
     var delete: @MainActor (UUID) -> Void
     var update: @MainActor (VoiceMemoVoice) -> Void
     var updateTitle: @MainActor (UUID, String) -> Void
+    var updateTags: @MainActor (UUID, [String]) -> Void
     var syncToCloud: @MainActor () async -> Bool
     var checkForDifferences: @MainActor () async -> Bool
 }
@@ -113,7 +115,8 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         fileFormat: voiceEntity.fileFormat ?? "",
                         samplingFrequency: voiceEntity.samplingFrequency,
                         quantizationBitDepth: Int(voiceEntity.quantizationBitDepth),
-                        numberOfChannels: Int(voiceEntity.numberOfChannels)
+                        numberOfChannels: Int(voiceEntity.numberOfChannels),
+                        tags: Self.decodeTags(voiceEntity.tags)
                     )
                 }
             },
@@ -211,6 +214,21 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     }
                 } catch {
                     AppLogger.data.error("Repository updateTitle failed: \(error.localizedDescription)")
+                }
+            },
+            updateTags: { uuid, tags in
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                fetchRequest.fetchLimit = 1
+                fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+                do {
+                    let results = try managedContext.fetch(fetchRequest)
+                    if let voiceEntity = results.first {
+                        voiceEntity.tags = Self.encodeTags(tags)
+                        voiceEntity.updatedAt = Date()
+                        try managedContext.save()
+                    }
+                } catch {
+                    AppLogger.data.error("Repository updateTags failed: \(error.localizedDescription)")
                 }
             },
             syncToCloud: {
@@ -444,6 +462,16 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         )
     }()
 
+    static func decodeTags(_ json: String?) -> [String] {
+        guard let json, let data = json.data(using: .utf8),
+              let arr = try? JSONDecoder().decode([String].self, from: data) else { return [] }
+        return arr
+    }
+
+    static func encodeTags(_ tags: [String]) -> String {
+        (try? String(data: JSONEncoder().encode(tags), encoding: .utf8)) ?? "[]"
+    }
+
     @MainActor
     static let previewValue = VoiceMemoRepositoryClient(
         insert: { _ in },
@@ -452,6 +480,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         delete: { _ in },
         update: { _ in },
         updateTitle: { _, _ in },
+        updateTags: { _, _ in },
         syncToCloud: { true },
         checkForDifferences: { false }
     )

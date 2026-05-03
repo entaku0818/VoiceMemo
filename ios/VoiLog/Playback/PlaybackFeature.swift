@@ -34,6 +34,10 @@ struct PlaybackFeature {
     var selectedMemoForTranscription: VoiceMemo.ID?
     var showTranscriptionSheet = false
 
+    // Tag picker
+    var selectedMemoForTagPicker: VoiceMemo.ID?
+    var showTagPicker = false
+
     // Playback speed
     var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
 
@@ -58,6 +62,7 @@ struct PlaybackFeature {
     var url: URL
     var text: String
     var timestampedText: String?
+    var tags: [String] = []
     // Legacy compatibility fields
     var fileFormat: String
     var samplingFrequency: Double
@@ -73,6 +78,7 @@ struct PlaybackFeature {
       url: URL,
       text: String = "",
       timestampedText: String? = nil,
+      tags: [String] = [],
       fileFormat: String = "",
       samplingFrequency: Double = 44100.0,
       quantizationBitDepth: Int = 16,
@@ -86,6 +92,7 @@ struct PlaybackFeature {
       self.url = url
       self.text = text
       self.timestampedText = timestampedText
+      self.tags = tags
       self.fileFormat = fileFormat
       self.samplingFrequency = samplingFrequency
       self.quantizationBitDepth = quantizationBitDepth
@@ -142,6 +149,11 @@ struct PlaybackFeature {
       // Transcription
       case showTranscription(VoiceMemo.ID)
       case hideTranscription
+
+      // Tag actions
+      case showTagPicker(VoiceMemo.ID)
+      case hideTagPicker
+      case toggleTag(VoiceMemo.ID, String)
 
       case onTapPlaySpeed
 
@@ -392,6 +404,28 @@ struct PlaybackFeature {
           state.selectedMemoForTranscription = nil
           return .none
 
+        case let .showTagPicker(memoID):
+          state.selectedMemoForTagPicker = memoID
+          state.showTagPicker = true
+          return .none
+
+        case .hideTagPicker:
+          state.showTagPicker = false
+          state.selectedMemoForTagPicker = nil
+          return .none
+
+        case let .toggleTag(memoID, tag):
+          guard let idx = state.voiceMemos.firstIndex(where: { $0.id == memoID }) else { return .none }
+          if state.voiceMemos[idx].tags.contains(tag) {
+            state.voiceMemos[idx].tags.removeAll { $0 == tag }
+          } else {
+            state.voiceMemos[idx].tags.append(tag)
+          }
+          let newTags = state.voiceMemos[idx].tags
+          return .run { _ in
+            await voiceMemoRepository.updateTags(memoID, newTags)
+          }
+
         case .onTapPlaySpeed:
           state.playSpeed = state.playSpeed.next()
           guard state.playbackState == .playing,
@@ -513,6 +547,7 @@ struct PlaybackFeature {
           url: actualURL,
           text: voice.text,
           timestampedText: voice.timestampedText,
+          tags: voice.tags,
           fileFormat: voice.fileFormat,
           samplingFrequency: voice.samplingFrequency,
           quantizationBitDepth: voice.quantizationBitDepth,
@@ -622,6 +657,17 @@ struct PlaybackView: View {
               TranscriptionFeature()
             }
           )
+        }
+      }
+      .sheet(isPresented: $store.showTagPicker) {
+        if let memoID = store.selectedMemoForTagPicker,
+           let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
+          TagPickerView(
+            memo: memo,
+            onToggle: { tag in store.send(.view(.toggleTag(memoID, tag))) },
+            onDone: { store.send(.view(.hideTagPicker)) }
+          )
+          .presentationDetents([.medium])
         }
       }
       .fullScreenCover(isPresented: $store.showAudioEditor) {
@@ -810,6 +856,8 @@ struct PlaybackView: View {
           send(.showAudioEditor(memo.id))
         } onTranscribe: {
           send(.showTranscription(memo.id))
+        } onEditTags: {
+          send(.showTagPicker(memo.id))
         }
       }
     }
@@ -1068,6 +1116,7 @@ struct VoiceMemoRow: View {
   let onInfoTap: () -> Void
   let onEditAudio: () -> Void
   let onTranscribe: () -> Void
+  let onEditTags: () -> Void
 
   @State private var convertedURL: URL?
   @State private var showPCShareSheet = false
@@ -1140,6 +1189,23 @@ struct VoiceMemoRow: View {
           }
         }
 
+        // タグバッジ行
+        if !memo.tags.isEmpty {
+          ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 6) {
+              ForEach(memo.tags, id: \.self) { tag in
+                Text(tag)
+                  .font(.caption2.bold())
+                  .foregroundColor(tagColor(tag))
+                  .padding(.horizontal, 7)
+                  .padding(.vertical, 3)
+                  .background(tagColor(tag).opacity(0.12))
+                  .clipShape(Capsule())
+              }
+            }
+          }
+        }
+
         // 2行目: 日時 + メモ内容 + アクションボタン
         HStack(spacing: 8) {
           // 左側: 日時とメモテキスト
@@ -1196,6 +1262,10 @@ struct VoiceMemoRow: View {
 
             Button(action: onTranscribe) {
               Label(String(localized: "文字起こし"), systemImage: "text.bubble")
+            }
+
+            Button(action: onEditTags) {
+              Label(String(localized: "タグを編集"), systemImage: "tag")
             }
 
             Button(action: onInfoTap) {
@@ -1258,6 +1328,66 @@ struct VoiceMemoRow: View {
     let minutes = Int(duration) / 60
     let seconds = Int(duration) % 60
     return String(format: "%d:%02d", minutes, seconds)
+  }
+
+  private func tagColor(_ tag: String) -> Color {
+    let palette: [Color] = [.blue, .orange, .green, .purple, .red, .teal, .indigo, .pink]
+    let index = Int(tag.unicodeScalars.first?.value ?? 65) % palette.count
+    return palette[index]
+  }
+}
+
+// MARK: - Tag Picker View
+
+struct TagPickerView: View {
+  let memo: PlaybackFeature.VoiceMemo
+  let onToggle: (String) -> Void
+  let onDone: () -> Void
+
+  private let presetTags = ["会議", "講義", "インタビュー", "アイデア", "日記", "練習", "議事録", "メモ"]
+
+  private let palette: [Color] = [.blue, .orange, .green, .purple, .red, .teal, .indigo, .pink]
+  private func color(for tag: String) -> Color {
+    palette[Int(tag.unicodeScalars.first?.value ?? 65) % palette.count]
+  }
+
+  var body: some View {
+    NavigationStack {
+      VStack(alignment: .leading, spacing: 16) {
+        Text(memo.title)
+          .font(.subheadline)
+          .foregroundStyle(.secondary)
+          .padding(.horizontal)
+
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 10) {
+          ForEach(presetTags, id: \.self) { tag in
+            let selected = memo.tags.contains(tag)
+            Button {
+              onToggle(tag)
+            } label: {
+              Text(tag)
+                .font(.subheadline.bold())
+                .foregroundColor(selected ? .white : color(for: tag))
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                .background(selected ? color(for: tag) : color(for: tag).opacity(0.12))
+                .clipShape(Capsule())
+            }
+          }
+        }
+        .padding(.horizontal)
+
+        Spacer()
+      }
+      .padding(.top, 8)
+      .navigationTitle(String(localized: "タグを編集"))
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button(String(localized: "完了")) { onDone() }
+        }
+      }
+    }
   }
 }
 

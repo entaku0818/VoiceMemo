@@ -835,6 +835,37 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         return index < titles.count ? titles[index] : titles[0]
     }
 
+    func useCaseTag(_ index: Int) -> String {
+        let en = ["Meeting", "Lecture", "Interview", "Idea", "Practice"]
+        let ja = ["会議", "講義", "取材", "アイデア", "練習"]
+        let de = ["Meeting", "Vorlesung", "Interview", "Idee", "Übung"]
+        let es = ["Reunión", "Clase", "Entrevista", "Idea", "Práctica"]
+        let fr = ["Réunion", "Cours", "Interview", "Idée", "Pratique"]
+        let it = ["Riunione", "Lezione", "Intervista", "Idea", "Pratica"]
+        let pt = ["Reunião", "Aula", "Entrevista", "Ideia", "Prática"]
+        let ru = ["Встреча", "Лекция", "Интервью", "Идея", "Практика"]
+        let tr = ["Toplantı", "Ders", "Röportaj", "Fikir", "Pratik"]
+        let vi = ["Họp", "Bài giảng", "Phỏng vấn", "Ý tưởng", "Luyện tập"]
+        let zhS = ["会议", "课堂", "采访", "创意", "练习"]
+        let zhT = ["會議", "課堂", "採訪", "創意", "練習"]
+        let tags: [String]
+        switch self {
+        case .english: tags = en
+        case .japanese: tags = ja
+        case .german: tags = de
+        case .spanish: tags = es
+        case .french: tags = fr
+        case .italian: tags = it
+        case .portuguese: tags = pt
+        case .russian: tags = ru
+        case .turkish: tags = tr
+        case .vietnamese: tags = vi
+        case .chineseSimplified: tags = zhS
+        case .chineseTraditional: tags = zhT
+        }
+        return index < tags.count ? tags[index] : tags[0]
+    }
+
     var premiumScreenHeadline: String {
         switch self {
         case .english: return "Go Premium"
@@ -1410,7 +1441,7 @@ struct MockPlaybackListView: View {
                 Spacer()
             }
             .padding(.horizontal)
-            .padding(.top, 60)
+            .padding(.top, 90)
             .padding(.bottom, 12)
 
             Divider()
@@ -1481,7 +1512,7 @@ struct MockPlaybackListView: View {
                     }
                     .foregroundColor(.secondary)
                     .padding(.horizontal)
-                    .padding(.bottom, 8)
+                    .padding(.bottom, 34)
                 }
                 .padding(.top, 8)
                 .background(Color(.systemBackground))
@@ -1816,7 +1847,7 @@ struct MockPlaylistView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top, 60)
+            .padding(.top, 90)
             .padding(.bottom, 20)
 
             VStack(spacing: 0) {
@@ -2071,7 +2102,7 @@ struct MockAIRecordingView: View {
                 Spacer()
             }
             .padding(.horizontal)
-            .padding(.top, 60)
+            .padding(.top, 90)
             .padding(.bottom, 20)
 
             VStack(spacing: 20) {
@@ -2142,8 +2173,7 @@ struct MockAIRecordingView: View {
 struct MockUseCaseView: View {
     let language: AppLanguage
 
-    private let useCaseColors: [Color] = [.orange, .purple, .blue, .green, .red]
-    private let useCaseIcons = ["mic.fill", "graduationcap.fill", "person.fill", "lightbulb.fill", "waveform"]
+    private let tagColors: [Color] = [.orange, .purple, .blue, .green, .red]
     private let useCaseDurations = ["45:23", "1:23:45", "15:42", "3:21", "8:05"]
 
     var body: some View {
@@ -2156,103 +2186,92 @@ struct MockUseCaseView: View {
                 Spacer()
             }
             .padding(.horizontal)
-            .padding(.top, 60)
-            .padding(.bottom, 20)
+            .padding(.top, 90)
+            .padding(.bottom, 12)
 
+            Divider()
+
+            // Recording rows
             VStack(spacing: 0) {
-                VStack(spacing: 0) {
-                    ForEach(0..<5) { index in
-                        VStack(spacing: 0) {
-                            HStack(spacing: 12) {
-                                ZStack {
-                                    Circle()
-                                        .fill(useCaseColors[index])
-                                        .frame(width: 36, height: 36)
-                                    Image(systemName: useCaseIcons[index])
-                                        .font(.caption)
-                                        .foregroundColor(.white)
-                                }
+                ForEach(0..<5) { index in
+                    HStack(spacing: 10) {
+                        // Play button
+                        Image(systemName: index == 0 ? "pause.circle.fill" : "play.circle")
+                            .font(.title2)
+                            .foregroundColor(index == 0 ? .red : .blue)
+                            .frame(width: 30, height: 30)
 
-                                VStack(alignment: .leading, spacing: 4) {
-                                    HStack {
-                                        Text(language.useCaseSampleTitle(index))
-                                            .font(.headline)
-                                            .lineLimit(1)
-                                        Spacer()
-                                        Text(useCaseDurations[index])
-                                            .font(.subheadline)
-                                            .foregroundColor(.secondary)
-                                            .monospacedDigit()
-                                    }
-                                    HStack {
-                                        Text(language.sampleDate(index))
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                        Spacer()
-                                        Image(systemName: "ellipsis.circle")
-                                            .font(.title3)
-                                            .foregroundColor(.secondary)
-                                    }
-                                }
-                            }
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 16)
-
-                            if index < 4 {
-                                Divider().padding(.leading, 64)
-                            }
-                        }
-                    }
-                }
-                .background(Color(.systemBackground))
-
-                // Mini player
-                VStack(spacing: 0) {
-                    Divider()
-                    VStack(spacing: 8) {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(language.useCaseSampleTitle(0))
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Text(language.useCaseSampleTitle(index))
                                     .font(.headline)
                                     .lineLimit(1)
-                                Text(language.sampleDate(0))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-                            Button(action: {}) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .font(.title2)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        .padding(.horizontal)
-
-                        VStack(spacing: 4) {
-                            ProgressView(value: 0.25)
-                                .progressViewStyle(LinearProgressViewStyle(tint: .blue))
-                            HStack {
-                                Text("11:21")
-                                    .font(.caption)
-                                    .monospacedDigit()
                                 Spacer()
-                                Text("45:23")
-                                    .font(.caption)
+                                Text(useCaseDurations[index])
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
                                     .monospacedDigit()
                             }
-                            .foregroundColor(.secondary)
+                            HStack(spacing: 6) {
+                                // Tag badge
+                                Text(language.useCaseTag(index))
+                                    .font(.caption2.bold())
+                                    .foregroundColor(tagColors[index])
+                                    .padding(.horizontal, 7)
+                                    .padding(.vertical, 3)
+                                    .background(tagColors[index].opacity(0.12))
+                                    .clipShape(Capsule())
+                                Text(language.sampleDate(index))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                                Image(systemName: "ellipsis.circle")
+                                    .font(.title3)
+                                    .foregroundColor(.secondary)
+                            }
                         }
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+
+                    Divider().padding(.leading, 52)
+                }
+            }
+
+            Spacer()
+
+            // Mini player
+            VStack(spacing: 0) {
+                Divider()
+                VStack(spacing: 6) {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(language.useCaseSampleTitle(0))
+                                .font(.headline).lineLimit(1)
+                            Text(language.sampleDate(0))
+                                .font(.caption).foregroundColor(.secondary)
+                        }
+                        Spacer()
+                        Image(systemName: "pause.circle.fill")
+                            .font(.largeTitle).foregroundColor(.blue)
+                    }
+                    .padding(.horizontal)
+
+                    ProgressView(value: 0.25)
+                        .progressViewStyle(LinearProgressViewStyle(tint: .blue))
                         .padding(.horizontal)
 
-                        Button(action: {}) {
-                            Image(systemName: "pause.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.blue)
-                        }
-                        .padding(.bottom, 8)
+                    HStack {
+                        Text("11:21").font(.caption).monospacedDigit()
+                        Spacer()
+                        Text("45:23").font(.caption).monospacedDigit()
                     }
-                    .padding(.top, 8)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
+                    .padding(.bottom, 34)
                 }
+                .padding(.top, 8)
+                .background(Color(.systemBackground))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -2279,7 +2298,7 @@ struct MockTimestampedTranscriptionView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top, 60)
+            .padding(.top, 90)
             .padding(.bottom, 20)
 
             ScrollView {
