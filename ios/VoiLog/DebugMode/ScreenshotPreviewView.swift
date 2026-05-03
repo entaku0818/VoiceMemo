@@ -2629,7 +2629,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .japanese) }
 //     }
-}
 
 #Preview("JA-useCase") {
     ScreenshotPageView(
@@ -2674,7 +2673,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .english) }
 //     }
-}
 
 #Preview("EN-useCase") {
     ScreenshotPageView(
@@ -2719,7 +2717,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .german) }
 //     }
-}
 
 #Preview("DE-useCase") {
     ScreenshotPageView(
@@ -2764,7 +2761,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .spanish) }
 //     }
-}
 
 #Preview("ES-useCase") {
     ScreenshotPageView(
@@ -2809,7 +2805,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .french) }
 //     }
-}
 
 #Preview("FR-useCase") {
     ScreenshotPageView(
@@ -2854,7 +2849,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .italian) }
 //     }
-}
 
 #Preview("IT-useCase") {
     ScreenshotPageView(
@@ -2899,7 +2893,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .portuguese) }
 //     }
-}
 
 #Preview("PT-useCase") {
     ScreenshotPageView(
@@ -2944,7 +2937,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .russian) }
 //     }
-}
 
 #Preview("RU-useCase") {
     ScreenshotPageView(
@@ -2989,7 +2981,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .turkish) }
 //     }
-}
 
 #Preview("TR-useCase") {
     ScreenshotPageView(
@@ -3034,7 +3025,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .vietnamese) }
 //     }
-}
 
 #Preview("VI-useCase") {
     ScreenshotPageView(
@@ -3079,7 +3069,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseSimplified) }
 //     }
-}
 
 #Preview("ZH_HANS-useCase") {
     ScreenshotPageView(
@@ -3124,7 +3113,6 @@ struct MockPremiumView: View {
 //     ) {
 //         PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseTraditional) }
 //     }
-}
 
 #Preview("ZH_HANT-useCase") {
     ScreenshotPageView(
