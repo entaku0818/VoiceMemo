@@ -54,8 +54,8 @@ struct TranscriptionClient {
 
     struct TranscriptionResponse: Decodable {
         let transcription: String
-        let segments: [Segment]
-        let summary: String
+        let segments: [Segment]?
+        let summary: String?
 
         struct Segment: Decodable, Equatable {
             let time: String
@@ -67,11 +67,13 @@ struct TranscriptionClient {
 enum TranscriptionError: LocalizedError {
     case notAuthenticated
     case uploadFailed(Int)
+    case serverError(Int, String)
 
     var errorDescription: String? {
         switch self {
         case .notAuthenticated: return "ログインが必要です"
         case let .uploadFailed(code): return "アップロード失敗 (HTTP \(code))"
+        case let .serverError(code, body): return "HTTP \(code): \(body)"
         }
     }
 }
@@ -90,7 +92,12 @@ extension TranscriptionClient: DependencyKey {
             req.setValue("Bearer \(idToken)", forHTTPHeaderField: "Authorization")
             req.setValue("application/json", forHTTPHeaderField: "Content-Type")
             req.httpBody = try JSONEncoder().encode(["extension": ext])
-            let (data, _) = try await URLSession.shared.data(for: req)
+            let (data, response) = try await URLSession.shared.data(for: req)
+            let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+            guard (200..<300).contains(status) else {
+                let body = String(data: data, encoding: .utf8) ?? "no body"
+                throw TranscriptionError.serverError(status, body)
+            }
             return try JSONDecoder().decode(UploadURLResponse.self, from: data)
         },
         transcribe: { idToken, blobName, language in
@@ -101,8 +108,18 @@ extension TranscriptionClient: DependencyKey {
             req.setValue("application/json", forHTTPHeaderField: "Content-Type")
             req.httpBody = try JSONEncoder().encode(["blobName": blobName, "language": language])
             req.timeoutInterval = 120
-            let (data, _) = try await URLSession.shared.data(for: req)
-            return try JSONDecoder().decode(TranscriptionResponse.self, from: data)
+            let (data, response) = try await URLSession.shared.data(for: req)
+            let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+            guard (200..<300).contains(status) else {
+                let body = String(data: data, encoding: .utf8) ?? "no body"
+                throw TranscriptionError.serverError(status, body)
+            }
+            do {
+                return try JSONDecoder().decode(TranscriptionResponse.self, from: data)
+            } catch {
+                let body = String(data: data, encoding: .utf8) ?? "no body"
+                throw TranscriptionError.serverError(0, "decode failed: \(body)")
+            }
         },
         uploadAudio: { fileURL, signedURL, mimeType in
             let data = try Data(contentsOf: fileURL)
@@ -184,8 +201,8 @@ struct TranscriptionFeature {
                         let resp = try await client.transcribe(idToken, uploadResp.blobName, lang)
                         await send(._transcriptionCompleted(.init(
                             transcription: resp.transcription,
-                            segments: resp.segments,
-                            summary: resp.summary
+                            segments: resp.segments ?? [],
+                            summary: resp.summary ?? ""
                         )))
                     } catch {
                         await send(._failed(error.localizedDescription))
