@@ -1484,12 +1484,13 @@ struct MockPlaybackListView: View {
 
             Spacer()
 
-            // Mini player
+            // Mini player — PlaybackFeature.swift 縦画面レイアウトに合わせた構造
             VStack(spacing: 0) {
                 Divider()
-                VStack(spacing: 6) {
+                VStack(spacing: 8) {
+                    // 1. タイトル行
                     HStack {
-                        VStack(alignment: .leading, spacing: 2) {
+                        VStack(alignment: .leading) {
                             Text(language.sampleRecordingTitle(0))
                                 .font(.headline).lineLimit(1)
                             Text(language.sampleDate(0))
@@ -1499,44 +1500,43 @@ struct MockPlaybackListView: View {
                         Image(systemName: "xmark.circle.fill")
                             .font(.title2).foregroundColor(.secondary)
                     }
-                    .padding(.horizontal)
 
-                    // 実際のミニプレイヤーに合わせ Slider を使用
-                    Slider(value: .constant(0.3), in: 0...1)
-                        .padding(.horizontal)
-
-                    HStack {
-                        Text("0:18").font(.caption).monospacedDigit()
-                        Spacer()
-                        Text("1:17").font(.caption).monospacedDigit()
+                    // 2. Slider + 時間表示（実際は VStack(spacing: 4) でラップ）
+                    VStack(spacing: 4) {
+                        Slider(value: .constant(0.3), in: 0...1)
+                        HStack {
+                            Text("0:18").font(.caption).monospacedDigit()
+                            Spacer()
+                            Text("1:17").font(.caption).monospacedDigit()
+                        }
+                        .foregroundColor(.secondary)
                     }
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal)
 
+                    // 3. コントロール行（速度 | A | B | repeat | pause — Spacer なし）
                     HStack(spacing: 16) {
                         Text("1x")
                             .font(.caption)
                             .padding(.horizontal, 8).padding(.vertical, 4)
                             .background(Color.gray.opacity(0.2))
                             .clipShape(Capsule())
-                        Text("A").font(.caption)
+                        Text("A")
+                            .font(.caption)
                             .padding(.horizontal, 8).padding(.vertical, 4)
                             .background(Color.gray.opacity(0.2))
                             .clipShape(Capsule())
-                        Text("B").font(.caption)
+                        Text("B")
+                            .font(.caption)
                             .padding(.horizontal, 8).padding(.vertical, 4)
                             .background(Color.gray.opacity(0.2))
                             .clipShape(Capsule())
                         Image(systemName: "repeat")
                             .font(.body).foregroundColor(.secondary)
-                        Spacer()
                         Image(systemName: "pause.circle.fill")
                             .font(.largeTitle).foregroundColor(.accentColor)
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 34)
                 }
-                .padding(.top, 8)
+                .padding()
+                .padding(.bottom, 20)
                 .background(Color(.systemBackground))
             }
         }
