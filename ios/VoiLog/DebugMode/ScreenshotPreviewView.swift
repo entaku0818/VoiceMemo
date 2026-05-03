@@ -1332,20 +1332,20 @@ struct ScreenshotPageView<Content: View>: View {
 
                 VStack(spacing: 0) {
                     Text(caption)
-                        .font(.system(size: 40, weight: .bold))
+                        .font(.system(size: 36, weight: .bold))
                         .foregroundColor(.black)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 36)
-                        .padding(.top, language == .vietnamese ? 70 : 50)
-                        .padding(.bottom, 6)
+                        .padding(.top, language == .vietnamese ? 52 : 36)
+                        .padding(.bottom, 4)
                         .frame(maxWidth: .infinity)
 
                     Text(subtitle)
-                        .font(.system(size: 18, weight: .regular))
+                        .font(.system(size: 17, weight: .regular))
                         .foregroundColor(Color(white: 0.3))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 36)
-                        .padding(.bottom, 18)
+                        .padding(.bottom, 10)
                         .frame(maxWidth: .infinity)
 
                     content()
