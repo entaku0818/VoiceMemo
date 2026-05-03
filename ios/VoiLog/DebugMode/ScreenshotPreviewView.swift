@@ -993,18 +993,18 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             }
         case .aiRecording:
             switch self {
-            case .japanese: return "話した内容を自動でテキスト化"
-            case .english: return "Auto Speech-to-Text Transcription"
-            case .german: return "Automatische Sprachtranskription"
-            case .spanish: return "Transcripción automática de voz"
-            case .french: return "Transcription automatique"
-            case .italian: return "Trascrizione automatica"
-            case .portuguese: return "Transcrição automática de voz"
-            case .russian: return "Автоматическая транскрипция речи"
-            case .turkish: return "Konuşmayı otomatik metne dönüştür"
-            case .vietnamese: return "Tự động chuyển giọng nói thành văn bản"
-            case .chineseSimplified: return "自动将语音转为文字"
-            case .chineseTraditional: return "自動將語音轉為文字"
+            case .japanese: return "会議・講義・日常をすぐ記録"
+            case .english: return "Record meetings, lectures & daily moments"
+            case .german: return "Meetings, Vorlesungen und mehr aufnehmen"
+            case .spanish: return "Graba reuniones, clases y momentos"
+            case .french: return "Enregistrez réunions, cours et moments"
+            case .italian: return "Registra riunioni, lezioni e momenti"
+            case .portuguese: return "Grave reuniões, aulas e momentos"
+            case .russian: return "Записывайте встречи, лекции и моменты"
+            case .turkish: return "Toplantı, ders ve anları kaydedin"
+            case .vietnamese: return "Ghi lại họp, bài giảng và khoảnh khắc"
+            case .chineseSimplified: return "记录会议、课堂与日常时刻"
+            case .chineseTraditional: return "記錄會議、課堂與日常時刻"
             }
         case .timestampedTranscription:
             switch self {
@@ -1179,18 +1179,18 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             }
         case .aiRecording:
             switch self {
-            case .japanese: return "録音して\nすぐAI文字起こし"
-            case .english: return "Record & Transcribe\nInstantly with AI"
-            case .german: return "Aufnehmen &\nsofort transkribieren"
-            case .spanish: return "Graba y transcribe\nal instante con IA"
-            case .french: return "Enregistrez et\ntranscrivez avec l'IA"
-            case .italian: return "Registra e trascrivi\nistantaneamente con AI"
-            case .portuguese: return "Grave e transcreva\ncom IA"
-            case .russian: return "Запись и\nтранскрипция с AI"
-            case .turkish: return "Kaydet ve AI ile\nanında transkript al"
-            case .vietnamese: return "Ghi âm và\nchuyển văn bản AI"
-            case .chineseSimplified: return "录音后\nAI即刻转录"
-            case .chineseTraditional: return "錄音後\nAI即刻轉錄"
+            case .japanese: return "ワンタップで\nかんたん録音"
+            case .english: return "Simple Voice\nRecording"
+            case .german: return "Einfach\nAufnehmen"
+            case .spanish: return "Grabación\nsimple"
+            case .french: return "Enregistrement\nsimple"
+            case .italian: return "Registrazione\nsemplice"
+            case .portuguese: return "Gravação\nsimples"
+            case .russian: return "Простая\nзапись голоса"
+            case .turkish: return "Basit Sesli\nKayıt"
+            case .vietnamese: return "Ghi Âm\nĐơn Giản"
+            case .chineseSimplified: return "一键\n简单录音"
+            case .chineseTraditional: return "一鍵\n簡單錄音"
             }
         case .useCase:
             switch self {
@@ -1318,7 +1318,7 @@ struct ScreenshotPageView<Content: View>: View {
                         .frame(maxWidth: .infinity)
 
                     content()
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, 4)
 
                     Spacer(minLength: 0)
                 }
@@ -1402,161 +1402,92 @@ struct MockPlaybackListView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Title and Toolbar
+            // Title
             HStack {
                 Text(language.recordingFiles)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 Spacer()
-                Button(action: {}) {
-                    Image(systemName: "icloud.and.arrow.up")
-                        .font(.title3)
-                }
             }
             .padding(.horizontal)
             .padding(.top, 60)
-            .padding(.bottom, 20)
+            .padding(.bottom, 12)
 
+            Divider()
+
+            // Recording rows (no List — VStack for deterministic top layout)
             VStack(spacing: 0) {
-            // Recording List
-            List {
                 ForEach(0..<5) { index in
                     HStack(spacing: 12) {
-                        // Play Button
-                        Button(action: {}) {
-                            Image(systemName: index == 0 ? "pause.circle.fill" : "play.circle")
-                                .font(.title2)
-                                .foregroundColor(index == 0 ? .red : .blue)
-                                .frame(width: 30, height: 30)
-                        }
-                        .buttonStyle(.plain)
+                        Image(systemName: index == 0 ? "pause.circle.fill" : "play.circle")
+                            .font(.title2)
+                            .foregroundColor(index == 0 ? .red : .blue)
+                            .frame(width: 30, height: 30)
 
-                        // Memo Info
-                        VStack(alignment: .leading, spacing: 6) {
-                            // 1行目: タイトル + 時間長
+                        VStack(alignment: .leading, spacing: 4) {
                             HStack {
-                                HStack(spacing: 4) {
-                                    Text(language.sampleRecordingTitle(index))
-                                        .font(.headline)
-                                        .lineLimit(1)
-
-                                    Button {} label: {
-                                        Image(systemName: "pencil")
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-
+                                Text(language.sampleRecordingTitle(index))
+                                    .font(.headline)
+                                    .lineLimit(1)
                                 Spacer()
-
                                 Text(String(format: "%d:%02d", index + 1, (index * 15) % 60))
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                                     .monospacedDigit()
                             }
-
-                            // 2行目: 日時 + メニュー
-                            HStack(spacing: 8) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(language.sampleDate(index))
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-
-                                    if index == 0 {
-                                        Text(language.sampleRecordingDescription)
-                                            .font(.caption)
-                                            .foregroundColor(.secondary)
-                                            .lineLimit(1)
-                                    }
-                                }
-
-                                Spacer()
-
-                                Menu {
-                                    Button(action: {}) {
-                                        Label("共有", systemImage: "square.and.arrow.up")
-                                    }
-                                } label: {
-                                    Image(systemName: "ellipsis.circle")
-                                        .font(.title3)
-                                        .foregroundColor(.secondary)
-                                }
-                            }
-
-                            // Progress Bar (for playing item)
+                            Text(language.sampleDate(index))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
                             if index == 0 {
                                 ProgressView(value: 0.3)
                                     .progressViewStyle(LinearProgressViewStyle(tint: .blue))
                             }
                         }
                     }
-                    .padding(.vertical, 6)
+                    .padding(.horizontal)
+                    .padding(.vertical, 10)
+
+                    Divider().padding(.leading, 54)
                 }
             }
-            .listStyle(.plain)
 
-            // Playback Controls (bottom player)
+            Spacer()
+
+            // Mini player
             VStack(spacing: 0) {
                 Divider()
-
-                VStack(spacing: 8) {
-                    // Title and Close
+                VStack(spacing: 6) {
                     HStack {
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading, spacing: 2) {
                             Text(language.sampleRecordingTitle(0))
-                                .font(.headline)
-                                .lineLimit(1)
+                                .font(.headline).lineLimit(1)
                             Text(language.sampleDate(0))
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                                .font(.caption).foregroundColor(.secondary)
                         }
-
                         Spacer()
-
-                        Button(action: {}) {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.title2)
-                                .foregroundColor(.secondary)
-                        }
+                        Image(systemName: "pause.circle.fill")
+                            .font(.largeTitle).foregroundColor(.blue)
                     }
                     .padding(.horizontal)
 
-                    // Progress and time
-                    VStack(spacing: 4) {
-                        ProgressView(value: 0.3)
-                            .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                    ProgressView(value: 0.3)
+                        .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                        .padding(.horizontal)
 
-                        HStack {
-                            Text("0:18")
-                                .font(.caption)
-                                .monospacedDigit()
-
-                            Spacer()
-
-                            Text("1:17")
-                                .font(.caption)
-                                .monospacedDigit()
-                        }
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("0:18").font(.caption).monospacedDigit()
+                        Spacer()
+                        Text("1:17").font(.caption).monospacedDigit()
                     }
+                    .foregroundColor(.secondary)
                     .padding(.horizontal)
-
-                    // Playback controls
-                    HStack(spacing: 32) {
-                        Button(action: {}) {
-                            Image(systemName: "pause.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.blue)
-                        }
-                    }
                     .padding(.bottom, 8)
                 }
-                .padding(.vertical)
+                .padding(.top, 8)
                 .background(Color(.systemBackground))
             }
-            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
 
@@ -2173,45 +2104,6 @@ struct MockAIRecordingView: View {
                 }
                 .frame(height: 20)
                 .cornerRadius(10)
-                .padding(.horizontal)
-
-                // AI Transcription Card
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "sparkles")
-                            .foregroundColor(.blue)
-                        Text(language.aiTranscriptionLabel)
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.blue)
-                    }
-
-                    VStack(alignment: .leading, spacing: 6) {
-                        ForEach(0..<3, id: \.self) { index in
-                            Text(language.transcriptionSampleText(index))
-                                .font(.subheadline)
-                                .foregroundColor(.primary)
-                                .lineLimit(2)
-                        }
-
-                        // Typing indicator
-                        HStack(spacing: 4) {
-                            ForEach(0..<3, id: \.self) { _ in
-                                Circle()
-                                    .fill(Color.blue.opacity(0.6))
-                                    .frame(width: 6, height: 6)
-                            }
-                        }
-                        .padding(.top, 2)
-                    }
-                }
-                .padding(14)
-                .background(Color.blue.opacity(0.07))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.blue.opacity(0.2), lineWidth: 1)
-                )
                 .padding(.horizontal)
 
                 Spacer()
