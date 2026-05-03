@@ -212,4 +212,127 @@ final class PlaybackFeatureTests: XCTestCase {
         // Cancel the running effect before test ends to prevent task leak
         await store.send(.view(.stopButtonTapped))
     }
+
+    // MARK: - geminiTranscriptionSaved: state更新 + リポジトリ永続化
+
+    func testGeminiTranscriptionSaved_updatesStateAndPersists() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]
+            initial.selectedMemoForTranscription = testID
+            initial.showTranscriptionSheet = true
+
+            let updatedVoices = LockIsolated<[VoiceMemoRepositoryClient.VoiceMemoVoice]>([])
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = VoiceMemoRepositoryClient(
+                    insert: { _ in },
+                    selectAllData: { [] },
+                    fetch: { _ in nil },
+                    delete: { _ in },
+                    update: { voice in updatedVoices.withValue { $0.append(voice) } },
+                    updateTitle: { _, _ in },
+                    updateTags: { _, _ in },
+                    syncToCloud: { true },
+                    checkForDifferences: { false }
+                )
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+
+            await store.send(.view(.geminiTranscriptionSaved(testID, "文字起こしテキスト"))) {
+                $0.showTranscriptionSheet = false
+                $0.selectedMemoForTranscription = nil
+                $0.voiceMemos[0].text = "文字起こしテキスト"
+            }
+            await store.finish()
+
+            // Core Data への永続化が呼ばれたことを確認
+            XCTAssertEqual(updatedVoices.value.count, 1, "voiceMemoRepository.update が1回呼ばれるべき")
+            XCTAssertEqual(updatedVoices.value.first?.text, "文字起こしテキスト")
+            XCTAssertEqual(updatedVoices.value.first?.uuid, testID)
+        }
+    }
+
+    // MARK: - showTranscription: sheet表示状態の設定
+
+    func testShowTranscription_setsSheetState() async {
+        await withMainSerialExecutor {
+            let store = TestStore(initialState: PlaybackFeature.State()) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+
+            await store.send(.view(.showTranscription(testID))) {
+                $0.selectedMemoForTranscription = self.testID
+                $0.showTranscriptionSheet = true
+            }
+        }
+    }
+
+    // MARK: - hideTranscription: sheet非表示状態のリセット
+
+    func testHideTranscription_clearsSheetState() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.selectedMemoForTranscription = testID
+            initial.showTranscriptionSheet = true
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+
+            await store.send(.view(.hideTranscription)) {
+                $0.showTranscriptionSheet = false
+                $0.selectedMemoForTranscription = nil
+            }
+        }
+    }
+
+    // MARK: - geminiTranscriptionSaved: 存在しないmemoIDは無視
+
+    func testGeminiTranscriptionSaved_unknownID_doesNothing() async {
+        await withMainSerialExecutor {
+            let unknownID = UUID()
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]  // testID のメモのみ
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+
+            // unknownID は voiceMemos に存在しないので状態変化はsheetのクリアのみ
+            await store.send(.view(.geminiTranscriptionSaved(unknownID, "テキスト"))) {
+                $0.showTranscriptionSheet = false
+                $0.selectedMemoForTranscription = nil
+            }
+            // メモのテキストは変化しない
+            XCTAssertEqual(store.state.voiceMemos[0].text, "")
+        }
+    }
 }

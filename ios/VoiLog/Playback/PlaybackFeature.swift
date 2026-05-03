@@ -432,10 +432,29 @@ struct PlaybackFeature {
         case let .geminiTranscriptionSaved(memoID, text):
           state.showTranscriptionSheet = false
           state.selectedMemoForTranscription = nil
-          if let idx = state.voiceMemos.firstIndex(where: { $0.id == memoID }) {
-            state.voiceMemos[idx].text = text
+          guard let idx = state.voiceMemos.firstIndex(where: { $0.id == memoID }) else {
+            return .none
           }
-          return .none
+          state.voiceMemos[idx].text = text
+          let memo = state.voiceMemos[idx]
+          return .run { _ in
+            await MainActor.run {
+              voiceMemoRepository.update(VoiceMemoRepositoryClient.VoiceMemoVoice(
+                uuid: memo.id,
+                date: memo.date,
+                duration: memo.duration,
+                title: memo.title,
+                url: memo.url,
+                text: memo.text,
+                timestampedText: memo.timestampedText,
+                fileFormat: memo.fileFormat,
+                samplingFrequency: memo.samplingFrequency,
+                quantizationBitDepth: memo.quantizationBitDepth,
+                numberOfChannels: memo.numberOfChannels,
+                tags: memo.tags
+              ))
+            }
+          }
 
         case let .showAppleTranscription(memoID):
           state.selectedMemoForAppleTranscription = memoID
