@@ -108,15 +108,7 @@ struct FullscreenScreenshotView: View {
             ) {
                 PhoneFrameView { MockUseCaseView(language: language) }
             }
-        case .timestampedTranscription:
-            ScreenshotPageView(
-                caption: language.screenshotCaption(for: .timestampedTranscription),
-                subtitle: language.screenshotSubtitle(for: .timestampedTranscription),
-                screen: .timestampedTranscription,
-                language: language
-            ) {
-                PhoneFrameView { MockTimestampedTranscriptionView(language: language) }
-            }
+        // case .timestampedTranscription: // Gemini文字起こし: 今リリースには含めない (PDM決定)
         case .playbackList:
             ScreenshotPageView(
                 caption: language.screenshotCaption(for: .playbackList),
@@ -1037,21 +1029,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             case .chineseSimplified: return "记录会议、课堂与日常时刻"
             case .chineseTraditional: return "記錄會議、課堂與日常時刻"
             }
-        case .timestampedTranscription:
-            switch self {
-            case .japanese: return "タイムスタンプ付きで振り返りも簡単"
-            case .english: return "Find key moments fast with timestamps"
-            case .german: return "Wichtige Momente per Zeitstempel finden"
-            case .spanish: return "Timestamps para encontrar momentos clave"
-            case .french: return "Horodatage pour retrouver les moments clés"
-            case .italian: return "Timestamp per ritrovare i momenti chiave"
-            case .portuguese: return "Timestamps para encontrar momentos importantes"
-            case .russian: return "Метки времени для ключевых моментов"
-            case .turkish: return "Önemli anları zaman damgasıyla bulun"
-            case .vietnamese: return "Dấu thời gian tìm lại khoảnh khắc quan trọng"
-            case .chineseSimplified: return "时间戳快速定位关键内容"
-            case .chineseTraditional: return "時間戳快速定位關鍵內容"
-            }
+        // case .timestampedTranscription: // Gemini文字起こし: 今リリースには含めない (PDM決定)
         case .backgroundRecording:
             switch self {
             case .japanese: return "画面を閉じても録音継続"
@@ -1238,21 +1216,7 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             case .chineseSimplified: return "适用于会议\n讲座和采访"
             case .chineseTraditional: return "適用於會議\n講座和採訪"
             }
-        case .timestampedTranscription:
-            switch self {
-            case .japanese: return "話した言葉が\nテキストに"
-            case .english: return "Voice to Text\nwith Timestamps"
-            case .german: return "Sprache zu Text\nmit Zeitstempel"
-            case .spanish: return "Voz a texto\ncon timestamps"
-            case .french: return "Voix en texte\navec horodatage"
-            case .italian: return "Voce in testo\ncon timestamp"
-            case .portuguese: return "Voz para texto\ncom timestamp"
-            case .russian: return "Речь в текст\nс метками"
-            case .turkish: return "Sesten Metne\nZaman Damgalı"
-            case .vietnamese: return "Giọng nói\nthành văn bản"
-            case .chineseSimplified: return "语音转文字\n带时间戳"
-            case .chineseTraditional: return "語音轉文字\n帶時間戳"
-            }
+        // case .timestampedTranscription: // Gemini文字起こし: 今リリースには含めない (PDM決定)
         case .shareSheet:
             switch self {
             case .japanese: return "録音を\n簡単に共有"
@@ -1293,7 +1257,7 @@ enum ScreenshotScreen: String, CaseIterable {
     case useCase
     case playbackList
     case backgroundRecording
-    case timestampedTranscription
+    // case timestampedTranscription // Gemini文字起こし: 今リリースには含めない (PDM決定)
     case waveformEditor
     case playlist
     case shareSheet
@@ -1303,7 +1267,7 @@ enum ScreenshotScreen: String, CaseIterable {
         switch self {
         case .aiRecording:
             return LinearGradient(colors: [.blue, .purple], startPoint: .top, endPoint: .bottom)
-        case .playbackList, .timestampedTranscription:
+        case .playbackList:
             return LinearGradient(colors: [.indigo, .blue], startPoint: .top, endPoint: .bottom)
         case .waveformEditor, .shareSheet:
             return LinearGradient(colors: [.green, Color(red: 0, green: 0.5, blue: 0.5)], startPoint: .top, endPoint: .bottom)
@@ -1900,9 +1864,13 @@ struct MockWaveformEditorView: View {
                         Text("00:31").font(.system(size: 14, weight: .semibold).monospacedDigit()).foregroundColor(.blue)
                     }.frame(width: 70)
                     Spacer()
-                    ProgressView(value: 0.4, total: 1.0)
-                        .progressViewStyle(LinearProgressViewStyle(tint: Color.blue))
-                        .frame(height: 4)
+                    GeometryReader { g in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Color.secondary.opacity(0.2)).frame(height: 4)
+                            Capsule().fill(Color.blue).frame(width: g.size.width * 0.4, height: 4)
+                        }.frame(maxHeight: .infinity)
+                    }
+                    .frame(height: 4)
                     Spacer()
                     ZStack {
                         Capsule().fill(Color.blue.opacity(0.1)).frame(height: 30)
@@ -2387,9 +2355,14 @@ struct MockUseCaseView: View {
                     }
                     .padding(.horizontal)
 
-                    ProgressView(value: 0.25)
-                        .progressViewStyle(LinearProgressViewStyle(tint: .blue))
-                        .padding(.horizontal)
+                    GeometryReader { g in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Color.secondary.opacity(0.2)).frame(height: 4)
+                            Capsule().fill(Color.blue).frame(width: g.size.width * 0.25, height: 4)
+                        }.frame(maxHeight: .infinity)
+                    }
+                    .frame(height: 4)
+                    .padding(.horizontal)
 
                     HStack {
                         Text("11:21").font(.caption).monospacedDigit()
@@ -2647,15 +2620,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("JA-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.japanese.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .japanese
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .japanese) }
-    }
+// #Preview("JA-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.japanese.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.japanese.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .japanese
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .japanese) }
+//     }
 }
 
 #Preview("JA-useCase") {
@@ -2692,15 +2665,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("EN-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.english.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.english.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .english
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .english) }
-    }
+// #Preview("EN-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.english.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.english.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .english
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .english) }
+//     }
 }
 
 #Preview("EN-useCase") {
@@ -2737,15 +2710,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("DE-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.german.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.german.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .german
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .german) }
-    }
+// #Preview("DE-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.german.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.german.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .german
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .german) }
+//     }
 }
 
 #Preview("DE-useCase") {
@@ -2782,15 +2755,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("ES-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.spanish.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .spanish
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .spanish) }
-    }
+// #Preview("ES-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.spanish.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.spanish.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .spanish
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .spanish) }
+//     }
 }
 
 #Preview("ES-useCase") {
@@ -2827,15 +2800,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("FR-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.french.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.french.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .french
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .french) }
-    }
+// #Preview("FR-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.french.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.french.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .french
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .french) }
+//     }
 }
 
 #Preview("FR-useCase") {
@@ -2872,15 +2845,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("IT-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.italian.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.italian.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .italian
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .italian) }
-    }
+// #Preview("IT-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.italian.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.italian.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .italian
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .italian) }
+//     }
 }
 
 #Preview("IT-useCase") {
@@ -2917,15 +2890,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("PT-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.portuguese.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .portuguese
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .portuguese) }
-    }
+// #Preview("PT-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.portuguese.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .portuguese
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .portuguese) }
+//     }
 }
 
 #Preview("PT-useCase") {
@@ -2962,15 +2935,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("RU-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.russian.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.russian.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .russian
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .russian) }
-    }
+// #Preview("RU-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.russian.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.russian.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .russian
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .russian) }
+//     }
 }
 
 #Preview("RU-useCase") {
@@ -3007,15 +2980,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("TR-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.turkish.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .turkish
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .turkish) }
-    }
+// #Preview("TR-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.turkish.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.turkish.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .turkish
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .turkish) }
+//     }
 }
 
 #Preview("TR-useCase") {
@@ -3052,15 +3025,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("VI-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.vietnamese.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .vietnamese
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .vietnamese) }
-    }
+// #Preview("VI-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.vietnamese.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .vietnamese
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .vietnamese) }
+//     }
 }
 
 #Preview("VI-useCase") {
@@ -3097,15 +3070,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("ZH_HANS-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .chineseSimplified
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseSimplified) }
-    }
+// #Preview("ZH_HANS-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.chineseSimplified.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .chineseSimplified
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseSimplified) }
+//     }
 }
 
 #Preview("ZH_HANS-useCase") {
@@ -3142,15 +3115,15 @@ struct MockPremiumView: View {
     }
 }
 
-#Preview("ZH_HANT-timestampedTranscription") {
-    ScreenshotPageView(
-        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .timestampedTranscription),
-        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .timestampedTranscription),
-        screen: .timestampedTranscription,
-        language: .chineseTraditional
-    ) {
-        PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseTraditional) }
-    }
+// #Preview("ZH_HANT-timestampedTranscription") {
+//     ScreenshotPageView(
+//         caption: AppLanguage.chineseTraditional.screenshotCaption(for: .timestampedTranscription),
+//         subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .timestampedTranscription),
+//         screen: .timestampedTranscription,
+//         language: .chineseTraditional
+//     ) {
+//         PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseTraditional) }
+//     }
 }
 
 #Preview("ZH_HANT-useCase") {
