@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -137,7 +136,11 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 		body.Language = "ja"
 	}
 
-	// Cloud Storage から音声取得
+	// MIMEタイプ判定
+	ext := body.BlobName[strings.LastIndex(body.BlobName, ".")+1:]
+	mimeType := audioMIMEType(ext)
+
+	// Cloud Storage から Gemini File API へストリーミングアップロード（メモリに乗せない）
 	obj := storageClient.Bucket(bucketName).Object(body.BlobName)
 	reader, err := obj.NewReader(r.Context())
 	if err != nil {
@@ -146,18 +149,17 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	}
 	defer reader.Close()
 
-	audioBytes, err := io.ReadAll(reader)
+	geminiFile, err := geminiClient.UploadFile(r.Context(), "", reader, &genai.UploadFileOptions{
+		MIMEType: mimeType,
+	})
 	if err != nil {
-		http.Error(w, `{"error":"Read error"}`, http.StatusInternalServerError)
+		log.Printf("file upload error: %v", err)
+		http.Error(w, `{"error":"File upload failed"}`, http.StatusInternalServerError)
 		return
 	}
-
-	// MIMEタイプ判定
-	ext := body.BlobName[strings.LastIndex(body.BlobName, ".")+1:]
-	mimeType := "audio/mp4"
-	if ext != "m4a" {
-		mimeType = "audio/" + ext
-	}
+	// GCS の元ファイルとGeminiファイルを後始末
+	go obj.Delete(context.Background())
+	defer geminiClient.DeleteFile(context.Background(), geminiFile.Name)
 
 	// Gemini で文字起こし
 	model := geminiClient.GenerativeModel(getEnv("GEMINI_MODEL", "gemini-2.5-flash"))
@@ -173,7 +175,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 }`, body.Language)
 
 	resp, err := model.GenerateContent(r.Context(),
-		genai.Blob{MIMEType: mimeType, Data: audioBytes},
+		genai.FileData{URI: geminiFile.URI, MIMEType: mimeType},
 		genai.Text(prompt),
 	)
 	if err != nil {
@@ -181,9 +183,6 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"Transcription failed"}`, http.StatusInternalServerError)
 		return
 	}
-
-	// 処理済みファイル削除
-	go obj.Delete(context.Background())
 
 	// レスポンス返却
 	text := ""
