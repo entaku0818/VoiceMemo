@@ -1527,143 +1527,221 @@ struct MockBackgroundRecordingView: View {
     let language: AppLanguage
 
     var body: some View {
-        VStack(spacing: 20) {
-            // Dynamic Island close-up — shows orange mic + waveform + timer
+        VStack(spacing: 24) {
+            // Dynamic Island close-up — expanded state with mic + waveform + timer
             ZStack {
+                // Outer glow ring
+                Capsule()
+                    .fill(Color.orange.opacity(0.18))
+                    .frame(width: 310, height: 100)
+                // Silver bezel
                 Capsule()
                     .fill(
                         LinearGradient(
-                            colors: [Color(white: 0.80), Color(white: 0.52), Color(white: 0.72), Color(white: 0.62)],
+                            colors: [Color(white: 0.82), Color(white: 0.50), Color(white: 0.75)],
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
-                    .frame(width: 290, height: 84)
-
+                    .frame(width: 294, height: 88)
+                // Black pill body
                 Capsule()
                     .fill(Color.black)
-                    .frame(width: 268, height: 64)
+                    .frame(width: 278, height: 72)
 
                 HStack(spacing: 0) {
-                    Spacer().frame(width: 24)
-                    Image(systemName: "mic.fill")
-                        .font(.system(size: 24))
-                        .foregroundColor(.orange)
-                    Spacer().frame(width: 10)
-                    // Waveform bars
-                    HStack(alignment: .center, spacing: 2.5) {
-                        ForEach([0.45, 0.75, 1.0, 0.6, 0.85, 0.5, 0.9, 0.65], id: \.self) { h in
-                            RoundedRectangle(cornerRadius: 1.5)
-                                .fill(Color.orange.opacity(0.85))
-                                .frame(width: 3, height: CGFloat(h) * 20)
+                    Spacer().frame(width: 20)
+                    // Mic icon with pulsing dot
+                    ZStack(alignment: .topTrailing) {
+                        Image(systemName: "mic.fill")
+                            .font(.system(size: 28, weight: .semibold))
+                            .foregroundColor(.orange)
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 9, height: 9)
+                            .offset(x: 4, y: -4)
+                    }
+                    Spacer().frame(width: 12)
+                    // Waveform bars — taller and more dynamic
+                    HStack(alignment: .center, spacing: 3) {
+                        ForEach([0.35, 0.65, 0.90, 1.0, 0.75, 0.55, 0.85, 0.45, 0.70, 0.60], id: \.self) { h in
+                            RoundedRectangle(cornerRadius: 2)
+                                .fill(Color.orange)
+                                .frame(width: 3.5, height: CGFloat(h) * 30)
                         }
                     }
                     Spacer()
-                    Text("02:47")
-                        .font(.system(size: 13, weight: .semibold, design: .monospaced))
-                        .foregroundColor(.orange)
-                    Spacer().frame(width: 16)
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Text("02:47")
+                            .font(.system(size: 15, weight: .bold, design: .monospaced))
+                            .foregroundColor(.orange)
+                        Text("REC")
+                            .font(.system(size: 9, weight: .semibold))
+                            .foregroundColor(.red.opacity(0.9))
+                    }
+                    Spacer().frame(width: 18)
                 }
-                .frame(width: 268)
+                .frame(width: 278)
             }
             .padding(.top, 4)
 
-            // Partial iPhone showing lock screen
+            // iPhone lock screen (partial, showing Dynamic Island in context)
             ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 44)
+                RoundedRectangle(cornerRadius: 46)
                     .fill(
                         LinearGradient(
                             colors: [
-                                Color(red: 0.24, green: 0.30, blue: 0.52),
-                                Color(red: 0.12, green: 0.16, blue: 0.36)
+                                Color(red: 0.20, green: 0.26, blue: 0.50),
+                                Color(red: 0.10, green: 0.14, blue: 0.32),
+                                Color(red: 0.06, green: 0.10, blue: 0.22)
                             ],
                             startPoint: .top,
                             endPoint: .bottom
                         )
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 44)
-                            .stroke(Color(white: 0.35), lineWidth: 2)
+                        RoundedRectangle(cornerRadius: 46)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [Color(white: 0.45), Color(white: 0.25)],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                ),
+                                lineWidth: 2
+                            )
                     )
 
                 VStack(alignment: .center, spacing: 0) {
                     // Status bar
                     HStack(spacing: 0) {
-                        HStack(spacing: 2) {
-                            Image(systemName: "cellularbars").font(.system(size: 10))
-                            Image(systemName: "wifi").font(.system(size: 10))
+                        // Signal + WiFi
+                        HStack(spacing: 4) {
+                            Image(systemName: "cellularbars")
+                                .font(.system(size: 11, weight: .medium))
+                            Image(systemName: "wifi")
+                                .font(.system(size: 11, weight: .medium))
                         }
                         .foregroundColor(.white)
                         Spacer()
-                        // Dynamic Island with mic indicator
+                        // Dynamic Island — compact mic indicator
                         ZStack {
                             Capsule()
                                 .fill(Color.black)
-                                .frame(width: 108, height: 30)
-                            HStack(spacing: 5) {
+                                .frame(width: 116, height: 34)
+                            HStack(spacing: 6) {
                                 Image(systemName: "mic.fill")
-                                    .font(.system(size: 11))
+                                    .font(.system(size: 12, weight: .semibold))
                                     .foregroundColor(.orange)
+                                HStack(alignment: .center, spacing: 2) {
+                                    ForEach([0.5, 0.9, 0.7, 1.0, 0.6], id: \.self) { h in
+                                        RoundedRectangle(cornerRadius: 1)
+                                            .fill(Color.orange.opacity(0.85))
+                                            .frame(width: 2.5, height: CGFloat(h) * 14)
+                                    }
+                                }
                                 Spacer()
+                                Text("02:47")
+                                    .font(.system(size: 10, weight: .semibold, design: .monospaced))
+                                    .foregroundColor(.orange)
                             }
-                            .padding(.leading, 12)
-                            .frame(width: 108)
+                            .padding(.horizontal, 10)
+                            .frame(width: 116)
                         }
                         Spacer()
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 2)
-                                .stroke(Color.white.opacity(0.8), lineWidth: 1)
-                                .frame(width: 22, height: 12)
-                            HStack {
+                        // Battery indicator with percentage
+                        HStack(spacing: 4) {
+                            Text("78%")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.white)
+                            ZStack {
+                                // Battery outline
+                                RoundedRectangle(cornerRadius: 3)
+                                    .stroke(Color.white.opacity(0.9), lineWidth: 1.2)
+                                    .frame(width: 25, height: 13)
+                                // Battery fill (green ~78%)
+                                HStack {
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .fill(Color.green)
+                                        .frame(width: 17, height: 9)
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 2)
+                                .frame(width: 25)
+                                // Battery tip
                                 RoundedRectangle(cornerRadius: 1)
-                                    .fill(Color.green)
-                                    .frame(width: 14, height: 8)
-                                Spacer()
+                                    .fill(Color.white.opacity(0.6))
+                                    .frame(width: 2, height: 5)
+                                    .offset(x: 14)
                             }
-                            .padding(.horizontal, 2)
-                            .frame(width: 22)
                         }
                     }
-                    .padding(.horizontal, 18)
-                    .padding(.top, 12)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 14)
 
                     // Localized date
                     Text(language.lockScreenDate)
-                        .font(.system(size: 15, weight: .regular))
+                        .font(.system(size: 16, weight: .regular))
                         .foregroundColor(.white.opacity(0.85))
-                        .padding(.top, 20)
+                        .padding(.top, 22)
 
-                    // Large time (universally understood)
+                    // Large time
                     Text("13:39")
-                        .font(.system(size: 88, weight: .thin))
+                        .font(.system(size: 92, weight: .thin))
                         .foregroundColor(.white)
                         .padding(.top, 2)
 
                     Spacer()
 
-                    // Recording Live Activity banner
-                    HStack(spacing: 8) {
-                        Image(systemName: "mic.fill")
-                            .font(.system(size: 13))
-                            .foregroundColor(.orange)
-                        Text(language.recordingText)
-                            .font(.system(size: 13, weight: .semibold))
-                            .foregroundColor(.white)
-                        Spacer()
-                        Text("02:47")
-                            .font(.system(size: 13, weight: .medium, design: .monospaced))
-                            .foregroundColor(.orange)
+                    // Live Activity / Recording banner — prominent style
+                    VStack(spacing: 0) {
+                        HStack(spacing: 10) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.orange.opacity(0.2))
+                                    .frame(width: 36, height: 36)
+                                Image(systemName: "mic.fill")
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .foregroundColor(.orange)
+                            }
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(language.recordingText)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.white)
+                                HStack(spacing: 6) {
+                                    Circle()
+                                        .fill(Color.red)
+                                        .frame(width: 6, height: 6)
+                                    Text("シンプル録音")
+                                        .font(.system(size: 11))
+                                        .foregroundColor(.white.opacity(0.7))
+                                }
+                            }
+                            Spacer()
+                            VStack(alignment: .trailing, spacing: 2) {
+                                Text("02:47")
+                                    .font(.system(size: 22, weight: .semibold, design: .monospaced))
+                                    .foregroundColor(.orange)
+                                Text("録音中")
+                                    .font(.system(size: 10))
+                                    .foregroundColor(.white.opacity(0.6))
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
                     }
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 10)
-                    .background(Color.white.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .background(.ultraThinMaterial.opacity(0.8))
+                    .background(Color.white.opacity(0.08))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                    )
                     .padding(.horizontal, 16)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 20)
                 }
             }
             .frame(maxWidth: .infinity)
-            .frame(height: 310)
+            .frame(height: 360)
             .clipped()
         }
         .padding(.bottom, 8)
@@ -1693,6 +1771,7 @@ struct MockWaveformEditorView: View {
                     .frame(width: 80, alignment: .trailing)
             }
             .padding()
+            .padding(.top, 50)
             .background(Color(.systemBackground))
 
             ScrollView {
@@ -1904,6 +1983,8 @@ struct MockPlaylistView: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 16)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(Color(.systemBackground))
     }
 
     private func playlistGradientColors(for index: Int) -> (Color, Color) {
