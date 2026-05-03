@@ -1470,8 +1470,14 @@ struct MockPlaybackListView: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             if index == 0 {
-                                ProgressView(value: 0.3)
-                                    .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                                // ProgressView は ImageRenderer でアクセントカラーに引き寄せられるためカスタム描画
+                                GeometryReader { g in
+                                    ZStack(alignment: .leading) {
+                                        Capsule().fill(Color.secondary.opacity(0.2)).frame(height: 3)
+                                        Capsule().fill(Color.blue).frame(width: g.size.width * 0.3, height: 3)
+                                    }
+                                }
+                                .frame(height: 3)
                             }
                         }
                     }
@@ -1501,9 +1507,25 @@ struct MockPlaybackListView: View {
                             .font(.title2).foregroundColor(.secondary)
                     }
 
-                    // 2. Slider + 時間表示（実際は VStack(spacing: 4) でラップ）
+                    // 2. Slider + 時間表示（Slider は ImageRenderer 非対応のためカスタム描画）
                     VStack(spacing: 4) {
-                        Slider(value: .constant(0.3), in: 0...1)
+                        GeometryReader { g in
+                            ZStack(alignment: .leading) {
+                                Capsule()
+                                    .fill(Color.secondary.opacity(0.25))
+                                    .frame(height: 4)
+                                Capsule()
+                                    .fill(Color.accentColor)
+                                    .frame(width: g.size.width * 0.3, height: 4)
+                                Circle()
+                                    .fill(Color.white)
+                                    .shadow(color: .black.opacity(0.2), radius: 2)
+                                    .frame(width: 20, height: 20)
+                                    .offset(x: g.size.width * 0.3 - 10)
+                            }
+                            .frame(maxHeight: .infinity)
+                        }
+                        .frame(height: 20)
                         HStack {
                             Text("0:18").font(.caption).monospacedDigit()
                             Spacer()
