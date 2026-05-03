@@ -1,1 +1,1 @@
-interview,meeting,lecture,podcast,memo,background,audio,notes,voice,recorder,dictation,waveform,playlist
+interview,meeting,lecture,podcast,memo,background,audio,notes,voice,recorder,dictation,waveform
