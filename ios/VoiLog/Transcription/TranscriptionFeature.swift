@@ -335,7 +335,7 @@ struct TranscriptionView: View {
                         Button {
                             UIPasteboard.general.string = msg
                         } label: {
-                            Label("コピー", systemImage: "doc.on.doc")
+                            Label(String(localized: "コピー"), systemImage: "doc.on.doc")
                         }
                         .buttonStyle(.bordered)
                     }

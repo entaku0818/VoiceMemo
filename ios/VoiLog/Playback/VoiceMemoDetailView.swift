@@ -3,6 +3,8 @@ import SwiftUI
 struct VoiceMemoDetailView: View {
   let memo: PlaybackFeature.VoiceMemo
   let onDismiss: () -> Void
+  var onShowAppleTranscription: (() -> Void)?
+  var onShowGeminiTranscription: (() -> Void)?
 
   var body: some View {
       NavigationStack {
@@ -10,36 +12,47 @@ struct VoiceMemoDetailView: View {
         VStack(alignment: .leading, spacing: 20) {
           // 基本情報セクション
           detailSection(title: String(localized: "基本情報")) {
-            detailRow(label: "タイトル", value: memo.title)
-            detailRow(label: "録音日時", value: DateFormatter.dateTimeFormatter.string(from: memo.date))
-            detailRow(label: "再生時間", value: formatDuration(memo.duration))
-            if !memo.text.isEmpty {
-              VStack(alignment: .leading, spacing: 4) {
-                Text(String(localized: "音声認識テキスト"))
-                  .font(.subheadline)
-                  .fontWeight(.medium)
-                  .foregroundColor(.secondary)
-                Text(memo.text)
-                  .font(.body)
-                  .padding(12)
-                  .background(Color(.systemGray6))
-                  .cornerRadius(8)
+            detailRow(label: String(localized: "タイトル"), value: memo.title)
+            detailRow(label: String(localized: "録音日時"), value: DateFormatter.dateTimeFormatter.string(from: memo.date))
+            detailRow(label: String(localized: "再生時間"), value: formatDuration(memo.duration))
+
+            // 文字起こしへのナビゲーション
+            if memo.timestampedText != nil || !memo.text.isEmpty {
+              transcriptionRow(
+                icon: "text.bubble.fill",
+                label: String(localized: "文字起こし（Apple）"),
+                color: .blue
+              ) {
+                onShowAppleTranscription?()
               }
+            }
+
+            transcriptionRow(
+              icon: "waveform.and.mic",
+              label: String(localized: "Gemini AIで文字起こし"),
+              color: .purple
+            ) {
+              onShowGeminiTranscription?()
             }
           }
 
           // ファイル情報セクション
           detailSection(title: String(localized: "ファイル情報")) {
-            detailRow(label: "ファイルサイズ", value: formatFileSize(memo.fileSize))
-            detailRow(label: "ファイル形式", value: formatFileFormat(memo.fileFormat))
-            detailRow(label: "ファイルパス", value: memo.url.lastPathComponent)
+            detailRow(label: String(localized: "ファイルサイズ"), value: formatFileSize(memo.fileSize))
+            detailRow(label: String(localized: "ファイル形式"), value: formatFileFormat(memo.fileFormat))
+            detailRow(label: String(localized: "ファイルパス"), value: memo.url.lastPathComponent)
           }
 
           // 音質設定セクション
           detailSection(title: String(localized: "音質設定")) {
-            detailRow(label: "サンプリング周波数", value: "\(Int(memo.samplingFrequency)) Hz")
-            detailRow(label: "ビット深度", value: "\(memo.quantizationBitDepth) bit")
-            detailRow(label: "チャンネル数", value: memo.numberOfChannels == 1 ? "モノラル" : "ステレオ")
+            detailRow(label: String(localized: "サンプリング周波数"), value: "\(Int(memo.samplingFrequency)) Hz")
+            detailRow(label: String(localized: "ビット深度"), value: "\(memo.quantizationBitDepth) bit")
+            detailRow(
+              label: String(localized: "チャンネル数"),
+              value: memo.numberOfChannels == 1
+                ? String(localized: "モノラル")
+                : String(localized: "ステレオ")
+            )
           }
         }
         .padding()
@@ -59,6 +72,28 @@ struct VoiceMemoDetailView: View {
         }
       }
       }
+  }
+
+  private func transcriptionRow(
+    icon: String,
+    label: String,
+    color: Color,
+    action: @escaping () -> Void
+  ) -> some View {
+    Button(action: action) {
+      HStack {
+        Image(systemName: icon)
+          .foregroundColor(color)
+          .frame(width: 24)
+        Text(label)
+          .font(.subheadline)
+          .foregroundColor(.primary)
+        Spacer()
+        Image(systemName: "chevron.right")
+          .font(.caption)
+          .foregroundColor(.secondary)
+      }
+    }
   }
 
   @ViewBuilder

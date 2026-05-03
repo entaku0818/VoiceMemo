@@ -145,6 +145,8 @@ struct PlaybackFeature {
       case hideDetailSheet
       case showEnhancedMemoDetails(VoiceMemo.ID)
       case hideEnhancedDetailSheet
+      case showAppleTranscriptionFromDetail(VoiceMemo.ID)
+      case showGeminiTranscriptionFromDetail(VoiceMemo.ID)
 
       // Audio Editor Actions
       case showAudioEditor(VoiceMemo.ID)
@@ -367,6 +369,20 @@ struct PlaybackFeature {
         case .hideDetailSheet:
           state.selectedMemoForDetails = nil
           state.showDetailSheet = false
+          return .none
+
+        case let .showAppleTranscriptionFromDetail(memoID):
+          state.showDetailSheet = false
+          state.selectedMemoForDetails = nil
+          state.selectedMemoForAppleTranscription = memoID
+          state.showAppleTranscriptionSheet = true
+          return .none
+
+        case let .showGeminiTranscriptionFromDetail(memoID):
+          state.showDetailSheet = false
+          state.selectedMemoForDetails = nil
+          state.selectedMemoForTranscription = memoID
+          state.showTranscriptionSheet = true
           return .none
 
         case let .showEnhancedMemoDetails(id):
@@ -671,9 +687,12 @@ struct PlaybackView: View {
       .fullScreenCover(isPresented: $store.showDetailSheet) {
         if let selectedId = store.selectedMemoForDetails,
            let memo = store.voiceMemos.first(where: { $0.id == selectedId }) {
-          VoiceMemoDetailView(memo: memo) {
-            send(.hideDetailSheet)
-          }
+          VoiceMemoDetailView(
+            memo: memo,
+            onDismiss: { send(.hideDetailSheet) },
+            onShowAppleTranscription: { send(.showAppleTranscriptionFromDetail(selectedId)) },
+            onShowGeminiTranscription: { send(.showGeminiTranscriptionFromDetail(selectedId)) }
+          )
         }
       }
       .fullScreenCover(isPresented: $store.showTranscriptionSheet) {
