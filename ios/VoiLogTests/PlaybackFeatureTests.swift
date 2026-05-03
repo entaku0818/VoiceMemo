@@ -314,6 +314,8 @@ final class PlaybackFeatureTests: XCTestCase {
             let unknownID = UUID()
             var initial = PlaybackFeature.State()
             initial.voiceMemos = [makeMemo()]  // testID のメモのみ
+            initial.showTranscriptionSheet = true
+            initial.selectedMemoForTranscription = unknownID
 
             let store = TestStore(initialState: initial) {
                 PlaybackFeature()
