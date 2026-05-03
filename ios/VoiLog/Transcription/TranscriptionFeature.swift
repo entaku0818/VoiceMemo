@@ -59,6 +59,7 @@ struct TranscriptionClient {
 
         struct Segment: Decodable, Equatable {
             let time: String
+            let speaker: String?
             let text: String
         }
     }
@@ -347,20 +348,43 @@ struct TranscriptionView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text("全文").font(.headline)
                 if result.segments.isEmpty {
-                    Text(result.transcription).font(.body)
+                    Text(result.transcription)
+                        .font(.body)
+                        .textSelection(.enabled)
                 } else {
-                    ForEach(result.segments, id: \.time) { seg in
-                        HStack(alignment: .top, spacing: 8) {
-                            Text(seg.time)
-                                .font(.caption.monospacedDigit())
-                                .foregroundStyle(.secondary)
-                                .frame(width: 44, alignment: .leading)
-                            Text(seg.text).font(.body)
+                    ForEach(Array(result.segments.enumerated()), id: \.offset) { _, seg in
+                        HStack(alignment: .top, spacing: 10) {
+                            VStack(alignment: .leading, spacing: 3) {
+                                if let speaker = seg.speaker, !speaker.isEmpty {
+                                    Text(speaker)
+                                        .font(.caption.bold())
+                                        .padding(.horizontal, 6)
+                                        .padding(.vertical, 2)
+                                        .background(speakerColor(speaker).opacity(0.15))
+                                        .foregroundStyle(speakerColor(speaker))
+                                        .clipShape(Capsule())
+                                }
+                                Text(seg.time)
+                                    .font(.caption.monospacedDigit())
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(width: 52, alignment: .leading)
+                            Text(seg.text)
+                                .font(.body)
+                                .textSelection(.enabled)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .padding(.vertical, 2)
                     }
                 }
             }
         }
+    }
+
+    private func speakerColor(_ speaker: String) -> Color {
+        let palette: [Color] = [.blue, .orange, .green, .purple, .red, .teal, .indigo, .pink]
+        let index = Int(speaker.unicodeScalars.first?.value ?? 65) % palette.count
+        return palette[index]
     }
 }
 
@@ -372,8 +396,8 @@ struct TranscriptionView: View {
             result: .init(
                 transcription: "本日の会議を始めます。まず先週のアクションアイテムを確認しましょう。",
                 segments: [
-                    .init(time: "0:00", text: "本日の会議を始めます。"),
-                    .init(time: "0:05", text: "まず先週のアクションアイテムを確認しましょう。")
+                    .init(time: "0:00", speaker: "A", text: "本日の会議を始めます。"),
+                    .init(time: "0:05", speaker: "B", text: "まず先週のアクションアイテムを確認しましょう。")
                 ],
                 summary: "週次ミーティングの開会宣言とアクションアイテム確認の呼びかけ。"
             )

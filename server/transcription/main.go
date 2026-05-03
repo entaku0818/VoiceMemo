@@ -166,10 +166,14 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	prompt := fmt.Sprintf(`この音声を文字起こしして、以下のJSON形式のみを返してください。
 言語: %s
 
+話者が複数いる場合は speaker フィールドで識別してください（A, B, C ...）。
+話者が1人または不明な場合は speaker を空文字にしてください。
+
 {
-  "transcription": "全文テキスト",
+  "transcription": "全文テキスト（話者ラベルなし）",
   "segments": [
-    {"time": "0:00", "text": "..."}
+    {"time": "0:00", "speaker": "A", "text": "..."},
+    {"time": "0:15", "speaker": "B", "text": "..."}
   ],
   "summary": "内容の要約（3文以内）"
 }`, body.Language)
@@ -192,10 +196,11 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// markdown コードブロックを除去してからJSONパース
-	text = stripMarkdownFence(text)
+	// markdown コードブロック除去 → JSON境界抽出 → パース
+	text = extractJSON(text)
 	var result map[string]any
 	if err := json.Unmarshal([]byte(text), &result); err != nil {
+		log.Printf("json parse error: %v, raw: %s", err, text)
 		result = map[string]any{
 			"transcription": text,
 			"segments":      []any{},
@@ -214,8 +219,9 @@ func audioMIMEType(ext string) string {
 	return "audio/" + ext
 }
 
-func stripMarkdownFence(s string) string {
+func extractJSON(s string) string {
 	s = strings.TrimSpace(s)
+	// strip markdown fence
 	if strings.HasPrefix(s, "```") {
 		if idx := strings.Index(s, "\n"); idx != -1 {
 			s = s[idx+1:]
@@ -224,6 +230,12 @@ func stripMarkdownFence(s string) string {
 			s = s[:len(s)-3]
 		}
 		s = strings.TrimSpace(s)
+	}
+	// find outermost JSON object
+	start := strings.Index(s, "{")
+	end := strings.LastIndex(s, "}")
+	if start != -1 && end > start {
+		return s[start : end+1]
 	}
 	return s
 }
