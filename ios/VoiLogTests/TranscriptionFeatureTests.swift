@@ -113,7 +113,7 @@ final class TranscriptionFeatureTests: XCTestCase {
 
         await store.send(.startTapped) { $0.status = .uploading }
         await store.receive(\._failed) {
-            $0.status = .failed("HTTP 500: Internal Server Error")
+            $0.status = .failed("サーバーエラーが発生しました。再試行してください。")
         }
     }
 
@@ -127,7 +127,7 @@ final class TranscriptionFeatureTests: XCTestCase {
         await store.send(.startTapped) { $0.status = .uploading }
         await store.receive(\._uploadCompleted) { $0.status = .transcribing }
         await store.receive(\._failed) {
-            $0.status = .failed("アップロード失敗 (HTTP 403)")
+            $0.status = .failed("音声ファイルのアップロードに失敗しました。ネットワークを確認してください。")
         }
     }
 
@@ -141,7 +141,7 @@ final class TranscriptionFeatureTests: XCTestCase {
         await store.send(.startTapped) { $0.status = .uploading }
         await store.receive(\._uploadCompleted) { $0.status = .transcribing }
         await store.receive(\._failed) {
-            $0.status = .failed("HTTP 502: Bad Gateway")
+            $0.status = .failed("サーバーエラーが発生しました。再試行してください。")
         }
     }
 

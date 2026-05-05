@@ -714,7 +714,6 @@ struct PlaybackView: View {
           )
         }
       }
-      #if DEBUG
       .fullScreenCover(isPresented: $store.showTranscriptionSheet) {
         if let memoID = store.selectedMemoForTranscription,
            let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
@@ -727,7 +726,6 @@ struct PlaybackView: View {
           )
         }
       }
-      #endif
       .fullScreenCover(isPresented: $store.showAppleTranscriptionSheet) {
         if let memoID = store.selectedMemoForAppleTranscription,
            let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
@@ -1353,11 +1351,9 @@ struct VoiceMemoRow: View {
             }
             .disabled(isConverting)
 
-            #if DEBUG
             Button(action: onTranscribe) {
               Label(String(localized: "文字起こし"), systemImage: "text.bubble")
             }
-            #endif
 
             Button(action: onEditTags) {
               Label(String(localized: "タグを編集"), systemImage: "tag")
