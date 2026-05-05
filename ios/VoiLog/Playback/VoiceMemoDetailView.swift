@@ -29,7 +29,7 @@ struct VoiceMemoDetailView: View {
 
             transcriptionRow(
               icon: "waveform.and.mic",
-              label: String(localized: "Gemini AIで文字起こし"),
+              label: String(localized: "AIで文字起こし"),
               color: .purple
             ) {
               onShowGeminiTranscription?()

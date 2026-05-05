@@ -1630,7 +1630,7 @@ struct MockBackgroundRecordingView: View {
                         Text("02:47")
                             .font(.system(size: 22, weight: .semibold, design: .monospaced))
                             .foregroundColor(.orange)
-                        Text("Recording")
+                        Text(language.recordingText)
                             .font(.system(size: 10))
                             .foregroundColor(.white.opacity(0.6))
                     }

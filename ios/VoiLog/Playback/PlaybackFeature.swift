@@ -750,7 +750,7 @@ struct PlaybackView: View {
           send(.dismissTranscriptionPremiumPrompt)
         }
       } message: {
-        Text(String(localized: "Gemini AI文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。"))
+        Text(String(localized: "文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。"))
       }
       .fullScreenCover(isPresented: $store.showDetailSheet) {
         if let selectedId = store.selectedMemoForDetails,

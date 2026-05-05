@@ -314,7 +314,7 @@ struct TranscriptionView: View {
                     Image(systemName: "waveform.and.mic")
                         .font(.system(size: 52))
                         .foregroundStyle(.blue)
-                    Text(String(localized: "Gemini AIで文字起こし"))
+                    Text(String(localized: "AIで文字起こし"))
                         .font(.title3.bold())
                     Text(String(localized: "音声ファイルをアップロードして\nAIが自動で書き起こします"))
                         .font(.subheadline)
