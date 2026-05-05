@@ -163,6 +163,14 @@ struct TranscriptionFeature {
         var audioURL: URL
         var status: Status = .idle
         var result: Result?
+        var selectedLanguage: String
+
+        init(audioURL: URL, status: Status = .idle, result: Result? = nil) {
+            self.audioURL = audioURL
+            self.status = status
+            self.result = result
+            self.selectedLanguage = Self.detectLanguage()
+        }
 
         enum Status: Equatable {
             case idle
@@ -177,10 +185,19 @@ struct TranscriptionFeature {
             let segments: [TranscriptionClient.TranscriptionResponse.Segment]
             let summary: String
         }
+
+        static func detectLanguage() -> String {
+            let code = Locale.preferredLanguages.first ?? "en"
+            if code.hasPrefix("ja") { return "ja" }
+            if code.hasPrefix("zh") { return "zh" }
+            if code.hasPrefix("ko") { return "ko" }
+            return "en"
+        }
     }
 
     enum Action {
         case startTapped
+        case languageChanged(String)
         case _uploadCompleted(blobName: String, uploadURL: String)
         case _transcriptionCompleted(State.Result)
         case _failed(String)
@@ -202,13 +219,13 @@ struct TranscriptionFeature {
                 let audioURL = state.audioURL
                 let ext = audioURL.pathExtension.isEmpty ? "m4a" : audioURL.pathExtension
                 let mimeType = ext == "m4a" ? "audio/mp4" : "audio/\(ext)"
+                let lang = state.selectedLanguage
                 return .run { send in
                     do {
                         let idToken = try await firebaseAuth.currentUserIDToken()
                         let uploadResp = try await client.uploadURL(idToken, ext)
                         await send(._uploadCompleted(blobName: uploadResp.blobName, uploadURL: uploadResp.uploadUrl))
                         try await client.uploadAudio(audioURL, uploadResp.uploadUrl, mimeType)
-                        let lang = detectLanguage()
                         let resp = try await client.transcribe(idToken, uploadResp.blobName, lang)
                         await send(._transcriptionCompleted(.init(
                             transcription: resp.transcription,
@@ -219,6 +236,10 @@ struct TranscriptionFeature {
                         await send(._failed(error.localizedDescription))
                     }
                 }
+
+            case let .languageChanged(lang):
+                state.selectedLanguage = lang
+                return .none
 
             case ._uploadCompleted:
                 state.status = .transcribing
@@ -237,14 +258,6 @@ struct TranscriptionFeature {
                 return .none
             }
         }
-    }
-
-    private func detectLanguage() -> String {
-        let code = Locale.preferredLanguages.first ?? "ja"
-        if code.hasPrefix("ja") { return "ja" }
-        if code.hasPrefix("zh") { return "zh" }
-        if code.hasPrefix("ko") { return "ko" }
-        return "en"
     }
 }
 
@@ -310,7 +323,7 @@ struct TranscriptionView: View {
             Spacer()
             switch store.status {
             case .idle:
-                VStack(spacing: 16) {
+                VStack(spacing: 20) {
                     Image(systemName: "waveform.and.mic")
                         .font(.system(size: 52))
                         .foregroundStyle(.blue)
@@ -320,21 +333,44 @@ struct TranscriptionView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
+
+                    // Language picker
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(String(localized: "言語"))
+                            .font(.caption.bold())
+                            .foregroundStyle(.secondary)
+                        Picker(String(localized: "言語"), selection: Binding(
+                            get: { store.selectedLanguage },
+                            set: { store.send(.languageChanged($0)) }
+                        )) {
+                            Text(String(localized: "日本語")).tag("ja")
+                            Text("English").tag("en")
+                            Text(String(localized: "中文")).tag("zh")
+                            Text("한국어").tag("ko")
+                            Text("Deutsch").tag("de")
+                            Text("Français").tag("fr")
+                            Text("Español").tag("es")
+                        }
+                        .pickerStyle(.menu)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color(.secondarySystemBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .padding(.horizontal, 40)
+
                     Button(String(localized: "文字起こしを開始")) { store.send(.startTapped) }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
-                        .padding(.top, 8)
                 }
                 .padding()
             case .uploading:
                 progressView(
-                    stepLabel: String(localized: "ステップ 1/2"),
                     label: String(localized: "音声をアップロード中..."),
                     hint: nil
                 )
             case .transcribing:
                 progressView(
-                    stepLabel: String(localized: "ステップ 2/2"),
                     label: String(localized: "AIが文字起こし中..."),
                     hint: String(localized: "通常2〜5分かかります。このまましばらくお待ちください。")
                 )
@@ -365,24 +401,8 @@ struct TranscriptionView: View {
         }
     }
 
-    private func progressView(stepLabel: String, label: String, hint: String?) -> some View {
+    private func progressView(label: String, hint: String?) -> some View {
         VStack(spacing: 20) {
-            // Step indicator
-            HStack(spacing: 8) {
-                Circle()
-                    .fill(Color.blue)
-                    .frame(width: 8, height: 8)
-                Circle()
-                    .fill(Color.blue)
-                    .frame(width: 8, height: 8)
-                Circle()
-                    .fill(Color.blue.opacity(0.25))
-                    .frame(width: 8, height: 8)
-            }
-            Text(stepLabel)
-                .font(.caption.bold())
-                .foregroundStyle(.blue)
-
             ProgressView()
                 .scaleEffect(1.4)
 
