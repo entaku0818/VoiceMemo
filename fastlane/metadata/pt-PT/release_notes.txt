@@ -1,7 +1,8 @@
-Versão 1.6.0
+Versão 1.7.0
+
+[Novas Funcionalidades]
+· Transcrição com IA adicionada (Gemini)
+· Grátis ao ver um anúncio, ilimitada com Premium
 
 [Melhorias]
-· Capturas de ecrã da App Store renovadas com editor de forma de onda e vistas de lista de reprodução
-· Melhoria na exibição da lista de gravações
-· Qualidade visual melhorada em todos os ecrãs
 · Melhorias gerais de estabilidade

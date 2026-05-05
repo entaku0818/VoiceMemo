@@ -1,7 +1,9 @@
-Version 1.6.0
+Version 1.7.0
+
+[New Features]
+· AI-powered transcription added (Gemini)
+· Free users: watch a short ad to transcribe
+· Premium: unlimited transcriptions
 
 [Improvements]
-· Refreshed App Store screenshots with waveform editor & playlist views
-· Improved recording list display
-· Enhanced visual quality across screens
 · General stability improvements

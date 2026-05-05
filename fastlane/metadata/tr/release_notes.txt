@@ -1,7 +1,8 @@
-Sürüm 1.6.0
+Sürüm 1.7.0
+
+[Yeni Özellikler]
+· Yapay zeka transkripsiyon eklendi (Gemini)
+· Reklam izleyerek ücretsiz, Premium ile sınırsız
 
 [İyileştirmeler]
-· Dalga formu düzenleyicisi ve çalma listesi görünümleriyle App Store ekran görüntüleri yenilendi
-· Kayıt listesi görüntüsü iyileştirildi
-· Tüm ekranlarda görsel kalite artırıldı
 · Genel kararlılık iyileştirmeleri

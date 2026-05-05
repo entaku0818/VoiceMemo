@@ -1,7 +1,8 @@
-Versione 1.6.0
+Versione 1.7.0
+
+[Nuove funzionalità]
+· Trascrizione AI aggiunta (Gemini)
+· Gratuita guardando un annuncio, illimitata con Premium
 
 [Miglioramenti]
-· Screenshot dell'App Store aggiornati con editor forma d'onda e viste playlist
-· Visualizzazione dell'elenco registrazioni migliorata
-· Qualità visiva migliorata su tutte le schermate
 · Miglioramenti generali della stabilità
