@@ -4,6 +4,7 @@ From language learning to interviews, VoiLog records in high-quality WAV or AAC 
 
 [Recording]
 ・High-quality WAV / AAC(M4A) recording
+・Waveform editor — visualize your recordings
 ・Background recording
 ・Start recording with a single tap
 
