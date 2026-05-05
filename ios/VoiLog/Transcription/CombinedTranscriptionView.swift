@@ -6,6 +6,7 @@ struct CombinedTranscriptionView: View {
     let onDismiss: () -> Void
     var onAISaved: ((String) -> Void)?
 
+    @State private var selectedTab = 0
     @State private var showAITranscriptionSheet = false
     @State private var currentAIText: String
 
@@ -25,19 +26,29 @@ struct CombinedTranscriptionView: View {
         return TimestampedTranscription.fromJSON(json)
     }
 
-    private var hasAppleTranscription: Bool {
-        appleTranscription != nil || !memo.text.isEmpty
-    }
-
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    appleSection
-                    Divider()
-                    aiSection
+            VStack(spacing: 0) {
+                // Tab picker
+                Picker("", selection: $selectedTab) {
+                    Label(String(localized: "Apple"), systemImage: "text.bubble.fill")
+                        .tag(0)
+                    Label(String(localized: "AI"), systemImage: "waveform.and.mic")
+                        .tag(1)
                 }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
                 .padding(.vertical, 8)
+
+                Divider()
+
+                // Paged content
+                TabView(selection: $selectedTab) {
+                    appleTab.tag(0)
+                    aiTab.tag(1)
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .animation(.easeInOut(duration: 0.2), value: selectedTab)
             }
             .navigationTitle(String(localized: "文字起こし"))
             .navigationBarTitleDisplayMode(.inline)
@@ -50,12 +61,18 @@ struct CombinedTranscriptionView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    if !exportText().isEmpty {
+                if selectedTab == 1 {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Button {
-                            // share full combined text
+                            showAITranscriptionSheet = true
                         } label: {
-                            Image(systemName: "square.and.arrow.up")
+                            Label(
+                                currentAIText.isEmpty
+                                    ? String(localized: "開始")
+                                    : String(localized: "再実行"),
+                                systemImage: currentAIText.isEmpty ? "play.fill" : "arrow.clockwise"
+                            )
+                            .font(.subheadline.bold())
                         }
                     }
                 }
@@ -63,10 +80,7 @@ struct CombinedTranscriptionView: View {
             .sheet(isPresented: $showAITranscriptionSheet) {
                 TranscriptionView(
                     store: Store(
-                        initialState: TranscriptionFeature.State(
-                            audioURL: memo.url,
-                            status: currentAIText.isEmpty ? .idle : .idle
-                        )
+                        initialState: TranscriptionFeature.State(audioURL: memo.url)
                     ) {
                         TranscriptionFeature()
                     },
@@ -80,20 +94,19 @@ struct CombinedTranscriptionView: View {
         }
     }
 
-    // MARK: - Apple section
+    // MARK: - Apple tab
 
-    private var appleSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            sectionHeader(
-                String(localized: "Apple 文字起こし"),
-                icon: "text.bubble.fill",
-                color: .blue
-            )
-            if let transcription = appleTranscription {
-                if transcription.segments.isEmpty {
-                    selectableText(transcription.fullText)
-                } else {
-                    VStack(alignment: .leading, spacing: 0) {
+    private var appleTab: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                if let transcription = appleTranscription {
+                    if transcription.segments.isEmpty {
+                        Text(transcription.fullText)
+                            .font(.body)
+                            .textSelection(.enabled)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                    } else {
                         ForEach(Array(transcription.segments.enumerated()), id: \.offset) { index, seg in
                             HStack(alignment: .top, spacing: 12) {
                                 Text(formattedTime(seg.timestamp))
@@ -107,102 +120,73 @@ struct CombinedTranscriptionView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .padding(.horizontal)
-                            .padding(.vertical, 10)
+                            .padding(.vertical, 12)
 
                             if index < transcription.segments.count - 1 {
                                 Divider().padding(.leading, 68)
                             }
                         }
                     }
-                }
-            } else if !memo.text.isEmpty {
-                selectableText(memo.text)
-            } else {
-                emptyPlaceholder(String(localized: "Apple 文字起こしデータがありません"))
-            }
-        }
-    }
-
-    // MARK: - AI section
-
-    private var aiSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                sectionHeader(
-                    String(localized: "AI 文字起こし"),
-                    icon: "waveform.and.mic",
-                    color: .purple
-                )
-                Spacer()
-                Button {
-                    showAITranscriptionSheet = true
-                } label: {
-                    Label(
-                        currentAIText.isEmpty
-                            ? String(localized: "開始")
-                            : String(localized: "再実行"),
-                        systemImage: currentAIText.isEmpty ? "play.fill" : "arrow.clockwise"
-                    )
-                    .font(.caption.bold())
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(Color.purple.opacity(0.1))
-                    .foregroundStyle(.purple)
-                    .clipShape(Capsule())
+                } else if !memo.text.isEmpty {
+                    Text(memo.text)
+                        .font(.body)
+                        .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                } else {
+                    emptyPlaceholder(String(localized: "Apple 文字起こしデータがありません"))
                 }
             }
-            .padding(.horizontal)
+        }
+    }
 
-            if currentAIText.isEmpty {
-                emptyPlaceholder(String(localized: "AI文字起こしがまだ実行されていません"))
-            } else {
-                selectableText(currentAIText)
+    // MARK: - AI tab
+
+    private var aiTab: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                if currentAIText.isEmpty {
+                    VStack(spacing: 16) {
+                        Image(systemName: "waveform.and.mic")
+                            .font(.system(size: 48))
+                            .foregroundStyle(.purple)
+                        Text(String(localized: "AI文字起こしがまだ実行されていません"))
+                            .font(.headline)
+                            .foregroundStyle(.secondary)
+                        Button(String(localized: "文字起こしを開始")) {
+                            showAITranscriptionSheet = true
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.purple)
+                        .controlSize(.large)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(40)
+                } else {
+                    Text(currentAIText)
+                        .font(.body)
+                        .textSelection(.enabled)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                }
             }
         }
     }
 
-    // MARK: - Helper views
-
-    private func sectionHeader(_ title: String, icon: String, color: Color) -> some View {
-        HStack(spacing: 6) {
-            Image(systemName: icon)
-                .foregroundStyle(color)
-            Text(title)
-                .font(.subheadline.bold())
-                .foregroundStyle(color)
-        }
-        .padding(.horizontal)
-    }
-
-    private func selectableText(_ text: String) -> some View {
-        Text(text)
-            .font(.body)
-            .textSelection(.enabled)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
-            .padding(.vertical, 4)
-    }
+    // MARK: - Helpers
 
     private func emptyPlaceholder(_ message: String) -> some View {
         Text(message)
             .font(.subheadline)
             .foregroundStyle(.secondary)
             .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.vertical, 20)
-            .padding(.horizontal)
+            .padding(40)
     }
 
     private func formattedTime(_ seconds: TimeInterval) -> String {
         let m = Int(seconds) / 60
         let s = Int(seconds) % 60
         return String(format: "%02d:%02d", m, s)
-    }
-
-    private func exportText() -> String {
-        var parts: [String] = []
-        if !memo.text.isEmpty { parts.append(memo.text) }
-        if !currentAIText.isEmpty { parts.append(currentAIText) }
-        return parts.joined(separator: "\n\n---\n\n")
     }
 }
 
