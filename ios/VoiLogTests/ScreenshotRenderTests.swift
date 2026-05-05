@@ -55,6 +55,20 @@ final class ScreenshotRenderTests: XCTestCase {
         }
     }
 
+    func testRenderTimestampedTranscriptionScreenshots() throws {
+        for (language, code) in languages {
+            let view = ScreenshotPageView(
+                caption: language.screenshotCaption(for: .timestampedTranscription),
+                subtitle: language.screenshotSubtitle(for: .timestampedTranscription),
+                screen: .timestampedTranscription,
+                language: language
+            ) {
+                PhoneFrameView { MockTimestampedTranscriptionView(language: language) }
+            }
+            try renderAndSave(view: view, filename: "\(code)_06_transcription.png")
+        }
+    }
+
     func testRenderPlaylistScreenshots() throws {
         for (language, code) in languages {
             let view = ScreenshotPageView(
@@ -91,7 +105,7 @@ final class ScreenshotRenderTests: XCTestCase {
                 screen: .backgroundRecording,
                 language: language
             ) {
-                MockBackgroundRecordingView(language: language)
+                PhoneFrameView { MockBackgroundRecordingView(language: language) }
             }
             try renderAndSave(view: view, filename: "\(code)_04_backgroundrecording.png")
         }

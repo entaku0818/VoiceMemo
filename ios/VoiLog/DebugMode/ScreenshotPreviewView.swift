@@ -108,7 +108,15 @@ struct FullscreenScreenshotView: View {
             ) {
                 PhoneFrameView { MockUseCaseView(language: language) }
             }
-        // case .timestampedTranscription: // Gemini文字起こし: 今リリースには含めない (PDM決定)
+        case .timestampedTranscription:
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .timestampedTranscription),
+                subtitle: language.screenshotSubtitle(for: .timestampedTranscription),
+                screen: .timestampedTranscription,
+                language: language
+            ) {
+                PhoneFrameView { MockTimestampedTranscriptionView(language: language) }
+            }
         case .playbackList:
             ScreenshotPageView(
                 caption: language.screenshotCaption(for: .playbackList),
@@ -125,7 +133,7 @@ struct FullscreenScreenshotView: View {
                 screen: .backgroundRecording,
                 language: language
             ) {
-                MockBackgroundRecordingView(language: language)
+                PhoneFrameView { MockBackgroundRecordingView(language: language) }
             }
         case .waveformEditor:
             ScreenshotPageView(
@@ -1029,7 +1037,21 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             case .chineseSimplified: return "记录会议、课堂与日常时刻"
             case .chineseTraditional: return "記錄會議、課堂與日常時刻"
             }
-        // case .timestampedTranscription: // Gemini文字起こし: 今リリースには含めない (PDM決定)
+        case .timestampedTranscription:
+            switch self {
+            case .japanese: return "AIが自動で文字起こし"
+            case .english: return "AI Auto-Transcription"
+            case .german: return "KI-Transkription automatisch"
+            case .spanish: return "Transcripción automática con IA"
+            case .french: return "Transcription automatique par IA"
+            case .italian: return "Trascrizione automatica con IA"
+            case .portuguese: return "Transcrição automática com IA"
+            case .russian: return "Авто-транскрипция с ИИ"
+            case .turkish: return "Yapay Zeka ile Transkript"
+            case .vietnamese: return "Phiên âm tự động bằng AI"
+            case .chineseSimplified: return "AI自动文字转录"
+            case .chineseTraditional: return "AI自動文字轉錄"
+            }
         case .backgroundRecording:
             switch self {
             case .japanese: return "画面を閉じても録音継続"
@@ -1216,7 +1238,21 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             case .chineseSimplified: return "适用于会议\n讲座和采访"
             case .chineseTraditional: return "適用於會議\n講座和採訪"
             }
-        // case .timestampedTranscription: // Gemini文字起こし: 今リリースには含めない (PDM決定)
+        case .timestampedTranscription:
+            switch self {
+            case .japanese: return "録音内容をテキストで確認"
+            case .english: return "Review your recordings as text"
+            case .german: return "Aufnahmen als Text ansehen"
+            case .spanish: return "Revisa tus grabaciones como texto"
+            case .french: return "Relisez vos enregistrements en texte"
+            case .italian: return "Rivedi le registrazioni come testo"
+            case .portuguese: return "Revise gravações como texto"
+            case .russian: return "Просматривайте записи в виде текста"
+            case .turkish: return "Kayıtlarınızı metin olarak inceleyin"
+            case .vietnamese: return "Xem lại bản ghi dưới dạng văn bản"
+            case .chineseSimplified: return "以文字形式查看录音内容"
+            case .chineseTraditional: return "以文字形式查看錄音內容"
+            }
         case .shareSheet:
             switch self {
             case .japanese: return "録音を\n簡単に共有"
@@ -1257,7 +1293,7 @@ enum ScreenshotScreen: String, CaseIterable {
     case useCase
     case playbackList
     case backgroundRecording
-    // case timestampedTranscription // Gemini文字起こし: 今リリースには含めない (PDM決定)
+    case timestampedTranscription
     case waveformEditor
     case playlist
     case shareSheet
@@ -1275,6 +1311,8 @@ enum ScreenshotScreen: String, CaseIterable {
             return LinearGradient(colors: [Color(red: 0.05, green: 0.1, blue: 0.3), .blue], startPoint: .top, endPoint: .bottom)
         case .playlist, .useCase:
             return LinearGradient(colors: [.orange, .pink], startPoint: .top, endPoint: .bottom)
+        case .timestampedTranscription:
+            return LinearGradient(colors: [.teal, .blue], startPoint: .top, endPoint: .bottom)
         case .premium:
             return LinearGradient(colors: [Color(red: 1, green: 0.84, blue: 0), .orange], startPoint: .top, endPoint: .bottom)
         }
@@ -1535,224 +1573,82 @@ struct MockBackgroundRecordingView: View {
     let language: AppLanguage
 
     var body: some View {
-        VStack(spacing: 24) {
-            // Dynamic Island close-up — expanded state with mic + waveform + timer
-            ZStack {
-                // Outer glow ring
-                Capsule()
-                    .fill(Color.orange.opacity(0.18))
-                    .frame(width: 310, height: 100)
-                // Silver bezel
-                Capsule()
-                    .fill(
-                        LinearGradient(
-                            colors: [Color(white: 0.82), Color(white: 0.50), Color(white: 0.75)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 294, height: 88)
-                // Black pill body
-                Capsule()
-                    .fill(Color.black)
-                    .frame(width: 278, height: 72)
+        ZStack {
+            // Dark lock screen gradient — fills full PhoneFrame content area
+            LinearGradient(
+                colors: [
+                    Color(red: 0.20, green: 0.26, blue: 0.50),
+                    Color(red: 0.10, green: 0.14, blue: 0.32),
+                    Color(red: 0.06, green: 0.10, blue: 0.22)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
 
-                HStack(spacing: 0) {
-                    Spacer().frame(width: 20)
-                    // Mic icon with pulsing dot
-                    ZStack(alignment: .topTrailing) {
-                        Image(systemName: "mic.fill")
-                            .font(.system(size: 28, weight: .semibold))
-                            .foregroundColor(.orange)
+            VStack(alignment: .center, spacing: 0) {
+                // Space for PhoneFrame's built-in status bar + Dynamic Island overlay
+                Spacer().frame(height: 80)
+
+                // Localized date
+                Text(language.lockScreenDate)
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(.white.opacity(0.85))
+                    .padding(.top, 16)
+
+                // Large clock
+                Text("13:39")
+                    .font(.system(size: 92, weight: .thin))
+                    .foregroundColor(.white)
+                    .padding(.top, 2)
+
+                Spacer()
+
+                // Live Activity / Recording banner
+                HStack(spacing: 10) {
+                    ZStack {
                         Circle()
-                            .fill(Color.red)
-                            .frame(width: 9, height: 9)
-                            .offset(x: 4, y: -4)
+                            .fill(Color.orange.opacity(0.2))
+                            .frame(width: 36, height: 36)
+                        Image(systemName: "mic.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.orange)
                     }
-                    Spacer().frame(width: 12)
-                    // Waveform bars — taller and more dynamic
-                    HStack(alignment: .center, spacing: 3) {
-                        ForEach([0.35, 0.65, 0.90, 1.0, 0.75, 0.55, 0.85, 0.45, 0.70, 0.60], id: \.self) { h in
-                            RoundedRectangle(cornerRadius: 2)
-                                .fill(Color.orange)
-                                .frame(width: 3.5, height: CGFloat(h) * 30)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(language.recordingText)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.white)
+                        HStack(spacing: 6) {
+                            Circle()
+                                .fill(Color.red)
+                                .frame(width: 6, height: 6)
+                            Text(language.appTitle)
+                                .font(.system(size: 11))
+                                .foregroundColor(.white.opacity(0.7))
                         }
                     }
                     Spacer()
                     VStack(alignment: .trailing, spacing: 2) {
                         Text("02:47")
-                            .font(.system(size: 15, weight: .bold, design: .monospaced))
+                            .font(.system(size: 22, weight: .semibold, design: .monospaced))
                             .foregroundColor(.orange)
-                        Text("REC")
-                            .font(.system(size: 9, weight: .semibold))
-                            .foregroundColor(.red.opacity(0.9))
+                        Text("Recording")
+                            .font(.system(size: 10))
+                            .foregroundColor(.white.opacity(0.6))
                     }
-                    Spacer().frame(width: 18)
                 }
-                .frame(width: 278)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(.ultraThinMaterial.opacity(0.8))
+                .background(Color.white.opacity(0.08))
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                )
+                .padding(.horizontal, 16)
+                .padding(.bottom, 40)
+
             }
-            .padding(.top, 4)
-
-            // iPhone lock screen (partial, showing Dynamic Island in context)
-            ZStack(alignment: .top) {
-                RoundedRectangle(cornerRadius: 46)
-                    .fill(
-                        LinearGradient(
-                            colors: [
-                                Color(red: 0.20, green: 0.26, blue: 0.50),
-                                Color(red: 0.10, green: 0.14, blue: 0.32),
-                                Color(red: 0.06, green: 0.10, blue: 0.22)
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 46)
-                            .stroke(
-                                LinearGradient(
-                                    colors: [Color(white: 0.45), Color(white: 0.25)],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                ),
-                                lineWidth: 2
-                            )
-                    )
-
-                VStack(alignment: .center, spacing: 0) {
-                    // Status bar
-                    HStack(spacing: 0) {
-                        // Signal + WiFi
-                        HStack(spacing: 4) {
-                            Image(systemName: "cellularbars")
-                                .font(.system(size: 11, weight: .medium))
-                            Image(systemName: "wifi")
-                                .font(.system(size: 11, weight: .medium))
-                        }
-                        .foregroundColor(.white)
-                        Spacer()
-                        // Dynamic Island — compact mic indicator
-                        ZStack {
-                            Capsule()
-                                .fill(Color.black)
-                                .frame(width: 116, height: 34)
-                            HStack(spacing: 6) {
-                                Image(systemName: "mic.fill")
-                                    .font(.system(size: 12, weight: .semibold))
-                                    .foregroundColor(.orange)
-                                HStack(alignment: .center, spacing: 2) {
-                                    ForEach([0.5, 0.9, 0.7, 1.0, 0.6], id: \.self) { h in
-                                        RoundedRectangle(cornerRadius: 1)
-                                            .fill(Color.orange.opacity(0.85))
-                                            .frame(width: 2.5, height: CGFloat(h) * 14)
-                                    }
-                                }
-                                Spacer()
-                                Text("02:47")
-                                    .font(.system(size: 10, weight: .semibold, design: .monospaced))
-                                    .foregroundColor(.orange)
-                            }
-                            .padding(.horizontal, 10)
-                            .frame(width: 116)
-                        }
-                        Spacer()
-                        // Battery indicator with percentage
-                        HStack(spacing: 4) {
-                            Text("78%")
-                                .font(.system(size: 11, weight: .medium))
-                                .foregroundColor(.white)
-                            ZStack {
-                                // Battery outline
-                                RoundedRectangle(cornerRadius: 3)
-                                    .stroke(Color.white.opacity(0.9), lineWidth: 1.2)
-                                    .frame(width: 25, height: 13)
-                                // Battery fill (green ~78%)
-                                HStack {
-                                    RoundedRectangle(cornerRadius: 2)
-                                        .fill(Color.green)
-                                        .frame(width: 17, height: 9)
-                                    Spacer()
-                                }
-                                .padding(.horizontal, 2)
-                                .frame(width: 25)
-                                // Battery tip
-                                RoundedRectangle(cornerRadius: 1)
-                                    .fill(Color.white.opacity(0.6))
-                                    .frame(width: 2, height: 5)
-                                    .offset(x: 14)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 14)
-
-                    // Localized date
-                    Text(language.lockScreenDate)
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(.white.opacity(0.85))
-                        .padding(.top, 22)
-
-                    // Large time
-                    Text("13:39")
-                        .font(.system(size: 92, weight: .thin))
-                        .foregroundColor(.white)
-                        .padding(.top, 2)
-
-                    Spacer()
-
-                    // Live Activity / Recording banner — prominent style
-                    VStack(spacing: 0) {
-                        HStack(spacing: 10) {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.orange.opacity(0.2))
-                                    .frame(width: 36, height: 36)
-                                Image(systemName: "mic.fill")
-                                    .font(.system(size: 16, weight: .semibold))
-                                    .foregroundColor(.orange)
-                            }
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(language.recordingText)
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(.white)
-                                HStack(spacing: 6) {
-                                    Circle()
-                                        .fill(Color.red)
-                                        .frame(width: 6, height: 6)
-                                    Text("シンプル録音")
-                                        .font(.system(size: 11))
-                                        .foregroundColor(.white.opacity(0.7))
-                                }
-                            }
-                            Spacer()
-                            VStack(alignment: .trailing, spacing: 2) {
-                                Text("02:47")
-                                    .font(.system(size: 22, weight: .semibold, design: .monospaced))
-                                    .foregroundColor(.orange)
-                                Text("録音中")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.white.opacity(0.6))
-                            }
-                        }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 12)
-                    }
-                    .background(.ultraThinMaterial.opacity(0.8))
-                    .background(Color.white.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.white.opacity(0.15), lineWidth: 1)
-                    )
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 20)
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 360)
-            .clipped()
         }
-        .padding(.bottom, 8)
     }
 }
 
@@ -2404,30 +2300,29 @@ struct MockTimestampedTranscriptionView: View {
             .padding(.top, 90)
             .padding(.bottom, 20)
 
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    ForEach(Array(timestamps.enumerated()), id: \.offset) { index, ts in
-                        HStack(alignment: .top, spacing: 12) {
-                            Text(ts)
-                                .font(.subheadline.monospacedDigit())
-                                .foregroundColor(.blue)
-                                .frame(width: 44, alignment: .leading)
-                                .padding(.top, 2)
+            // ImageRenderer非対応のScrollViewを使わず静的VStackで描画
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(Array(timestamps.enumerated()), id: \.offset) { index, ts in
+                    HStack(alignment: .top, spacing: 12) {
+                        Text(ts)
+                            .font(.subheadline.monospacedDigit())
+                            .foregroundColor(.blue)
+                            .frame(width: 44, alignment: .leading)
+                            .padding(.top, 2)
 
-                            Text(language.transcriptionSampleText(index))
-                                .font(.body)
-                                .foregroundColor(.primary)
-                                .fixedSize(horizontal: false, vertical: true)
+                        Text(language.transcriptionSampleText(index))
+                            .font(.body)
+                            .foregroundColor(.primary)
+                            .fixedSize(horizontal: false, vertical: true)
 
-                            Spacer()
-                        }
-                        .padding(.horizontal)
-                        .padding(.vertical, 12)
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 12)
 
-                        if index < timestamps.count - 1 {
-                            Divider()
-                                .padding(.leading, 68)
-                        }
+                    if index < timestamps.count - 1 {
+                        Divider()
+                            .padding(.leading, 68)
                     }
                 }
             }
@@ -2620,15 +2515,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("JA-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.japanese.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.japanese.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .japanese
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .japanese) }
-//     }
+#Preview("JA-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.japanese.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.japanese.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .japanese
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .japanese) }
+    }
+}
 
 #Preview("JA-useCase") {
     ScreenshotPageView(
@@ -2648,7 +2544,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .japanese
     ) {
-        MockBackgroundRecordingView(language: .japanese)
+        PhoneFrameView { MockBackgroundRecordingView(language: .japanese) }
     }
 }
 
@@ -2664,15 +2560,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("EN-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.english.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.english.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .english
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .english) }
-//     }
+#Preview("EN-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.english.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.english.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .english
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .english) }
+    }
+}
 
 #Preview("EN-useCase") {
     ScreenshotPageView(
@@ -2692,7 +2589,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .english
     ) {
-        MockBackgroundRecordingView(language: .english)
+        PhoneFrameView { MockBackgroundRecordingView(language: .english) }
     }
 }
 
@@ -2708,15 +2605,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("DE-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.german.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.german.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .german
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .german) }
-//     }
+#Preview("DE-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.german.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.german.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .german
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .german) }
+    }
+}
 
 #Preview("DE-useCase") {
     ScreenshotPageView(
@@ -2736,7 +2634,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .german
     ) {
-        MockBackgroundRecordingView(language: .german)
+        PhoneFrameView { MockBackgroundRecordingView(language: .german) }
     }
 }
 
@@ -2752,15 +2650,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("ES-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.spanish.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.spanish.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .spanish
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .spanish) }
-//     }
+#Preview("ES-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.spanish.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.spanish.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .spanish
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .spanish) }
+    }
+}
 
 #Preview("ES-useCase") {
     ScreenshotPageView(
@@ -2780,7 +2679,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .spanish
     ) {
-        MockBackgroundRecordingView(language: .spanish)
+        PhoneFrameView { MockBackgroundRecordingView(language: .spanish) }
     }
 }
 
@@ -2796,15 +2695,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("FR-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.french.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.french.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .french
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .french) }
-//     }
+#Preview("FR-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.french.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.french.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .french
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .french) }
+    }
+}
 
 #Preview("FR-useCase") {
     ScreenshotPageView(
@@ -2824,7 +2724,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .french
     ) {
-        MockBackgroundRecordingView(language: .french)
+        PhoneFrameView { MockBackgroundRecordingView(language: .french) }
     }
 }
 
@@ -2840,15 +2740,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("IT-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.italian.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.italian.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .italian
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .italian) }
-//     }
+#Preview("IT-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.italian.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.italian.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .italian
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .italian) }
+    }
+}
 
 #Preview("IT-useCase") {
     ScreenshotPageView(
@@ -2868,7 +2769,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .italian
     ) {
-        MockBackgroundRecordingView(language: .italian)
+        PhoneFrameView { MockBackgroundRecordingView(language: .italian) }
     }
 }
 
@@ -2884,15 +2785,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("PT-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.portuguese.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .portuguese
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .portuguese) }
-//     }
+#Preview("PT-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.portuguese.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.portuguese.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .portuguese
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .portuguese) }
+    }
+}
 
 #Preview("PT-useCase") {
     ScreenshotPageView(
@@ -2912,7 +2814,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .portuguese
     ) {
-        MockBackgroundRecordingView(language: .portuguese)
+        PhoneFrameView { MockBackgroundRecordingView(language: .portuguese) }
     }
 }
 
@@ -2928,15 +2830,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("RU-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.russian.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.russian.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .russian
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .russian) }
-//     }
+#Preview("RU-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.russian.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.russian.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .russian
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .russian) }
+    }
+}
 
 #Preview("RU-useCase") {
     ScreenshotPageView(
@@ -2956,7 +2859,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .russian
     ) {
-        MockBackgroundRecordingView(language: .russian)
+        PhoneFrameView { MockBackgroundRecordingView(language: .russian) }
     }
 }
 
@@ -2972,15 +2875,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("TR-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.turkish.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.turkish.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .turkish
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .turkish) }
-//     }
+#Preview("TR-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.turkish.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.turkish.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .turkish
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .turkish) }
+    }
+}
 
 #Preview("TR-useCase") {
     ScreenshotPageView(
@@ -3000,7 +2904,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .turkish
     ) {
-        MockBackgroundRecordingView(language: .turkish)
+        PhoneFrameView { MockBackgroundRecordingView(language: .turkish) }
     }
 }
 
@@ -3016,15 +2920,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("VI-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.vietnamese.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .vietnamese
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .vietnamese) }
-//     }
+#Preview("VI-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.vietnamese.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.vietnamese.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .vietnamese
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .vietnamese) }
+    }
+}
 
 #Preview("VI-useCase") {
     ScreenshotPageView(
@@ -3044,7 +2949,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .vietnamese
     ) {
-        MockBackgroundRecordingView(language: .vietnamese)
+        PhoneFrameView { MockBackgroundRecordingView(language: .vietnamese) }
     }
 }
 
@@ -3060,15 +2965,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("ZH_HANS-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.chineseSimplified.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .chineseSimplified
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseSimplified) }
-//     }
+#Preview("ZH_HANS-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseSimplified.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.chineseSimplified.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .chineseSimplified
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseSimplified) }
+    }
+}
 
 #Preview("ZH_HANS-useCase") {
     ScreenshotPageView(
@@ -3088,7 +2994,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .chineseSimplified
     ) {
-        MockBackgroundRecordingView(language: .chineseSimplified)
+        PhoneFrameView { MockBackgroundRecordingView(language: .chineseSimplified) }
     }
 }
 
@@ -3104,15 +3010,16 @@ struct MockPremiumView: View {
     }
 }
 
-// #Preview("ZH_HANT-timestampedTranscription") {
-//     ScreenshotPageView(
-//         caption: AppLanguage.chineseTraditional.screenshotCaption(for: .timestampedTranscription),
-//         subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .timestampedTranscription),
-//         screen: .timestampedTranscription,
-//         language: .chineseTraditional
-//     ) {
-//         PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseTraditional) }
-//     }
+#Preview("ZH_HANT-timestampedTranscription") {
+    ScreenshotPageView(
+        caption: AppLanguage.chineseTraditional.screenshotCaption(for: .timestampedTranscription),
+        subtitle: AppLanguage.chineseTraditional.screenshotSubtitle(for: .timestampedTranscription),
+        screen: .timestampedTranscription,
+        language: .chineseTraditional
+    ) {
+        PhoneFrameView { MockTimestampedTranscriptionView(language: .chineseTraditional) }
+    }
+}
 
 #Preview("ZH_HANT-useCase") {
     ScreenshotPageView(
@@ -3132,7 +3039,7 @@ struct MockPremiumView: View {
         screen: .backgroundRecording,
         language: .chineseTraditional
     ) {
-        MockBackgroundRecordingView(language: .chineseTraditional)
+        PhoneFrameView { MockBackgroundRecordingView(language: .chineseTraditional) }
     }
 }
 

@@ -72,9 +72,19 @@ enum TranscriptionError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .notAuthenticated: return "ログインが必要です"
-        case let .uploadFailed(code): return "アップロード失敗 (HTTP \(code))"
-        case let .serverError(code, body): return "HTTP \(code): \(body)"
+        case .notAuthenticated:
+            return String(localized: "接続に失敗しました。ネットワークを確認してください。")
+        case .uploadFailed:
+            return String(localized: "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。")
+        case let .serverError(code, _):
+            if code == 504 || code == 503 {
+                return String(localized: "サーバーが混雑しています。しばらく待ってから再試行してください。")
+            } else if code == 429 {
+                return String(localized: "リクエストが多すぎます。しばらく待ってから再試行してください。")
+            } else if code >= 500 {
+                return String(localized: "サーバーエラーが発生しました。再試行してください。")
+            }
+            return String(localized: "エラーが発生しました (コード: \(code))。再試行してください。")
         }
     }
 }
@@ -108,7 +118,7 @@ extension TranscriptionClient: DependencyKey {
             req.setValue("Bearer \(idToken)", forHTTPHeaderField: "Authorization")
             req.setValue("application/json", forHTTPHeaderField: "Content-Type")
             req.httpBody = try JSONEncoder().encode(["blobName": blobName, "language": language])
-            req.timeoutInterval = 120
+            req.timeoutInterval = 600
             let (data, response) = try await URLSession.shared.data(for: req)
             let status = (response as? HTTPURLResponse)?.statusCode ?? 0
             guard (200..<300).contains(status) else {
@@ -317,31 +327,37 @@ struct TranscriptionView: View {
                 }
                 .padding()
             case .uploading:
-                progressView(String(localized: "音声をアップロード中..."))
+                progressView(
+                    stepLabel: String(localized: "ステップ 1/2"),
+                    label: String(localized: "音声をアップロード中..."),
+                    hint: nil
+                )
             case .transcribing:
-                progressView(String(localized: "文字起こし中..."))
+                progressView(
+                    stepLabel: String(localized: "ステップ 2/2"),
+                    label: String(localized: "AIが文字起こし中..."),
+                    hint: String(localized: "通常2〜5分かかります。このまましばらくお待ちください。")
+                )
             case let .failed(msg):
-                VStack(alignment: .leading, spacing: 12) {
-                    Label(String(localized: "エラーが発生しました"), systemImage: "exclamationmark.triangle.fill")
-                        .font(.headline)
-                        .foregroundStyle(.red)
-                    Text(msg)
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                        .textSelection(.enabled)
-                    HStack(spacing: 12) {
-                        Button(String(localized: "再試行")) { store.send(.startTapped) }
-                            .buttonStyle(.borderedProminent)
-                        Button {
-                            UIPasteboard.general.string = msg
-                        } label: {
-                            Label(String(localized: "コピー"), systemImage: "doc.on.doc")
-                        }
-                        .buttonStyle(.bordered)
+                VStack(spacing: 20) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.system(size: 40))
+                        .foregroundStyle(.orange)
+                    VStack(spacing: 8) {
+                        Text(String(localized: "文字起こしに失敗しました"))
+                            .font(.headline)
+                        Text(msg)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .textSelection(.enabled)
                     }
+                    Button(String(localized: "再試行")) { store.send(.startTapped) }
+                        .buttonStyle(.borderedProminent)
+                        .controlSize(.large)
                 }
                 .padding()
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity)
             case .done:
                 EmptyView()
             }
@@ -349,14 +365,39 @@ struct TranscriptionView: View {
         }
     }
 
-    private func progressView(_ label: String) -> some View {
-        VStack(spacing: 16) {
+    private func progressView(stepLabel: String, label: String, hint: String?) -> some View {
+        VStack(spacing: 20) {
+            // Step indicator
+            HStack(spacing: 8) {
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 8, height: 8)
+                Circle()
+                    .fill(Color.blue)
+                    .frame(width: 8, height: 8)
+                Circle()
+                    .fill(Color.blue.opacity(0.25))
+                    .frame(width: 8, height: 8)
+            }
+            Text(stepLabel)
+                .font(.caption.bold())
+                .foregroundStyle(.blue)
+
             ProgressView()
                 .scaleEffect(1.4)
-            Text(label)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+
+            VStack(spacing: 6) {
+                Text(label)
+                    .font(.subheadline.bold())
+                if let hint {
+                    Text(hint)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                }
+            }
         }
+        .padding(.horizontal, 32)
     }
 
     private func resultView(_ result: TranscriptionFeature.State.Result) -> some View {
