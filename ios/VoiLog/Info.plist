@@ -14,6 +14,8 @@
 	<string>ca-app-pub-3484697221349891~3051778288</string>
 	<key>INTERSTITIAL_ADMOB_KEY</key>
 	<string>$(INTERSTITIAL_ADMOB_KEY)</string>
+	<key>REWARDED_ADMOB_KEY</key>
+	<string>$(REWARDED_ADMOB_KEY)</string>
 	<key>NSPrefPaneIconLabel</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>PLAYLIST_ADMOB_KEY</key>

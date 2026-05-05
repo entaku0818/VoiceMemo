@@ -471,7 +471,12 @@ xcodebuild -project ios/VoiLog.xcodeproj -scheme VoiLog -configuration Release \
 
 xcodebuild -exportArchive -archivePath build/VoiLog.xcarchive \
   -exportOptionsPlist /tmp/ExportOptions.plist \
-  -exportPath build/export -allowProvisioningUpdates 2>&1 | tail -5
+  -exportPath build/export \
+  -allowProvisioningUpdates \
+  -authenticationKeyPath /Users/entaku/.appstoreconnect/private_keys/AuthKey_R2Q4FFAG8D.p8 \
+  -authenticationKeyID R2Q4FFAG8D \
+  -authenticationKeyIssuerID 3cc1c923-009c-4963-a9db-83d030e4c4e3 \
+  2>&1 | tail -10
 ```
 
 **Step 3: メタデータアップロード & 審査提出**
@@ -488,7 +493,14 @@ gh release create v1.3.4 --title "v1.3.4" --latest --notes "## iOS
 **注意事項:**
 - アーカイブビルドエラーは `2>&1 | grep "error:"` で確認
 - `upload_metadata` が "build could not be added" で失敗した場合、Apple のビルド処理中。数分後に再実行
-- スクリーンショット変更なしの場合は Fastfile の `skip_screenshots: true` のまま使用
+- Fastfile の `skip_screenshots` は **`false`・`overwrite_screenshots: true`** のままにする（毎回アップロードする）
+- **キーワードは100文字以内**。実行前に必ず確認: `wc -c fastlane/metadata/*/keywords.txt`
+- xcodebuild の認証は Apple ID セッションが切れるため、**必ず API キーオプションを使う**:
+  ```bash
+  -authenticationKeyPath /Users/entaku/.appstoreconnect/private_keys/AuthKey_R2Q4FFAG8D.p8 \
+  -authenticationKeyID R2Q4FFAG8D \
+  -authenticationKeyIssuerID 3cc1c923-009c-4963-a9db-83d030e4c4e3
+  ```
 
 ### Android One-Liner (Full build + upload)
 ```bash

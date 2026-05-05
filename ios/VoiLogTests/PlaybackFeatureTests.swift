@@ -337,4 +337,124 @@ final class PlaybackFeatureTests: XCTestCase {
             XCTAssertEqual(store.state.voiceMemos[0].text, "")
         }
     }
+
+    // MARK: - リワード広告 / 文字起こし premium gate
+
+    func testShowTranscription_premiumUser_opensSheetDirectly() async {
+        await withMainSerialExecutor {
+            let memoID = UUID()
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = true
+            initialState.voiceMemos = [
+                PlaybackFeature.VoiceMemo(
+                    id: memoID, title: "test", date: .now, duration: 10,
+                    url: URL(fileURLWithPath: "/tmp/test.m4a")
+                )
+            ]
+            initialState.selectedMemoForTranscription = memoID
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { },
+                    show: { _, _ in XCTFail("premium user should not see ad") }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.showTranscription(memoID))) {
+                $0.showTranscriptionSheet = true
+            }
+        }
+    }
+
+    func testShowTranscription_freeUser_adWatched_opensSheet() async {
+        await withMainSerialExecutor {
+            let memoID = UUID()
+            var rewardedCalled = false
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = false
+            initialState.selectedMemoForTranscription = memoID
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { },
+                    show: { onRewarded, _ in
+                        rewardedCalled = true
+                        onRewarded()
+                    }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.showTranscription(memoID)))
+            await store.receive(\.view.rewardedAdCompleted) {
+                $0.showTranscriptionSheet = true
+            }
+            XCTAssertTrue(rewardedCalled)
+        }
+    }
+
+    func testShowTranscription_freeUser_adSkipped_showsPremiumPrompt() async {
+        await withMainSerialExecutor {
+            let memoID = UUID()
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = false
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { },
+                    show: { _, onSkipped in onSkipped() }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.showTranscription(memoID)))
+            await store.receive(\.view.rewardedAdSkipped) {
+                $0.selectedMemoForTranscription = nil
+                $0.showTranscriptionPremiumPrompt = true
+            }
+        }
+    }
+
+    func testUpgradeFromTranscriptionPrompt_dismissesAndShowsPaywall() async {
+        await withMainSerialExecutor {
+            var initialState = PlaybackFeature.State()
+            initialState.showTranscriptionPremiumPrompt = true
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = .testValue
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.upgradeFromTranscriptionPrompt)) {
+                $0.showTranscriptionPremiumPrompt = false
+            }
+            // delegate(.showPaywall) はここで dispatch されるが Action が Equatable 非準拠のため
+            // exhaustivity = .off で skip（VoiceAppFeature 側でペイウォール制御をテスト済み）
+        }
+    }
 }

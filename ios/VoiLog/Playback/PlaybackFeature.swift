@@ -33,6 +33,7 @@ struct PlaybackFeature {
     // Transcription (Gemini)
     var selectedMemoForTranscription: VoiceMemo.ID?
     var showTranscriptionSheet = false
+    var showTranscriptionPremiumPrompt = false
 
     // Apple transcription (timestampedText viewer)
     var selectedMemoForAppleTranscription: VoiceMemo.ID?
@@ -156,6 +157,10 @@ struct PlaybackFeature {
       case showTranscription(VoiceMemo.ID)
       case hideTranscription
       case geminiTranscriptionSaved(VoiceMemo.ID, String)
+      case rewardedAdCompleted
+      case rewardedAdSkipped
+      case dismissTranscriptionPremiumPrompt
+      case upgradeFromTranscriptionPrompt
 
       // Apple transcription viewer
       case showAppleTranscription(VoiceMemo.ID)
@@ -189,6 +194,7 @@ struct PlaybackFeature {
   @Dependency(\.audioPlayer) var audioPlayer
   @Dependency(\.continuousClock) var clock
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
+  @Dependency(\.rewardedAdClient) var rewardedAdClient
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -201,7 +207,11 @@ struct PlaybackFeature {
       case let .view(viewAction):
         switch viewAction {
         case .onAppear:
-          return loadMemos()
+          let preload = rewardedAdClient.preload
+          return .merge(
+            .run { _ in preload() },
+            loadMemos()
+          )
 
         case .refreshRequested:
           state.isLoading = true
@@ -382,6 +392,12 @@ struct PlaybackFeature {
           state.showDetailSheet = false
           state.selectedMemoForDetails = nil
           state.selectedMemoForTranscription = memoID
+          guard state.hasPurchasedPremium else {
+            return .run { send in
+              await rewardedAdClient.show({ Task { @MainActor in send(.view(.rewardedAdCompleted)) } }, { Task { @MainActor in send(.view(.rewardedAdSkipped)) } }
+              )
+            }
+          }
           state.showTranscriptionSheet = true
           return .none
 
@@ -421,8 +437,31 @@ struct PlaybackFeature {
 
         case let .showTranscription(memoID):
           state.selectedMemoForTranscription = memoID
+          guard state.hasPurchasedPremium else {
+            return .run { send in
+              await rewardedAdClient.show({ Task { @MainActor in send(.view(.rewardedAdCompleted)) } }, { Task { @MainActor in send(.view(.rewardedAdSkipped)) } }
+              )
+            }
+          }
           state.showTranscriptionSheet = true
           return .none
+
+        case .rewardedAdCompleted:
+          state.showTranscriptionSheet = true
+          return .none
+
+        case .rewardedAdSkipped:
+          state.selectedMemoForTranscription = nil
+          state.showTranscriptionPremiumPrompt = true
+          return .none
+
+        case .dismissTranscriptionPremiumPrompt:
+          state.showTranscriptionPremiumPrompt = false
+          return .none
+
+        case .upgradeFromTranscriptionPrompt:
+          state.showTranscriptionPremiumPrompt = false
+          return .send(.delegate(.showPaywall))
 
         case .hideTranscription:
           state.showTranscriptionSheet = false
@@ -702,6 +741,16 @@ struct PlaybackView: View {
         } else {
           Text(String(localized: "この録音ファイルを削除しますか？"))
         }
+      }
+      .alert(String(localized: "プレミアム機能"), isPresented: $store.showTranscriptionPremiumPrompt) {
+        Button(String(localized: "プレミアムにアップグレード")) {
+          send(.upgradeFromTranscriptionPrompt)
+        }
+        Button(String(localized: "キャンセル"), role: .cancel) {
+          send(.dismissTranscriptionPremiumPrompt)
+        }
+      } message: {
+        Text(String(localized: "Gemini AI文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。"))
       }
       .fullScreenCover(isPresented: $store.showDetailSheet) {
         if let selectedId = store.selectedMemoForDetails,
