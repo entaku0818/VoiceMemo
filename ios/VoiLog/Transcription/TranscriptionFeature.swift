@@ -164,11 +164,13 @@ struct TranscriptionFeature {
         var status: Status = .idle
         var result: Result?
         var selectedLanguage: String
+        var savedText: String?
 
-        init(audioURL: URL, status: Status = .idle, result: Result? = nil) {
+        init(audioURL: URL, status: Status = .idle, result: Result? = nil, savedText: String? = nil) {
             self.audioURL = audioURL
             self.status = status
             self.result = result
+            self.savedText = savedText
             self.selectedLanguage = Self.detectLanguage()
         }
 
@@ -198,6 +200,7 @@ struct TranscriptionFeature {
     enum Action {
         case startTapped
         case languageChanged(String)
+        case reset
         case _uploadCompleted(blobName: String, uploadURL: String)
         case _transcriptionCompleted(State.Result)
         case _failed(String)
@@ -241,6 +244,11 @@ struct TranscriptionFeature {
                 state.selectedLanguage = lang
                 return .none
 
+            case .reset:
+                state.status = .idle
+                state.result = nil
+                return .none
+
             case ._uploadCompleted:
                 state.status = .transcribing
                 return .none
@@ -248,6 +256,7 @@ struct TranscriptionFeature {
             case let ._transcriptionCompleted(result):
                 state.result = result
                 state.status = .done
+                state.savedText = result.transcription
                 return .none
 
             case let ._failed(message):
