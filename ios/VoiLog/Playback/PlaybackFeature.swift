@@ -39,6 +39,10 @@ struct PlaybackFeature {
     var selectedMemoForAppleTranscription: VoiceMemo.ID?
     var showAppleTranscriptionSheet = false
 
+    // Combined transcription (Apple + AI)
+    var selectedMemoForCombinedTranscription: VoiceMemo.ID?
+    var showCombinedTranscriptionSheet = false
+
     // Tag picker
     var selectedMemoForTagPicker: VoiceMemo.ID?
     var showTagPicker = false
@@ -67,6 +71,7 @@ struct PlaybackFeature {
     var url: URL
     var text: String
     var timestampedText: String?
+    var aiTranscriptionText: String = ""
     var tags: [String] = []
     // Legacy compatibility fields
     var fileFormat: String
@@ -83,6 +88,7 @@ struct PlaybackFeature {
       url: URL,
       text: String = "",
       timestampedText: String? = nil,
+      aiTranscriptionText: String = "",
       tags: [String] = [],
       fileFormat: String = "",
       samplingFrequency: Double = 44100.0,
@@ -97,6 +103,7 @@ struct PlaybackFeature {
       self.url = url
       self.text = text
       self.timestampedText = timestampedText
+      self.aiTranscriptionText = aiTranscriptionText
       self.tags = tags
       self.fileFormat = fileFormat
       self.samplingFrequency = samplingFrequency
@@ -148,6 +155,8 @@ struct PlaybackFeature {
       case hideEnhancedDetailSheet
       case showAppleTranscriptionFromDetail(VoiceMemo.ID)
       case showGeminiTranscriptionFromDetail(VoiceMemo.ID)
+      case showCombinedTranscriptionFromDetail(VoiceMemo.ID)
+      case hideCombinedTranscription
 
       // Audio Editor Actions
       case showAudioEditor(VoiceMemo.ID)
@@ -165,6 +174,9 @@ struct PlaybackFeature {
       // Apple transcription viewer
       case showAppleTranscription(VoiceMemo.ID)
       case hideAppleTranscription
+
+      // Combined transcription viewer (Apple + AI)
+      case showCombinedTranscription(VoiceMemo.ID)
 
       // Tag actions
       case showTagPicker(VoiceMemo.ID)
@@ -401,6 +413,18 @@ struct PlaybackFeature {
           state.showTranscriptionSheet = true
           return .none
 
+        case let .showCombinedTranscriptionFromDetail(memoID):
+          state.showDetailSheet = false
+          state.selectedMemoForDetails = nil
+          state.selectedMemoForCombinedTranscription = memoID
+          state.showCombinedTranscriptionSheet = true
+          return .none
+
+        case .hideCombinedTranscription:
+          state.showCombinedTranscriptionSheet = false
+          state.selectedMemoForCombinedTranscription = nil
+          return .none
+
         case let .showEnhancedMemoDetails(id):
           state.selectedMemoForDetails = id
           state.showEnhancedDetailSheet = true
@@ -474,7 +498,7 @@ struct PlaybackFeature {
           guard let idx = state.voiceMemos.firstIndex(where: { $0.id == memoID }) else {
             return .none
           }
-          state.voiceMemos[idx].text = text
+          state.voiceMemos[idx].aiTranscriptionText = text
           let memo = state.voiceMemos[idx]
           return .run { _ in
             await MainActor.run {
@@ -486,6 +510,7 @@ struct PlaybackFeature {
                 url: memo.url,
                 text: memo.text,
                 timestampedText: memo.timestampedText,
+                aiTranscriptionText: memo.aiTranscriptionText,
                 fileFormat: memo.fileFormat,
                 samplingFrequency: memo.samplingFrequency,
                 quantizationBitDepth: memo.quantizationBitDepth,
@@ -503,6 +528,11 @@ struct PlaybackFeature {
         case .hideAppleTranscription:
           state.showAppleTranscriptionSheet = false
           state.selectedMemoForAppleTranscription = nil
+          return .none
+
+        case let .showCombinedTranscription(memoID):
+          state.selectedMemoForCombinedTranscription = memoID
+          state.showCombinedTranscriptionSheet = true
           return .none
 
         case let .showTagPicker(memoID):
@@ -648,6 +678,7 @@ struct PlaybackFeature {
           url: actualURL,
           text: voice.text,
           timestampedText: voice.timestampedText,
+          aiTranscriptionText: voice.aiTranscriptionText,
           tags: voice.tags,
           fileFormat: voice.fileFormat,
           samplingFrequency: voice.samplingFrequency,
@@ -758,8 +789,7 @@ struct PlaybackView: View {
           VoiceMemoDetailView(
             memo: memo,
             onDismiss: { send(.hideDetailSheet) },
-            onShowAppleTranscription: { send(.showAppleTranscriptionFromDetail(selectedId)) },
-            onShowGeminiTranscription: { send(.showGeminiTranscriptionFromDetail(selectedId)) }
+            onShowTranscription: { send(.showCombinedTranscriptionFromDetail(selectedId)) }
           )
         }
       }
@@ -781,6 +811,16 @@ struct PlaybackView: View {
           AppleTranscriptionView(memo: memo) {
             send(.hideAppleTranscription)
           }
+        }
+      }
+      .fullScreenCover(isPresented: $store.showCombinedTranscriptionSheet) {
+        if let memoID = store.selectedMemoForCombinedTranscription,
+           let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
+          CombinedTranscriptionView(
+            memo: memo,
+            onDismiss: { send(.hideCombinedTranscription) },
+            onAISaved: { text in send(.geminiTranscriptionSaved(memoID, text)) }
+          )
         }
       }
       .sheet(isPresented: $store.showTagPicker) {
@@ -984,6 +1024,8 @@ struct PlaybackView: View {
           send(.showTagPicker(memo.id))
         } onShowAppleTranscription: {
           send(.showAppleTranscription(memo.id))
+        } onShowCombinedTranscription: {
+          send(.showCombinedTranscription(memo.id))
         }
       }
     }
@@ -1244,6 +1286,7 @@ struct VoiceMemoRow: View {
   let onTranscribe: () -> Void
   let onEditTags: () -> Void
   let onShowAppleTranscription: (() -> Void)?
+  var onShowCombinedTranscription: (() -> Void)?
 
   @State private var convertedURL: URL?
   @State private var showPCShareSheet = false
@@ -1334,9 +1377,14 @@ struct VoiceMemoRow: View {
         }
 
         // 文字起こし済みバッジ + ショートカットボタン
-        if memo.timestampedText != nil || !memo.text.isEmpty {
+        let hasTranscription = memo.timestampedText != nil || !memo.text.isEmpty || !memo.aiTranscriptionText.isEmpty
+        if hasTranscription {
           Button {
-            onShowAppleTranscription?()
+            if let handler = onShowCombinedTranscription {
+              handler()
+            } else {
+              onShowAppleTranscription?()
+            }
           } label: {
             HStack(spacing: 4) {
               Image(systemName: "text.bubble.fill")

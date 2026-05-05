@@ -3,8 +3,7 @@ import SwiftUI
 struct VoiceMemoDetailView: View {
   let memo: PlaybackFeature.VoiceMemo
   let onDismiss: () -> Void
-  var onShowAppleTranscription: (() -> Void)?
-  var onShowGeminiTranscription: (() -> Void)?
+  var onShowTranscription: (() -> Void)?
 
   var body: some View {
       NavigationStack {
@@ -17,22 +16,12 @@ struct VoiceMemoDetailView: View {
             detailRow(label: String(localized: "再生時間"), value: formatDuration(memo.duration))
 
             // 文字起こしへのナビゲーション
-            if memo.timestampedText != nil || !memo.text.isEmpty {
-              transcriptionRow(
-                icon: "text.bubble.fill",
-                label: String(localized: "文字起こし（Apple）"),
-                color: .blue
-              ) {
-                onShowAppleTranscription?()
-              }
-            }
-
             transcriptionRow(
-              icon: "waveform.and.mic",
-              label: String(localized: "AIで文字起こし"),
-              color: .purple
+              icon: "text.bubble.fill",
+              label: String(localized: "文字起こし"),
+              color: .blue
             ) {
-              onShowGeminiTranscription?()
+              onShowTranscription?()
             }
           }
 

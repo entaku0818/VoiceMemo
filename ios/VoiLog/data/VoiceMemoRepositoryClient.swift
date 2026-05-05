@@ -37,6 +37,7 @@ struct VoiceMemoRepositoryClient {
         var url: URL
         var text: String
         var timestampedText: String?
+        var aiTranscriptionText: String = ""
         var fileFormat: String
         var samplingFrequency: Double
         var quantizationBitDepth: Int
@@ -112,6 +113,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         url: voiceEntity.url!,
                         text: voiceEntity.text ?? "",
                         timestampedText: voiceEntity.timestampedText,
+                        aiTranscriptionText: voiceEntity.aiTranscriptionText ?? "",
                         fileFormat: voiceEntity.fileFormat ?? "",
                         samplingFrequency: voiceEntity.samplingFrequency,
                         quantizationBitDepth: Int(voiceEntity.quantizationBitDepth),
@@ -185,6 +187,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         voiceEntity.url = voiceMemoVoice.url
                         voiceEntity.text = voiceMemoVoice.text
                         voiceEntity.timestampedText = voiceMemoVoice.timestampedText
+                        voiceEntity.aiTranscriptionText = voiceMemoVoice.aiTranscriptionText.isEmpty ? nil : voiceMemoVoice.aiTranscriptionText
                         voiceEntity.createdAt = voiceMemoVoice.date
                         voiceEntity.updatedAt = Date()
                         voiceEntity.duration = voiceMemoVoice.duration
