@@ -67,6 +67,7 @@ final class TranscriptionFeatureTests: XCTestCase {
         }
         await store.receive(\._transcriptionCompleted) {
             $0.status = .done
+            $0.savedText = "文字起こし結果"
             $0.result = .init(
                 transcription: "文字起こし結果",
                 segments: [.init(time: "0:00", speaker: "A", text: "文字起こし結果")],
@@ -86,6 +87,7 @@ final class TranscriptionFeatureTests: XCTestCase {
         await store.receive(\._uploadCompleted) { $0.status = .transcribing }
         await store.receive(\._transcriptionCompleted) {
             $0.status = .done
+            $0.savedText = "本文のみ"
             $0.result = .init(transcription: "本文のみ", segments: [], summary: "")
         }
     }

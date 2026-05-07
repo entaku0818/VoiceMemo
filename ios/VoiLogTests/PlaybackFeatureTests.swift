@@ -248,13 +248,13 @@ final class PlaybackFeatureTests: XCTestCase {
             await store.send(.view(.geminiTranscriptionSaved(testID, "文字起こしテキスト"))) {
                 $0.showTranscriptionSheet = false
                 $0.selectedMemoForTranscription = nil
-                $0.voiceMemos[0].text = "文字起こしテキスト"
+                $0.voiceMemos[0].aiTranscriptionText = "文字起こしテキスト"
             }
             await store.finish()
 
             // Core Data への永続化が呼ばれたことを確認
             XCTAssertEqual(updatedVoices.value.count, 1, "voiceMemoRepository.update が1回呼ばれるべき")
-            XCTAssertEqual(updatedVoices.value.first?.text, "文字起こしテキスト")
+            XCTAssertEqual(updatedVoices.value.first?.aiTranscriptionText, "文字起こしテキスト")
             XCTAssertEqual(updatedVoices.value.first?.uuid, testID)
         }
     }
@@ -263,7 +263,10 @@ final class PlaybackFeatureTests: XCTestCase {
 
     func testShowTranscription_setsSheetState() async {
         await withMainSerialExecutor {
-            let store = TestStore(initialState: PlaybackFeature.State()) {
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = true
+
+            let store = TestStore(initialState: initialState) {
                 PlaybackFeature()
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
@@ -271,6 +274,10 @@ final class PlaybackFeatureTests: XCTestCase {
                     play: { _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { },
+                    show: { _, _ in XCTFail("premium user should not see ad") }
                 )
             }
 
