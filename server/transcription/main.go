@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -155,6 +156,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		log.Printf("file upload error: %v", err)
+		notifySlack(fmt.Sprintf(":warning: [VoiLog] Gemini file upload failed\n```%v```", err))
 		http.Error(w, `{"error":"File upload failed"}`, http.StatusInternalServerError)
 		return
 	}
@@ -185,6 +187,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	)
 	if err != nil {
 		log.Printf("gemini error: %s", redactAPIKey(err.Error()))
+		notifySlack(fmt.Sprintf(":x: [VoiLog] Transcription failed (Gemini)\n```%s```", redactAPIKey(err.Error())))
 		http.Error(w, `{"error":"Transcription failed"}`, http.StatusInternalServerError)
 		return
 	}
@@ -202,6 +205,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	var result map[string]any
 	if err := json.Unmarshal([]byte(text), &result); err != nil {
 		log.Printf("json parse error: %v, raw: %s", err, text)
+		notifySlack(fmt.Sprintf(":warning: [VoiLog] JSON parse error (fell back to raw text)\n```%v```\nraw: %s", err, text))
 		result = map[string]any{
 			"transcription": text,
 			"segments":      []any{},
@@ -211,6 +215,22 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
+}
+
+func notifySlack(msg string) {
+	webhookURL := getEnv("SLACK_WEBHOOK_URL", "")
+	if webhookURL == "" {
+		return
+	}
+	payload, _ := json.Marshal(map[string]string{"text": msg})
+	go func() {
+		resp, err := http.Post(webhookURL, "application/json", bytes.NewReader(payload))
+		if err != nil {
+			log.Printf("slack notify error: %v", err)
+			return
+		}
+		resp.Body.Close()
+	}()
 }
 
 var apiKeyPattern = regexp.MustCompile(`[?&]key=[^&"'\s]+`)
