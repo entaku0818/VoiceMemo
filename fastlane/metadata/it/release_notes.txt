@@ -1,7 +1,9 @@
-Versione 1.8.0
+Versione 1.7.0
+
+[Nuove funzioni]
+· Trascrizione con IA aggiunta
+· Scheda di trascrizione nel dettaglio memo
+· Scegli la lingua prima di avviare
 
 [Miglioramenti]
-· Scegli la lingua prima di avviare la trascrizione AI
-· Scheda di trascrizione nel dettaglio memo — nessun modal separato
-· Confronta i risultati di Apple e AI affiancati
 · Miglioramenti generali dell'interfaccia e della stabilità

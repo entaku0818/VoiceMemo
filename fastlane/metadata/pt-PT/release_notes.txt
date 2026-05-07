@@ -1,7 +1,9 @@
-Versão 1.8.0
+Versão 1.7.0
+
+[Novidades]
+· Transcrição por IA adicionada
+· Separador de transcrição no detalhe do memo
+· Escolha o idioma antes de iniciar
 
 [Melhorias]
-· Escolha o idioma de transcrição antes de iniciar
-· Separador de transcrição no detalhe do memo — sem modal separado
-· Compare os resultados da Apple e da IA lado a lado
 · Melhorias gerais de UI e estabilidade

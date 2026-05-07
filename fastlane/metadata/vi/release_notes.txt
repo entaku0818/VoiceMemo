@@ -1,7 +1,9 @@
-Phiên bản 1.8.0
+Phiên bản 1.7.0
+
+[Tính năng mới]
+· Thêm phiên âm bằng AI
+· Tab phiên âm trong chi tiết ghi chú
+· Chọn ngôn ngữ trước khi bắt đầu
 
 [Cải tiến]
-· Chọn ngôn ngữ phiên âm trước khi bắt đầu
-· Thêm tab phiên âm vào chi tiết ghi chú — không còn cửa sổ riêng
-· So sánh kết quả phiên âm Apple và AI cạnh nhau
 · Cải thiện giao diện và độ ổn định

@@ -1,7 +1,9 @@
-Version 1.8.0
+Version 1.7.0
+
+[New Features]
+· AI-powered transcription added
+· Transcription tab in memo detail — view Apple & AI results together
+· Choose transcription language before starting
 
 [Improvements]
-· Choose transcription language before starting AI transcription
-· Transcription tab added to memo detail — no more separate modal
-· Compare Apple and AI transcription results side by side
 · General UI improvements and stability fixes

@@ -1,7 +1,9 @@
-Version 1.8.0
+Version 1.7.0
+
+[Nouveautés]
+· Transcription par IA ajoutée
+· Onglet de transcription dans le détail — Apple et IA ensemble
+· Choisissez la langue avant de commencer
 
 [Améliorations]
-· Choisissez la langue de transcription avant de commencer
-· Onglet de transcription dans le détail du mémo — plus de fenêtre modale
-· Comparez les résultats Apple et IA côte à côte
 · Améliorations générales de l'interface et de la stabilité
