@@ -1,8 +1,7 @@
-Sürüm 1.7.0
-
-[Yeni Özellikler]
-· Yapay zeka transkripsiyon eklendi (Gemini)
-· Reklam izleyerek ücretsiz, Premium ile sınırsız
+Sürüm 1.8.0
 
 [İyileştirmeler]
-· Genel kararlılık iyileştirmeleri
+· AI transkripsiyonu başlatmadan önce dil seçin
+· Not detayına transkripsiyon sekmesi eklendi — ayrı modal yok
+· Apple ve AI transkripsiyon sonuçlarını yan yana karşılaştırın
+· Genel arayüz iyileştirmeleri ve kararlılık düzeltmeleri

@@ -1,8 +1,7 @@
-Version 1.7.0
-
-[Neue Funktionen]
-· KI-Transkription hinzugefügt (Gemini)
-· Kostenlos nutzbar durch Anzeige ansehen, Premium unbegrenzt
+Version 1.8.0
 
 [Verbesserungen]
-· Allgemeine Stabilitätsverbesserungen
+· Sprache für KI-Transkription vor dem Start auswählbar
+· Transkriptions-Tab in der Detailansicht – kein separates Modal mehr
+· Apple- und KI-Transkription direkt vergleichen
+· Allgemeine UI-Verbesserungen und Stabilitätsfixes

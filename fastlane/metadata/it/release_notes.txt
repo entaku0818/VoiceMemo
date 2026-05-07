@@ -1,8 +1,7 @@
-Versione 1.7.0
-
-[Nuove funzionalità]
-· Trascrizione AI aggiunta (Gemini)
-· Gratuita guardando un annuncio, illimitata con Premium
+Versione 1.8.0
 
 [Miglioramenti]
-· Miglioramenti generali della stabilità
+· Scegli la lingua prima di avviare la trascrizione AI
+· Scheda di trascrizione nel dettaglio memo — nessun modal separato
+· Confronta i risultati di Apple e AI affiancati
+· Miglioramenti generali dell'interfaccia e della stabilità

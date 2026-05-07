@@ -1,9 +1,7 @@
-Version 1.7.0
-
-[New Features]
-· AI-powered transcription added (Gemini)
-· Free users: watch a short ad to transcribe
-· Premium: unlimited transcriptions
+Version 1.8.0
 
 [Improvements]
-· General stability improvements
+· Choose transcription language before starting AI transcription
+· Transcription tab added to memo detail — no more separate modal
+· Compare Apple and AI transcription results side by side
+· General UI improvements and stability fixes

@@ -1,8 +1,7 @@
-Versão 1.7.0
-
-[Novas Funcionalidades]
-· Transcrição com IA adicionada (Gemini)
-· Grátis ao ver um anúncio, ilimitada com Premium
+Versão 1.8.0
 
 [Melhorias]
-· Melhorias gerais de estabilidade
+· Escolha o idioma de transcrição antes de iniciar
+· Separador de transcrição no detalhe do memo — sem modal separado
+· Compare os resultados da Apple e da IA lado a lado
+· Melhorias gerais de UI e estabilidade
