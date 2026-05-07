@@ -1,52 +1,36 @@
 import SwiftUI
+import ComposableArchitecture
 
 struct VoiceMemoDetailView: View {
   let memo: PlaybackFeature.VoiceMemo
   let onDismiss: () -> Void
-  var onShowTranscription: (() -> Void)?
+  var onAISaved: ((String) -> Void)?
+
+  @State private var selectedTab = 0
 
   var body: some View {
-      NavigationStack {
-      ScrollView {
-        VStack(alignment: .leading, spacing: 20) {
-          // 基本情報セクション
-          detailSection(title: String(localized: "基本情報")) {
-            detailRow(label: String(localized: "タイトル"), value: memo.title)
-            detailRow(label: String(localized: "録音日時"), value: DateFormatter.dateTimeFormatter.string(from: memo.date))
-            detailRow(label: String(localized: "再生時間"), value: formatDuration(memo.duration))
-
-            // 文字起こしへのナビゲーション
-            transcriptionRow(
-              icon: "text.bubble.fill",
-              label: String(localized: "文字起こし"),
-              color: .blue
-            ) {
-              onShowTranscription?()
-            }
-          }
-
-          // ファイル情報セクション
-          detailSection(title: String(localized: "ファイル情報")) {
-            detailRow(label: String(localized: "ファイルサイズ"), value: formatFileSize(memo.fileSize))
-            detailRow(label: String(localized: "ファイル形式"), value: formatFileFormat(memo.fileFormat))
-            detailRow(label: String(localized: "ファイルパス"), value: memo.url.lastPathComponent)
-          }
-
-          // 音質設定セクション
-          detailSection(title: String(localized: "音質設定")) {
-            detailRow(label: String(localized: "サンプリング周波数"), value: "\(Int(memo.samplingFrequency)) Hz")
-            detailRow(label: String(localized: "ビット深度"), value: "\(memo.quantizationBitDepth) bit")
-            detailRow(
-              label: String(localized: "チャンネル数"),
-              value: memo.numberOfChannels == 1
-                ? String(localized: "モノラル")
-                : String(localized: "ステレオ")
-            )
-          }
+    NavigationStack {
+      VStack(spacing: 0) {
+        Picker("", selection: $selectedTab) {
+          Label(String(localized: "詳細"), systemImage: "info.circle")
+            .tag(0)
+          Label(String(localized: "文字起こし"), systemImage: "text.bubble.fill")
+            .tag(1)
         }
-        .padding()
+        .pickerStyle(.segmented)
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+
+        Divider()
+
+        TabView(selection: $selectedTab) {
+          detailTab.tag(0)
+          TranscriptionTabsView(memo: memo, onAISaved: onAISaved).tag(1)
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .animation(.easeInOut(duration: 0.2), value: selectedTab)
       }
-      .navigationTitle(String(localized: "詳細情報"))
+      .navigationTitle(memo.title.isEmpty ? String(localized: "詳細情報") : memo.title)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
@@ -60,30 +44,42 @@ struct VoiceMemoDetailView: View {
           }
         }
       }
-      }
-  }
-
-  private func transcriptionRow(
-    icon: String,
-    label: String,
-    color: Color,
-    action: @escaping () -> Void
-  ) -> some View {
-    Button(action: action) {
-      HStack {
-        Image(systemName: icon)
-          .foregroundColor(color)
-          .frame(width: 24)
-        Text(label)
-          .font(.subheadline)
-          .foregroundColor(.primary)
-        Spacer()
-        Image(systemName: "chevron.right")
-          .font(.caption)
-          .foregroundColor(.secondary)
-      }
     }
   }
+
+  // MARK: - 詳細タブ
+
+  private var detailTab: some View {
+    ScrollView {
+      VStack(alignment: .leading, spacing: 20) {
+        detailSection(title: String(localized: "基本情報")) {
+          detailRow(label: String(localized: "タイトル"), value: memo.title)
+          detailRow(label: String(localized: "録音日時"), value: DateFormatter.dateTimeFormatter.string(from: memo.date))
+          detailRow(label: String(localized: "再生時間"), value: formatDuration(memo.duration))
+        }
+
+        detailSection(title: String(localized: "ファイル情報")) {
+          detailRow(label: String(localized: "ファイルサイズ"), value: formatFileSize(memo.fileSize))
+          detailRow(label: String(localized: "ファイル形式"), value: formatFileFormat(memo.fileFormat))
+          detailRow(label: String(localized: "ファイルパス"), value: memo.url.lastPathComponent)
+        }
+
+        detailSection(title: String(localized: "音質設定")) {
+          detailRow(label: String(localized: "サンプリング周波数"), value: "\(Int(memo.samplingFrequency)) Hz")
+          detailRow(label: String(localized: "ビット深度"), value: "\(memo.quantizationBitDepth) bit")
+          detailRow(
+            label: String(localized: "チャンネル数"),
+            value: memo.numberOfChannels == 1
+              ? String(localized: "モノラル")
+              : String(localized: "ステレオ")
+          )
+        }
+      }
+      .padding()
+    }
+  }
+
+  // MARK: - Helpers
 
   @ViewBuilder
   private func detailSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
@@ -156,11 +152,11 @@ extension DateFormatter {
 #Preview {
   VoiceMemoDetailView(
     memo: PlaybackFeature.VoiceMemo(
-      title: "テスト録音",
+      title: "Test Recording",
       date: Date(),
       duration: 123.45,
       url: URL(fileURLWithPath: "/test.m4a"),
-      text: "これはテスト用の音声認識テキストです。",
+      text: "Sample transcription text.",
       fileFormat: "m4a",
       samplingFrequency: 44100.0,
       quantizationBitDepth: 16,

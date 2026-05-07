@@ -789,7 +789,7 @@ struct PlaybackView: View {
           VoiceMemoDetailView(
             memo: memo,
             onDismiss: { send(.hideDetailSheet) },
-            onShowTranscription: { send(.showCombinedTranscriptionFromDetail(selectedId)) }
+            onAISaved: { text in send(.geminiTranscriptionSaved(selectedId, text)) }
           )
         }
       }
