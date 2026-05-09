@@ -80,6 +80,30 @@ platform :ios do
     )
   end
 
+  lane :submit_for_review do
+    version_number = get_version_number(
+      xcodeproj: "ios/VoiLog.xcodeproj",
+      target: "VoiLog"
+    )
+    deliver(
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_screenshots: true,
+      app_version: version_number,
+      submit_for_review: true,
+      automatic_release: false,
+      force: true,
+      build_number: "latest",
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+      submission_information: {
+        add_id_info_uses_idfa: false,
+        export_compliance_uses_encryption: false,
+        export_compliance_platform: "ios"
+      }
+    )
+  end
+
   lane :upload_metadata_only do
     version_number = get_version_number(
       xcodeproj: "ios/VoiLog.xcodeproj",

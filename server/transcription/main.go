@@ -156,7 +156,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	})
 	if err != nil {
 		log.Printf("file upload error: %v", err)
-		notifySlack(fmt.Sprintf(":warning: [VoiLog] Gemini file upload failed\n```%v```", err))
+		notifySlack(fmt.Sprintf(":warning: [VoiLog] Gemini file upload failed\n```%s```", sanitizeError(err)))
 		http.Error(w, `{"error":"File upload failed"}`, http.StatusInternalServerError)
 		return
 	}
@@ -187,7 +187,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	)
 	if err != nil {
 		log.Printf("gemini error: %s", redactAPIKey(err.Error()))
-		notifySlack(fmt.Sprintf(":x: [VoiLog] Transcription failed (Gemini)\n```%s```", redactAPIKey(err.Error())))
+		notifySlack(fmt.Sprintf(":x: [VoiLog] Transcription failed (Gemini)\n```%s```", sanitizeError(err)))
 		http.Error(w, `{"error":"Transcription failed"}`, http.StatusInternalServerError)
 		return
 	}
@@ -205,7 +205,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	var result map[string]any
 	if err := json.Unmarshal([]byte(text), &result); err != nil {
 		log.Printf("json parse error: %v, raw: %s", err, text)
-		notifySlack(fmt.Sprintf(":warning: [VoiLog] JSON parse error (fell back to raw text)\n```%v```\nraw: %s", err, text))
+		notifySlack(fmt.Sprintf(":warning: [VoiLog] JSON parse error (fell back to raw text)\n```%s```", sanitizeError(err)))
 		result = map[string]any{
 			"transcription": text,
 			"segments":      []any{},
@@ -237,6 +237,28 @@ var apiKeyPattern = regexp.MustCompile(`[?&]key=[^&"'\s]+`)
 
 func redactAPIKey(s string) string {
 	return apiKeyPattern.ReplaceAllString(s, "&key=REDACTED")
+}
+
+var filePathPattern = regexp.MustCompile(`(/home|/usr|/var|/etc|/tmp|/root|/opt)[^\s"']+`)
+
+func sanitizeError(err error) string {
+	if err == nil {
+		return ""
+	}
+	msg := err.Error()
+	// Extract only the first line
+	if idx := strings.Index(msg, "\n"); idx != -1 {
+		msg = msg[:idx]
+	}
+	// Remove file path patterns
+	msg = filePathPattern.ReplaceAllString(msg, "[path]")
+	// Redact API keys
+	msg = redactAPIKey(msg)
+	// Truncate to max 200 characters
+	if len(msg) > 200 {
+		msg = msg[:200]
+	}
+	return msg
 }
 
 func audioMIMEType(ext string) string {

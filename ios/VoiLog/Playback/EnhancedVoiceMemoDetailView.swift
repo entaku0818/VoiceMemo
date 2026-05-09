@@ -3,11 +3,11 @@
 //  VoiLog
 //
 //  Created for Issue #82: 詳細な音声情報表示
+//  Refactored for Issue #123: split tabs into separate files
 //
 
 import SwiftUI
 import AVFoundation
-import Charts
 
 struct EnhancedVoiceMemoDetailView: View {
     let memo: PlaybackFeature.VoiceMemo
@@ -20,8 +20,6 @@ struct EnhancedVoiceMemoDetailView: View {
     @State private var isPlaying = false
     @State private var currentTime: TimeInterval = 0
     @State private var showShareSheet = false
-    @State private var showTranscriptionExport = false
-    @State private var exportItems: [Any] = []
     @State private var audioPlayer: AVAudioPlayer?
     @State private var playbackTimer: Timer?
 
@@ -31,403 +29,88 @@ struct EnhancedVoiceMemoDetailView: View {
     }
 
     var body: some View {
-
-            NavigationStack {
-                TabView(selection: $selectedTab) {
-                    // 基本情報タブ
-                    basicInfoTab
-                        .tabItem {
-                            Label(String(localized: "基本情報", table: "Playback"), systemImage: "info.circle")
-                        }
-                        .tag(0)
-
-                    // 音声分析タブ
-                    audioAnalysisTab
-                        .tabItem {
-                            Label(String(localized: "音声分析", table: "Playback"), systemImage: "waveform")
-                        }
-                        .tag(1)
-
-                    // メタデータタブ
-                    metadataTab
-                        .tabItem {
-                            Label(String(localized: "メタデータ", table: "Playback"), systemImage: "doc.text")
-                        }
-                        .tag(2)
-
-                    // 文字起こしタブ
-                    transcriptionTab
-                        .tabItem {
-                            Label(String(localized: "文字起こし"), systemImage: "text.bubble")
-                        }
-                        .tag(3)
-
-                    // 統計情報タブ
-                    statisticsTab
-                        .tabItem {
-                            Label(String(localized: "統計", table: "Playback"), systemImage: "chart.bar")
-                        }
-                        .tag(4)
+        NavigationStack {
+            TabView(selection: $selectedTab) {
+                BasicInfoTabView(
+                    memo: memo,
+                    isPlaying: isPlaying,
+                    currentTime: currentTime,
+                    onTogglePlayback: togglePlayback
+                )
+                .tabItem {
+                    Label(String(localized: "基本情報", table: "Playback"), systemImage: "info.circle")
                 }
-                .navigationTitle(String(localized: "詳細情報", table: "Playback"))
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button(action: { showShareSheet = true }) {
-                            Image(systemName: "square.and.arrow.up")
-                        }
+                .tag(0)
+
+                AudioAnalysisTabView(
+                    memo: memo,
+                    isAnalyzingAudio: isAnalyzingAudio,
+                    audioAnalysisData: audioAnalysisData,
+                    waveformData: waveformData
+                )
+                .tabItem {
+                    Label(String(localized: "音声分析", table: "Playback"), systemImage: "waveform")
+                }
+                .tag(1)
+
+                MetadataTabView(memo: memo)
+                    .tabItem {
+                        Label(String(localized: "メタデータ", table: "Playback"), systemImage: "doc.text")
                     }
+                    .tag(2)
 
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button(String(localized: "閉じる")) {
-                            onDismiss()
-                        }
+                TranscriptionTabView(
+                    memo: memo,
+                    timestampedTranscription: timestampedTranscription,
+                    onSeekTo: seekTo
+                )
+                .tabItem {
+                    Label(String(localized: "文字起こし"), systemImage: "text.bubble")
+                }
+                .tag(3)
+
+                StatisticsTabView(memo: memo)
+                    .tabItem {
+                        Label(String(localized: "統計", table: "Playback"), systemImage: "chart.bar")
+                    }
+                    .tag(4)
+            }
+            .navigationTitle(String(localized: "詳細情報", table: "Playback"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: { showShareSheet = true }) {
+                        Image(systemName: "square.and.arrow.up")
                     }
                 }
-                .sheet(isPresented: $showShareSheet) {
-                    ShareSheet(items: [generateDetailReport()])
-                }
-                .sheet(isPresented: $showTranscriptionExport) {
-                    ShareSheet(items: exportItems)
-                }
-                .onAppear {
-                    analyzeAudioFile()
-                }
-                .onDisappear {
-                    cleanup()
+
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(String(localized: "閉じる")) {
+                        onDismiss()
+                    }
                 }
             }
-
-    }
-
-    // MARK: - Basic Info Tab
-    private var basicInfoTab: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // タイトルと再生コントロール
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(memo.title)
-                                .font(.title2)
-                                .fontWeight(.bold)
-
-                            Text(formatDate(memo.date))
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-
-                        Spacer()
-
-                        Button(action: togglePlayback) {
-                            Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.accentColor)
-                        }
-                    }
-
-                    // プログレスバー
-                    ProgressView(value: currentTime, total: memo.duration)
-                        .tint(.accentColor)
-
-                    HStack {
-                        Text(formatDuration(currentTime))
-                            .font(.caption)
-                            .monospacedDigit()
-                        Spacer()
-                        Text(formatDuration(memo.duration))
-                            .font(.caption)
-                            .monospacedDigit()
-                    }
-                    .foregroundColor(.secondary)
-                }
-                .padding()
-                .background(Color(.systemBackground))
-                .cornerRadius(12)
-                .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
-
-                // 基本情報セクション
-                detailSection(title: String(localized: "録音情報", table: "Playback")) {
-                    InfoRow(icon: "clock", label: String(localized: "再生時間", table: "Playback"), value: formatDetailedDuration(memo.duration))
-                    InfoRow(icon: "calendar", label: String(localized: "録音日時", table: "Playback"), value: formatDetailedDate(memo.date))
-                    InfoRow(icon: "location", label: "録音場所", value: "位置情報なし") // 将来的に実装
-                    InfoRow(icon: "tag", label: "タグ", value: "なし") // 将来的に実装
-                }
-
-                // 音声認識テキスト
-                if !memo.text.isEmpty {
-                    detailSection(title: String(localized: "音声認識テキスト", table: "Playback")) {
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(memo.text)
-                                .font(.body)
-                                .padding(12)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(.systemGray6))
-                                .cornerRadius(8)
-
-                            HStack {
-                                Label(String(format: String(localized: "%lld 文字", table: "Playback"), memo.text.count), systemImage: "textformat.size")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-
-                                Spacer()
-
-                                Label(String(format: String(localized: "%lld 単語", table: "Playback"), wordCount(memo.text)), systemImage: "text.word.spacing")
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                    }
-                }
-
-                // ファイル情報
-                detailSection(title: String(localized: "ファイル情報", table: "Playback")) {
-                    InfoRow(icon: "doc", label: String(localized: "ファイル名", table: "Playback"), value: memo.url.lastPathComponent)
-                    InfoRow(icon: "folder", label: String(localized: "保存場所", table: "Playback"), value: memo.url.deletingLastPathComponent().path)
-                    InfoRow(icon: "doc.badge.ellipsis", label: String(localized: "ファイル形式"), value: formatFileFormat(memo.fileFormat))
-                    InfoRow(icon: "square.and.arrow.down", label: String(localized: "ファイルサイズ", table: "Playback"), value: formatDetailedFileSize(memo.fileSize))
-                }
+            .sheet(isPresented: $showShareSheet) {
+                ShareSheet(items: [generateDetailReport()])
             }
-            .padding()
+            .onAppear {
+                analyzeAudioFile()
+            }
+            .onDisappear {
+                cleanup()
+            }
         }
     }
 
-    // MARK: - Audio Analysis Tab
-    private var audioAnalysisTab: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                if isAnalyzingAudio {
-                    VStack {
-                        ProgressView()
-                            .scaleEffect(1.5)
-                        Text(String(localized: "音声を分析中...", table: "Playback"))
-                            .font(.headline)
-                            .padding(.top)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding(50)
-                } else if let analysisData = audioAnalysisData {
-                    // 波形ビジュアライゼーション
-                    detailSection(title: String(localized: "波形", table: "Playback")) {
-                        SimpleWaveformView(data: waveformData)
-                            .frame(height: 150)
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
-                    }
+    // MARK: - Playback
 
-                    // 音声特性
-                    detailSection(title: String(localized: "音声特性", table: "Playback")) {
-                        InfoRow(icon: "waveform", label: String(localized: "平均音量", table: "Playback"), value: String(format: "%.1f dB", analysisData.averageVolume))
-                        InfoRow(icon: "speaker.wave.3", label: String(localized: "ピーク音量", table: "Playback"), value: String(format: "%.1f dB", analysisData.peakVolume))
-                        InfoRow(icon: "waveform.path.ecg", label: String(localized: "ダイナミックレンジ", table: "Playback"), value: String(format: "%.1f dB", analysisData.dynamicRange))
-                        InfoRow(icon: "metronome", label: String(localized: "サンプリングレート", table: "Playback"), value: "\(Int(memo.samplingFrequency)) Hz")
-                        InfoRow(icon: "speaker.wave.2", label: String(localized: "ビットレート", table: "Playback"), value: calculateBitrate())
-                    }
-
-                    // 周波数分析
-                    detailSection(title: String(localized: "周波数分析", table: "Playback")) {
-                        FrequencyChart(data: analysisData.frequencyData)
-                            .frame(height: 200)
-                    }
-
-                    // 無音検出
-                    detailSection(title: String(localized: "無音分析", table: "Playback")) {
-                        InfoRow(icon: "speaker.slash", label: String(localized: "無音時間", table: "Playback"), value: formatDuration(analysisData.silenceDuration))
-                        InfoRow(icon: "percent", label: String(localized: "無音比率", table: "Playback"), value: String(format: "%.1f%%", analysisData.silenceRatio * 100))
-                        InfoRow(icon: "scissors", label: String(localized: "無音区間数", table: "Playback"), value: "\(analysisData.silenceSegments.count)")
-                    }
-                }
-            }
-            .padding()
-        }
-    }
-
-    // MARK: - Metadata Tab
-    private var metadataTab: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // 技術的メタデータ
-                detailSection(title: String(localized: "技術的メタデータ", table: "Playback")) {
-                    InfoRow(icon: "cpu", label: "エンコーダー", value: "Core Audio")
-                    InfoRow(icon: "antenna.radiowaves.left.and.right", label: "チャンネル", value: channelConfiguration())
-                    InfoRow(icon: "waveform.badge.plus", label: "ビット深度", value: "\(memo.quantizationBitDepth) bit")
-                    InfoRow(icon: "arrow.left.arrow.right", label: "エンディアン", value: "リトルエンディアン")
-                }
-
-                // デバイス情報
-                detailSection(title: String(localized: "録音デバイス", table: "Playback")) {
-                    InfoRow(icon: "iphone", label: "デバイス", value: UIDevice.current.model)
-                    InfoRow(icon: "mic", label: "マイク", value: "内蔵マイク")
-                    InfoRow(icon: "gear", label: "録音設定", value: "標準品質")
-                    InfoRow(icon: "app.badge", label: "アプリバージョン", value: appVersion())
-                }
-
-                // 拡張属性
-                detailSection(title: String(localized: "拡張属性", table: "Playback")) {
-                    InfoRow(icon: "checkmark.seal", label: "完全性", value: "検証済み")
-                    InfoRow(icon: "lock", label: "暗号化", value: "なし")
-                    InfoRow(icon: "tag.circle", label: "カスタムタグ", value: "未設定")
-                }
-            }
-            .padding()
-        }
-    }
-
-    // MARK: - Transcription Tab
-    private var transcriptionTab: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                if let transcription = timestampedTranscription {
-                    // エクスポートボタン
-                    HStack {
-                        Spacer()
-                        Menu {
-                            Button {
-                                exportAsText(transcription)
-                            } label: {
-                                Label("テキスト (.txt)", systemImage: "doc.text")
-                            }
-                            Button {
-                                exportAsPDF(transcription)
-                            } label: {
-                                Label("PDF (.pdf)", systemImage: "doc.richtext")
-                            }
-                        } label: {
-                            Label("エクスポート", systemImage: "square.and.arrow.up")
-                                .font(.subheadline)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color.accentColor.opacity(0.1))
-                                .foregroundColor(.accentColor)
-                                .cornerRadius(8)
-                        }
-                    }
-                    .padding(.horizontal)
-
-                    // タイムスタンプ付きセグメント
-                    detailSection(title: String(localized: "タイムスタンプ付き文字起こし", table: "Playback")) {
-                        VStack(alignment: .leading, spacing: 12) {
-                            ForEach(transcription.segments) { segment in
-                                Button {
-                                    seekTo(segment.timestamp)
-                                } label: {
-                                    HStack(alignment: .top, spacing: 10) {
-                                        Text(segment.formattedTimestamp)
-                                            .font(.caption.monospacedDigit())
-                                            .foregroundColor(.accentColor)
-                                            .frame(width: 60, alignment: .leading)
-
-                                        Text(segment.text)
-                                            .font(.body)
-                                            .foregroundColor(.primary)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .multilineTextAlignment(.leading)
-                                    }
-                                    .padding(.vertical, 4)
-                                }
-                                .buttonStyle(.plain)
-
-                                if segment.id != transcription.segments.last?.id {
-                                    Divider()
-                                }
-                            }
-                        }
-                    }
-
-                    // 全文テキスト
-                    if !transcription.fullText.isEmpty {
-                        detailSection(title: String(localized: "全文", table: "Playback")) {
-                            Text(transcription.fullText)
-                                .font(.body)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .textSelection(.enabled)
-                        }
-                    }
-                } else {
-                    VStack(spacing: 16) {
-                        Image(systemName: "text.bubble")
-                            .font(.system(size: 48))
-                            .foregroundColor(.secondary)
-
-                        Text(String(localized: "文字起こしデータがありません", table: "Playback"))
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-
-                        Text("この録音には文字起こしデータが含まれていません。\n新しい録音を行うと自動的に生成されます。")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(40)
-                }
-            }
-            .padding()
-        }
-    }
-
-    // MARK: - Statistics Tab
-    private var statisticsTab: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // 使用統計
-                detailSection(title: String(localized: "使用統計", table: "Playback")) {
-                    InfoRow(icon: "play.circle", label: "再生回数", value: "0回") // 将来的に実装
-                    InfoRow(icon: "square.and.arrow.up", label: "共有回数", value: "0回") // 将来的に実装
-                    InfoRow(icon: "star", label: "お気に入り", value: "未設定") // 将来的に実装
-                    InfoRow(icon: "clock.arrow.circlepath", label: "最終再生", value: "なし") // 将来的に実装
-                }
-
-                // ストレージ分析
-                detailSection(title: String(localized: "ストレージ効率", table: "Playback")) {
-                    VStack(alignment: .leading, spacing: 12) {
-                        InfoRow(icon: "internaldrive", label: "圧縮率", value: calculateCompressionRatio())
-                        InfoRow(icon: "arrow.down.circle", label: "1分あたりサイズ", value: calculateSizePerMinute())
-
-                        // ストレージ使用量グラフ
-                        StorageUsageChart(fileSize: memo.fileSize, totalSize: totalStorageUsed())
-                            .frame(height: 150)
-                            .padding(.top, 8)
-                    }
-                }
-
-                // 品質指標
-                detailSection(title: String(localized: "品質指標", table: "Playback")) {
-                    QualityIndicatorView(memo: memo)
-                }
-            }
-            .padding()
-        }
-    }
-
-    // MARK: - Helper Views
-    @ViewBuilder
-    private func detailSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.headline)
-                .fontWeight(.semibold)
-
-            VStack(alignment: .leading, spacing: 8) {
-                content()
-            }
-            .padding()
-            .background(Color(.systemBackground))
-            .cornerRadius(12)
-            .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: 1)
-        }
-    }
-
-    // MARK: - Helper Methods
     private func togglePlayback() {
         if isPlaying {
-            // 停止
             audioPlayer?.pause()
             playbackTimer?.invalidate()
             playbackTimer = nil
             isPlaying = false
         } else {
-            // 再生
             if audioPlayer == nil {
                 setupAudioPlayer()
             }
@@ -441,7 +124,6 @@ struct EnhancedVoiceMemoDetailView: View {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
-
             audioPlayer = try AVAudioPlayer(contentsOf: memo.url)
             audioPlayer?.currentTime = currentTime
             audioPlayer?.prepareToPlay()
@@ -454,8 +136,6 @@ struct EnhancedVoiceMemoDetailView: View {
         playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [self] _ in
             if let player = audioPlayer {
                 currentTime = player.currentTime
-
-                // 再生終了をチェック
                 if !player.isPlaying && isPlaying {
                     isPlaying = false
                     currentTime = 0
@@ -464,14 +144,6 @@ struct EnhancedVoiceMemoDetailView: View {
                 }
             }
         }
-    }
-
-    private func cleanup() {
-        audioPlayer?.stop()
-        audioPlayer = nil
-        playbackTimer?.invalidate()
-        playbackTimer = nil
-        isPlaying = false
     }
 
     private func seekTo(_ time: TimeInterval) {
@@ -485,98 +157,19 @@ struct EnhancedVoiceMemoDetailView: View {
         }
     }
 
-    private func exportAsText(_ transcription: TimestampedTranscription) {
-        let content = "【\(memo.title)】\n録音日時: \(formatDetailedDate(memo.date))\n再生時間: \(formatDetailedDuration(memo.duration))\n\n" + transcription.formattedText
-        let fileName = "\(memo.title)_transcript.txt"
-        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
-        try? content.write(to: tempURL, atomically: true, encoding: .utf8)
-        exportItems = [tempURL]
-        showTranscriptionExport = true
+    private func cleanup() {
+        audioPlayer?.stop()
+        audioPlayer = nil
+        playbackTimer?.invalidate()
+        playbackTimer = nil
+        isPlaying = false
     }
 
-    private func exportAsPDF(_ transcription: TimestampedTranscription) {
-        let pdfData = generatePDF(transcription: transcription)
-        let fileName = "\(memo.title)_transcript.pdf"
-        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
-        try? pdfData.write(to: tempURL)
-        exportItems = [tempURL]
-        showTranscriptionExport = true
-    }
-
-    private func generatePDF(transcription: TimestampedTranscription) -> Data {
-        let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8) // A4
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
-
-        return renderer.pdfData { context in
-            context.beginPage()
-            let cgContext = context.cgContext
-
-            // タイトル
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.boldSystemFont(ofSize: 18),
-                .foregroundColor: UIColor.black
-            ]
-            let title = memo.title as NSString
-            title.draw(at: CGPoint(x: 40, y: 40), withAttributes: titleAttributes)
-
-            // メタデータ
-            let metaAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 11),
-                .foregroundColor: UIColor.gray
-            ]
-            let meta = "録音日時: \(formatDetailedDate(memo.date))  /  再生時間: \(formatDetailedDuration(memo.duration))" as NSString
-            meta.draw(at: CGPoint(x: 40, y: 68), withAttributes: metaAttributes)
-
-            // 区切り線
-            cgContext.setStrokeColor(UIColor.lightGray.cgColor)
-            cgContext.setLineWidth(0.5)
-            cgContext.move(to: CGPoint(x: 40, y: 88))
-            cgContext.addLine(to: CGPoint(x: pageRect.width - 40, y: 88))
-            cgContext.strokePath()
-
-            // セグメント
-            let segmentAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 12),
-                .foregroundColor: UIColor.black
-            ]
-            let timestampAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.monospacedSystemFont(ofSize: 11, weight: .regular),
-                .foregroundColor: UIColor.systemBlue
-            ]
-
-            var yOffset: CGFloat = 100
-            let maxY = pageRect.height - 60
-            let leftMargin: CGFloat = 40
-            let timestampWidth: CGFloat = 60
-            let textWidth = pageRect.width - leftMargin - timestampWidth - 40
-
-            for segment in transcription.segments {
-                if yOffset > maxY {
-                    context.beginPage()
-                    yOffset = 40
-                }
-
-                let ts = segment.formattedTimestamp as NSString
-                ts.draw(at: CGPoint(x: leftMargin, y: yOffset), withAttributes: timestampAttributes)
-
-                let textRect = CGRect(x: leftMargin + timestampWidth, y: yOffset, width: textWidth, height: 200)
-                let textHeight = (segment.text as NSString).boundingRect(
-                    with: CGSize(width: textWidth, height: .greatestFiniteMagnitude),
-                    options: [.usesLineFragmentOrigin, .usesFontLeading],
-                    attributes: segmentAttributes,
-                    context: nil
-                ).height
-                (segment.text as NSString).draw(in: textRect, withAttributes: segmentAttributes)
-
-                yOffset += max(textHeight, 20) + 8
-            }
-        }
-    }
+    // MARK: - Audio Analysis
 
     private func analyzeAudioFile() {
         isAnalyzingAudio = true
 
-        // 非同期で音声ファイルを分析
         Task {
             do {
                 let audioFile = try AVAudioFile(forReading: memo.url)
@@ -589,20 +182,13 @@ struct EnhancedVoiceMemoDetailView: View {
 
                 try audioFile.read(into: buffer)
 
-                // 波形データを生成
-                let waveform = generateWaveform(from: buffer)
-
-                // 音量分析
-                let (avgVolume, peakVolume) = analyzeVolume(buffer: buffer)
+                let waveform = AudioAnalyzer.generateWaveform(from: buffer)
+                let (avgVolume, peakVolume) = AudioAnalyzer.analyzeVolume(buffer: buffer)
                 let dynamicRange = peakVolume - avgVolume
-
-                // 無音検出
-                let silenceSegments = detectSilence(buffer: buffer, threshold: -40.0)
+                let silenceSegments = AudioAnalyzer.detectSilence(buffer: buffer, threshold: -40.0)
                 let silenceDuration = silenceSegments.reduce(0.0) { $0 + ($1.end - $1.start) }
                 let silenceRatio = silenceDuration / memo.duration
-
-                // 周波数分析（簡易版）
-                let frequencyData = analyzeFrequency(buffer: buffer)
+                let frequencyData = AudioAnalyzer.analyzeFrequency(buffer: buffer)
 
                 await MainActor.run {
                     audioAnalysisData = AudioAnalysisData(
@@ -620,7 +206,6 @@ struct EnhancedVoiceMemoDetailView: View {
             } catch {
                 print("Failed to analyze audio: \(error)")
                 await MainActor.run {
-                    // エラー時はダミーデータを使用
                     audioAnalysisData = AudioAnalysisData(
                         averageVolume: -12.5,
                         peakVolume: -3.2,
@@ -628,131 +213,16 @@ struct EnhancedVoiceMemoDetailView: View {
                         silenceDuration: 5.2,
                         silenceRatio: 0.042,
                         silenceSegments: [(start: 10.5, end: 11.2), (start: 45.3, end: 46.8)],
-                        frequencyData: generateDummyFrequencyData()
+                        frequencyData: AudioAnalyzer.generateDummyFrequencyData()
                     )
-                    waveformData = generateDummyWaveform()
+                    waveformData = AudioAnalyzer.generateDummyWaveform()
                     isAnalyzingAudio = false
                 }
             }
         }
     }
 
-    private func generateWaveform(from buffer: AVAudioPCMBuffer) -> [Float] {
-        guard let channelData = buffer.floatChannelData else { return [] }
-        let channelDataValue = channelData.pointee
-        let frameLength = Int(buffer.frameLength)
-
-        // 100サンプルにダウンサンプリング
-        let samplesPerPoint = max(1, frameLength / 100)
-        var waveform: [Float] = []
-
-        for i in stride(from: 0, to: frameLength, by: samplesPerPoint) {
-            let endIndex = min(i + samplesPerPoint, frameLength)
-            var sum: Float = 0
-            for j in i..<endIndex {
-                sum += abs(channelDataValue[j])
-            }
-            let average = sum / Float(endIndex - i)
-            waveform.append(average)
-        }
-
-        return waveform
-    }
-
-    private func analyzeVolume(buffer: AVAudioPCMBuffer) -> (average: Double, peak: Double) {
-        guard let channelData = buffer.floatChannelData else { return (-60, -60) }
-        let channelDataValue = channelData.pointee
-        let frameLength = Int(buffer.frameLength)
-
-        var sum: Float = 0
-        var peak: Float = 0
-
-        for i in 0..<frameLength {
-            let value = abs(channelDataValue[i])
-            sum += value
-            peak = max(peak, value)
-        }
-
-        let average = sum / Float(frameLength)
-
-        // リニアからdBに変換
-        let avgDB = 20 * log10(max(average, 0.00001))
-        let peakDB = 20 * log10(max(peak, 0.00001))
-
-        return (Double(avgDB), Double(peakDB))
-    }
-
-    private func detectSilence(buffer: AVAudioPCMBuffer, threshold: Float) -> [(start: TimeInterval, end: TimeInterval)] {
-        guard let channelData = buffer.floatChannelData else { return [] }
-        let channelDataValue = channelData.pointee
-        let frameLength = Int(buffer.frameLength)
-        let sampleRate = buffer.format.sampleRate
-
-        var silenceSegments: [(start: TimeInterval, end: TimeInterval)] = []
-        var silenceStart: Int?
-
-        let thresholdLinear = pow(10, threshold / 20) // dBからリニアに変換
-
-        for i in 0..<frameLength {
-            let value = abs(channelDataValue[i])
-
-            if value < thresholdLinear {
-                if silenceStart == nil {
-                    silenceStart = i
-                }
-            } else {
-                if let start = silenceStart {
-                    let startTime = Double(start) / sampleRate
-                    let endTime = Double(i) / sampleRate
-                    if endTime - startTime > 0.5 { // 0.5秒以上の無音のみ記録
-                        silenceSegments.append((start: startTime, end: endTime))
-                    }
-                    silenceStart = nil
-                }
-            }
-        }
-
-        // 最後まで無音だった場合
-        if let start = silenceStart {
-            let startTime = Double(start) / sampleRate
-            let endTime = Double(frameLength) / sampleRate
-            if endTime - startTime > 0.5 {
-                silenceSegments.append((start: startTime, end: endTime))
-            }
-        }
-
-        return silenceSegments
-    }
-
-    private func analyzeFrequency(buffer: AVAudioPCMBuffer) -> [(frequency: Float, amplitude: Float)] {
-        // 簡易的な周波数分析（実際のFFTは複雑なため、サンプリング周波数に基づく推定値）
-        let frequencies: [Float] = [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]
-
-        guard let channelData = buffer.floatChannelData else {
-            return frequencies.map { (frequency: $0, amplitude: -60) }
-        }
-
-        let channelDataValue = channelData.pointee
-        let frameLength = Int(buffer.frameLength)
-
-        // 各周波数帯域の振幅を推定（簡易版）
-        return frequencies.map { freq in
-            let bandStart = Int(Float(frameLength) * freq / Float(buffer.format.sampleRate))
-            let bandEnd = min(bandStart + Int(Float(frameLength) * 0.1), frameLength)
-
-            var sum: Float = 0
-            for i in bandStart..<bandEnd {
-                if i < frameLength {
-                    sum += abs(channelDataValue[i])
-                }
-            }
-
-            let average = sum / Float(bandEnd - bandStart)
-            let amplitudeDB = 20 * log10(max(average, 0.00001))
-
-            return (frequency: freq, amplitude: amplitudeDB)
-        }
-    }
+    // MARK: - Share Report
 
     private func generateDetailReport() -> String {
         var report = "【音声メモ詳細レポート】\n\n"
@@ -772,6 +242,15 @@ struct EnhancedVoiceMemoDetailView: View {
         return report
     }
 
+    // MARK: - Formatting Helpers (used only by generateDetailReport)
+
+    private func formatDetailedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy年MM月dd日 (E) HH:mm:ss"
+        formatter.locale = Locale(identifier: "ja_JP")
+        return formatter.string(from: date)
+    }
+
     private func formatDetailedDuration(_ duration: TimeInterval) -> String {
         let hours = Int(duration) / 3600
         let minutes = Int(duration) % 3600 / 60
@@ -784,27 +263,6 @@ struct EnhancedVoiceMemoDetailView: View {
         } else {
             return String(format: "%d秒", seconds)
         }
-    }
-
-    private func formatDetailedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日 (E) HH:mm:ss"
-        formatter.locale = Locale(identifier: "ja_JP")
-        return formatter.string(from: date)
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        formatter.locale = Locale(identifier: "ja_JP")
-        return formatter.string(from: date)
-    }
-
-    private func formatDuration(_ duration: TimeInterval) -> String {
-        let minutes = Int(duration) / 60
-        let seconds = Int(duration) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
     }
 
     private func formatDetailedFileSize(_ bytes: Int64) -> String {
@@ -835,354 +293,6 @@ struct EnhancedVoiceMemoDetailView: View {
         case 2: return "ステレオ (2ch)"
         default: return "\(memo.numberOfChannels)チャンネル"
         }
-    }
-
-    private func wordCount(_ text: String) -> Int {
-        // 日本語と英語の単語をカウント
-        let words = text.components(separatedBy: .whitespacesAndNewlines)
-        let nonEmptyWords = words.filter { !$0.isEmpty }
-
-        // 日本語の文字数も考慮
-        let japaneseCharCount = text.filter { $0.isJapanese }.count / 5 // 平均5文字で1単語と仮定
-
-        return max(nonEmptyWords.count, japaneseCharCount)
-    }
-
-    private func calculateBitrate() -> String {
-        let bitrate = Double(memo.fileSize * 8) / memo.duration / 1000
-        return String(format: "%.0f kbps", bitrate)
-    }
-
-    private func calculateCompressionRatio() -> String {
-        let uncompressedSize = memo.duration * memo.samplingFrequency * Double(memo.quantizationBitDepth) * Double(memo.numberOfChannels) / 8
-        let ratio = uncompressedSize / Double(memo.fileSize)
-        return String(format: "%.1f:1", ratio)
-    }
-
-    private func calculateSizePerMinute() -> String {
-        let sizePerMinute = Double(memo.fileSize) / (memo.duration / 60)
-        let formatter = ByteCountFormatter()
-        formatter.allowedUnits = [.useMB]
-        formatter.countStyle = .file
-        return formatter.string(fromByteCount: Int64(sizePerMinute)) + "/分"
-    }
-
-    private func totalStorageUsed() -> Int64 {
-        // Documents ディレクトリ内の全ファイルのサイズを計算
-        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
-        do {
-            let fileURLs = try FileManager.default.contentsOfDirectory(
-                at: documentsPath,
-                includingPropertiesForKeys: [.fileSizeKey],
-                options: .skipsHiddenFiles
-            )
-
-            var totalSize: Int64 = 0
-            for fileURL in fileURLs {
-                // 音声ファイルのみをカウント（.m4a, .wav）
-                let fileExtension = fileURL.pathExtension.lowercased()
-                if fileExtension == "m4a" || fileExtension == "wav" {
-                    if let resourceValues = try? fileURL.resourceValues(forKeys: [.fileSizeKey]),
-                       let fileSize = resourceValues.fileSize {
-                        totalSize += Int64(fileSize)
-                    }
-                }
-            }
-
-            return totalSize
-        } catch {
-            print("Failed to calculate total storage: \(error)")
-            return memo.fileSize // エラー時は現在のファイルサイズを返す
-        }
-    }
-
-    private func appVersion() -> String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "Unknown"
-        return "\(version) (\(build))"
-    }
-
-    private func generateDummyWaveform() -> [Float] {
-        (0..<100).map { _ in Float.random(in: -1...1) }
-    }
-
-    private func generateDummyFrequencyData() -> [(frequency: Float, amplitude: Float)] {
-        let frequencies: [Float] = [50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]
-        return frequencies.map { freq in
-            (frequency: freq, amplitude: Float.random(in: -60...0))
-        }
-    }
-}
-
-// MARK: - Supporting Views
-struct InfoRow: View {
-    let icon: String
-    let label: String
-    let value: String
-
-    var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(systemName: icon)
-                .foregroundColor(.accentColor)
-                .frame(width: 20)
-
-            Text(label)
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .foregroundColor(.secondary)
-                .frame(minWidth: 100, alignment: .leading)
-
-            Text(value)
-                .font(.subheadline)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .textSelection(.enabled)
-        }
-    }
-}
-
-struct SimpleWaveformView: View {
-    let data: [Float]
-
-    var body: some View {
-        GeometryReader { geometry in
-            Path { path in
-                guard !data.isEmpty else { return }
-
-                let width = geometry.size.width
-                let height = geometry.size.height
-                let midY = height / 2
-                let stepX = width / CGFloat(data.count - 1)
-
-                path.move(to: CGPoint(x: 0, y: midY))
-
-                for (index, value) in data.enumerated() {
-                    let x = CGFloat(index) * stepX
-                    let y = midY - (CGFloat(value) * midY * 0.8)
-                    path.addLine(to: CGPoint(x: x, y: y))
-                }
-            }
-            .stroke(Color.accentColor, lineWidth: 2)
-        }
-    }
-}
-
-struct FrequencyChart: View {
-    let data: [(frequency: Float, amplitude: Float)]
-
-    var body: some View {
-        Chart(data, id: \.frequency) { item in
-            BarMark(
-                x: .value("周波数", "\(Int(item.frequency)) Hz"),
-                y: .value("振幅", item.amplitude)
-            )
-            .foregroundStyle(Color.accentColor.gradient)
-        }
-        .chartYAxis {
-            AxisMarks(position: .leading) { value in
-                AxisGridLine()
-                AxisValueLabel {
-                    if let amplitude = value.as(Double.self) {
-                        Text("\(Int(amplitude)) dB")
-                            .font(.caption)
-                    }
-                }
-            }
-        }
-        .chartXAxis {
-            AxisMarks { _ in
-                AxisValueLabel(orientation: .automatic)
-                    .font(.caption)
-            }
-        }
-    }
-}
-
-struct StorageUsageChart: View {
-    let fileSize: Int64
-    let totalSize: Int64
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text("このファイル")
-                    .font(.caption)
-                Spacer()
-                Text(formatFileSize(fileSize))
-                    .font(.caption)
-                    .fontWeight(.medium)
-            }
-
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color(.systemGray5))
-                        .frame(height: 20)
-
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.accentColor)
-                        .frame(width: geometry.size.width * CGFloat(fileSize) / CGFloat(totalSize), height: 20)
-                }
-            }
-            .frame(height: 20)
-
-            HStack {
-                Text("総使用量")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(formatFileSize(totalSize))
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-        }
-    }
-
-    private func formatFileSize(_ bytes: Int64) -> String {
-        let formatter = ByteCountFormatter()
-        formatter.allowedUnits = [.useKB, .useMB, .useGB]
-        formatter.countStyle = .file
-        return formatter.string(fromByteCount: bytes)
-    }
-}
-
-struct QualityIndicatorView: View {
-    let memo: PlaybackFeature.VoiceMemo
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            qualityRow(label: "サンプリングレート", value: rateQuality(), color: rateColor())
-            qualityRow(label: "ビット深度", value: bitDepthQuality(), color: bitDepthColor())
-            qualityRow(label: "圧縮効率", value: compressionQuality(), color: compressionColor())
-            qualityRow(label: "総合品質", value: overallQuality(), color: overallColor())
-        }
-    }
-
-    private func qualityRow(label: String, value: String, color: Color) -> some View {
-        HStack {
-            Text(label)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-
-            Spacer()
-
-            HStack(spacing: 4) {
-                Circle()
-                    .fill(color)
-                    .frame(width: 8, height: 8)
-
-                Text(value)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .foregroundColor(color)
-            }
-        }
-    }
-
-    private func rateQuality() -> String {
-        switch memo.samplingFrequency {
-        case 44100...: return "高品質"
-        case 22050..<44100: return "標準"
-        default: return "低品質"
-        }
-    }
-
-    private func rateColor() -> Color {
-        switch memo.samplingFrequency {
-        case 44100...: return .green
-        case 22050..<44100: return .orange
-        default: return .red
-        }
-    }
-
-    private func bitDepthQuality() -> String {
-        switch memo.quantizationBitDepth {
-        case 24...: return "高品質"
-        case 16: return "標準"
-        default: return "低品質"
-        }
-    }
-
-    private func bitDepthColor() -> Color {
-        switch memo.quantizationBitDepth {
-        case 24...: return .green
-        case 16: return .orange
-        default: return .red
-        }
-    }
-
-    private func compressionQuality() -> String {
-        let bitrate = Double(memo.fileSize * 8) / memo.duration / 1000
-        switch bitrate {
-        case 256...: return "高品質"
-        case 128..<256: return "標準"
-        default: return "低品質"
-        }
-    }
-
-    private func compressionColor() -> Color {
-        let bitrate = Double(memo.fileSize * 8) / memo.duration / 1000
-        switch bitrate {
-        case 256...: return .green
-        case 128..<256: return .orange
-        default: return .red
-        }
-    }
-
-    private func overallQuality() -> String {
-        let scores = [
-            memo.samplingFrequency >= 44100 ? 3 : (memo.samplingFrequency >= 22050 ? 2 : 1),
-            memo.quantizationBitDepth >= 24 ? 3 : (memo.quantizationBitDepth >= 16 ? 2 : 1),
-            (Double(memo.fileSize * 8) / memo.duration / 1000) >= 256 ? 3 : ((Double(memo.fileSize * 8) / memo.duration / 1000) >= 128 ? 2 : 1)
-        ]
-
-        let average = Double(scores.reduce(0, +)) / Double(scores.count)
-
-        switch average {
-        case 2.5...: return "優秀"
-        case 2.0..<2.5: return "良好"
-        case 1.5..<2.0: return "標準"
-        default: return "改善推奨"
-        }
-    }
-
-    private func overallColor() -> Color {
-        let scores = [
-            memo.samplingFrequency >= 44100 ? 3 : (memo.samplingFrequency >= 22050 ? 2 : 1),
-            memo.quantizationBitDepth >= 24 ? 3 : (memo.quantizationBitDepth >= 16 ? 2 : 1),
-            (Double(memo.fileSize * 8) / memo.duration / 1000) >= 256 ? 3 : ((Double(memo.fileSize * 8) / memo.duration / 1000) >= 128 ? 2 : 1)
-        ]
-
-        let average = Double(scores.reduce(0, +)) / Double(scores.count)
-
-        switch average {
-        case 2.5...: return .green
-        case 2.0..<2.5: return .blue
-        case 1.5..<2.0: return .orange
-        default: return .red
-        }
-    }
-}
-
-// MARK: - Data Models
-struct AudioAnalysisData {
-    let averageVolume: Double
-    let peakVolume: Double
-    let dynamicRange: Double
-    let silenceDuration: TimeInterval
-    let silenceRatio: Double
-    let silenceSegments: [(start: TimeInterval, end: TimeInterval)]
-    let frequencyData: [(frequency: Float, amplitude: Float)]
-}
-
-// MARK: - Extensions
-extension Character {
-    var isJapanese: Bool {
-        let value = self.unicodeScalars.first?.value ?? 0
-        return (0x3040...0x309F).contains(value) || // Hiragana
-               (0x30A0...0x30FF).contains(value) || // Katakana
-               (0x4E00...0x9FFF).contains(value) || // Kanji
-               (0xFF00...0xFFEF).contains(value)    // Full-width
     }
 }
 

@@ -31,6 +31,14 @@ Upload metadata and screenshots to App Store Connect and submit for review
 
 Upload screenshots only to App Store Connect (no metadata, no submission)
 
+### ios submit_for_review
+
+```sh
+[bundle exec] fastlane ios submit_for_review
+```
+
+
+
 ### ios upload_metadata_only
 
 ```sh

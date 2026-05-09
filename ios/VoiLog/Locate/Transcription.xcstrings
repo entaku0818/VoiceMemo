@@ -117,6 +117,18 @@
             "state": "translated",
             "value": "AI"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI"
+          }
         }
       }
     },
@@ -237,6 +249,18 @@
             "state": "translated",
             "value": "AI 변환 중..."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AIが文字起こし中..."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "IA Transcrevendo..."
+          }
         }
       }
     },
@@ -356,6 +380,18 @@
             "state": "translated",
             "value": "AI 문자 변환"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AIで文字起こし"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrição com IA"
+          }
         }
       }
     },
@@ -474,6 +510,18 @@
             "state": "translated",
             "value": "ยังไม่ได้เรียกใช้การถอดความด้วย AI"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI文字起こしがまだ実行されていません"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A transcrição com IA ainda não foi executada"
+          }
         }
       }
     },
@@ -589,6 +637,18 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple"
+          }
+        },
+        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Apple"
@@ -711,6 +771,18 @@
             "state": "translated",
             "value": "ไม่มีข้อมูลการถอดความของ Apple"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple 文字起こしデータがありません"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum dado de transcrição Apple disponível"
+          }
         }
       }
     },
@@ -762,6 +834,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "서버가 혼잡합니다. 잠시 후 다시 시도해 주세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O servidor está ocupado. Aguarde um momento e tente novamente."
           }
         }
       }
@@ -815,6 +899,18 @@
             "state": "translated",
             "value": "서버 오류가 발생했습니다. 다시 시도해 주세요."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サーバーエラーが発生しました。再試行してください。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocorreu um erro no servidor. Por favor, tente novamente."
+          }
         }
       }
     },
@@ -866,6 +962,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muitas solicitações. Aguarde um momento e tente novamente."
           }
         }
       }
@@ -985,6 +1093,18 @@
             "state": "translated",
             "value": "中文"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中文"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "中文"
+          }
         }
       }
     },
@@ -1038,6 +1158,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "다시 실행"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再実行"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Executar novamente"
           }
         }
       }
@@ -1157,6 +1289,18 @@
             "state": "translated",
             "value": "ลองอีกครั้ง"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再試行"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tentar novamente"
+          }
         }
       }
     },
@@ -1211,6 +1355,18 @@
             "state": "translated",
             "value": "이전 결과"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前回の結果"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resultado anterior"
+          }
         }
       }
     },
@@ -1264,6 +1420,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "연결에 실패했습니다. 네트워크를 확인해 주세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "接続に失敗しました。ネットワークを確認してください。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falha na conexão. Por favor, verifique sua rede."
           }
         }
       }
@@ -1385,6 +1553,18 @@
             "state": "translated",
             "value": "문자 변환 실패"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文字起こしに失敗しました"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transcrição Falhou"
+          }
         }
       }
     },
@@ -1505,6 +1685,18 @@
             "state": "translated",
             "value": "เริ่มการถอดความ"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文字起こしを開始"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar Transcrição"
+          }
         }
       }
     },
@@ -1619,6 +1811,18 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日本語"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日本語"
+          }
+        },
+        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "日本語"
@@ -1741,6 +1945,18 @@
             "state": "translated",
             "value": "สรุป"
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "要約"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resumo"
+          }
         }
       }
     },
@@ -1858,6 +2074,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "ภาษา"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "言語"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Idioma"
           }
         }
       }
@@ -1977,6 +2205,18 @@
             "state": "translated",
             "value": "보통 2~5분 정도 걸립니다. 잠시 기다려 주세요."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通常2〜5分かかります。このまましばらくお待ちください。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Normalmente leva 2–5 minutos. Por favor, aguarde."
+          }
         }
       }
     },
@@ -2094,6 +2334,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "เริ่ม"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開始"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Iniciar"
           }
         }
       }
@@ -2215,6 +2467,18 @@
             "state": "translated",
             "value": "กำลังอัปโหลดไฟล์เสียง..."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音声をアップロード中..."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviando áudio..."
+          }
         }
       }
     },
@@ -2266,6 +2530,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "오디오 파일 업로드에 실패했습니다. 네트워크를 확인해 주세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falha ao enviar o arquivo de áudio. Verifique sua rede."
           }
         }
       }
@@ -2320,6 +2596,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "오류가 발생했습니다 (코드: %lld). 다시 시도해 주세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocorreu um erro (código: %lld). Por favor, tente novamente."
           }
         }
       }
@@ -2440,6 +2728,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "อัปโหลดไฟล์เสียงและ\nAI จะถอดความโดยอัตโนมัติ"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音声ファイルをアップロードして\nAIが自動で書き起こします"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envie um arquivo de áudio e\na IA irá transcrever automaticamente"
           }
         }
       }
