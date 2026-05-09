@@ -29,7 +29,7 @@ private let developerApps: [DeveloperAppItem] = [
 
 struct DeveloperAppsSectionView: View {
     var body: some View {
-        Section(header: Text(String(localized: "開発者の他のアプリ"))) {
+        Section(header: Text(String(localized: "開発者の他のアプリ", table: "Settings"))) {
             ForEach(developerApps) { app in
                 DeveloperAppRowView(app: app)
             }

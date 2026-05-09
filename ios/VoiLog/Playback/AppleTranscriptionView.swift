@@ -60,7 +60,7 @@ struct AppleTranscriptionView: View {
                             Image(systemName: "text.bubble")
                                 .font(.system(size: 48))
                                 .foregroundStyle(.secondary)
-                            Text(String(localized: "文字起こしデータがありません"))
+                            Text(String(localized: "文字起こしデータがありません", table: "Playback"))
                                 .font(.headline)
                                 .foregroundStyle(.secondary)
                         }

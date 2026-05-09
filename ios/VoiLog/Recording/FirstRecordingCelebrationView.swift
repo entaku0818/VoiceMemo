@@ -17,11 +17,11 @@ struct FirstRecordingCelebrationView: View {
                 .foregroundColor(.green)
 
             VStack(spacing: 8) {
-                Text(String(localized: "🎉 保存されました！"))
+                Text(String(localized: "🎉 保存されました！", table: "Recording"))
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Text(String(localized: "初めての録音が完了しました"))
+                Text(String(localized: "初めての録音が完了しました", table: "Recording"))
                     .font(.body)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -32,7 +32,7 @@ struct FirstRecordingCelebrationView: View {
                 Button(action: onEditTitle) {
                     HStack {
                         Image(systemName: "pencil")
-                        Text(String(localized: "タイトルを編集する"))
+                        Text(String(localized: "タイトルを編集する", table: "Recording"))
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -44,7 +44,7 @@ struct FirstRecordingCelebrationView: View {
                 Button(action: onShare) {
                     HStack {
                         Image(systemName: "square.and.arrow.up")
-                        Text(String(localized: "録音を共有する"))
+                        Text(String(localized: "録音を共有する", table: "Recording"))
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -56,7 +56,7 @@ struct FirstRecordingCelebrationView: View {
                 Button(action: onRecordAgain) {
                     HStack {
                         Image(systemName: "mic.circle")
-                        Text(String(localized: "もう一度録音する"))
+                        Text(String(localized: "もう一度録音する", table: "Recording"))
                     }
                     .frame(maxWidth: .infinity)
                     .padding()

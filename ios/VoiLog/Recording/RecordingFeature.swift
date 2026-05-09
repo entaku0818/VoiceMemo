@@ -445,21 +445,21 @@ struct RecordingView: View {
           controlButtonsView
         }
         .padding()
-        .navigationTitle(String(localized: "録音"))
+        .navigationTitle(String(localized: "録音", table: "Recording"))
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
           send(.onAppear)
         }
-        .alert(String(localized: "録音完了"), isPresented: $store.showTitleDialog) {
+        .alert(String(localized: "録音完了", table: "Recording"), isPresented: $store.showTitleDialog) {
           TextField(String(localized: "タイトル"), text: $store.tempTitle)
           Button(String(localized: "保存")) {
             send(.saveWithTitle)
           }
-          Button(String(localized: "スキップ"), role: .cancel) {
+          Button(String(localized: "スキップ", table: "Recording"), role: .cancel) {
             send(.skipTitle)
           }
         } message: {
-          Text(String(localized: "この録音にタイトルをつけますか？"))
+          Text(String(localized: "この録音にタイトルをつけますか？", table: "Recording"))
         }
       }
     }
@@ -498,7 +498,7 @@ struct RecordingView: View {
   private var audioSettingsSheet: some View {
     NavigationStack {
       List {
-        Section(String(localized: "プリセット")) {
+        Section(String(localized: "プリセット", table: "Recording")) {
           ForEach(RecordingPreset.allCases, id: \.self) { preset in
             Button {
               send(.presetSelected(preset))
@@ -529,14 +529,14 @@ struct RecordingView: View {
 
         Section(String(localized: "詳細")) {
           HStack {
-            Text(String(localized: "フォーマット"))
+            Text(String(localized: "フォーマット", table: "Recording"))
             Spacer()
             Text(store.selectedPreset.fileFormat.uppercased())
               .foregroundColor(.secondary)
           }
 
           HStack {
-            Text(String(localized: "サンプルレート"))
+            Text(String(localized: "サンプルレート", table: "Recording"))
             Spacer()
             Text(store.selectedPreset.sampleRate >= 1000
               ? String(format: "%.0f kHz", store.selectedPreset.sampleRate / 1000)
@@ -546,20 +546,20 @@ struct RecordingView: View {
         }
 
         Section {
-          Toggle(String(localized: "ノイズキャンセリング"), isOn: Binding(
+          Toggle(String(localized: "ノイズキャンセリング", table: "Recording"), isOn: Binding(
             get: { store.noiseCancellationEnabled },
             set: { send(.noiseCancellationToggled($0)) }
           ))
           .disabled(store.selectedPreset != .custom)
 
-          Toggle(String(localized: "音量の自動調整"), isOn: Binding(
+          Toggle(String(localized: "音量の自動調整", table: "Recording"), isOn: Binding(
             get: { store.autoGainControlEnabled },
             set: { send(.autoGainControlToggled($0)) }
           ))
           .disabled(store.selectedPreset != .custom)
         } footer: {
           if store.selectedPreset != .custom {
-            Text(String(localized: "トグルを変更するには「カスタム」を選択してください"))
+            Text(String(localized: "トグルを変更するには「カスタム」を選択してください", table: "Recording"))
           }
         }
       }
@@ -605,7 +605,7 @@ struct RecordingView: View {
 
   private var transcriptionView: some View {
     VStack(alignment: .leading, spacing: 8) {
-      Text(String(localized: "音声認識結果"))
+      Text(String(localized: "音声認識結果", table: "Recording"))
         .font(.headline)
         .foregroundColor(.secondary)
 
@@ -707,13 +707,13 @@ struct RecordingView: View {
   private var recordingStatusText: String {
     switch store.recordingState {
     case .idle:
-      return String(localized: "録音準備完了")
+      return String(localized: "録音準備完了", table: "Recording")
     case .recording:
-      return String(localized: "録音中")
+      return String(localized: "録音中", table: "Recording")
     case .paused:
-      return String(localized: "一時停止中")
+      return String(localized: "一時停止中", table: "Recording")
     case .encoding:
-      return String(localized: "保存中...")
+      return String(localized: "保存中...", table: "Recording")
     }
   }
 

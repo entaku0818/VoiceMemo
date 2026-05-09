@@ -10,9 +10,9 @@ enum FeedbackCategory: String, CaseIterable {
 
     var displayName: String {
         switch self {
-        case .bug: return String(localized: "バグ報告")
-        case .feature: return String(localized: "機能要望")
-        case .other: return String(localized: "その他")
+        case .bug: return String(localized: "バグ報告", table: "Feedback")
+        case .feature: return String(localized: "機能要望", table: "Feedback")
+        case .other: return String(localized: "その他", table: "Feedback")
         }
     }
 }
@@ -36,20 +36,20 @@ struct FeedbackFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(String(localized: "カテゴリ")) {
-                    Picker(String(localized: "カテゴリ"), selection: $category) {
+                Section(String(localized: "カテゴリ", table: "Feedback")) {
+                    Picker(String(localized: "カテゴリ", table: "Feedback"), selection: $category) {
                         ForEach(FeedbackCategory.allCases, id: \.self) { c in
                             Text(c.displayName).tag(c)
                         }
                     }
                     .pickerStyle(.segmented)
                 }
-                Section(String(localized: "内容")) {
+                Section(String(localized: "内容", table: "Feedback")) {
                     TextEditor(text: $message)
                         .frame(minHeight: 120)
                 }
-                Section(String(localized: "メールアドレス（任意）")) {
-                    TextField(String(localized: "返信先メールアドレス"), text: $email)
+                Section(String(localized: "メールアドレス（任意）", table: "Feedback")) {
+                    TextField(String(localized: "返信先メールアドレス", table: "Feedback"), text: $email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
@@ -65,17 +65,17 @@ struct FeedbackFormView: View {
                     if isSending {
                         ProgressView()
                     } else {
-                        Button(String(localized: "送信")) { submit() }
+                        Button(String(localized: "送信", table: "Feedback")) { submit() }
                             .disabled(!canSubmit)
                     }
                 }
             }
-            .alert(String(localized: "送信しました"), isPresented: $showSuccessAlert) {
+            .alert(String(localized: "送信しました", table: "Feedback"), isPresented: $showSuccessAlert) {
                 Button("OK") { dismiss() }
             } message: {
-                Text(String(localized: "フィードバックありがとうございます。"))
+                Text(String(localized: "フィードバックありがとうございます。", table: "Feedback"))
             }
-            .alert(String(localized: "送信に失敗しました"), isPresented: $showErrorAlert) {
+            .alert(String(localized: "送信に失敗しました", table: "Feedback"), isPresented: $showErrorAlert) {
                 Button("OK") { }
             } message: {
                 Text(errorMessage)

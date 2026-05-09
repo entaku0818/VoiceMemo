@@ -24,9 +24,9 @@ struct EnhancedPlaylistFeature {
 
         var displayName: String {
             switch self {
-            case .sequential: return String(localized: "順次再生")
-            case .shuffle: return String(localized: "シャッフル")
-            case .random: return String(localized: "ランダム")
+            case .sequential: return String(localized: "順次再生", table: "Playlist")
+            case .shuffle: return String(localized: "シャッフル", table: "Playlist")
+            case .random: return String(localized: "ランダム", table: "Playlist")
             }
         }
 
@@ -46,9 +46,9 @@ struct EnhancedPlaylistFeature {
 
         var displayName: String {
             switch self {
-            case .off: return String(localized: "リピートオフ")
-            case .one: return String(localized: "1曲リピート")
-            case .all: return String(localized: "全曲リピート")
+            case .off: return String(localized: "リピートオフ", table: "Playlist")
+            case .one: return String(localized: "1曲リピート", table: "Playlist")
+            case .all: return String(localized: "全曲リピート", table: "Playlist")
             }
         }
 

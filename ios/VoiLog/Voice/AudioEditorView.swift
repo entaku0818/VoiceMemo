@@ -68,10 +68,10 @@ struct AudioEditorView: View {
                         )
 
                     if viewStore.isLoadingWaveform {
-                        ProgressView(String(localized: "波形データを読み込んでいます..."))
+                        ProgressView(String(localized: "波形データを読み込んでいます...", table: "AudioEditor"))
                             .progressViewStyle(CircularProgressViewStyle())
                     } else if viewStore.waveformData.isEmpty {
-                        Text(String(localized: "波形データがありません"))
+                        Text(String(localized: "波形データがありません", table: "AudioEditor"))
                             .foregroundColor(.gray)
                     } else {
                         WaveformView(
@@ -166,7 +166,7 @@ struct AudioEditorView: View {
                             VStack {
                                 Image(systemName: "scissors.badge.ellipsis")
                                     .font(.title2)
-                                Text(String(localized: "分割"))
+                                Text(String(localized: "分割", table: "AudioEditor"))
                                     .font(.caption)
                             }
                             .frame(width: 70, height: 70)
@@ -182,17 +182,17 @@ struct AudioEditorView: View {
 
                 // 編集ヘルプテキスト
                 if viewStore.selectedRange == nil {
-                    Text(String(localized: "波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)"))
+                    Text(String(localized: "波形を2回タップして分割位置を指定してください\n(1回目のタップで開始点、2回目のタップで分割ポイント)", table: "AudioEditor"))
                         .font(.caption)
                         .foregroundColor(.gray)
                         .multilineTextAlignment(.center)
                 } else if let range = viewStore.selectedRange, range.lowerBound == range.upperBound {
-                    Text(String(localized: "分割ポイントを選択しています: \(formatTime(range.lowerBound))\n赤い線の位置で分割されます\n(分割すると赤い線までの前半部分が保存されます)"))
+                    Text(String(localized: "分割ポイントを選択しています: \(formatTime(range.lowerBound))\n赤い線の位置で分割されます\n(分割すると赤い線までの前半部分が保存されます)", table: "AudioEditor"))
                         .font(.caption)
                         .foregroundColor(.red)
                         .multilineTextAlignment(.center)
                 } else if let range = viewStore.selectedRange {
-                    Text(String(localized: "選択範囲: \(formatTime(range.lowerBound)) - \(formatTime(range.upperBound))\n(範囲をタップするとリセットされます)"))
+                    Text(String(localized: "選択範囲: \(formatTime(range.lowerBound)) - \(formatTime(range.upperBound))\n(範囲をタップするとリセットされます)", table: "AudioEditor"))
                         .font(.caption)
                         .foregroundColor(.blue)
                         .multilineTextAlignment(.center)
@@ -201,7 +201,7 @@ struct AudioEditorView: View {
                 // 編集履歴
                 if !viewStore.editHistory.isEmpty {
                     VStack(alignment: .leading) {
-                        Text(String(localized: "編集履歴:"))
+                        Text(String(localized: "編集履歴:", table: "AudioEditor"))
                             .font(.caption)
                             .fontWeight(.bold)
                             .padding(.horizontal)
@@ -241,14 +241,14 @@ struct AudioEditorView: View {
                 if let message = viewStore.errorMessage, message.starts(with: "分割が完了") {
                     // 成功メッセージの場合
                     return Alert(
-                        title: Text(String(localized: "処理完了")),
+                        title: Text(String(localized: "処理完了", table: "AudioEditor")),
                         message: Text(message),
                         dismissButton: .default(Text("OK"))
                     )
                 } else {
                     // エラーメッセージの場合
                     return Alert(
-                        title: Text(String(localized: "エラー")),
+                        title: Text(String(localized: "エラー", table: "AudioEditor")),
                         message: Text(viewStore.errorMessage ?? ""),
                         dismissButton: .default(Text("OK"))
                     )
@@ -266,7 +266,7 @@ struct AudioEditorView: View {
                                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                                     .scaleEffect(1.5)
 
-                                Text(String(localized: "処理中..."))
+                                Text(String(localized: "処理中...", table: "AudioEditor"))
                                     .foregroundColor(.white)
                                     .padding(.top)
                             }

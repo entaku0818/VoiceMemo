@@ -151,11 +151,11 @@ struct CreatePlaylistView: View {
 
                     ToolbarItem(placement: .confirmationAction) {
                         Menu {
-                            Button(String(localized: "作成のみ")) {
+                            Button(String(localized: "作成のみ", table: "Playlist")) {
                                 viewStore.send(.view(.createPlaylistSubmitted))
                             }
 
-                            Button(String(localized: "作成して音声追加")) {
+                            Button(String(localized: "作成して音声追加", table: "Playlist")) {
                                 viewStore.send(.view(.createPlaylistSubmitted))
                                 // 作成後に音声選択を表示するために少し遅延
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -194,7 +194,7 @@ struct PlaylistVoiceSelectionView: View {
                 // Voice List
                 voiceList
             }
-            .navigationTitle(String(localized: "「\(playlistName)」に追加"))
+            .navigationTitle(String(localized: "「\(playlistName)」に追加", table: "Playlist"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -234,7 +234,7 @@ struct PlaylistVoiceSelectionView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(Color.black.opacity(0.1))
             } else if filteredVoices.isEmpty {
-                Text(String(localized: "録音ファイルがありません"))
+                Text(String(localized: "録音ファイルがありません", table: "Playlist"))
                     .foregroundColor(.secondary)
                     .italic()
             }

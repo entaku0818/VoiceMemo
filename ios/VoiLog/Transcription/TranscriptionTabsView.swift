@@ -29,8 +29,8 @@ struct TranscriptionTabsView: View {
     var body: some View {
         VStack(spacing: 0) {
             Picker("", selection: $selectedTab) {
-                Label(String(localized: "Apple"), systemImage: "text.bubble.fill").tag(0)
-                Label(String(localized: "AI"), systemImage: "waveform.and.mic").tag(1)
+                Label(String(localized: "Apple", table: "Transcription"), systemImage: "text.bubble.fill").tag(0)
+                Label(String(localized: "AI", table: "Transcription"), systemImage: "waveform.and.mic").tag(1)
             }
             .pickerStyle(.segmented)
             .padding(.horizontal)
@@ -71,7 +71,7 @@ struct TranscriptionTabsView: View {
                 } else {
                     emptyState(
                         icon: "text.bubble",
-                        message: String(localized: "Apple 文字起こしデータがありません")
+                        message: String(localized: "Apple 文字起こしデータがありません", table: "Transcription")
                     )
                 }
             }
@@ -137,11 +137,11 @@ struct AITranscriptionTab: View {
             case .idle:
                 idleView
             case .uploading:
-                progressView(label: String(localized: "音声をアップロード中..."), hint: nil)
+                progressView(label: String(localized: "音声をアップロード中...", table: "Transcription"), hint: nil)
             case .transcribing:
                 progressView(
-                    label: String(localized: "AIが文字起こし中..."),
-                    hint: String(localized: "通常2〜5分かかります。このまましばらくお待ちください。")
+                    label: String(localized: "AIが文字起こし中...", table: "Transcription"),
+                    hint: String(localized: "通常2〜5分かかります。このまましばらくお待ちください。", table: "Transcription")
                 )
             case let .failed(msg):
                 failedView(message: msg)
@@ -163,14 +163,14 @@ struct AITranscriptionTab: View {
                 if let savedText = store.savedText, !savedText.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
-                            Text(String(localized: "前回の結果"))
+                            Text(String(localized: "前回の結果", table: "Transcription"))
                                 .font(.caption.bold())
                                 .foregroundStyle(.secondary)
                             Spacer()
                             Button {
                                 store.send(.startTapped)
                             } label: {
-                                Label(String(localized: "再実行"), systemImage: "arrow.clockwise")
+                                Label(String(localized: "再実行", table: "Transcription"), systemImage: "arrow.clockwise")
                                     .font(.caption.bold())
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 5)
@@ -190,7 +190,7 @@ struct AITranscriptionTab: View {
                     Image(systemName: "waveform.and.mic")
                         .font(.system(size: 48))
                         .foregroundStyle(.purple)
-                    Text(String(localized: "AI文字起こしがまだ実行されていません"))
+                    Text(String(localized: "AI文字起こしがまだ実行されていません", table: "Transcription"))
                         .font(.headline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -198,7 +198,7 @@ struct AITranscriptionTab: View {
 
                 languagePicker
 
-                Button(String(localized: "文字起こしを開始")) {
+                Button(String(localized: "文字起こしを開始", table: "Transcription")) {
                     store.send(.startTapped)
                 }
                 .buttonStyle(.borderedProminent)
@@ -214,16 +214,16 @@ struct AITranscriptionTab: View {
 
     private var languagePicker: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(String(localized: "言語"))
+            Text(String(localized: "言語", table: "Transcription"))
                 .font(.caption.bold())
                 .foregroundStyle(.secondary)
-            Picker(String(localized: "言語"), selection: Binding(
+            Picker(String(localized: "言語", table: "Transcription"), selection: Binding(
                 get: { store.selectedLanguage },
                 set: { store.send(.languageChanged($0)) }
             )) {
-                Text(String(localized: "日本語")).tag("ja")
+                Text(String(localized: "日本語", table: "Transcription")).tag("ja")
                 Text("English").tag("en")
-                Text(String(localized: "中文")).tag("zh")
+                Text(String(localized: "中文", table: "Transcription")).tag("zh")
                 Text("한국어").tag("ko")
                 Text("Deutsch").tag("de")
                 Text("Français").tag("fr")
@@ -267,7 +267,7 @@ struct AITranscriptionTab: View {
                 .font(.system(size: 40))
                 .foregroundStyle(.orange)
             VStack(spacing: 8) {
-                Text(String(localized: "文字起こしに失敗しました"))
+                Text(String(localized: "文字起こしに失敗しました", table: "Transcription"))
                     .font(.headline)
                 Text(message)
                     .font(.subheadline)
@@ -275,7 +275,7 @@ struct AITranscriptionTab: View {
                     .multilineTextAlignment(.center)
                     .textSelection(.enabled)
             }
-            Button(String(localized: "再試行")) { store.send(.startTapped) }
+            Button(String(localized: "再試行", table: "Transcription")) { store.send(.startTapped) }
                 .buttonStyle(.borderedProminent)
                 .tint(.purple)
                 .controlSize(.large)
@@ -293,7 +293,7 @@ struct AITranscriptionTab: View {
                     VStack(alignment: .leading, spacing: 6) {
                         HStack(spacing: 6) {
                             Image(systemName: "sparkles").foregroundStyle(.purple)
-                            Text(String(localized: "要約"))
+                            Text(String(localized: "要約", table: "Transcription"))
                                 .font(.subheadline.bold())
                                 .foregroundStyle(.purple)
                         }

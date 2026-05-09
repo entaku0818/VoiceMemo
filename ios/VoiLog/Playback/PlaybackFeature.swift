@@ -751,15 +751,15 @@ struct PlaybackView: View {
           playbackControlsView
         }
       }
-      .navigationTitle(String(localized: "録音ファイル"))
+      .navigationTitle(String(localized: "録音ファイル", table: "Playback"))
       .onAppear {
         send(.onAppear)
       }
       .refreshable {
         send(.refreshRequested)
       }
-      .alert(String(localized: "削除確認"), isPresented: $store.showDeleteConfirmation) {
-        Button(String(localized: "削除"), role: .destructive) {
+      .alert(String(localized: "削除確認", table: "Playback"), isPresented: $store.showDeleteConfirmation) {
+        Button(String(localized: "削除", table: "Playback"), role: .destructive) {
           send(.confirmDelete)
         }
         Button(String(localized: "キャンセル"), role: .cancel) {
@@ -768,20 +768,20 @@ struct PlaybackView: View {
       } message: {
         if let selectedId = store.selectedMemoForDeletion,
            let memo = store.voiceMemos.first(where: { $0.id == selectedId }) {
-          Text("\(memo.title)\n\(formatDate(memo.date))\n\(String(localized: "再生時間:")) \(formatDuration(memo.duration))\n\n\(String(localized: "この録音を削除しますか？"))")
+          Text("\(memo.title)\n\(formatDate(memo.date))\n\(String(localized: "再生時間:", table: "Playback")) \(formatDuration(memo.duration))\n\n\(String(localized: "この録音を削除しますか？", table: "Playback"))")
         } else {
-          Text(String(localized: "この録音ファイルを削除しますか？"))
+          Text(String(localized: "この録音ファイルを削除しますか？", table: "Playback"))
         }
       }
-      .alert(String(localized: "プレミアム機能"), isPresented: $store.showTranscriptionPremiumPrompt) {
-        Button(String(localized: "プレミアムにアップグレード")) {
+      .alert(String(localized: "プレミアム機能", table: "Playback"), isPresented: $store.showTranscriptionPremiumPrompt) {
+        Button(String(localized: "プレミアムにアップグレード", table: "Playback")) {
           send(.upgradeFromTranscriptionPrompt)
         }
         Button(String(localized: "キャンセル"), role: .cancel) {
           send(.dismissTranscriptionPremiumPrompt)
         }
       } message: {
-        Text(String(localized: "文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。"))
+        Text(String(localized: "文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。", table: "Playback"))
       }
       .fullScreenCover(isPresented: $store.showDetailSheet) {
         if let selectedId = store.selectedMemoForDetails,
@@ -898,7 +898,7 @@ struct PlaybackView: View {
     // MARK: - Sort Options
     private var sortOptionsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(String(localized: "並び順"))
+            Text(String(localized: "並び順", table: "Playback"))
                 .font(.caption)
                 .foregroundColor(.secondary)
 
@@ -983,7 +983,7 @@ struct PlaybackView: View {
     private var resultsCountView: some View {
         Group {
             if !store.voiceMemos.isEmpty {
-                Text(String(format: String(localized: "%lld / %lld 件"), filteredMemos.count, store.voiceMemos.count))
+                Text(String(format: String(localized: "%lld / %lld 件", table: "Playback"), filteredMemos.count, store.voiceMemos.count))
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
@@ -1415,7 +1415,7 @@ struct VoiceMemoRow: View {
           // 右側: メニューボタン
           Menu {
             ShareLink(item: memo.url) {
-              Label(String(localized: "共有"), systemImage: "square.and.arrow.up")
+              Label(String(localized: "共有", table: "Playback"), systemImage: "square.and.arrow.up")
             }
 
             Menu {
@@ -1427,7 +1427,7 @@ struct VoiceMemoRow: View {
                   isConverting = false
                 }
               } label: {
-                Label(String(localized: "Mac向け (M4A)"), systemImage: "desktopcomputer")
+                Label(String(localized: "Mac向け (M4A)", table: "Playback"), systemImage: "desktopcomputer")
               }
               Button {
                 Task {
@@ -1437,13 +1437,13 @@ struct VoiceMemoRow: View {
                   isConverting = false
                 }
               } label: {
-                Label(String(localized: "Windows向け (WAV)"), systemImage: "pc")
+                Label(String(localized: "Windows向け (WAV)", table: "Playback"), systemImage: "pc")
               }
             } label: {
               if isConverting {
-                Label(String(localized: "変換中..."), systemImage: "hourglass")
+                Label(String(localized: "変換中...", table: "Playback"), systemImage: "hourglass")
               } else {
-                Label(String(localized: "PC向けに共有"), systemImage: "desktopcomputer")
+                Label(String(localized: "PC向けに共有", table: "Playback"), systemImage: "desktopcomputer")
               }
             }
             .disabled(isConverting)
@@ -1453,11 +1453,11 @@ struct VoiceMemoRow: View {
             }
 
             Button(action: onEditTags) {
-              Label(String(localized: "タグを編集"), systemImage: "tag")
+              Label(String(localized: "タグを編集", table: "Playback"), systemImage: "tag")
             }
 
             Button(action: onInfoTap) {
-              Label(String(localized: "詳細情報"), systemImage: "info.circle")
+              Label(String(localized: "詳細情報", table: "Playback"), systemImage: "info.circle")
             }
 
             Button(action: onEditAudio) {
@@ -1467,7 +1467,7 @@ struct VoiceMemoRow: View {
             Divider()
 
             Button(role: .destructive, action: onDelete) {
-              Label(String(localized: "削除"), systemImage: "trash")
+              Label(String(localized: "削除", table: "Playback"), systemImage: "trash")
             }
           } label: {
             Image(systemName: "ellipsis.circle")
@@ -1568,7 +1568,7 @@ struct TagPickerView: View {
         Spacer()
       }
       .padding(.top, 8)
-      .navigationTitle(String(localized: "タグを編集"))
+      .navigationTitle(String(localized: "タグを編集", table: "Playback"))
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {

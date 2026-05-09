@@ -30,7 +30,7 @@ struct VoiceMemoDetailView: View {
         .tabViewStyle(.page(indexDisplayMode: .never))
         .animation(.easeInOut(duration: 0.2), value: selectedTab)
       }
-      .navigationTitle(memo.title.isEmpty ? String(localized: "詳細情報") : memo.title)
+      .navigationTitle(memo.title.isEmpty ? String(localized: "詳細情報", table: "Playback") : memo.title)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
@@ -52,26 +52,26 @@ struct VoiceMemoDetailView: View {
   private var detailTab: some View {
     ScrollView {
       VStack(alignment: .leading, spacing: 20) {
-        detailSection(title: String(localized: "基本情報")) {
+        detailSection(title: String(localized: "基本情報", table: "Playback")) {
           detailRow(label: String(localized: "タイトル"), value: memo.title)
-          detailRow(label: String(localized: "録音日時"), value: DateFormatter.dateTimeFormatter.string(from: memo.date))
-          detailRow(label: String(localized: "再生時間"), value: formatDuration(memo.duration))
+          detailRow(label: String(localized: "録音日時", table: "Playback"), value: DateFormatter.dateTimeFormatter.string(from: memo.date))
+          detailRow(label: String(localized: "再生時間", table: "Playback"), value: formatDuration(memo.duration))
         }
 
-        detailSection(title: String(localized: "ファイル情報")) {
-          detailRow(label: String(localized: "ファイルサイズ"), value: formatFileSize(memo.fileSize))
+        detailSection(title: String(localized: "ファイル情報", table: "Playback")) {
+          detailRow(label: String(localized: "ファイルサイズ", table: "Playback"), value: formatFileSize(memo.fileSize))
           detailRow(label: String(localized: "ファイル形式"), value: formatFileFormat(memo.fileFormat))
-          detailRow(label: String(localized: "ファイルパス"), value: memo.url.lastPathComponent)
+          detailRow(label: String(localized: "ファイルパス", table: "Playback"), value: memo.url.lastPathComponent)
         }
 
-        detailSection(title: String(localized: "音質設定")) {
+        detailSection(title: String(localized: "音質設定", table: "Playback")) {
           detailRow(label: String(localized: "サンプリング周波数"), value: "\(Int(memo.samplingFrequency)) Hz")
-          detailRow(label: String(localized: "ビット深度"), value: "\(memo.quantizationBitDepth) bit")
+          detailRow(label: String(localized: "ビット深度", table: "Playback"), value: "\(memo.quantizationBitDepth) bit")
           detailRow(
-            label: String(localized: "チャンネル数"),
+            label: String(localized: "チャンネル数", table: "Playback"),
             value: memo.numberOfChannels == 1
-              ? String(localized: "モノラル")
-              : String(localized: "ステレオ")
+              ? String(localized: "モノラル", table: "Playback")
+              : String(localized: "ステレオ", table: "Playback")
           )
         }
       }

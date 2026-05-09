@@ -73,18 +73,18 @@ enum TranscriptionError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notAuthenticated:
-            return String(localized: "接続に失敗しました。ネットワークを確認してください。")
+            return String(localized: "接続に失敗しました。ネットワークを確認してください。", table: "Transcription")
         case .uploadFailed:
-            return String(localized: "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。")
+            return String(localized: "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。", table: "Transcription")
         case let .serverError(code, _):
             if code == 504 || code == 503 {
-                return String(localized: "サーバーが混雑しています。しばらく待ってから再試行してください。")
+                return String(localized: "サーバーが混雑しています。しばらく待ってから再試行してください。", table: "Transcription")
             } else if code == 429 {
-                return String(localized: "リクエストが多すぎます。しばらく待ってから再試行してください。")
+                return String(localized: "リクエストが多すぎます。しばらく待ってから再試行してください。", table: "Transcription")
             } else if code >= 500 {
-                return String(localized: "サーバーエラーが発生しました。再試行してください。")
+                return String(localized: "サーバーエラーが発生しました。再試行してください。", table: "Transcription")
             }
-            return String(localized: "エラーが発生しました (コード: \(code))。再試行してください。")
+            return String(localized: "エラーが発生しました (コード: \(code))。再試行してください。", table: "Transcription")
         }
     }
 }
@@ -301,7 +301,7 @@ struct TranscriptionView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     if store.status == .idle {
-                        Button(String(localized: "開始")) { store.send(.startTapped) }
+                        Button(String(localized: "開始", table: "Transcription")) { store.send(.startTapped) }
                             .fontWeight(.semibold)
                     } else if case .done = store.status, let result = store.result {
                         HStack(spacing: 16) {
@@ -336,25 +336,25 @@ struct TranscriptionView: View {
                     Image(systemName: "waveform.and.mic")
                         .font(.system(size: 52))
                         .foregroundStyle(.blue)
-                    Text(String(localized: "AIで文字起こし"))
+                    Text(String(localized: "AIで文字起こし", table: "Transcription"))
                         .font(.title3.bold())
-                    Text(String(localized: "音声ファイルをアップロードして\nAIが自動で書き起こします"))
+                    Text(String(localized: "音声ファイルをアップロードして\nAIが自動で書き起こします", table: "Transcription"))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
 
                     // Language picker
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(String(localized: "言語"))
+                        Text(String(localized: "言語", table: "Transcription"))
                             .font(.caption.bold())
                             .foregroundStyle(.secondary)
-                        Picker(String(localized: "言語"), selection: Binding(
+                        Picker(String(localized: "言語", table: "Transcription"), selection: Binding(
                             get: { store.selectedLanguage },
                             set: { store.send(.languageChanged($0)) }
                         )) {
-                            Text(String(localized: "日本語")).tag("ja")
+                            Text(String(localized: "日本語", table: "Transcription")).tag("ja")
                             Text("English").tag("en")
-                            Text(String(localized: "中文")).tag("zh")
+                            Text(String(localized: "中文", table: "Transcription")).tag("zh")
                             Text("한국어").tag("ko")
                             Text("Deutsch").tag("de")
                             Text("Français").tag("fr")
@@ -368,20 +368,20 @@ struct TranscriptionView: View {
                     }
                     .padding(.horizontal, 40)
 
-                    Button(String(localized: "文字起こしを開始")) { store.send(.startTapped) }
+                    Button(String(localized: "文字起こしを開始", table: "Transcription")) { store.send(.startTapped) }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
                 }
                 .padding()
             case .uploading:
                 progressView(
-                    label: String(localized: "音声をアップロード中..."),
+                    label: String(localized: "音声をアップロード中...", table: "Transcription"),
                     hint: nil
                 )
             case .transcribing:
                 progressView(
-                    label: String(localized: "AIが文字起こし中..."),
-                    hint: String(localized: "通常2〜5分かかります。このまましばらくお待ちください。")
+                    label: String(localized: "AIが文字起こし中...", table: "Transcription"),
+                    hint: String(localized: "通常2〜5分かかります。このまましばらくお待ちください。", table: "Transcription")
                 )
             case let .failed(msg):
                 VStack(spacing: 20) {
@@ -389,7 +389,7 @@ struct TranscriptionView: View {
                         .font(.system(size: 40))
                         .foregroundStyle(.orange)
                     VStack(spacing: 8) {
-                        Text(String(localized: "文字起こしに失敗しました"))
+                        Text(String(localized: "文字起こしに失敗しました", table: "Transcription"))
                             .font(.headline)
                         Text(msg)
                             .font(.subheadline)
@@ -397,7 +397,7 @@ struct TranscriptionView: View {
                             .multilineTextAlignment(.center)
                             .textSelection(.enabled)
                     }
-                    Button(String(localized: "再試行")) { store.send(.startTapped) }
+                    Button(String(localized: "再試行", table: "Transcription")) { store.send(.startTapped) }
                         .buttonStyle(.borderedProminent)
                         .controlSize(.large)
                 }
@@ -437,7 +437,7 @@ struct TranscriptionView: View {
                         HStack(spacing: 6) {
                             Image(systemName: "sparkles")
                                 .foregroundStyle(.blue)
-                            Text(String(localized: "要約"))
+                            Text(String(localized: "要約", table: "Transcription"))
                                 .font(.subheadline.bold())
                                 .foregroundStyle(.blue)
                         }

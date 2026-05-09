@@ -333,6 +333,14 @@
 				"zh-Hans",
 				it,
 				"en-IN",
+				ko,
+				ar,
+				id,
+				hi,
+				nl,
+				pl,
+				sv,
+				th,
 			);
 			mainGroup = 619799D928C34A2500169FB6;
 			packageReferences = (

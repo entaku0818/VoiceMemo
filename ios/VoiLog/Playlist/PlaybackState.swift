@@ -22,11 +22,11 @@ enum SortOption: String, CaseIterable, Equatable {
 
   var displayName: String {
     switch self {
-    case .dateDescending: return String(localized: "日付順（新しい順）")
-    case .dateAscending: return String(localized: "日付順（古い順）")
-    case .titleAscending: return String(localized: "タイトル順（A-Z）")
-    case .durationDescending: return String(localized: "時間長順（長い順）")
-    case .durationAscending: return String(localized: "時間長順（短い順）")
+    case .dateDescending: return String(localized: "日付順（新しい順）", table: "Playlist")
+    case .dateAscending: return String(localized: "日付順（古い順）", table: "Playlist")
+    case .titleAscending: return String(localized: "タイトル順（A-Z）", table: "Playlist")
+    case .durationDescending: return String(localized: "時間長順（長い順）", table: "Playlist")
+    case .durationAscending: return String(localized: "時間長順（短い順）", table: "Playlist")
     }
   }
 }
@@ -39,10 +39,10 @@ enum DurationFilter: String, CaseIterable, Equatable {
 
   var displayName: String {
     switch self {
-    case .all: return String(localized: "すべて")
-    case .short: return String(localized: "短い（1分未満）")
-    case .medium: return String(localized: "中間（1-5分）")
-    case .long: return String(localized: "長い（5分以上）")
+    case .all: return String(localized: "すべて", table: "Playlist")
+    case .short: return String(localized: "短い（1分未満）", table: "Playlist")
+    case .medium: return String(localized: "中間（1-5分）", table: "Playlist")
+    case .long: return String(localized: "長い（5分以上）", table: "Playlist")
     }
   }
 

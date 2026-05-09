@@ -101,7 +101,7 @@ struct AudioEditorReducer: Reducer {
             case let .success(waveformData):
                 state.waveformData = waveformData
             case let .failure(error):
-                state.errorMessage = String(format: String(localized: "波形データの読み込みに失敗しました: %@"), error.localizedDescription)
+                state.errorMessage = String(format: String(localized: "波形データの読み込みに失敗しました: %@", table: "AudioEditor"), error.localizedDescription)
             }
             return .none
 
@@ -111,7 +111,7 @@ struct AudioEditorReducer: Reducer {
 
         case .trim:
             guard let selectedRange = state.selectedRange else {
-                state.errorMessage = String(localized: "トリミングする範囲を選択してください。")
+                state.errorMessage = String(localized: "トリミングする範囲を選択してください。", table: "AudioEditor")
                 return .none
             }
 
@@ -146,14 +146,14 @@ struct AudioEditorReducer: Reducer {
                 return self.reduce(into: &state, action: .loadAudio)
 
             case let .failure(error):
-                state.errorMessage = String(format: String(localized: "トリミングに失敗しました: %@"), error.localizedDescription)
+                state.errorMessage = String(format: String(localized: "トリミングに失敗しました: %@", table: "AudioEditor"), error.localizedDescription)
             }
             return .none
 
         case .split:
             guard let selectedRange = state.selectedRange,
                   selectedRange.lowerBound == selectedRange.upperBound else {
-                state.errorMessage = String(localized: "分割するポイントを選択してください。")
+                state.errorMessage = String(localized: "分割するポイントを選択してください。", table: "AudioEditor")
                 return .none
             }
 
@@ -186,16 +186,16 @@ struct AudioEditorReducer: Reducer {
                     AppLogger.file.info("Audio split completed. Saved first part: \(newURLs[0].lastPathComponent)")
 
                     // 成功メッセージを表示
-                    state.errorMessage = String(format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。"), "\(state.originalTitle) (前半)")
+                    state.errorMessage = String(format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。", table: "AudioEditor"), "\(state.originalTitle) (前半)")
 
                     // 波形データを再読み込み
                     return self.reduce(into: &state, action: .loadAudio)
                 } else {
-                    state.errorMessage = String(localized: "分割に失敗しました: 新しいファイルが作成されませんでした。")
+                    state.errorMessage = String(localized: "分割に失敗しました: 新しいファイルが作成されませんでした。", table: "AudioEditor")
                 }
 
             case let .failure(error):
-                state.errorMessage = String(format: String(localized: "分割に失敗しました: %@"), error.localizedDescription)
+                state.errorMessage = String(format: String(localized: "分割に失敗しました: %@", table: "AudioEditor"), error.localizedDescription)
             }
             return .none
 
@@ -230,7 +230,7 @@ struct AudioEditorReducer: Reducer {
                 return self.reduce(into: &state, action: .loadAudio)
 
             case let .failure(error):
-                state.errorMessage = String(format: String(localized: "音量調整に失敗しました: %@"), error.localizedDescription)
+                state.errorMessage = String(format: String(localized: "音量調整に失敗しました: %@", table: "AudioEditor"), error.localizedDescription)
             }
             return .none
 
@@ -245,7 +245,7 @@ struct AudioEditorReducer: Reducer {
                             await send(.playPause) // 再生終了時に停止状態に
                         } catch {
                             // エラーメッセージをアクションを通して更新
-                            await send(.errorOccurred(String(format: String(localized: "再生に失敗しました: %@"), error.localizedDescription)))
+                            await send(.errorOccurred(String(format: String(localized: "再生に失敗しました: %@", table: "AudioEditor"), error.localizedDescription)))
                             await send(.playPause)
                         }
                     }
@@ -331,7 +331,7 @@ struct AudioEditorReducer: Reducer {
                             AppLogger.file.info("File copied to: \(destinationURL.path)")
                         } else {
                             AppLogger.file.error("Source file not found: \(url.path)")
-                            throw NSError(domain: "AudioEditor", code: 2, userInfo: [NSLocalizedDescriptionKey: String(localized: "編集したオーディオファイルが見つかりません")])
+                            throw NSError(domain: "AudioEditor", code: 2, userInfo: [NSLocalizedDescriptionKey: String(localized: "編集したオーディオファイルが見つかりません", table: "AudioEditor")])
                         }
 
                         // 新しい音声メモをデータベースに保存
@@ -372,7 +372,7 @@ struct AudioEditorReducer: Reducer {
                         }
                         await send(.saveCompleted(.success(newUUID)))
                     } else {
-                        throw NSError(domain: "AudioEditor", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "元の音声メモが見つかりませんでした")])
+                        throw NSError(domain: "AudioEditor", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "元の音声メモが見つかりませんでした", table: "AudioEditor")])
                     }
                 } catch {
                     await send(.saveCompleted(.failure(error)))
@@ -386,7 +386,7 @@ struct AudioEditorReducer: Reducer {
                 state.shouldDismiss = true
                 return .send(.dismissEditor)
             case let .failure(error):
-                state.errorMessage = String(format: String(localized: "保存に失敗しました: %@"), error.localizedDescription)
+                state.errorMessage = String(format: String(localized: "保存に失敗しました: %@", table: "AudioEditor"), error.localizedDescription)
             }
             return .none
 

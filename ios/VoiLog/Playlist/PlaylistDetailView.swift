@@ -18,7 +18,7 @@ struct PlaylistNameSection: View {
         Section {
             if store.isEditingName {
                 HStack {
-                    TextField(String(localized: "プレイリスト名"), text: $store.editingName)
+                    TextField(String(localized: "プレイリスト名", table: "Playlist"), text: $store.editingName)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                     Button(String(localized: "保存")) {
@@ -47,7 +47,7 @@ struct PlaylistNameSection: View {
                 }
             }
 
-            Text("\(String(localized: "作成日:")) \(store.createdAt.formatted(date: .abbreviated, time: .shortened))")
+            Text("\(String(localized: "作成日:", table: "Playlist")) \(store.createdAt.formatted(date: .abbreviated, time: .shortened))")
                 .font(.caption)
                 .foregroundColor(.secondary)
         }
@@ -66,7 +66,7 @@ struct AddVoiceSection: View {
                 HStack {
                     Image(systemName: "plus.circle.fill")
                         .foregroundColor(.blue)
-                    Text(String(localized: "音声を追加"))
+                    Text(String(localized: "音声を追加", table: "Playlist"))
                 }
             }
         }
@@ -79,9 +79,9 @@ struct VoiceListSection: View {
     let store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
-        Section(String(localized: "音声リスト")) {
+        Section(String(localized: "音声リスト", table: "Playlist")) {
             if voices.isEmpty {
-                Text(String(localized: "音声が追加されていません"))
+                Text(String(localized: "音声が追加されていません", table: "Playlist"))
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
             } else {
@@ -90,7 +90,7 @@ struct VoiceListSection: View {
                         Text(voice.title)
                             .font(.headline)
 
-                        Text("\(String(localized: "録音日:")) \(voice.createdAt.formatted(date: .abbreviated, time: .shortened))")
+                        Text("\(String(localized: "録音日:", table: "Playlist")) \(voice.createdAt.formatted(date: .abbreviated, time: .shortened))")
                             .font(.caption)
                             .foregroundColor(.secondary)
                         Button {
@@ -136,7 +136,7 @@ struct VoiceSelectionSheet: View {
                                 .font(.caption)
                                 .foregroundColor(.secondary)
 
-                                Text("\(String(localized: "録音日:")) \(voice.date.formatted(date: .abbreviated, time: .shortened))")
+                                Text("\(String(localized: "録音日:", table: "Playlist")) \(voice.date.formatted(date: .abbreviated, time: .shortened))")
                                     .font(.caption)
                                     .foregroundColor(.secondary)
                             }
@@ -161,7 +161,7 @@ struct VoiceSelectionSheet: View {
                     .padding(.vertical, 4)
                 }
             }
-            .navigationTitle(String(localized: "音声を選択"))
+            .navigationTitle(String(localized: "音声を選択", table: "Playlist"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -241,7 +241,7 @@ struct CurrentPlayingSection: View {
                 .padding(.bottom, 8)
             } else {
                 HStack {
-                    Text(String(localized: "再生していません"))
+                    Text(String(localized: "再生していません", table: "Playlist"))
                         .foregroundColor(.secondary)
                     Spacer()
                     Image(systemName: "play.circle.fill")
@@ -270,7 +270,7 @@ struct PlaylistDetailView: View {
                     ProgressView()
                 } else if let error = store.error {
                     VStack {
-                        Text(String(localized: "エラーが発生しました"))
+                        Text(String(localized: "エラーが発生しました", table: "Playlist"))
                         Text(error)
                             .foregroundColor(.red)
                     }
@@ -312,7 +312,7 @@ struct PlaylistDetailView: View {
             }
             .padding(.bottom, 0)
         }
-        .navigationTitle(String(localized: "プレイリストの詳細"))
+        .navigationTitle(String(localized: "プレイリストの詳細", table: "Playlist"))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             send(.onAppear)
