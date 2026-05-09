@@ -1,0 +1,22 @@
+# Screengrabfile
+# screengrab は screenshotRenderTests (Roborazzi) で代替するため最小設定
+
+app_package_name "com.entaku.simpleRecord"
+use_tests_in_packages ["com.entaku.simpleRecord.screenshot"]
+output_directory "fastlane/screenshots"
+clear_previous_screenshots true
+
+locales [
+  "ja-JP",
+  "en-US",
+  "de-DE",
+  "es-ES",
+  "fr-FR",
+  "it-IT",
+  "pt-PT",
+  "ru-RU",
+  "tr-TR",
+  "vi-VN",
+  "zh-CN",
+  "zh-TW"
+]

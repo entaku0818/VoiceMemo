@@ -69,6 +69,24 @@ platform :android do
     )
   end
 
+  desc "Generate screenshots via Roborazzi and upload to Google Play"
+  lane :upload_screenshots do
+    gradle(
+      task: "test",
+      flags: "--tests com.entaku.simpleRecord.screenshot.ScreenshotRenderTests",
+      project_dir: "./"
+    )
+    upload_to_play_store(
+      track: "production",
+      skip_upload_aab: true,
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: false,
+      skip_upload_changelogs: true
+    )
+  end
+
   desc "Update release notes for existing release"
   lane :update_release_notes do
     upload_to_play_store(
