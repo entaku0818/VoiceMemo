@@ -44,9 +44,9 @@ final class AudioEditorReducerTests: XCTestCase {
                 $0.audioProcessingService = MockAudioProcessingService(splitResult: .success([]))
             }
 
-            // String(localized:) でロケール非依存に reducer と同じ文字列を参照
+            // String(localized:table:) でロケール非依存に reducer と同じ文字列を参照
             await store.send(.split) {
-                $0.errorMessage = String(localized: "分割するポイントを選択してください。")
+                $0.errorMessage = String(localized: "分割するポイントを選択してください。", table: "AudioEditor")
             }
         }
     }
@@ -69,7 +69,7 @@ final class AudioEditorReducerTests: XCTestCase {
             }
 
             await store.send(.split) {
-                $0.errorMessage = String(localized: "分割するポイントを選択してください。")
+                $0.errorMessage = String(localized: "分割するポイントを選択してください。", table: "AudioEditor")
             }
         }
     }
@@ -103,7 +103,7 @@ final class AudioEditorReducerTests: XCTestCase {
             }
             await store.receive(\.splitCompleted) {
                 $0.processingOperation = nil
-                $0.errorMessage = String(format: String(localized: "分割に失敗しました: %@"), splitError.localizedDescription)
+                $0.errorMessage = String(format: String(localized: "分割に失敗しました: %@", table: "AudioEditor"), splitError.localizedDescription)
             }
         }
     }
@@ -170,7 +170,7 @@ final class AudioEditorReducerTests: XCTestCase {
                 $0.isLoadingWaveform = true
                 $0.editHistory = [.split(atTime: 5.0)]
                 $0.errorMessage = String(
-                    format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。"),
+                    format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。", table: "AudioEditor"),
                     "テスト録音 (前半)"
                 )
             }
