@@ -77,44 +77,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod"
+            "state": "translated",
+            "value": "بودكاست"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod"
+            "state": "translated",
+            "value": "पॉड"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod"
+            "state": "translated",
+            "value": "พ็อด"
           }
         }
       }
@@ -195,44 +195,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod Settings"
+            "state": "translated",
+            "value": "إعدادات البودكاست"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod Settings"
+            "state": "translated",
+            "value": "Pengaturan Pod"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod Settings"
+            "state": "translated",
+            "value": "पॉड सेटिंग"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod Settings"
+            "state": "translated",
+            "value": "Pod-instellingen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod Settings"
+            "state": "translated",
+            "value": "Ustawienia Pod"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod Settings"
+            "state": "translated",
+            "value": "Pod-inställningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Pod Settings"
+            "state": "translated",
+            "value": "การตั้งค่าพ็อด"
           }
         }
       }
@@ -319,44 +319,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Would you like to add a title to this recording?"
+            "state": "translated",
+            "value": "هل تريد إضافة عنوان لهذا التسجيل؟"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Would you like to add a title to this recording?"
+            "state": "translated",
+            "value": "Apakah Anda ingin menambahkan judul pada rekaman ini?"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Would you like to add a title to this recording?"
+            "state": "translated",
+            "value": "क्या आप इस रिकॉर्डिंग में एक शीर्षक जोड़ना चाहते हैं?"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Would you like to add a title to this recording?"
+            "state": "translated",
+            "value": "Wilt u een titel toevoegen aan deze opname?"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Would you like to add a title to this recording?"
+            "state": "translated",
+            "value": "Czy chcesz dodać tytuł do tego nagrania?"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Would you like to add a title to this recording?"
+            "state": "translated",
+            "value": "Vill du lägga till en titel för den här inspelningen?"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Would you like to add a title to this recording?"
+            "state": "translated",
+            "value": "คุณต้องการเพิ่มชื่อให้กับการบันทึกนี้หรือไม่?"
           }
         }
       }
@@ -379,44 +379,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record Again"
+            "state": "translated",
+            "value": "تسجيل مجدداً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record Again"
+            "state": "translated",
+            "value": "Rekam Lagi"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record Again"
+            "state": "translated",
+            "value": "फिर से रिकॉर्ड करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record Again"
+            "state": "translated",
+            "value": "Opnieuw opnemen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record Again"
+            "state": "translated",
+            "value": "Nagraj ponownie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record Again"
+            "state": "translated",
+            "value": "Spela in igen"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record Again"
+            "state": "translated",
+            "value": "บันทึกอีกครั้ง"
           }
         }
       }
@@ -497,44 +497,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
+            "state": "translated",
+            "value": "للمقابلات والتقارير. إعدادات عالية الجودة تُركّز على وضوح الصوت."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
+            "state": "translated",
+            "value": "Untuk wawancara dan pelaporan. Pengaturan berkualitas tinggi yang mengutamakan kejernihan suara."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
+            "state": "translated",
+            "value": "साक्षात्कार और रिपोर्टिंग के लिए। आवाज़ की स्पष्टता को प्राथमिकता देने वाली उच्च-गुणवत्ता सेटिंग।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
+            "state": "translated",
+            "value": "Voor interviews en verslaggeving. Hoogwaardige instellingen met prioriteit voor stemhelderheid."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
+            "state": "translated",
+            "value": "Do wywiadów i reportaży. Wysokiej jakości ustawienia priorytetyzujące wyrazistość głosu."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
+            "state": "translated",
+            "value": "För intervjuer och rapportering. Högkvalitativa inställningar med fokus på rösttydlighet."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
+            "state": "translated",
+            "value": "สำหรับการสัมภาษณ์และรายงาน การตั้งค่าคุณภาพสูงที่ให้ความสำคัญกับความชัดเจนของเสียง"
           }
         }
       }
@@ -615,44 +615,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to configure audio session."
+            "state": "translated",
+            "value": "فشل تهيئة جلسة الصوت."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to configure audio session."
+            "state": "translated",
+            "value": "Gagal mengonfigurasi sesi audio."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to configure audio session."
+            "state": "translated",
+            "value": "ऑडियो सत्र कॉन्फ़िगर करने में विफल।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to configure audio session."
+            "state": "translated",
+            "value": "Audiosessie configureren mislukt."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to configure audio session."
+            "state": "translated",
+            "value": "Nie udało się skonfigurować sesji audio."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to configure audio session."
+            "state": "translated",
+            "value": "Det gick inte att konfigurera ljudsessionen."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to configure audio session."
+            "state": "translated",
+            "value": "ไม่สามารถกำหนดค่าเซสชันเสียงได้"
           }
         }
       }
@@ -733,44 +733,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom"
+            "state": "translated",
+            "value": "مخصص"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom"
+            "state": "translated",
+            "value": "Kustom"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom"
+            "state": "translated",
+            "value": "कस्टम"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom"
+            "state": "translated",
+            "value": "Aangepast"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom"
+            "state": "translated",
+            "value": "Niestandardowy"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom"
+            "state": "translated",
+            "value": "Anpassad"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom"
+            "state": "translated",
+            "value": "กำหนดเอง"
           }
         }
       }
@@ -851,44 +851,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom Settings"
+            "state": "translated",
+            "value": "إعدادات مخصصة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom Settings"
+            "state": "translated",
+            "value": "Pengaturan Kustom"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom Settings"
+            "state": "translated",
+            "value": "कस्टम सेटिंग"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom Settings"
+            "state": "translated",
+            "value": "Aangepaste instellingen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom Settings"
+            "state": "translated",
+            "value": "Ustawienia niestandardowe"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom Settings"
+            "state": "translated",
+            "value": "Anpassade inställningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Custom Settings"
+            "state": "translated",
+            "value": "การตั้งค่าแบบกำหนดเอง"
           }
         }
       }
@@ -905,44 +905,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sample Rate"
+            "state": "translated",
+            "value": "معدل أخذ العينات"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sample Rate"
+            "state": "translated",
+            "value": "Laju Sampel"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sample Rate"
+            "state": "translated",
+            "value": "सैंपल रेट"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sample Rate"
+            "state": "translated",
+            "value": "Samplefrequentie"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sample Rate"
+            "state": "translated",
+            "value": "Częstotliwość próbkowania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sample Rate"
+            "state": "translated",
+            "value": "Samplingsfrekvens"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sample Rate"
+            "state": "translated",
+            "value": "อัตราการสุ่มตัวอย่าง"
           }
         }
       }
@@ -1029,44 +1029,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Skip"
+            "state": "translated",
+            "value": "تخطي"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Skip"
+            "state": "translated",
+            "value": "Lewati"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Skip"
+            "state": "translated",
+            "value": "छोड़ें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Skip"
+            "state": "translated",
+            "value": "Overslaan"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Skip"
+            "state": "translated",
+            "value": "Pomiń"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Skip"
+            "state": "translated",
+            "value": "Hoppa över"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Skip"
+            "state": "translated",
+            "value": "ข้าม"
           }
         }
       }
@@ -1147,44 +1147,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Insufficient storage space."
+            "state": "translated",
+            "value": "مساحة التخزين غير كافية."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Insufficient storage space."
+            "state": "translated",
+            "value": "Ruang penyimpanan tidak mencukupi."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Insufficient storage space."
+            "state": "translated",
+            "value": "संग्रहण स्थान अपर्याप्त है।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Insufficient storage space."
+            "state": "translated",
+            "value": "Onvoldoende opslagruimte."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Insufficient storage space."
+            "state": "translated",
+            "value": "Niewystarczająca ilość miejsca w pamięci."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Insufficient storage space."
+            "state": "translated",
+            "value": "Otillräckligt lagringsutrymme."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Insufficient storage space."
+            "state": "translated",
+            "value": "พื้นที่จัดเก็บไม่เพียงพอ"
           }
         }
       }
@@ -1207,44 +1207,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Title"
+            "state": "translated",
+            "value": "تعديل العنوان"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Title"
+            "state": "translated",
+            "value": "Edit Judul"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Title"
+            "state": "translated",
+            "value": "शीर्षक संपादित करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Title"
+            "state": "translated",
+            "value": "Titel bewerken"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Title"
+            "state": "translated",
+            "value": "Edytuj tytuł"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Title"
+            "state": "translated",
+            "value": "Redigera titel"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Title"
+            "state": "translated",
+            "value": "แก้ไขชื่อ"
           }
         }
       }
@@ -1261,44 +1261,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select \"Custom\" to change these settings"
+            "state": "translated",
+            "value": "اختر \"مخصص\" لتغيير هذه الإعدادات"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select \"Custom\" to change these settings"
+            "state": "translated",
+            "value": "Pilih \"Kustom\" untuk mengubah pengaturan ini"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select \"Custom\" to change these settings"
+            "state": "translated",
+            "value": "इन सेटिंग्स को बदलने के लिए \"कस्टम\" चुनें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select \"Custom\" to change these settings"
+            "state": "translated",
+            "value": "Selecteer \"Aangepast\" om deze instellingen te wijzigen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select \"Custom\" to change these settings"
+            "state": "translated",
+            "value": "Wybierz „Niestandardowy\", aby zmienić te ustawienia"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select \"Custom\" to change these settings"
+            "state": "translated",
+            "value": "Välj \"Anpassad\" för att ändra dessa inställningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select \"Custom\" to change these settings"
+            "state": "translated",
+            "value": "เลือก \"กำหนดเอง\" เพื่อเปลี่ยนการตั้งค่าเหล่านี้"
           }
         }
       }
@@ -1315,44 +1315,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Noise Cancellation"
+            "state": "translated",
+            "value": "إلغاء الضوضاء"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Noise Cancellation"
+            "state": "translated",
+            "value": "Pengurangan Kebisingan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Noise Cancellation"
+            "state": "translated",
+            "value": "शोर रद्दीकरण"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Noise Cancellation"
+            "state": "translated",
+            "value": "Ruisonderdrukking"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Noise Cancellation"
+            "state": "translated",
+            "value": "Redukcja szumów"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Noise Cancellation"
+            "state": "translated",
+            "value": "Brusreducering"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Noise Cancellation"
+            "state": "translated",
+            "value": "การลดเสียงรบกวน"
           }
         }
       }
@@ -1433,44 +1433,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Customize noise cancellation and volume settings yourself."
+            "state": "translated",
+            "value": "خصّص إعدادات إلغاء الضوضاء والصوت بنفسك."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Customize noise cancellation and volume settings yourself."
+            "state": "translated",
+            "value": "Sesuaikan pengurangan kebisingan dan pengaturan volume sendiri."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Customize noise cancellation and volume settings yourself."
+            "state": "translated",
+            "value": "शोर रद्दीकरण और वॉल्यूम सेटिंग्स को स्वयं अनुकूलित करें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Customize noise cancellation and volume settings yourself."
+            "state": "translated",
+            "value": "Pas de ruisonderdrukking en volume-instellingen zelf aan."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Customize noise cancellation and volume settings yourself."
+            "state": "translated",
+            "value": "Dostosuj samodzielnie ustawienia redukcji szumów i głośności."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Customize noise cancellation and volume settings yourself."
+            "state": "translated",
+            "value": "Anpassa brusreducering och volyminställningar själv."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Customize noise cancellation and volume settings yourself."
+            "state": "translated",
+            "value": "ปรับแต่งการลดเสียงรบกวนและการตั้งค่าระดับเสียงด้วยตัวเอง"
           }
         }
       }
@@ -1487,44 +1487,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Format"
+            "state": "translated",
+            "value": "التنسيق"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Format"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Format"
+            "state": "translated",
+            "value": "प्रारूप"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Format"
+            "state": "translated",
+            "value": "Formaat"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Format"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Format"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Format"
+            "state": "translated",
+            "value": "รูปแบบ"
           }
         }
       }
@@ -1541,44 +1541,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Preset"
+            "state": "translated",
+            "value": "إعداد مسبق"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Preset"
+            "state": "translated",
+            "value": "Prasetel"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Preset"
+            "state": "translated",
+            "value": "प्रीसेट"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Preset"
+            "state": "translated",
+            "value": "Voorinstelling"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Preset"
+            "state": "translated",
+            "value": "Ustawienie wstępne"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Preset"
+            "state": "translated",
+            "value": "Förinställning"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Preset"
+            "state": "translated",
+            "value": "ค่าที่ตั้งไว้ล่วงหน้า"
           }
         }
       }
@@ -1659,44 +1659,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For podcast recording. Balanced between clear audio and appropriate file size."
+            "state": "translated",
+            "value": "لتسجيل البودكاست. توازن بين وضوح الصوت وحجم الملف المناسب."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For podcast recording. Balanced between clear audio and appropriate file size."
+            "state": "translated",
+            "value": "Untuk perekaman podcast. Seimbang antara audio yang jernih dan ukuran file yang tepat."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For podcast recording. Balanced between clear audio and appropriate file size."
+            "state": "translated",
+            "value": "पॉडकास्ट रिकॉर्डिंग के लिए। स्पष्ट ऑडियो और उचित फ़ाइल आकार के बीच संतुलन।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For podcast recording. Balanced between clear audio and appropriate file size."
+            "state": "translated",
+            "value": "Voor podcastopnames. Evenwicht tussen helder geluid en geschikte bestandsgrootte."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For podcast recording. Balanced between clear audio and appropriate file size."
+            "state": "translated",
+            "value": "Do nagrywania podcastów. Równowaga między wyraźnym dźwiękiem a odpowiednim rozmiarem pliku."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For podcast recording. Balanced between clear audio and appropriate file size."
+            "state": "translated",
+            "value": "För podcastinspelning. Balans mellan tydligt ljud och lämplig filstorlek."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For podcast recording. Balanced between clear audio and appropriate file size."
+            "state": "translated",
+            "value": "สำหรับบันทึกพอดแคสต์ สมดุลระหว่างเสียงที่ชัดเจนและขนาดไฟล์ที่เหมาะสม"
           }
         }
       }
@@ -1777,44 +1777,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Microphone access permission is required."
+            "state": "translated",
+            "value": "مطلوب إذن الوصول إلى الميكروفون."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Microphone access permission is required."
+            "state": "translated",
+            "value": "Izin akses mikrofon diperlukan."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Microphone access permission is required."
+            "state": "translated",
+            "value": "माइक्रोफ़ोन एक्सेस की अनुमति आवश्यक है।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Microphone access permission is required."
+            "state": "translated",
+            "value": "Toegangstoestemming voor de microfoon is vereist."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Microphone access permission is required."
+            "state": "translated",
+            "value": "Wymagane jest uprawnienie dostępu do mikrofonu."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Microphone access permission is required."
+            "state": "translated",
+            "value": "Åtkomstbehörighet för mikrofon krävs."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Microphone access permission is required."
+            "state": "translated",
+            "value": "ต้องการสิทธิ์การเข้าถึงไมโครโฟน"
           }
         }
       }
@@ -1895,44 +1895,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo"
+            "state": "translated",
+            "value": "ملاحظة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo"
+            "state": "translated",
+            "value": "मेमो"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo"
+            "state": "translated",
+            "value": "Notatka"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo"
+            "state": "translated",
+            "value": "บันทึกเสียง"
           }
         }
       }
@@ -2013,44 +2013,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo Settings"
+            "state": "translated",
+            "value": "إعدادات الملاحظات"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo Settings"
+            "state": "translated",
+            "value": "Pengaturan Memo"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo Settings"
+            "state": "translated",
+            "value": "मेमो सेटिंग"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo Settings"
+            "state": "translated",
+            "value": "Memo-instellingen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo Settings"
+            "state": "translated",
+            "value": "Ustawienia notatek"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo Settings"
+            "state": "translated",
+            "value": "Memoinställningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Memo Settings"
+            "state": "translated",
+            "value": "การตั้งค่าบันทึกเสียง"
           }
         }
       }
@@ -2067,44 +2067,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Paused"
+            "state": "translated",
+            "value": "متوقف مؤقتاً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Paused"
+            "state": "translated",
+            "value": "Dijeda"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Paused"
+            "state": "translated",
+            "value": "रुका हुआ"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Paused"
+            "state": "translated",
+            "value": "Gepauzeerd"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Paused"
+            "state": "translated",
+            "value": "Wstrzymane"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Paused"
+            "state": "translated",
+            "value": "Pausad"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Paused"
+            "state": "translated",
+            "value": "หยุดชั่วคราว"
           }
         }
       }
@@ -2185,44 +2185,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting"
+            "state": "translated",
+            "value": "اجتماع"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting"
+            "state": "translated",
+            "value": "Rapat"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting"
+            "state": "translated",
+            "value": "बैठक"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting"
+            "state": "translated",
+            "value": "Vergadering"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting"
+            "state": "translated",
+            "value": "Spotkanie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting"
+            "state": "translated",
+            "value": "Möte"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting"
+            "state": "translated",
+            "value": "การประชุม"
           }
         }
       }
@@ -2303,44 +2303,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
+            "state": "translated",
+            "value": "مثالي للاجتماعات والمناقشات. إعدادات متوازنة لالتقاط أصوات متعددة بوضوح."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
+            "state": "translated",
+            "value": "Ideal untuk rapat dan diskusi. Pengaturan seimbang untuk merekam beberapa suara dengan jelas."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
+            "state": "translated",
+            "value": "बैठकों और चर्चाओं के लिए आदर्श। कई आवाज़ों को स्पष्ट रूप से कैप्चर करने के लिए संतुलित सेटिंग।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
+            "state": "translated",
+            "value": "Ideaal voor vergaderingen en discussies. Gebalanceerde instellingen voor het helder opnemen van meerdere stemmen."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
+            "state": "translated",
+            "value": "Idealny do spotkań i dyskusji. Wyważone ustawienia do wyraźnego nagrywania wielu głosów."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
+            "state": "translated",
+            "value": "Idealisk för möten och diskussioner. Balanserade inställningar för att tydligt fånga upp flera röster."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
+            "state": "translated",
+            "value": "เหมาะสำหรับการประชุมและการอภิปราย การตั้งค่าที่สมดุลเพื่อบันทึกหลายเสียงได้อย่างชัดเจน"
           }
         }
       }
@@ -2421,44 +2421,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting Settings"
+            "state": "translated",
+            "value": "إعدادات الاجتماع"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting Settings"
+            "state": "translated",
+            "value": "Pengaturan Rapat"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting Settings"
+            "state": "translated",
+            "value": "बैठक सेटिंग"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting Settings"
+            "state": "translated",
+            "value": "Vergaderinstellingen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting Settings"
+            "state": "translated",
+            "value": "Ustawienia spotkania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting Settings"
+            "state": "translated",
+            "value": "Möteinställningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Meeting Settings"
+            "state": "translated",
+            "value": "การตั้งค่าการประชุม"
           }
         }
       }
@@ -2539,44 +2539,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Saving..."
+            "state": "translated",
+            "value": "جارٍ الحفظ..."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Saving..."
+            "state": "translated",
+            "value": "Menyimpan..."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Saving..."
+            "state": "translated",
+            "value": "सहेजा जा रहा है..."
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Saving..."
+            "state": "translated",
+            "value": "Opslaan..."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Saving..."
+            "state": "translated",
+            "value": "Zapisywanie..."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Saving..."
+            "state": "translated",
+            "value": "Sparar..."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Saving..."
+            "state": "translated",
+            "value": "กำลังบันทึก..."
           }
         }
       }
@@ -2599,44 +2599,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Your first recording is complete"
+            "state": "translated",
+            "value": "اكتملت تسجيلك الأول"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Your first recording is complete"
+            "state": "translated",
+            "value": "Rekaman pertama Anda selesai"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Your first recording is complete"
+            "state": "translated",
+            "value": "आपकी पहली रिकॉर्डिंग पूरी हो गई"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Your first recording is complete"
+            "state": "translated",
+            "value": "Uw eerste opname is voltooid"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Your first recording is complete"
+            "state": "translated",
+            "value": "Twoje pierwsze nagranie zostało ukończone"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Your first recording is complete"
+            "state": "translated",
+            "value": "Din första inspelning är klar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Your first recording is complete"
+            "state": "translated",
+            "value": "การบันทึกครั้งแรกของคุณเสร็จสิ้นแล้ว"
           }
         }
       }
@@ -2717,44 +2717,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview"
+            "state": "translated",
+            "value": "مقابلة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview"
+            "state": "translated",
+            "value": "Wawancara"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview"
+            "state": "translated",
+            "value": "साक्षात्कार"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview"
+            "state": "translated",
+            "value": "Wywiad"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview"
+            "state": "translated",
+            "value": "Intervju"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview"
+            "state": "translated",
+            "value": "สัมภาษณ์"
           }
         }
       }
@@ -2835,44 +2835,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview Settings"
+            "state": "translated",
+            "value": "إعدادات المقابلة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview Settings"
+            "state": "translated",
+            "value": "Pengaturan Wawancara"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview Settings"
+            "state": "translated",
+            "value": "साक्षात्कार सेटिंग"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview Settings"
+            "state": "translated",
+            "value": "Interviewinstellingen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview Settings"
+            "state": "translated",
+            "value": "Ustawienia wywiadu"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview Settings"
+            "state": "translated",
+            "value": "Intervjuinställningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Interview Settings"
+            "state": "translated",
+            "value": "การตั้งค่าการสัมภาษณ์"
           }
         }
       }
@@ -2953,44 +2953,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
+            "state": "translated",
+            "value": "الأفضل للملاحظات اليومية والتسجيلات الصوتية القصيرة. موفّر للطاقة مع أحجام ملفات أصغر."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
+            "state": "translated",
+            "value": "Terbaik untuk catatan harian dan rekaman suara singkat. Hemat energi dengan ukuran file lebih kecil."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
+            "state": "translated",
+            "value": "दैनिक नोट्स और छोटी आवाज़ रिकॉर्डिंग के लिए सर्वश्रेष्ठ। छोटे फ़ाइल आकार के साथ ऊर्जा-कुशल।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
+            "state": "translated",
+            "value": "Beste voor dagelijkse notities en korte spraakopnames. Energiezuinig met kleinere bestandsgroottes."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
+            "state": "translated",
+            "value": "Najlepsza do codziennych notatek i krótkich nagrań głosowych. Energooszczędna z mniejszymi rozmiarami plików."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
+            "state": "translated",
+            "value": "Bäst för dagliga anteckningar och korta röstinspelningar. Energieffektiv med mindre filstorlekar."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
+            "state": "translated",
+            "value": "ดีที่สุดสำหรับบันทึกประจำวันและการบันทึกเสียงสั้นๆ ประหยัดพลังงานด้วยขนาดไฟล์ที่เล็กกว่า"
           }
         }
       }
@@ -3071,44 +3071,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For instrument and music recording. Records in WAV format for faithful original sound."
+            "state": "translated",
+            "value": "لتسجيل الآلات الموسيقية والموسيقى. يسجّل بتنسيق WAV للحصول على صوت أصلي أمين."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For instrument and music recording. Records in WAV format for faithful original sound."
+            "state": "translated",
+            "value": "Untuk perekaman instrumen dan musik. Merekam dalam format WAV untuk suara asli yang setia."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For instrument and music recording. Records in WAV format for faithful original sound."
+            "state": "translated",
+            "value": "वाद्य यंत्र और संगीत रिकॉर्डिंग के लिए। मूल ध्वनि के प्रति वफ़ादार WAV प्रारूप में रिकॉर्ड करता है।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For instrument and music recording. Records in WAV format for faithful original sound."
+            "state": "translated",
+            "value": "Voor instrument- en muziekopnames. Neemt op in WAV-formaat voor een getrouwe originele klank."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For instrument and music recording. Records in WAV format for faithful original sound."
+            "state": "translated",
+            "value": "Do nagrywania instrumentów i muzyki. Nagrywa w formacie WAV dla wiernego odtworzenia oryginalnego dźwięku."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For instrument and music recording. Records in WAV format for faithful original sound."
+            "state": "translated",
+            "value": "För instrument- och musikinspelning. Spelar in i WAV-format för ett troget originalljud."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "For instrument and music recording. Records in WAV format for faithful original sound."
+            "state": "translated",
+            "value": "สำหรับบันทึกเครื่องดนตรีและเพลง บันทึกในรูปแบบ WAV เพื่อเสียงต้นฉบับที่แท้จริง"
           }
         }
       }
@@ -3195,44 +3195,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record"
+            "state": "translated",
+            "value": "تسجيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record"
+            "state": "translated",
+            "value": "Rekam"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record"
+            "state": "translated",
+            "value": "रिकॉर्ड"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record"
+            "state": "translated",
+            "value": "Opnemen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record"
+            "state": "translated",
+            "value": "Nagraj"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record"
+            "state": "translated",
+            "value": "Spela in"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Record"
+            "state": "translated",
+            "value": "บันทึก"
           }
         }
       }
@@ -3255,44 +3255,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Share Recording"
+            "state": "translated",
+            "value": "مشاركة التسجيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Share Recording"
+            "state": "translated",
+            "value": "Bagikan Rekaman"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Share Recording"
+            "state": "translated",
+            "value": "रिकॉर्डिंग साझा करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Share Recording"
+            "state": "translated",
+            "value": "Opname delen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Share Recording"
+            "state": "translated",
+            "value": "Udostępnij nagranie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Share Recording"
+            "state": "translated",
+            "value": "Dela inspelning"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Share Recording"
+            "state": "translated",
+            "value": "แชร์การบันทึก"
           }
         }
       }
@@ -3373,44 +3373,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to create recording file."
+            "state": "translated",
+            "value": "فشل إنشاء ملف التسجيل."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to create recording file."
+            "state": "translated",
+            "value": "Gagal membuat file rekaman."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to create recording file."
+            "state": "translated",
+            "value": "रिकॉर्डिंग फ़ाइल बनाने में विफल।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to create recording file."
+            "state": "translated",
+            "value": "Het aanmaken van het opnamebestand is mislukt."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to create recording file."
+            "state": "translated",
+            "value": "Nie udało się utworzyć pliku nagrania."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to create recording file."
+            "state": "translated",
+            "value": "Det gick inte att skapa inspelningsfilen."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to create recording file."
+            "state": "translated",
+            "value": "ไม่สามารถสร้างไฟล์บันทึกได้"
           }
         }
       }
@@ -3497,44 +3497,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording"
+            "state": "translated",
+            "value": "جارٍ التسجيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording"
+            "state": "translated",
+            "value": "Merekam"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording"
+            "state": "translated",
+            "value": "रिकॉर्डिंग"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording"
+            "state": "translated",
+            "value": "Opnemen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording"
+            "state": "translated",
+            "value": "Nagrywanie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording"
+            "state": "translated",
+            "value": "Spelar in"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording"
+            "state": "translated",
+            "value": "กำลังบันทึก"
           }
         }
       }
@@ -3621,44 +3621,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording Complete"
+            "state": "translated",
+            "value": "اكتمل التسجيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording Complete"
+            "state": "translated",
+            "value": "Rekaman Selesai"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording Complete"
+            "state": "translated",
+            "value": "रिकॉर्डिंग पूर्ण"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording Complete"
+            "state": "translated",
+            "value": "Opname voltooid"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording Complete"
+            "state": "translated",
+            "value": "Nagranie zakończone"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording Complete"
+            "state": "translated",
+            "value": "Inspelning klar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recording Complete"
+            "state": "translated",
+            "value": "การบันทึกเสร็จสิ้น"
           }
         }
       }
@@ -3739,44 +3739,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ready to Record"
+            "state": "translated",
+            "value": "جاهز للتسجيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ready to Record"
+            "state": "translated",
+            "value": "Siap Merekam"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ready to Record"
+            "state": "translated",
+            "value": "रिकॉर्ड करने के लिए तैयार"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ready to Record"
+            "state": "translated",
+            "value": "Klaar om op te nemen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ready to Record"
+            "state": "translated",
+            "value": "Gotowy do nagrywania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ready to Record"
+            "state": "translated",
+            "value": "Redo att spela in"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Ready to Record"
+            "state": "translated",
+            "value": "พร้อมบันทึก"
           }
         }
       }
@@ -3863,44 +3863,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Result"
+            "state": "translated",
+            "value": "نتيجة النسخ"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Result"
+            "state": "translated",
+            "value": "Hasil Transkripsi"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Result"
+            "state": "translated",
+            "value": "ट्रांसक्रिप्शन परिणाम"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Result"
+            "state": "translated",
+            "value": "Transcriptieresultaat"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Result"
+            "state": "translated",
+            "value": "Wynik transkrypcji"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Result"
+            "state": "translated",
+            "value": "Transkriptionsresultat"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Result"
+            "state": "translated",
+            "value": "ผลการถอดความ"
           }
         }
       }
@@ -3981,44 +3981,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music"
+            "state": "translated",
+            "value": "موسيقى"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music"
+            "state": "translated",
+            "value": "Musik"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music"
+            "state": "translated",
+            "value": "संगीत"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music"
+            "state": "translated",
+            "value": "Muziek"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music"
+            "state": "translated",
+            "value": "Muzyka"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music"
+            "state": "translated",
+            "value": "Musik"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music"
+            "state": "translated",
+            "value": "เพลง"
           }
         }
       }
@@ -4099,44 +4099,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music Settings"
+            "state": "translated",
+            "value": "إعدادات الموسيقى"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music Settings"
+            "state": "translated",
+            "value": "Pengaturan Musik"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music Settings"
+            "state": "translated",
+            "value": "संगीत सेटिंग"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music Settings"
+            "state": "translated",
+            "value": "Muziekinstellingen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music Settings"
+            "state": "translated",
+            "value": "Ustawienia muzyki"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music Settings"
+            "state": "translated",
+            "value": "Musikinställningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Music Settings"
+            "state": "translated",
+            "value": "การตั้งค่าเพลง"
           }
         }
       }
@@ -4153,44 +4153,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Auto Gain Control"
+            "state": "translated",
+            "value": "التحكم التلقائي في الكسب"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Auto Gain Control"
+            "state": "translated",
+            "value": "Kontrol Gain Otomatis"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Auto Gain Control"
+            "state": "translated",
+            "value": "स्वतः गेन नियंत्रण"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Auto Gain Control"
+            "state": "translated",
+            "value": "Automatische versterkingsregeling"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Auto Gain Control"
+            "state": "translated",
+            "value": "Automatyczna regulacja wzmocnienia"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Auto Gain Control"
+            "state": "translated",
+            "value": "Automatisk förstärkningskontroll"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Auto Gain Control"
+            "state": "translated",
+            "value": "การควบคุมระดับเสียงอัตโนมัติ"
           }
         }
       }
@@ -4213,44 +4213,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "🎉 Saved!"
+            "state": "translated",
+            "value": "🎉 تم الحفظ!"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "🎉 Saved!"
+            "state": "translated",
+            "value": "🎉 Tersimpan!"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "🎉 Saved!"
+            "state": "translated",
+            "value": "🎉 सहेजा गया!"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "🎉 Saved!"
+            "state": "translated",
+            "value": "🎉 Opgeslagen!"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "🎉 Saved!"
+            "state": "translated",
+            "value": "🎉 Zapisano!"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "🎉 Saved!"
+            "state": "translated",
+            "value": "🎉 Sparad!"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "🎉 Saved!"
+            "state": "translated",
+            "value": "🎉 บันทึกแล้ว!"
           }
         }
       }

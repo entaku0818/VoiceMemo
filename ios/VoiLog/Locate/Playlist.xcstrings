@@ -77,44 +77,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat One"
+            "state": "translated",
+            "value": "تكرار واحد"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat One"
+            "state": "translated",
+            "value": "Ulangi Satu"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat One"
+            "state": "translated",
+            "value": "एक को दोहराएं"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat One"
+            "state": "translated",
+            "value": "Herhaal één"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat One"
+            "state": "translated",
+            "value": "Powtórz jeden"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat One"
+            "state": "translated",
+            "value": "Upprepa en"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat One"
+            "state": "translated",
+            "value": "เล่นซ้ำหนึ่งเพลง"
           }
         }
       }
@@ -201,44 +201,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "All"
+            "state": "translated",
+            "value": "الكل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "All"
+            "state": "translated",
+            "value": "Semua"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "All"
+            "state": "translated",
+            "value": "सभी"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "All"
+            "state": "translated",
+            "value": "Alles"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "All"
+            "state": "translated",
+            "value": "Wszystkie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "All"
+            "state": "translated",
+            "value": "Alla"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "All"
+            "state": "translated",
+            "value": "ทั้งหมด"
           }
         }
       }
@@ -319,44 +319,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "An error has occurred"
+            "state": "translated",
+            "value": "حدث خطأ"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "An error has occurred"
+            "state": "translated",
+            "value": "Terjadi kesalahan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "An error has occurred"
+            "state": "translated",
+            "value": "एक त्रुटि हुई है"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "An error has occurred"
+            "state": "translated",
+            "value": "Er is een fout opgetreden"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "An error has occurred"
+            "state": "translated",
+            "value": "Wystąpił błąd"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "An error has occurred"
+            "state": "translated",
+            "value": "Ett fel har inträffat"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "An error has occurred"
+            "state": "translated",
+            "value": "เกิดข้อผิดพลาด"
           }
         }
       }
@@ -437,44 +437,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shuffle"
+            "state": "translated",
+            "value": "تشغيل عشوائي"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shuffle"
+            "state": "translated",
+            "value": "Acak"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shuffle"
+            "state": "translated",
+            "value": "शफ़ल"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Shuffle"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shuffle"
+            "state": "translated",
+            "value": "Losowo"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shuffle"
+            "state": "translated",
+            "value": "Blanda"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shuffle"
+            "state": "translated",
+            "value": "สุ่มเพลง"
           }
         }
       }
@@ -555,44 +555,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Title (A-Z)"
+            "state": "translated",
+            "value": "العنوان (أ-ي)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Title (A-Z)"
+            "state": "translated",
+            "value": "Judul (A-Z)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Title (A-Z)"
+            "state": "translated",
+            "value": "शीर्षक (A-Z)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Title (A-Z)"
+            "state": "translated",
+            "value": "Titel (A-Z)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Title (A-Z)"
+            "state": "translated",
+            "value": "Tytuł (A-Z)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Title (A-Z)"
+            "state": "translated",
+            "value": "Titel (A-Ö)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Title (A-Z)"
+            "state": "translated",
+            "value": "ชื่อ (A-Z)"
           }
         }
       }
@@ -679,44 +679,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist"
+            "state": "translated",
+            "value": "قائمة التشغيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist"
+            "state": "translated",
+            "value": "Daftar Putar"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist"
+            "state": "translated",
+            "value": "प्लेलिस्ट"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist"
+            "state": "translated",
+            "value": "Afspeellijst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist"
+            "state": "translated",
+            "value": "Lista odtwarzania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist"
+            "state": "translated",
+            "value": "Spellista"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist"
+            "state": "translated",
+            "value": "เพลย์ลิสต์"
           }
         }
       }
@@ -797,44 +797,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist details"
+            "state": "translated",
+            "value": "تفاصيل قائمة التشغيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist details"
+            "state": "translated",
+            "value": "Detail daftar putar"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist details"
+            "state": "translated",
+            "value": "प्लेलिस्ट विवरण"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist details"
+            "state": "translated",
+            "value": "Afspeellijstdetails"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist details"
+            "state": "translated",
+            "value": "Szczegóły listy odtwarzania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist details"
+            "state": "translated",
+            "value": "Spelistedetaljer"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist details"
+            "state": "translated",
+            "value": "รายละเอียดเพลย์ลิสต์"
           }
         }
       }
@@ -915,44 +915,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist name"
+            "state": "translated",
+            "value": "اسم قائمة التشغيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist name"
+            "state": "translated",
+            "value": "Nama daftar putar"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist name"
+            "state": "translated",
+            "value": "प्लेलिस्ट का नाम"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist name"
+            "state": "translated",
+            "value": "Naam afspeellijst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist name"
+            "state": "translated",
+            "value": "Nazwa listy odtwarzania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist name"
+            "state": "translated",
+            "value": "Spellistans namn"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playlist name"
+            "state": "translated",
+            "value": "ชื่อเพลย์ลิสต์"
           }
         }
       }
@@ -1033,44 +1033,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Playlist"
+            "state": "translated",
+            "value": "تعديل قائمة التشغيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Playlist"
+            "state": "translated",
+            "value": "Edit Daftar Putar"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Playlist"
+            "state": "translated",
+            "value": "प्लेलिस्ट संपादित करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Playlist"
+            "state": "translated",
+            "value": "Afspeellijst bewerken"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Playlist"
+            "state": "translated",
+            "value": "Edytuj listę odtwarzania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Playlist"
+            "state": "translated",
+            "value": "Redigera spellista"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit Playlist"
+            "state": "translated",
+            "value": "แก้ไขเพลย์ลิสต์"
           }
         }
       }
@@ -1151,44 +1151,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Random"
+            "state": "translated",
+            "value": "عشوائي"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Random"
+            "state": "translated",
+            "value": "Acak"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Random"
+            "state": "translated",
+            "value": "यादृच्छिक"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Random"
+            "state": "translated",
+            "value": "Willekeurig"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Random"
+            "state": "translated",
+            "value": "Losowy"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Random"
+            "state": "translated",
+            "value": "Slumpmässig"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Random"
+            "state": "translated",
+            "value": "สุ่ม"
           }
         }
       }
@@ -1269,44 +1269,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Off"
+            "state": "translated",
+            "value": "إيقاف التكرار"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Off"
+            "state": "translated",
+            "value": "Ulangi Nonaktif"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Off"
+            "state": "translated",
+            "value": "दोहराना बंद करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Off"
+            "state": "translated",
+            "value": "Herhaling uit"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Off"
+            "state": "translated",
+            "value": "Powtarzanie wyłączone"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Off"
+            "state": "translated",
+            "value": "Upprepa av"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Off"
+            "state": "translated",
+            "value": "ปิดการเล่นซ้ำ"
           }
         }
       }
@@ -1393,44 +1393,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Mode"
+            "state": "translated",
+            "value": "وضع التكرار"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Mode"
+            "state": "translated",
+            "value": "Mode Ulangi"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Mode"
+            "state": "translated",
+            "value": "दोहराने का मोड"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Mode"
+            "state": "translated",
+            "value": "Herhalingsmodus"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Mode"
+            "state": "translated",
+            "value": "Tryb powtarzania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Mode"
+            "state": "translated",
+            "value": "Upprepningsläge"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat Mode"
+            "state": "translated",
+            "value": "โหมดเล่นซ้ำ"
           }
         }
       }
@@ -1511,44 +1511,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Medium (1-5 min)"
+            "state": "translated",
+            "value": "متوسط (1-5 دقيقة)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Medium (1-5 min)"
+            "state": "translated",
+            "value": "Sedang (1-5 menit)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Medium (1-5 min)"
+            "state": "translated",
+            "value": "मध्यम (1-5 मिनट)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Medium (1-5 min)"
+            "state": "translated",
+            "value": "Gemiddeld (1-5 min)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Medium (1-5 min)"
+            "state": "translated",
+            "value": "Średni (1-5 min)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Medium (1-5 min)"
+            "state": "translated",
+            "value": "Medel (1-5 min)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Medium (1-5 min)"
+            "state": "translated",
+            "value": "ปานกลาง (1-5 นาที)"
           }
         }
       }
@@ -1635,44 +1635,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create"
+            "state": "translated",
+            "value": "إنشاء"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create"
+            "state": "translated",
+            "value": "Buat"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create"
+            "state": "translated",
+            "value": "बनाएं"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create"
+            "state": "translated",
+            "value": "Aanmaken"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create"
+            "state": "translated",
+            "value": "Utwórz"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create"
+            "state": "translated",
+            "value": "Skapa"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create"
+            "state": "translated",
+            "value": "สร้าง"
           }
         }
       }
@@ -1759,44 +1759,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create and Add Audio"
+            "state": "translated",
+            "value": "إنشاء وإضافة صوت"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create and Add Audio"
+            "state": "translated",
+            "value": "Buat dan Tambah Audio"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create and Add Audio"
+            "state": "translated",
+            "value": "बनाएं और ऑडियो जोड़ें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create and Add Audio"
+            "state": "translated",
+            "value": "Aanmaken en audio toevoegen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create and Add Audio"
+            "state": "translated",
+            "value": "Utwórz i dodaj audio"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create and Add Audio"
+            "state": "translated",
+            "value": "Skapa och lägg till ljud"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create and Add Audio"
+            "state": "translated",
+            "value": "สร้างและเพิ่มเสียง"
           }
         }
       }
@@ -1883,44 +1883,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create Only"
+            "state": "translated",
+            "value": "إنشاء فقط"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create Only"
+            "state": "translated",
+            "value": "Buat Saja"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create Only"
+            "state": "translated",
+            "value": "केवल बनाएं"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create Only"
+            "state": "translated",
+            "value": "Alleen aanmaken"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create Only"
+            "state": "translated",
+            "value": "Tylko utwórz"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create Only"
+            "state": "translated",
+            "value": "Skapa endast"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Create Only"
+            "state": "translated",
+            "value": "สร้างเท่านั้น"
           }
         }
       }
@@ -2001,44 +2001,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Created:"
+            "state": "translated",
+            "value": "تاريخ الإنشاء:"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Created:"
+            "state": "translated",
+            "value": "Dibuat:"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Created:"
+            "state": "translated",
+            "value": "बनाया गया:"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Created:"
+            "state": "translated",
+            "value": "Aangemaakt:"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Created:"
+            "state": "translated",
+            "value": "Utworzono:"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Created:"
+            "state": "translated",
+            "value": "Skapad:"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Created:"
+            "state": "translated",
+            "value": "สร้างเมื่อ:"
           }
         }
       }
@@ -2119,44 +2119,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat All"
+            "state": "translated",
+            "value": "تكرار الكل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat All"
+            "state": "translated",
+            "value": "Ulangi Semua"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat All"
+            "state": "translated",
+            "value": "सभी को दोहराएं"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat All"
+            "state": "translated",
+            "value": "Alles herhalen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat All"
+            "state": "translated",
+            "value": "Powtórz wszystkie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat All"
+            "state": "translated",
+            "value": "Upprepa alla"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Repeat All"
+            "state": "translated",
+            "value": "เล่นซ้ำทั้งหมด"
           }
         }
       }
@@ -2243,44 +2243,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Not Playing"
+            "state": "translated",
+            "value": "لا يعزف"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Not Playing"
+            "state": "translated",
+            "value": "Tidak Diputar"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Not Playing"
+            "state": "translated",
+            "value": "नहीं चल रहा"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Not Playing"
+            "state": "translated",
+            "value": "Speelt niet"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Not Playing"
+            "state": "translated",
+            "value": "Nie odtwarzane"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Not Playing"
+            "state": "translated",
+            "value": "Spelar inte"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Not Playing"
+            "state": "translated",
+            "value": "ไม่ได้เล่น"
           }
         }
       }
@@ -2367,44 +2367,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback Mode"
+            "state": "translated",
+            "value": "وضع التشغيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback Mode"
+            "state": "translated",
+            "value": "Mode Pemutaran"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback Mode"
+            "state": "translated",
+            "value": "प्लेबैक मोड"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback Mode"
+            "state": "translated",
+            "value": "Afspeelmodus"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback Mode"
+            "state": "translated",
+            "value": "Tryb odtwarzania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback Mode"
+            "state": "translated",
+            "value": "Uppspelningsläge"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback Mode"
+            "state": "translated",
+            "value": "โหมดเล่น"
           }
         }
       }
@@ -2491,44 +2491,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "New Playlist"
+            "state": "translated",
+            "value": "قائمة تشغيل جديدة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "New Playlist"
+            "state": "translated",
+            "value": "Daftar Putar Baru"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "New Playlist"
+            "state": "translated",
+            "value": "नई प्लेलिस्ट"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "New Playlist"
+            "state": "translated",
+            "value": "Nieuwe afspeellijst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "New Playlist"
+            "state": "translated",
+            "value": "Nowa lista odtwarzania"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "New Playlist"
+            "state": "translated",
+            "value": "Ny spellista"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "New Playlist"
+            "state": "translated",
+            "value": "เพลย์ลิสต์ใหม่"
           }
         }
       }
@@ -2609,44 +2609,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Oldest First"
+            "state": "translated",
+            "value": "الأقدم أولاً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Oldest First"
+            "state": "translated",
+            "value": "Terlama Dulu"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Oldest First"
+            "state": "translated",
+            "value": "सबसे पुराना पहले"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Oldest First"
+            "state": "translated",
+            "value": "Oudste eerst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Oldest First"
+            "state": "translated",
+            "value": "Najstarsze najpierw"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Oldest First"
+            "state": "translated",
+            "value": "Äldst först"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Oldest First"
+            "state": "translated",
+            "value": "เก่าที่สุดก่อน"
           }
         }
       }
@@ -2727,44 +2727,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Newest First"
+            "state": "translated",
+            "value": "الأحدث أولاً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Newest First"
+            "state": "translated",
+            "value": "Terbaru Dulu"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Newest First"
+            "state": "translated",
+            "value": "सबसे नया पहले"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Newest First"
+            "state": "translated",
+            "value": "Nieuwste eerst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Newest First"
+            "state": "translated",
+            "value": "Najnowsze najpierw"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Newest First"
+            "state": "translated",
+            "value": "Nyast först"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Newest First"
+            "state": "translated",
+            "value": "ใหม่ที่สุดก่อน"
           }
         }
       }
@@ -2845,44 +2845,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shortest First"
+            "state": "translated",
+            "value": "الأقصر أولاً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shortest First"
+            "state": "translated",
+            "value": "Terpendek Dulu"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shortest First"
+            "state": "translated",
+            "value": "सबसे छोटा पहले"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shortest First"
+            "state": "translated",
+            "value": "Kortste eerst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shortest First"
+            "state": "translated",
+            "value": "Najkrótsze najpierw"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shortest First"
+            "state": "translated",
+            "value": "Kortast först"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Shortest First"
+            "state": "translated",
+            "value": "สั้นที่สุดก่อน"
           }
         }
       }
@@ -2963,44 +2963,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Longest First"
+            "state": "translated",
+            "value": "الأطول أولاً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Longest First"
+            "state": "translated",
+            "value": "Terpanjang Dulu"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Longest First"
+            "state": "translated",
+            "value": "सबसे लंबा पहले"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Longest First"
+            "state": "translated",
+            "value": "Langste eerst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Longest First"
+            "state": "translated",
+            "value": "Najdłuższe najpierw"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Longest First"
+            "state": "translated",
+            "value": "Längst först"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Longest First"
+            "state": "translated",
+            "value": "ยาวที่สุดก่อน"
           }
         }
       }
@@ -3081,44 +3081,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Short (< 1 min)"
+            "state": "translated",
+            "value": "قصير (أقل من دقيقة)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Short (< 1 min)"
+            "state": "translated",
+            "value": "Pendek (< 1 menit)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Short (< 1 min)"
+            "state": "translated",
+            "value": "छोटा (< 1 मिनट)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Short (< 1 min)"
+            "state": "translated",
+            "value": "Kort (< 1 min)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Short (< 1 min)"
+            "state": "translated",
+            "value": "Krótki (< 1 min)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Short (< 1 min)"
+            "state": "translated",
+            "value": "Kort (< 1 min)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Short (< 1 min)"
+            "state": "translated",
+            "value": "สั้น (< 1 นาที)"
           }
         }
       }
@@ -3205,44 +3205,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit"
+            "state": "translated",
+            "value": "تعديل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edit"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit"
+            "state": "translated",
+            "value": "संपादित करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit"
+            "state": "translated",
+            "value": "Bewerken"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit"
+            "state": "translated",
+            "value": "Edytuj"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit"
+            "state": "translated",
+            "value": "Redigera"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit"
+            "state": "translated",
+            "value": "แก้ไข"
           }
         }
       }
@@ -3329,44 +3329,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No recordings"
+            "state": "translated",
+            "value": "لا توجد تسجيلات"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No recordings"
+            "state": "translated",
+            "value": "Tidak ada rekaman"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No recordings"
+            "state": "translated",
+            "value": "कोई रिकॉर्डिंग नहीं"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No recordings"
+            "state": "translated",
+            "value": "Geen opnamen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No recordings"
+            "state": "translated",
+            "value": "Brak nagrań"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No recordings"
+            "state": "translated",
+            "value": "Inga inspelningar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No recordings"
+            "state": "translated",
+            "value": "ไม่มีการบันทึก"
           }
         }
       }
@@ -3453,44 +3453,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add Recording"
+            "state": "translated",
+            "value": "إضافة تسجيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add Recording"
+            "state": "translated",
+            "value": "Tambah Rekaman"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add Recording"
+            "state": "translated",
+            "value": "रिकॉर्डिंग जोड़ें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add Recording"
+            "state": "translated",
+            "value": "Opname toevoegen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add Recording"
+            "state": "translated",
+            "value": "Dodaj nagranie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add Recording"
+            "state": "translated",
+            "value": "Lägg till inspelning"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add Recording"
+            "state": "translated",
+            "value": "เพิ่มการบันทึก"
           }
         }
       }
@@ -3571,44 +3571,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recorded:"
+            "state": "translated",
+            "value": "تاريخ التسجيل:"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recorded:"
+            "state": "translated",
+            "value": "Direkam:"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recorded:"
+            "state": "translated",
+            "value": "रिकॉर्ड किया गया:"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recorded:"
+            "state": "translated",
+            "value": "Opgenomen:"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recorded:"
+            "state": "translated",
+            "value": "Nagrano:"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recorded:"
+            "state": "translated",
+            "value": "Inspelad:"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recorded:"
+            "state": "translated",
+            "value": "บันทึกเมื่อ:"
           }
         }
       }
@@ -3689,44 +3689,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Long (> 5 min)"
+            "state": "translated",
+            "value": "طويل (أكثر من 5 دقائق)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Long (> 5 min)"
+            "state": "translated",
+            "value": "Panjang (> 5 menit)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Long (> 5 min)"
+            "state": "translated",
+            "value": "लंबा (> 5 मिनट)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Long (> 5 min)"
+            "state": "translated",
+            "value": "Lang (> 5 min)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Long (> 5 min)"
+            "state": "translated",
+            "value": "Długi (> 5 min)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Long (> 5 min)"
+            "state": "translated",
+            "value": "Lång (> 5 min)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Long (> 5 min)"
+            "state": "translated",
+            "value": "ยาว (> 5 นาที)"
           }
         }
       }
@@ -3807,44 +3807,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No audio added"
+            "state": "translated",
+            "value": "لم يتم إضافة صوت"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No audio added"
+            "state": "translated",
+            "value": "Belum ada audio ditambahkan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No audio added"
+            "state": "translated",
+            "value": "कोई ऑडियो नहीं जोड़ा गया"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No audio added"
+            "state": "translated",
+            "value": "Geen audio toegevoegd"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No audio added"
+            "state": "translated",
+            "value": "Nie dodano audio"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No audio added"
+            "state": "translated",
+            "value": "Inget ljud tillagt"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No audio added"
+            "state": "translated",
+            "value": "ยังไม่ได้เพิ่มเสียง"
           }
         }
       }
@@ -3925,44 +3925,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add audio"
+            "state": "translated",
+            "value": "إضافة صوت"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add audio"
+            "state": "translated",
+            "value": "Tambah audio"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add audio"
+            "state": "translated",
+            "value": "ऑडियो जोड़ें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add audio"
+            "state": "translated",
+            "value": "Audio toevoegen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add audio"
+            "state": "translated",
+            "value": "Dodaj audio"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add audio"
+            "state": "translated",
+            "value": "Lägg till ljud"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add audio"
+            "state": "translated",
+            "value": "เพิ่มเสียง"
           }
         }
       }
@@ -4043,44 +4043,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select audio"
+            "state": "translated",
+            "value": "اختر صوتاً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select audio"
+            "state": "translated",
+            "value": "Pilih audio"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select audio"
+            "state": "translated",
+            "value": "ऑडियो चुनें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select audio"
+            "state": "translated",
+            "value": "Audio selecteren"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select audio"
+            "state": "translated",
+            "value": "Wybierz audio"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select audio"
+            "state": "translated",
+            "value": "Välj ljud"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Select audio"
+            "state": "translated",
+            "value": "เลือกเสียง"
           }
         }
       }
@@ -4161,44 +4161,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Audio list"
+            "state": "translated",
+            "value": "قائمة الصوت"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Audio list"
+            "state": "translated",
+            "value": "Daftar audio"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Audio list"
+            "state": "translated",
+            "value": "ऑडियो सूची"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Audio list"
+            "state": "translated",
+            "value": "Audiolijst"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Audio list"
+            "state": "translated",
+            "value": "Lista audio"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Audio list"
+            "state": "translated",
+            "value": "Ljudlista"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Audio list"
+            "state": "translated",
+            "value": "รายการเสียง"
           }
         }
       }
@@ -4279,44 +4279,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sequential"
+            "state": "translated",
+            "value": "تسلسلي"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sequential"
+            "state": "translated",
+            "value": "Berurutan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sequential"
+            "state": "translated",
+            "value": "क्रमिक"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sequential"
+            "state": "translated",
+            "value": "Opeenvolgend"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sequential"
+            "state": "translated",
+            "value": "Sekwencyjny"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sequential"
+            "state": "translated",
+            "value": "Sekventiell"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Sequential"
+            "state": "translated",
+            "value": "เล่นตามลำดับ"
           }
         }
       }
@@ -4403,44 +4403,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recordings (%lld)"
+            "state": "translated",
+            "value": "التسجيلات (%lld)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recordings (%lld)"
+            "state": "translated",
+            "value": "Rekaman (%lld)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recordings (%lld)"
+            "state": "translated",
+            "value": "रिकॉर्डिंग (%lld)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recordings (%lld)"
+            "state": "translated",
+            "value": "Opnamen (%lld)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recordings (%lld)"
+            "state": "translated",
+            "value": "Nagrania (%lld)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recordings (%lld)"
+            "state": "translated",
+            "value": "Inspelningar (%lld)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Recordings (%lld)"
+            "state": "translated",
+            "value": "การบันทึก (%lld)"
           }
         }
       }
@@ -4527,44 +4527,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add to \"%@\""
+            "state": "translated",
+            "value": "إضافة إلى \"%@\""
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add to \"%@\""
+            "state": "translated",
+            "value": "Tambahkan ke \"%@\""
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add to \"%@\""
+            "state": "translated",
+            "value": "\"%@\" में जोड़ें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add to \"%@\""
+            "state": "translated",
+            "value": "Toevoegen aan \"%@\""
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add to \"%@\""
+            "state": "translated",
+            "value": "Dodaj do \"%@\""
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add to \"%@\""
+            "state": "translated",
+            "value": "Lägg till i \"%@\""
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Add to \"%@\""
+            "state": "translated",
+            "value": "เพิ่มใน \"%@\""
           }
         }
       }

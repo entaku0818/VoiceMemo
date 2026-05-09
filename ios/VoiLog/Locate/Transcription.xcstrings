@@ -78,43 +78,43 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "AI"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "AI"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "AI"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "AI"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "AI"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "AI"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "AI"
           }
         }
@@ -192,44 +192,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcribing..."
+            "state": "translated",
+            "value": "AI يُحوِّل الصوت إلى نص..."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcribing..."
+            "state": "translated",
+            "value": "AI sedang mentranskripsikan..."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcribing..."
+            "state": "translated",
+            "value": "AI ट्रांसक्राइब कर रहा है..."
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcribing..."
+            "state": "translated",
+            "value": "AI aan het transcriberen..."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcribing..."
+            "state": "translated",
+            "value": "AI transkrybuje..."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcribing..."
+            "state": "translated",
+            "value": "AI transkriberar..."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcribing..."
+            "state": "translated",
+            "value": "AI กำลังถอดความ..."
           }
         }
       }
@@ -305,44 +305,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcription"
+            "state": "translated",
+            "value": "النسخ بالذكاء الاصطناعي"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcription"
+            "state": "translated",
+            "value": "Transkripsi AI"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcription"
+            "state": "translated",
+            "value": "AI ट्रांसक्रिप्शन"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcription"
+            "state": "translated",
+            "value": "AI-transcriptie"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcription"
+            "state": "translated",
+            "value": "Transkrypcja AI"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcription"
+            "state": "translated",
+            "value": "AI-transkription"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI Transcription"
+            "state": "translated",
+            "value": "การถอดความด้วย AI"
           }
         }
       }
@@ -423,44 +423,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI transcription has not been run yet"
+            "state": "translated",
+            "value": "لم يتم تشغيل النسخ بالذكاء الاصطناعي بعد"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI transcription has not been run yet"
+            "state": "translated",
+            "value": "Transkripsi AI belum dijalankan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI transcription has not been run yet"
+            "state": "translated",
+            "value": "AI ट्रांसक्रिप्शन अभी तक नहीं चलाया गया"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI transcription has not been run yet"
+            "state": "translated",
+            "value": "AI-transcriptie is nog niet uitgevoerd"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI transcription has not been run yet"
+            "state": "translated",
+            "value": "Transkrypcja AI nie została jeszcze uruchomiona"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI transcription has not been run yet"
+            "state": "translated",
+            "value": "AI-transkription har inte körts ännu"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "AI transcription has not been run yet"
+            "state": "translated",
+            "value": "ยังไม่ได้เรียกใช้การถอดความด้วย AI"
           }
         }
       }
@@ -542,43 +542,43 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Apple"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Apple"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Apple"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Apple"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Apple"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Apple"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Apple"
           }
         }
@@ -660,44 +660,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No Apple transcription data available"
+            "state": "translated",
+            "value": "لا تتوفر بيانات نسخ Apple"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No Apple transcription data available"
+            "state": "translated",
+            "value": "Tidak ada data transkripsi Apple"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No Apple transcription data available"
+            "state": "translated",
+            "value": "कोई Apple ट्रांसक्रिप्शन डेटा उपलब्ध नहीं है"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No Apple transcription data available"
+            "state": "translated",
+            "value": "Geen Apple-transcriptiegegevens beschikbaar"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No Apple transcription data available"
+            "state": "translated",
+            "value": "Brak danych transkrypcji Apple"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No Apple transcription data available"
+            "state": "translated",
+            "value": "Ingen Apple-transkriptionsdata tillgänglig"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No Apple transcription data available"
+            "state": "translated",
+            "value": "ไม่มีข้อมูลการถอดความของ Apple"
           }
         }
       }
@@ -706,44 +706,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "الخادم مشغول. يرجى الانتظار قليلاً ثم المحاولة مجدداً."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "Server sedang sibuk. Tunggu sebentar lalu coba lagi."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "सर्वर व्यस्त है। कृपया थोड़ी देर प्रतीक्षा करें और पुनः प्रयास करें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "De server is bezet. Wacht even en probeer het opnieuw."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "Serwer jest zajęty. Poczekaj chwilę i spróbuj ponownie."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "Servern är upptagen. Vänta en stund och försök igen."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "เซิร์ฟเวอร์ไม่ว่าง โปรดรอสักครู่แล้วลองอีกครั้ง"
           }
         }
       }
@@ -752,44 +752,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーエラーが発生しました。再試行してください。"
+            "state": "translated",
+            "value": "حدث خطأ في الخادم. يرجى المحاولة مجدداً."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーエラーが発生しました。再試行してください。"
+            "state": "translated",
+            "value": "Terjadi kesalahan server. Silakan coba lagi."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーエラーが発生しました。再試行してください。"
+            "state": "translated",
+            "value": "सर्वर त्रुटि हुई। कृपया पुनः प्रयास करें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーエラーが発生しました。再試行してください。"
+            "state": "translated",
+            "value": "Er is een serverfout opgetreden. Probeer het opnieuw."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーエラーが発生しました。再試行してください。"
+            "state": "translated",
+            "value": "Wystąpił błąd serwera. Spróbuj ponownie."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーエラーが発生しました。再試行してください。"
+            "state": "translated",
+            "value": "Ett serverfel inträffade. Försök igen."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "サーバーエラーが発生しました。再試行してください。"
+            "state": "translated",
+            "value": "เกิดข้อผิดพลาดของเซิร์ฟเวอร์ โปรดลองอีกครั้ง"
           }
         }
       }
@@ -798,44 +798,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "طلبات كثيرة جداً. يرجى الانتظار قليلاً ثم المحاولة مجدداً."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "Terlalu banyak permintaan. Tunggu sebentar lalu coba lagi."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "बहुत अधिक अनुरोध हैं। कृपया थोड़ी देर प्रतीक्षा करें और पुनः प्रयास करें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "Te veel verzoeken. Wacht even en probeer het opnieuw."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "Zbyt wiele żądań. Poczekaj chwilę i spróbuj ponownie."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "För många förfrågningar. Vänta en stund och försök igen."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
+            "state": "translated",
+            "value": "คำขอมากเกินไป โปรดรอสักครู่แล้วลองอีกครั้ง"
           }
         }
       }
@@ -916,43 +916,43 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "中文"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "中文"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "中文"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "中文"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "中文"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "中文"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "中文"
           }
         }
@@ -964,44 +964,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "再実行"
+            "state": "translated",
+            "value": "إعادة التشغيل"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "再実行"
+            "state": "translated",
+            "value": "Jalankan ulang"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "再実行"
+            "state": "translated",
+            "value": "पुनः चलाएं"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "再実行"
+            "state": "translated",
+            "value": "Opnieuw uitvoeren"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "再実行"
+            "state": "translated",
+            "value": "Uruchom ponownie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "再実行"
+            "state": "translated",
+            "value": "Kör igen"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "再実行"
+            "state": "translated",
+            "value": "เรียกใช้อีกครั้ง"
           }
         }
       }
@@ -1082,44 +1082,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Retry"
+            "state": "translated",
+            "value": "إعادة المحاولة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Retry"
+            "state": "translated",
+            "value": "Coba lagi"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Retry"
+            "state": "translated",
+            "value": "पुनः प्रयास करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Retry"
+            "state": "translated",
+            "value": "Opnieuw proberen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Retry"
+            "state": "translated",
+            "value": "Spróbuj ponownie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Retry"
+            "state": "translated",
+            "value": "Försök igen"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Retry"
+            "state": "translated",
+            "value": "ลองอีกครั้ง"
           }
         }
       }
@@ -1130,44 +1130,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "前回の結果"
+            "state": "translated",
+            "value": "النتيجة السابقة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "前回の結果"
+            "state": "translated",
+            "value": "Hasil sebelumnya"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "前回の結果"
+            "state": "translated",
+            "value": "पिछला परिणाम"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "前回の結果"
+            "state": "translated",
+            "value": "Vorig resultaat"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "前回の結果"
+            "state": "translated",
+            "value": "Poprzedni wynik"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "前回の結果"
+            "state": "translated",
+            "value": "Föregående resultat"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "前回の結果"
+            "state": "translated",
+            "value": "ผลลัพธ์ก่อนหน้า"
           }
         }
       }
@@ -1178,44 +1178,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "接続に失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "فشل الاتصال. يرجى التحقق من الشبكة."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "接続に失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Koneksi gagal. Periksa jaringan Anda."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "接続に失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "कनेक्शन विफल हुआ। कृपया अपना नेटवर्क जांचें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "接続に失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Verbinding mislukt. Controleer uw netwerk."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "接続に失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Połączenie nie powiodło się. Sprawdź sieć."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "接続に失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Anslutningen misslyckades. Kontrollera nätverket."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "接続に失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "การเชื่อมต่อล้มเหลว โปรดตรวจสอบเครือข่ายของคุณ"
           }
         }
       }
@@ -1292,44 +1292,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Failed"
+            "state": "translated",
+            "value": "فشل النسخ"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Failed"
+            "state": "translated",
+            "value": "Transkripsi gagal"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Failed"
+            "state": "translated",
+            "value": "ट्रांसक्रिप्शन विफल हुआ"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Failed"
+            "state": "translated",
+            "value": "Transcriptie mislukt"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Failed"
+            "state": "translated",
+            "value": "Transkrypcja nie powiodła się"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Failed"
+            "state": "translated",
+            "value": "Transkription misslyckades"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Transcription Failed"
+            "state": "translated",
+            "value": "การถอดความล้มเหลว"
           }
         }
       }
@@ -1412,44 +1412,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start Transcription"
+            "state": "translated",
+            "value": "بدء النسخ"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start Transcription"
+            "state": "translated",
+            "value": "Mulai transkripsi"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start Transcription"
+            "state": "translated",
+            "value": "ट्रांसक्रिप्शन शुरू करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start Transcription"
+            "state": "translated",
+            "value": "Transcriptie starten"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start Transcription"
+            "state": "translated",
+            "value": "Rozpocznij transkrypcję"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start Transcription"
+            "state": "translated",
+            "value": "Starta transkription"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start Transcription"
+            "state": "translated",
+            "value": "เริ่มการถอดความ"
           }
         }
       }
@@ -1530,43 +1530,43 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "日本語"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "日本語"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "日本語"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "日本語"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "日本語"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "日本語"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "日本語"
           }
         }
@@ -1648,44 +1648,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Summary"
+            "state": "translated",
+            "value": "ملخص"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Summary"
+            "state": "translated",
+            "value": "Ringkasan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Summary"
+            "state": "translated",
+            "value": "सारांश"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Summary"
+            "state": "translated",
+            "value": "Samenvatting"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Summary"
+            "state": "translated",
+            "value": "Podsumowanie"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Summary"
+            "state": "translated",
+            "value": "Sammanfattning"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Summary"
+            "state": "translated",
+            "value": "สรุป"
           }
         }
       }
@@ -1766,44 +1766,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Language"
+            "state": "translated",
+            "value": "اللغة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Language"
+            "state": "translated",
+            "value": "Bahasa"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Language"
+            "state": "translated",
+            "value": "भाषा"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Language"
+            "state": "translated",
+            "value": "Taal"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Language"
+            "state": "translated",
+            "value": "Język"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Language"
+            "state": "translated",
+            "value": "Språk"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Language"
+            "state": "translated",
+            "value": "ภาษา"
           }
         }
       }
@@ -1878,44 +1878,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "This usually takes 2–5 minutes. Please wait."
+            "state": "translated",
+            "value": "يستغرق هذا عادةً 2–5 دقائق. يرجى الانتظار."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "This usually takes 2–5 minutes. Please wait."
+            "state": "translated",
+            "value": "Ini biasanya membutuhkan 2–5 menit. Harap tunggu."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "This usually takes 2–5 minutes. Please wait."
+            "state": "translated",
+            "value": "इसमें आमतौर पर 2–5 मिनट लगते हैं। कृपया प्रतीक्षा करें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "This usually takes 2–5 minutes. Please wait."
+            "state": "translated",
+            "value": "Dit duurt gewoonlijk 2–5 minuten. Even geduld."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "This usually takes 2–5 minutes. Please wait."
+            "state": "translated",
+            "value": "Zwykle zajmuje to 2–5 minut. Proszę czekać."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "This usually takes 2–5 minutes. Please wait."
+            "state": "translated",
+            "value": "Det tar vanligtvis 2–5 minuter. Vänta."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "This usually takes 2–5 minutes. Please wait."
+            "state": "translated",
+            "value": "ปกติใช้เวลา 2–5 นาที โปรดรอ"
           }
         }
       }
@@ -1996,44 +1996,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start"
+            "state": "translated",
+            "value": "بدء"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start"
+            "state": "translated",
+            "value": "Mulai"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start"
+            "state": "translated",
+            "value": "शुरू करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start"
+            "state": "translated",
+            "value": "Starten"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start"
+            "state": "translated",
+            "value": "Rozpocznij"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start"
+            "state": "translated",
+            "value": "Starta"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Start"
+            "state": "translated",
+            "value": "เริ่ม"
           }
         }
       }
@@ -2116,44 +2116,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Uploading audio..."
+            "state": "translated",
+            "value": "جارٍ تحميل الصوت..."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Uploading audio..."
+            "state": "translated",
+            "value": "Mengunggah audio..."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Uploading audio..."
+            "state": "translated",
+            "value": "ऑडियो अपलोड हो रहा है..."
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Uploading audio..."
+            "state": "translated",
+            "value": "Audio uploaden..."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Uploading audio..."
+            "state": "translated",
+            "value": "Przesyłanie audio..."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Uploading audio..."
+            "state": "translated",
+            "value": "Laddar upp ljud..."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Uploading audio..."
+            "state": "translated",
+            "value": "กำลังอัปโหลดไฟล์เสียง..."
           }
         }
       }
@@ -2162,44 +2162,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "فشل تحميل ملف الصوت. يرجى التحقق من الشبكة."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Gagal mengunggah file audio. Periksa jaringan Anda."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "ऑडियो फ़ाइल अपलोड करने में विफल। कृपया अपना नेटवर्क जांचें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Uploaden van audiobestand mislukt. Controleer uw netwerk."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Nie udało się przesłać pliku audio. Sprawdź sieć."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "Det gick inte att ladda upp ljudfilen. Kontrollera nätverket."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
+            "state": "translated",
+            "value": "อัปโหลดไฟล์เสียงไม่สำเร็จ โปรดตรวจสอบเครือข่ายของคุณ"
           }
         }
       }
@@ -2210,44 +2210,44 @@
       "localizations": {
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+            "state": "translated",
+            "value": "حدث خطأ (الرمز: %lld). يرجى المحاولة مجدداً."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+            "state": "translated",
+            "value": "Terjadi kesalahan (kode: %lld). Silakan coba lagi."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+            "state": "translated",
+            "value": "एक त्रुटि हुई (कोड: %lld)। कृपया पुनः प्रयास करें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+            "state": "translated",
+            "value": "Er is een fout opgetreden (code: %lld). Probeer het opnieuw."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+            "state": "translated",
+            "value": "Wystąpił błąd (kod: %lld). Spróbuj ponownie."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+            "state": "translated",
+            "value": "Ett fel inträffade (kod: %lld). Försök igen."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "エラーが発生しました (コード: %lld)。再試行してください。"
+            "state": "translated",
+            "value": "เกิดข้อผิดพลาด (รหัส: %lld) โปรดลองอีกครั้ง"
           }
         }
       }
@@ -2330,44 +2330,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Upload an audio file and\nAI will transcribe it automatically"
+            "state": "translated",
+            "value": "قم بتحميل ملف صوتي و\nسيقوم AI بنسخه تلقائياً"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Upload an audio file and\nAI will transcribe it automatically"
+            "state": "translated",
+            "value": "Unggah file audio dan\nAI akan mentranskripsikannya secara otomatis"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Upload an audio file and\nAI will transcribe it automatically"
+            "state": "translated",
+            "value": "एक ऑडियो फ़ाइल अपलोड करें और\nAI स्वचालित रूप से उसे ट्रांसक्राइब करेगा"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Upload an audio file and\nAI will transcribe it automatically"
+            "state": "translated",
+            "value": "Upload een audiobestand en\nAI transcribeert het automatisch"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Upload an audio file and\nAI will transcribe it automatically"
+            "state": "translated",
+            "value": "Prześlij plik audio i\nAI automatycznie go transkrybuje"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Upload an audio file and\nAI will transcribe it automatically"
+            "state": "translated",
+            "value": "Ladda upp en ljudfil och\nAI transkriberar den automatiskt"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Upload an audio file and\nAI will transcribe it automatically"
+            "state": "translated",
+            "value": "อัปโหลดไฟล์เสียงและ\nAI จะถอดความโดยอัตโนมัติ"
           }
         }
       }

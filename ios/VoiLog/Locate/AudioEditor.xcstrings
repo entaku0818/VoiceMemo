@@ -83,44 +83,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Error"
+            "state": "translated",
+            "value": "خطأ"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Error"
+            "state": "translated",
+            "value": "Kesalahan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Error"
+            "state": "translated",
+            "value": "त्रुटि"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Error"
+            "state": "translated",
+            "value": "Fout"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Error"
+            "state": "translated",
+            "value": "Błąd"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Error"
+            "state": "translated",
+            "value": "Fel"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Error"
+            "state": "translated",
+            "value": "ข้อผิดพลาด"
           }
         }
       }
@@ -201,44 +201,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a range to trim."
+            "state": "translated",
+            "value": "يرجى تحديد نطاق للقص."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a range to trim."
+            "state": "translated",
+            "value": "Silakan pilih rentang untuk dipangkas."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a range to trim."
+            "state": "translated",
+            "value": "कृपया ट्रिम करने के लिए एक सीमा चुनें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a range to trim."
+            "state": "translated",
+            "value": "Selecteer een bereik om bij te snijden."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a range to trim."
+            "state": "translated",
+            "value": "Wybierz zakres do przycięcia."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a range to trim."
+            "state": "translated",
+            "value": "Välj ett område att trimma."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a range to trim."
+            "state": "translated",
+            "value": "กรุณาเลือกช่วงที่ต้องการตัด"
           }
         }
       }
@@ -319,44 +319,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to trim: %@"
+            "state": "translated",
+            "value": "فشل القص: %@"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to trim: %@"
+            "state": "translated",
+            "value": "Gagal memangkas: %@"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to trim: %@"
+            "state": "translated",
+            "value": "ट्रिम करने में विफल: %@"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to trim: %@"
+            "state": "translated",
+            "value": "Bijsnijden mislukt: %@"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to trim: %@"
+            "state": "translated",
+            "value": "Przycinanie nie powiodło się: %@"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to trim: %@"
+            "state": "translated",
+            "value": "Trimmning misslyckades: %@"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to trim: %@"
+            "state": "translated",
+            "value": "การตัดล้มเหลว: %@"
           }
         }
       }
@@ -437,44 +437,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to save: %@"
+            "state": "translated",
+            "value": "فشل الحفظ: %@"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to save: %@"
+            "state": "translated",
+            "value": "Gagal menyimpan: %@"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to save: %@"
+            "state": "translated",
+            "value": "सहेजने में विफल: %@"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to save: %@"
+            "state": "translated",
+            "value": "Opslaan mislukt: %@"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to save: %@"
+            "state": "translated",
+            "value": "Zapisywanie nie powiodło się: %@"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to save: %@"
+            "state": "translated",
+            "value": "Sparandet misslyckades: %@"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to save: %@"
+            "state": "translated",
+            "value": "การบันทึกล้มเหลว: %@"
           }
         }
       }
@@ -555,44 +555,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Original voice memo not found."
+            "state": "translated",
+            "value": "لم يتم العثور على المذكرة الصوتية الأصلية."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Original voice memo not found."
+            "state": "translated",
+            "value": "Memo suara asli tidak ditemukan."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Original voice memo not found."
+            "state": "translated",
+            "value": "मूल वॉइस मेमो नहीं मिला।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Original voice memo not found."
+            "state": "translated",
+            "value": "Originele spraakopname niet gevonden."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Original voice memo not found."
+            "state": "translated",
+            "value": "Nie znaleziono oryginalnej notatki głosowej."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Original voice memo not found."
+            "state": "translated",
+            "value": "Original röstmemo hittades inte."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Original voice memo not found."
+            "state": "translated",
+            "value": "ไม่พบบันทึกเสียงต้นฉบับ"
           }
         }
       }
@@ -673,44 +673,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback failed: %@"
+            "state": "translated",
+            "value": "فشل التشغيل: %@"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback failed: %@"
+            "state": "translated",
+            "value": "Pemutaran gagal: %@"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback failed: %@"
+            "state": "translated",
+            "value": "प्लेबैक विफल: %@"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback failed: %@"
+            "state": "translated",
+            "value": "Afspelen mislukt: %@"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback failed: %@"
+            "state": "translated",
+            "value": "Odtwarzanie nie powiodło się: %@"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback failed: %@"
+            "state": "translated",
+            "value": "Uppspelning misslyckades: %@"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Playback failed: %@"
+            "state": "translated",
+            "value": "การเล่นล้มเหลว: %@"
           }
         }
       }
@@ -797,44 +797,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing..."
+            "state": "translated",
+            "value": "جارٍ المعالجة..."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing..."
+            "state": "translated",
+            "value": "Sedang memproses..."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing..."
+            "state": "translated",
+            "value": "प्रसंस्करण हो रहा है..."
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing..."
+            "state": "translated",
+            "value": "Verwerken..."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing..."
+            "state": "translated",
+            "value": "Przetwarzanie..."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing..."
+            "state": "translated",
+            "value": "Bearbetar..."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing..."
+            "state": "translated",
+            "value": "กำลังประมวลผล..."
           }
         }
       }
@@ -921,44 +921,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing Complete"
+            "state": "translated",
+            "value": "اكتملت المعالجة"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing Complete"
+            "state": "translated",
+            "value": "Pemrosesan Selesai"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing Complete"
+            "state": "translated",
+            "value": "प्रसंस्करण पूर्ण"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing Complete"
+            "state": "translated",
+            "value": "Verwerking voltooid"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing Complete"
+            "state": "translated",
+            "value": "Przetwarzanie zakończone"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing Complete"
+            "state": "translated",
+            "value": "Bearbetning klar"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Processing Complete"
+            "state": "translated",
+            "value": "การประมวลผลเสร็จสิ้น"
           }
         }
       }
@@ -1045,44 +1045,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split"
+            "state": "translated",
+            "value": "تقسيم"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split"
+            "state": "translated",
+            "value": "Pisahkan"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split"
+            "state": "translated",
+            "value": "विभाजित करें"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split"
+            "state": "translated",
+            "value": "Splitsen"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split"
+            "state": "translated",
+            "value": "Podziel"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split"
+            "state": "translated",
+            "value": "Dela"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split"
+            "state": "translated",
+            "value": "แบ่ง"
           }
         }
       }
@@ -1163,44 +1163,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a split point."
+            "state": "translated",
+            "value": "يرجى تحديد نقطة التقسيم."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a split point."
+            "state": "translated",
+            "value": "Silakan pilih titik pemisahan."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a split point."
+            "state": "translated",
+            "value": "कृपया विभाजन बिंदु चुनें।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a split point."
+            "state": "translated",
+            "value": "Selecteer een splitspunt."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a split point."
+            "state": "translated",
+            "value": "Wybierz punkt podziału."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a split point."
+            "state": "translated",
+            "value": "Välj en delningspunkt."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please select a split point."
+            "state": "translated",
+            "value": "กรุณาเลือกจุดแบ่ง"
           }
         }
       }
@@ -1281,44 +1281,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: %@"
+            "state": "translated",
+            "value": "فشل التقسيم: %@"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: %@"
+            "state": "translated",
+            "value": "Pemisahan gagal: %@"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: %@"
+            "state": "translated",
+            "value": "विभाजन विफल: %@"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: %@"
+            "state": "translated",
+            "value": "Splitsen mislukt: %@"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: %@"
+            "state": "translated",
+            "value": "Podział nie powiódł się: %@"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: %@"
+            "state": "translated",
+            "value": "Delning misslyckades: %@"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: %@"
+            "state": "translated",
+            "value": "การแบ่งล้มเหลว: %@"
           }
         }
       }
@@ -1399,44 +1399,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: No new file was created."
+            "state": "translated",
+            "value": "فشل التقسيم: لم يتم إنشاء ملف جديد."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: No new file was created."
+            "state": "translated",
+            "value": "Pemisahan gagal: Tidak ada file baru yang dibuat."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: No new file was created."
+            "state": "translated",
+            "value": "विभाजन विफल: कोई नई फ़ाइल नहीं बनाई गई।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: No new file was created."
+            "state": "translated",
+            "value": "Splitsen mislukt: er is geen nieuw bestand aangemaakt."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: No new file was created."
+            "state": "translated",
+            "value": "Podział nie powiódł się: Nie utworzono nowego pliku."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: No new file was created."
+            "state": "translated",
+            "value": "Delning misslyckades: Ingen ny fil skapades."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split failed: No new file was created."
+            "state": "translated",
+            "value": "การแบ่งล้มเหลว: ไม่มีไฟล์ใหม่ถูกสร้าง"
           }
         }
       }
@@ -1523,44 +1523,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No waveform data available"
+            "state": "translated",
+            "value": "لا تتوفر بيانات موجة الصوت"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No waveform data available"
+            "state": "translated",
+            "value": "Tidak ada data gelombang suara"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No waveform data available"
+            "state": "translated",
+            "value": "कोई वेवफॉर्म डेटा उपलब्ध नहीं"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No waveform data available"
+            "state": "translated",
+            "value": "Geen golfvormgegevens beschikbaar"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No waveform data available"
+            "state": "translated",
+            "value": "Brak dostępnych danych przebiegu"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No waveform data available"
+            "state": "translated",
+            "value": "Inga vågformsdata tillgängliga"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "No waveform data available"
+            "state": "translated",
+            "value": "ไม่มีข้อมูลรูปคลื่น"
           }
         }
       }
@@ -1641,44 +1641,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to load waveform data: %@"
+            "state": "translated",
+            "value": "فشل تحميل بيانات موجة الصوت: %@"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to load waveform data: %@"
+            "state": "translated",
+            "value": "Gagal memuat data gelombang suara: %@"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to load waveform data: %@"
+            "state": "translated",
+            "value": "वेवफॉर्म डेटा लोड करने में विफल: %@"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to load waveform data: %@"
+            "state": "translated",
+            "value": "Laden van golfvormgegevens mislukt: %@"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to load waveform data: %@"
+            "state": "translated",
+            "value": "Nie udało się załadować danych przebiegu: %@"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to load waveform data: %@"
+            "state": "translated",
+            "value": "Det gick inte att läsa in vågformsdata: %@"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to load waveform data: %@"
+            "state": "translated",
+            "value": "ไม่สามารถโหลดข้อมูลรูปคลื่น: %@"
           }
         }
       }
@@ -1759,44 +1759,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Loading waveform data..."
+            "state": "translated",
+            "value": "جارٍ تحميل بيانات موجة الصوت..."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Loading waveform data..."
+            "state": "translated",
+            "value": "Memuat data gelombang suara..."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Loading waveform data..."
+            "state": "translated",
+            "value": "वेवफॉर्म डेटा लोड हो रहा है..."
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Loading waveform data..."
+            "state": "translated",
+            "value": "Golfvormgegevens laden..."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Loading waveform data..."
+            "state": "translated",
+            "value": "Ładowanie danych przebiegu..."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Loading waveform data..."
+            "state": "translated",
+            "value": "Laddar vågformsdata..."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Loading waveform data..."
+            "state": "translated",
+            "value": "กำลังโหลดข้อมูลรูปคลื่น..."
           }
         }
       }
@@ -1877,44 +1877,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edited audio file not found."
+            "state": "translated",
+            "value": "لم يتم العثور على ملف الصوت المحرر."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edited audio file not found."
+            "state": "translated",
+            "value": "File audio yang diedit tidak ditemukan."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edited audio file not found."
+            "state": "translated",
+            "value": "संपादित ऑडियो फ़ाइल नहीं मिली।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edited audio file not found."
+            "state": "translated",
+            "value": "Bewerkt audiobestand niet gevonden."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edited audio file not found."
+            "state": "translated",
+            "value": "Nie znaleziono edytowanego pliku audio."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edited audio file not found."
+            "state": "translated",
+            "value": "Redigerad ljudfil hittades inte."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edited audio file not found."
+            "state": "translated",
+            "value": "ไม่พบไฟล์เสียงที่แก้ไขแล้ว"
           }
         }
       }
@@ -1995,44 +1995,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit History:"
+            "state": "translated",
+            "value": "سجل التعديلات:"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit History:"
+            "state": "translated",
+            "value": "Riwayat Pengeditan:"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit History:"
+            "state": "translated",
+            "value": "संपादन इतिहास:"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit History:"
+            "state": "translated",
+            "value": "Bewerkingsgeschiedenis:"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit History:"
+            "state": "translated",
+            "value": "Historia edycji:"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit History:"
+            "state": "translated",
+            "value": "Redigeringshistorik:"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Edit History:"
+            "state": "translated",
+            "value": "ประวัติการแก้ไข:"
           }
         }
       }
@@ -2113,44 +2113,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to adjust volume: %@"
+            "state": "translated",
+            "value": "فشل ضبط مستوى الصوت: %@"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to adjust volume: %@"
+            "state": "translated",
+            "value": "Gagal menyesuaikan volume: %@"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to adjust volume: %@"
+            "state": "translated",
+            "value": "वॉल्यूम समायोजित करने में विफल: %@"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to adjust volume: %@"
+            "state": "translated",
+            "value": "Volume aanpassen mislukt: %@"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to adjust volume: %@"
+            "state": "translated",
+            "value": "Regulacja głośności nie powiodła się: %@"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to adjust volume: %@"
+            "state": "translated",
+            "value": "Det gick inte att justera volymen: %@"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Failed to adjust volume: %@"
+            "state": "translated",
+            "value": "การปรับระดับเสียงล้มเหลว: %@"
           }
         }
       }
@@ -2231,44 +2231,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "state": "translated",
+            "value": "اكتمل التقسيم.\nتم حفظ النصف الأول حتى نقطة التقسيم باسم '%@'."
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "state": "translated",
+            "value": "Pemisahan selesai.\nSetengah pertama hingga titik pemisahan telah disimpan sebagai '%@'."
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "state": "translated",
+            "value": "विभाजन पूर्ण।\nविभाजन बिंदु तक का पहला भाग '%@' के रूप में सहेजा गया।"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "state": "translated",
+            "value": "Splitsen voltooid.\nDe eerste helft tot het splitspunt is opgeslagen als '%@'."
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "state": "translated",
+            "value": "Podział zakończony.\nPierwsza połowa do punktu podziału została zapisana jako '%@'."
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "state": "translated",
+            "value": "Delning klar.\nDen första halvan till delningspunkten har sparats som '%@'."
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "state": "translated",
+            "value": "การแบ่งเสร็จสิ้น\nครึ่งแรกถึงจุดแบ่งถูกบันทึกเป็น '%@'"
           }
         }
       }
@@ -2355,44 +2355,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
+            "state": "translated",
+            "value": "تحديد نقطة التقسيم: %@\nسيتم التقسيم عند الخط الأحمر\n(عند التقسيم، سيتم حفظ النصف الأول حتى الخط الأحمر)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
+            "state": "translated",
+            "value": "Memilih titik pemisahan: %@\nPemisahan akan terjadi di garis merah\n(Saat dipisah, setengah pertama hingga garis merah akan disimpan)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
+            "state": "translated",
+            "value": "विभाजन बिंदु चुना जा रहा है: %@\nलाल रेखा पर विभाजन होगा\n(विभाजन होने पर, लाल रेखा तक का पहला भाग सहेजा जाएगा)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
+            "state": "translated",
+            "value": "Splitspunt selecteren: %@\nSplitsing vindt plaats bij de rode lijn\n(Bij splitsen wordt de eerste helft tot de rode lijn opgeslagen)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
+            "state": "translated",
+            "value": "Wybieranie punktu podziału: %@\nPodział nastąpi w czerwonej linii\n(Po podziale pierwsza połowa do czerwonej linii zostanie zapisana)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
+            "state": "translated",
+            "value": "Väljer delningspunkt: %@\nDelning sker vid den röda linjen\n(Vid delning sparas den första halvan upp till den röda linjen)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selecting split point: %@\nSplit will occur at the red line\n(When split, the first half up to the red line will be saved)"
+            "state": "translated",
+            "value": "กำลังเลือกจุดแบ่ง: %@\nการแบ่งจะเกิดขึ้นที่เส้นสีแดง\n(เมื่อแบ่ง ครึ่งแรกถึงเส้นสีแดงจะถูกบันทึก)"
           }
         }
       }
@@ -2473,44 +2473,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+            "state": "translated",
+            "value": "يرجى النقر على موجة الصوت مرتين لتحديد موضع التقسيم\n(النقر الأول لنقطة البداية، النقر الثاني لنقطة التقسيم)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+            "state": "translated",
+            "value": "Ketuk gelombang suara dua kali untuk menentukan posisi pemisahan\n(Ketukan pertama untuk titik awal, ketukan kedua untuk titik pemisahan)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+            "state": "translated",
+            "value": "विभाजन स्थान निर्धारित करने के लिए वेवफॉर्म पर दो बार टैप करें\n(पहला टैप प्रारंभ बिंदु के लिए, दूसरा टैप विभाजन बिंदु के लिए)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+            "state": "translated",
+            "value": "Tik twee keer op de golfvorm om de splitspositie te bepalen\n(Eerste tik voor startpunt, tweede tik voor splitspunt)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+            "state": "translated",
+            "value": "Dotknij przebiegu dwa razy, aby określić pozycję podziału\n(Pierwsze dotknięcie dla punktu startowego, drugie dotknięcie dla punktu podziału)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+            "state": "translated",
+            "value": "Tryck på vågformen två gånger för att ange delningspositionen\n(Första trycket för startpunkt, andra trycket för delningspunkt)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Please tap the waveform twice to specify the split position\n(First tap for start point, second tap for split point)"
+            "state": "translated",
+            "value": "แตะที่รูปคลื่นสองครั้งเพื่อระบุตำแหน่งการแบ่ง\n(แตะครั้งแรกสำหรับจุดเริ่มต้น แตะครั้งที่สองสำหรับจุดแบ่ง)"
           }
         }
       }
@@ -2597,44 +2597,44 @@
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+            "state": "translated",
+            "value": "نطاق التحديد: %1$@ - %2$@\n(انقر على النطاق لإعادة الضبط)"
           }
         },
         "id": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+            "state": "translated",
+            "value": "Rentang seleksi: %1$@ - %2$@\n(Ketuk rentang untuk mengatur ulang)"
           }
         },
         "hi": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+            "state": "translated",
+            "value": "चयन सीमा: %1$@ - %2$@\n(रीसेट करने के लिए सीमा पर टैप करें)"
           }
         },
         "nl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+            "state": "translated",
+            "value": "Selectiebereik: %1$@ - %2$@\n(Tik op het bereik om te resetten)"
           }
         },
         "pl": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+            "state": "translated",
+            "value": "Zakres zaznaczenia: %1$@ - %2$@\n(Dotknij zakres, aby zresetować)"
           }
         },
         "sv": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+            "state": "translated",
+            "value": "Markeringsintervall: %1$@ - %2$@\n(Tryck på intervallet för att återställa)"
           }
         },
         "th": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
+            "state": "translated",
+            "value": "ช่วงที่เลือก: %1$@ - %2$@\n(แตะช่วงเพื่อรีเซ็ต)"
           }
         }
       }
