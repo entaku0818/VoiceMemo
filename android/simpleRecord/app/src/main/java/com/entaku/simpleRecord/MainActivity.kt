@@ -43,6 +43,8 @@ import com.entaku.simpleRecord.settings.SettingsManager
 import com.entaku.simpleRecord.cloudsync.CloudSyncScreen
 import com.entaku.simpleRecord.cloudsync.CloudSyncViewModel
 import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
+import com.entaku.simpleRecord.screenshot.SCREENSHOT_PREVIEW_ROUTE
+import com.entaku.simpleRecord.screenshot.addDebugNavigation
 import java.util.UUID
 
 class MainActivity : ComponentActivity() {
@@ -216,7 +218,10 @@ fun AppNavHost() {
                             onSettingsChanged = { newSettings ->
                                 settingsManager.saveRecordingSettings(newSettings)
                             },
-                            onNavigateBack = { navController.popBackStack() }
+                            onNavigateBack = { navController.popBackStack() },
+                            onNavigateToScreenshotPreview = if (com.entaku.simpleRecord.BuildConfig.DEBUG) {
+                                { navController.navigate(SCREENSHOT_PREVIEW_ROUTE) }
+                            } else null
                         )
                     }
                 }
@@ -370,6 +375,8 @@ fun AppNavHost() {
                         onNavigateBack = { navController.popBackStack() }
                     )
                 }
+
+                addDebugNavigation(navController)
             }
         }
     }

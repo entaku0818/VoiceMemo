@@ -34,7 +34,8 @@ import android.media.MediaRecorder
 fun RecordingSettingsScreen(
     currentSettings: RecordingSettings,
     onSettingsChanged: (RecordingSettings) -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onNavigateToScreenshotPreview: (() -> Unit)? = null
 ) {
     var settings by remember { mutableStateOf(currentSettings) }
     
@@ -179,9 +180,19 @@ fun RecordingSettingsScreen(
             }
             
             Spacer(modifier = Modifier.weight(1f))
-            
+
+            onNavigateToScreenshotPreview?.let { navigate ->
+                Button(
+                    onClick = navigate,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("🖼 Screenshot Preview (Debug)")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
             Button(
-                onClick = { 
+                onClick = {
                     onSettingsChanged(settings)
                     onNavigateBack()
                 },
