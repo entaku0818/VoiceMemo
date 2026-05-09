@@ -17,8 +17,19 @@ struct AdmobBannerView: UIViewRepresentable {
         self.unitId = unitId
     }
 
+    private static func adaptiveAdSize() -> AdSize {
+        let width = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.keyWindow?.bounds.width ?? UIScreen.main.bounds.width
+        return currentOrientationAnchoredAdaptiveBanner(width: width)
+    }
+
+    static var adaptiveHeight: CGFloat {
+        CGFloat(adaptiveAdSize().size.height)
+    }
+
     func makeUIView(context: Context) -> BannerView {
-        let view = BannerView(adSize: AdSizeBanner)
+        let view = BannerView(adSize: Self.adaptiveAdSize())
 
         #if DEBUG
         view.adUnitID = "ca-app-pub-3940256099942544/2934735716"

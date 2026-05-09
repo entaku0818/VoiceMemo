@@ -307,7 +307,7 @@ struct PlaylistDetailView: View {
                 // AdMobバナー（必要なスペースを確保）
                 if !store.hasPurchasedPremium {
                     AdmobBannerView(unitId: admobUnitId)
-                        .frame(height: 50)
+                        .frame(height: AdmobBannerView.adaptiveHeight)
                 }
             }
             .padding(.bottom, 0)

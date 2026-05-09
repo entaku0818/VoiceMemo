@@ -54,7 +54,7 @@ struct PlaylistListView: View {
 
                if !viewStore.hasPurchasedPremium {
                    AdmobBannerView(unitId: admobUnitId)
-                       .frame(height: 50)
+                       .frame(height: AdmobBannerView.adaptiveHeight)
                }
            }
            .navigationTitle("プレイリスト")

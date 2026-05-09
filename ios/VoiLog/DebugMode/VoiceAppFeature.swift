@@ -364,7 +364,7 @@ struct VoiceAppView: View {
 
           if !store.settingFeature.hasPurchasedPremium {
             AdmobBannerView(unitId: recordAdmobUnitId)
-              .frame(height: 50)
+              .frame(height: AdmobBannerView.adaptiveHeight)
           }
         }
       }
@@ -383,7 +383,7 @@ struct VoiceAppView: View {
 
           if !store.settingFeature.hasPurchasedPremium {
             AdmobBannerView(unitId: recordAdmobUnitId)
-              .frame(height: 50)
+              .frame(height: AdmobBannerView.adaptiveHeight)
           }
         }
         .toolbar {
@@ -410,7 +410,7 @@ struct VoiceAppView: View {
 
           if !store.settingFeature.hasPurchasedPremium {
             AdmobBannerView(unitId: playListAdmobUnitId)
-              .frame(height: 50)
+              .frame(height: AdmobBannerView.adaptiveHeight)
           }
         }
       }
