@@ -1,0 +1,3 @@
+v1.7.0
+- Ulepszenia transkrypcji AI
+- Poprawki błędów i ulepszenia wydajności

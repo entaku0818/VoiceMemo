@@ -1,0 +1,30 @@
+Nagrywaj spotkania, wykłady i pomysły natychmiast — wystarczy jedno dotknięcie, aby rozpocząć. Nagrywanie w tle działa nawet po przełączeniu aplikacji.
+
+Od nauki języków po wywiady — VoiLog nagrywa w wysokiej jakości WAV lub AAC i utrzymuje porządek dzięki listom odtwarzania.
+
+[Nagrywanie]
+・Nagrywanie wysokiej jakości WAV / AAC(M4A)
+・Edytor fali dźwiękowej — wizualizuj nagrania
+・Nagrywanie w tle
+・Rozpocznij nagrywanie jednym dotknięciem
+
+[Odtwarzanie]
+・Odtwarzanie w tle
+・Pętla A-B (zapętlaj dowolną sekcję)
+・Kontrola prędkości odtwarzania (0,5x–2,0x)
+・Przewijanie o 10s / 60s do przodu i do tyłu
+・Powtarzanie (jeden utwór / wszystkie)
+・Tworzenie i zarządzanie listami odtwarzania
+・Zmiana nazw i kolejności plików
+
+[Inne]
+・Synchronizacja iCloud
+・Łatwe udostępnianie plików
+・Prosty i przejrzysty design
+
+[Transkrypcja — Nowość]
+・Zamiana mowy na tekst z pomocą AI (Gemini)
+・Wypróbuj za darmo — obejrzyj krótką reklamę
+・Nieograniczony dostęp z Premium
+
+Od spotkań biznesowych po naukę języków i codzienne notatki głosowe — pobierz teraz i doświadcz bezproblemowego nagrywania.
