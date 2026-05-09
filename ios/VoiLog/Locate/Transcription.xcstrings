@@ -231,6 +231,12 @@
             "state": "translated",
             "value": "AI กำลังถอดความ..."
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 변환 중..."
+          }
         }
       }
     },
@@ -343,6 +349,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การถอดความด้วย AI"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI 문자 변환"
           }
         }
       }
@@ -745,6 +757,12 @@
             "state": "translated",
             "value": "เซิร์ฟเวอร์ไม่ว่าง โปรดรอสักครู่แล้วลองอีกครั้ง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "서버가 혼잡합니다. 잠시 후 다시 시도해 주세요."
+          }
         }
       }
     },
@@ -791,6 +809,12 @@
             "state": "translated",
             "value": "เกิดข้อผิดพลาดของเซิร์ฟเวอร์ โปรดลองอีกครั้ง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "서버 오류가 발생했습니다. 다시 시도해 주세요."
+          }
         }
       }
     },
@@ -836,6 +860,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "คำขอมากเกินไป โปรดรอสักครู่แล้วลองอีกครั้ง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요."
           }
         }
       }
@@ -1003,6 +1033,12 @@
             "state": "translated",
             "value": "เรียกใช้อีกครั้ง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다시 실행"
+          }
         }
       }
     },
@@ -1169,6 +1205,12 @@
             "state": "translated",
             "value": "ผลลัพธ์ก่อนหน้า"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이전 결과"
+          }
         }
       }
     },
@@ -1216,6 +1258,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การเชื่อมต่อล้มเหลว โปรดตรวจสอบเครือข่ายของคุณ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연결에 실패했습니다. 네트워크를 확인해 주세요."
           }
         }
       }
@@ -1330,6 +1378,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การถอดความล้มเหลว"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "문자 변환 실패"
           }
         }
       }
@@ -1917,6 +1971,12 @@
             "state": "translated",
             "value": "ปกติใช้เวลา 2–5 นาที โปรดรอ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보통 2~5분 정도 걸립니다. 잠시 기다려 주세요."
+          }
         }
       }
     },
@@ -2201,6 +2261,12 @@
             "state": "translated",
             "value": "อัปโหลดไฟล์เสียงไม่สำเร็จ โปรดตรวจสอบเครือข่ายของคุณ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오 파일 업로드에 실패했습니다. 네트워크를 확인해 주세요."
+          }
         }
       }
     },
@@ -2248,6 +2314,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เกิดข้อผิดพลาด (รหัส: %lld) โปรดลองอีกครั้ง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오류가 발생했습니다 (코드: %lld). 다시 시도해 주세요."
           }
         }
       }

@@ -11,7 +11,7 @@
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Error"
           }
         },
@@ -122,6 +122,12 @@
             "state": "translated",
             "value": "ข้อผิดพลาด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오류"
+          }
         }
       }
     },
@@ -129,31 +135,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
@@ -165,37 +171,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a range to trim."
           }
         },
@@ -240,6 +246,12 @@
             "state": "translated",
             "value": "กรุณาเลือกช่วงที่ต้องการตัด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "트리밍할 범위를 선택해 주세요."
+          }
         }
       }
     },
@@ -247,31 +259,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
@@ -283,37 +295,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to trim: %@"
           }
         },
@@ -358,6 +370,12 @@
             "state": "translated",
             "value": "การตัดล้มเหลว: %@"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "트리밍 실패: %@"
+          }
         }
       }
     },
@@ -365,31 +383,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
@@ -401,37 +419,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to save: %@"
           }
         },
@@ -476,6 +494,12 @@
             "state": "translated",
             "value": "การบันทึกล้มเหลว: %@"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장 실패: %@"
+          }
         }
       }
     },
@@ -483,31 +507,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
@@ -519,37 +543,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Original voice memo not found."
           }
         },
@@ -594,6 +618,12 @@
             "state": "translated",
             "value": "ไม่พบบันทึกเสียงต้นฉบับ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원본 음성 메모를 찾을 수 없습니다."
+          }
         }
       }
     },
@@ -601,31 +631,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
@@ -637,37 +667,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback failed: %@"
           }
         },
@@ -711,6 +741,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การเล่นล้มเหลว: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "재생 실패: %@"
           }
         }
       }
@@ -836,6 +872,12 @@
             "state": "translated",
             "value": "กำลังประมวลผล..."
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "처리 중..."
+          }
         }
       }
     },
@@ -959,6 +1001,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การประมวลผลเสร็จสิ้น"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "처리 완료"
           }
         }
       }
@@ -1084,6 +1132,12 @@
             "state": "translated",
             "value": "แบ่ง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "분할"
+          }
         }
       }
     },
@@ -1091,31 +1145,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
@@ -1127,37 +1181,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Please select a split point."
           }
         },
@@ -1202,6 +1256,12 @@
             "state": "translated",
             "value": "กรุณาเลือกจุดแบ่ง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "분할 지점을 선택해 주세요."
+          }
         }
       }
     },
@@ -1209,31 +1269,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
@@ -1245,37 +1305,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: %@"
           }
         },
@@ -1320,6 +1380,12 @@
             "state": "translated",
             "value": "การแบ่งล้มเหลว: %@"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "분할 실패: %@"
+          }
         }
       }
     },
@@ -1327,31 +1393,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
@@ -1363,37 +1429,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split failed: No new file was created."
           }
         },
@@ -1437,6 +1503,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การแบ่งล้มเหลว: ไม่มีไฟล์ใหม่ถูกสร้าง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "분할 실패: 새 파일이 생성되지 않았습니다."
           }
         }
       }
@@ -1562,6 +1634,12 @@
             "state": "translated",
             "value": "ไม่มีข้อมูลรูปคลื่น"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "파형 데이터 없음"
+          }
         }
       }
     },
@@ -1569,31 +1647,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
@@ -1605,37 +1683,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to load waveform data: %@"
           }
         },
@@ -1679,6 +1757,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ไม่สามารถโหลดข้อมูลรูปคลื่น: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "파형 데이터 로드 실패: %@"
           }
         }
       }
@@ -1798,6 +1882,12 @@
             "state": "translated",
             "value": "กำลังโหลดข้อมูลรูปคลื่น..."
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "파형 데이터 로드 중..."
+          }
         }
       }
     },
@@ -1805,31 +1895,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
@@ -1841,37 +1931,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edited audio file not found."
           }
         },
@@ -1915,6 +2005,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ไม่พบไฟล์เสียงที่แก้ไขแล้ว"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "편집된 오디오 파일을 찾을 수 없습니다."
           }
         }
       }
@@ -2034,6 +2130,12 @@
             "state": "translated",
             "value": "ประวัติการแก้ไข:"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "편집 내역:"
+          }
         }
       }
     },
@@ -2041,31 +2143,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
@@ -2077,37 +2179,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to adjust volume: %@"
           }
         },
@@ -2152,6 +2254,12 @@
             "state": "translated",
             "value": "การปรับระดับเสียงล้มเหลว: %@"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "볼륨 조절 실패: %@"
+          }
         }
       }
     },
@@ -2159,31 +2267,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
@@ -2195,37 +2303,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
           }
         },
@@ -2269,6 +2377,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การแบ่งเสร็จสิ้น\nครึ่งแรกถึงจุดแบ่งถูกบันทึกเป็น '%@'"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "분할이 완료되었습니다.\n분할 지점까지의 전반부가 '%@'로 저장되었습니다."
           }
         }
       }
@@ -2394,6 +2508,12 @@
             "state": "translated",
             "value": "กำลังเลือกจุดแบ่ง: %@\nการแบ่งจะเกิดขึ้นที่เส้นสีแดง\n(เมื่อแบ่ง ครึ่งแรกถึงเส้นสีแดงจะถูกบันทึก)"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "분할 지점 선택 중: %@\n빨간 선에서 분할됩니다\n(분할하면 빨간 선까지의 전반부가 저장됩니다)"
+          }
         }
       }
     },
@@ -2511,6 +2631,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "แตะที่รูปคลื่นสองครั้งเพื่อระบุตำแหน่งการแบ่ง\n(แตะครั้งแรกสำหรับจุดเริ่มต้น แตะครั้งที่สองสำหรับจุดแบ่ง)"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "파형을 두 번 탭하여 분할 위치를 지정하세요\n(첫 번째 탭은 시작점, 두 번째 탭은 분할 지점)"
           }
         }
       }
@@ -2635,6 +2761,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ช่วงที่เลือก: %1$@ - %2$@\n(แตะช่วงเพื่อรีเซ็ต)"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "선택 범위: %1$@ - %2$@\n(범위를 탭하면 초기화됩니다)"
           }
         }
       }

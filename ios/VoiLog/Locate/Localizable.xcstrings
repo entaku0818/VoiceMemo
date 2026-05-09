@@ -104,6 +104,12 @@
             "state": "translated",
             "value": ""
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
         }
       }
     },
@@ -206,6 +212,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "/"
@@ -317,6 +329,12 @@
             "state": "translated",
             "value": "%@"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
         }
       }
     },
@@ -367,6 +385,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@\n%2$@\n%3$@ %4$@\n\n%5$@"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@\n%2$@\n%3$@ %4$@\n\n%5$@"
@@ -496,6 +520,12 @@
             "state": "translated",
             "value": "%1$@\n%2$@\nระยะเวลา: %3$@\n\nคุณต้องการลบการบันทึกนี้หรือไม่?"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@\n%2$@\n재생 시간: %3$@\n\n이 녹음을 삭제하시겠습니까?"
+          }
         }
       }
     },
@@ -546,6 +576,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ %2$@"
@@ -675,6 +711,12 @@
             "state": "translated",
             "value": "เดือน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "월"
+          }
         }
       }
     },
@@ -799,6 +841,12 @@
             "state": "translated",
             "value": "%@Hz"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@Hz"
+          }
         }
       }
     },
@@ -901,6 +949,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld"
@@ -1029,6 +1083,12 @@
             "state": "translated",
             "value": "%lld dB"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld dB"
+          }
         }
       }
     },
@@ -1119,6 +1179,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld."
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld."
@@ -1247,6 +1313,12 @@
             "state": "translated",
             "value": "%lldbit"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lldbit"
+          }
         }
       }
     },
@@ -1291,6 +1363,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⏺ %@"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "⏺ %@"
@@ -1420,6 +1498,12 @@
             "state": "translated",
             "value": "1. บันทึก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1. 녹음하기"
+          }
         }
       }
     },
@@ -1544,6 +1628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "2. หยุดบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2. 녹음 정지"
           }
         }
       }
@@ -1670,6 +1760,12 @@
             "state": "translated",
             "value": "3. เล่น"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3. 재생하기"
+          }
         }
       }
     },
@@ -1794,6 +1890,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "กรุณาเขียนรีวิวบน App Store"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store에 리뷰를 작성해 주세요"
           }
         }
       }
@@ -1920,6 +2022,12 @@
             "state": "translated",
             "value": "ให้คะแนนบน App Store"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store에서 평가"
+          }
         }
       }
     },
@@ -2044,6 +2152,12 @@
             "state": "translated",
             "value": "ปิด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "닫기"
+          }
         }
       }
     },
@@ -2052,31 +2166,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
@@ -2088,37 +2202,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "CountDown - Event Timer"
           }
         },
@@ -2163,6 +2277,12 @@
             "state": "translated",
             "value": "CountDown - ตัวจับเวลากิจกรรม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카운트다운 - 이벤트 타이머"
+          }
         }
       }
     },
@@ -2205,6 +2325,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deutsch"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "Deutsch"
@@ -2253,6 +2379,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "English"
@@ -2381,6 +2513,12 @@
             "state": "translated",
             "value": "บันทึกข้อผิดพลาด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오류 로그"
+          }
         }
       }
     },
@@ -2429,6 +2567,12 @@
             "state": "translated",
             "value": "Español"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Español"
+          }
         }
       }
     },
@@ -2471,6 +2615,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Français"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "Français"
@@ -2721,6 +2871,12 @@
             "state": "translated",
             "value": "สำหรับ Mac (รูปแบบมาตรฐาน)"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mac용 (표준 형식)"
+          }
         }
       }
     },
@@ -2838,6 +2994,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ตกลง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
           }
         }
       }
@@ -2958,6 +3120,12 @@
             "state": "translated",
             "value": "เปิดการตั้งค่า"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정 열기"
+          }
         }
       }
     },
@@ -3074,6 +3242,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "PDF (.pdf)"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "PDF (.pdf)"
@@ -3197,6 +3371,12 @@
             "state": "translated",
             "value": "ต้องการสิทธิ์ในการบันทึกบันทึกเสียง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음성 메모를 녹음하려면 권한이 필요합니다"
+          }
         }
       }
     },
@@ -3315,6 +3495,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ต้องการสิทธิ์ในการบันทึกบันทึกเสียง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음성 메모를 녹음하려면 권한이 필요합니다."
           }
         }
       }
@@ -3439,6 +3625,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Premium"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "프리미엄"
           }
         }
       }
@@ -3565,6 +3757,12 @@
             "state": "translated",
             "value": "ต้องการฟีเจอร์ Premium"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "프리미엄 기능이 필요합니다"
+          }
         }
       }
     },
@@ -3689,6 +3887,12 @@
             "state": "translated",
             "value": "อ่านเพิ่มเติม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "더 보기"
+          }
         }
       }
     },
@@ -3807,6 +4011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "กำลังบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 중"
           }
         }
       }
@@ -3927,6 +4137,12 @@
             "state": "translated",
             "value": "การบันทึกต้องใช้การเข้าถึงไมโครโฟน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음하려면 마이크 접근 권한이 필요합니다."
+          }
         }
       }
     },
@@ -3935,31 +4151,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
@@ -3971,37 +4187,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedmeter - GPS Speedometer"
           }
         },
@@ -4045,6 +4261,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Speedmeter - มาตรวัดความเร็ว GPS"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "속도계 - GPS 속도계"
           }
         }
       }
@@ -4165,6 +4387,12 @@
             "state": "translated",
             "value": "การเล่นบันทึกเสียงล้มเหลว"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음성 메모 재생에 실패했습니다."
+          }
         }
       }
     },
@@ -4283,6 +4511,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การบันทึกบันทึกเสียงล้มเหลว"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음성 메모 녹음에 실패했습니다."
           }
         }
       }
@@ -4409,6 +4643,12 @@
             "state": "translated",
             "value": "สำหรับ Windows (รูปแบบ MP4)"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Windows용 (MP4 형식)"
+          }
         }
       }
     },
@@ -4453,6 +4693,12 @@
           }
         },
         "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "한국어"
+          }
+        },
+        "ko": {
           "stringUnit": {
             "state": "translated",
             "value": "한국어"
@@ -4582,6 +4828,12 @@
             "state": "translated",
             "value": "ให้คะแนนแอป"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "앱 평가"
+          }
         }
       }
     },
@@ -4700,6 +4952,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ไม่ ส่งข้อเสนอแนะ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아니요, 피드백 보내기"
           }
         }
       }
@@ -4821,6 +5079,12 @@
             "state": "translated",
             "value": "ส่งออก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내보내기"
+          }
         }
       }
     },
@@ -4939,6 +5203,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ติดต่อเรา"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "문의하기"
           }
         }
       }
@@ -5065,6 +5335,12 @@
             "state": "translated",
             "value": "รายการโปรด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "즐겨찾기"
+          }
         }
       }
     },
@@ -5073,31 +5349,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
@@ -5109,37 +5385,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Countdown Timer"
           }
         },
@@ -5183,6 +5459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ตัวจับเวลาถอยหลัง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카운트다운 타이머"
           }
         }
       }
@@ -5308,6 +5590,12 @@
             "state": "translated",
             "value": "ยกเลิก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "취소"
+          }
         }
       }
     },
@@ -5426,6 +5714,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ข้อคิดของคุณจาก 3 วันที่ผ่านมา — ยังไม่สายเกินไป 🎙"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지난 3일간의 깨달음, 아직 늦지 않았습니다 🎙"
           }
         }
       }
@@ -5550,6 +5844,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ไฟล์นี้"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 파일"
           }
         }
       }
@@ -5676,6 +5976,12 @@
             "state": "translated",
             "value": "เพิ่มชื่อที่อธิบายได้สำหรับบันทึกนี้"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 메모에 설명적인 제목을 추가하세요"
+          }
         }
       }
     },
@@ -5721,6 +6027,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การบันทึกนี้ไม่มีข้อมูลการถอดเสียง\nจะถูกสร้างโดยอัตโนมัติเมื่อทำการบันทึกใหม่"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 녹음에는 문자 변환 데이터가 없습니다.\n새 녹음을 하면 자동으로 생성됩니다."
           }
         }
       }
@@ -5843,6 +6155,12 @@
             "state": "translated",
             "value": "คัดลอก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복사"
+          }
         }
       }
     },
@@ -5962,6 +6280,12 @@
             "state": "translated",
             "value": "ขอโทษสำหรับความไม่สะดวก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "불편을 드려 죄송합니다."
+          }
         }
       }
     },
@@ -6080,6 +6404,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ขอบคุณที่ใช้บริการของเรา! กรุณาให้คะแนนแอปในหน้าถัดไป"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이용해 주셔서 감사합니다! 다음 화면에서 앱을 평가해 주세요."
           }
         }
       }
@@ -6206,6 +6536,12 @@
             "state": "translated",
             "value": "กรุณาแบ่งปันความคิดเห็นของคุณ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드백을 공유해 주세요"
+          }
         }
       }
     },
@@ -6331,6 +6667,12 @@
             "state": "translated",
             "value": "ขนาด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "크기"
+          }
         }
       }
     },
@@ -6344,7 +6686,7 @@
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Sample Rate"
           }
         },
@@ -6448,6 +6790,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "อัตราการสุ่มตัวอย่าง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "샘플 레이트"
           }
         }
       }
@@ -6574,6 +6922,12 @@
             "state": "translated",
             "value": "เลือกที่แชร์"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "공유 대상 선택"
+          }
         }
       }
     },
@@ -6582,31 +6936,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
@@ -6618,37 +6972,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Task Manager"
           }
         },
@@ -6693,6 +7047,12 @@
             "state": "translated",
             "value": "ตัวจัดการงานอย่างง่าย"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "간단 작업 관리자"
+          }
         }
       }
     },
@@ -6701,31 +7061,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
@@ -6737,37 +7097,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Simple Transcription"
           }
         },
@@ -6811,6 +7171,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การถอดเสียงอย่างง่าย"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "간단 문자 변환"
           }
         }
       }
@@ -6936,6 +7302,12 @@
             "state": "translated",
             "value": "เครื่องบันทึกเสียงอย่างง่าย"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "심플 녹음"
+          }
         }
       }
     },
@@ -7054,6 +7426,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เกี่ยวกับเครื่องบันทึกอย่างง่าย"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "심플 녹음 정보"
           }
         }
       }
@@ -7174,6 +7552,12 @@
             "state": "translated",
             "value": "คุณพอใจกับแอปนี้หรือไม่?"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 앱에 만족하십니까?"
+          }
         }
       }
     },
@@ -7292,6 +7676,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ยินดีต้อนรับสู่การบันทึกอย่างง่าย!"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "심플 녹음에 오신 것을 환영합니다!"
           }
         }
       }
@@ -7417,6 +7807,12 @@
             "state": "translated",
             "value": "ขั้นตอน %1$lld / %2$lld"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "단계 %1$lld / %2$lld"
+          }
         }
       }
     },
@@ -7529,6 +7925,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ขั้นตอนที่ 1 จาก 2"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1단계 / 2"
           }
         }
       }
@@ -7643,6 +8045,12 @@
             "state": "translated",
             "value": "ขั้นตอนที่ 2 จาก 2"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2단계 / 2"
+          }
         }
       }
     },
@@ -7651,31 +8059,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
@@ -7687,37 +8095,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Speedometer"
           }
         },
@@ -7762,6 +8170,12 @@
             "state": "translated",
             "value": "มาตรวัดความเร็ว"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "속도계"
+          }
         }
       }
     },
@@ -7770,31 +8184,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
@@ -7806,37 +8220,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Smart Video Player"
           }
         },
@@ -7880,6 +8294,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เครื่องเล่นวิดีโออัจฉริยะ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "스마트 동영상 플레이어"
           }
         }
       }
@@ -7932,6 +8352,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "จากนั้น %1$@%2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이후 %1$@%2$@"
           }
         }
       }
@@ -8057,6 +8483,12 @@
             "state": "translated",
             "value": "ชื่อเรื่อง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제목"
+          }
         }
       }
     },
@@ -8180,6 +8612,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ข้ามบทเรียน"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "튜토리얼 건너뛰기"
           }
         }
       }
@@ -8305,6 +8743,12 @@
             "state": "translated",
             "value": "ข้ามบทเรียนหรือไม่?\nคุณสามารถดูอีกครั้งได้ในการตั้งค่า"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "튜토리얼을 건너뛰시겠습니까?\n나중에 설정에서 다시 볼 수 있습니다."
+          }
         }
       }
     },
@@ -8425,6 +8869,12 @@
             "state": "translated",
             "value": "ข้อความ (.txt)"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "텍스트 (.txt)"
+          }
         }
       }
     },
@@ -8433,31 +8883,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
@@ -8469,37 +8919,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text to Speech"
           }
         },
@@ -8543,6 +8993,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "แปลงข้อความเป็นเสียง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "텍스트 읽기"
           }
         }
       }
@@ -8669,6 +9125,12 @@
             "state": "translated",
             "value": "คุณต้องการแชร์ในรูปแบบใด?"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "어떤 형식으로 공유하시겠습니까?"
+          }
         }
       }
     },
@@ -8786,6 +9248,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "รูปแบบไฟล์"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "파일 형식"
           }
         }
       }
@@ -8910,6 +9378,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ข้อเสนอแนะ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드백"
           }
         }
       }
@@ -9036,6 +9510,12 @@
             "state": "translated",
             "value": "ข้อเสนอแนะและการให้คะแนน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드백 및 평가"
+          }
         }
       }
     },
@@ -9161,6 +9641,12 @@
             "state": "translated",
             "value": "ส่งข้อเสนอแนะ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "피드백 보내기"
+          }
         }
       }
     },
@@ -9169,31 +9655,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
@@ -9205,37 +9691,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Film Camera"
           }
         },
@@ -9279,6 +9765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "กล้องฟิล์ม"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "필름 카메라"
           }
         }
       }
@@ -9405,6 +9897,12 @@
             "state": "translated",
             "value": "Premium"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "프리미엄"
+          }
         }
       }
     },
@@ -9523,6 +10021,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "แตะปุ่มไมโครโฟนเพื่อเริ่มบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "마이크 버튼을 탭하여 녹음을 시작하세요"
           }
         }
       }
@@ -9649,6 +10153,12 @@
             "state": "translated",
             "value": "ป้อนชื่อบันทึก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메모 제목 입력"
+          }
         }
       }
     },
@@ -9657,31 +10167,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
@@ -9693,37 +10203,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Retro Photo - Classic Camera"
           }
         },
@@ -9767,6 +10277,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ภาพถ่ายวินเทจ - กล้องคลาสสิก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "레트로 사진 - 클래식 카메라"
           }
         }
       }
@@ -9892,6 +10408,12 @@
             "state": "translated",
             "value": "หยุดชั่วคราว"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일시정지"
+          }
         }
       }
     },
@@ -9899,31 +10421,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
@@ -9935,37 +10457,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Some files failed to sync."
           }
         },
@@ -10010,6 +10532,12 @@
             "state": "translated",
             "value": "บางไฟล์ไม่สามารถซิงค์ได้"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일부 파일 동기화에 실패했습니다."
+          }
         }
       }
     },
@@ -10019,7 +10547,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Tap the record button below"
           }
         },
@@ -10063,6 +10591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "แตะปุ่มบันทึกด้านล่าง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아래의 녹음 버튼을 탭하세요"
           }
         }
       }
@@ -10183,6 +10717,12 @@
             "state": "translated",
             "value": "วันนี้เป็นอย่างไรบ้าง? ถึงเวลาบันทึกด้วยเสียงของคุณ 🎙"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘 하루 어떠셨나요? 목소리로 기록할 시간입니다 🎙"
+          }
         }
       }
     },
@@ -10302,6 +10842,12 @@
             "state": "translated",
             "value": "บันทึกความคิดวันนี้ใน 30 วินาที 🎙"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘의 생각을 30초로 기록하세요 🎙"
+          }
         }
       }
     },
@@ -10420,6 +10966,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "วันที่สร้าง: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "작성일: %@"
           }
         }
       }
@@ -10544,6 +11096,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "บันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장"
           }
         }
       }
@@ -10670,6 +11228,12 @@
             "state": "translated",
             "value": "หยุด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "정지"
+          }
         }
       }
     },
@@ -10789,6 +11353,12 @@
             "state": "translated",
             "value": "แตะปุ่มหยุดเพื่อเสร็จสิ้นการบันทึก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "정지 버튼을 탭하여 녹음을 종료하세요"
+          }
         }
       }
     },
@@ -10802,7 +11372,7 @@
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Playback"
           }
         },
@@ -10912,6 +11482,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เล่นซ้ำ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "재생"
           }
         }
       }
@@ -11032,6 +11608,12 @@
             "state": "translated",
             "value": "คุณต้องการลบหรือไม่?"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "삭제하시겠습니까?"
+          }
         }
       }
     },
@@ -11040,31 +11622,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
@@ -11076,37 +11658,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Video Player"
           }
         },
@@ -11150,6 +11732,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เครื่องเล่นวิดีโอ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동영상 플레이어"
           }
         }
       }
@@ -11275,6 +11863,12 @@
             "state": "translated",
             "value": "ซิงค์"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동기화"
+          }
         }
       }
     },
@@ -11398,6 +11992,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ข้อผิดพลาดการซิงค์"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동기화 오류"
           }
         }
       }
@@ -11523,6 +12123,12 @@
             "state": "translated",
             "value": "กำลังซิงค์"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동기화 중"
+          }
         }
       }
     },
@@ -11530,31 +12136,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
@@ -11566,37 +12172,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "An error occurred during sync."
           }
         },
@@ -11640,6 +12246,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เกิดข้อผิดพลาดระหว่างการซิงค์"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동기화 중 오류가 발생했습니다."
           }
         }
       }
@@ -11767,6 +12379,12 @@
             "state": "translated",
             "value": "ซิงค์เสร็จสิ้น"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "동기화 완료"
+          }
         }
       }
     },
@@ -11892,6 +12510,12 @@
             "state": "translated",
             "value": "ไม่มีชื่อ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제목 없음"
+          }
         }
       }
     },
@@ -12015,6 +12639,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ความถี่"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "주파수"
           }
         }
       }
@@ -12141,6 +12771,12 @@
             "state": "translated",
             "value": "คุณภาพ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "품질"
+          }
         }
       }
     },
@@ -12266,6 +12902,12 @@
             "state": "translated",
             "value": "เริ่ม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시작"
+          }
         }
       }
     },
@@ -12389,6 +13031,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เสร็จ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "완료"
           }
         }
       }
@@ -12515,6 +13163,12 @@
             "state": "translated",
             "value": "ซ่อนโฆษณา"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "광고 숨기기"
+          }
         }
       }
     },
@@ -12639,6 +13293,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "รูปแบบ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "형식"
           }
         }
       }
@@ -12765,6 +13425,12 @@
             "state": "translated",
             "value": "กู้คืน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복원"
+          }
         }
       }
     },
@@ -12890,6 +13556,12 @@
             "state": "translated",
             "value": "กลับ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "뒤로"
+          }
         }
       }
     },
@@ -13014,6 +13686,12 @@
             "state": "translated",
             "value": "แอมพลิจูด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "진폭"
+          }
         }
       }
     },
@@ -13023,7 +13701,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Transcription"
           }
         },
@@ -13073,6 +13751,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การถอดเสียง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "문자 변환"
           }
         }
       }
@@ -13194,6 +13878,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การถอดเสียง (Apple)"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "문자 변환 (Apple)"
           }
         }
       }
@@ -13441,6 +14131,12 @@
             "state": "translated",
             "value": "วันที่"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "날짜"
+          }
         }
       }
     },
@@ -13566,6 +14262,12 @@
             "state": "translated",
             "value": "ระยะเวลา"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "재생 시간"
+          }
         }
       }
     },
@@ -13690,6 +14392,12 @@
             "state": "translated",
             "value": "ค้นหา..."
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "검색..."
+          }
         }
       }
     },
@@ -13813,6 +14521,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ชื่อฟีเจอร์"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "기능 이름"
           }
         }
       }
@@ -13939,6 +14653,12 @@
             "state": "translated",
             "value": "กรุณาอธิบายรายละเอียดในอีเมลบนหน้าถัดไป"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다음 화면의 이메일에 자세한 내용을 알려주세요."
+          }
         }
       }
     },
@@ -13946,31 +14666,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
@@ -13982,37 +14702,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Untitled Recording"
           }
         },
@@ -14056,6 +14776,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การบันทึกที่ไม่มีชื่อ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제목 없는 녹음"
           }
         }
       }
@@ -14181,6 +14907,12 @@
             "state": "translated",
             "value": "การใช้งานรวม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "총 사용량"
+          }
         }
       }
     },
@@ -14194,7 +14926,7 @@
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Settings"
           }
         },
@@ -14305,6 +15037,12 @@
             "state": "translated",
             "value": "การตั้งค่า"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정"
+          }
         }
       }
     },
@@ -14359,6 +15097,12 @@
             "state": "translated",
             "value": "รายละเอียด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세부 정보"
+          }
         }
       }
     },
@@ -14367,31 +15111,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
@@ -14403,37 +15147,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Text-to-Speech Narrator"
           }
         },
@@ -14477,6 +15221,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ผู้บรรยายแปลงข้อความเป็นเสียง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "텍스트 읽기 내레이터"
           }
         }
       }
@@ -14603,6 +15353,12 @@
             "state": "translated",
             "value": "ลบเสียงที่เลือกหรือไม่?"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "선택한 오디오를 삭제하시겠습니까?"
+          }
         }
       }
     },
@@ -14610,31 +15366,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
@@ -14646,37 +15402,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording error: %@"
           }
         },
@@ -14720,6 +15476,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ข้อผิดพลาดการบันทึก: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 오류: %@"
           }
         }
       }
@@ -14846,6 +15608,12 @@
             "state": "translated",
             "value": "แตะบันทึกที่บันทึกไว้เพื่อเล่น"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음된 메모를 탭하여 재생하세요"
+          }
         }
       }
     },
@@ -14853,31 +15621,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
@@ -14889,37 +15657,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Recording"
           }
         },
@@ -14963,6 +15731,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ลองบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음해 보기"
           }
         }
       }
@@ -15083,6 +15857,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ลองบันทึก →"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음해 보기 →"
           }
         }
       }
@@ -15207,6 +15987,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ค้นหาการบันทึก..."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 검색..."
           }
         }
       }
@@ -15333,6 +16119,12 @@
             "state": "translated",
             "value": "บันทึกต่อ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 계속"
+          }
         }
       }
     },
@@ -15457,6 +16249,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "รายการบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 목록"
           }
         }
       }
@@ -15583,6 +16381,12 @@
             "state": "translated",
             "value": "กำลังบันทึก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 중"
+          }
         }
       }
     },
@@ -15598,7 +16402,7 @@
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Cannot perform other actions while recording."
           }
         },
@@ -15708,6 +16512,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ไม่สามารถดำเนินการอื่นขณะบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 중에는 다른 작업을 할 수 없습니다."
           }
         }
       }
@@ -15834,6 +16644,12 @@
             "state": "translated",
             "value": "ไม่สามารถดำเนินการอื่นขณะบันทึก\nกรุณาหยุดบันทึกก่อน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 중에는 다른 작업을 할 수 없습니다.\n먼저 녹음을 정지해 주세요."
+          }
         }
       }
     },
@@ -15952,6 +16768,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "วันที่บันทึก: %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음일: %@"
           }
         }
       }
@@ -16078,6 +16900,12 @@
             "state": "translated",
             "value": "การตั้งค่าการบันทึก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 설정"
+          }
         }
       }
     },
@@ -16201,6 +17029,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ปิด"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "닫기"
           }
         }
       }
@@ -16440,6 +17274,12 @@
             "state": "translated",
             "value": "แก้ไขเสียง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오 편집"
+          }
         }
       }
     },
@@ -16448,31 +17288,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
@@ -16484,37 +17324,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Voice Transcription"
           }
         },
@@ -16558,6 +17398,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การถอดเสียงพูด"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음성 문자 변환"
           }
         }
       }
@@ -16683,6 +17529,12 @@
             "state": "translated",
             "value": "โปรแกรมแก้ไขเสียง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오 편집기"
+          }
         }
       }
     },
@@ -16801,6 +17653,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "กำลังแก้ไขเสียง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오 편집 중"
           }
         }
       }
@@ -16925,6 +17783,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เพิ่มเสียง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오 추가"
           }
         }
       }

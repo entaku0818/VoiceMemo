@@ -5,31 +5,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
@@ -41,37 +41,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod"
           }
         },
@@ -116,6 +116,12 @@
             "state": "translated",
             "value": "พ็อด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pod"
+          }
         }
       }
     },
@@ -123,31 +129,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
@@ -159,37 +165,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Pod Settings"
           }
         },
@@ -233,6 +239,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การตั้งค่าพ็อด"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "팟 설정"
           }
         }
       }
@@ -358,6 +370,12 @@
             "state": "translated",
             "value": "คุณต้องการเพิ่มชื่อให้กับการบันทึกนี้หรือไม่?"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 녹음에 제목을 추가하시겠습니까?"
+          }
         }
       }
     },
@@ -367,7 +385,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Record Again"
           }
         },
@@ -418,6 +436,12 @@
             "state": "translated",
             "value": "บันทึกอีกครั้ง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다시 녹음"
+          }
         }
       }
     },
@@ -425,31 +449,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
@@ -461,37 +485,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For interviews and reporting. High-quality settings prioritizing voice clarity."
           }
         },
@@ -536,6 +560,12 @@
             "state": "translated",
             "value": "สำหรับการสัมภาษณ์และรายงาน การตั้งค่าคุณภาพสูงที่ให้ความสำคัญกับความชัดเจนของเสียง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인터뷰 및 취재용. 음성 명료도를 중시한 고품질 설정입니다."
+          }
         }
       }
     },
@@ -543,31 +573,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
@@ -579,37 +609,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to configure audio session."
           }
         },
@@ -654,6 +684,12 @@
             "state": "translated",
             "value": "ไม่สามารถกำหนดค่าเซสชันเสียงได้"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오 세션 구성에 실패했습니다."
+          }
         }
       }
     },
@@ -661,31 +697,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
@@ -697,37 +733,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom"
           }
         },
@@ -772,6 +808,12 @@
             "state": "translated",
             "value": "กำหนดเอง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사용자 정의"
+          }
         }
       }
     },
@@ -779,31 +821,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
@@ -815,37 +857,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Custom Settings"
           }
         },
@@ -889,6 +931,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การตั้งค่าแบบกำหนดเอง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사용자 정의 설정"
           }
         }
       }
@@ -943,6 +991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "อัตราการสุ่มตัวอย่าง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "샘플 레이트"
           }
         }
       }
@@ -1068,6 +1122,12 @@
             "state": "translated",
             "value": "ข้าม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "건너뛰기"
+          }
         }
       }
     },
@@ -1075,31 +1135,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
@@ -1111,37 +1171,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Insufficient storage space."
           }
         },
@@ -1186,6 +1246,12 @@
             "state": "translated",
             "value": "พื้นที่จัดเก็บไม่เพียงพอ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장 공간이 부족합니다."
+          }
         }
       }
     },
@@ -1195,7 +1261,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Edit Title"
           }
         },
@@ -1245,6 +1311,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "แก้ไขชื่อ"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제목 편집"
           }
         }
       }
@@ -1300,6 +1372,12 @@
             "state": "translated",
             "value": "เลือก \"กำหนดเอง\" เพื่อเปลี่ยนการตั้งค่าเหล่านี้"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 설정을 변경하려면 \"사용자 정의\"를 선택하세요"
+          }
         }
       }
     },
@@ -1354,6 +1432,12 @@
             "state": "translated",
             "value": "การลดเสียงรบกวน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "노이즈 캔슬링"
+          }
         }
       }
     },
@@ -1361,31 +1445,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
@@ -1397,37 +1481,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Customize noise cancellation and volume settings yourself."
           }
         },
@@ -1471,6 +1555,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ปรับแต่งการลดเสียงรบกวนและการตั้งค่าระดับเสียงด้วยตัวเอง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "노이즈 캔슬링과 볼륨 설정을 직접 사용자화하세요."
           }
         }
       }
@@ -1526,6 +1616,12 @@
             "state": "translated",
             "value": "รูปแบบ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "형식"
+          }
         }
       }
     },
@@ -1580,6 +1676,12 @@
             "state": "translated",
             "value": "ค่าที่ตั้งไว้ล่วงหน้า"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "프리셋"
+          }
         }
       }
     },
@@ -1587,31 +1689,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
@@ -1623,37 +1725,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For podcast recording. Balanced between clear audio and appropriate file size."
           }
         },
@@ -1698,6 +1800,12 @@
             "state": "translated",
             "value": "สำหรับบันทึกพอดแคสต์ สมดุลระหว่างเสียงที่ชัดเจนและขนาดไฟล์ที่เหมาะสม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "팟캐스트 녹음용. 명확한 음성과 적절한 파일 크기의 균형 설정입니다."
+          }
         }
       }
     },
@@ -1705,31 +1813,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
@@ -1741,37 +1849,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Microphone access permission is required."
           }
         },
@@ -1816,6 +1924,12 @@
             "state": "translated",
             "value": "ต้องการสิทธิ์การเข้าถึงไมโครโฟน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "마이크 접근 권한이 필요합니다."
+          }
         }
       }
     },
@@ -1823,31 +1937,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
@@ -1859,37 +1973,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo"
           }
         },
@@ -1934,6 +2048,12 @@
             "state": "translated",
             "value": "บันทึกเสียง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메모"
+          }
         }
       }
     },
@@ -1941,31 +2061,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
@@ -1977,37 +2097,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Memo Settings"
           }
         },
@@ -2052,6 +2172,12 @@
             "state": "translated",
             "value": "การตั้งค่าบันทึกเสียง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메모 설정"
+          }
         }
       }
     },
@@ -2061,7 +2187,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Paused"
           }
         },
@@ -2106,6 +2232,12 @@
             "state": "translated",
             "value": "หยุดชั่วคราว"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일시정지됨"
+          }
         }
       }
     },
@@ -2113,31 +2245,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
@@ -2149,37 +2281,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting"
           }
         },
@@ -2224,6 +2356,12 @@
             "state": "translated",
             "value": "การประชุม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "회의"
+          }
         }
       }
     },
@@ -2231,31 +2369,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
@@ -2267,37 +2405,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ideal for meetings and discussions. Balanced settings for capturing multiple voices clearly."
           }
         },
@@ -2342,6 +2480,12 @@
             "state": "translated",
             "value": "เหมาะสำหรับการประชุมและการอภิปราย การตั้งค่าที่สมดุลเพื่อบันทึกหลายเสียงได้อย่างชัดเจน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "회의 및 미팅에 최적. 여러 사람의 목소리를 명확하게 포착하는 균형 설정입니다."
+          }
         }
       }
     },
@@ -2349,31 +2493,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
@@ -2385,37 +2529,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Meeting Settings"
           }
         },
@@ -2460,6 +2604,12 @@
             "state": "translated",
             "value": "การตั้งค่าการประชุม"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "회의 설정"
+          }
         }
       }
     },
@@ -2467,31 +2617,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
@@ -2503,37 +2653,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Saving..."
           }
         },
@@ -2578,6 +2728,12 @@
             "state": "translated",
             "value": "กำลังบันทึก..."
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장 중..."
+          }
         }
       }
     },
@@ -2587,7 +2743,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Your first recording is complete"
           }
         },
@@ -2638,6 +2794,12 @@
             "state": "translated",
             "value": "การบันทึกครั้งแรกของคุณเสร็จสิ้นแล้ว"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "첫 번째 녹음이 완료되었습니다"
+          }
         }
       }
     },
@@ -2645,31 +2807,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
@@ -2681,37 +2843,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview"
           }
         },
@@ -2756,6 +2918,12 @@
             "state": "translated",
             "value": "สัมภาษณ์"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인터뷰"
+          }
         }
       }
     },
@@ -2763,31 +2931,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
@@ -2799,37 +2967,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Interview Settings"
           }
         },
@@ -2874,6 +3042,12 @@
             "state": "translated",
             "value": "การตั้งค่าการสัมภาษณ์"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "인터뷰 설정"
+          }
         }
       }
     },
@@ -2881,31 +3055,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
@@ -2917,37 +3091,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Best for daily notes and short voice recordings. Energy-efficient with smaller file sizes."
           }
         },
@@ -2992,6 +3166,12 @@
             "state": "translated",
             "value": "ดีที่สุดสำหรับบันทึกประจำวันและการบันทึกเสียงสั้นๆ ประหยัดพลังงานด้วยขนาดไฟล์ที่เล็กกว่า"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일상 메모와 짧은 음성 녹음에 최적. 파일 크기를 줄인 에너지 효율적인 설정입니다."
+          }
         }
       }
     },
@@ -2999,31 +3179,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
@@ -3035,37 +3215,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "For instrument and music recording. Records in WAV format for faithful original sound."
           }
         },
@@ -3109,6 +3289,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "สำหรับบันทึกเครื่องดนตรีและเพลง บันทึกในรูปแบบ WAV เพื่อเสียงต้นฉบับที่แท้จริง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "악기 연주 및 음악 녹음용. WAV 형식으로 원음을 충실하게 기록합니다."
           }
         }
       }
@@ -3234,6 +3420,12 @@
             "state": "translated",
             "value": "บันทึก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음"
+          }
         }
       }
     },
@@ -3243,7 +3435,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Share Recording"
           }
         },
@@ -3294,6 +3486,12 @@
             "state": "translated",
             "value": "แชร์การบันทึก"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 공유"
+          }
         }
       }
     },
@@ -3301,31 +3499,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
@@ -3337,37 +3535,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to create recording file."
           }
         },
@@ -3412,6 +3610,12 @@
             "state": "translated",
             "value": "ไม่สามารถสร้างไฟล์บันทึกได้"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 파일 생성에 실패했습니다."
+          }
         }
       }
     },
@@ -3425,7 +3629,7 @@
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Recording"
           }
         },
@@ -3535,6 +3739,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "กำลังบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 중"
           }
         }
       }
@@ -3660,6 +3870,12 @@
             "state": "translated",
             "value": "การบันทึกเสร็จสิ้น"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 완료"
+          }
         }
       }
     },
@@ -3667,31 +3883,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
@@ -3703,37 +3919,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ready to Record"
           }
         },
@@ -3777,6 +3993,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "พร้อมบันทึก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음 준비 완료"
           }
         }
       }
@@ -3902,6 +4124,12 @@
             "state": "translated",
             "value": "ผลการถอดความ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "문자 변환 결과"
+          }
         }
       }
     },
@@ -3909,31 +4137,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
@@ -3945,37 +4173,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music"
           }
         },
@@ -4020,6 +4248,12 @@
             "state": "translated",
             "value": "เพลง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음악"
+          }
         }
       }
     },
@@ -4027,31 +4261,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
@@ -4063,37 +4297,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Music Settings"
           }
         },
@@ -4137,6 +4371,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การตั้งค่าเพลง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음악 설정"
           }
         }
       }
@@ -4192,6 +4432,12 @@
             "state": "translated",
             "value": "การควบคุมระดับเสียงอัตโนมัติ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "자동 이득 제어"
+          }
         }
       }
     },
@@ -4201,7 +4447,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "🎉 Saved!"
           }
         },
@@ -4251,6 +4497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "🎉 บันทึกแล้ว!"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎉 저장되었습니다!"
           }
         }
       }

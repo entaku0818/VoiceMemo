@@ -5,7 +5,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Try Free for 1 Month"
           }
         },
@@ -49,6 +49,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ทดลองใช้ฟรี 1 เดือน"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1개월 무료 체험하기"
           }
         }
       }
@@ -168,6 +174,12 @@
             "state": "translated",
             "value": "คุณสมบัติซิงค์ iCloud"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud 동기화 기능"
+          }
         }
       }
     },
@@ -175,31 +187,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
@@ -211,37 +223,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
@@ -285,6 +297,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ข้อมูลทั้งหมดของคุณซิงค์ผ่าน iCloud ช่วยให้ใช้งานได้บนหลายอุปกรณ์!"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 데이터가 iCloud로 동기화되어 여러 기기에서 사용 가능합니다!"
           }
         }
       }
@@ -404,6 +422,12 @@
             "state": "translated",
             "value": "เข้าถึงทุกฟีเจอร์ได้ไม่จำกัด"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 기능 무제한 이용"
+          }
         }
       }
     },
@@ -522,6 +546,12 @@
             "state": "translated",
             "value": "นโยบายความเป็นส่วนตัว"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "개인정보 처리방침"
+          }
         }
       }
     },
@@ -529,31 +559,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
@@ -565,37 +595,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Unlimited Playlists"
           }
         },
@@ -639,6 +669,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "เพลย์ลิสต์ไม่จำกัด"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무제한 플레이리스트"
           }
         }
       }
@@ -758,6 +794,12 @@
             "state": "translated",
             "value": "สิทธิพิเศษ Premium"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "프리미엄 혜택"
+          }
         }
       }
     },
@@ -765,31 +807,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
@@ -801,37 +843,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Restore failed."
           }
         },
@@ -875,6 +917,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การกู้คืนล้มเหลว"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복원에 실패했습니다."
           }
         }
       }
@@ -994,6 +1042,12 @@
             "state": "translated",
             "value": "สร้าง"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "만들기"
+          }
         }
       }
     },
@@ -1001,31 +1055,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
@@ -1037,37 +1091,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "All ads are hidden!"
           }
         },
@@ -1111,6 +1165,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "โฆษณาทั้งหมดถูกซ่อนแล้ว!"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 광고가 숨겨졌습니다!"
           }
         }
       }
@@ -1230,6 +1290,12 @@
             "state": "translated",
             "value": "เงื่อนไขการใช้งาน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이용 약관"
+          }
         }
       }
     },
@@ -1237,31 +1303,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
@@ -1273,37 +1339,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Ad-Free Experience"
           }
         },
@@ -1348,6 +1414,12 @@
             "state": "translated",
             "value": "ประสบการณ์ปลอดโฆษณา"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "광고 없는 경험"
+          }
         }
       }
     },
@@ -1355,31 +1427,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
@@ -1391,37 +1463,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "/ month (auto-renews)"
           }
         },
@@ -1466,6 +1538,12 @@
             "state": "translated",
             "value": "/ เดือน (ต่ออายุอัตโนมัติ)"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/ 월 (자동 갱신)"
+          }
         }
       }
     },
@@ -1473,31 +1551,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
@@ -1509,37 +1587,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Failed to fetch product information."
           }
         },
@@ -1584,6 +1662,12 @@
             "state": "translated",
             "value": "ไม่สามารถดึงข้อมูลสินค้าได้"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "제품 정보를 가져오는 데 실패했습니다."
+          }
         }
       }
     },
@@ -1591,31 +1675,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
@@ -1627,37 +1711,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase complete!"
           }
         },
@@ -1702,6 +1786,12 @@
             "state": "translated",
             "value": "ชำระเงินสำเร็จแล้ว!"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "구매가 완료되었습니다!"
+          }
         }
       }
     },
@@ -1709,31 +1799,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
@@ -1745,37 +1835,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchase failed."
           }
         },
@@ -1820,6 +1910,12 @@
             "state": "translated",
             "value": "การชำระเงินล้มเหลว"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "구매에 실패했습니다."
+          }
         }
       }
     },
@@ -1827,31 +1923,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
@@ -1863,37 +1959,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Purchases restored!"
           }
         },
@@ -1938,6 +2034,12 @@
             "state": "translated",
             "value": "กู้คืนการซื้อสำเร็จ!"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "구매가 복원되었습니다!"
+          }
         }
       }
     },
@@ -1945,31 +2047,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
@@ -1981,37 +2083,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
           }
         },
@@ -2056,6 +2158,12 @@
             "state": "translated",
             "value": "สร้างเพลย์ลิสต์ได้ตามต้องการ (ปกติจำกัด 3 รายการ) เพื่อจัดระเบียบการบันทึกของคุณ!"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음을 정리하기 위해 원하는 만큼 플레이리스트를 만드세요 (일반적으로 3개까지)!"
+          }
         }
       }
     },
@@ -2063,31 +2171,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
@@ -2099,37 +2207,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Split and edit recordings to keep them organized!"
           }
         },
@@ -2174,6 +2282,12 @@
             "state": "translated",
             "value": "แบ่งและแก้ไขการบันทึกเพื่อให้เป็นระเบียบ!"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음을 분할 편집하여 정리하세요!"
+          }
         }
       }
     },
@@ -2181,31 +2295,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
@@ -2217,37 +2331,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "Audio Editing"
           }
         },
@@ -2291,6 +2405,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "การแก้ไขเสียง"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오디오 편집 기능"
           }
         }
       }
@@ -2411,6 +2531,12 @@
             "state": "translated",
             "value": "ทดลองใช้ฟรีหนึ่งเดือน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1개월 무료 체험"
+          }
         }
       }
     },
@@ -2418,7 +2544,7 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "After the 1-month free trial, you will be charged %@/month automatically. You can cancel anytime from Apple's subscription settings at least 24 hours before the renewal date."
           }
         },
@@ -2463,6 +2589,12 @@
             "state": "translated",
             "value": "หลังจากทดลองใช้ฟรี 1 เดือน คุณจะถูกเรียกเก็บเงิน %@/เดือนโดยอัตโนมัติ คุณสามารถยกเลิกได้ทุกเมื่อจากการตั้งค่าการสมัครสมาชิกของ Apple อย่างน้อย 24 ชั่วโมงก่อนวันต่ออายุ"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1개월 무료 체험 후 %@/월이 자동으로 청구됩니다. 갱신일 24시간 전까지 Apple 구독 설정에서 언제든지 취소할 수 있습니다."
+          }
         }
       }
     },
@@ -2471,31 +2603,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
@@ -2507,37 +2639,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial"
           }
         },
@@ -2582,6 +2714,12 @@
             "state": "translated",
             "value": "ทดลองใช้ฟรี 1 เดือน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1개월 무료 체험"
+          }
         }
       }
     },
@@ -2590,31 +2728,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
@@ -2626,37 +2764,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "1 Month Free Trial → Then %@/month"
           }
         },
@@ -2700,6 +2838,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ทดลองฟรี 1 เดือน → จากนั้น %@/เดือน"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1개월 무료 체험 → 이후 %@/월"
           }
         }
       }
@@ -2747,6 +2891,12 @@
             "state": "translated",
             "value": "ทดลองฟรี 1 เดือน → จากนั้น %@/เดือน"
           }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1개월 무료 체험 → 이후 %@/월"
+          }
         }
       }
     },
@@ -2754,31 +2904,31 @@
       "localizations": {
         "de": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "en": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
@@ -2790,37 +2940,37 @@
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "ru": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "tr": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "vi": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
+            "state": "translated",
             "value": "subscription price"
           }
         },
@@ -2864,6 +3014,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ราคาสมาชิก"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "구독 가격"
           }
         }
       }
@@ -2989,6 +3145,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ทดลองใช้ฟรี 1 เดือนตอนนี้!"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지금 1개월 무료 체험해 보세요!"
           }
         }
       }
