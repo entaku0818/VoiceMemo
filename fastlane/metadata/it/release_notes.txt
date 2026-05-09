@@ -1,9 +1,7 @@
-Versione 1.7.0
+Versione 1.8.0
 
-[Nuove funzioni]
-· Trascrizione con IA aggiunta
-· Scheda di trascrizione nel dettaglio memo
-· Scegli la lingua prima di avviare
+[Novità]
+・Ora disponibile in 21 lingue (aggiunti arabo, hindi, indonesiano, olandese, polacco, svedese e tailandese)
 
 [Miglioramenti]
-· Miglioramenti generali dell'interfaccia e della stabilità
+・Altri miglioramenti dell'interfaccia e aggiornamenti di stabilità

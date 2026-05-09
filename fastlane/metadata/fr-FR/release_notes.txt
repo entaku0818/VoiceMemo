@@ -1,9 +1,7 @@
-Version 1.7.0
+Version 1.8.0
 
-[Nouveautés]
-· Transcription par IA ajoutée
-· Onglet de transcription dans le détail — Apple et IA ensemble
-· Choisissez la langue avant de commencer
+[Nouveau]
+・Disponible maintenant en 21 langues (arabe, hindi, indonésien, néerlandais, polonais, suédois et thaï ajoutés)
 
 [Améliorations]
-· Améliorations générales de l'interface et de la stabilité
+・Autres améliorations de l'interface et mises à jour de stabilité

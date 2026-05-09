@@ -1,9 +1,7 @@
-Sürüm 1.7.0
+Sürüm 1.8.0
 
-[Yeni Özellikler]
-· AI transkripsiyon eklendi
-· Not detayında transkripsiyon sekmesi
-· Başlamadan önce dil seçin
+[Yeni]
+・Artık 21 dilde mevcut (Arapça, Hintçe, Endonezyaca, Hollandaca, Lehçe, İsveççe, Tayca eklendi)
 
 [İyileştirmeler]
-· Genel arayüz ve kararlılık iyileştirmeleri
+・Diğer UI iyileştirmeleri ve kararlılık güncellemeleri

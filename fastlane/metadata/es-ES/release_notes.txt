@@ -1,9 +1,7 @@
-Versión 1.7.0
+Versión 1.8.0
 
-[Nuevas funciones]
-· Transcripción con IA añadida
-· Pestaña de transcripción en el detalle — Apple e IA juntos
-· Elige el idioma antes de comenzar
+[Nuevo]
+・Ahora disponible en 21 idiomas (árabe, hindi, indonesio, neerlandés, polaco, sueco y tailandés añadidos)
 
 [Mejoras]
-· Mejoras generales de UI y estabilidad
+・Otras mejoras de interfaz y actualizaciones de estabilidad

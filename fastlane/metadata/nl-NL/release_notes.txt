@@ -1,3 +1,7 @@
-v1.7.0
-- Verbeteringen in AI-transcriptie
-- Bugfixes en prestatieverbeteringen
+Versie 1.8.0
+
+[Nieuw]
+・Nu beschikbaar in 21 talen (Arabisch, Hindi, Indonesisch, Nederlands, Pools, Zweeds en Thais toegevoegd)
+
+[Verbeteringen]
+・Andere UI-verbeteringen en stabiliteitsupdates

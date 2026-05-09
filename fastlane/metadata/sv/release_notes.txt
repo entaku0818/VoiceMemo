@@ -1,3 +1,7 @@
-v1.7.0
-- Förbättringar av AI-transkription
-- Buggfixar och prestandaförbättringar
+Version 1.8.0
+
+[Nytt]
+・Nu tillgänglig på 21 språk (arabiska, hindi, indonesiska, holländska, polska, svenska och thai har lagts till)
+
+[Förbättringar]
+・Andra UI-förbättringar och stabilitetsuppdateringar

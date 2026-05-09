@@ -1,3 +1,7 @@
-v1.7.0
-- Peningkatan Transkripsi AI
-- Perbaikan bug dan peningkatan performa
+Versi 1.8.0
+
+[Baru]
+・Kini tersedia dalam 21 bahasa (ditambahkan bahasa Arab, Hindi, Indonesia, Belanda, Polandia, Swedia, Thailand)
+
+[Peningkatan]
+・Peningkatan UI dan pembaruan stabilitas lainnya

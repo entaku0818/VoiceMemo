@@ -1,9 +1,7 @@
-Phiên bản 1.7.0
+Phiên bản 1.8.0
 
-[Tính năng mới]
-· Thêm phiên âm bằng AI
-· Tab phiên âm trong chi tiết ghi chú
-· Chọn ngôn ngữ trước khi bắt đầu
+[Mới]
+・Hiện có sẵn bằng 21 ngôn ngữ (đã thêm tiếng Ả Rập, Hindi, Indonesia, Hà Lan, Ba Lan, Thụy Điển, Thái Lan)
 
 [Cải tiến]
-· Cải thiện giao diện và độ ổn định
+・Các cải tiến UI và cập nhật ổn định khác

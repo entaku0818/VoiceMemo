@@ -1,9 +1,7 @@
-Versão 1.7.0
+Versão 1.8.0
 
-[Novidades]
-· Transcrição por IA adicionada
-· Separador de transcrição no detalhe do memo
-· Escolha o idioma antes de iniciar
+[Novo]
+・Agora disponível em 21 idiomas (árabe, hindi, indonésio, holandês, polaco, sueco e tailandês adicionados)
 
 [Melhorias]
-· Melhorias gerais de UI e estabilidade
+・Outras melhorias de UI e atualizações de estabilidade

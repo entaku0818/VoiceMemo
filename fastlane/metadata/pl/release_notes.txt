@@ -1,3 +1,7 @@
-v1.7.0
-- Ulepszenia transkrypcji AI
-- Poprawki błędów i ulepszenia wydajności
+Wersja 1.8.0
+
+[Nowości]
+・Dostępne teraz w 21 językach (dodano arabski, hindi, indonezyjski, niderlandzki, polski, szwedzki, tajski)
+
+[Ulepszenia]
+・Inne ulepszenia interfejsu i aktualizacje stabilności
