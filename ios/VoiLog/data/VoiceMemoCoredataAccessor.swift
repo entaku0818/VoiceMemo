@@ -122,8 +122,10 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 managedContext.delete(myData)
             }
             try managedContext.saveIfStoreLoaded()
-        } catch let error as NSError {
-            AppLogger.data.error("CoreData delete failed: \(error), \(error.userInfo)")
+        } catch CoreDataError.storeNotLoaded {
+            AppLogger.data.error("CoreData delete skipped: persistent store not loaded")
+        } catch {
+            AppLogger.data.error("CoreData delete failed: \(error.localizedDescription)")
         }
     }
 

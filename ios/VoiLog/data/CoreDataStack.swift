@@ -49,7 +49,7 @@ final class CoreDataStack {
     }
 }
 
-enum CoreDataError: Error {
+enum CoreDataError: Error, Equatable {
     case storeNotLoaded
 }
 
