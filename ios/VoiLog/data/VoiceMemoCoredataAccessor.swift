@@ -44,7 +44,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             voiceEntity.numberOfChannels = voice.numberOfChannels
             voiceEntity.isCloud = isCloud
             do {
-                try managedContext.save()
+                try managedContext.saveIfStoreLoaded()
             } catch {
                 AppLogger.data.error("CoreData insert failed: \(error.localizedDescription)")
             }
@@ -121,7 +121,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             for myData in myResults {
                 managedContext.delete(myData)
             }
-            try managedContext.save()
+            try managedContext.saveIfStoreLoaded()
         } catch let error as NSError {
             AppLogger.data.error("CoreData delete failed: \(error), \(error.userInfo)")
         }
@@ -147,7 +147,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
                 voiceEntity.quantizationBitDepth = voice.quantizationBitDepth
                 voiceEntity.numberOfChannels = voice.numberOfChannels
 
-                try managedContext.save()
+                try managedContext.saveIfStoreLoaded()
             }
         } catch {
             AppLogger.data.error("CoreData update failed: \(error.localizedDescription)")
@@ -165,7 +165,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             if let voiceEntity = results.first {
                 voiceEntity.title = newTitle
                 voiceEntity.updatedAt = Date()
-                try managedContext.save()
+                try managedContext.saveIfStoreLoaded()
             }
         } catch {
             AppLogger.data.error("CoreData updateTitle failed: \(error.localizedDescription)")
@@ -198,7 +198,7 @@ class VoiceMemoCoredataAccessor: NSObject, VoiceMemoCoredataAccessorProtocol {
             }
 
             if !duplicatesToDelete.isEmpty {
-                try managedContext.save()
+                try managedContext.saveIfStoreLoaded()
                 AppLogger.data.info("Removed \(duplicatesToDelete.count) duplicate records")
             }
 

@@ -252,7 +252,7 @@ struct SettingView: View {
         }
 
         if !store.hasPurchasedPremium {
-            AdmobBannerView(unitId: admobUnitId).frame(maxWidth: .infinity, height: AdmobBannerView.adaptiveHeight)
+            AdmobBannerView(unitId: admobUnitId).frame(height: AdmobBannerView.adaptiveHeight)
         }
     }
 

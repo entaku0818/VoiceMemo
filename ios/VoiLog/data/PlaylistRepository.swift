@@ -113,7 +113,7 @@ extension PlaylistRepository: DependencyKey {
                     entity.createdAt = Date()
                     entity.updatedAt = Date()
 
-                    try context.save()
+                    try context.saveIfStoreLoaded()
                     return Playlist(
                         id: entity.id!,
                         name: entity.name!,
@@ -215,7 +215,7 @@ extension PlaylistRepository: DependencyKey {
 
                     entity.name = name
                     entity.updatedAt = Date()
-                    try context.save()
+                    try context.saveIfStoreLoaded()
 
                     return Playlist(
                         id: entity.id!,
@@ -246,7 +246,7 @@ extension PlaylistRepository: DependencyKey {
                         currentVoiceIds.append(voiceId)
                         playlistEntity.voiceIds = currentVoiceIds
                         playlistEntity.updatedAt = Date()
-                        try context.save()
+                        try context.saveIfStoreLoaded()
                     }
 
                     return Playlist(
@@ -277,7 +277,7 @@ extension PlaylistRepository: DependencyKey {
                         currentVoiceIds.removeAll { $0 == voiceId }
                         playlistEntity.voiceIds = currentVoiceIds
                         playlistEntity.updatedAt = Date()
-                        try context.save()
+                        try context.saveIfStoreLoaded()
                     }
 
                     return Playlist(
@@ -299,7 +299,7 @@ extension PlaylistRepository: DependencyKey {
                     }
 
                     context.delete(entity)
-                    try context.save()
+                    try context.saveIfStoreLoaded()
                 }
             },
 
@@ -308,7 +308,7 @@ extension PlaylistRepository: DependencyKey {
                     let request: NSFetchRequest<NSFetchRequestResult> = PlaylistEntity.fetchRequest()
                     let batchDelete = NSBatchDeleteRequest(fetchRequest: request)
                     try context.execute(batchDelete)
-                    try context.save()
+                    try context.saveIfStoreLoaded()
                 }
             }
         )

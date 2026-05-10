@@ -85,7 +85,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     voiceEntity.numberOfChannels = Int16(recordingVoice.numberOfChannels)
                     voiceEntity.isCloud = false
                     do {
-                        try managedContext.save()
+                        try managedContext.saveIfStoreLoaded()
                     } catch {
                         AppLogger.data.error("Repository insert failed: \(error.localizedDescription)")
                     }
@@ -159,7 +159,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     for myData in myResults {
                         managedContext.delete(myData)
                     }
-                    try managedContext.save()
+                    try managedContext.saveIfStoreLoaded()
                 } catch let error as NSError {
                     AppLogger.data.error("Repository delete failed: \(error), \(error.userInfo)")
                 }
@@ -196,7 +196,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         voiceEntity.quantizationBitDepth = Int16(voiceMemoVoice.quantizationBitDepth)
                         voiceEntity.numberOfChannels = Int16(voiceMemoVoice.numberOfChannels)
 
-                        try managedContext.save()
+                        try managedContext.saveIfStoreLoaded()
                     }
                 } catch {
                     AppLogger.data.error("Repository update failed: \(error.localizedDescription)")
@@ -213,7 +213,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     if let voiceEntity = results.first {
                         voiceEntity.title = newTitle
                         voiceEntity.updatedAt = Date()
-                        try managedContext.save()
+                        try managedContext.saveIfStoreLoaded()
                     }
                 } catch {
                     AppLogger.data.error("Repository updateTitle failed: \(error.localizedDescription)")
@@ -228,7 +228,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     if let voiceEntity = results.first {
                         voiceEntity.tags = Self.encodeTags(tags)
                         voiceEntity.updatedAt = Date()
-                        try managedContext.save()
+                        try managedContext.saveIfStoreLoaded()
                     }
                 } catch {
                     AppLogger.data.error("Repository updateTags failed: \(error.localizedDescription)")
@@ -341,7 +341,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
 
                 // Step 4: Save all changes
                 do {
-                    try managedContext.save()
+                    try managedContext.saveIfStoreLoaded()
                     return true
                 } catch {
                     AppLogger.sync.error("Error saving local changes after sync: \(error)")
@@ -450,7 +450,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
 
                     // 変更を保存
                     do {
-                        try managedContext.save()
+                        try managedContext.saveIfStoreLoaded()
                         return !voicesToDownload.isEmpty
                     } catch {
                         AppLogger.sync.error("Error saving downloaded voices: \(error)")

@@ -48,3 +48,19 @@ final class CoreDataStack {
         NSEntityDescription.entity(forEntityName: "Voice", in: viewContext)
     }
 }
+
+enum CoreDataError: Error {
+    case storeNotLoaded
+}
+
+extension NSManagedObjectContext {
+    /// persistent stores が未ロードの場合は ObjC 例外ではなく Swift Error を投げる。
+    /// stores 未ロード時の save() は Swift do/catch で捕捉不可な FATAL クラッシュになるため必ずこちらを使う。
+    func saveIfStoreLoaded() throws {
+        guard let coordinator = persistentStoreCoordinator,
+              !coordinator.persistentStores.isEmpty else {
+            throw CoreDataError.storeNotLoaded
+        }
+        try save()
+    }
+}
