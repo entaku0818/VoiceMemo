@@ -142,16 +142,20 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	ext := body.BlobName[strings.LastIndex(body.BlobName, ".")+1:]
 	mimeType := audioMIMEType(ext)
 
+	// Gemini操作に明示的なタイムアウトを設定（SDKデフォルトの120s上限を回避）
+	geminiCtx, geminiCancel := context.WithTimeout(r.Context(), 300*time.Second)
+	defer geminiCancel()
+
 	// Cloud Storage から Gemini File API へストリーミングアップロード（メモリに乗せない）
 	obj := storageClient.Bucket(bucketName).Object(body.BlobName)
-	reader, err := obj.NewReader(r.Context())
+	reader, err := obj.NewReader(geminiCtx)
 	if err != nil {
 		http.Error(w, `{"error":"File not found"}`, http.StatusNotFound)
 		return
 	}
 	defer reader.Close()
 
-	geminiFile, err := geminiClient.UploadFile(r.Context(), "", reader, &genai.UploadFileOptions{
+	geminiFile, err := geminiClient.UploadFile(geminiCtx, "", reader, &genai.UploadFileOptions{
 		MIMEType: mimeType,
 	})
 	if err != nil {
@@ -181,7 +185,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
   "summary": "内容の要約（3文以内）"
 }`, body.Language)
 
-	resp, err := model.GenerateContent(r.Context(),
+	resp, err := model.GenerateContent(geminiCtx,
 		genai.FileData{URI: geminiFile.URI, MIMEType: mimeType},
 		genai.Text(prompt),
 	)
