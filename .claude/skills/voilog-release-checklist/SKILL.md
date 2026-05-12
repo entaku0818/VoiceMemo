@@ -187,6 +187,73 @@ Check App Store Connect:
 
 ---
 
+## Workflow: Server Release (Cloud Run)
+
+サーバー（`server/transcription/`）をデプロイした際は必ずタグとリリースを作成する。
+
+**タグ命名規則**: `server-vX.Y.Z`
+- X: 破壊的変更（APIの変更など）
+- Y: 機能追加
+- Z: バグ修正・設定変更
+
+```
+Server Release Progress:
+- [ ] Step 1: 変更をコミット
+- [ ] Step 2: gcloud run deploy でデプロイ
+- [ ] Step 3: タグ作成 & push
+- [ ] Step 4: GitHub Release 作成
+```
+
+### Step 1: コミット
+
+```bash
+git add server/transcription/
+git commit -m "fix(server): 変更内容の説明
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+```
+
+### Step 2: Cloud Run デプロイ
+
+```bash
+cd server/transcription
+gcloud run deploy voilog-transcription \
+  --source . \
+  --region asia-northeast1 \
+  --no-allow-unauthenticated
+```
+
+### Step 3: タグ作成 & push
+
+```bash
+git tag server-vX.Y.Z
+git push origin main server-vX.Y.Z
+```
+
+### Step 4: GitHub Release 作成
+
+```bash
+gh release create server-vX.Y.Z \
+  --title "server-vX.Y.Z: 変更内容の短い説明" \
+  --notes "$(cat <<'EOF'
+## 変更内容
+
+### fix/feat: タイトル
+
+**問題**
+（何が問題だったか）
+
+**対応**
+（どう直したか）
+
+**影響範囲**
+- Cloud Run revision: `voilog-transcription-XXXXX`
+EOF
+)"
+```
+
+---
+
 ## Workflow: Android Release
 
 ```
