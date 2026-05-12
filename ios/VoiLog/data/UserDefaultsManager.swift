@@ -119,6 +119,15 @@ class UserDefaultsManager {
         }
     }
 
+    var hasShownTrialPromotion: Bool {
+        get {
+            defaults.bool(forKey: "HasShownTrialPromotion")
+        }
+        set {
+            defaults.set(newValue, forKey: "HasShownTrialPromotion")
+        }
+    }
+
     // チュートリアルを表示したかどうか
     var hasSeenTutorial: Bool {
         get {

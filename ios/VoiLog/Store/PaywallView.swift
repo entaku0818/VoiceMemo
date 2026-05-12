@@ -38,7 +38,7 @@ struct PaywallView: View {
                             .font(.system(size: 24, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
 
-                        Text(String(localized: "すべての機能が使い放題", table: "Premium"))
+                        Text(String(localized: "AI文字起こしを使いこなす", table: "Premium"))
                             .font(.system(size: 32, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
@@ -72,6 +72,14 @@ struct PaywallView: View {
 
                 // 機能リスト
                 VStack(spacing: 24) {
+                    // AI文字起こし機能
+                    featureRow(
+                        systemName: "sparkles",
+                        title: String(localized: "AI文字起こし無制限", table: "Premium"),
+                        description: String(localized: "高精度なAI文字起こしが無制限で使い放題！", table: "Premium"),
+                        systemImage: true
+                    )
+
                     // 広告非表示機能
                     featureRow(
                         systemName: "rectangle.slash",

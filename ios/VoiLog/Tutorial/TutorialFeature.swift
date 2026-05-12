@@ -174,6 +174,7 @@ enum UserDefaultsKeys {
   static let tutorialCompleted = "tutorial_completed"
   static let firstLaunch = "first_launch"
   static let firstRecordingCompleted = "first_recording_completed"
+  static let trialPromotionShown = "trial_promotion_shown"
 }
 
 // MARK: - Tutorial Overlay View

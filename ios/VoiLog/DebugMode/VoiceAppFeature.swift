@@ -47,6 +47,9 @@ struct VoiceAppFeature {
 
     // First recording celebration
     var showFirstRecordingCelebration = false
+
+    // Trial promotion (shown at 10th recording)
+    var showTrialPromotion = false
   }
 
   enum Action: BindableAction {
@@ -66,6 +69,8 @@ struct VoiceAppFeature {
       case startTutorial
       case dismissPaywall
       case dismissFirstRecordingCelebration
+      case dismissTrialPromotion
+      case startTrialFromPromotion
     }
 
     // Internal actions
@@ -210,6 +215,15 @@ struct VoiceAppFeature {
         case .dismissFirstRecordingCelebration:
           state.showFirstRecordingCelebration = false
           return .none
+
+        case .dismissTrialPromotion:
+          state.showTrialPromotion = false
+          return .none
+
+        case .startTrialFromPromotion:
+          state.showTrialPromotion = false
+          state.showPaywall = true
+          return .none
         }
 
       case .recordingFeature(.delegate(.recordingWillStart)):
@@ -256,6 +270,14 @@ struct VoiceAppFeature {
             }
           }
         } : .none
+
+        // 10回録音達成トライアル訴求（非プレミアム・未表示のみ）
+        if recordingCount == 10
+            && !state.settingFeature.hasPurchasedPremium
+            && !userDefaultsClient.bool(UserDefaultsKeys.trialPromotionShown) {
+          userDefaultsClient.set(true, UserDefaultsKeys.trialPromotionShown)
+          state.showTrialPromotion = true
+        }
 
         return .merge(
           .send(.playbackFeature(.view(.reloadData))),
@@ -477,6 +499,16 @@ struct VoiceAppView: View {
         },
         onDismiss: {
           store.send(.view(.dismissFirstRecordingCelebration))
+        }
+      )
+    }
+    .sheet(isPresented: $store.showTrialPromotion) {
+      TrialPromotionView(
+        onStartTrial: {
+          store.send(.view(.startTrialFromPromotion))
+        },
+        onDismiss: {
+          store.send(.view(.dismissTrialPromotion))
         }
       )
     }
