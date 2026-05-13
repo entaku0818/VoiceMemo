@@ -6,6 +6,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.devtools.ksp")
     alias(libs.plugins.roborazzi)
+    // Firebase: uncomment after placing google-services.json in app/
+    // id("com.google.gms.google-services")
+    // id("com.google.firebase.crashlytics")
 }
 
 val keystorePropertiesFile = rootProject.file("app-keys/key.properties")
@@ -151,4 +154,9 @@ dependencies {
 
     // Google Mobile Ads
     implementation("com.google.android.gms:play-services-ads:23.6.0")
+
+    // Firebase (uncomment google-services plugin in build.gradle.kts files first)
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
 }

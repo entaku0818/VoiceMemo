@@ -1,5 +1,9 @@
 package com.entaku.simpleRecord.settings
 
+import android.content.Intent
+import android.media.MediaRecorder
+import android.net.Uri
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,11 +14,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,10 +32,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import android.media.MediaRecorder
+import com.entaku.simpleRecord.BuildConfig
 import com.entaku.simpleRecord.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +48,8 @@ fun RecordingSettingsScreen(
     onNavigateToScreenshotPreview: (() -> Unit)? = null
 ) {
     var settings by remember { mutableStateOf(currentSettings) }
-    
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -182,6 +191,36 @@ fun RecordingSettingsScreen(
             }
             
             Spacer(modifier = Modifier.weight(1f))
+
+            // About / Contact section
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(stringResource(R.string.about), style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(4.dp))
+
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.contact_us)) },
+                trailingContent = {
+                    Icon(Icons.AutoMirrored.Filled.Send, contentDescription = null)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable {
+                        val subject = context.getString(R.string.contact_us_email_subject)
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("mailto:entaku0818@gmail.com")
+                            putExtra(Intent.EXTRA_SUBJECT, subject)
+                        }
+                        context.startActivity(Intent.createChooser(intent, subject))
+                    }
+            )
+
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.app_version)) },
+                trailingContent = { Text(BuildConfig.VERSION_NAME) }
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             onNavigateToScreenshotPreview?.let { navigate ->
                 Button(

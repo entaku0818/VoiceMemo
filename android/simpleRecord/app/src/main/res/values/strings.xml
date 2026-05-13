@@ -94,4 +94,10 @@
     <string name="notification_d3_body">Listen back to your recorded audio anytime.</string>
     <string name="notification_channel_name">Recording Reminders</string>
     <string name="notification_channel_description">Reminders to encourage recording</string>
+
+    <!-- Support / Inquiry -->
+    <string name="contact_us">Contact Us</string>
+    <string name="contact_us_email_subject">Simple Record - Inquiry</string>
+    <string name="app_version">App Version</string>
+    <string name="about">About</string>
 </resources>
