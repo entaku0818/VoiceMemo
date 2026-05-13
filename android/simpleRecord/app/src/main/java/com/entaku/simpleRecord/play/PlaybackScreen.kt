@@ -2,13 +2,18 @@ package com.entaku.simpleRecord.play
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Repeat
+import androidx.compose.material.icons.filled.RepeatOne
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.components.PlaybackWaveformView
 import java.time.LocalDateTime
@@ -21,7 +26,11 @@ fun PlaybackScreen(
     onPlayPause: () -> Unit,
     onStop: () -> Unit,
     onNavigateBack: () -> Unit,
-    onSpeedChange: (Float) -> Unit
+    onSpeedChange: (Float) -> Unit,
+    onToggleRepeat: () -> Unit = {},
+    onSetAbLoopStart: () -> Unit = {},
+    onSetAbLoopEnd: () -> Unit = {},
+    onClearAbLoop: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -73,11 +82,77 @@ fun PlaybackScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // リピート・ABループ コントロール
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onToggleRepeat) {
+                Icon(
+                    imageVector = if (playbackState.isRepeatOne) Icons.Default.RepeatOne else Icons.Default.Repeat,
+                    contentDescription = "Repeat",
+                    tint = if (playbackState.isRepeatOne) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            AbLoopControls(
+                abLoopStart = playbackState.abLoopStart,
+                abLoopEnd = playbackState.abLoopEnd,
+                onSetStart = onSetAbLoopStart,
+                onSetEnd = onSetAbLoopEnd,
+                onClear = onClearAbLoop,
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
         Button(onClick = {
             onStop()
             onNavigateBack()
         }) {
             Text(text = "Back to Recordings")
+        }
+    }
+}
+
+@Composable
+private fun AbLoopControls(
+    abLoopStart: Int?,
+    abLoopEnd: Int?,
+    onSetStart: () -> Unit,
+    onSetEnd: () -> Unit,
+    onClear: () -> Unit,
+) {
+    val hasLoop = abLoopStart != null && abLoopEnd != null
+    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        OutlinedButton(
+            onClick = onSetStart,
+            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
+        ) {
+            Text(
+                text = if (abLoopStart != null) "A: ${abLoopStart / 1000}s" else "Set A",
+                fontSize = 12.sp,
+                color = if (abLoopStart != null) MaterialTheme.colorScheme.primary else Color.Unspecified
+            )
+        }
+        OutlinedButton(
+            onClick = onSetEnd,
+            enabled = abLoopStart != null,
+            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 4.dp)
+        ) {
+            Text(
+                text = if (abLoopEnd != null) "B: ${abLoopEnd / 1000}s" else "Set B",
+                fontSize = 12.sp,
+                color = if (abLoopEnd != null) MaterialTheme.colorScheme.primary else Color.Unspecified
+            )
+        }
+        if (hasLoop) {
+            TextButton(
+                onClick = onClear,
+                contentPadding = PaddingValues(horizontal = 6.dp, vertical = 4.dp)
+            ) {
+                Text("✕", fontSize = 12.sp)
+            }
         }
     }
 }

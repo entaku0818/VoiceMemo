@@ -198,7 +198,11 @@ fun AppNavHost() {
                             onNavigateBack = { navController.popBackStack() },
                             onSpeedChange = { speed ->
                                 playbackViewModel.setPlaybackSpeed(speed)
-                            }
+                            },
+                            onToggleRepeat = { playbackViewModel.toggleRepeatOne() },
+                            onSetAbLoopStart = { playbackViewModel.setAbLoopStart() },
+                            onSetAbLoopEnd = { playbackViewModel.setAbLoopEnd() },
+                            onClearAbLoop = { playbackViewModel.clearAbLoop() },
                         )
                     }
                 }

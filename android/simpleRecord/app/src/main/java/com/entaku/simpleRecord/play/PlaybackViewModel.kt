@@ -18,7 +18,10 @@ data class PlaybackState(
     val isPlaying: Boolean = false,
     val currentPosition: Int = 0,
     val duration: Int = 0,
-    val playbackSpeed: Float = 1.0f
+    val playbackSpeed: Float = 1.0f,
+    val isRepeatOne: Boolean = false,
+    val abLoopStart: Int? = null,
+    val abLoopEnd: Int? = null,
 )
 
 class PlaybackViewModel : ViewModel() {
@@ -39,8 +42,14 @@ class PlaybackViewModel : ViewModel() {
 
                 // Set completion listener for playlist playback
                 setOnCompletionListener {
-                    _playbackState.update { it.copy(isPlaying = false, currentPosition = 0) }
-                    onCompletionCallback?.invoke()
+                    if (_playbackState.value.isRepeatOne) {
+                        seekTo(0)
+                        start()
+                        _playbackState.update { it.copy(currentPosition = 0) }
+                    } else {
+                        _playbackState.update { it.copy(isPlaying = false, currentPosition = 0) }
+                        onCompletionCallback?.invoke()
+                    }
                 }
 
                 // Update duration
@@ -97,16 +106,20 @@ class PlaybackViewModel : ViewModel() {
     }
 
     private fun startUpdatingProgress() {
-        // すでにジョブが実行中の場合はキャンセル
         updateJob?.cancel()
-
         updateJob = viewModelScope.launch {
             while (_playbackState.value.isPlaying) {
                 val position = mediaPlayer?.currentPosition ?: 0
-                _playbackState.update { currentState ->
-                    currentState.copy(currentPosition = position)
+                val state = _playbackState.value
+                val loopStart = state.abLoopStart
+                val loopEnd = state.abLoopEnd
+                if (loopStart != null && loopEnd != null && position >= loopEnd) {
+                    mediaPlayer?.seekTo(loopStart)
+                    _playbackState.update { it.copy(currentPosition = loopStart) }
+                } else {
+                    _playbackState.update { it.copy(currentPosition = position) }
                 }
-                delay(100) // 100msごとに更新
+                delay(100)
             }
         }
     }
@@ -159,6 +172,27 @@ class PlaybackViewModel : ViewModel() {
      */
     fun getDuration(): Int {
         return mediaPlayer?.duration ?: 0
+    }
+
+    fun toggleRepeatOne() {
+        _playbackState.update { it.copy(isRepeatOne = !it.isRepeatOne) }
+    }
+
+    fun setAbLoopStart() {
+        val position = mediaPlayer?.currentPosition ?: _playbackState.value.currentPosition
+        _playbackState.update { it.copy(abLoopStart = position, abLoopEnd = null) }
+    }
+
+    fun setAbLoopEnd() {
+        val position = mediaPlayer?.currentPosition ?: _playbackState.value.currentPosition
+        val loopStart = _playbackState.value.abLoopStart ?: return
+        if (position > loopStart) {
+            _playbackState.update { it.copy(abLoopEnd = position) }
+        }
+    }
+
+    fun clearAbLoop() {
+        _playbackState.update { it.copy(abLoopStart = null, abLoopEnd = null) }
     }
 
     /**
