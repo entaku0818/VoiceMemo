@@ -37,8 +37,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.entaku.simpleRecord.R
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import com.entaku.simpleRecord.formatTime
@@ -91,21 +93,21 @@ fun RecordScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Record") },
+                title = { Text(stringResource(R.string.record)) },
                 navigationIcon = {
                     IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 actions = {
                     IconButton(
                         onClick = { onNavigateToSettings() },
-                        enabled = uiState.recordingState != RecordingState.RECORDING && 
+                        enabled = uiState.recordingState != RecordingState.RECORDING &&
                                  uiState.recordingState != RecordingState.PAUSED
                     ) {
                         Icon(
-                            Icons.Default.Settings, 
-                            contentDescription = "Settings",
+                            Icons.Default.Settings,
+                            contentDescription = stringResource(R.string.settings),
                             tint = if (uiState.recordingState != RecordingState.RECORDING && 
                                       uiState.recordingState != RecordingState.PAUSED)
                                 MaterialTheme.colorScheme.onSurface
@@ -163,17 +165,17 @@ fun RecordScreen(
                                         Icons.Default.Pause 
                                     else 
                                         Icons.Default.PlayArrow,
-                                    contentDescription = if (uiState.recordingState == RecordingState.RECORDING) 
-                                        "Pause" 
-                                    else 
-                                        "Resume"
+                                    contentDescription = if (uiState.recordingState == RecordingState.RECORDING)
+                                        stringResource(R.string.pause)
+                                    else
+                                        stringResource(R.string.resume)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    if (uiState.recordingState == RecordingState.RECORDING) 
-                                        "Pause" 
-                                    else 
-                                        "Resume"
+                                    if (uiState.recordingState == RecordingState.RECORDING)
+                                        stringResource(R.string.pause)
+                                    else
+                                        stringResource(R.string.resume)
                                 )
                             }
                         }
@@ -188,10 +190,10 @@ fun RecordScreen(
                             ) {
                                 Icon(
                                     Icons.Default.Stop,
-                                    contentDescription = "Stop"
+                                    contentDescription = stringResource(R.string.stop)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("Stop")
+                                Text(stringResource(R.string.stop))
                             }
                         }
                     }
@@ -212,10 +214,10 @@ fun RecordScreen(
                         ) {
                             Icon(
                                 Icons.Default.PlayArrow,
-                                contentDescription = "Start Recording"
+                                contentDescription = stringResource(R.string.start_recording)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("Start Recording")
+                            Text(stringResource(R.string.start_recording))
                         }
                     }
                 }
@@ -232,7 +234,7 @@ fun RecordScreen(
                             .padding(horizontal = 16.dp)
                     ) {
                         Text(
-                            text = "Volume: ${uiState.currentVolume}%",
+                            text = stringResource(R.string.volume_label, uiState.currentVolume),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(bottom = 8.dp)

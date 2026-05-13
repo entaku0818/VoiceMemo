@@ -14,9 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.entaku.simpleRecord.R
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.play.PlaybackState
 import java.time.format.DateTimeFormatter
@@ -47,7 +49,7 @@ fun PlaylistPlaybackScreen(
                 title = { Text(playlistName) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -174,7 +176,7 @@ private fun CurrentTrackCard(
                 }
             } else {
                 Text(
-                    text = "No track selected",
+                    text = stringResource(R.string.no_track_selected),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.6f)
                 )
@@ -282,7 +284,7 @@ private fun PlaybackControls(
         ) {
             Icon(
                 imageVector = Icons.Default.Shuffle,
-                contentDescription = "Shuffle",
+                contentDescription = stringResource(R.string.shuffle),
                 tint = if (shuffleEnabled) {
                     MaterialTheme.colorScheme.primary
                 } else {
@@ -299,7 +301,7 @@ private fun PlaybackControls(
         ) {
             Icon(
                 imageVector = Icons.Default.SkipPrevious,
-                contentDescription = "Previous",
+                contentDescription = stringResource(R.string.previous),
                 modifier = Modifier.size(40.dp)
             )
         }
@@ -312,7 +314,7 @@ private fun PlaybackControls(
         ) {
             Icon(
                 imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
-                contentDescription = if (isPlaying) "Pause" else "Play",
+                contentDescription = if (isPlaying) stringResource(R.string.pause) else stringResource(R.string.play),
                 modifier = Modifier.size(40.dp)
             )
         }
@@ -325,7 +327,7 @@ private fun PlaybackControls(
         ) {
             Icon(
                 imageVector = Icons.Default.SkipNext,
-                contentDescription = "Next",
+                contentDescription = stringResource(R.string.next),
                 modifier = Modifier.size(40.dp)
             )
         }
@@ -342,7 +344,7 @@ private fun PlaybackControls(
             }
             Icon(
                 imageVector = icon,
-                contentDescription = "Repeat: $repeatMode",
+                contentDescription = stringResource(R.string.repeat),
                 tint = tint
             )
         }
@@ -413,7 +415,7 @@ private fun PlaylistTrackItem(
             if (isPlaying) {
                 Icon(
                     imageVector = Icons.Default.PlayArrow,
-                    contentDescription = "Playing",
+                    contentDescription = stringResource(R.string.playing),
                     tint = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier.size(20.dp)
                 )

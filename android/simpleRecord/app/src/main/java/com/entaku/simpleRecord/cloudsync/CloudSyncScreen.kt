@@ -42,8 +42,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.entaku.simpleRecord.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,10 +81,10 @@ fun CloudSyncScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Cloud Sync") },
+                title = { Text(stringResource(R.string.cloud_sync)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -142,14 +144,14 @@ private fun SignInContent(
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "Google Drive Backup",
+            text = stringResource(R.string.google_drive_backup),
             style = MaterialTheme.typography.headlineMedium
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Sign in with your Google account to backup and restore your recordings",
+            text = stringResource(R.string.cloud_sync_description),
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -160,7 +162,7 @@ private fun SignInContent(
         Button(onClick = onSignIn) {
             Icon(Icons.Default.Person, contentDescription = null)
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Sign in with Google")
+            Text(stringResource(R.string.sign_in_google))
         }
     }
 }
@@ -196,7 +198,7 @@ private fun SignedInContent(
                 Spacer(modifier = Modifier.width(16.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Signed in as",
+                        text = stringResource(R.string.signed_in_as),
                         style = MaterialTheme.typography.labelMedium
                     )
                     Text(
@@ -215,12 +217,12 @@ private fun SignedInContent(
                         .padding(16.dp)
                 ) {
                     Text(
-                        text = "Cloud Backup",
+                        text = stringResource(R.string.cloud_backup),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "${info.recordingCount} recordings in cloud",
+                        text = "${info.recordingCount} ${stringResource(R.string.recordings_in_cloud)}",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -236,7 +238,7 @@ private fun SignedInContent(
         ) {
             Icon(Icons.Default.CloudUpload, contentDescription = null)
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Backup to Google Drive")
+            Text(stringResource(R.string.backup_to_drive))
         }
 
         OutlinedButton(
@@ -245,7 +247,7 @@ private fun SignedInContent(
         ) {
             Icon(Icons.Default.CloudDownload, contentDescription = null)
             Spacer(modifier = Modifier.width(8.dp))
-            Text("Restore from Google Drive")
+            Text(stringResource(R.string.restore_from_drive))
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -257,7 +259,7 @@ private fun SignedInContent(
                 contentColor = MaterialTheme.colorScheme.error
             )
         ) {
-            Text("Sign Out")
+            Text(stringResource(R.string.sign_out))
         }
     }
 }

@@ -44,8 +44,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.entaku.simpleRecord.R
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
@@ -70,10 +72,10 @@ fun PlaylistListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Playlists") },
+                title = { Text(stringResource(R.string.playlists)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -83,7 +85,7 @@ fun PlaylistListScreen(
                 onClick = { showCreateDialog = true },
                 containerColor = colorScheme.primary
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Create Playlist")
+                Icon(Icons.Default.Add, contentDescription = stringResource(R.string.create_playlist))
             }
         }
     ) { innerPadding ->
@@ -112,12 +114,12 @@ fun PlaylistListScreen(
                             modifier = Modifier.padding(16.dp)
                         )
                         Text(
-                            text = "No playlists yet",
+                            text = stringResource(R.string.no_playlists),
                             style = MaterialTheme.typography.bodyLarge,
                             color = colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "Tap + to create one",
+                            text = stringResource(R.string.tap_to_create),
                             style = MaterialTheme.typography.bodyMedium,
                             color = colorScheme.onSurfaceVariant
                         )
@@ -212,7 +214,7 @@ fun PlaylistListItem(
                 IconButton(onClick = { expanded = true }) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
-                        contentDescription = "More options",
+                        contentDescription = stringResource(R.string.more_options),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -226,7 +228,7 @@ fun PlaylistListItem(
                             expanded = false
                             showEditDialog = true
                         },
-                        text = { Text("Edit Name") },
+                        text = { Text(stringResource(R.string.edit_name)) },
                         leadingIcon = {
                             Icon(Icons.Default.Edit, contentDescription = null)
                         }
@@ -236,7 +238,7 @@ fun PlaylistListItem(
                             expanded = false
                             showDeleteDialog = true
                         },
-                        text = { Text("Delete") },
+                        text = { Text(stringResource(R.string.delete)) },
                         leadingIcon = {
                             Icon(Icons.Default.Delete, contentDescription = null)
                         }
@@ -249,19 +251,19 @@ fun PlaylistListItem(
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("Delete Playlist") },
-            text = { Text("Are you sure you want to delete this playlist?") },
+            title = { Text(stringResource(R.string.delete_playlist)) },
+            text = { Text(stringResource(R.string.delete_playlist_confirm)) },
             confirmButton = {
                 Button(onClick = {
                     onDeleteClick()
                     showDeleteDialog = false
                 }) {
-                    Text("Delete")
+                    Text(stringResource(R.string.delete))
                 }
             },
             dismissButton = {
                 Button(onClick = { showDeleteDialog = false }) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )
@@ -288,15 +290,15 @@ fun CreatePlaylistDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Create Playlist") },
+        title = { Text(stringResource(R.string.create_playlist)) },
         text = {
             Column {
-                Text("Enter playlist name")
+                Text(stringResource(R.string.enter_playlist_name))
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Name") },
+                    label = { Text(stringResource(R.string.name)) },
                     singleLine = true
                 )
             }
@@ -306,12 +308,12 @@ fun CreatePlaylistDialog(
                 onClick = { onConfirm(name) },
                 enabled = name.isNotBlank()
             ) {
-                Text("Create")
+                Text(stringResource(R.string.create))
             }
         },
         dismissButton = {
             Button(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
@@ -327,15 +329,15 @@ fun EditPlaylistNameDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Edit Playlist Name") },
+        title = { Text(stringResource(R.string.edit_playlist_name)) },
         text = {
             Column {
-                Text("Enter new name")
+                Text(stringResource(R.string.name_hint))
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = newName,
                     onValueChange = { newName = it },
-                    label = { Text("Name") },
+                    label = { Text(stringResource(R.string.name)) },
                     singleLine = true
                 )
             }
@@ -345,12 +347,12 @@ fun EditPlaylistNameDialog(
                 onClick = { onConfirm(newName) },
                 enabled = newName.isNotBlank()
             ) {
-                Text("Save")
+                Text(stringResource(R.string.save))
             }
         },
         dismissButton = {
             Button(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.cancel))
             }
         }
     )

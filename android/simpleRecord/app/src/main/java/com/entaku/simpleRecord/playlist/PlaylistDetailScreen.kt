@@ -44,8 +44,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.entaku.simpleRecord.R
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.formatTime
 import kotlinx.coroutines.launch
@@ -82,7 +84,7 @@ fun PlaylistDetailScreen(
                 title = { Text(state.playlist?.name ?: "Playlist") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -93,7 +95,7 @@ fun PlaylistDetailScreen(
                     onClick = { showAddRecordingSheet = true },
                     containerColor = colorScheme.primary
                 ) {
-                    Icon(Icons.Default.Add, contentDescription = "Add Recording")
+                    Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_recording))
                 }
             }
         }
@@ -123,12 +125,12 @@ fun PlaylistDetailScreen(
                             modifier = Modifier.padding(16.dp)
                         )
                         Text(
-                            text = "No recordings in this playlist",
+                            text = stringResource(R.string.no_recordings_in_playlist),
                             style = MaterialTheme.typography.bodyLarge,
                             color = colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "Tap + to add recordings",
+                            text = stringResource(R.string.tap_to_add_recordings),
                             style = MaterialTheme.typography.bodyMedium,
                             color = colorScheme.onSurfaceVariant
                         )
@@ -150,7 +152,7 @@ fun PlaylistDetailScreen(
                         contentDescription = null,
                         modifier = Modifier.padding(end = 8.dp)
                     )
-                    Text("Play All (${state.recordings.size} tracks)")
+                    Text(stringResource(R.string.play_all) + " (${state.recordings.size} tracks)")
                 }
 
                 val reorderableState = rememberReorderableLazyListState(
@@ -274,7 +276,7 @@ fun PlaylistRecordingItem(
             IconButton(onClick = onRemoveClick) {
                 Icon(
                     imageVector = Icons.Default.Remove,
-                    contentDescription = "Remove from playlist",
+                    contentDescription = stringResource(R.string.remove_from_playlist),
                     tint = MaterialTheme.colorScheme.error
                 )
             }
@@ -293,14 +295,14 @@ fun AddRecordingSheet(
             .padding(16.dp)
     ) {
         Text(
-            text = "Add Recording",
+            text = stringResource(R.string.add_recording),
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
         if (recordings.isEmpty()) {
             Text(
-                text = "All recordings are already in this playlist",
+                text = stringResource(R.string.all_recordings_added),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -372,7 +374,7 @@ fun AddRecordingItem(
             IconButton(onClick = onAddClick) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add to playlist",
+                    contentDescription = stringResource(R.string.add_to_playlist),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }

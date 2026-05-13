@@ -25,9 +25,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import android.media.MediaRecorder
+import com.entaku.simpleRecord.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,10 +44,10 @@ fun RecordingSettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Recording Settings") },
+                title = { Text(stringResource(R.string.recording_settings)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -59,7 +61,7 @@ fun RecordingSettingsScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // ファイル形式選択
-            Text("File Format", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.file_format), style = MaterialTheme.typography.titleMedium)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -100,7 +102,7 @@ fun RecordingSettingsScreen(
             }
             
             // サンプリングレート選択
-            Text("Sampling Rate", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.sampling_rate), style = MaterialTheme.typography.titleMedium)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -129,7 +131,7 @@ fun RecordingSettingsScreen(
             }
             
             // ビットレート選択
-            Text("Bit Rate", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.bit_rate), style = MaterialTheme.typography.titleMedium)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -158,20 +160,20 @@ fun RecordingSettingsScreen(
             }
             
             // チャンネル数選択
-            Text("Channels", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.channels), style = MaterialTheme.typography.titleMedium)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 ChannelOption(
-                    text = "Mono",
+                    text = stringResource(R.string.mono),
                     selected = settings.channels == 1,
                     onClick = {
                         settings = settings.copy(channels = 1)
                     }
                 )
                 ChannelOption(
-                    text = "Stereo",
+                    text = stringResource(R.string.stereo),
                     selected = settings.channels == 2,
                     onClick = {
                         settings = settings.copy(channels = 2)
@@ -198,7 +200,7 @@ fun RecordingSettingsScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Save Settings")
+                Text(stringResource(R.string.save_settings))
             }
         }
     }

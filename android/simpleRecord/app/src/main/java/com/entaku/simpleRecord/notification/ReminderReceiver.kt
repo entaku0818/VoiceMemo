@@ -16,14 +16,14 @@ class ReminderReceiver : BroadcastReceiver() {
             ReminderScheduler.ACTION_D1 -> showNotification(
                 context = context,
                 notificationId = 1001,
-                title = "今日も録音してみませんか？",
-                body = "シンプル録音でいつでも簡単に録音できます。",
+                title = context.getString(R.string.notification_d1_title),
+                body = context.getString(R.string.notification_d1_body),
             )
             ReminderScheduler.ACTION_D3 -> showNotification(
                 context = context,
                 notificationId = 1003,
-                title = "録音を振り返りませんか？",
-                body = "録音した音声をいつでも聴き返せます。",
+                title = context.getString(R.string.notification_d3_title),
+                body = context.getString(R.string.notification_d3_body),
             )
             Intent.ACTION_BOOT_COMPLETED -> {
                 // 再起動後にアラームが消えるため再スケジュール

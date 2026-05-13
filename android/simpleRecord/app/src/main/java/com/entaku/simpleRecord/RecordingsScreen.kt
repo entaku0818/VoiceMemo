@@ -38,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -106,7 +107,7 @@ fun RecordingsScreen(
                         disabledContentColor = colorScheme.onSurfaceVariant
                     )
                 ) {
-                    Text(text = "Playlists")
+                    Text(text = stringResource(R.string.playlists))
                 }
 
                 Button(
@@ -119,7 +120,7 @@ fun RecordingsScreen(
                         disabledContentColor = colorScheme.onSurfaceVariant
                     )
                 ) {
-                    Text(text = "Cloud Sync")
+                    Text(text = stringResource(R.string.cloud_sync))
                 }
             }
 
@@ -133,7 +134,7 @@ fun RecordingsScreen(
                     disabledContentColor = colorScheme.onSurfaceVariant
                 )
             ) {
-                Text(text = "Start Recording")
+                Text(text = stringResource(R.string.start_recording))
             }
         }
     }
@@ -257,7 +258,7 @@ fun RecordingListItem(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.MoreVert,
-                                contentDescription = "More options",
+                                contentDescription = stringResource(R.string.more_options),
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
@@ -271,7 +272,7 @@ fun RecordingListItem(
                                     expanded = false
                                     showEditNameDialog = true
                                 },
-                                text = { Text("Edit Name") },
+                                text = { Text(stringResource(R.string.edit_name)) },
                                 leadingIcon = {
                                     Icon(
                                         Icons.Default.Edit,
@@ -284,7 +285,7 @@ fun RecordingListItem(
                                     expanded = false
                                     showDeleteDialog = true
                                 },
-                                text = { Text("Delete") },
+                                text = { Text(stringResource(R.string.delete)) },
                                 leadingIcon = {
                                     Icon(
                                         Icons.Default.Delete,
@@ -302,19 +303,19 @@ fun RecordingListItem(
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
-            title = { Text("削除確認") },
-            text = { Text("本当に削除してもよろしいですか？") },
+            title = { Text(stringResource(R.string.delete_confirm_title)) },
+            text = { Text(stringResource(R.string.delete_confirm_message)) },
             confirmButton = {
                 Button(onClick = {
                     onDeleteClick() // 実際の削除アクションを呼び出し
                     showDeleteDialog = false
                 }) {
-                    Text("はい")
+                    Text(stringResource(R.string.yes))
                 }
             },
             dismissButton = {
                 Button(onClick = { showDeleteDialog = false }) {
-                    Text("いいえ")
+                    Text(stringResource(R.string.no))
                 }
             }
         )
@@ -341,15 +342,15 @@ fun EditNameDialog(
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
-        title = { Text("名前を編集") },
+        title = { Text(stringResource(R.string.edit_name_title)) },
         text = {
             Column {
-                Text("新しい名前を入力してください")
+                Text(stringResource(R.string.edit_name_prompt))
                 Spacer(modifier = Modifier.height(8.dp))
                 TextField(
                     value = newName,
                     onValueChange = { newName = it },
-                    label = { Text("名前") },
+                    label = { Text(stringResource(R.string.edit_name_label)) },
                     singleLine = true
                 )
             }
@@ -359,12 +360,12 @@ fun EditNameDialog(
                 onConfirm(newName) // 新しい名前を返す
                 onDismiss() // ダイアログを閉じる
             }) {
-                Text("保存")
+                Text(stringResource(R.string.save))
             }
         },
         dismissButton = {
             Button(onClick = { onDismiss() }) {
-                Text("キャンセル")
+                Text(stringResource(R.string.cancel))
             }
         }
     )
