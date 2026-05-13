@@ -125,6 +125,20 @@ final class ScreenshotRenderTests: XCTestCase {
         }
     }
 
+    func testRenderAITranscriptionScreenshots() throws {
+        for (language, code) in languages {
+            let view = ScreenshotPageView(
+                caption: language.screenshotCaption(for: .aiTranscription),
+                subtitle: language.screenshotSubtitle(for: .aiTranscription),
+                screen: .aiTranscription,
+                language: language
+            ) {
+                PhoneFrameView { MockAITranscriptionView(language: language) }
+            }
+            try renderAndSave(view: view, filename: "\(code)_07_aitranscription.png")
+        }
+    }
+
     private func renderAndSave<V: View>(view: V, filename: String) throws {
         // iPhone 15 Plus: 430x932 logical pts @ 3x = 1290x2796px
         let renderer = ImageRenderer(content: view.frame(width: 430, height: 932))

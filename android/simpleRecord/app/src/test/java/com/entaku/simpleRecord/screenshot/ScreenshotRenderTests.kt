@@ -1,9 +1,6 @@
 package com.entaku.simpleRecord.screenshot
 
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onRoot
 import com.github.takahirom.roborazzi.captureRoboImage
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -17,72 +14,49 @@ import java.io.File
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class ScreenshotRenderTests {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
     private val outputDir = File("/tmp/voilog_screenshots").also { it.mkdirs() }
-
-    // MARK: - 録音一覧
 
     @Test
     fun recordingsList() {
         for (language in ScreenshotLanguage.values()) {
-            composeTestRule.setContent {
+            captureRoboImage("${outputDir.path}/${language.code}_00_recordings.png") {
                 ScreenshotPage(language, ScreenshotScreen.RECORDINGS_LIST) {
                     MockRecordingsScreen(language)
                 }
             }
-            composeTestRule.onRoot().captureRoboImage(
-                filePath = "${outputDir.path}/${language.code}_00_recordings.png"
-            )
         }
     }
-
-    // MARK: - 録音中
 
     @Test
     fun recording() {
         for (language in ScreenshotLanguage.values()) {
-            composeTestRule.setContent {
+            captureRoboImage("${outputDir.path}/${language.code}_01_recording.png") {
                 ScreenshotPage(language, ScreenshotScreen.RECORDING) {
                     MockRecordingScreen(language)
                 }
             }
-            composeTestRule.onRoot().captureRoboImage(
-                filePath = "${outputDir.path}/${language.code}_01_recording.png"
-            )
         }
     }
-
-    // MARK: - 再生
 
     @Test
     fun playback() {
         for (language in ScreenshotLanguage.values()) {
-            composeTestRule.setContent {
+            captureRoboImage("${outputDir.path}/${language.code}_02_playback.png") {
                 ScreenshotPage(language, ScreenshotScreen.PLAYBACK) {
                     MockPlaybackScreen(language)
                 }
             }
-            composeTestRule.onRoot().captureRoboImage(
-                filePath = "${outputDir.path}/${language.code}_02_playback.png"
-            )
         }
     }
-
-    // MARK: - プレイリスト
 
     @Test
     fun playlist() {
         for (language in ScreenshotLanguage.values()) {
-            composeTestRule.setContent {
+            captureRoboImage("${outputDir.path}/${language.code}_03_playlist.png") {
                 ScreenshotPage(language, ScreenshotScreen.PLAYLIST) {
                     MockPlaylistScreen(language)
                 }
             }
-            composeTestRule.onRoot().captureRoboImage(
-                filePath = "${outputDir.path}/${language.code}_03_playlist.png"
-            )
         }
     }
 }

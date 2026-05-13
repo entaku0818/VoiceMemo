@@ -51,13 +51,21 @@ cd android/simpleRecord && ./gradlew clean
 
 **Requirements**: JDK 17 (JetBrains Runtime recommended)
 
-### Deployment (Fastlane)
-```bash
-# Upload to App Store Connect with metadata and submission
-bundle exec fastlane upload_metadata
+### Deployment (Launchpad)
 
-# List all available Fastlane lanes
-bundle exec fastlane lanes
+`.launchpadrc` で iOS/Android の設定が管理されている。
+
+```bash
+# iOS: ビルド → アップロード → メタデータ → スクリーンショット → 審査提出
+launchpad ios build
+launchpad ios upload
+launchpad ios metadata
+launchpad ios screenshots
+launchpad ios submit
+
+# Android: ビルド → アップロード
+launchpad android build
+launchpad android upload
 ```
 
 ### Release Checklist
@@ -78,8 +86,8 @@ bundle exec fastlane lanes
    ```
 
 4. **Submit**
-   - iOS: `bundle exec fastlane upload_metadata` (after Xcode archive upload)
-   - Android: `bundle exec fastlane upload_production` (from android/simpleRecord/)
+   - iOS: `launchpad ios build && launchpad ios upload && launchpad ios metadata && launchpad ios screenshots --overwrite && launchpad ios submit`
+   - Android: `launchpad android build && launchpad android upload` (from android/simpleRecord/)
 
 ### Package Management
 ```bash

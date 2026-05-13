@@ -3,9 +3,9 @@ name: voilog-release-checklist
 description: Step-by-step release checklist for VoiLog iOS and Android app submission to App Store and Google Play. Use when preparing release, updating version, submitting to app stores, creating release, or mentioning App Store or Google Play submission.
 metadata:
   author: VoiLog Team
-  version: 2.1.0
+  version: 3.0.0
   category: deployment
-  tags: [release, fastlane, app-store, google-play, ios, android]
+  tags: [release, launchpad, app-store, google-play, ios, android]
 ---
 
 # VoiLog Release Checklist
@@ -14,19 +14,22 @@ metadata:
 
 **IMPORTANT**: Complete ALL steps before App Store or Google Play submission.
 
-## Prerequisites
+## Tool
 
-### iOS Requirements
-- Xcode installed
-- `bundle install` completed
-- App Store Connect API Key configured (environment variables)
-- Apple Developer account access
+リリースには `launchpad` を使用する（`bundle exec fastlane` は使わない）。  
+設定は `.launchpadrc` で管理されている。
 
-### Android Requirements
-- JDK 17 installed (`java -version`)
-- `bundle install` completed
-- Google Play Console API Key (`play-store-credentials.json`)
-- Signing keystore (`app-keys/SimpleRecord.keystore`)
+```
+launchpad ios build       # アーカイブ作成 & エクスポート
+launchpad ios upload      # App Store Connect にアップロード
+launchpad ios metadata    # メタデータ更新 (fastlane/metadata/ を読む)
+launchpad ios screenshots # スクリーンショットアップロード
+launchpad ios submit      # 審査提出
+
+launchpad android build   # AAB ビルド
+launchpad android upload  # Google Play にアップロード
+launchpad android promote # トラック昇格 (例: internal → production)
+```
 
 ---
 
@@ -34,17 +37,16 @@ metadata:
 
 **Claude はこのワークフローをすべて自動実行する。** 各ステップのコマンドを Bash ツールで直接叩くこと。ユーザーに手動実行を求めてはいけない。
 
-Copy this checklist and check off items as you complete them:
-
 ```
 iOS Release Progress:
 - [ ] Step 1: Update release notes (ja + en-US + all languages)
 - [ ] Step 2: Bump version in project.pbxproj
 - [ ] Step 3: Commit and create git tag
-- [ ] Step 4: Archive and upload to App Store Connect
-- [ ] Step 5: Run fastlane upload_metadata
-- [ ] Step 5.1: Configure App Store Connect (if needed)
-- [ ] Step 6: Create GitHub Release (gh release create)
+- [ ] Step 4: launchpad ios build
+- [ ] Step 5: launchpad ios upload
+- [ ] Step 6: launchpad ios metadata && launchpad ios screenshots --overwrite
+- [ ] Step 7: launchpad ios submit
+- [ ] Step 8: Create GitHub Release
 ```
 
 ### Step 1: Update Release Notes
@@ -72,118 +74,80 @@ iOS Release Progress:
 
 **File**: `ios/VoiLog.xcodeproj/project.pbxproj`
 
-Update `MARKETING_VERSION`:
 ```bash
-# Find current version
-grep "MARKETING_VERSION" ios/VoiLog.xcodeproj/project.pbxproj
+# 現在のバージョン確認
+grep "MARKETING_VERSION" ios/VoiLog.xcodeproj/project.pbxproj | head -1
 
-# Update to new version (e.g., 1.3.1 → 1.3.2)
-# Edit the file directly or use sed
+# バージョンアップ (例: 1.3.3 → 1.3.4)
+sed -i '' 's/MARKETING_VERSION = 1.3.3;/MARKETING_VERSION = 1.3.4;/g' ios/VoiLog.xcodeproj/project.pbxproj
 ```
 
 ### Step 3: Commit and Create Git Tag
 
 ```bash
 git add fastlane/metadata/
-git add fastlane/screenshots/ # if screenshots changed
 git add ios/VoiLog.xcodeproj/project.pbxproj
 git commit -m "chore: bump version to 1.x.x
 
 - Update release notes
 - Increment version number
 
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
 
 git tag v1.x.x
 git push origin main
 git push origin v1.x.x
 ```
 
-### Step 4: Archive and Upload to App Store Connect
-
-**Option A: Via Command Line (Recommended)**
-
-Complete workflow in one go:
-```bash
-# 1. Create ExportOptions.plist
-cat > /tmp/ExportOptions.plist << 'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>method</key>
-    <string>app-store</string>
-    <key>destination</key>
-    <string>upload</string>
-    <key>signingStyle</key>
-    <string>automatic</string>
-    <key>teamID</key>
-    <string>4YZQY4C47E</string>
-</dict>
-</plist>
-EOF
-
-# 2. Create archive and upload
-xcodebuild -project ios/VoiLog.xcodeproj \
-  -scheme VoiLog \
-  -configuration Release \
-  -archivePath build/VoiLog.xcarchive \
-  archive && \
-xcodebuild -exportArchive \
-  -archivePath build/VoiLog.xcarchive \
-  -exportOptionsPlist /tmp/ExportOptions.plist \
-  -exportPath build/export \
-  -allowProvisioningUpdates
-```
-
-**Option B: Via Xcode (Alternative)**
-1. Open `ios/VoiLog.xcodeproj` in Xcode
-2. Select **VoiLog** scheme (NOT VoiLogDevelop)
-3. Product → Archive
-4. Distribute App → App Store Connect
-5. Wait for upload completion
-
-### Step 5: Run Fastlane
+### Step 4: Build
 
 ```bash
-bundle exec fastlane upload_metadata
+launchpad ios build
 ```
 
-This command will:
-- Upload metadata (app description, keywords, etc.)
-- Delete old screenshots
-- Upload new screenshots from `fastlane/screenshots/`
-- Select the latest build
-- Attempt to submit for review
+`.launchpadrc` の `ios.project` / `ios.scheme` / `ios.output` / `ios.exportMethod` を使う。
 
-**⚠️ IMPORTANT**: If submission fails with "missing required attribute" errors, proceed to Step 5.1.
+### Step 5: Upload
 
-### Step 5.1: Configure App Store Connect (Manual Setup)
+```bash
+launchpad ios upload
+```
 
-If fastlane submission fails, manually configure these in App Store Connect:
+App Store Connect にバイナリを送信する。Apple 側の処理完了まで数分かかることがある。
 
-1. Go to https://appstoreconnect.apple.com
-2. Navigate to: **マイApp** → **VoiLog** → version 1.x.x → **App情報**
-3. Configure required attributes:
-   - **advertising**: はい (AdMob使用)
-   - **userGeneratedContent**: いいえ
-   - **healthOrWellnessTopics**: いいえ
-   - **lootBox**: いいえ
-   - **parentalControls**: いいえ
-   - **ageAssurance**: いいえ
-   - **messagingAndChat**: いいえ
-   - **gunsOrOtherWeapons**: いいえ
-4. Save and click **審査に提出**
+### Step 6: Metadata & Screenshots
 
-**Note**: These attributes are required by Apple but cannot be set via Fastlane API.
+```bash
+launchpad ios metadata
+launchpad ios screenshots --overwrite
+```
 
-### Step 6: Verify Submission
+`fastlane/metadata/` と `fastlane/screenshots/` の内容をそのまま使う。
 
-Check App Store Connect:
-- ✅ Version number correct (1.x.x)
-- ✅ Release notes visible in all languages
-- ✅ Screenshots updated (6.9" display)
-- ✅ Status: "Waiting for Review"
+### Step 7: Submit for Review
+
+```bash
+launchpad ios submit
+```
+
+**⚠️ IMPORTANT**: submission fails with "missing required attribute" の場合は App Store Connect で手動設定が必要（次節参照）。
+
+#### App Store Connect 手動設定 (必要な場合)
+
+1. https://appstoreconnect.apple.com
+2. **マイApp** → **VoiLog** → version 1.x.x → **App情報**
+3. 必須属性を設定:
+   - advertising: はい (AdMob使用)
+   - userGeneratedContent: いいえ
+   - healthOrWellnessTopics: いいえ
+4. **審査に提出** をクリック
+
+### Step 8: GitHub Release
+
+```bash
+gh release create v1.x.x --title "v1.x.x" --latest --notes "## iOS
+- 変更内容"
+```
 
 ---
 
@@ -192,9 +156,6 @@ Check App Store Connect:
 サーバー（`server/transcription/`）をデプロイした際は必ずタグとリリースを作成する。
 
 **タグ命名規則**: `server-vX.Y.Z`
-- X: 破壊的変更（APIの変更など）
-- Y: 機能追加
-- Z: バグ修正・設定変更
 
 ```
 Server Release Progress:
@@ -204,52 +165,20 @@ Server Release Progress:
 - [ ] Step 4: GitHub Release 作成
 ```
 
-### Step 1: コミット
-
 ```bash
-git add server/transcription/
-git commit -m "fix(server): 変更内容の説明
-
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
-```
-
-### Step 2: Cloud Run デプロイ
-
-```bash
+# Step 2: Cloud Run デプロイ
 cd server/transcription
 gcloud run deploy voilog-transcription \
   --source . \
   --region asia-northeast1 \
   --no-allow-unauthenticated
-```
 
-### Step 3: タグ作成 & push
-
-```bash
+# Step 3
 git tag server-vX.Y.Z
 git push origin main server-vX.Y.Z
-```
 
-### Step 4: GitHub Release 作成
-
-```bash
-gh release create server-vX.Y.Z \
-  --title "server-vX.Y.Z: 変更内容の短い説明" \
-  --notes "$(cat <<'EOF'
-## 変更内容
-
-### fix/feat: タイトル
-
-**問題**
-（何が問題だったか）
-
-**対応**
-（どう直したか）
-
-**影響範囲**
-- Cloud Run revision: `voilog-transcription-XXXXX`
-EOF
-)"
+# Step 4
+gh release create server-vX.Y.Z --title "server-vX.Y.Z: 説明" --notes "## 変更内容"
 ```
 
 ---
@@ -261,14 +190,13 @@ Android Release Progress:
 - [ ] Step 1: Update release notes
 - [ ] Step 2: Bump versionCode and versionName
 - [ ] Step 3: Commit and create git tag
-- [ ] Step 4: Build release AAB/APK
-- [ ] Step 5: Upload with fastlane
+- [ ] Step 4: launchpad android build
+- [ ] Step 5: launchpad android upload
 - [ ] Step 6: Verify submission
 ```
 
 ### Step 1: Update Release Notes
 
-Update in Google Play Console or fastlane metadata directory:
 - `fastlane/metadata/android/ja-JP/changelogs/[versionCode].txt`
 - `fastlane/metadata/android/en-US/changelogs/[versionCode].txt`
 
@@ -277,78 +205,49 @@ Update in Google Play Console or fastlane metadata directory:
 **File**: `android/simpleRecord/app/build.gradle.kts`
 
 ```kotlin
-versionCode = 123  // Increment by 1 (e.g., 122 → 123)
-versionName = "1.x.x"  // Update semantic version (e.g., 1.3.1 → 1.3.2)
+versionCode = 123  // +1
+versionName = "1.x.x"
 ```
 
 ### Step 3: Commit and Create Git Tag
 
 ```bash
 git add android/simpleRecord/app/build.gradle.kts
-git add fastlane/metadata/android/ # if release notes changed
 git commit -m "chore(android): bump version to 1.x.x
 
-Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
 
 git tag android-v1.x.x
-git push origin main
-git push origin android-v1.x.x
+git push origin main && git push origin android-v1.x.x
 ```
 
-### Step 4: Build Release
+### Step 4 & 5: Build and Upload
 
 ```bash
 cd android/simpleRecord
-
-# Clean previous builds
-./gradlew clean
-
-# Build release AAB (recommended for Play Store)
-./gradlew bundleRelease
-
-# Or build APK
-./gradlew assembleRelease
+launchpad android build
+launchpad android upload
 ```
 
-Output locations:
-- AAB: `app/build/outputs/bundle/release/app-release.aab`
-- APK: `app/build/outputs/apk/release/app-release.apk`
+---
 
-### Step 5: Upload with Fastlane
+## Quick Reference
+
+### iOS One-liner
 
 ```bash
-cd android/simpleRecord
-
-# Upload to internal testing track
-bundle exec fastlane internal
-
-# Upload to closed beta track
-bundle exec fastlane beta
-
-# Upload to production (本番リリース)
-bundle exec fastlane production
-
-# Or upload existing AAB to production
-bundle exec fastlane upload_production
+launchpad ios build && \
+launchpad ios upload && \
+launchpad ios metadata && \
+launchpad ios screenshots --overwrite && \
+launchpad ios submit
 ```
 
-**Available Fastlane Lanes:**
+### Android One-liner
 
-| Lane | Description |
-|------|-------------|
-| `build` | Build release AAB |
-| `internal` | Deploy to internal testing track |
-| `beta` | Deploy to closed beta track |
-| `production` | Build and deploy to production |
-| `upload_internal` | Upload existing AAB to internal testing |
-| `upload_production` | Upload existing AAB to production |
-
-### Step 6: Verify Submission
-
-Check Google Play Console:
-- ✅ Version uploaded (versionCode and versionName)
-- ✅ Release notes visible
-- ✅ Status: "In Review" or "Pending Publication"
+```bash
+cd android/simpleRecord && launchpad android build && launchpad android upload
+```
 
 ---
 
@@ -357,229 +256,33 @@ Check Google Play Console:
 ### iOS (App Store Connect)
 ```bash
 export APP_STORE_CONNECT_API_KEY_KEY_ID="R2Q4FFAG8D"
-export APP_STORE_CONNECT_API_KEY_ISSUER_ID="your-issuer-id"
-export APP_STORE_CONNECT_API_KEY_CONTENT="$(cat AuthKey_R2Q4FFAG8D.p8)"
+export APP_STORE_CONNECT_API_KEY_ISSUER_ID="3cc1c923-009c-4963-a9db-83d030e4c4e3"
+export APP_STORE_CONNECT_API_KEY_CONTENT="$(cat /Users/entaku/.appstoreconnect/private_keys/AuthKey_R2Q4FFAG8D.p8)"
 ```
-
-Or configure in `fastlane/Appfile` and use API key file directly.
 
 ### Android (Google Play)
-- Place `play-store-credentials.json` in project root or `android/simpleRecord/`
-- Configure keystore credentials in `app-keys/key.properties`
+- `play-store-credentials.json` をプロジェクトルートに配置
+- `app-keys/key.properties` にキーストア情報を設定
 
 ---
 
-## Common Issues & Troubleshooting
+## Common Issues
 
-### iOS Issues
+### iOS
 
-#### Issue: Fastlane submission fails with "missing required attribute"
-**Error**: `appStoreVersions is not in valid state... missing 'userGeneratedContent', 'advertising', etc.`
+**Build fails**: Clean build folder → `rm -rf build/VoiLog.xcarchive`  
+**Submit fails "missing required attribute"**: App Store Connect で手動設定 (Step 7 参照)  
+**Upload fails "build could not be added"**: Apple 処理中。数分後に `launchpad ios upload` を再実行  
+**Keywords too long**: `wc -c fastlane/metadata/*/keywords.txt` で確認（100文字以内）
 
-**Solution**:
-These attributes must be set manually in App Store Connect (cannot be set via Fastlane):
-1. Go to App Store Connect web interface
-2. Navigate to app version → **App情報**
-3. Set all required attributes (see Step 5.1 above)
-4. Click **審査に提出**
+### Android
 
-#### Issue: Archive build fails
-**Solution**:
-1. Clean build folder: Product → Clean Build Folder (Shift+Cmd+K)
-2. Update Swift packages: `xcodebuild -resolvePackageDependencies -project ios/VoiLog.xcodeproj`
-3. Check SwiftLint errors: `cd ios && swiftlint`
-4. Verify Signing & Capabilities settings in Xcode
-
-#### Issue: Certificate/Provisioning Profile errors
-**Solution**:
-1. Use automatic signing: set `signingStyle: automatic` in ExportOptions.plist
-2. Add `-allowProvisioningUpdates` flag to xcodebuild export command
-3. Verify Team ID is correct: `4YZQY4C47E`
-
-#### Issue: Fastlane authentication fails
-**Solution**:
-1. Check App Store Connect API key environment variables
-2. Verify `AuthKey_R2Q4FFAG8D.p8` file exists and is readable
-3. Check API key permissions in App Store Connect (Admin or App Manager role)
-
-#### Issue: Screenshots not uploading
-**Solution**:
-1. Verify screenshot dimensions (6.9" display: 1290x2796 px)
-2. Check file naming: `[0-4]_APP_IPHONE_69_[0-4].png`
-3. Ensure directories exist for all languages in `fastlane/screenshots/`
-
-### Android Issues
-
-#### Issue: Build fails with wrong JDK version
-**Error**: `Unsupported class file major version`
-
-**Solution**:
-```bash
-# Check current Java version
-java -version
-
-# Should be JDK 17 (recommended: JetBrains Runtime)
-# Set JAVA_HOME if needed
-export JAVA_HOME=/path/to/jdk-17
-```
-
-#### Issue: Keystore password error
-**Solution**:
-1. Verify `app-keys/key.properties` exists and contains correct passwords
-2. Check keystore file exists: `app-keys/SimpleRecord.keystore`
-3. Test keystore: `keytool -list -keystore app-keys/SimpleRecord.keystore`
-
-#### Issue: Fastlane upload fails
-**Solution**:
-1. Verify `play-store-credentials.json` exists
-2. Check Google Play Console API is enabled
-3. Verify service account has correct permissions (Release Manager)
-
-#### Issue: AAB validation fails
-**Solution**:
-1. Ensure versionCode is incremented from previous release
-2. Check signing configuration in `build.gradle.kts`
-3. Verify minimum SDK version matches Play Console requirements
-
-### General Issues
-
-#### Issue: Git tag already exists
-**Solution**:
-```bash
-# Delete local tag
-git tag -d v1.x.x
-
-# Delete remote tag
-git push origin :refs/tags/v1.x.x
-
-# Create new tag
-git tag v1.x.x
-git push origin v1.x.x
-```
-
-#### Issue: Bundle install fails
-**Solution**:
-```bash
-# Update bundler
-gem install bundler
-
-# Clean and reinstall
-rm Gemfile.lock
-bundle install
-```
-
----
-
-## Post-Release Checklist
-
-After successful submission:
-
-- [ ] Create GitHub Release
-  ```bash
-  gh release create v1.x.x --title "v1.x.x" --latest --notes "$(cat <<'EOF'
-  ## iOS
-  - 広告システムを最新版にアップデート
-
-  ## Android
-  - 変更内容をここに記載
-  EOF
-  )"
-  ```
-
-- [ ] Update CHANGELOG.md (if exists)
-- [ ] Announce release to team/users
-- [ ] Monitor crash reports (Firebase Crashlytics)
-- [ ] Monitor app reviews in store consoles
-
----
-
-## Quick Reference
-
-### iOS Complete Command-Line Workflow
-
-**Claude はこれらのコマンドをすべて自動で実行する。手順を見せるだけでなく、Bash ツールで直接叩くこと。**
-
-**Step 1: バージョンアップ**
-```bash
-# 現在のバージョン確認
-grep "MARKETING_VERSION" ios/VoiLog.xcodeproj/project.pbxproj | head -1
-
-# バージョンアップ (例: 1.3.3 → 1.3.4)
-sed -i '' 's/MARKETING_VERSION = 1.3.3;/MARKETING_VERSION = 1.3.4;/g' ios/VoiLog.xcodeproj/project.pbxproj
-
-# コミット & タグ
-git add ios/VoiLog.xcodeproj/project.pbxproj
-git commit -m "chore(ios): bump version to 1.3.4"
-git tag v1.3.4 && git push origin main && git push origin v1.3.4
-```
-
-**Step 2: アーカイブ & アップロード**
-```bash
-cat > /tmp/ExportOptions.plist << 'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>method</key>
-    <string>app-store</string>
-    <key>destination</key>
-    <string>upload</string>
-    <key>signingStyle</key>
-    <string>automatic</string>
-    <key>teamID</key>
-    <string>4YZQY4C47E</string>
-</dict>
-</plist>
-EOF
-
-rm -rf build/VoiLog.xcarchive
-xcodebuild -project ios/VoiLog.xcodeproj -scheme VoiLog -configuration Release \
-  -archivePath build/VoiLog.xcarchive archive 2>&1 | grep -E "error:|ARCHIVE SUCCEEDED|ARCHIVE FAILED"
-
-xcodebuild -exportArchive -archivePath build/VoiLog.xcarchive \
-  -exportOptionsPlist /tmp/ExportOptions.plist \
-  -exportPath build/export \
-  -allowProvisioningUpdates \
-  -authenticationKeyPath /Users/entaku/.appstoreconnect/private_keys/AuthKey_R2Q4FFAG8D.p8 \
-  -authenticationKeyID R2Q4FFAG8D \
-  -authenticationKeyIssuerID 3cc1c923-009c-4963-a9db-83d030e4c4e3 \
-  2>&1 | tail -10
-```
-
-**Step 3: メタデータアップロード & 審査提出**
-```bash
-bundle exec fastlane upload_metadata
-```
-
-**Step 4: GitHub Release 作成**
-```bash
-gh release create v1.3.4 --title "v1.3.4" --latest --notes "## iOS
-- 変更内容"
-```
-
-**注意事項:**
-- アーカイブビルドエラーは `2>&1 | grep "error:"` で確認
-- `upload_metadata` が "build could not be added" で失敗した場合、Apple のビルド処理中。数分後に再実行
-- Fastfile の `skip_screenshots` は **`false`・`overwrite_screenshots: true`** のままにする（毎回アップロードする）
-- **キーワードは100文字以内**。実行前に必ず確認: `wc -c fastlane/metadata/*/keywords.txt`
-- xcodebuild の認証は Apple ID セッションが切れるため、**必ず API キーオプションを使う**:
-  ```bash
-  -authenticationKeyPath /Users/entaku/.appstoreconnect/private_keys/AuthKey_R2Q4FFAG8D.p8 \
-  -authenticationKeyID R2Q4FFAG8D \
-  -authenticationKeyIssuerID 3cc1c923-009c-4963-a9db-83d030e4c4e3
-  ```
-
-### Android One-Liner (Full build + upload)
-```bash
-cd android/simpleRecord && ./gradlew clean bundleRelease && bundle exec fastlane production
-```
+**Wrong JDK**: `java -version` → JDK 17 が必要  
+**Keystore error**: `app-keys/key.properties` と `app-keys/SimpleRecord.keystore` を確認  
+**Upload fails**: `play-store-credentials.json` と Google Play Console API 権限を確認
 
 ---
 
 ## References
 
-See `CLAUDE.md` for:
-- Full command reference
-- Architecture overview
-- Development guidelines
-- Testing procedures
+See `CLAUDE.md` for architecture overview and development guidelines.

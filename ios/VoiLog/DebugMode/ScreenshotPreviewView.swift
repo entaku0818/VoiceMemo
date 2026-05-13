@@ -171,6 +171,15 @@ struct FullscreenScreenshotView: View {
             ) {
                 PhoneFrameView { MockPremiumView(language: language) }
             }
+        case .aiTranscription:
+            ScreenshotPageView(
+                caption: language.screenshotCaption(for: .aiTranscription),
+                subtitle: language.screenshotSubtitle(for: .aiTranscription),
+                screen: .aiTranscription,
+                language: language
+            ) {
+                PhoneFrameView { MockAITranscriptionView(language: language) }
+            }
         }
     }
 }
@@ -1142,6 +1151,21 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             case .chineseSimplified: return "无广告·解锁全部功能"
             case .chineseTraditional: return "無廣告·解鎖全部功能"
             }
+        case .aiTranscription:
+            switch self {
+            case .japanese: return "話者・要約・タイムスタンプ付き"
+            case .english: return "Speaker, Summary & Timestamps"
+            case .german: return "Sprecher, Zusammenfassung & Zeitstempel"
+            case .spanish: return "Hablante, resumen y marcas de tiempo"
+            case .french: return "Locuteur, résumé et horodatage"
+            case .italian: return "Parlante, sommario e timestamp"
+            case .portuguese: return "Falante, resumo e marcas de tempo"
+            case .russian: return "Говорящий, резюме и временные метки"
+            case .turkish: return "Konuşmacı, özet ve zaman damgası"
+            case .vietnamese: return "Người nói, tóm tắt và dấu thời gian"
+            case .chineseSimplified: return "含发言人·摘要·时间戳"
+            case .chineseTraditional: return "含發言人·摘要·時間戳"
+            }
         }
     }
 
@@ -1283,6 +1307,8 @@ enum AppLanguage: String, CaseIterable, Identifiable {
             case .chineseSimplified: return "升级Premium\n获得更多自由"
             case .chineseTraditional: return "升級Premium\n獲得更多自由"
             }
+        case .aiTranscription:
+            return self.aiTranscriptionCaption
         }
     }
 }
@@ -1298,6 +1324,7 @@ enum ScreenshotScreen: String, CaseIterable {
     case playlist
     case shareSheet
     case premium
+    case aiTranscription
 
     var backgroundGradient: LinearGradient {
         switch self {
@@ -1315,6 +1342,8 @@ enum ScreenshotScreen: String, CaseIterable {
             return LinearGradient(colors: [.teal, .blue], startPoint: .top, endPoint: .bottom)
         case .premium:
             return LinearGradient(colors: [Color(red: 1, green: 0.84, blue: 0), .orange], startPoint: .top, endPoint: .bottom)
+        case .aiTranscription:
+            return LinearGradient(colors: [.purple, Color(red: 0.4, green: 0, blue: 0.8)], startPoint: .top, endPoint: .bottom)
         }
     }
 }
@@ -2494,6 +2523,230 @@ struct MockPremiumView: View {
 
                 Spacer().frame(height: 52)
             }
+        }
+    }
+}
+
+// MARK: - Mock AI Transcription View
+struct MockAITranscriptionView: View {
+    let language: AppLanguage
+
+    private struct Segment {
+        let time: String
+        let speaker: String
+        let text: String
+    }
+
+    private func segments() -> [Segment] {
+        switch language {
+        case .japanese:
+            return [
+                Segment(time: "0:00", speaker: "A", text: "本日の会議を始めます。先週のアクションアイテムを確認しましょう。"),
+                Segment(time: "0:18", speaker: "B", text: "はい、プロジェクトの進捗は予定通りです。"),
+                Segment(time: "0:42", speaker: "A", text: "それは素晴らしいです。次のステップについて話しましょう。"),
+                Segment(time: "1:10", speaker: "B", text: "承知しました。リリース日は来月の予定です。")
+            ]
+        case .english:
+            return [
+                Segment(time: "0:00", speaker: "A", text: "Let's start today's meeting. First, let's review last week's action items."),
+                Segment(time: "0:18", speaker: "B", text: "The project progress is on schedule as planned."),
+                Segment(time: "0:42", speaker: "A", text: "That's great. Let's talk about the next steps."),
+                Segment(time: "1:10", speaker: "B", text: "Understood. The release date is scheduled for next month.")
+            ]
+        case .german:
+            return [
+                Segment(time: "0:00", speaker: "A", text: "Lassen Sie uns das heutige Meeting beginnen."),
+                Segment(time: "0:18", speaker: "B", text: "Der Projektfortschritt liegt wie geplant im Zeitplan."),
+                Segment(time: "0:42", speaker: "A", text: "Das ist ausgezeichnet. Lassen Sie uns über die nächsten Schritte sprechen."),
+                Segment(time: "1:10", speaker: "B", text: "Verstanden. Das Veröffentlichungsdatum ist für nächsten Monat geplant.")
+            ]
+        default:
+            return [
+                Segment(time: "0:00", speaker: "A", text: language == .japanese ? "本日の会議を始めます。" : "Let's start today's meeting."),
+                Segment(time: "0:18", speaker: "B", text: language == .japanese ? "プロジェクトは順調です。" : "The project is on track."),
+                Segment(time: "0:42", speaker: "A", text: language == .japanese ? "次のステップを確認しましょう。" : "Let's review next steps."),
+                Segment(time: "1:10", speaker: "B", text: language == .japanese ? "了解しました。" : "Understood.")
+            ]
+        }
+    }
+
+    private func summaryText() -> String {
+        switch language {
+        case .japanese: return "週次ミーティング。プロジェクト進捗は予定通りで、来月リリース予定であることが確認された。"
+        case .english: return "Weekly meeting. Project progress confirmed on schedule with release planned for next month."
+        case .german: return "Wöchentliches Meeting. Projektfortschritt planmäßig, Veröffentlichung für nächsten Monat bestätigt."
+        case .spanish: return "Reunión semanal. Progreso del proyecto según lo previsto, lanzamiento programado para el próximo mes."
+        case .french: return "Réunion hebdomadaire. Avancement du projet comme prévu, lancement prévu le mois prochain."
+        case .italian: return "Riunione settimanale. Avanzamento del progetto nei tempi, rilascio previsto per il mese prossimo."
+        case .portuguese: return "Reunião semanal. Progresso do projeto conforme planejado, lançamento previsto para o próximo mês."
+        case .russian: return "Еженедельное совещание. Прогресс проекта по плану, выпуск запланирован на следующий месяц."
+        case .turkish: return "Haftalık toplantı. Proje planlandığı gibi ilerliyor, gelecek ay yayınlanacak."
+        case .vietnamese: return "Cuộc họp hàng tuần. Tiến độ dự án đúng kế hoạch, dự kiến phát hành vào tháng tới."
+        case .chineseSimplified: return "每周例会。项目进展按计划进行，下个月发布已确认。"
+        case .chineseTraditional: return "每週例會。專案進展按計劃進行，下個月發布已確認。"
+        }
+    }
+
+    private func aiTabLabel() -> String {
+        switch language {
+        case .japanese: return "AI"
+        default: return "AI"
+        }
+    }
+
+    private func appleTabLabel() -> String {
+        switch language {
+        case .japanese: return "Apple"
+        default: return "Apple"
+        }
+    }
+
+    private func saveLabel() -> String {
+        switch language {
+        case .japanese: return "保存"
+        case .english: return "Save"
+        case .german: return "Speichern"
+        case .spanish: return "Guardar"
+        case .french: return "Enregistrer"
+        case .italian: return "Salva"
+        case .portuguese: return "Salvar"
+        case .russian: return "Сохранить"
+        case .turkish: return "Kaydet"
+        case .vietnamese: return "Lưu"
+        case .chineseSimplified: return "保存"
+        case .chineseTraditional: return "保存"
+        }
+    }
+
+    private func summaryLabel() -> String {
+        switch language {
+        case .japanese: return "要約"
+        case .english: return "Summary"
+        case .german: return "Zusammenfassung"
+        case .spanish: return "Resumen"
+        case .french: return "Résumé"
+        case .italian: return "Sommario"
+        case .portuguese: return "Resumo"
+        case .russian: return "Резюме"
+        case .turkish: return "Özet"
+        case .vietnamese: return "Tóm tắt"
+        case .chineseSimplified: return "摘要"
+        case .chineseTraditional: return "摘要"
+        }
+    }
+
+    private let speakerColors: [Color] = [.blue, .orange, .green, .pink]
+
+    private func speakerColor(_ speaker: String) -> Color {
+        let idx = (speaker.unicodeScalars.first?.value ?? 0) % UInt32(speakerColors.count)
+        return speakerColors[Int(idx)]
+    }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Navigation bar
+            HStack {
+                Text(language.transcriptionTitle)
+                    .font(.title3.bold())
+                Spacer()
+                Image(systemName: "square.and.arrow.up")
+                    .font(.body)
+                    .foregroundStyle(.blue)
+            }
+            .padding(.horizontal)
+            .padding(.top, 90)
+            .padding(.bottom, 8)
+
+            // Tab picker
+            HStack(spacing: 0) {
+                Text(appleTabLabel())
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+                    .background(Color(.systemBackground))
+                Text(aiTabLabel())
+                    .font(.subheadline.bold())
+                    .foregroundStyle(.purple)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+                    .background(Color.purple.opacity(0.1))
+            }
+            .overlay(alignment: .bottom) {
+                Rectangle()
+                    .fill(Color.purple)
+                    .frame(width: UIScreen.main.bounds.width / 2, height: 2)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 4)
+
+            Divider()
+
+            // Summary section
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 4) {
+                    Image(systemName: "sparkles").foregroundStyle(.purple)
+                    Text(summaryLabel())
+                        .font(.caption.bold())
+                        .foregroundStyle(.purple)
+                }
+                Text(summaryText())
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(10)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.purple.opacity(0.06))
+
+            Divider()
+
+            // Transcript segments
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(Array(segments().enumerated()), id: \.offset) { index, seg in
+                    HStack(alignment: .top, spacing: 10) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(seg.time)
+                                .font(.caption.monospacedDigit())
+                                .foregroundStyle(.purple)
+                                .frame(width: 36, alignment: .leading)
+                            Text(seg.speaker)
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundStyle(speakerColor(seg.speaker))
+                                .padding(.horizontal, 4)
+                                .padding(.vertical, 1)
+                                .background(speakerColor(seg.speaker).opacity(0.12))
+                                .clipShape(Capsule())
+                        }
+                        .padding(.top, 2)
+                        Text(seg.text)
+                            .font(.caption)
+                            .foregroundStyle(.primary)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
+
+                    if index < segments().count - 1 {
+                        Divider().padding(.leading, 58)
+                    }
+                }
+            }
+
+            Spacer()
+
+            // Save button
+            Text(saveLabel())
+                .font(.subheadline.bold())
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(Color.purple)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(.horizontal)
+                .padding(.bottom, 20)
         }
     }
 }
