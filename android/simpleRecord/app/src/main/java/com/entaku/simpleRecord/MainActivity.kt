@@ -6,22 +6,41 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.MusicNote
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.entaku.simpleRecord.cloudsync.CloudSyncScreen
+import com.entaku.simpleRecord.cloudsync.CloudSyncViewModel
+import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
 import com.entaku.simpleRecord.db.AppDatabase
+import com.entaku.simpleRecord.feedback.FeedbackScreen
+import com.entaku.simpleRecord.feedback.FeedbackViewModel
 import com.entaku.simpleRecord.play.PlaybackScreen
 import com.entaku.simpleRecord.play.PlaybackViewModel
 import com.entaku.simpleRecord.playlist.PlaylistDetailScreen
@@ -38,53 +57,53 @@ import com.entaku.simpleRecord.record.RecordViewModel
 import com.entaku.simpleRecord.record.RecordViewModelFactory
 import com.entaku.simpleRecord.record.RecordingRepositoryImpl
 import com.entaku.simpleRecord.record.RecordingsViewModelFactory
-import com.entaku.simpleRecord.settings.RecordingSettingsScreen
-import com.entaku.simpleRecord.settings.SettingsManager
-import com.entaku.simpleRecord.cloudsync.CloudSyncScreen
-import com.entaku.simpleRecord.cloudsync.CloudSyncViewModel
-import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
-import com.entaku.simpleRecord.feedback.FeedbackScreen
-import com.entaku.simpleRecord.feedback.FeedbackViewModel
 import com.entaku.simpleRecord.screenshot.SCREENSHOT_PREVIEW_ROUTE
 import com.entaku.simpleRecord.screenshot.addDebugNavigation
+import com.entaku.simpleRecord.settings.RecordingSettingsScreen
+import com.entaku.simpleRecord.settings.SettingsManager
 import java.util.UUID
+
+// Bottom navigation destinations
+sealed class TopLevelRoute(
+    val route: String,
+    val icon: ImageVector,
+    val labelRes: Int
+) {
+    object Record : TopLevelRoute(Screen.Record.route, Icons.Default.Mic, R.string.tab_record)
+    object Recordings : TopLevelRoute(Screen.Recordings.route, Icons.Default.PlayArrow, R.string.tab_recordings)
+    object Playlists : TopLevelRoute(Screen.Playlists.route, Icons.Default.MusicNote, R.string.tab_playlists)
+    object Settings : TopLevelRoute(Screen.RecordingSettings.route, Icons.Default.Settings, R.string.tab_settings)
+}
+
+val topLevelRoutes = listOf(
+    TopLevelRoute.Record,
+    TopLevelRoute.Recordings,
+    TopLevelRoute.Playlists,
+    TopLevelRoute.Settings
+)
 
 class MainActivity : ComponentActivity() {
     private var showingAd = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Increment launch count
         AppOpenAdManager.getInstance(this).incrementLaunchCount()
-
-        // Show splash and ad
         showSplashAndAd()
     }
 
     private fun showSplashAndAd() {
         showingAd = true
-        setContent {
-            SplashScreen()
-        }
-
-        // Try to show ad
+        setContent { SplashScreen() }
         AppOpenAdManager.getInstance(this).showAdIfNeeded(this) {
-            // Ad dismissed or not shown, proceed to main content
             showingAd = false
-            setContent {
-                AppNavHost()
-            }
+            setContent { AppNavHost() }
         }
     }
 }
 
 @Composable
 fun SplashScreen() {
-    MaterialTheme(
-        colorScheme = LightColorScheme,
-        typography = Typography
-    ) {
+    MaterialTheme(colorScheme = LightColorScheme, typography = Typography) {
         androidx.compose.foundation.layout.Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -94,7 +113,7 @@ fun SplashScreen() {
             androidx.compose.foundation.layout.Column(
                 horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
             ) {
-                androidx.compose.material3.Text(
+                Text(
                     text = "シンプル録音",
                     style = MaterialTheme.typography.headlineMedium,
                     color = MaterialTheme.colorScheme.onBackground
@@ -110,135 +129,99 @@ fun AppNavHost() {
     val context = LocalContext.current
     val sharedViewModel: SharedRecordingsViewModel = viewModel()
 
-    MaterialTheme(
-        colorScheme = LightColorScheme,
-        typography = Typography
-    ) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    // Routes that show the bottom nav bar
+    val topLevelRouteStrings = topLevelRoutes.map { it.route }.toSet()
+    val showBottomBar = currentRoute in topLevelRouteStrings
+
+    MaterialTheme(colorScheme = LightColorScheme, typography = Typography) {
         Scaffold(
-            containerColor = MaterialTheme.colorScheme.background
+            containerColor = MaterialTheme.colorScheme.background,
+            bottomBar = {
+                if (showBottomBar) {
+                    NavigationBar {
+                        topLevelRoutes.forEach { dest ->
+                            NavigationBarItem(
+                                selected = currentRoute == dest.route,
+                                onClick = {
+                                    navController.navigate(dest.route) {
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
+                                },
+                                icon = { Icon(dest.icon, contentDescription = null) },
+                                label = { Text(stringResource(dest.labelRes)) }
+                            )
+                        }
+                    }
+                }
+            }
         ) { innerPadding ->
             NavHost(
                 navController = navController,
-                startDestination = Screen.Recordings.route,
+                startDestination = Screen.Record.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(Screen.Recordings.route) {
-                    val database = remember { AppDatabase.getInstance(context) }
-                    val repository = remember { RecordingRepositoryImpl(database) }
-                    val viewModelFactory = remember { RecordingsViewModelFactory(repository) }
-                    val viewModel: RecordingsViewModel = viewModel(factory = viewModelFactory)
-
-                    val state by viewModel.uiState.collectAsState()
-                    val colorScheme = MaterialTheme.colorScheme
-
-                    RecordingsScreen(
-                        state = state,
-                        onNavigateToRecordScreen = {
-                            navController.navigate(Screen.Record.route)
-                        },
-                        onRefresh = viewModel::loadRecordings,
-                        onNavigateToPlaybackScreen = { recordingData ->
-                            sharedViewModel.selectRecording(recordingData)
-                            navController.navigate(Screen.Playback.route)
-                        },
-                        onNavigateToPlaylists = {
-                            navController.navigate(Screen.Playlists.route)
-                        },
-                        onNavigateToCloudSync = {
-                            navController.navigate(Screen.CloudSync.route)
-                        },
-                        onDeleteClick = { uuid ->
-                            viewModel.deleteRecording(uuid)
-                        },
-                        onEditRecordingName = { uuid,title ->
-                            viewModel.updateRecordingTitle(uuid,title)
-                        },
-                        colorScheme = colorScheme
-                    )
-                }
+                // Tab 0: 録音
                 composable(Screen.Record.route) {
                     val database = remember { AppDatabase.getInstance(context) }
                     val repository = remember { RecordingRepositoryImpl(database) }
                     val settingsManager = remember { SettingsManager(context) }
                     val viewModelFactory = remember { RecordViewModelFactory(repository, settingsManager, sharedViewModel) }
                     val viewModel: RecordViewModel = viewModel(factory = viewModelFactory)
-                    val uiStateFlow = viewModel.uiState
 
                     RecordScreen(
-                        uiStateFlow = uiStateFlow,
+                        uiStateFlow = viewModel.uiState,
                         onStartRecording = { viewModel.startRecording(context) },
                         onStopRecording = { viewModel.stopRecording() },
                         onPauseRecording = { viewModel.pauseRecording() },
                         onResumeRecording = { viewModel.resumeRecording() },
-                        onNavigateBack = { navController.popBackStack() },
-                        onNavigateToSettings = { 
-                            // 録音中またはポーズ中でなければ設定画面に遷移
-                            if (!sharedViewModel.isRecordingOrPaused()) {
-                                navController.navigate(Screen.RecordingSettings.route)
+                        onNavigateBack = {
+                            navController.navigate(Screen.Recordings.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
                         }
                     )
                 }
-                composable(Screen.Playback.route) {
-                    val selectedRecording by sharedViewModel.selectedRecording.collectAsState()
-                    val playbackViewModel: PlaybackViewModel = viewModel()
-                    val playbackState by playbackViewModel.playbackState.collectAsState()
 
-                    selectedRecording?.let { recordingData ->
-                        LaunchedEffect(recordingData.filePath) {
-                            playbackViewModel.setupMediaPlayer(recordingData.filePath)
-                        }
-                        PlaybackScreen(
-                            recordingData = recordingData,
-                            playbackState = playbackState,
-                            onStop = {
-                                playbackViewModel.stopPlayback()
-                            },
-                            onPlayPause = {
-                                playbackViewModel.playOrPause()
-                            },
-                            onNavigateBack = { navController.popBackStack() },
-                            onSpeedChange = { speed ->
-                                playbackViewModel.setPlaybackSpeed(speed)
-                            },
-                            onToggleRepeat = { playbackViewModel.toggleRepeatOne() },
-                            onSetAbLoopStart = { playbackViewModel.setAbLoopStart() },
-                            onSetAbLoopEnd = { playbackViewModel.setAbLoopEnd() },
-                            onClearAbLoop = { playbackViewModel.clearAbLoop() },
-                        )
-                    }
-                }
-                
-                composable(Screen.RecordingSettings.route) {
-                    // 録音中またはポーズ中なら録音画面に戻る
-                    if (sharedViewModel.isRecordingOrPaused()) {
-                        LaunchedEffect(Unit) {
-                            navController.popBackStack()
-                        }
-                    } else {
-                        val settingsManager = remember { SettingsManager(context) }
-                        val currentSettings = remember { settingsManager.getRecordingSettings() }
+                // Tab 1: 再生（録音一覧）
+                composable(Screen.Recordings.route) {
+                    val database = remember { AppDatabase.getInstance(context) }
+                    val repository = remember { RecordingRepositoryImpl(database) }
+                    val viewModelFactory = remember { RecordingsViewModelFactory(repository) }
+                    val viewModel: RecordingsViewModel = viewModel(factory = viewModelFactory)
+                    val state by viewModel.uiState.collectAsState()
+                    val colorScheme = MaterialTheme.colorScheme
 
-                        RecordingSettingsScreen(
-                            currentSettings = currentSettings,
-                            onSettingsChanged = { newSettings ->
-                                settingsManager.saveRecordingSettings(newSettings)
-                            },
-                            onNavigateBack = { navController.popBackStack() },
-                            onNavigateToFeedback = { navController.navigate(Screen.Feedback.route) },
-                            onNavigateToScreenshotPreview = if (com.entaku.simpleRecord.BuildConfig.DEBUG) {
-                                { navController.navigate(SCREENSHOT_PREVIEW_ROUTE) }
-                            } else null
-                        )
-                    }
+                    RecordingsScreen(
+                        state = state,
+                        onRefresh = viewModel::loadRecordings,
+                        onNavigateToPlaybackScreen = { recordingData ->
+                            sharedViewModel.selectRecording(recordingData)
+                            navController.navigate(Screen.Playback.route)
+                        },
+                        onNavigateToCloudSync = { navController.navigate(Screen.CloudSync.route) },
+                        onDeleteClick = { uuid -> viewModel.deleteRecording(uuid) },
+                        onEditRecordingName = { uuid, title -> viewModel.updateRecordingTitle(uuid, title) },
+                        colorScheme = colorScheme
+                    )
                 }
 
+                // Tab 2: プレイリスト
                 composable(Screen.Playlists.route) {
                     val database = remember { AppDatabase.getInstance(context) }
                     val playlistRepository = remember { PlaylistRepositoryImpl(database) }
                     val viewModelFactory = remember { PlaylistViewModelFactory(playlistRepository) }
                     val playlistViewModel: PlaylistViewModel = viewModel(factory = viewModelFactory)
-
                     val state by playlistViewModel.uiState.collectAsState()
                     val colorScheme = MaterialTheme.colorScheme
 
@@ -251,9 +234,50 @@ fun AppNavHost() {
                         onCreatePlaylist = playlistViewModel::createPlaylist,
                         onEditPlaylistName = playlistViewModel::updatePlaylistName,
                         onDeletePlaylist = playlistViewModel::deletePlaylist,
-                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateBack = { /* top-level: no back */ },
                         colorScheme = colorScheme
                     )
+                }
+
+                // Tab 3: 設定
+                composable(Screen.RecordingSettings.route) {
+                    val settingsManager = remember { SettingsManager(context) }
+                    val currentSettings = remember { settingsManager.getRecordingSettings() }
+
+                    RecordingSettingsScreen(
+                        currentSettings = currentSettings,
+                        onSettingsChanged = { newSettings -> settingsManager.saveRecordingSettings(newSettings) },
+                        onNavigateBack = { /* top-level: no back */ },
+                        onNavigateToFeedback = { navController.navigate(Screen.Feedback.route) },
+                        onNavigateToScreenshotPreview = if (BuildConfig.DEBUG) {
+                            { navController.navigate(SCREENSHOT_PREVIEW_ROUTE) }
+                        } else null
+                    )
+                }
+
+                // Detail screens (no bottom nav)
+                composable(Screen.Playback.route) {
+                    val selectedRecording by sharedViewModel.selectedRecording.collectAsState()
+                    val playbackViewModel: PlaybackViewModel = viewModel()
+                    val playbackState by playbackViewModel.playbackState.collectAsState()
+
+                    selectedRecording?.let { recordingData ->
+                        LaunchedEffect(recordingData.filePath) {
+                            playbackViewModel.setupMediaPlayer(recordingData.filePath)
+                        }
+                        PlaybackScreen(
+                            recordingData = recordingData,
+                            playbackState = playbackState,
+                            onStop = { playbackViewModel.stopPlayback() },
+                            onPlayPause = { playbackViewModel.playOrPause() },
+                            onNavigateBack = { navController.popBackStack() },
+                            onSpeedChange = { speed -> playbackViewModel.setPlaybackSpeed(speed) },
+                            onToggleRepeat = { playbackViewModel.toggleRepeatOne() },
+                            onSetAbLoopStart = { playbackViewModel.setAbLoopStart() },
+                            onSetAbLoopEnd = { playbackViewModel.setAbLoopEnd() },
+                            onClearAbLoop = { playbackViewModel.clearAbLoop() },
+                        )
+                    }
                 }
 
                 composable(
@@ -262,7 +286,6 @@ fun AppNavHost() {
                 ) { backStackEntry ->
                     val playlistIdString = backStackEntry.arguments?.getString("playlistId") ?: return@composable
                     val playlistId = UUID.fromString(playlistIdString)
-
                     val database = remember { AppDatabase.getInstance(context) }
                     val playlistRepository = remember { PlaylistRepositoryImpl(database) }
                     val recordingRepository = remember { RecordingRepositoryImpl(database) }
@@ -270,14 +293,11 @@ fun AppNavHost() {
                     val detailViewModel: PlaylistDetailViewModel = viewModel(factory = viewModelFactory)
                     val recordingsViewModelFactory = remember { RecordingsViewModelFactory(recordingRepository) }
                     val recordingsViewModel: RecordingsViewModel = viewModel(factory = recordingsViewModelFactory)
-
                     val state by detailViewModel.uiState.collectAsState()
                     val recordingsState by recordingsViewModel.uiState.collectAsState()
                     val colorScheme = MaterialTheme.colorScheme
 
-                    LaunchedEffect(Unit) {
-                        recordingsViewModel.loadRecordings()
-                    }
+                    LaunchedEffect(Unit) { recordingsViewModel.loadRecordings() }
 
                     PlaylistDetailScreen(
                         state = state,
@@ -307,19 +327,16 @@ fun AppNavHost() {
                     val playlistIdString = backStackEntry.arguments?.getString("playlistId") ?: return@composable
                     val startIndex = backStackEntry.arguments?.getInt("startIndex") ?: 0
                     val playlistId = UUID.fromString(playlistIdString)
-
                     val database = remember { AppDatabase.getInstance(context) }
                     val playlistRepository = remember { PlaylistRepositoryImpl(database) }
                     val viewModelFactory = remember { PlaylistDetailViewModelFactory(playlistRepository, playlistId) }
                     val detailViewModel: PlaylistDetailViewModel = viewModel(factory = viewModelFactory)
                     val playlistPlaybackViewModel: PlaylistPlaybackViewModel = viewModel()
                     val playbackViewModel: PlaybackViewModel = viewModel()
-
                     val detailState by detailViewModel.uiState.collectAsState()
                     val playbackState by playlistPlaybackViewModel.state.collectAsState()
                     val audioPlaybackState by playbackViewModel.playbackState.collectAsState()
 
-                    // Initialize playlist playback
                     LaunchedEffect(detailState.recordings) {
                         if (detailState.recordings.isNotEmpty()) {
                             playlistPlaybackViewModel.startPlaylistPlayback(
@@ -328,17 +345,11 @@ fun AppNavHost() {
                             )
                         }
                     }
-
-                    // Set up current track when changed
                     LaunchedEffect(playbackState.currentRecording) {
                         playbackState.currentRecording?.let { recording ->
                             playbackViewModel.setupMediaPlayer(recording.filePath)
-                            playbackViewModel.setOnCompletionListener {
-                                playlistPlaybackViewModel.onTrackComplete()
-                            }
-                            if (playbackState.isPlaying) {
-                                playbackViewModel.playOrPause()
-                            }
+                            playbackViewModel.setOnCompletionListener { playlistPlaybackViewModel.onTrackComplete() }
+                            if (playbackState.isPlaying) playbackViewModel.playOrPause()
                         }
                     }
 
@@ -350,20 +361,11 @@ fun AppNavHost() {
                             playbackViewModel.playOrPause()
                             playlistPlaybackViewModel.setPlaying(audioPlaybackState.isPlaying.not())
                         },
-                        onNextClick = {
-                            playbackViewModel.stopPlayback()
-                            playlistPlaybackViewModel.playNext()
-                        },
-                        onPreviousClick = {
-                            playbackViewModel.stopPlayback()
-                            playlistPlaybackViewModel.playPrevious()
-                        },
+                        onNextClick = { playbackViewModel.stopPlayback(); playlistPlaybackViewModel.playNext() },
+                        onPreviousClick = { playbackViewModel.stopPlayback(); playlistPlaybackViewModel.playPrevious() },
                         onRepeatClick = playlistPlaybackViewModel::toggleRepeat,
                         onShuffleClick = playlistPlaybackViewModel::toggleShuffle,
-                        onTrackClick = { index ->
-                            playbackViewModel.stopPlayback()
-                            playlistPlaybackViewModel.jumpToTrack(index)
-                        },
+                        onTrackClick = { index -> playbackViewModel.stopPlayback(); playlistPlaybackViewModel.jumpToTrack(index) },
                         onSeekTo = playbackViewModel::seekTo,
                         onBackClick = {
                             playbackViewModel.stopPlayback()
@@ -376,19 +378,12 @@ fun AppNavHost() {
                 composable(Screen.CloudSync.route) {
                     val viewModelFactory = remember { CloudSyncViewModelFactory(context) }
                     val cloudSyncViewModel: CloudSyncViewModel = viewModel(factory = viewModelFactory)
-
-                    CloudSyncScreen(
-                        viewModel = cloudSyncViewModel,
-                        onNavigateBack = { navController.popBackStack() }
-                    )
+                    CloudSyncScreen(viewModel = cloudSyncViewModel, onNavigateBack = { navController.popBackStack() })
                 }
 
                 composable(Screen.Feedback.route) {
                     val feedbackViewModel: FeedbackViewModel = viewModel()
-                    FeedbackScreen(
-                        viewModel = feedbackViewModel,
-                        onNavigateBack = { navController.popBackStack() }
-                    )
+                    FeedbackScreen(viewModel = feedbackViewModel, onNavigateBack = { navController.popBackStack() })
                 }
 
                 addDebugNavigation(navController)
@@ -398,10 +393,10 @@ fun AppNavHost() {
 }
 
 sealed class Screen(val route: String, val title: String) {
-    object Recordings : Screen("recordings", "Recordings")
     object Record : Screen("record", "Record")
+    object Recordings : Screen("recordings", "Recordings")
     object Playback : Screen("playback", "Playback")
-    object RecordingSettings : Screen("recording_settings", "Recording Settings")
+    object RecordingSettings : Screen("recording_settings", "Settings")
     object Playlists : Screen("playlists", "Playlists")
     object PlaylistDetail : Screen("playlist_detail/{playlistId}", "Playlist Detail") {
         fun createRoute(playlistId: String) = "playlist_detail/$playlistId"

@@ -14,10 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -57,8 +56,7 @@ fun RecordScreen(
     onStopRecording: () -> Unit,
     onPauseRecording: () -> Unit,
     onResumeRecording: () -> Unit,
-    onNavigateBack: () -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateBack: () -> Unit
 ) {
     val uiState by uiStateFlow.collectAsState()
     val context = LocalContext.current
@@ -93,29 +91,7 @@ fun RecordScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.record)) },
-                navigationIcon = {
-                    IconButton(onClick = { onNavigateBack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
-                    }
-                },
-                actions = {
-                    IconButton(
-                        onClick = { onNavigateToSettings() },
-                        enabled = uiState.recordingState != RecordingState.RECORDING &&
-                                 uiState.recordingState != RecordingState.PAUSED
-                    ) {
-                        Icon(
-                            Icons.Default.Settings,
-                            contentDescription = stringResource(R.string.settings),
-                            tint = if (uiState.recordingState != RecordingState.RECORDING && 
-                                      uiState.recordingState != RecordingState.PAUSED)
-                                MaterialTheme.colorScheme.onSurface
-                            else
-                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-                        )
-                    }
-                }
+                title = { Text(stringResource(R.string.record)) }
             )
         }
     ) { paddingValues ->
@@ -213,7 +189,7 @@ fun RecordScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                Icons.Default.PlayArrow,
+                                Icons.Default.Mic,
                                 contentDescription = stringResource(R.string.start_recording)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
@@ -270,7 +246,6 @@ fun PreviewRecordScreen() {
         onStopRecording = {},
         onPauseRecording = {},
         onResumeRecording = {},
-        onNavigateBack = {},
-        onNavigateToSettings = {}
+        onNavigateBack = {}
     )
 }
