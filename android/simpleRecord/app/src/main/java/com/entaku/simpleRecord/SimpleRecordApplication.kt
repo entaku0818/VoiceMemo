@@ -1,11 +1,15 @@
 package com.entaku.simpleRecord
 
 import android.app.Application
+import com.entaku.simpleRecord.notification.ReminderScheduler
 import com.google.android.gms.ads.MobileAds
 
 class SimpleRecordApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+
+        ReminderScheduler.createNotificationChannel(this)
+        ReminderScheduler.scheduleIfNeeded(this)
 
         // Initialize Mobile Ads SDK
         MobileAds.initialize(this) {
