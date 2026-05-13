@@ -96,8 +96,23 @@
     <string name="notification_channel_description">Reminders to encourage recording</string>
 
     <!-- Support / Inquiry -->
-    <string name="contact_us">Contact Us</string>
+    <string name="contact_us">Contact / Feedback</string>
     <string name="contact_us_email_subject">Simple Record - Inquiry</string>
     <string name="app_version">App Version</string>
     <string name="about">About</string>
+
+    <!-- Feedback Screen -->
+    <string name="feedback">Feedback</string>
+    <string name="feedback_category">Category</string>
+    <string name="feedback_category_bug">Bug Report</string>
+    <string name="feedback_category_feature">Feature Request</string>
+    <string name="feedback_category_other">Other</string>
+    <string name="feedback_message">Message</string>
+    <string name="feedback_message_hint">Describe your feedback here…</string>
+    <string name="feedback_email_optional">Email (optional)</string>
+    <string name="feedback_email_hint">Reply-to email address</string>
+    <string name="feedback_send">Send</string>
+    <string name="feedback_sent">Sent!</string>
+    <string name="feedback_thanks">Thank you for your feedback.</string>
+    <string name="feedback_error">Send Failed</string>
 </resources>

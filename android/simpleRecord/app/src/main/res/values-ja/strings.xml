@@ -78,8 +78,23 @@
     <string name="notification_d3_body">録音した音声をいつでも聴き返せます。</string>
     <string name="notification_channel_name">録音リマインダー</string>
     <string name="notification_channel_description">録音を促すリマインダー通知</string>
-    <string name="contact_us">お問い合わせ</string>
+    <string name="contact_us">お問い合わせ・フィードバック</string>
     <string name="contact_us_email_subject">シンプル録音 - お問い合わせ</string>
     <string name="app_version">アプリバージョン</string>
     <string name="about">このアプリについて</string>
+
+    <!-- Feedback Screen -->
+    <string name="feedback">フィードバック</string>
+    <string name="feedback_category">カテゴリ</string>
+    <string name="feedback_category_bug">バグ報告</string>
+    <string name="feedback_category_feature">機能要望</string>
+    <string name="feedback_category_other">その他</string>
+    <string name="feedback_message">内容</string>
+    <string name="feedback_message_hint">フィードバックの内容を入力してください…</string>
+    <string name="feedback_email_optional">メールアドレス（任意）</string>
+    <string name="feedback_email_hint">返信先メールアドレス</string>
+    <string name="feedback_send">送信</string>
+    <string name="feedback_sent">送信しました</string>
+    <string name="feedback_thanks">フィードバックありがとうございます。</string>
+    <string name="feedback_error">送信に失敗しました</string>
 </resources>

@@ -43,6 +43,8 @@ import com.entaku.simpleRecord.settings.SettingsManager
 import com.entaku.simpleRecord.cloudsync.CloudSyncScreen
 import com.entaku.simpleRecord.cloudsync.CloudSyncViewModel
 import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
+import com.entaku.simpleRecord.feedback.FeedbackScreen
+import com.entaku.simpleRecord.feedback.FeedbackViewModel
 import com.entaku.simpleRecord.screenshot.SCREENSHOT_PREVIEW_ROUTE
 import com.entaku.simpleRecord.screenshot.addDebugNavigation
 import java.util.UUID
@@ -223,6 +225,7 @@ fun AppNavHost() {
                                 settingsManager.saveRecordingSettings(newSettings)
                             },
                             onNavigateBack = { navController.popBackStack() },
+                            onNavigateToFeedback = { navController.navigate(Screen.Feedback.route) },
                             onNavigateToScreenshotPreview = if (com.entaku.simpleRecord.BuildConfig.DEBUG) {
                                 { navController.navigate(SCREENSHOT_PREVIEW_ROUTE) }
                             } else null
@@ -380,6 +383,14 @@ fun AppNavHost() {
                     )
                 }
 
+                composable(Screen.Feedback.route) {
+                    val feedbackViewModel: FeedbackViewModel = viewModel()
+                    FeedbackScreen(
+                        viewModel = feedbackViewModel,
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
+
                 addDebugNavigation(navController)
             }
         }
@@ -399,4 +410,5 @@ sealed class Screen(val route: String, val title: String) {
         fun createRoute(playlistId: String, startIndex: Int = 0) = "playlist_playback/$playlistId/$startIndex"
     }
     object CloudSync : Screen("cloud_sync", "Cloud Sync")
+    object Feedback : Screen("feedback", "Feedback")
 }
