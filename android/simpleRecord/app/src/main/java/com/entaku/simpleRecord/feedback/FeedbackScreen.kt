@@ -49,7 +49,7 @@ fun FeedbackScreen(
             title = { Text(stringResource(R.string.feedback_sent)) },
             text = { Text(stringResource(R.string.feedback_thanks)) },
             confirmButton = {
-                Button(onClick = onNavigateBack) { Text("OK") }
+                Button(onClick = onNavigateBack) { Text(stringResource(R.string.ok)) }
             }
         )
     }
@@ -60,7 +60,7 @@ fun FeedbackScreen(
             title = { Text(stringResource(R.string.feedback_error)) },
             text = { Text(state.errorMessage ?: "") },
             confirmButton = {
-                Button(onClick = { viewModel.clearError() }) { Text("OK") }
+                Button(onClick = { viewModel.clearError() }) { Text(stringResource(R.string.ok)) }
             }
         )
     }

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">シンプル録音</string>
+    <!-- Bottom Navigation -->
+    <string name="tab_record">録音</string>
+    <string name="tab_recordings">再生</string>
+    <string name="tab_playlists">プレイリスト</string>
+    <string name="tab_settings">設定</string>
+
+    <string name="ok">OK</string>
     <string name="cancel">キャンセル</string>
     <string name="save">保存</string>
     <string name="delete">削除</string>
@@ -13,9 +20,13 @@
     <string name="create">作成</string>
     <string name="name">名前</string>
     <string name="name_hint">新しい名前を入力してください</string>
+    <string name="recordings_title">録音ファイル</string>
     <string name="playlists">プレイリスト</string>
     <string name="cloud_sync">クラウド同期</string>
     <string name="start_recording">録音開始</string>
+    <string name="no_recordings">録音がありません</string>
+    <string name="tap_mic_to_record">マイクボタンをタップして録音を開始</string>
+    <string name="untitled_recording">無題の録音</string>
     <string name="delete_confirm_title">削除確認</string>
     <string name="delete_confirm_message">本当に削除してもよろしいですか？</string>
     <string name="edit_name_title">名前を編集</string>

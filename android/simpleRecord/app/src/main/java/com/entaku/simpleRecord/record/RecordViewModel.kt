@@ -54,7 +54,8 @@ class RecordViewModel(
     private var mediaRecorder: MediaRecorder? = null
     private var startTime: Long = 0
     private var volumeMonitorJob: Job? = null
-    private var pausedTime: Long = 0
+    private var pausedDuration: Long = 0  // 累積一時停止時間(ms)
+    private var pauseStartTime: Long = 0
 
     // 録音設定パラメータを取得
     private fun getRecordingSettings(): RecordingSettings {
@@ -68,9 +69,9 @@ class RecordViewModel(
         timeUpdateJob = viewModelScope.launch {
             while (true) {
                 val currentTime = System.currentTimeMillis()
-                val elapsed = Duration.ofMillis(currentTime - startTime)
+                val elapsed = Duration.ofMillis(currentTime - startTime - pausedDuration)
                 _uiState.update { it.copy(elapsedTime = elapsed) }
-                delay(1000) // 1秒ごとに更新
+                delay(1000)
             }
         }
     }
@@ -93,6 +94,7 @@ class RecordViewModel(
                 prepare()
                 start()
                 startTime = System.currentTimeMillis()
+                pausedDuration = 0
                 _uiState.update { it.copy(
                     recordingState = RecordingState.RECORDING,
                     currentFilePath = outputFile,
@@ -158,7 +160,7 @@ class RecordViewModel(
         mediaRecorder = null
 
         val endTime = System.currentTimeMillis()
-        val duration = Duration.ofMillis(endTime - startTime)
+        val duration = Duration.ofMillis(endTime - startTime - pausedDuration)
 
         _uiState.value.currentFilePath?.let { filePath ->
             val settings = getRecordingSettings()
@@ -211,11 +213,10 @@ class RecordViewModel(
         if (uiState.value.recordingState == RecordingState.RECORDING) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mediaRecorder?.pause()
-                pausedTime = System.currentTimeMillis()
+                pauseStartTime = System.currentTimeMillis()
                 volumeMonitorJob?.cancel()
                 timeUpdateJob?.cancel()
                 _uiState.update { it.copy(recordingState = RecordingState.PAUSED) }
-                // SharedViewModelの状態を更新
                 sharedViewModel.updateRecordingState(RecordingState.PAUSED)
             }
         }
@@ -225,10 +226,10 @@ class RecordViewModel(
         if (uiState.value.recordingState == RecordingState.PAUSED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mediaRecorder?.resume()
+                pausedDuration += System.currentTimeMillis() - pauseStartTime
                 startVolumeMonitoring()
                 startTimeUpdates()
                 _uiState.update { it.copy(recordingState = RecordingState.RECORDING) }
-                // SharedViewModelの状態を更新
                 sharedViewModel.updateRecordingState(RecordingState.RECORDING)
             }
         }

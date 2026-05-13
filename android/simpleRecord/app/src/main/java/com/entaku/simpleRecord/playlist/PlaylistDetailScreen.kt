@@ -81,7 +81,7 @@ fun PlaylistDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(state.playlist?.name ?: "Playlist") },
+                title = { Text(state.playlist?.name ?: stringResource(R.string.playlists)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
@@ -232,7 +232,7 @@ fun PlaylistRecordingItem(
             // Drag handle
             Icon(
                 imageVector = Icons.Default.DragHandle,
-                contentDescription = "Reorder",
+                contentDescription = stringResource(R.string.reorder),
                 tint = if (isDragging) {
                     MaterialTheme.colorScheme.primary
                 } else {

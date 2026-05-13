@@ -2,7 +2,14 @@
 <resources>
     <string name="app_name">Simple Record</string>
 
+    <!-- Bottom Navigation -->
+    <string name="tab_record">Record</string>
+    <string name="tab_recordings">Playback</string>
+    <string name="tab_playlists">Playlists</string>
+    <string name="tab_settings">Settings</string>
+
     <!-- Common -->
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
@@ -17,9 +24,13 @@
     <string name="name_hint">Enter new name</string>
 
     <!-- Recordings Screen -->
+    <string name="recordings_title">Recordings</string>
     <string name="playlists">Playlists</string>
     <string name="cloud_sync">Cloud Sync</string>
     <string name="start_recording">Start Recording</string>
+    <string name="no_recordings">No recordings yet</string>
+    <string name="tap_mic_to_record">Tap the mic button to start</string>
+    <string name="untitled_recording">Untitled Recording</string>
     <string name="delete_confirm_title">Delete</string>
     <string name="delete_confirm_message">Are you sure you want to delete this?</string>
     <string name="edit_name_title">Edit Name</string>
