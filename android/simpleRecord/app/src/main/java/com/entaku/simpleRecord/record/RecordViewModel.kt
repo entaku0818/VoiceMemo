@@ -164,8 +164,10 @@ class RecordViewModel(
 
         _uiState.value.currentFilePath?.let { filePath ->
             val settings = getRecordingSettings()
+            val now = LocalDateTime.now()
+            val titleFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm")
             val recordingData = RecordingData(
-                title = "Recording ${LocalDateTime.now()}",
+                title = now.format(titleFormatter),
                 creationDate = LocalDateTime.now(),
                 fileExtension = settings.fileExtension,
                 khz = settings.sampleRate.toString(),

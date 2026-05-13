@@ -242,72 +242,51 @@ fun PreviewWaveformLineView() {
 }
 
 /**
- * Playback waveform with progress indicator
- * Shows a static waveform pattern with current playback position
+ * Playback waveform with progress indicator.
+ * Uses real amplitude data from audio decoding when available.
  */
 @Composable
 fun PlaybackWaveformView(
-    progress: Float, // 0.0 to 1.0
+    progress: Float,
     modifier: Modifier = Modifier,
+    waveformData: List<Float> = emptyList(),
     playedColor: Color = MaterialTheme.colorScheme.primary,
     unplayedColor: Color = MaterialTheme.colorScheme.surfaceVariant,
     backgroundColor: Color = MaterialTheme.colorScheme.surface
 ) {
-    Canvas(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(80.dp)
-    ) {
+    Canvas(modifier = modifier) {
         val width = size.width
         val height = size.height
         val centerY = height / 2
         val progressX = width * progress.coerceIn(0f, 1f)
 
-        // Draw background
         drawRect(color = backgroundColor)
 
-        // Draw center line
-        drawLine(
-            color = playedColor.copy(alpha = 0.2f),
-            start = Offset(0f, centerY),
-            end = Offset(width, centerY),
-            strokeWidth = 1f
-        )
-
-        // Generate pseudo-random waveform pattern based on bar position
         val barCount = 80
         val barWidth = width / barCount
         val maxBarHeight = height / 2 * 0.85f
 
         for (i in 0 until barCount) {
             val x = i * barWidth + barWidth / 2
-            // Generate consistent pattern using sin with different frequencies
-            val pattern = (kotlin.math.sin(i * 0.5) * 0.3 +
-                    kotlin.math.sin(i * 0.8) * 0.2 +
-                    kotlin.math.sin(i * 1.3) * 0.15 +
-                    kotlin.math.cos(i * 0.3) * 0.2 + 0.5).toFloat()
-            val barHeight = pattern.coerceIn(0.2f, 1f) * maxBarHeight
-
+            val amplitude = if (waveformData.isNotEmpty()) {
+                val dataIndex = (i.toFloat() / barCount * waveformData.size).toInt()
+                    .coerceIn(0, waveformData.size - 1)
+                waveformData[dataIndex].coerceIn(0.05f, 1f)
+            } else {
+                0.15f  // データなし: 細いフラットライン
+            }
+            val barHeight = amplitude * maxBarHeight
             val color = if (x < progressX) playedColor else unplayedColor
 
-            // Upper bar
             drawLine(
                 color = color,
-                start = Offset(x, centerY),
-                end = Offset(x, centerY - barHeight),
-                strokeWidth = barWidth * 0.6f
-            )
-
-            // Lower bar (mirror)
-            drawLine(
-                color = color.copy(alpha = 0.6f),
-                start = Offset(x, centerY),
+                start = Offset(x, centerY - barHeight),
                 end = Offset(x, centerY + barHeight),
-                strokeWidth = barWidth * 0.6f
+                strokeWidth = (barWidth * 0.5f).coerceAtLeast(2f)
             )
         }
 
-        // Draw playhead position indicator
+        // 再生位置インジケーター
         drawLine(
             color = playedColor,
             start = Offset(progressX, 0f),

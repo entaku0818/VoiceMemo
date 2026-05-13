@@ -100,6 +100,7 @@ fun PlaybackScreen(
             // 波形 / プログレス
             PlaybackWaveformView(
                 progress = progress,
+                waveformData = playbackState.waveformData,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(80.dp)

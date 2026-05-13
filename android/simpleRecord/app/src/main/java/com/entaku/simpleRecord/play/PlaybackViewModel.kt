@@ -1,17 +1,24 @@
 package com.entaku.simpleRecord.play
 
+import android.media.MediaCodec
+import android.media.MediaExtractor
+import android.media.MediaFormat
 import android.media.MediaPlayer
 import android.media.PlaybackParams
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
+import kotlin.math.abs
+import kotlin.math.sqrt
 
 // Playbackの状態をまとめたデータクラス
 data class PlaybackState(
@@ -22,6 +29,7 @@ data class PlaybackState(
     val isRepeatOne: Boolean = false,
     val abLoopStart: Int? = null,
     val abLoopEnd: Int? = null,
+    val waveformData: List<Float> = emptyList()
 )
 
 class PlaybackViewModel : ViewModel() {
@@ -40,7 +48,6 @@ class PlaybackViewModel : ViewModel() {
                 setDataSource(filePath)
                 prepare()
 
-                // Set completion listener for playlist playback
                 setOnCompletionListener {
                     if (_playbackState.value.isRepeatOne) {
                         seekTo(0)
@@ -52,13 +59,94 @@ class PlaybackViewModel : ViewModel() {
                     }
                 }
 
-                // Update duration
                 _playbackState.update { it.copy(duration = duration) }
             } catch (e: IOException) {
                 Log.e("MediaPlayer", "Failed to set data source", e)
             } catch (e: IllegalStateException) {
                 Log.e("MediaPlayer", "Illegal state during media preparation", e)
             }
+        }
+        viewModelScope.launch { extractWaveform(filePath) }
+    }
+
+    private suspend fun extractWaveform(filePath: String, targetSamples: Int = 100) {
+        val result = withContext(Dispatchers.IO) {
+            val extractor = MediaExtractor()
+            try {
+                extractor.setDataSource(filePath)
+                val trackIndex = (0 until extractor.trackCount).firstOrNull { i ->
+                    extractor.getTrackFormat(i).getString(MediaFormat.KEY_MIME)?.startsWith("audio/") == true
+                } ?: return@withContext emptyList<Float>()
+
+                extractor.selectTrack(trackIndex)
+                val format = extractor.getTrackFormat(trackIndex)
+                val mime = format.getString(MediaFormat.KEY_MIME) ?: return@withContext emptyList<Float>()
+
+                val codec = MediaCodec.createDecoderByType(mime)
+                codec.configure(format, null, null, 0)
+                codec.start()
+
+                val rmsValues = mutableListOf<Float>()
+                val chunkBuffer = mutableListOf<Short>()
+                val durationUs = if (format.containsKey(MediaFormat.KEY_DURATION))
+                    format.getLong(MediaFormat.KEY_DURATION) else 0L
+                val chunkSize = if (durationUs > 0)
+                    (durationUs / 1_000_000.0 * 44100 / targetSamples).toInt().coerceAtLeast(1)
+                else 4410
+
+                var sawEos = false
+                val bufferInfo = MediaCodec.BufferInfo()
+
+                while (!sawEos || rmsValues.size < targetSamples) {
+                    // feed input
+                    if (!sawEos) {
+                        val inputIndex = codec.dequeueInputBuffer(10_000)
+                        if (inputIndex >= 0) {
+                            val buf = codec.getInputBuffer(inputIndex)!!
+                            val sampleSize = extractor.readSampleData(buf, 0)
+                            if (sampleSize < 0) {
+                                codec.queueInputBuffer(inputIndex, 0, 0, 0, MediaCodec.BUFFER_FLAG_END_OF_STREAM)
+                                sawEos = true
+                            } else {
+                                codec.queueInputBuffer(inputIndex, 0, sampleSize, extractor.sampleTime, 0)
+                                extractor.advance()
+                            }
+                        }
+                    }
+                    // drain output
+                    val outputIndex = codec.dequeueOutputBuffer(bufferInfo, 10_000)
+                    if (outputIndex >= 0) {
+                        val outBuf = codec.getOutputBuffer(outputIndex)!!
+                        val shortArray = ShortArray(bufferInfo.size / 2)
+                        outBuf.asShortBuffer().get(shortArray)
+                        chunkBuffer.addAll(shortArray.toList())
+
+                        while (chunkBuffer.size >= chunkSize) {
+                            val chunk = chunkBuffer.subList(0, chunkSize)
+                            val rms = sqrt(chunk.sumOf { (it * it).toDouble() } / chunkSize).toFloat()
+                            rmsValues.add(rms / Short.MAX_VALUE)
+                            repeat(chunkSize) { if (chunkBuffer.isNotEmpty()) chunkBuffer.removeAt(0) }
+                        }
+                        codec.releaseOutputBuffer(outputIndex, false)
+                        if (bufferInfo.flags and MediaCodec.BUFFER_FLAG_END_OF_STREAM != 0) break
+                    }
+                }
+
+                codec.stop()
+                codec.release()
+                extractor.release()
+
+                // normalize
+                val max = rmsValues.maxOrNull()?.takeIf { it > 0f } ?: 1f
+                rmsValues.map { (it / max).coerceIn(0f, 1f) }
+            } catch (e: Exception) {
+                Log.e("Waveform", "extraction failed", e)
+                extractor.release()
+                emptyList()
+            }
+        }
+        if (result.isNotEmpty()) {
+            _playbackState.update { it.copy(waveformData = result) }
         }
     }
 
