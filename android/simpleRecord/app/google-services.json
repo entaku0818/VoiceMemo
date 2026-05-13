@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "950571144078",
+    "project_id": "voilog",
+    "storage_bucket": "voilog.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950571144078:android:e5ee758db2e36d35388adf",
+        "android_client_info": {
+          "package_name": "com.entaku.simpleRecord"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA88fAKmqnAfuRmeZ8R5jJiCE-w9hKRu8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
