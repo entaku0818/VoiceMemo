@@ -403,7 +403,7 @@ struct RecordingMemoView_Previews: PreviewProvider {
 
 let dateComponentsFormatter: DateComponentsFormatter = {
     let formatter = DateComponentsFormatter()
-    formatter.allowedUnits = [.minute, .second, .nanosecond]
+    formatter.allowedUnits = [.minute, .second]
     formatter.zeroFormattingBehavior = .pad
     return formatter
 }()
