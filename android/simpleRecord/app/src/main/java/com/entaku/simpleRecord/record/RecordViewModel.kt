@@ -98,7 +98,9 @@ class RecordViewModel(
                 _uiState.update { it.copy(
                     recordingState = RecordingState.RECORDING,
                     currentFilePath = outputFile,
-                    elapsedTime = Duration.ZERO
+                    elapsedTime = Duration.ZERO,
+                    currentVolume = 0,
+                    amplitudeHistory = emptyList()
                 ) }
                 // SharedViewModelの状態を更新
                 sharedViewModel.updateRecordingState(RecordingState.RECORDING)
@@ -191,8 +193,16 @@ class RecordViewModel(
                 amplitudeHistory = emptyList()
             )
         }
-        // SharedViewModelの状態を更新
         sharedViewModel.updateRecordingState(RecordingState.FINISHED)
+
+        // 画面遷移が発火してから IDLE に戻す（再度録音できるように）
+        viewModelScope.launch {
+            delay(500)
+            if (_uiState.value.recordingState == RecordingState.FINISHED) {
+                _uiState.update { RecordingUiState() }
+                sharedViewModel.updateRecordingState(RecordingState.IDLE)
+            }
+        }
     }
 
     private fun formatDuration(duration: Duration): String {
