@@ -1,7 +1,4 @@
-Versi 1.8.0
+Versi 1.8.1
 
-[Baru]
-・Kini tersedia dalam 21 bahasa (ditambahkan bahasa Arab, Hindi, Indonesia, Belanda, Polandia, Swedia, Thailand)
-
-[Peningkatan]
-・Peningkatan UI dan pembaruan stabilitas lainnya
+[Perbaikan Bug]
+・Memperbaiki bug pelacakan analitik

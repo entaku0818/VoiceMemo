@@ -1,7 +1,4 @@
-Sürüm 1.8.0
+Sürüm 1.8.1
 
-[Yeni]
-・Artık 21 dilde mevcut (Arapça, Hintçe, Endonezyaca, Hollandaca, Lehçe, İsveççe, Tayca eklendi)
-
-[İyileştirmeler]
-・Diğer UI iyileştirmeleri ve kararlılık güncellemeleri
+[Hata Düzeltmeleri]
+・Analitik takip hataları düzeltildi

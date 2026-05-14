@@ -1,7 +1,4 @@
-Wersja 1.8.0
+Wersja 1.8.1
 
-[Nowości]
-・Dostępne teraz w 21 językach (dodano arabski, hindi, indonezyjski, niderlandzki, polski, szwedzki, tajski)
-
-[Ulepszenia]
-・Inne ulepszenia interfejsu i aktualizacje stabilności
+[Poprawki błędów]
+・Naprawiono błędy śledzenia analitycznego

@@ -1,7 +1,4 @@
-Version 1.8.0
+Version 1.8.1
 
-[Nytt]
-・Nu tillgänglig på 21 språk (arabiska, hindi, indonesiska, holländska, polska, svenska och thai har lagts till)
-
-[Förbättringar]
-・Andra UI-förbättringar och stabilitetsuppdateringar
+[Felrättningar]
+・Åtgärdade buggar i analysspårning

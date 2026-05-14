@@ -1,7 +1,4 @@
-Phiên bản 1.8.0
+Phiên bản 1.8.1
 
-[Mới]
-・Hiện có sẵn bằng 21 ngôn ngữ (đã thêm tiếng Ả Rập, Hindi, Indonesia, Hà Lan, Ba Lan, Thụy Điển, Thái Lan)
-
-[Cải tiến]
-・Các cải tiến UI và cập nhật ổn định khác
+[Sửa lỗi]
+・Đã sửa lỗi theo dõi analytics

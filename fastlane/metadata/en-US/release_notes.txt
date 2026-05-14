@@ -1,7 +1,4 @@
-Version 1.8.0
+Version 1.8.1
 
-[New]
-・Now available in 21 languages (added Arabic, Hindi, Indonesian, Dutch, Polish, Swedish, Thai)
-
-[Improvements]
-・Other UI improvements and stability updates
+[Bug Fixes]
+・Fixed analytics tracking bugs
