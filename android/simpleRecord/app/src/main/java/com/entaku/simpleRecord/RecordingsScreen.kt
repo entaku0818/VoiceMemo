@@ -1,7 +1,5 @@
 package com.entaku.simpleRecord
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,25 +9,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -46,34 +53,88 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordingsScreen(
     state: RecordingsUiState,
-    onNavigateToRecordScreen: () -> Unit,
+    onNavigateToRecordScreen: () -> Unit = {},
     onRefresh: () -> Unit,
     onNavigateToPlaybackScreen: (RecordingData) -> Unit,
-    onNavigateToPlaylists: () -> Unit,
-    onNavigateToCloudSync: () -> Unit,
+    onNavigateToPlaylists: () -> Unit = {},
+    onNavigateToCloudSync: () -> Unit = {},
+    onNavigateToSettings: () -> Unit = {},
     onDeleteClick: (UUID) -> Unit,
     onEditRecordingName: (UUID, String) -> Unit,
     colorScheme: ColorScheme
 ) {
-
     LaunchedEffect(key1 = Unit) {
         onRefresh()
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding()
+                    .padding(horizontal = 16.dp, vertical = 10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.recordings_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
+                )
+                IconButton(onClick = onNavigateToCloudSync) {
+                    Icon(Icons.Default.Cloud, contentDescription = stringResource(R.string.cloud_sync))
+                }
+            }
+        }
+    ) { innerPadding ->
         if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(alignment = Alignment.CenterHorizontally))
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else if (state.recordings.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(
+                        Icons.Default.Mic,
+                        contentDescription = null,
+                        modifier = Modifier.size(64.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.no_recordings),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(R.string.tap_mic_to_record),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
         } else {
             LazyColumn(
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(16.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentPadding = PaddingValues(vertical = 8.dp)
             ) {
                 items(state.recordings) { recording ->
                     RecordingListItem(
@@ -81,60 +142,11 @@ fun RecordingsScreen(
                         onItemClick = { onNavigateToPlaybackScreen(recording) },
                         onDeleteClick = { recording.uuid?.let { onDeleteClick(it) } },
                         onEditNameClick = { newTitle ->
-                            recording.uuid?.let { onEditRecordingName(it,newTitle) }
+                            recording.uuid?.let { onEditRecordingName(it, newTitle) }
                         }
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
+                    HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                 }
-            }
-        }
-
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Button(
-                    onClick = onNavigateToPlaylists,
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorScheme.secondary,
-                        contentColor = colorScheme.onSecondary,
-                        disabledContainerColor = colorScheme.surfaceVariant,
-                        disabledContentColor = colorScheme.onSurfaceVariant
-                    )
-                ) {
-                    Text(text = stringResource(R.string.playlists))
-                }
-
-                Button(
-                    onClick = onNavigateToCloudSync,
-                    modifier = Modifier.weight(1f),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colorScheme.tertiary,
-                        contentColor = colorScheme.onTertiary,
-                        disabledContainerColor = colorScheme.surfaceVariant,
-                        disabledContentColor = colorScheme.onSurfaceVariant
-                    )
-                ) {
-                    Text(text = stringResource(R.string.cloud_sync))
-                }
-            }
-
-            Button(
-                onClick = onNavigateToRecordScreen,
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorScheme.primary,
-                    contentColor = colorScheme.onPrimary,
-                    disabledContainerColor = colorScheme.surfaceVariant,
-                    disabledContentColor = colorScheme.onSurfaceVariant
-                )
-            ) {
-                Text(text = stringResource(R.string.start_recording))
             }
         }
     }
@@ -154,162 +166,83 @@ fun RecordingListItem(
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showEditNameDialog by remember { mutableStateOf(false) }
 
-    // Set a maximum length for the title and append ellipsis if it exceeds the limit
-    val maxTitleLength = 30
-    val shortenedTitle = if (recording.title.length > maxTitleLength) {
-        recording.title.take(maxTitleLength) + "..."
-    } else {
-        recording.title
-    }
-
-    Card(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onItemClick() },
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+        // 再生ボタン (iOS と同様に左端)
+        IconButton(onClick = onItemClick) {
+            Icon(
+                imageVector = Icons.Default.PlayArrow,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(28.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(4.dp))
+
+        // タイトル + 日付
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = recording.title.ifEmpty { stringResource(R.string.untitled_recording) },
+                style = MaterialTheme.typography.bodyLarge,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = formattedDate,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
+        // 再生時間
+        Text(
+            text = recording.duration.formatTime(),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        Spacer(modifier = Modifier.width(4.dp))
+
+        // メニュー
+        Box {
+            IconButton(onClick = { expanded = true }) {
+                Icon(
+                    imageVector = Icons.Default.MoreVert,
+                    contentDescription = stringResource(R.string.more_options),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
             ) {
-                // Left side content
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    // Title
-                    Text(
-                        text = shortenedTitle,
-                        style = MaterialTheme.typography.bodyLarge,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-
-                    Spacer(modifier = Modifier.height(4.dp))
-
-                    // Date and Recording specs
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = formattedDate,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-
-                        // Recording specs
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(4.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "${recording.khz} kHz",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Text(
-                                text = "•",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Text(
-                                text = "${recording.bitRate} bit",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Text(
-                                text = "•",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Text(
-                                text = "${recording.channels} ch",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-
-                        Text(
-                            text = recording.fileExtension.uppercase(),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
-
-                // Right side content
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = recording.duration.formatTime(),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-
-                    Box {
-                        IconButton(
-                            onClick = { expanded = true }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.MoreVert,
-                                contentDescription = stringResource(R.string.more_options),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-
-                        DropdownMenu(
-                            expanded = expanded,
-                            onDismissRequest = { expanded = false }
-                        ) {
-                            DropdownMenuItem(
-                                onClick = {
-                                    expanded = false
-                                    showEditNameDialog = true
-                                },
-                                text = { Text(stringResource(R.string.edit_name)) },
-                                leadingIcon = {
-                                    Icon(
-                                        Icons.Default.Edit,
-                                        contentDescription = null
-                                    )
-                                }
-                            )
-                            DropdownMenuItem(
-                                onClick = {
-                                    expanded = false
-                                    showDeleteDialog = true
-                                },
-                                text = { Text(stringResource(R.string.delete)) },
-                                leadingIcon = {
-                                    Icon(
-                                        Icons.Default.Delete,
-                                        contentDescription = null
-                                    )
-                                }
-                            )
-                        }
-                    }
-                }
+                DropdownMenuItem(
+                    onClick = { expanded = false; showEditNameDialog = true },
+                    text = { Text(stringResource(R.string.edit_name)) },
+                    leadingIcon = { Icon(Icons.Default.Edit, contentDescription = null) }
+                )
+                DropdownMenuItem(
+                    onClick = { expanded = false; showDeleteDialog = true },
+                    text = { Text(stringResource(R.string.delete)) },
+                    leadingIcon = { Icon(Icons.Default.Delete, contentDescription = null) }
+                )
             }
         }
     }
-    // 削除確認用モーダルダイアログ
+
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
             title = { Text(stringResource(R.string.delete_confirm_title)) },
             text = { Text(stringResource(R.string.delete_confirm_message)) },
             confirmButton = {
-                Button(onClick = {
-                    onDeleteClick() // 実際の削除アクションを呼び出し
-                    showDeleteDialog = false
-                }) {
+                Button(onClick = { onDeleteClick(); showDeleteDialog = false }) {
                     Text(stringResource(R.string.yes))
                 }
             },
@@ -323,11 +256,9 @@ fun RecordingListItem(
 
     if (showEditNameDialog) {
         EditNameDialog(
-            currentName = recording.title, // 現在の名前を表示
-            onConfirm = { newName ->
-                onEditNameClick(newName) // 新しい名前をコールバックで渡す
-            },
-            onDismiss = { showEditNameDialog = false } // ダイアログを閉じる
+            currentName = recording.title,
+            onConfirm = { newName -> onEditNameClick(newName) },
+            onDismiss = { showEditNameDialog = false }
         )
     }
 }
@@ -335,10 +266,10 @@ fun RecordingListItem(
 @Composable
 fun EditNameDialog(
     currentName: String,
-    onConfirm: (String) -> Unit, // 新しい名前を渡すコールバック
-    onDismiss: () -> Unit // ダイアログを閉じるコールバック
+    onConfirm: (String) -> Unit,
+    onDismiss: () -> Unit
 ) {
-    var newName by remember { mutableStateOf(currentName) } // 新しい名前を保存する状態
+    var newName by remember { mutableStateOf(currentName) }
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
@@ -356,10 +287,7 @@ fun EditNameDialog(
             }
         },
         confirmButton = {
-            Button(onClick = {
-                onConfirm(newName) // 新しい名前を返す
-                onDismiss() // ダイアログを閉じる
-            }) {
+            Button(onClick = { onConfirm(newName); onDismiss() }) {
                 Text(stringResource(R.string.save))
             }
         },
@@ -371,38 +299,30 @@ fun EditNameDialog(
     )
 }
 
-
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewRecordingsScreen() {
     val sampleRecordings = List(5) { index ->
         RecordingData(
             uuid = UUID.randomUUID(),
-            title = "RecordingRecordingRecording ${index + 1}",
+            title = "録音 ${index + 1}",
             creationDate = LocalDateTime.now().minusDays(index.toLong()),
-            fileExtension = "wav",
+            fileExtension = "m4a",
             khz = "44",
             bitRate = 16,
-            channels = 2,
+            channels = 1,
             duration = 120,
-            filePath = "/path/to/recording${index + 1}.wav"
+            filePath = "/path/to/recording${index + 1}.m4a"
         )
     }
-
-    val sampleState = RecordingsUiState(
-        recordings = sampleRecordings,
-        isLoading = false,
-        error = null
-    )
-
     RecordingsScreen(
-        state = sampleState,
+        state = RecordingsUiState(recordings = sampleRecordings, isLoading = false, error = null),
         onNavigateToRecordScreen = {},
         onRefresh = {},
         onNavigateToPlaybackScreen = {},
         onNavigateToPlaylists = {},
         onNavigateToCloudSync = {},
+        onNavigateToSettings = {},
         onDeleteClick = {},
         onEditRecordingName = { _, _ -> },
         colorScheme = LightColorScheme

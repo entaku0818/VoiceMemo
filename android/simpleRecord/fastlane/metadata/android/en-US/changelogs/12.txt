@@ -1,0 +1,7 @@
+[Improvements]
+• Completely redesigned playback screen with waveform, seekbar, and speed controls
+• Real audio waveform visualization from decoded audio data
+• Recording title now uses date/time format (e.g. 2026/05/14 09:00)
+• Fixed bug where recording was disabled after the first recording
+• More compact title bar design
+• Settings screen now scrollable

@@ -107,13 +107,7 @@ class RecordViewModelTest {
 
     @Test
     fun `RecordingUiState reset - FINISHED state resets to default IDLE`() {
-        val finished = RecordingUiState(
-            recordingState = RecordingState.FINISHED,
-            currentFilePath = "/some/path.m4a",
-            currentVolume = 0,
-            amplitudeHistory = emptyList()
-        )
-        val reset = RecordingUiState() // default = IDLE
+        val reset = RecordingUiState()
         assertEquals(RecordingState.IDLE, reset.recordingState)
         assertNull(reset.currentFilePath)
     }

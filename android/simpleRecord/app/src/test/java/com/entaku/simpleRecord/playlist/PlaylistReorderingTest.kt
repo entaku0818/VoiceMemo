@@ -246,7 +246,7 @@ class PlaylistReorderingTest {
 
     // Helper functions
 
-    private fun createTestRecording(title: String, position: Int): RecordingData {
+    private fun createTestRecording(title: String, @Suppress("UNUSED_PARAMETER") position: Int): RecordingData {
         return RecordingData(
             uuid = UUID.randomUUID(),
             title = title,
