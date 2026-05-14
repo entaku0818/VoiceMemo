@@ -53,6 +53,7 @@ extension FirebaseAnalyticsClient {
         static let paywallViewed = "paywall_viewed"
         static let paywallPurchaseAttempted = "paywall_purchase_attempted"
         static let paywallPurchaseCompleted = "paywall_purchase_completed"
+        static let paywallPurchaseCancelled = "paywall_purchase_cancelled"
         static let paywallPurchaseFailed = "paywall_purchase_failed"
         static let paywallRestoreAttempted = "paywall_restore_attempted"
         static let paywallRestoreCompleted = "paywall_restore_completed"

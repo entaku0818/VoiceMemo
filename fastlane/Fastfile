@@ -26,6 +26,29 @@ platform :ios do
     )
   end
 
+  desc "Build and upload to TestFlight"
+  lane :beta do
+    gym(
+      scheme: "VoiLog",
+      project: "ios/VoiLog.xcodeproj",
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: {
+        method: "app-store",
+        destination: "upload",
+        signingStyle: "automatic",
+        teamID: "B5874Z2LY4"
+      },
+      output_directory: "./build",
+      output_name: "VoiLog.ipa",
+      clean: true
+    )
+    upload_to_testflight(
+      skip_waiting_for_build_processing: true,
+      changelog: "analytics tracking bug fix"
+    )
+  end
+
   # メタデータとスクリーンショットのアップロード、審査提出
   desc "Upload metadata and screenshots to App Store Connect and submit for review"
   lane :upload_metadata do

@@ -8,6 +8,7 @@ struct PaywallView: View {
     @State private var showAlert = false
     @State private var alertMessage: String = ""
     @State private var offering: Offering?
+    @State private var purchaseCompleted = false
 
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
@@ -201,7 +202,8 @@ struct PaywallView: View {
                 }
             }
             .onDisappear {
-                // PaywallViewが閉じられたことをAnalyticsに記録
+                // 購入完了によるdismissはdismissedとして記録しない
+                guard !purchaseCompleted else { return }
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallDismissed, [
                     "timestamp": Date().timeIntervalSince1970
                 ])
@@ -232,72 +234,80 @@ struct PaywallView: View {
 
     // RevenueCat用の購入処理
     func purchaseProduct() async {
-        // 購入試行をAnalyticsに記録
-        analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseAttempted, [
-            "product_name": productName,
-            "product_price": productPrice,
-            "timestamp": Date().timeIntervalSince1970
-        ])
+        let name = productName
+        let price = productPrice
+
+        await MainActor.run {
+            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseAttempted, [
+                "product_name": name,
+                "product_price": price,
+                "timestamp": Date().timeIntervalSince1970
+            ])
+        }
 
         do {
             try await purchaseManager.purchasePro()
 
-            // 購入成功をAnalyticsに記録
-            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCompleted, [
-                "product_name": productName,
-                "product_price": productPrice,
-                "timestamp": Date().timeIntervalSince1970
-            ])
-
             await MainActor.run {
+                analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCompleted, [
+                    "product_name": name,
+                    "product_price": price,
+                    "timestamp": Date().timeIntervalSince1970
+                ])
+                purchaseCompleted = true
                 alertMessage = String(localized: "購入が完了しました！", table: "Premium")
                 showAlert = true
                 presentationMode.wrappedValue.dismiss()
             }
         } catch {
-            // 購入失敗をAnalyticsに記録
-            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseFailed, [
-                "product_name": productName,
-                "product_price": productPrice,
-                "error": error.localizedDescription,
-                "timestamp": Date().timeIntervalSince1970
-            ])
-
+            let isCancelled = (error as? ErrorCode) == .purchaseCancelledError
             await MainActor.run {
-                alertMessage = String(localized: "購入に失敗しました", table: "Premium")
-                showAlert = true
+                if isCancelled {
+                    analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCancelled, [
+                        "product_name": name,
+                        "product_price": price,
+                        "timestamp": Date().timeIntervalSince1970
+                    ])
+                } else {
+                    analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseFailed, [
+                        "product_name": name,
+                        "product_price": price,
+                        "error": error.localizedDescription,
+                        "timestamp": Date().timeIntervalSince1970
+                    ])
+                    alertMessage = String(localized: "購入に失敗しました", table: "Premium")
+                    showAlert = true
+                }
             }
         }
     }
 
     // RevenueCat用のリストア処理
     func restorePurchases() async {
-        // リストア試行をAnalyticsに記録
-        analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreAttempted, [
-            "timestamp": Date().timeIntervalSince1970
-        ])
+        await MainActor.run {
+            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreAttempted, [
+                "timestamp": Date().timeIntervalSince1970
+            ])
+        }
 
         do {
             try await purchaseManager.restorePurchases()
 
-            // リストア成功をAnalyticsに記録
-            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreCompleted, [
-                "timestamp": Date().timeIntervalSince1970
-            ])
-
             await MainActor.run {
+                analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreCompleted, [
+                    "timestamp": Date().timeIntervalSince1970
+                ])
+                purchaseCompleted = true
                 alertMessage = String(localized: "購入情報が復元しました！", table: "Premium")
                 showAlert = true
                 presentationMode.wrappedValue.dismiss()
             }
         } catch {
-            // リストア失敗をAnalyticsに記録
-            analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreFailed, [
-                "error": error.localizedDescription,
-                "timestamp": Date().timeIntervalSince1970
-            ])
-
             await MainActor.run {
+                analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreFailed, [
+                    "error": error.localizedDescription,
+                    "timestamp": Date().timeIntervalSince1970
+                ])
                 alertMessage = String(localized: "リストアに失敗しました", table: "Premium")
                 showAlert = true
             }

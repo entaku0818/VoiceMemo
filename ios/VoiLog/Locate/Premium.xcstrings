@@ -1,3160 +1,3170 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "1ヶ月無料で試す": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try Free for 1 Month"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "1ヶ月 無料でお試し" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جرّب مجانًا لمدة شهر"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "جرّب مجانًا لمدة شهر"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einen Monat kostenlos ausprobieren"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coba Gratis 1 Bulan"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try for one month free"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 महीना मुफ्त आज़माएं"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prueba un mes gratis"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Probeer 1 maand gratis"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayez un mois gratuitement"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wypróbuj za darmo przez 1 miesiąc"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एक महीना मुफ्त में आज़माएं"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prova gratis i 1 månad"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coba gratis satu bulan"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ทดลองใช้ฟรี 1 เดือน"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova per un mese gratis"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1개월 무료 체험하기"
-          }
-        }
-      }
-    },
-    "iCloud同期機能": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud-Synchronisierungsfunktion"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1ヶ月 無料でお試し"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud Sync Feature"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1개월 무료 체험"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Función de sincronización de iCloud"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probeer één maand gratis"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fonction de synchronisation iCloud"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypróbuj przez jeden miesiąc bezpłatnie"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Funzione di sincronizzazione iCloud"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimente por um mês grátis"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud同期機能"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте один месяц бесплатно"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Funcionalidade de sincronização do iCloud"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova gratis i en månad"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Функция синхронизации iCloud"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองใช้ฟรีหนึ่งเดือน"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud Senkronizasyon Özelliği"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir ay ücretsiz deneyin"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tính năng đồng bộ iCloud"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thử miễn phí một tháng"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud同步功能"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免费试用一个月"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud同步功能"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ميزة مزامنة iCloud"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Fitur Sinkronisasi iCloud"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud सिंक सुविधा"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud-synchronisatiefunctie"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Funkcja synchronizacji iCloud"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud-synkroniseringsfunktion"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "คุณสมบัติซิงค์ iCloud"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "iCloud 동기화 기능"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免費試用一個月"
           }
         }
       }
     },
-    "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
+    "1ヶ月の無料トライアル終了後、%@/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعد انتهاء الفترة التجريبية المجانية لمدة شهر، سيتم تحصيل %@/شهر تلقائيًا. يمكنك الإلغاء في أي وقت من إعدادات الاشتراك في Apple قبل 24 ساعة على الأقل من تاريخ التجديد."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After the 1-month free trial, you will be charged %@/month automatically. You can cancel anytime from Apple's subscription settings at least 24 hours before the renewal date."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 महीने के निःशुल्क परीक्षण के बाद, आपसे %@/माह स्वचालित रूप से शुल्क लिया जाएगा। आप नवीनीकरण तिथि से कम से कम 24 घंटे पहले Apple की सदस्यता सेटिंग से कभी भी रद्द कर सकते हैं।"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setelah uji coba gratis 1 bulan, Anda akan dikenakan biaya %@/bulan secara otomatis. Anda dapat membatalkan kapan saja dari pengaturan langganan Apple setidaknya 24 jam sebelum tanggal pembaruan."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1개월 무료 체험 후 %@/월이 자동으로 청구됩니다. 갱신일 24시간 전까지 Apple 구독 설정에서 언제든지 취소할 수 있습니다."
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na de gratis proefperiode van 1 maand wordt u automatisch %@/maand in rekening gebracht. U kunt op elk moment annuleren via de abonnementsinstellingen van Apple, ten minste 24 uur voor de verlengingsdatum."
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po miesięcznym bezpłatnym okresie próbnym będziesz automatycznie obciążany kwotą %@/miesiąc. Możesz anulować w dowolnym momencie w ustawieniach subskrypcji Apple, co najmniej 24 godziny przed datą odnowienia."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Efter den 1 månads kostnadsfria provperioden debiteras du automatiskt %@/månad. Du kan avbryta när som helst via Apples prenumerationsinställningar minst 24 timmar före förnyelsedatumet."
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All your data syncs via iCloud, enabling use across multiple devices!"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تتم مزامنة جميع بياناتك عبر iCloud، مما يتيح لك الاستخدام على أجهزة متعددة!"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Semua data Anda disinkronkan melalui iCloud, memungkinkan penggunaan di beberapa perangkat!"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "आपका सारा डेटा iCloud के ज़रिए सिंक होता है, जिससे कई डिवाइस पर उपयोग संभव होता है!"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Al uw gegevens worden gesynchroniseerd via iCloud, waardoor gebruik op meerdere apparaten mogelijk is!"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wszystkie Twoje dane są synchronizowane przez iCloud, umożliwiając korzystanie na wielu urządzeniach!"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All din data synkroniseras via iCloud, vilket möjliggör användning på flera enheter!"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ข้อมูลทั้งหมดของคุณซิงค์ผ่าน iCloud ช่วยให้ใช้งานได้บนหลายอุปกรณ์!"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 데이터가 iCloud로 동기화되어 여러 기기에서 사용 가능합니다!"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หลังจากทดลองใช้ฟรี 1 เดือน คุณจะถูกเรียกเก็บเงิน %@/เดือนโดยอัตโนมัติ คุณสามารถยกเลิกได้ทุกเมื่อจากการตั้งค่าการสมัครสมาชิกของ Apple อย่างน้อย 24 ชั่วโมงก่อนวันต่ออายุ"
           }
         }
       }
     },
-    "すべての機能が使い放題": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle Funktionen stehen unbegrenzt zur Verfügung"
+    "1ヶ月無料で試す" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جرّب مجانًا لمدة شهر"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited access to all features"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Free for 1 Month"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todas las funciones están disponibles para uso ilimitado"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 महीना मुफ्त आज़माएं"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Toutes les fonctionnalités sont disponibles en utilisation illimitée"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coba Gratis 1 Bulan"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tutte le funzionalità sono disponibili per un uso illimitato"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1개월 무료 체험하기"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "すべての機能が使い放題"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probeer 1 maand gratis"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todas as funcionalidades estão disponíveis para uso ilimitado"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypróbuj za darmo przez 1 miesiąc"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Все функции доступны для неограниченного использования"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova gratis i 1 månad"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tüm özellikler sınırsız kullanım için mevcuttur"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tất cả các tính năng có sẵn để sử dụng không giới hạn"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所有功能可无限使用"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "所有功能可無限使用"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "وصول غير محدود لجميع الميزات"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Akses tak terbatas ke semua fitur"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "सभी सुविधाओं तक असीमित पहुंच"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Onbeperkte toegang tot alle functies"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nieograniczony dostęp do wszystkich funkcji"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obegränsad tillgång till alla funktioner"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เข้าถึงทุกฟีเจอร์ได้ไม่จำกัด"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 기능 무제한 이용"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองใช้ฟรี 1 เดือน"
           }
         }
       }
     },
-    "プライバシーポリシー": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Datenschutz-Bestimmungen"
+    "1ヶ月無料体験" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجربة مجانية لمدة شهر"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Privacy Policy"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Política de privacidad"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Politique de confidentialité"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Politica sulla riservatezza"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "プライバシーポリシー"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 महीने का निःशुल्क परीक्षण"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Política de Privacidade"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uji Coba Gratis 1 Bulan"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Политика конфиденциальности"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gizlilik Politikası"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1ヶ月無料体験"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chính sách bảo mật"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1개월 무료 체험"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "隐私政策"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 maand gratis proberen"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "隱私政策"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miesięczny bezpłatny okres próbny"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "سياسة الخصوصية"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kebijakan Privasi"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "गोपनीयता नीति"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 månads gratis provperiod"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Privacybeleid"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองใช้ฟรี 1 เดือน"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Polityka prywatności"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Integritetspolicy"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "นโยบายความเป็นส่วนตัว"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "개인정보 처리방침"
-          }
-        }
-      }
-    },
-    "プレイリストを無制限に作成": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "プレイリストを無制限に作成"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Unlimited Playlists"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "قوائم تشغيل غير محدودة"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Playlist Tak Terbatas"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "असीमित प्लेलिस्ट"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Onbeperkte afspeellijsten"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nieograniczone listy odtwarzania"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Obegränsade spellistor"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เพลย์ลิสต์ไม่จำกัด"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "무제한 플레이리스트"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial"
           }
         }
       }
     },
-    "プレミアム特典": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Premium-Vorteile"
+    "1ヶ月無料体験 → その後 %@/月" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجربة مجانية لشهر ← ثم %@/شهر"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Premium Benefits"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Beneficios Premium"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Avantages Premium"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vantaggi Premium"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "プレミアム特典"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 महीना निःशुल्क परीक्षण → फिर %@/माह"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Benefícios Premium"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uji Coba Gratis 1 Bulan → Lalu %@/bulan"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Премиум-преимущества"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Premium Avantajları"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1ヶ月無料体験 → その後 %@/月"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lợi ích Cao cấp"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1개월 무료 체험 → 이후 %@/월"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "高级版特权"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 maand gratis → Dan %@/maand"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "進階版特權"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miesiąc za darmo → Potem %@/miesiąc"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "مزايا Premium"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Keuntungan Premium"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Premium लाभ"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 månads gratis → Sedan %@/månad"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Premium voordelen"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองฟรี 1 เดือน → จากนั้น %@/เดือน"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Korzyści Premium"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Premium-förmåner"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "สิทธิพิเศษ Premium"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "프리미엄 혜택"
-          }
-        }
-      }
-    },
-    "リストアに失敗しました": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "リストアに失敗しました"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restore failed."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "فشل الاستعادة."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pemulihan gagal."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "पुनर्स्थापना विफल हुई।"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Herstel mislukt."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Przywracanie nie powiodło się."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Återställning misslyckades."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "การกู้คืนล้มเหลว"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "복원에 실패했습니다."
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
           }
         }
       }
     },
-    "リストア購入": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erstellen"
+    "1ヶ月無料体験 → その後%@/月" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجربة مجانية لشهر ← ثم %@/شهر"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 महीना निःशुल्क परीक्षण → फिर %@/माह"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crear"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uji Coba Gratis 1 Bulan → Lalu %@/bulan"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Créer"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1개월 무료 체험 → 이후 %@/월"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Crea"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 maand gratis → Dan %@/maand"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "作成"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miesiąc za darmo → Potem %@/miesiąc"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Criar"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 månads gratis → Sedan %@/månad"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Создать"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Oluştur"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tạo"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "创建"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "建立"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "إنشاء"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buat"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "बनाएं"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maken"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utwórz"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skapa"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "สร้าง"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "만들기"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองฟรี 1 เดือน → จากนั้น %@/เดือน"
           }
         }
       }
     },
-    "全ての広告が非表示に！": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+    "AI文字起こしを使いこなす" : {
+
+    },
+    "AI文字起こし無制限" : {
+
+    },
+    "iCloud同期機能" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ميزة مزامنة iCloud"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud-Synchronisierungsfunktion"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud Sync Feature"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Función de sincronización de iCloud"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonction de synchronisation iCloud"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "全ての広告が非表示に！"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud सिंक सुविधा"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fitur Sinkronisasi iCloud"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funzione di sincronizzazione iCloud"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud同期機能"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud 동기화 기능"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud-synchronisatiefunctie"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "All ads are hidden!"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funkcja synchronizacji iCloud"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تم إخفاء جميع الإعلانات!"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funcionalidade de sincronização do iCloud"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Semua iklan tersembunyi!"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Функция синхронизации iCloud"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "सभी विज्ञापन छिपे हैं!"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud-synkroniseringsfunktion"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alle advertenties zijn verborgen!"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คุณสมบัติซิงค์ iCloud"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wszystkie reklamy są ukryte!"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud Senkronizasyon Özelliği"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Alla annonser är dolda!"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tính năng đồng bộ iCloud"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "โฆษณาทั้งหมดถูกซ่อนแล้ว!"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud同步功能"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "모든 광고가 숨겨졌습니다!"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud同步功能"
           }
         }
       }
     },
-    "利用規約": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nutzungsbedingungen"
+    "サブスクリプション料金" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سعر الاشتراك"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Terms of Use"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Términos de Uso"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Conditions d'utilisation"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Termini di utilizzo"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "利用規約"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सदस्यता मूल्य"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Termos de Uso"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "harga langganan"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Условия использования"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Kullanım Şartları"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サブスクリプション料金"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Điều khoản sử dụng"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "구독 가격"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "使用条款"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "abonnementsprijs"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "使用條款"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cena subskrypcji"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "شروط الاستخدام"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Syarat Penggunaan"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "उपयोग की शर्तें"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "prenumerationspris"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gebruiksvoorwaarden"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ราคาสมาชิก"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Warunki użytkowania"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Användarvillkor"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "เงื่อนไขการใช้งาน"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "이용 약관"
-          }
-        }
-      }
-    },
-    "広告なしの使用体験": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "広告なしの使用体験"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ad-Free Experience"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تجربة خالية من الإعلانات"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pengalaman Bebas Iklan"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "विज्ञापन-मुक्त अनुभव"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Advertentievrije ervaring"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Doświadczenie bez reklam"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reklamfri upplevelse"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ประสบการณ์ปลอดโฆษณา"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "광고 없는 경험"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription price"
           }
         }
       }
     },
-    "月（自動更新）": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+    "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تتم مزامنة جميع بياناتك عبر iCloud، مما يتيح لك الاستخدام على أجهزة متعددة!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "月（自動更新）"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आपका सारा डेटा iCloud के ज़रिए सिंक होता है, जिससे कई डिवाइस पर उपयोग संभव होता है!"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semua data Anda disinkronkan melalui iCloud, memungkinkan penggunaan di beberapa perangkat!"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてのデータがiCloudで同期され、複数デバイスでの使用が可能に！"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모든 데이터가 iCloud로 동기화되어 여러 기기에서 사용 가능합니다!"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al uw gegevens worden gesynchroniseerd via iCloud, waardoor gebruik op meerdere apparaten mogelijk is!"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ month (auto-renews)"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wszystkie Twoje dane są synchronizowane przez iCloud, umożliwiając korzystanie na wielu urządzeniach!"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ شهر (يُجدَّد تلقائيًا)"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ bulan (perpanjangan otomatis)"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ माह (स्वतः नवीनीकृत)"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All din data synkroniseras via iCloud, vilket möjliggör användning på flera enheter!"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ maand (automatisch verlengd)"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ข้อมูลทั้งหมดของคุณซิงค์ผ่าน iCloud ช่วยให้ใช้งานได้บนหลายอุปกรณ์!"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ miesiąc (automatyczne odnowienie)"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ månad (förnyas automatiskt)"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ เดือน (ต่ออายุอัตโนมัติ)"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/ 월 (자동 갱신)"
-          }
-        }
-      }
-    },
-    "製品情報の取得に失敗しました": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "製品情報の取得に失敗しました"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Failed to fetch product information."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "فشل في جلب معلومات المنتج."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gagal mengambil informasi produk."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "उत्पाद जानकारी प्राप्त करने में विफल।"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ophalen van productinformatie mislukt."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nie udało się pobrać informacji o produkcie."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Det gick inte att hämta produktinformation."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ไม่สามารถดึงข้อมูลสินค้าได้"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "제품 정보를 가져오는 데 실패했습니다."
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All your data syncs via iCloud, enabling use across multiple devices!"
           }
         }
       }
     },
-    "購入が完了しました！": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+    "すべての機能が使い放題" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وصول غير محدود لجميع الميزات"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle Funktionen stehen unbegrenzt zur Verfügung"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited access to all features"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas las funciones están disponibles para uso ilimitado"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toutes les fonctionnalités sont disponibles en utilisation illimitée"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "購入が完了しました！"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सभी सुविधाओं तक असीमित पहुंच"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akses tak terbatas ke semua fitur"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutte le funzionalità sono disponibili per un uso illimitato"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての機能が使い放題"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모든 기능 무제한 이용"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onbeperkte toegang tot alle functies"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase complete!"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieograniczony dostęp do wszystkich funkcji"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "اكتملت عملية الشراء!"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todas as funcionalidades estão disponíveis para uso ilimitado"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pembelian selesai!"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Все функции доступны для неограниченного использования"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "खरीदारी पूर्ण हुई!"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obegränsad tillgång till alla funktioner"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aankoop voltooid!"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เข้าถึงทุกฟีเจอร์ได้ไม่จำกัด"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zakup zakończony!"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm özellikler sınırsız kullanım için mevcuttur"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Köpet slutfört!"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tất cả các tính năng có sẵn để sử dụng không giới hạn"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ชำระเงินสำเร็จแล้ว!"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有功能可无限使用"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "구매가 완료되었습니다!"
-          }
-        }
-      }
-    },
-    "購入に失敗しました": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "購入に失敗しました"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchase failed."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "فشلت عملية الشراء."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pembelian gagal."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "खरीदारी विफल हुई।"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aankoop mislukt."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zakup nie powiódł się."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Köpet misslyckades."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "การชำระเงินล้มเหลว"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "구매에 실패했습니다."
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有功能可無限使用"
           }
         }
       }
     },
-    "購入情報が復元しました！": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+    "プライバシーポリシー" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سياسة الخصوصية"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datenschutz-Bestimmungen"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privacidad"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politique de confidentialité"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "購入情報が復元しました！"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "गोपनीयता नीति"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kebijakan Privasi"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politica sulla riservatezza"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシー"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "개인정보 처리방침"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacybeleid"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Purchases restored!"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polityka prywatności"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تم استعادة المشتريات!"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de Privacidade"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pembelian dipulihkan!"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Политика конфиденциальности"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "खरीदारी पुनर्स्थापित की गई!"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integritetspolicy"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aankopen hersteld!"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "นโยบายความเป็นส่วนตัว"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Zakupy przywrócone!"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gizlilik Politikası"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Köp återställda!"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chính sách bảo mật"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "กู้คืนการซื้อสำเร็จ!"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐私政策"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "구매가 복원되었습니다!"
-          }
-        }
-      }
-    },
-    "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "أنشئ قوائم تشغيل بلا حدود (عادةً محدودة بـ3) لتنظيم تسجيلاتك!"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Buat playlist sebanyak yang Anda inginkan (biasanya dibatasi 3) untuk mengatur rekaman Anda!"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "अपनी रिकॉर्डिंग व्यवस्थित करने के लिए जितनी चाहें उतनी प्लेलिस्ट बनाएं (सामान्यतः 3 तक सीमित)!"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Maak zoveel afspeellijsten als u wilt (normaal beperkt tot 3) om uw opnamen te ordenen!"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Twórz tyle list odtwarzania, ile chcesz (zwykle ograniczone do 3), aby porządkować nagrania!"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skapa så många spellistor du vill (vanligtvis begränsat till 3) för att organisera dina inspelningar!"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "สร้างเพลย์ลิสต์ได้ตามต้องการ (ปกติจำกัด 3 รายการ) เพื่อจัดระเบียบการบันทึกของคุณ!"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "녹음을 정리하기 위해 원하는 만큼 플레이리스트를 만드세요 (일반적으로 3개까지)!"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隱私政策"
           }
         }
       }
     },
-    "音声の分割編集ができ、使いやすく整理できます！": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+    "プレイリストを無制限に作成" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قوائم تشغيل غير محدودة"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "音声の分割編集ができ、使いやすく整理できます！"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "असीमित प्लेलिस्ट"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Playlist Tak Terbatas"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プレイリストを無制限に作成"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무제한 플레이리스트"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onbeperkte afspeellijsten"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Split and edit recordings to keep them organized!"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieograniczone listy odtwarzania"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "قسّم السجلات وعدّلها لتبقى منظمة!"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pisahkan dan edit rekaman agar tetap terorganisir!"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "रिकॉर्डिंग को विभाजित और संपादित करें ताकि वे व्यवस्थित रहें!"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obegränsade spellistor"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Splits en bewerk opnamen om ze georganiseerd te houden!"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เพลย์ลิสต์ไม่จำกัด"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dziel i edytuj nagrania, aby je porządkować!"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dela och redigera inspelningar för att hålla dem organiserade!"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "แบ่งและแก้ไขการบันทึกเพื่อให้เป็นระเบียบ!"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "녹음을 분할 편집하여 정리하세요!"
-          }
-        }
-      }
-    },
-    "音声編集機能": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "音声編集機能"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audio Editing"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تحرير الصوت"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pengeditan Audio"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ऑडियो संपादन"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Audiobewerking"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Edycja dźwięku"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ljudredigering"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "การแก้ไขเสียง"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "오디오 편집 기능"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited Playlists"
           }
         }
       }
     },
-    "1ヶ月 無料でお試し": {
-      "extractionState": "stale",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Einen Monat kostenlos ausprobieren"
+    "プレミアム特典" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مزايا Premium"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try for one month free"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium-Vorteile"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prueba un mes gratis"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium Benefits"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Essayez un mois gratuitement"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beneficios Premium"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prova per un mese gratis"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avantages Premium"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1ヶ月 無料でお試し"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium लाभ"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Experimente por um mês grátis"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keuntungan Premium"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Попробуйте один месяц бесплатно"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vantaggi Premium"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Bir ay ücretsiz deneyin"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プレミアム特典"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Thử miễn phí một tháng"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "프리미엄 혜택"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "免费试用一个月"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium voordelen"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "免費試用一個月"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Korzyści Premium"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "جرّب مجانًا لمدة شهر"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benefícios Premium"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coba gratis satu bulan"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Премиум-преимущества"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "एक महीना मुफ्त में आज़माएं"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium-förmåner"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Probeer één maand gratis"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สิทธิพิเศษ Premium"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wypróbuj przez jeden miesiąc bezpłatnie"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium Avantajları"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prova gratis i en månad"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lợi ích Cao cấp"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ทดลองใช้ฟรีหนึ่งเดือน"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高级版特权"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1개월 무료 체험"
-          }
-        }
-      }
-    },
-    "1ヶ月の無料トライアル終了後、%@/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "After the 1-month free trial, you will be charged %@/month automatically. You can cancel anytime from Apple's subscription settings at least 24 hours before the renewal date."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بعد انتهاء الفترة التجريبية المجانية لمدة شهر، سيتم تحصيل %@/شهر تلقائيًا. يمكنك الإلغاء في أي وقت من إعدادات الاشتراك في Apple قبل 24 ساعة على الأقل من تاريخ التجديد."
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Setelah uji coba gratis 1 bulan, Anda akan dikenakan biaya %@/bulan secara otomatis. Anda dapat membatalkan kapan saja dari pengaturan langganan Apple setidaknya 24 jam sebelum tanggal pembaruan."
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 महीने के निःशुल्क परीक्षण के बाद, आपसे %@/माह स्वचालित रूप से शुल्क लिया जाएगा। आप नवीनीकरण तिथि से कम से कम 24 घंटे पहले Apple की सदस्यता सेटिंग से कभी भी रद्द कर सकते हैं।"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Na de gratis proefperiode van 1 maand wordt u automatisch %@/maand in rekening gebracht. U kunt op elk moment annuleren via de abonnementsinstellingen van Apple, ten minste 24 uur voor de verlengingsdatum."
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Po miesięcznym bezpłatnym okresie próbnym będziesz automatycznie obciążany kwotą %@/miesiąc. Możesz anulować w dowolnym momencie w ustawieniach subskrypcji Apple, co najmniej 24 godziny przed datą odnowienia."
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Efter den 1 månads kostnadsfria provperioden debiteras du automatiskt %@/månad. Du kan avbryta när som helst via Apples prenumerationsinställningar minst 24 timmar före förnyelsedatumet."
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "หลังจากทดลองใช้ฟรี 1 เดือน คุณจะถูกเรียกเก็บเงิน %@/เดือนโดยอัตโนมัติ คุณสามารถยกเลิกได้ทุกเมื่อจากการตั้งค่าการสมัครสมาชิกของ Apple อย่างน้อย 24 ชั่วโมงก่อนวันต่ออายุ"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1개월 무료 체험 후 %@/월이 자동으로 청구됩니다. 갱신일 24시간 전까지 Apple 구독 설정에서 언제든지 취소할 수 있습니다."
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "進階版特權"
           }
         }
       }
     },
-    "1ヶ月無料体験": {
-      "extractionState": "stale",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+    "リストアに失敗しました" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فشل الاستعادة."
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1ヶ月無料体験"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पुनर्स्थापना विफल हुई।"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pemulihan gagal."
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リストアに失敗しました"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "복원에 실패했습니다."
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herstel mislukt."
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przywracanie nie powiodło się."
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تجربة مجانية لمدة شهر"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uji Coba Gratis 1 Bulan"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 महीने का निःशुल्क परीक्षण"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Återställning misslyckades."
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 maand gratis proberen"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การกู้คืนล้มเหลว"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Miesięczny bezpłatny okres próbny"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 månads gratis provperiod"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ทดลองใช้ฟรี 1 เดือน"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1개월 무료 체험"
-          }
-        }
-      }
-    },
-    "1ヶ月無料体験 → その後 %@/月": {
-      "extractionState": "stale",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1ヶ月無料体験 → その後 %@/月"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 Month Free Trial → Then %@/month"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تجربة مجانية لشهر ← ثم %@/شهر"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uji Coba Gratis 1 Bulan → Lalu %@/bulan"
-          }
-        },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 महीना निःशुल्क परीक्षण → फिर %@/माह"
-          }
-        },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 maand gratis → Dan %@/maand"
-          }
-        },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Miesiąc za darmo → Potem %@/miesiąc"
-          }
-        },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 månads gratis → Sedan %@/månad"
-          }
-        },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ทดลองฟรี 1 เดือน → จากนั้น %@/เดือน"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1개월 무료 체험 → 이후 %@/월"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore failed."
           }
         }
       }
     },
-    "1ヶ月無料体験 → その後%@/月": {
-      "localizations": {
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تجربة مجانية لشهر ← ثم %@/شهر"
+    "リストア購入" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Uji Coba Gratis 1 Bulan → Lalu %@/bulan"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erstellen"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 महीना निःशुल्क परीक्षण → फिर %@/माह"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 maand gratis → Dan %@/maand"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crear"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Miesiąc za darmo → Potem %@/miesiąc"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Créer"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 månads gratis → Sedan %@/månad"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बनाएं"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ทดลองฟรี 1 เดือน → จากนั้น %@/เดือน"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buat"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1개월 무료 체험 → 이후 %@/월"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作成"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "만들기"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maken"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utwórz"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Criar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skapa"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้าง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oluştur"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "创建"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "建立"
           }
         }
       }
     },
-    "サブスクリプション料金": {
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+    "今すぐ1ヶ月無料体験してみよう！" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جرّب شهرًا مجانيًا الآن!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jetzt 1 Monat kostenlos testen!"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try 1 month free trial now!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Prueba gratis 1 mes ahora!"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayez gratuitement pendant 1 mois !"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "サブスクリプション料金"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अभी 1 महीना मुफ्त आज़माएं!"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coba uji coba gratis 1 bulan sekarang!"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova 1 mese gratis ora!"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今すぐ1ヶ月無料体験してみよう！"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "지금 1개월 무료 체험해 보세요!"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probeer nu 1 maand gratis!"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription price"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypróbuj teraz 1 miesiąc bezpłatnie!"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "سعر الاشتراك"
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimente 1 mês grátis agora!"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "harga langganan"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimente 1 mês grátis agora!"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "सदस्यता मूल्य"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте 1 месяц бесплатно!"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "abonnementsprijs"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova 1 månads kostnadsfri period nu!"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cena subskrypcji"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองใช้ฟรี 1 เดือนตอนนี้!"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "prenumerationspris"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 ay ücretsiz deneyin!"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ราคาสมาชิก"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng thử miễn phí 1 tháng ngay!"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "구독 가격"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即免费试用1个月！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "立即免費試用1個月！"
           }
         }
       }
     },
-    "今すぐ1ヶ月無料体験してみよう！": {
-      "extractionState": "stale",
-      "localizations": {
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Jetzt 1 Monat kostenlos testen!"
+    "全ての広告が非表示に！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم إخفاء جميع الإعلانات!"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try 1 month free trial now!"
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¡Prueba gratis 1 mes ahora!"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Essayez gratuitement pendant 1 mois !"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prova 1 mese gratis ora!"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "今すぐ1ヶ月無料体験してみよう！"
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सभी विज्ञापन छिपे हैं!"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Experimente 1 mês grátis agora!"
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semua iklan tersembunyi!"
           }
         },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Experimente 1 mês grátis agora!"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Попробуйте 1 месяц бесплатно!"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全ての広告が非表示に！"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1 ay ücretsiz deneyin!"
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "모든 광고가 숨겨졌습니다!"
           }
         },
-        "vi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dùng thử miễn phí 1 tháng ngay!"
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle advertenties zijn verborgen!"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "立即免费试用1个月！"
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wszystkie reklamy są ukryte!"
           }
         },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "立即免費試用1個月！"
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "جرّب شهرًا مجانيًا الآن!"
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coba uji coba gratis 1 bulan sekarang!"
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alla annonser är dolda!"
           }
         },
-        "hi": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "अभी 1 महीना मुफ्त आज़माएं!"
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โฆษณาทั้งหมดถูกซ่อนแล้ว!"
           }
         },
-        "nl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Probeer nu 1 maand gratis!"
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Wypróbuj teraz 1 miesiąc bezpłatnie!"
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "sv": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prova 1 månads kostnadsfri period nu!"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         },
-        "th": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ทดลองใช้ฟรี 1 เดือนตอนนี้!"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "지금 1개월 무료 체험해 보세요!"
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All ads are hidden!"
           }
         }
       }
+    },
+    "利用規約" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروط الاستخدام"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nutzungsbedingungen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Términos de Uso"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conditions d'utilisation"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "उपयोग की शर्तें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Syarat Penggunaan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termini di utilizzo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用規約"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이용 약관"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruiksvoorwaarden"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warunki użytkowania"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termos de Uso"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Условия использования"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Användarvillkor"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เงื่อนไขการใช้งาน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kullanım Şartları"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điều khoản sử dụng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用条款"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使用條款"
+          }
+        }
+      }
+    },
+    "広告なしの使用体験" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجربة خالية من الإعلانات"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "विज्ञापन-मुक्त अनुभव"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pengalaman Bebas Iklan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "広告なしの使用体験"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "광고 없는 경험"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advertentievrije ervaring"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doświadczenie bez reklam"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reklamfri upplevelse"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ประสบการณ์ปลอดโฆษณา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad-Free Experience"
+          }
+        }
+      }
+    },
+    "月（自動更新）" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ شهر (يُجدَّد تلقائيًا)"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ माह (स्वतः नवीनीकृत)"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ bulan (perpanjangan otomatis)"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月（自動更新）"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ 월 (자동 갱신)"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ maand (automatisch verlengd)"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ miesiąc (automatyczne odnowienie)"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ månad (förnyas automatiskt)"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ เดือน (ต่ออายุอัตโนมัติ)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/ month (auto-renews)"
+          }
+        }
+      }
+    },
+    "製品情報の取得に失敗しました" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فشل في جلب معلومات المنتج."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "उत्पाद जानकारी प्राप्त करने में विफल।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gagal mengambil informasi produk."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "製品情報の取得に失敗しました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "제품 정보를 가져오는 데 실패했습니다."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ophalen van productinformatie mislukt."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się pobrać informacji o produkcie."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det gick inte att hämta produktinformation."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถดึงข้อมูลสินค้าได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to fetch product information."
+          }
+        }
+      }
+    },
+    "購入が完了しました！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اكتملت عملية الشراء!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "खरीदारी पूर्ण हुई!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pembelian selesai!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入が完了しました！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "구매가 완료되었습니다!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aankoop voltooid!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakup zakończony!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Köpet slutfört!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ชำระเงินสำเร็จแล้ว!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase complete!"
+          }
+        }
+      }
+    },
+    "購入に失敗しました" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فشلت عملية الشراء."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "खरीदारी विफल हुई।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pembelian gagal."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入に失敗しました"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "구매에 실패했습니다."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aankoop mislukt."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakup nie powiódł się."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Köpet misslyckades."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การชำระเงินล้มเหลว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase failed."
+          }
+        }
+      }
+    },
+    "購入情報が復元しました！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم استعادة المشتريات!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "खरीदारी पुनर्स्थापित की गई!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pembelian dipulihkan!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購入情報が復元しました！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "구매가 복원되었습니다!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aankopen hersteld!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zakupy przywrócone!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Köp återställda!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กู้คืนการซื้อสำเร็จ!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchases restored!"
+          }
+        }
+      }
+    },
+    "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أنشئ قوائم تشغيل بلا حدود (عادةً محدودة بـ3) لتنظيم تسجيلاتك!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "अपनी रिकॉर्डिंग व्यवस्थित करने के लिए जितनी चाहें उतनी प्लेलिस्ट बनाएं (सामान्यतः 3 तक सीमित)!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buat playlist sebanyak yang Anda inginkan (biasanya dibatasi 3) untuk mengatur rekaman Anda!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通常3つまでのプレイリストを好きなだけ作成して、音声を整理できます！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "녹음을 정리하기 위해 원하는 만큼 플레이리스트를 만드세요 (일반적으로 3개까지)!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maak zoveel afspeellijsten als u wilt (normaal beperkt tot 3) om uw opnamen te ordenen!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twórz tyle list odtwarzania, ile chcesz (zwykle ograniczone do 3), aby porządkować nagrania!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skapa så många spellistor du vill (vanligtvis begränsat till 3) för att organisera dina inspelningar!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้างเพลย์ลิสต์ได้ตามต้องการ (ปกติจำกัด 3 รายการ) เพื่อจัดระเบียบการบันทึกของคุณ!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create as many playlists as you like (normally limited to 3) to organize your recordings!"
+          }
+        }
+      }
+    },
+    "音声の分割編集ができ、使いやすく整理できます！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قسّم السجلات وعدّلها لتبقى منظمة!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रिकॉर्डिंग को विभाजित और संपादित करें ताकि वे व्यवस्थित रहें!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pisahkan dan edit rekaman agar tetap terorganisir!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音声の分割編集ができ、使いやすく整理できます！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "녹음을 분할 편집하여 정리하세요!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Splits en bewerk opnamen om ze georganiseerd te houden!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dziel i edytuj nagrania, aby je porządkować!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dela och redigera inspelningar för att hålla dem organiserade!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แบ่งและแก้ไขการบันทึกเพื่อให้เป็นระเบียบ!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Split and edit recordings to keep them organized!"
+          }
+        }
+      }
+    },
+    "音声編集機能" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحرير الصوت"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ऑडियो संपादन"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pengeditan Audio"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音声編集機能"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "오디오 편집 기능"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audiobewerking"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edycja dźwięku"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ljudredigering"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การแก้ไขเสียง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio Editing"
+          }
+        }
+      }
+    },
+    "高精度なAI文字起こしが無制限で使い放題！" : {
+
     }
   },
-  "version": "1.1"
+  "version" : "1.1"
 }
