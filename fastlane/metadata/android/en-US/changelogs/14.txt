@@ -1,0 +1,8 @@
+Version 2.6.0
+
+[New Features]
+- Recording presets (Meeting, Lecture, Interview, Voice Memo)
+- Noise canceling setting
+- Auto Gain Control (AGC) setting
+- Microphone volume slider
+- How-to guide screen
