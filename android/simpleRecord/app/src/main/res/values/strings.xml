@@ -112,6 +112,13 @@
     <string name="app_version">App Version</string>
     <string name="about">About</string>
 
+    <!-- Recording Presets -->
+    <string name="preset_label">Preset</string>
+    <string name="preset_meeting">Meeting</string>
+    <string name="preset_lecture">Lecture</string>
+    <string name="preset_interview">Interview</string>
+    <string name="preset_voice_memo">Voice Memo</string>
+
     <!-- Mic volume / Audio effects -->
     <string name="mic_volume">Microphone Volume</string>
     <string name="noise_suppressor">Noise Canceling</string>

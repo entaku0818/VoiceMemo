@@ -94,6 +94,13 @@
     <string name="app_version">アプリバージョン</string>
     <string name="about">このアプリについて</string>
 
+    <!-- Recording Presets -->
+    <string name="preset_label">プリセット</string>
+    <string name="preset_meeting">会議</string>
+    <string name="preset_lecture">講義</string>
+    <string name="preset_interview">インタビュー</string>
+    <string name="preset_voice_memo">ボイスメモ</string>
+
     <!-- Mic volume / Audio effects -->
     <string name="mic_volume">マイク音量</string>
     <string name="noise_suppressor">ノイズキャンセリング</string>

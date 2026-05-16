@@ -80,6 +80,22 @@ fun RecordingSettingsScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // プリセット選択
+            Text(stringResource(R.string.preset_label), style = MaterialTheme.typography.titleMedium)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                RecordingPreset.entries.forEach { preset ->
+                    val activePreset = RecordingPreset.detect(settings)
+                    FilterChip(
+                        selected = activePreset == preset,
+                        onClick = { settings = preset.applyTo(settings) },
+                        label = { Text(stringResource(presetStringRes(preset))) }
+                    )
+                }
+            }
+
             // ファイル形式選択
             Text(stringResource(R.string.file_format), style = MaterialTheme.typography.titleMedium)
             Row(
@@ -368,6 +384,13 @@ private fun ChannelOption(
         onClick = onClick,
         label = { Text(text) }
     )
+}
+
+private fun presetStringRes(preset: RecordingPreset): Int = when (preset) {
+    RecordingPreset.MEETING -> R.string.preset_meeting
+    RecordingPreset.LECTURE -> R.string.preset_lecture
+    RecordingPreset.INTERVIEW -> R.string.preset_interview
+    RecordingPreset.VOICE_MEMO -> R.string.preset_voice_memo
 }
 
 @Preview(showBackground = true)
