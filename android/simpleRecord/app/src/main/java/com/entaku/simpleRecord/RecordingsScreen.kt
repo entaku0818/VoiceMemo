@@ -90,6 +90,9 @@ fun RecordingsScreen(
                     Icon(Icons.Default.Cloud, contentDescription = stringResource(R.string.cloud_sync))
                 }
             }
+        },
+        bottomBar = {
+            BannerAdView(modifier = Modifier.fillMaxWidth())
         }
     ) { innerPadding ->
         if (state.isLoading) {

@@ -112,6 +112,10 @@
     <string name="app_version">App Version</string>
     <string name="about">About</string>
 
+    <!-- Ads -->
+    <string name="rewarded_ad_watch">Watch an ad</string>
+    <string name="rewarded_ad_reward_earned">Thank you for watching!</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Feedback</string>
     <string name="feedback_category">Category</string>

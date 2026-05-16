@@ -50,8 +50,12 @@ android {
         // AdMob configuration from admob.properties
         val admobAppId = admobProperties.getProperty("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
         val appOpenAdUnitId = admobProperties.getProperty("APP_OPEN_AD_UNIT_ID", "ca-app-pub-3940256099942544/9257395921")
+        val bannerAdUnitId = admobProperties.getProperty("BANNER_AD_UNIT_ID", "ca-app-pub-3940256099942544/6300978111")
+        val rewardedAdUnitId = admobProperties.getProperty("REWARDED_AD_UNIT_ID", "ca-app-pub-3940256099942544/5224354917")
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
         buildConfigField("String", "APP_OPEN_AD_UNIT_ID", "\"$appOpenAdUnitId\"")
+        buildConfigField("String", "BANNER_AD_UNIT_ID", "\"$bannerAdUnitId\"")
+        buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"$rewardedAdUnitId\"")
     }
 
     buildTypes {

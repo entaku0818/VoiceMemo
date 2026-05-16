@@ -16,8 +16,8 @@ class SimpleRecordApplication : Application() {
 
         // Initialize Mobile Ads SDK
         MobileAds.initialize(this) {
-            // Preload app open ad after initialization
             AppOpenAdManager.getInstance(this).loadAd()
+            RewardedAdManager.getInstance(this).loadAd()
         }
     }
 }

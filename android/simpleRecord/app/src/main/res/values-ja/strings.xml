@@ -94,6 +94,10 @@
     <string name="app_version">アプリバージョン</string>
     <string name="about">このアプリについて</string>
 
+    <!-- Ads -->
+    <string name="rewarded_ad_watch">広告を見る</string>
+    <string name="rewarded_ad_reward_earned">ご視聴ありがとうございます！</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">フィードバック</string>
     <string name="feedback_category">カテゴリ</string>
