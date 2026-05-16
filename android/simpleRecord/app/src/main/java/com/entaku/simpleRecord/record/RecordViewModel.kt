@@ -1,8 +1,6 @@
 package com.entaku.simpleRecord.record
 
 import android.content.Context
-import android.media.audiofx.AutomaticGainControl
-import android.media.audiofx.NoiseSuppressor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,8 +52,6 @@ class RecordViewModel(
     }
 
     private var mediaRecorder: MediaRecorder? = null
-    private var noiseSuppressor: NoiseSuppressor? = null
-    private var autoGainControl: AutomaticGainControl? = null
     private var startTime: Long = 0
     private var volumeMonitorJob: Job? = null
     private var pausedDuration: Long = 0
@@ -86,8 +82,16 @@ class RecordViewModel(
         val fileName = "recording_${System.currentTimeMillis()}"
         val outputFile = "${externalFilesDir?.absolutePath}/$fileName.${settings.fileExtension}"
 
+        // VOICE_COMMUNICATION enables platform-level noise suppression and AGC.
+        // MIC gives raw audio without processing.
+        val audioSource = if (settings.noiseSuppressor || settings.autoGainControl) {
+            MediaRecorder.AudioSource.VOICE_COMMUNICATION
+        } else {
+            MediaRecorder.AudioSource.MIC
+        }
+
         mediaRecorder = createMediaRecorder(applicationContext).apply {
-            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setAudioSource(audioSource)
             setOutputFormat(settings.outputFormat)
             setAudioEncoder(settings.audioEncoder)
             setAudioSamplingRate(settings.sampleRate)
@@ -97,7 +101,6 @@ class RecordViewModel(
             try {
                 prepare()
                 start()
-                applyAudioEffects(settings)
                 startTime = System.currentTimeMillis()
                 pausedDuration = 0
                 _uiState.update { it.copy(
@@ -114,25 +117,6 @@ class RecordViewModel(
                 e.printStackTrace()
             }
         }
-    }
-
-    private fun applyAudioEffects(settings: RecordingSettings) {
-        val sessionId = mediaRecorder?.audioSessionId ?: return
-        noiseSuppressor?.release()
-        autoGainControl?.release()
-        noiseSuppressor = if (settings.noiseSuppressor && NoiseSuppressor.isAvailable()) {
-            NoiseSuppressor.create(sessionId)?.also { it.enabled = true }
-        } else null
-        autoGainControl = if (settings.autoGainControl && AutomaticGainControl.isAvailable()) {
-            AutomaticGainControl.create(sessionId)?.also { it.enabled = true }
-        } else null
-    }
-
-    private fun releaseAudioEffects() {
-        noiseSuppressor?.release()
-        noiseSuppressor = null
-        autoGainControl?.release()
-        autoGainControl = null
     }
 
     private fun startVolumeMonitoring() {
@@ -171,7 +155,6 @@ class RecordViewModel(
         timeUpdateJob = null
         volumeMonitorJob?.cancel()
         volumeMonitorJob = null
-        releaseAudioEffects()
 
         mediaRecorder?.apply {
             try {
@@ -275,7 +258,6 @@ class RecordViewModel(
         super.onCleared()
         volumeMonitorJob?.cancel()
         timeUpdateJob?.cancel()
-        releaseAudioEffects()
         mediaRecorder?.release()
         mediaRecorder = null
     }
