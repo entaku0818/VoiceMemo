@@ -112,6 +112,24 @@
     <string name="app_version">App Version</string>
     <string name="about">About</string>
 
+    <!-- Mic volume / Audio effects -->
+    <string name="mic_volume">Microphone Volume</string>
+    <string name="noise_suppressor">Noise Canceling</string>
+    <string name="noise_suppressor_desc">Reduce background noise during recording</string>
+    <string name="auto_gain_control">Auto Gain Control (AGC)</string>
+    <string name="auto_gain_control_desc">Automatically adjust microphone sensitivity</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_title">How to Use</string>
+    <string name="tutorial_step1_title">Start Recording</string>
+    <string name="tutorial_step1_desc">Tap the mic button on the Record tab to start recording. Tap Stop when done.</string>
+    <string name="tutorial_step2_title">Play Recordings</string>
+    <string name="tutorial_step2_desc">Switch to the Playback tab to see your recordings. Tap a recording to play it with speed control and A-B loop.</string>
+    <string name="tutorial_step3_title">Create Playlists</string>
+    <string name="tutorial_step3_desc">Organize recordings into playlists for sequential playback with shuffle and repeat options.</string>
+    <string name="tutorial_step4_title">Backup to Cloud</string>
+    <string name="tutorial_step4_desc">Use the cloud icon on the Recordings screen to backup and restore your recordings via Google Drive.</string>
+
     <!-- Ads -->
     <string name="rewarded_ad_watch">Watch an ad</string>
     <string name="rewarded_ad_reward_earned">Thank you for watching!</string>

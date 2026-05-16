@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.material.icons.filled.Help
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +26,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -47,6 +50,7 @@ fun RecordingSettingsScreen(
     onSettingsChanged: (RecordingSettings) -> Unit,
     onNavigateBack: () -> Unit,
     onNavigateToFeedback: () -> Unit = {},
+    onNavigateToTutorial: () -> Unit = {},
     onNavigateToScreenshotPreview: (() -> Unit)? = null
 ) {
     var settings by remember { mutableStateOf(currentSettings) }
@@ -197,6 +201,65 @@ fun RecordingSettingsScreen(
                 )
             }
             
+            // マイク音量
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(stringResource(R.string.mic_volume), style = MaterialTheme.typography.titleMedium)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Slider(
+                    value = settings.micVolume,
+                    onValueChange = { settings = settings.copy(micVolume = it) },
+                    valueRange = 0f..1f,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = "${(settings.micVolume * 100).toInt()}%",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            // ノイズキャンセリング
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(stringResource(R.string.noise_suppressor), style = MaterialTheme.typography.titleSmall)
+                    Text(
+                        stringResource(R.string.noise_suppressor_desc),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Switch(
+                    checked = settings.noiseSuppressor,
+                    onCheckedChange = { settings = settings.copy(noiseSuppressor = it) }
+                )
+            }
+
+            // 自動ゲインコントロール
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(stringResource(R.string.auto_gain_control), style = MaterialTheme.typography.titleSmall)
+                    Text(
+                        stringResource(R.string.auto_gain_control_desc),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Switch(
+                    checked = settings.autoGainControl,
+                    onCheckedChange = { settings = settings.copy(autoGainControl = it) }
+                )
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
 
             // About / Contact section
@@ -204,6 +267,16 @@ fun RecordingSettingsScreen(
             Spacer(modifier = Modifier.height(8.dp))
             Text(stringResource(R.string.about), style = MaterialTheme.typography.titleMedium)
             Spacer(modifier = Modifier.height(4.dp))
+
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.tutorial_title)) },
+                trailingContent = {
+                    Icon(Icons.Default.Help, contentDescription = null)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onNavigateToTutorial() }
+            )
 
             ListItem(
                 headlineContent = { Text(stringResource(R.string.contact_us)) },

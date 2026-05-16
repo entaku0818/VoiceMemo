@@ -11,7 +11,10 @@ data class RecordingSettings(
     val audioEncoder: Int,
     val sampleRate: Int,
     val bitRate: Int,
-    val channels: Int
+    val channels: Int,
+    val micVolume: Float = 1.0f,
+    val noiseSuppressor: Boolean = false,
+    val autoGainControl: Boolean = false
 )
 
 class SettingsManager(context: Context) {
@@ -19,17 +22,18 @@ class SettingsManager(context: Context) {
         "app_settings", Context.MODE_PRIVATE
     )
     
-    // デフォルト設定
     private val defaultSettings = RecordingSettings(
         fileExtension = "3gp",
         outputFormat = MediaRecorder.OutputFormat.THREE_GPP,
         audioEncoder = MediaRecorder.AudioEncoder.AMR_NB,
         sampleRate = 44100,
         bitRate = 16,
-        channels = 1
+        channels = 1,
+        micVolume = 1.0f,
+        noiseSuppressor = false,
+        autoGainControl = false
     )
     
-    // 録音設定の取得
     fun getRecordingSettings(): RecordingSettings {
         return RecordingSettings(
             fileExtension = prefs.getString("file_extension", defaultSettings.fileExtension)!!,
@@ -37,11 +41,13 @@ class SettingsManager(context: Context) {
             audioEncoder = prefs.getInt("audio_encoder", defaultSettings.audioEncoder),
             sampleRate = prefs.getInt("sample_rate", defaultSettings.sampleRate),
             bitRate = prefs.getInt("bit_rate", defaultSettings.bitRate),
-            channels = prefs.getInt("channels", defaultSettings.channels)
+            channels = prefs.getInt("channels", defaultSettings.channels),
+            micVolume = prefs.getFloat("mic_volume", defaultSettings.micVolume),
+            noiseSuppressor = prefs.getBoolean("noise_suppressor", defaultSettings.noiseSuppressor),
+            autoGainControl = prefs.getBoolean("auto_gain_control", defaultSettings.autoGainControl)
         )
     }
-    
-    // 録音設定の保存
+
     fun saveRecordingSettings(settings: RecordingSettings) {
         prefs.edit {
             putString("file_extension", settings.fileExtension)
@@ -50,6 +56,9 @@ class SettingsManager(context: Context) {
             putInt("sample_rate", settings.sampleRate)
             putInt("bit_rate", settings.bitRate)
             putInt("channels", settings.channels)
+            putFloat("mic_volume", settings.micVolume)
+            putBoolean("noise_suppressor", settings.noiseSuppressor)
+            putBoolean("auto_gain_control", settings.autoGainControl)
         }
     }
 }

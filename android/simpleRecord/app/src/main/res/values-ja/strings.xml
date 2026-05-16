@@ -94,6 +94,24 @@
     <string name="app_version">アプリバージョン</string>
     <string name="about">このアプリについて</string>
 
+    <!-- Mic volume / Audio effects -->
+    <string name="mic_volume">マイク音量</string>
+    <string name="noise_suppressor">ノイズキャンセリング</string>
+    <string name="noise_suppressor_desc">録音中の背景ノイズを低減します</string>
+    <string name="auto_gain_control">自動ゲインコントロール（AGC）</string>
+    <string name="auto_gain_control_desc">マイクの感度を自動的に調整します</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_title">使い方ガイド</string>
+    <string name="tutorial_step1_title">録音を開始する</string>
+    <string name="tutorial_step1_desc">「録音」タブのマイクボタンをタップして録音を開始します。終わったら停止ボタンをタップしてください。</string>
+    <string name="tutorial_step2_title">録音を再生する</string>
+    <string name="tutorial_step2_desc">「再生」タブに切り替えると録音一覧が表示されます。タップすると速度調整やA-Bループ再生ができます。</string>
+    <string name="tutorial_step3_title">プレイリストを作る</string>
+    <string name="tutorial_step3_desc">録音をプレイリストにまとめて、シャッフルやリピートで連続再生できます。</string>
+    <string name="tutorial_step4_title">クラウドにバックアップ</string>
+    <string name="tutorial_step4_desc">録音一覧画面のクラウドアイコンから、Googleドライブへのバックアップ・復元が行えます。</string>
+
     <!-- Ads -->
     <string name="rewarded_ad_watch">広告を見る</string>
     <string name="rewarded_ad_reward_earned">ご視聴ありがとうございます！</string>

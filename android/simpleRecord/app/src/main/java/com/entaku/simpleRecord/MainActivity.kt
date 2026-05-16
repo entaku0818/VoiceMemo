@@ -61,6 +61,7 @@ import com.entaku.simpleRecord.screenshot.SCREENSHOT_PREVIEW_ROUTE
 import com.entaku.simpleRecord.screenshot.addDebugNavigation
 import com.entaku.simpleRecord.settings.RecordingSettingsScreen
 import com.entaku.simpleRecord.settings.SettingsManager
+import com.entaku.simpleRecord.settings.TutorialScreen
 import java.util.UUID
 
 // Bottom navigation destinations
@@ -249,6 +250,7 @@ fun AppNavHost() {
                         onSettingsChanged = { newSettings -> settingsManager.saveRecordingSettings(newSettings) },
                         onNavigateBack = { /* top-level: no back */ },
                         onNavigateToFeedback = { navController.navigate(Screen.Feedback.route) },
+                        onNavigateToTutorial = { navController.navigate(Screen.Tutorial.route) },
                         onNavigateToScreenshotPreview = if (BuildConfig.DEBUG) {
                             { navController.navigate(SCREENSHOT_PREVIEW_ROUTE) }
                         } else null
@@ -387,6 +389,10 @@ fun AppNavHost() {
                     FeedbackScreen(viewModel = feedbackViewModel, onNavigateBack = { navController.popBackStack() })
                 }
 
+                composable(Screen.Tutorial.route) {
+                    TutorialScreen(onNavigateBack = { navController.popBackStack() })
+                }
+
                 addDebugNavigation(navController)
             }
         }
@@ -407,4 +413,5 @@ sealed class Screen(val route: String, val title: String) {
     }
     object CloudSync : Screen("cloud_sync", "Cloud Sync")
     object Feedback : Screen("feedback", "Feedback")
+    object Tutorial : Screen("tutorial", "Tutorial")
 }
