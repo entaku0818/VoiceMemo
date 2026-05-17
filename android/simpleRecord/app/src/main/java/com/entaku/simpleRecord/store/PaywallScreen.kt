@@ -162,26 +162,40 @@ fun PaywallScreen(
                 }
                 is BillingState.Ready -> {
                     val activity = context as? android.app.Activity
-                    state.products.forEach { product ->
+                    val product = state.products.firstOrNull()
+                    if (product != null) {
                         Button(
                             onClick = { activity?.let { billingManager.launchPurchaseFlow(it, product) } },
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("${product.title}  ${product.price}")
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    stringResource(R.string.premium_free_trial),
+                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                                )
+                                Text(
+                                    stringResource(R.string.premium_trial_then_price, product.price),
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
                         }
                         Spacer(Modifier.height(8.dp))
-                    }
-
-                    if (state.products.isEmpty()) {
+                        Text(
+                            stringResource(R.string.premium_trial_terms, product.price),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center
+                        )
+                    } else {
                         Text(
                             stringResource(R.string.premium_unavailable),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             textAlign = TextAlign.Center
                         )
-                        Spacer(Modifier.height(16.dp))
                     }
 
+                    Spacer(Modifier.height(16.dp))
                     OutlinedButton(
                         onClick = { billingManager.restorePurchases {} },
                         modifier = Modifier.fillMaxWidth()

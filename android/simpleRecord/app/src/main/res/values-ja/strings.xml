@@ -106,6 +106,9 @@
     <string name="premium_unavailable">商品を取得できませんでした。後でもう一度お試しください。</string>
     <string name="premium_badge">プレミアム</string>
     <string name="go_premium">プレミアムにする</string>
+    <string name="premium_free_trial">7日間無料で試す</string>
+    <string name="premium_trial_then_price">その後 %s /月（自動更新）</string>
+    <string name="premium_trial_terms">7日間の無料トライアル終了後、%s/月で自動的に課金されます。更新日の24時間前までにGoogle Playのサブスクリプション設定からいつでもキャンセルできます。</string>
 
     <!-- Recording Presets -->
     <string name="preset_label">プリセット</string>

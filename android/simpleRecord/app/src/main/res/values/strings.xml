@@ -155,6 +155,9 @@
     <string name="premium_unavailable">Products not available. Please try again later.</string>
     <string name="premium_badge">Premium</string>
     <string name="go_premium">Go Premium</string>
+    <string name="premium_free_trial">Try Free for 7 Days</string>
+    <string name="premium_trial_then_price">Then %s / month, auto-renews</string>
+    <string name="premium_trial_terms">After the 7-day free trial, you will be charged %s/month. Cancel anytime in Google Play subscription settings before the renewal date.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Transcription</string>
