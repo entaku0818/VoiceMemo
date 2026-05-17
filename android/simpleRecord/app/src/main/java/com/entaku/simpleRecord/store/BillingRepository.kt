@@ -28,7 +28,8 @@ data class PremiumProduct(
     val productId: String,
     val title: String,
     val price: String,
-    val productDetails: ProductDetails
+    val productDetails: ProductDetails,
+    val offerToken: String? = null
 )
 
 sealed class BillingState {
@@ -78,55 +79,73 @@ class BillingRepository private constructor(private val context: Context) {
     }
 
     private suspend fun queryProducts() {
-        val params = QueryProductDetailsParams.newBuilder()
+        val subsParams = QueryProductDetailsParams.newBuilder()
             .setProductList(
                 listOf(
                     QueryProductDetailsParams.Product.newBuilder()
-                        .setProductId(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID)
-                        .setProductType(BillingClient.ProductType.INAPP)
+                        .setProductId(BuildConfig.PREMIUM_PRODUCT_ID)
+                        .setProductType(BillingClient.ProductType.SUBS)
                         .build()
                 )
             )
             .build()
 
-        val result = billingClient.queryProductDetails(params)
-        if (result.billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-            val products = result.productDetailsList?.map { details ->
-                PremiumProduct(
-                    productId = details.productId,
-                    title = details.title,
-                    price = details.oneTimePurchaseOfferDetails?.formattedPrice ?: "",
-                    productDetails = details
-                )
-            } ?: emptyList()
-            _billingState.value = BillingState.Ready(products)
-        } else {
-            _billingState.value = BillingState.Error(result.billingResult.debugMessage)
+        val subsResult = billingClient.queryProductDetails(subsParams)
+        if (subsResult.billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
+            _billingState.value = BillingState.Error(subsResult.billingResult.debugMessage)
+            return
         }
+
+        val products = subsResult.productDetailsList?.mapNotNull { details ->
+            val offerDetails = details.subscriptionOfferDetails?.firstOrNull() ?: return@mapNotNull null
+            val price = offerDetails.pricingPhases.pricingPhaseList.lastOrNull()?.formattedPrice ?: ""
+            PremiumProduct(
+                productId = details.productId,
+                title = details.title,
+                price = price,
+                productDetails = details,
+                offerToken = offerDetails.offerToken
+            )
+        } ?: emptyList()
+        _billingState.value = BillingState.Ready(products)
     }
 
     private suspend fun restorePurchases() {
-        val params = QueryPurchasesParams.newBuilder()
-            .setProductType(BillingClient.ProductType.INAPP)
-            .build()
-        val result = billingClient.queryPurchasesAsync(params)
-        val hasPremium = result.purchasesList.any { purchase ->
+        var hasPremium = false
+
+        // Check active subscriptions
+        val subsResult = billingClient.queryPurchasesAsync(
+            QueryPurchasesParams.newBuilder()
+                .setProductType(BillingClient.ProductType.SUBS)
+                .build()
+        )
+        hasPremium = hasPremium || subsResult.purchasesList.any { purchase ->
+            purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
+                purchase.products.contains(BuildConfig.PREMIUM_PRODUCT_ID)
+        }
+
+        // Check lifetime purchases
+        val inappResult = billingClient.queryPurchasesAsync(
+            QueryPurchasesParams.newBuilder()
+                .setProductType(BillingClient.ProductType.INAPP)
+                .build()
+        )
+        hasPremium = hasPremium || inappResult.purchasesList.any { purchase ->
             purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
                 purchase.products.contains(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID)
         }
+
         premiumRepository.setPremium(hasPremium)
     }
 
     fun launchPurchaseFlow(activity: Activity, product: PremiumProduct) {
         _billingState.value = BillingState.Purchasing
+        val productDetailsParams = BillingFlowParams.ProductDetailsParams.newBuilder()
+            .setProductDetails(product.productDetails)
+            .apply { product.offerToken?.let { setOfferToken(it) } }
+            .build()
         val flowParams = BillingFlowParams.newBuilder()
-            .setProductDetailsParamsList(
-                listOf(
-                    BillingFlowParams.ProductDetailsParams.newBuilder()
-                        .setProductDetails(product.productDetails)
-                        .build()
-                )
-            )
+            .setProductDetailsParamsList(listOf(productDetailsParams))
             .build()
         val result = billingClient.launchBillingFlow(activity, flowParams)
         if (result.responseCode != BillingClient.BillingResponseCode.OK) {
@@ -143,7 +162,8 @@ class BillingRepository private constructor(private val context: Context) {
 
     private fun handlePurchase(purchase: Purchase) {
         if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) return
-        val isPremium = purchase.products.contains(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID)
+        val isPremium = purchase.products.contains(BuildConfig.PREMIUM_PRODUCT_ID) ||
+            purchase.products.contains(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID)
         if (isPremium) {
             premiumRepository.setPremium(true)
             if (!purchase.isAcknowledged) {
