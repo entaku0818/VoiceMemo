@@ -78,4 +78,97 @@
     <string name="notification_d3_body">Hören Sie Ihre Aufnahmen jederzeit wieder ab.</string>
     <string name="notification_channel_name">Aufnahme-Erinnerungen</string>
     <string name="notification_channel_description">Erinnerungen zum Aufnehmen</string>
+
+    <!-- Bottom Navigation -->
+    <string name="tab_record">Aufnehmen</string>
+    <string name="tab_recordings">Wiedergabe</string>
+    <string name="tab_playlists">Playlists</string>
+    <string name="tab_settings">Einstellungen</string>
+
+    <!-- Common -->
+    <string name="ok">OK</string>
+
+    <!-- Recordings Screen -->
+    <string name="recordings_title">Aufnahmen</string>
+    <string name="no_recordings">Noch keine Aufnahmen</string>
+    <string name="tap_mic_to_record">Tippe auf das Mikrofon, um zu starten</string>
+    <string name="untitled_recording">Unbenannte Aufnahme</string>
+
+    <!-- Support / Inquiry -->
+    <string name="contact_us">Kontakt / Feedback</string>
+    <string name="contact_us_email_subject">Einfache Aufnahme - Anfrage</string>
+    <string name="app_version">App-Version</string>
+    <string name="about">Über</string>
+
+    <!-- Recording Presets -->
+    <string name="preset_label">Voreinstellung</string>
+    <string name="preset_memo">Memo</string>
+    <string name="preset_meeting">Meeting</string>
+    <string name="preset_interview">Interview</string>
+    <string name="preset_podcast">Podcast</string>
+    <string name="preset_music">Musik</string>
+    <string name="preset_custom">Benutzerdefiniert</string>
+
+    <!-- Mic volume / Audio effects -->
+    <string name="mic_volume">Mikrofonlautstärke</string>
+    <string name="noise_suppressor">Rauschunterdrückung</string>
+    <string name="noise_suppressor_desc">Hintergrundgeräusche während der Aufnahme reduzieren</string>
+    <string name="auto_gain_control">Automatische Verstärkungsregelung (AGC)</string>
+    <string name="auto_gain_control_desc">Mikrofonempfindlichkeit automatisch anpassen</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_title">Anleitung</string>
+    <string name="tutorial_step1_title">Aufnahme starten</string>
+    <string name="tutorial_step1_desc">Tippe auf das Mikrofon-Symbol im Aufnahme-Tab, um die Aufnahme zu starten. Tippe auf Stopp, wenn du fertig bist.</string>
+    <string name="tutorial_step2_title">Aufnahmen abspielen</string>
+    <string name="tutorial_step2_desc">Wechsle zum Wiedergabe-Tab, um deine Aufnahmen zu sehen. Tippe auf eine Aufnahme, um sie mit Geschwindigkeitskontrolle und A-B-Schleife abzuspielen.</string>
+    <string name="tutorial_step3_title">Playlists erstellen</string>
+    <string name="tutorial_step3_desc">Organisiere Aufnahmen in Playlists für die sequenzielle Wiedergabe mit Shuffle- und Wiederholungsoptionen.</string>
+    <string name="tutorial_step4_title">In der Cloud sichern</string>
+    <string name="tutorial_step4_desc">Nutze das Cloud-Symbol im Aufnahmen-Bildschirm, um Aufnahmen über Google Drive zu sichern und wiederherzustellen.</string>
+
+    <!-- Ads -->
+    <string name="rewarded_ad_watch">Werbung ansehen</string>
+    <string name="rewarded_ad_reward_earned">Danke fürs Zuschauen!</string>
+
+    <!-- Premium / Paywall -->
+    <string name="premium_title">Premium werden</string>
+    <string name="premium_headline">Alle Funktionen freischalten</string>
+    <string name="premium_subheadline">Upgrade, um Werbung zu entfernen und unbegrenzten Zugang zu allen Funktionen zu erhalten.</string>
+    <string name="premium_feature_no_ads">Keine Werbung</string>
+    <string name="premium_feature_transcription">Unbegrenzte KI-Transkription</string>
+    <string name="premium_feature_high_quality">Hochwertige Aufnahme</string>
+    <string name="premium_feature_cloud">Unbegrenzte Cloud-Synchronisation</string>
+    <string name="premium_restore">Kauf wiederherstellen</string>
+    <string name="premium_unavailable">Produkte nicht verfügbar. Bitte später erneut versuchen.</string>
+    <string name="premium_badge">Premium</string>
+    <string name="go_premium">Premium werden</string>
+
+    <!-- Transcription -->
+    <string name="transcription_title">Transkription</string>
+    <string name="transcription_idle_title">KI-Transkription</string>
+    <string name="transcription_idle_desc">Lade dein Audio hoch und die KI transkribiert es automatisch.</string>
+    <string name="transcription_language">Sprache</string>
+    <string name="transcription_start">Transkription starten</string>
+    <string name="transcription_uploading">Audio wird hochgeladen…</string>
+    <string name="transcription_processing">KI transkribiert…</string>
+    <string name="transcription_processing_hint">Dies dauert normalerweise 2–5 Minuten. Bitte warten.</string>
+    <string name="transcription_failed">Transkription fehlgeschlagen</string>
+    <string name="transcription_retry">Wiederholen</string>
+    <string name="transcription_summary">Zusammenfassung</string>
+
+    <!-- Feedback Screen -->
+    <string name="feedback">Feedback</string>
+    <string name="feedback_category">Kategorie</string>
+    <string name="feedback_category_bug">Fehlerbericht</string>
+    <string name="feedback_category_feature">Funktionsanfrage</string>
+    <string name="feedback_category_other">Sonstiges</string>
+    <string name="feedback_message">Nachricht</string>
+    <string name="feedback_message_hint">Beschreibe dein Feedback hier…</string>
+    <string name="feedback_email_optional">E-Mail (optional)</string>
+    <string name="feedback_email_hint">Antwort-E-Mail-Adresse</string>
+    <string name="feedback_send">Senden</string>
+    <string name="feedback_sent">Gesendet!</string>
+    <string name="feedback_thanks">Vielen Dank für dein Feedback.</string>
+    <string name="feedback_error">Senden fehlgeschlagen</string>
 </resources>

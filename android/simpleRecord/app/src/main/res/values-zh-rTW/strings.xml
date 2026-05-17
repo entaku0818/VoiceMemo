@@ -78,4 +78,97 @@
     <string name="notification_d3_body">隨時回聽錄音。</string>
     <string name="notification_channel_name">錄音提醒</string>
     <string name="notification_channel_description">鼓勵錄音的提醒通知</string>
+
+    <!-- Bottom Navigation -->
+    <string name="tab_record">錄音</string>
+    <string name="tab_recordings">播放</string>
+    <string name="tab_playlists">播放清單</string>
+    <string name="tab_settings">設定</string>
+
+    <!-- Common -->
+    <string name="ok">確定</string>
+
+    <!-- Recordings Screen -->
+    <string name="recordings_title">錄音清單</string>
+    <string name="no_recordings">尚無錄音</string>
+    <string name="tap_mic_to_record">點擊麥克風開始錄音</string>
+    <string name="untitled_recording">未命名錄音</string>
+
+    <!-- Support / Inquiry -->
+    <string name="contact_us">聯絡我們 / 意見回饋</string>
+    <string name="contact_us_email_subject">簡單錄音 - 詢問</string>
+    <string name="app_version">應用程式版本</string>
+    <string name="about">關於</string>
+
+    <!-- Recording Presets -->
+    <string name="preset_label">預設</string>
+    <string name="preset_memo">備忘錄</string>
+    <string name="preset_meeting">會議</string>
+    <string name="preset_interview">採訪</string>
+    <string name="preset_podcast">播客</string>
+    <string name="preset_music">音樂</string>
+    <string name="preset_custom">自訂</string>
+
+    <!-- Mic volume / Audio effects -->
+    <string name="mic_volume">麥克風音量</string>
+    <string name="noise_suppressor">降噪</string>
+    <string name="noise_suppressor_desc">錄音時減少背景噪音</string>
+    <string name="auto_gain_control">自動增益控制 (AGC)</string>
+    <string name="auto_gain_control_desc">自動調整麥克風靈敏度</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_title">使用說明</string>
+    <string name="tutorial_step1_title">開始錄音</string>
+    <string name="tutorial_step1_desc">點擊錄音標籤頁的麥克風按鈕開始錄音。完成後點擊停止。</string>
+    <string name="tutorial_step2_title">播放錄音</string>
+    <string name="tutorial_step2_desc">切換到播放標籤頁查看您的錄音。點擊錄音以播放，支援速度控制和A-B循環。</string>
+    <string name="tutorial_step3_title">建立播放清單</string>
+    <string name="tutorial_step3_desc">將錄音整理成播放清單，支援循序播放、隨機和重複選項。</string>
+    <string name="tutorial_step4_title">雲端備份</string>
+    <string name="tutorial_step4_desc">使用錄音畫面上的雲端圖示，透過Google Drive備份和還原您的錄音。</string>
+
+    <!-- Ads -->
+    <string name="rewarded_ad_watch">觀看廣告</string>
+    <string name="rewarded_ad_reward_earned">感謝觀看！</string>
+
+    <!-- Premium / Paywall -->
+    <string name="premium_title">升級高級版</string>
+    <string name="premium_headline">解鎖所有功能</string>
+    <string name="premium_subheadline">升級以移除廣告並解鎖所有功能的無限使用權限。</string>
+    <string name="premium_feature_no_ads">無廣告</string>
+    <string name="premium_feature_transcription">無限AI轉錄</string>
+    <string name="premium_feature_high_quality">高品質錄音</string>
+    <string name="premium_feature_cloud">無限雲端同步</string>
+    <string name="premium_restore">恢復購買</string>
+    <string name="premium_unavailable">產品不可用。請稍後再試。</string>
+    <string name="premium_badge">高級版</string>
+    <string name="go_premium">升級高級版</string>
+
+    <!-- Transcription -->
+    <string name="transcription_title">轉錄</string>
+    <string name="transcription_idle_title">AI轉錄</string>
+    <string name="transcription_idle_desc">上傳您的音頻，AI將自動轉錄。</string>
+    <string name="transcription_language">語言</string>
+    <string name="transcription_start">開始轉錄</string>
+    <string name="transcription_uploading">正在上傳音頻…</string>
+    <string name="transcription_processing">AI正在轉錄…</string>
+    <string name="transcription_processing_hint">通常需要2–5分鐘。請稍候。</string>
+    <string name="transcription_failed">轉錄失敗</string>
+    <string name="transcription_retry">重試</string>
+    <string name="transcription_summary">摘要</string>
+
+    <!-- Feedback Screen -->
+    <string name="feedback">意見回饋</string>
+    <string name="feedback_category">類別</string>
+    <string name="feedback_category_bug">錯誤回報</string>
+    <string name="feedback_category_feature">功能請求</string>
+    <string name="feedback_category_other">其他</string>
+    <string name="feedback_message">訊息</string>
+    <string name="feedback_message_hint">在此描述您的意見回饋…</string>
+    <string name="feedback_email_optional">電子郵件（選填）</string>
+    <string name="feedback_email_hint">回覆郵件地址</string>
+    <string name="feedback_send">傳送</string>
+    <string name="feedback_sent">已傳送！</string>
+    <string name="feedback_thanks">感謝您的意見回饋。</string>
+    <string name="feedback_error">傳送失敗</string>
 </resources>

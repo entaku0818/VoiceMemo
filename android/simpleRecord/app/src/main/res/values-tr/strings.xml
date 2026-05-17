@@ -78,4 +78,97 @@
     <string name="notification_d3_body">Kayıtlarınızı istediğiniz zaman dinleyin.</string>
     <string name="notification_channel_name">Kayıt hatırlatıcıları</string>
     <string name="notification_channel_description">Kayıt yapmayı teşvik eden hatırlatıcılar</string>
+
+    <!-- Bottom Navigation -->
+    <string name="tab_record">Kayıt</string>
+    <string name="tab_recordings">Oynatma</string>
+    <string name="tab_playlists">Çalma Listeleri</string>
+    <string name="tab_settings">Ayarlar</string>
+
+    <!-- Common -->
+    <string name="ok">Tamam</string>
+
+    <!-- Recordings Screen -->
+    <string name="recordings_title">Kayıtlar</string>
+    <string name="no_recordings">Henüz kayıt yok</string>
+    <string name="tap_mic_to_record">Başlamak için mikrofona dokunun</string>
+    <string name="untitled_recording">İsimsiz Kayıt</string>
+
+    <!-- Support / Inquiry -->
+    <string name="contact_us">İletişim / Geri Bildirim</string>
+    <string name="contact_us_email_subject">Simple Record - Sorgu</string>
+    <string name="app_version">Uygulama Sürümü</string>
+    <string name="about">Hakkında</string>
+
+    <!-- Recording Presets -->
+    <string name="preset_label">Ön Ayar</string>
+    <string name="preset_memo">Not</string>
+    <string name="preset_meeting">Toplantı</string>
+    <string name="preset_interview">Röportaj</string>
+    <string name="preset_podcast">Podcast</string>
+    <string name="preset_music">Müzik</string>
+    <string name="preset_custom">Özel</string>
+
+    <!-- Mic volume / Audio effects -->
+    <string name="mic_volume">Mikrofon Ses Düzeyi</string>
+    <string name="noise_suppressor">Gürültü Engelleme</string>
+    <string name="noise_suppressor_desc">Kayıt sırasında arka plan gürültüsünü azalt</string>
+    <string name="auto_gain_control">Otomatik Kazanç Kontrolü (AGC)</string>
+    <string name="auto_gain_control_desc">Mikrofon hassasiyetini otomatik olarak ayarla</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_title">Nasıl Kullanılır</string>
+    <string name="tutorial_step1_title">Kaydı Başlat</string>
+    <string name="tutorial_step1_desc">Kaydı başlatmak için Kayıt sekmesindeki mikrofon düğmesine dokunun. Bitirdiğinizde Durdur\'a dokunun.</string>
+    <string name="tutorial_step2_title">Kayıtları Oynat</string>
+    <string name="tutorial_step2_desc">Kayıtlarınızı görmek için Oynatma sekmesine geçin. Hız kontrolü ve A-B döngüsü ile oynatmak için bir kayda dokunun.</string>
+    <string name="tutorial_step3_title">Çalma Listesi Oluştur</string>
+    <string name="tutorial_step3_desc">Karıştırma ve tekrar seçenekleriyle sıralı oynatma için kayıtları çalma listelerine düzenleyin.</string>
+    <string name="tutorial_step4_title">Buluta Yedekle</string>
+    <string name="tutorial_step4_desc">Kayıtlarınızı Google Drive aracılığıyla yedeklemek ve geri yüklemek için Kayıtlar ekranındaki bulut simgesini kullanın.</string>
+
+    <!-- Ads -->
+    <string name="rewarded_ad_watch">Reklam İzle</string>
+    <string name="rewarded_ad_reward_earned">İzlediğiniz için teşekkürler!</string>
+
+    <!-- Premium / Paywall -->
+    <string name="premium_title">Premium Ol</string>
+    <string name="premium_headline">Tüm Özelliklerin Kilidini Aç</string>
+    <string name="premium_subheadline">Reklamları kaldırmak ve tüm özelliklere sınırsız erişim sağlamak için yükseltin.</string>
+    <string name="premium_feature_no_ads">Reklam yok</string>
+    <string name="premium_feature_transcription">Sınırsız AI transkripsiyon</string>
+    <string name="premium_feature_high_quality">Yüksek kaliteli kayıt</string>
+    <string name="premium_feature_cloud">Sınırsız bulut senkronizasyonu</string>
+    <string name="premium_restore">Satın Almayı Geri Yükle</string>
+    <string name="premium_unavailable">Ürünler mevcut değil. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="premium_badge">Premium</string>
+    <string name="go_premium">Premium Ol</string>
+
+    <!-- Transcription -->
+    <string name="transcription_title">Transkripsiyon</string>
+    <string name="transcription_idle_title">AI Transkripsiyon</string>
+    <string name="transcription_idle_desc">Sesinizi yükleyin ve AI otomatik olarak transkribe etsin.</string>
+    <string name="transcription_language">Dil</string>
+    <string name="transcription_start">Transkripsiyonu Başlat</string>
+    <string name="transcription_uploading">Ses yükleniyor…</string>
+    <string name="transcription_processing">AI transkribe ediyor…</string>
+    <string name="transcription_processing_hint">Bu genellikle 2–5 dakika sürer. Lütfen bekleyin.</string>
+    <string name="transcription_failed">Transkripsiyon Başarısız</string>
+    <string name="transcription_retry">Tekrar Dene</string>
+    <string name="transcription_summary">Özet</string>
+
+    <!-- Feedback Screen -->
+    <string name="feedback">Geri Bildirim</string>
+    <string name="feedback_category">Kategori</string>
+    <string name="feedback_category_bug">Hata Raporu</string>
+    <string name="feedback_category_feature">Özellik İsteği</string>
+    <string name="feedback_category_other">Diğer</string>
+    <string name="feedback_message">Mesaj</string>
+    <string name="feedback_message_hint">Geri bildiriminizi buraya yazın…</string>
+    <string name="feedback_email_optional">E-posta (isteğe bağlı)</string>
+    <string name="feedback_email_hint">Yanıt e-posta adresi</string>
+    <string name="feedback_send">Gönder</string>
+    <string name="feedback_sent">Gönderildi!</string>
+    <string name="feedback_thanks">Geri bildiriminiz için teşekkürler.</string>
+    <string name="feedback_error">Gönderme Başarısız</string>
 </resources>

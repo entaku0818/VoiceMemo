@@ -78,4 +78,97 @@
     <string name="notification_d3_body">Слушайте свои записи в любое время.</string>
     <string name="notification_channel_name">Напоминания о записи</string>
     <string name="notification_channel_description">Напоминания для стимулирования записи</string>
+
+    <!-- Bottom Navigation -->
+    <string name="tab_record">Запись</string>
+    <string name="tab_recordings">Воспроизведение</string>
+    <string name="tab_playlists">Плейлисты</string>
+    <string name="tab_settings">Настройки</string>
+
+    <!-- Common -->
+    <string name="ok">ОК</string>
+
+    <!-- Recordings Screen -->
+    <string name="recordings_title">Записи</string>
+    <string name="no_recordings">Нет записей</string>
+    <string name="tap_mic_to_record">Нажмите на микрофон, чтобы начать</string>
+    <string name="untitled_recording">Запись без названия</string>
+
+    <!-- Support / Inquiry -->
+    <string name="contact_us">Контакты / Обратная связь</string>
+    <string name="contact_us_email_subject">Simple Record - Запрос</string>
+    <string name="app_version">Версия приложения</string>
+    <string name="about">О приложении</string>
+
+    <!-- Recording Presets -->
+    <string name="preset_label">Предустановка</string>
+    <string name="preset_memo">Заметка</string>
+    <string name="preset_meeting">Встреча</string>
+    <string name="preset_interview">Интервью</string>
+    <string name="preset_podcast">Подкаст</string>
+    <string name="preset_music">Музыка</string>
+    <string name="preset_custom">Настраиваемый</string>
+
+    <!-- Mic volume / Audio effects -->
+    <string name="mic_volume">Громкость микрофона</string>
+    <string name="noise_suppressor">Шумоподавление</string>
+    <string name="noise_suppressor_desc">Уменьшить фоновый шум во время записи</string>
+    <string name="auto_gain_control">Автоматический контроль усиления (AGC)</string>
+    <string name="auto_gain_control_desc">Автоматически регулировать чувствительность микрофона</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_title">Как использовать</string>
+    <string name="tutorial_step1_title">Начало записи</string>
+    <string name="tutorial_step1_desc">Нажмите кнопку микрофона во вкладке Запись, чтобы начать. Нажмите Стоп, когда закончите.</string>
+    <string name="tutorial_step2_title">Воспроизведение записей</string>
+    <string name="tutorial_step2_desc">Перейдите на вкладку Воспроизведение, чтобы просмотреть ваши записи. Нажмите на запись, чтобы воспроизвести её с управлением скоростью и петлёй A-B.</string>
+    <string name="tutorial_step3_title">Создание плейлистов</string>
+    <string name="tutorial_step3_desc">Организуйте записи в плейлисты для последовательного воспроизведения с параметрами перемешивания и повтора.</string>
+    <string name="tutorial_step4_title">Резервное копирование в облако</string>
+    <string name="tutorial_step4_desc">Используйте значок облака на экране Записи для резервного копирования и восстановления записей через Google Диск.</string>
+
+    <!-- Ads -->
+    <string name="rewarded_ad_watch">Посмотреть рекламу</string>
+    <string name="rewarded_ad_reward_earned">Спасибо за просмотр!</string>
+
+    <!-- Premium / Paywall -->
+    <string name="premium_title">Стать Premium</string>
+    <string name="premium_headline">Разблокировать все функции</string>
+    <string name="premium_subheadline">Обновитесь, чтобы убрать рекламу и получить неограниченный доступ ко всем функциям.</string>
+    <string name="premium_feature_no_ads">Без рекламы</string>
+    <string name="premium_feature_transcription">Неограниченная транскрипция ИИ</string>
+    <string name="premium_feature_high_quality">Запись высокого качества</string>
+    <string name="premium_feature_cloud">Неограниченная синхронизация с облаком</string>
+    <string name="premium_restore">Восстановить покупку</string>
+    <string name="premium_unavailable">Продукты недоступны. Пожалуйста, попробуйте позже.</string>
+    <string name="premium_badge">Premium</string>
+    <string name="go_premium">Стать Premium</string>
+
+    <!-- Transcription -->
+    <string name="transcription_title">Транскрипция</string>
+    <string name="transcription_idle_title">Транскрипция ИИ</string>
+    <string name="transcription_idle_desc">Загрузите аудио и ИИ автоматически транскрибирует его.</string>
+    <string name="transcription_language">Язык</string>
+    <string name="transcription_start">Начать транскрипцию</string>
+    <string name="transcription_uploading">Загрузка аудио…</string>
+    <string name="transcription_processing">ИИ транскрибирует…</string>
+    <string name="transcription_processing_hint">Обычно это занимает 2–5 минут. Пожалуйста, подождите.</string>
+    <string name="transcription_failed">Транскрипция не удалась</string>
+    <string name="transcription_retry">Повторить</string>
+    <string name="transcription_summary">Резюме</string>
+
+    <!-- Feedback Screen -->
+    <string name="feedback">Обратная связь</string>
+    <string name="feedback_category">Категория</string>
+    <string name="feedback_category_bug">Отчёт об ошибке</string>
+    <string name="feedback_category_feature">Запрос функции</string>
+    <string name="feedback_category_other">Другое</string>
+    <string name="feedback_message">Сообщение</string>
+    <string name="feedback_message_hint">Опишите свой отзыв здесь…</string>
+    <string name="feedback_email_optional">Email (необязательно)</string>
+    <string name="feedback_email_hint">Адрес email для ответа</string>
+    <string name="feedback_send">Отправить</string>
+    <string name="feedback_sent">Отправлено!</string>
+    <string name="feedback_thanks">Спасибо за ваш отзыв.</string>
+    <string name="feedback_error">Не удалось отправить</string>
 </resources>

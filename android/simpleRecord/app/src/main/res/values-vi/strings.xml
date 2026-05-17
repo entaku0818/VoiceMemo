@@ -78,4 +78,97 @@
     <string name="notification_d3_body">Nghe lại ghi âm bất cứ lúc nào.</string>
     <string name="notification_channel_name">Nhắc nhở ghi âm</string>
     <string name="notification_channel_description">Nhắc nhở để khuyến khích ghi âm</string>
+
+    <!-- Bottom Navigation -->
+    <string name="tab_record">Ghi âm</string>
+    <string name="tab_recordings">Phát lại</string>
+    <string name="tab_playlists">Danh sách phát</string>
+    <string name="tab_settings">Cài đặt</string>
+
+    <!-- Common -->
+    <string name="ok">OK</string>
+
+    <!-- Recordings Screen -->
+    <string name="recordings_title">Bản ghi âm</string>
+    <string name="no_recordings">Chưa có bản ghi âm</string>
+    <string name="tap_mic_to_record">Nhấn vào micro để bắt đầu</string>
+    <string name="untitled_recording">Bản ghi âm chưa đặt tên</string>
+
+    <!-- Support / Inquiry -->
+    <string name="contact_us">Liên hệ / Phản hồi</string>
+    <string name="contact_us_email_subject">Simple Record - Yêu cầu</string>
+    <string name="app_version">Phiên bản ứng dụng</string>
+    <string name="about">Giới thiệu</string>
+
+    <!-- Recording Presets -->
+    <string name="preset_label">Cài đặt trước</string>
+    <string name="preset_memo">Ghi chú</string>
+    <string name="preset_meeting">Cuộc họp</string>
+    <string name="preset_interview">Phỏng vấn</string>
+    <string name="preset_podcast">Podcast</string>
+    <string name="preset_music">Âm nhạc</string>
+    <string name="preset_custom">Tùy chỉnh</string>
+
+    <!-- Mic volume / Audio effects -->
+    <string name="mic_volume">Âm lượng micrô</string>
+    <string name="noise_suppressor">Khử tiếng ồn</string>
+    <string name="noise_suppressor_desc">Giảm tiếng ồn nền khi ghi âm</string>
+    <string name="auto_gain_control">Kiểm soát tăng ích tự động (AGC)</string>
+    <string name="auto_gain_control_desc">Tự động điều chỉnh độ nhạy của micrô</string>
+
+    <!-- Tutorial -->
+    <string name="tutorial_title">Cách sử dụng</string>
+    <string name="tutorial_step1_title">Bắt đầu ghi âm</string>
+    <string name="tutorial_step1_desc">Nhấn nút micro trong tab Ghi âm để bắt đầu. Nhấn Dừng khi hoàn thành.</string>
+    <string name="tutorial_step2_title">Phát bản ghi âm</string>
+    <string name="tutorial_step2_desc">Chuyển sang tab Phát lại để xem bản ghi âm. Nhấn vào bản ghi để phát với điều khiển tốc độ và vòng lặp A-B.</string>
+    <string name="tutorial_step3_title">Tạo danh sách phát</string>
+    <string name="tutorial_step3_desc">Sắp xếp bản ghi thành danh sách phát để phát tuần tự với tùy chọn xáo trộn và lặp lại.</string>
+    <string name="tutorial_step4_title">Sao lưu lên đám mây</string>
+    <string name="tutorial_step4_desc">Dùng biểu tượng đám mây trên màn hình Bản ghi âm để sao lưu và khôi phục qua Google Drive.</string>
+
+    <!-- Ads -->
+    <string name="rewarded_ad_watch">Xem quảng cáo</string>
+    <string name="rewarded_ad_reward_earned">Cảm ơn bạn đã xem!</string>
+
+    <!-- Premium / Paywall -->
+    <string name="premium_title">Nâng cấp Premium</string>
+    <string name="premium_headline">Mở khóa tất cả tính năng</string>
+    <string name="premium_subheadline">Nâng cấp để xóa quảng cáo và mở khóa quyền truy cập không giới hạn vào tất cả các tính năng.</string>
+    <string name="premium_feature_no_ads">Không có quảng cáo</string>
+    <string name="premium_feature_transcription">Phiên âm AI không giới hạn</string>
+    <string name="premium_feature_high_quality">Ghi âm chất lượng cao</string>
+    <string name="premium_feature_cloud">Đồng bộ đám mây không giới hạn</string>
+    <string name="premium_restore">Khôi phục mua hàng</string>
+    <string name="premium_unavailable">Sản phẩm không có sẵn. Vui lòng thử lại sau.</string>
+    <string name="premium_badge">Premium</string>
+    <string name="go_premium">Nâng cấp Premium</string>
+
+    <!-- Transcription -->
+    <string name="transcription_title">Phiên âm</string>
+    <string name="transcription_idle_title">Phiên âm AI</string>
+    <string name="transcription_idle_desc">Tải lên âm thanh của bạn và AI sẽ tự động phiên âm.</string>
+    <string name="transcription_language">Ngôn ngữ</string>
+    <string name="transcription_start">Bắt đầu phiên âm</string>
+    <string name="transcription_uploading">Đang tải âm thanh lên…</string>
+    <string name="transcription_processing">AI đang phiên âm…</string>
+    <string name="transcription_processing_hint">Thường mất 2–5 phút. Vui lòng chờ.</string>
+    <string name="transcription_failed">Phiên âm thất bại</string>
+    <string name="transcription_retry">Thử lại</string>
+    <string name="transcription_summary">Tóm tắt</string>
+
+    <!-- Feedback Screen -->
+    <string name="feedback">Phản hồi</string>
+    <string name="feedback_category">Danh mục</string>
+    <string name="feedback_category_bug">Báo lỗi</string>
+    <string name="feedback_category_feature">Yêu cầu tính năng</string>
+    <string name="feedback_category_other">Khác</string>
+    <string name="feedback_message">Tin nhắn</string>
+    <string name="feedback_message_hint">Mô tả phản hồi của bạn ở đây…</string>
+    <string name="feedback_email_optional">Email (tùy chọn)</string>
+    <string name="feedback_email_hint">Địa chỉ email để trả lời</string>
+    <string name="feedback_send">Gửi</string>
+    <string name="feedback_sent">Đã gửi!</string>
+    <string name="feedback_thanks">Cảm ơn phản hồi của bạn.</string>
+    <string name="feedback_error">Gửi thất bại</string>
 </resources>
