@@ -2,7 +2,7 @@ package com.entaku.simpleRecord
 
 import android.app.Activity
 import android.content.Context
-import com.entaku.simpleRecord.store.PremiumManager
+import com.entaku.simpleRecord.store.PremiumRepository
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -81,7 +81,7 @@ class AppOpenAdManager private constructor(private val context: Context) {
     }
 
     fun showAdIfNeeded(activity: Activity, onAdDismissed: () -> Unit) {
-        if (PremiumManager.getInstance(context).isPremium.value) {
+        if (PremiumRepository.getInstance(context).isPremium.value) {
             onAdDismissed()
             return
         }

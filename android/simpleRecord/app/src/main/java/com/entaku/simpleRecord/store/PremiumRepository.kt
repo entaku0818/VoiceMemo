@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PremiumManager private constructor(context: Context) {
+class PremiumRepository private constructor(context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("premium_status", Context.MODE_PRIVATE)
@@ -24,11 +24,11 @@ class PremiumManager private constructor(context: Context) {
         private const val KEY_IS_PREMIUM = "is_premium"
 
         @Volatile
-        private var instance: PremiumManager? = null
+        private var instance: PremiumRepository? = null
 
-        fun getInstance(context: Context): PremiumManager =
+        fun getInstance(context: Context): PremiumRepository =
             instance ?: synchronized(this) {
-                instance ?: PremiumManager(context.applicationContext).also { instance = it }
+                instance ?: PremiumRepository(context.applicationContext).also { instance = it }
             }
     }
 }

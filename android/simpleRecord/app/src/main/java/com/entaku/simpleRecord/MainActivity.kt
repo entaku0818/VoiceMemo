@@ -62,9 +62,9 @@ import com.entaku.simpleRecord.screenshot.addDebugNavigation
 import com.entaku.simpleRecord.settings.RecordingSettingsScreen
 import com.entaku.simpleRecord.settings.SettingsManager
 import com.entaku.simpleRecord.settings.TutorialScreen
-import com.entaku.simpleRecord.store.BillingManager
+import com.entaku.simpleRecord.store.BillingRepository
 import com.entaku.simpleRecord.store.PaywallScreen
-import com.entaku.simpleRecord.store.PremiumManager
+import com.entaku.simpleRecord.store.PremiumRepository
 import com.entaku.simpleRecord.transcription.TranscriptionScreen
 import com.entaku.simpleRecord.transcription.TranscriptionViewModelFactory
 import kotlinx.coroutines.CoroutineScope

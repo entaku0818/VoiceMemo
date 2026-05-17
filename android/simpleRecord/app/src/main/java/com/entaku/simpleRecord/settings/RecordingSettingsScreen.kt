@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.collectAsState
 import com.entaku.simpleRecord.BuildConfig
 import com.entaku.simpleRecord.R
-import com.entaku.simpleRecord.store.PremiumManager
+import com.entaku.simpleRecord.store.PremiumRepository
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,7 +60,7 @@ fun RecordingSettingsScreen(
 ) {
     var settings by remember { mutableStateOf(currentSettings) }
     val context = androidx.compose.ui.platform.LocalContext.current
-    val isPremium by PremiumManager.getInstance(context).isPremium.collectAsState()
+    val isPremium by PremiumRepository.getInstance(context).isPremium.collectAsState()
 
     Scaffold(
         topBar = {

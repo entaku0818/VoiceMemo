@@ -52,8 +52,8 @@ fun PaywallScreen(
     onNavigateBack: () -> Unit
 ) {
     val context = LocalContext.current
-    val billingManager = remember { BillingManager.getInstance(context) }
-    val premiumManager = remember { PremiumManager.getInstance(context) }
+    val billingManager = remember { BillingRepository.getInstance(context) }
+    val premiumManager = remember { PremiumRepository.getInstance(context) }
     val billingState by billingManager.billingState.collectAsState()
     val isPremium by premiumManager.isPremium.collectAsState()
 

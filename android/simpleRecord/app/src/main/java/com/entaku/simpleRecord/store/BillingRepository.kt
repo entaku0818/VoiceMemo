@@ -38,10 +38,10 @@ sealed class BillingState {
     object Purchasing : BillingState()
 }
 
-class BillingManager private constructor(private val context: Context) {
+class BillingRepository private constructor(private val context: Context) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-    private val premiumManager = PremiumManager.getInstance(context)
+    private val premiumRepository = PremiumRepository.getInstance(context)
 
     private val _billingState = MutableStateFlow<BillingState>(BillingState.Loading)
     val billingState: StateFlow<BillingState> = _billingState.asStateFlow()
@@ -119,7 +119,7 @@ class BillingManager private constructor(private val context: Context) {
                 (purchase.products.contains(BuildConfig.PREMIUM_PRODUCT_ID) ||
                     purchase.products.contains(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID))
         }
-        premiumManager.setPremium(hasPremium)
+        premiumRepository.setPremium(hasPremium)
     }
 
     fun launchPurchaseFlow(activity: Activity, product: PremiumProduct) {
@@ -142,7 +142,7 @@ class BillingManager private constructor(private val context: Context) {
     fun restorePurchases(onComplete: (Boolean) -> Unit) {
         scope.launch {
             restorePurchases()
-            onComplete(premiumManager.isPremium.value)
+            onComplete(premiumRepository.isPremium.value)
         }
     }
 
@@ -152,7 +152,7 @@ class BillingManager private constructor(private val context: Context) {
             id == BuildConfig.PREMIUM_PRODUCT_ID || id == BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID
         }
         if (isPremium) {
-            premiumManager.setPremium(true)
+            premiumRepository.setPremium(true)
             if (!purchase.isAcknowledged) {
                 val params = AcknowledgePurchaseParams.newBuilder()
                     .setPurchaseToken(purchase.purchaseToken)
@@ -165,14 +165,14 @@ class BillingManager private constructor(private val context: Context) {
     }
 
     companion object {
-        private const val TAG = "BillingManager"
+        private const val TAG = "BillingRepository"
 
         @Volatile
-        private var instance: BillingManager? = null
+        private var instance: BillingRepository? = null
 
-        fun getInstance(context: Context): BillingManager =
+        fun getInstance(context: Context): BillingRepository =
             instance ?: synchronized(this) {
-                instance ?: BillingManager(context.applicationContext).also { instance = it }
+                instance ?: BillingRepository(context.applicationContext).also { instance = it }
             }
     }
 }
