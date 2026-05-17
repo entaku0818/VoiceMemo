@@ -96,14 +96,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppOpenAdManager.getInstance(this).incrementLaunchCount()
+        AppOpenAdController.getInstance(this).incrementLaunchCount()
         showSplashAndAd()
     }
 
     private fun showSplashAndAd() {
         showingAd = true
         setContent { SplashScreen() }
-        AppOpenAdManager.getInstance(this).showAdIfNeeded(this) {
+        AppOpenAdController.getInstance(this).showAdIfNeeded(this) {
             showingAd = false
             setContent { AppNavHost() }
         }

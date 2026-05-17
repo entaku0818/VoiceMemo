@@ -9,7 +9,7 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 
-class RewardedAdManager private constructor(private val context: Context) {
+class RewardedAdController private constructor(private val context: Context) {
 
     private var rewardedAd: RewardedAd? = null
     private var isLoadingAd = false
@@ -18,11 +18,11 @@ class RewardedAdManager private constructor(private val context: Context) {
         private val AD_UNIT_ID = BuildConfig.REWARDED_AD_UNIT_ID
 
         @Volatile
-        private var instance: RewardedAdManager? = null
+        private var instance: RewardedAdController? = null
 
-        fun getInstance(context: Context): RewardedAdManager {
+        fun getInstance(context: Context): RewardedAdController {
             return instance ?: synchronized(this) {
-                instance ?: RewardedAdManager(context.applicationContext).also { instance = it }
+                instance ?: RewardedAdController(context.applicationContext).also { instance = it }
             }
         }
     }
@@ -34,7 +34,6 @@ class RewardedAdManager private constructor(private val context: Context) {
             onAdLoaded?.invoke(isAdAvailable)
             return
         }
-
         isLoadingAd = true
         val request = AdRequest.Builder().build()
         RewardedAd.load(context, AD_UNIT_ID, request, object : RewardedAdLoadCallback() {

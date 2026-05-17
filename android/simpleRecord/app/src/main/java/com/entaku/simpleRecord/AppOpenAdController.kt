@@ -10,33 +10,25 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import java.util.Date
 
-class AppOpenAdManager private constructor(private val context: Context) {
+class AppOpenAdController private constructor(private val context: Context) {
 
     private var appOpenAd: AppOpenAd? = null
     private var isLoadingAd = false
     private var loadTime: Long = 0
 
     companion object {
-        // Ad unit ID from BuildConfig (set via admob.properties)
         private val AD_UNIT_ID = BuildConfig.APP_OPEN_AD_UNIT_ID
-
-        // Display interval (show ad every 5 launches)
         private const val DISPLAY_INTERVAL = 5
-
-        // Ad expiration time (4 hours)
         private const val AD_EXPIRATION_HOURS = 4L
-
         private const val PREF_NAME = "app_open_ad_prefs"
         private const val KEY_LAUNCH_COUNT = "launch_count"
 
         @Volatile
-        private var instance: AppOpenAdManager? = null
+        private var instance: AppOpenAdController? = null
 
-        fun getInstance(context: Context): AppOpenAdManager {
+        fun getInstance(context: Context): AppOpenAdController {
             return instance ?: synchronized(this) {
-                instance ?: AppOpenAdManager(context.applicationContext).also {
-                    instance = it
-                }
+                instance ?: AppOpenAdController(context.applicationContext).also { instance = it }
             }
         }
     }
@@ -56,9 +48,7 @@ class AppOpenAdManager private constructor(private val context: Context) {
             onAdLoaded?.invoke(isAdAvailable)
             return
         }
-
         isLoadingAd = true
-
         val request = AdRequest.Builder().build()
         AppOpenAd.load(
             context,
@@ -87,10 +77,7 @@ class AppOpenAdManager private constructor(private val context: Context) {
         }
 
         val launchCount = getLaunchCount()
-
-        // Show ad every 5 launches (5, 10, 15...)
         if (launchCount <= 0 || launchCount % DISPLAY_INTERVAL != 0) {
-            // Preload for next time
             loadAd()
             onAdDismissed()
             return
@@ -115,9 +102,7 @@ class AppOpenAdManager private constructor(private val context: Context) {
                 onAdDismissed()
             }
 
-            override fun onAdShowedFullScreenContent() {
-                // Ad shown
-            }
+            override fun onAdShowedFullScreenContent() {}
         }
 
         appOpenAd?.show(activity)

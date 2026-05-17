@@ -17,8 +17,8 @@ class SimpleRecordApplication : Application() {
 
         // Initialize Mobile Ads SDK
         MobileAds.initialize(this) {
-            AppOpenAdManager.getInstance(this).loadAd()
-            RewardedAdManager.getInstance(this).loadAd()
+            AppOpenAdController.getInstance(this).loadAd()
+            RewardedAdController.getInstance(this).loadAd()
         }
 
         // Restore billing state on launch
