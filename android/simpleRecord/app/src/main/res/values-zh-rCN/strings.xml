@@ -143,6 +143,9 @@
     <string name="premium_unavailable">产品不可用。请稍后重试。</string>
     <string name="premium_badge">高级版</string>
     <string name="go_premium">升级高级版</string>
+    <string name="premium_free_trial">免费试用7天</string>
+    <string name="premium_trial_then_price">之后 %s / 月（自动续费）</string>
+    <string name="premium_trial_terms">7天免费试用结束后，将按每月%s收费。可在续费日期前随时在Google Play订阅设置中取消。</string>
 
     <!-- Transcription -->
     <string name="transcription_title">转录</string>

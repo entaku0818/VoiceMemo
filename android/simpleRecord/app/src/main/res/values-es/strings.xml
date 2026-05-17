@@ -143,6 +143,9 @@
     <string name="premium_unavailable">Productos no disponibles. Por favor, inténtalo de nuevo más tarde.</string>
     <string name="premium_badge">Premium</string>
     <string name="go_premium">Hazte Premium</string>
+    <string name="premium_free_trial">Prueba gratis 7 días</string>
+    <string name="premium_trial_then_price">Luego %s / mes (renovación automática)</string>
+    <string name="premium_trial_terms">Después de la prueba gratuita de 7 días, se cobrará %s/mes. Cancela en cualquier momento en la configuración de suscripciones de Google Play antes de la fecha de renovación.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Transcripción</string>

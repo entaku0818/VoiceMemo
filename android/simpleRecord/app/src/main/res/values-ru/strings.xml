@@ -143,6 +143,9 @@
     <string name="premium_unavailable">Продукты недоступны. Пожалуйста, попробуйте позже.</string>
     <string name="premium_badge">Premium</string>
     <string name="go_premium">Стать Premium</string>
+    <string name="premium_free_trial">Попробовать бесплатно 7 дней</string>
+    <string name="premium_trial_then_price">Затем %s / месяц (автообновление)</string>
+    <string name="premium_trial_terms">После 7-дневного бесплатного пробного периода будет списываться %s/месяц. Отменить можно в любое время в настройках подписок Google Play до даты продления.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Транскрипция</string>

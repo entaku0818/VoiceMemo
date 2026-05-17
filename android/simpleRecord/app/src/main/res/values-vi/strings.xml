@@ -143,6 +143,9 @@
     <string name="premium_unavailable">Sản phẩm không có sẵn. Vui lòng thử lại sau.</string>
     <string name="premium_badge">Premium</string>
     <string name="go_premium">Nâng cấp Premium</string>
+    <string name="premium_free_trial">Dùng thử miễn phí 7 ngày</string>
+    <string name="premium_trial_then_price">Sau đó %s / tháng (tự động gia hạn)</string>
+    <string name="premium_trial_terms">Sau thời gian dùng thử miễn phí 7 ngày, bạn sẽ bị tính phí %s/tháng. Hủy bất cứ lúc nào trong cài đặt đăng ký Google Play trước ngày gia hạn.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Phiên âm</string>
