@@ -121,6 +121,19 @@
     <string name="tutorial_step4_title">クラウドにバックアップ</string>
     <string name="tutorial_step4_desc">録音一覧画面のクラウドアイコンから、Googleドライブへのバックアップ・復元が行えます。</string>
 
+    <!-- Transcription -->
+    <string name="transcription_title">文字起こし</string>
+    <string name="transcription_idle_title">AIで文字起こし</string>
+    <string name="transcription_idle_desc">音声ファイルをアップロードしてAIが自動で書き起こします</string>
+    <string name="transcription_language">言語</string>
+    <string name="transcription_start">文字起こしを開始</string>
+    <string name="transcription_uploading">音声をアップロード中…</string>
+    <string name="transcription_processing">AIが文字起こし中…</string>
+    <string name="transcription_processing_hint">通常2〜5分かかります。しばらくお待ちください。</string>
+    <string name="transcription_failed">文字起こしに失敗しました</string>
+    <string name="transcription_retry">再試行</string>
+    <string name="transcription_summary">要約</string>
+
     <!-- Ads -->
     <string name="rewarded_ad_watch">広告を見る</string>
     <string name="rewarded_ad_reward_earned">ご視聴ありがとうございます！</string>

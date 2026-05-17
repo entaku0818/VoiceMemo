@@ -17,6 +17,7 @@ interface RecordingRepository {
     fun getAllRecordings(): Flow<List<RecordingData>>
     suspend fun deleteRecording(uuid: UUID)
     suspend fun updateRecordingTitle(uuid: UUID, newTitle: String)
+    suspend fun updateTranscription(uuid: UUID, text: String)
 }
 class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepository {
     companion object {
@@ -67,6 +68,12 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
         }
     }
 
+    override suspend fun updateTranscription(uuid: UUID, text: String) {
+        withContext(Dispatchers.IO) {
+            database.recordingDao().updateTranscription(uuid, text)
+        }
+    }
+
     private fun RecordingEntity.toRecordingData(): RecordingData {
         return RecordingData(
             uuid = this.uuid,
@@ -77,7 +84,8 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
             bitRate = this.bitRate,
             channels = this.channels,
             duration = this.duration,
-            filePath = this.filePath
+            filePath = this.filePath,
+            transcriptionText = this.transcriptionText
         )
     }
 }

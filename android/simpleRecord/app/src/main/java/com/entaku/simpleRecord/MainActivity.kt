@@ -62,6 +62,11 @@ import com.entaku.simpleRecord.screenshot.addDebugNavigation
 import com.entaku.simpleRecord.settings.RecordingSettingsScreen
 import com.entaku.simpleRecord.settings.SettingsManager
 import com.entaku.simpleRecord.settings.TutorialScreen
+import com.entaku.simpleRecord.transcription.TranscriptionScreen
+import com.entaku.simpleRecord.transcription.TranscriptionViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 // Bottom navigation destinations
@@ -211,6 +216,10 @@ fun AppNavHost() {
                             navController.navigate(Screen.Playback.route)
                         },
                         onNavigateToCloudSync = { navController.navigate(Screen.CloudSync.route) },
+                        onNavigateToTranscription = { recordingData ->
+                            val uuid = recordingData.uuid?.toString() ?: return@RecordingsScreen
+                            navController.navigate(Screen.Transcription.createRoute(recordingData.filePath, uuid))
+                        },
                         onDeleteClick = { uuid -> viewModel.deleteRecording(uuid) },
                         onEditRecordingName = { uuid, title -> viewModel.updateRecordingTitle(uuid, title) },
                         colorScheme = colorScheme
@@ -393,6 +402,32 @@ fun AppNavHost() {
                     TutorialScreen(onNavigateBack = { navController.popBackStack() })
                 }
 
+                composable(
+                    route = Screen.Transcription.route,
+                    arguments = listOf(
+                        navArgument("filePath") { type = NavType.StringType },
+                        navArgument("uuid") { type = NavType.StringType }
+                    )
+                ) { backStackEntry ->
+                    val encodedPath = backStackEntry.arguments?.getString("filePath") ?: return@composable
+                    val filePath = java.net.URLDecoder.decode(encodedPath, "UTF-8")
+                    val uuidString = backStackEntry.arguments?.getString("uuid") ?: return@composable
+                    val uuid = runCatching { UUID.fromString(uuidString) }.getOrNull()
+                    val database = remember { AppDatabase.getInstance(context) }
+                    val repository = remember { RecordingRepositoryImpl(database) }
+
+                    TranscriptionScreen(
+                        audioFilePath = filePath,
+                        recordingUuid = uuid,
+                        onNavigateBack = { navController.popBackStack() },
+                        onTranscriptionSaved = { id, text ->
+                            kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                                repository.updateTranscription(id, text)
+                            }
+                        }
+                    )
+                }
+
                 addDebugNavigation(navController)
             }
         }
@@ -414,4 +449,8 @@ sealed class Screen(val route: String, val title: String) {
     object CloudSync : Screen("cloud_sync", "Cloud Sync")
     object Feedback : Screen("feedback", "Feedback")
     object Tutorial : Screen("tutorial", "Tutorial")
+    object Transcription : Screen("transcription/{filePath}/{uuid}", "Transcription") {
+        fun createRoute(filePath: String, uuid: String) =
+            "transcription/${java.net.URLEncoder.encode(filePath, "UTF-8")}/$uuid"
+    }
 }

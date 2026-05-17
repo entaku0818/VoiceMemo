@@ -56,6 +56,7 @@ android {
         buildConfigField("String", "APP_OPEN_AD_UNIT_ID", "\"$appOpenAdUnitId\"")
         buildConfigField("String", "BANNER_AD_UNIT_ID", "\"$bannerAdUnitId\"")
         buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"$rewardedAdUnitId\"")
+        buildConfigField("String", "TRANSCRIPTION_SERVER_URL", "\"https://voilog-transcription-950571144078.asia-northeast1.run.app\"")
     }
 
     buildTypes {
@@ -163,4 +164,5 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-functions")
+    implementation("com.google.firebase:firebase-auth")
 }

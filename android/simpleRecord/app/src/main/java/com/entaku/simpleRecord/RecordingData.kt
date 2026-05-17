@@ -12,5 +12,6 @@ data class RecordingData(
     val bitRate: Int,
     val channels: Int,
     val duration: Long,
-    val filePath: String
+    val filePath: String,
+    val transcriptionText: String? = null
 )

@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.TextFields
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -63,6 +64,7 @@ fun RecordingsScreen(
     onNavigateToPlaylists: () -> Unit = {},
     onNavigateToCloudSync: () -> Unit = {},
     onNavigateToSettings: () -> Unit = {},
+    onNavigateToTranscription: (RecordingData) -> Unit = {},
     onDeleteClick: (UUID) -> Unit,
     onEditRecordingName: (UUID, String) -> Unit,
     colorScheme: ColorScheme
@@ -146,7 +148,8 @@ fun RecordingsScreen(
                         onDeleteClick = { recording.uuid?.let { onDeleteClick(it) } },
                         onEditNameClick = { newTitle ->
                             recording.uuid?.let { onEditRecordingName(it, newTitle) }
-                        }
+                        },
+                        onTranscribeClick = { onNavigateToTranscription(recording) }
                     )
                     HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                 }
@@ -160,7 +163,8 @@ fun RecordingListItem(
     recording: RecordingData,
     onItemClick: () -> Unit,
     onDeleteClick: () -> Unit,
-    onEditNameClick: (String) -> Unit
+    onEditNameClick: (String) -> Unit,
+    onTranscribeClick: () -> Unit = {}
 ) {
     val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
     val formattedDate = recording.creationDate.format(formatter)
@@ -229,6 +233,11 @@ fun RecordingListItem(
                     onClick = { expanded = false; showEditNameDialog = true },
                     text = { Text(stringResource(R.string.edit_name)) },
                     leadingIcon = { Icon(Icons.Default.Edit, contentDescription = null) }
+                )
+                DropdownMenuItem(
+                    onClick = { expanded = false; onTranscribeClick() },
+                    text = { Text(stringResource(R.string.transcription_title)) },
+                    leadingIcon = { Icon(Icons.Default.TextFields, contentDescription = null) }
                 )
                 DropdownMenuItem(
                     onClick = { expanded = false; showDeleteDialog = true },
