@@ -114,10 +114,12 @@
 
     <!-- Recording Presets -->
     <string name="preset_label">Preset</string>
+    <string name="preset_memo">Memo</string>
     <string name="preset_meeting">Meeting</string>
-    <string name="preset_lecture">Lecture</string>
     <string name="preset_interview">Interview</string>
-    <string name="preset_voice_memo">Voice Memo</string>
+    <string name="preset_podcast">Podcast</string>
+    <string name="preset_music">Music</string>
+    <string name="preset_custom">Custom</string>
 
     <!-- Mic volume / Audio effects -->
     <string name="mic_volume">Microphone Volume</string>

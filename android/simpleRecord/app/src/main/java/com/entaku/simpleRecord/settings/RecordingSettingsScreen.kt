@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -83,11 +84,13 @@ fun RecordingSettingsScreen(
             // プリセット選択
             Text(stringResource(R.string.preset_label), style = MaterialTheme.typography.titleMedium)
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                val activePreset = RecordingPreset.detect(settings)
                 RecordingPreset.entries.forEach { preset ->
-                    val activePreset = RecordingPreset.detect(settings)
                     FilterChip(
                         selected = activePreset == preset,
                         onClick = { settings = preset.applyTo(settings) },
@@ -387,10 +390,12 @@ private fun ChannelOption(
 }
 
 private fun presetStringRes(preset: RecordingPreset): Int = when (preset) {
+    RecordingPreset.MEMO -> R.string.preset_memo
     RecordingPreset.MEETING -> R.string.preset_meeting
-    RecordingPreset.LECTURE -> R.string.preset_lecture
     RecordingPreset.INTERVIEW -> R.string.preset_interview
-    RecordingPreset.VOICE_MEMO -> R.string.preset_voice_memo
+    RecordingPreset.PODCAST -> R.string.preset_podcast
+    RecordingPreset.MUSIC -> R.string.preset_music
+    RecordingPreset.CUSTOM -> R.string.preset_custom
 }
 
 @Preview(showBackground = true)

@@ -96,10 +96,12 @@
 
     <!-- Recording Presets -->
     <string name="preset_label">プリセット</string>
+    <string name="preset_memo">メモ</string>
     <string name="preset_meeting">会議</string>
-    <string name="preset_lecture">講義</string>
     <string name="preset_interview">インタビュー</string>
-    <string name="preset_voice_memo">ボイスメモ</string>
+    <string name="preset_podcast">Pod</string>
+    <string name="preset_music">音楽</string>
+    <string name="preset_custom">カスタム</string>
 
     <!-- Mic volume / Audio effects -->
     <string name="mic_volume">マイク音量</string>
