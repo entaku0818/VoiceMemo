@@ -78,18 +78,14 @@ class BillingRepository private constructor(private val context: Context) {
     }
 
     private suspend fun queryProducts() {
-        val productIds = listOf(
-            BuildConfig.PREMIUM_PRODUCT_ID,
-            BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID
-        )
         val params = QueryProductDetailsParams.newBuilder()
             .setProductList(
-                productIds.map { id ->
+                listOf(
                     QueryProductDetailsParams.Product.newBuilder()
-                        .setProductId(id)
+                        .setProductId(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID)
                         .setProductType(BillingClient.ProductType.INAPP)
                         .build()
-                }
+                )
             )
             .build()
 
@@ -116,8 +112,7 @@ class BillingRepository private constructor(private val context: Context) {
         val result = billingClient.queryPurchasesAsync(params)
         val hasPremium = result.purchasesList.any { purchase ->
             purchase.purchaseState == Purchase.PurchaseState.PURCHASED &&
-                (purchase.products.contains(BuildConfig.PREMIUM_PRODUCT_ID) ||
-                    purchase.products.contains(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID))
+                purchase.products.contains(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID)
         }
         premiumRepository.setPremium(hasPremium)
     }
@@ -148,9 +143,7 @@ class BillingRepository private constructor(private val context: Context) {
 
     private fun handlePurchase(purchase: Purchase) {
         if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) return
-        val isPremium = purchase.products.any { id ->
-            id == BuildConfig.PREMIUM_PRODUCT_ID || id == BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID
-        }
+        val isPremium = purchase.products.contains(BuildConfig.PREMIUM_LIFETIME_PRODUCT_ID)
         if (isPremium) {
             premiumRepository.setPremium(true)
             if (!purchase.isAcknowledged) {

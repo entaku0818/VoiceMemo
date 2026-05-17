@@ -57,7 +57,6 @@ android {
         buildConfigField("String", "BANNER_AD_UNIT_ID", "\"$bannerAdUnitId\"")
         buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"$rewardedAdUnitId\"")
         buildConfigField("String", "TRANSCRIPTION_SERVER_URL", "\"https://voilog-transcription-950571144078.asia-northeast1.run.app\"")
-        buildConfigField("String", "PREMIUM_PRODUCT_ID", "\"premium_monthly\"")
         buildConfigField("String", "PREMIUM_LIFETIME_PRODUCT_ID", "\"premium_lifetime\"")
     }
 
