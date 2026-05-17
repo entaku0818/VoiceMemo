@@ -159,6 +159,13 @@ fun PaywallScreen(
                     ) {
                         Text(stringResource(R.string.transcription_retry))
                     }
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = { billingManager.restorePurchases {} },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.premium_restore))
+                    }
                 }
                 is BillingState.Ready -> {
                     val activity = context as? android.app.Activity

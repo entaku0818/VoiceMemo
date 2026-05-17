@@ -22,6 +22,12 @@ if (admobPropertiesFile.exists()) {
     admobProperties.load(FileInputStream(admobPropertiesFile))
 }
 
+val revenuecatPropertiesFile = rootProject.file("app-keys/revenuecat.properties")
+val revenuecatProperties = Properties()
+if (revenuecatPropertiesFile.exists()) {
+    revenuecatProperties.load(FileInputStream(revenuecatPropertiesFile))
+}
+
 android {
     namespace = "com.entaku.simpleRecord"
     compileSdk = 35
@@ -39,8 +45,8 @@ android {
         applicationId = "com.entaku.simpleRecord"
         minSdk = 29
         targetSdk = 35
-        versionCode = 14
-        versionName = "2.6.0"
+        versionCode = 15
+        versionName = "2.7.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -59,6 +65,8 @@ android {
         buildConfigField("String", "TRANSCRIPTION_SERVER_URL", "\"https://voilog-transcription-950571144078.asia-northeast1.run.app\"")
         buildConfigField("String", "PREMIUM_PRODUCT_ID", "\"premium_monthly\"")
         buildConfigField("String", "PREMIUM_LIFETIME_PRODUCT_ID", "\"premium_lifetime\"")
+        val rcApiKey = revenuecatProperties.getProperty("REVENUECAT_API_KEY", "")
+        buildConfigField("String", "REVENUECAT_API_KEY", "\"$rcApiKey\"")
     }
 
     buildTypes {
@@ -163,6 +171,10 @@ dependencies {
 
     // Google Play Billing
     implementation("com.android.billingclient:billing-ktx:7.1.1")
+
+    // RevenueCat
+    implementation("com.revenuecat.purchases:purchases:8.10.3")
+    implementation("com.revenuecat.purchases:purchases-ui:8.10.3")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))

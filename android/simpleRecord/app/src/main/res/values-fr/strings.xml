@@ -145,7 +145,7 @@
     <string name="go_premium">Devenir Premium</string>
     <string name="premium_free_trial">Essai gratuit 7 jours</string>
     <string name="premium_trial_then_price">Puis %s / mois (renouvellement automatique)</string>
-    <string name="premium_trial_terms">Après l'essai gratuit de 7 jours, %s/mois vous seront facturés. Annulez à tout moment dans les paramètres d'abonnement Google Play avant la date de renouvellement.</string>
+    <string name="premium_trial_terms">Après l\'essai gratuit de 7 jours, %s/mois vous seront facturés. Annulez à tout moment dans les paramètres d\'abonnement Google Play avant la date de renouvellement.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Transcription</string>
