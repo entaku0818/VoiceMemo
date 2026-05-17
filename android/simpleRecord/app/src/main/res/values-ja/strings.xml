@@ -94,6 +94,19 @@
     <string name="app_version">アプリバージョン</string>
     <string name="about">このアプリについて</string>
 
+    <!-- Premium / Paywall -->
+    <string name="premium_title">プレミアム</string>
+    <string name="premium_headline">すべての機能を解放</string>
+    <string name="premium_subheadline">プレミアムにアップグレードして広告を非表示にし、すべての機能を無制限で使えます。</string>
+    <string name="premium_feature_no_ads">広告なし</string>
+    <string name="premium_feature_transcription">AI文字起こし無制限</string>
+    <string name="premium_feature_high_quality">高音質録音</string>
+    <string name="premium_feature_cloud">クラウド同期無制限</string>
+    <string name="premium_restore">購入を復元</string>
+    <string name="premium_unavailable">商品を取得できませんでした。後でもう一度お試しください。</string>
+    <string name="premium_badge">プレミアム</string>
+    <string name="go_premium">プレミアムにする</string>
+
     <!-- Recording Presets -->
     <string name="preset_label">プリセット</string>
     <string name="preset_memo">メモ</string>

@@ -3,6 +3,7 @@ package com.entaku.simpleRecord
 import android.app.Application
 import com.entaku.simpleRecord.analytics.FirebaseHelper
 import com.entaku.simpleRecord.notification.ReminderScheduler
+import com.entaku.simpleRecord.store.BillingManager
 import com.google.android.gms.ads.MobileAds
 
 class SimpleRecordApplication : Application() {
@@ -19,5 +20,8 @@ class SimpleRecordApplication : Application() {
             AppOpenAdManager.getInstance(this).loadAd()
             RewardedAdManager.getInstance(this).loadAd()
         }
+
+        // Restore billing state on launch
+        BillingManager.getInstance(this).connect()
     }
 }

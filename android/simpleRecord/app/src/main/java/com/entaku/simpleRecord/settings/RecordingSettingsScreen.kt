@@ -17,6 +17,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Help
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.text.font.FontWeight
@@ -41,8 +42,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.collectAsState
 import com.entaku.simpleRecord.BuildConfig
 import com.entaku.simpleRecord.R
+import com.entaku.simpleRecord.store.PremiumManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,9 +55,12 @@ fun RecordingSettingsScreen(
     onNavigateBack: () -> Unit,
     onNavigateToFeedback: () -> Unit = {},
     onNavigateToTutorial: () -> Unit = {},
+    onNavigateToPaywall: () -> Unit = {},
     onNavigateToScreenshotPreview: (() -> Unit)? = null
 ) {
     var settings by remember { mutableStateOf(currentSettings) }
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val isPremium by PremiumManager.getInstance(context).isPremium.collectAsState()
 
     Scaffold(
         topBar = {
@@ -280,6 +286,29 @@ fun RecordingSettingsScreen(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
+
+            // Premium
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(8.dp))
+            ListItem(
+                headlineContent = {
+                    Text(
+                        if (isPremium) stringResource(R.string.premium_badge)
+                        else stringResource(R.string.go_premium)
+                    )
+                },
+                trailingContent = {
+                    Icon(
+                        Icons.Default.Star,
+                        contentDescription = null,
+                        tint = if (isPremium) MaterialTheme.colorScheme.primary
+                               else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .then(if (!isPremium) Modifier.clickable { onNavigateToPaywall() } else Modifier)
+            )
 
             // About / Contact section
             HorizontalDivider()

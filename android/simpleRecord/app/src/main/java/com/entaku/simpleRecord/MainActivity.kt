@@ -62,6 +62,9 @@ import com.entaku.simpleRecord.screenshot.addDebugNavigation
 import com.entaku.simpleRecord.settings.RecordingSettingsScreen
 import com.entaku.simpleRecord.settings.SettingsManager
 import com.entaku.simpleRecord.settings.TutorialScreen
+import com.entaku.simpleRecord.store.BillingManager
+import com.entaku.simpleRecord.store.PaywallScreen
+import com.entaku.simpleRecord.store.PremiumManager
 import com.entaku.simpleRecord.transcription.TranscriptionScreen
 import com.entaku.simpleRecord.transcription.TranscriptionViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -260,6 +263,7 @@ fun AppNavHost() {
                         onNavigateBack = { /* top-level: no back */ },
                         onNavigateToFeedback = { navController.navigate(Screen.Feedback.route) },
                         onNavigateToTutorial = { navController.navigate(Screen.Tutorial.route) },
+                        onNavigateToPaywall = { navController.navigate(Screen.Paywall.route) },
                         onNavigateToScreenshotPreview = if (BuildConfig.DEBUG) {
                             { navController.navigate(SCREENSHOT_PREVIEW_ROUTE) }
                         } else null
@@ -428,6 +432,10 @@ fun AppNavHost() {
                     )
                 }
 
+                composable(Screen.Paywall.route) {
+                    PaywallScreen(onNavigateBack = { navController.popBackStack() })
+                }
+
                 addDebugNavigation(navController)
             }
         }
@@ -453,4 +461,5 @@ sealed class Screen(val route: String, val title: String) {
         fun createRoute(filePath: String, uuid: String) =
             "transcription/${java.net.URLEncoder.encode(filePath, "UTF-8")}/$uuid"
     }
+    object Paywall : Screen("paywall", "Premium")
 }

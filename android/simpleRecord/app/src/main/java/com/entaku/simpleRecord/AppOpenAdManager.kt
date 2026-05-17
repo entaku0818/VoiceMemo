@@ -2,6 +2,7 @@ package com.entaku.simpleRecord
 
 import android.app.Activity
 import android.content.Context
+import com.entaku.simpleRecord.store.PremiumManager
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -80,6 +81,11 @@ class AppOpenAdManager private constructor(private val context: Context) {
     }
 
     fun showAdIfNeeded(activity: Activity, onAdDismissed: () -> Unit) {
+        if (PremiumManager.getInstance(context).isPremium.value) {
+            onAdDismissed()
+            return
+        }
+
         val launchCount = getLaunchCount()
 
         // Show ad every 5 launches (5, 10, 15...)

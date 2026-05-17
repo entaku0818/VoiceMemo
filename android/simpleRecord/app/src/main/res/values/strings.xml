@@ -143,6 +143,19 @@
     <string name="rewarded_ad_watch">Watch an ad</string>
     <string name="rewarded_ad_reward_earned">Thank you for watching!</string>
 
+    <!-- Premium / Paywall -->
+    <string name="premium_title">Go Premium</string>
+    <string name="premium_headline">Unlock All Features</string>
+    <string name="premium_subheadline">Upgrade to remove ads and unlock unlimited access to all features.</string>
+    <string name="premium_feature_no_ads">No ads</string>
+    <string name="premium_feature_transcription">Unlimited AI transcription</string>
+    <string name="premium_feature_high_quality">High-quality recording</string>
+    <string name="premium_feature_cloud">Unlimited cloud sync</string>
+    <string name="premium_restore">Restore Purchase</string>
+    <string name="premium_unavailable">Products not available. Please try again later.</string>
+    <string name="premium_badge">Premium</string>
+    <string name="go_premium">Go Premium</string>
+
     <!-- Transcription -->
     <string name="transcription_title">Transcription</string>
     <string name="transcription_idle_title">AI Transcription</string>
