@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.entaku.simpleRecord.RecordingsViewModel
 import com.entaku.simpleRecord.SharedRecordingsViewModel
-import com.entaku.simpleRecord.settings.SettingsManager
+import com.entaku.simpleRecord.settings.SettingsRepository
 
 class RecordViewModelFactory(
     private val repository: RecordingRepository,
-    private val settingsManager: SettingsManager,
+    private val settingsManager: SettingsRepository,
     private val sharedViewModel: SharedRecordingsViewModel
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

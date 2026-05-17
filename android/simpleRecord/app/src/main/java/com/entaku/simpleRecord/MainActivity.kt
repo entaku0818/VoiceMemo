@@ -60,7 +60,7 @@ import com.entaku.simpleRecord.record.RecordingsViewModelFactory
 import com.entaku.simpleRecord.screenshot.SCREENSHOT_PREVIEW_ROUTE
 import com.entaku.simpleRecord.screenshot.addDebugNavigation
 import com.entaku.simpleRecord.settings.RecordingSettingsScreen
-import com.entaku.simpleRecord.settings.SettingsManager
+import com.entaku.simpleRecord.settings.SettingsRepository
 import com.entaku.simpleRecord.settings.TutorialScreen
 import com.entaku.simpleRecord.store.BillingRepository
 import com.entaku.simpleRecord.store.PaywallScreen
@@ -180,7 +180,7 @@ fun AppNavHost() {
                 composable(Screen.Record.route) {
                     val database = remember { AppDatabase.getInstance(context) }
                     val repository = remember { RecordingRepositoryImpl(database) }
-                    val settingsManager = remember { SettingsManager(context) }
+                    val settingsManager = remember { SettingsRepository(context) }
                     val viewModelFactory = remember { RecordViewModelFactory(repository, settingsManager, sharedViewModel) }
                     val viewModel: RecordViewModel = viewModel(factory = viewModelFactory)
 
@@ -254,7 +254,7 @@ fun AppNavHost() {
 
                 // Tab 3: 設定
                 composable(Screen.RecordingSettings.route) {
-                    val settingsManager = remember { SettingsManager(context) }
+                    val settingsManager = remember { SettingsRepository(context) }
                     val currentSettings = remember { settingsManager.getRecordingSettings() }
 
                     RecordingSettingsScreen(

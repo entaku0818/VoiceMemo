@@ -17,11 +17,11 @@ data class RecordingSettings(
     val autoGainControl: Boolean = false
 )
 
-class SettingsManager(context: Context) {
+class SettingsRepository(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(
         "app_settings", Context.MODE_PRIVATE
     )
-    
+
     private val defaultSettings = RecordingSettings(
         fileExtension = "3gp",
         outputFormat = MediaRecorder.OutputFormat.THREE_GPP,
@@ -33,7 +33,7 @@ class SettingsManager(context: Context) {
         noiseSuppressor = false,
         autoGainControl = false
     )
-    
+
     fun getRecordingSettings(): RecordingSettings {
         return RecordingSettings(
             fileExtension = prefs.getString("file_extension", defaultSettings.fileExtension)!!,

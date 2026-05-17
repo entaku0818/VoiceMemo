@@ -12,7 +12,7 @@ import android.os.Environment
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.SharedRecordingsViewModel
 import com.entaku.simpleRecord.settings.RecordingSettings
-import com.entaku.simpleRecord.settings.SettingsManager
+import com.entaku.simpleRecord.settings.SettingsRepository
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -39,7 +39,7 @@ data class RecordingUiState(
 
 class RecordViewModel(
     private val repository: RecordingRepository,
-    private val settingsManager: SettingsManager,
+    private val settingsManager: SettingsRepository,
     private val sharedViewModel: SharedRecordingsViewModel
 ) : ViewModel() {
 
