@@ -10,6 +10,9 @@ metadata:
 
 # VoiLog iOS Build & Test
 
+> **RULE: テストは必ず書く**
+> 実装後は必ず対応するテストを追加し、`xcodebuild test` でグリーンを確認してから完了とすること。
+
 ## Quick Commands Reference
 
 ### Setup Dependencies

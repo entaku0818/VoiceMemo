@@ -11,6 +11,9 @@ metadata:
 
 # VoiLog TCA Development
 
+> **RULE: テストは必ず書く**
+> 新機能・バグ修正・リファクタリングのいずれでも、実装と同時に TestStore テストを作成すること。テストなしの実装は完了とみなさない。
+
 ## Quick Start
 
 VoiLog uses modern TCA patterns with `@ObservableState` and `@ViewAction`.
