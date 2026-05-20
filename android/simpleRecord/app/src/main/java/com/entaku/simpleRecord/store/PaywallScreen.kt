@@ -26,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,7 +38,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.entaku.simpleRecord.R
 
 private val premiumFeatures = listOf(
@@ -57,7 +57,10 @@ fun PaywallScreen(
     val billingState by billingManager.billingState.collectAsState()
     val isPremium by premiumManager.isPremium.collectAsState()
 
-    LaunchedEffect(Unit) { billingManager.connect() }
+    DisposableEffect(Unit) {
+        billingManager.connect()
+        onDispose { billingManager.disconnect() }
+    }
 
     LaunchedEffect(isPremium) {
         if (isPremium) onNavigateBack()
@@ -68,22 +71,7 @@ fun PaywallScreen(
             .fillMaxSize()
             .statusBarsPadding()
     ) {
-        // Top bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onNavigateBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
-            }
-            Text(
-                text = stringResource(R.string.premium_title),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-        }
+        PaywallTopBar(onNavigateBack = onNavigateBack)
 
         Column(
             modifier = Modifier
@@ -93,126 +81,156 @@ fun PaywallScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.height(16.dp))
-
-            Icon(
-                Icons.Default.Star,
-                contentDescription = null,
-                modifier = Modifier.size(64.dp),
-                tint = MaterialTheme.colorScheme.primary
-            )
-
-            Spacer(Modifier.height(12.dp))
-
-            Text(
-                text = stringResource(R.string.premium_headline),
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(Modifier.height(8.dp))
-
-            Text(
-                text = stringResource(R.string.premium_subheadline),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center
-            )
-
+            PremiumHeroSection()
             Spacer(Modifier.height(32.dp))
-
-            // Feature list
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                premiumFeatures.forEach { resId ->
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            Icons.Default.Check,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(20.dp)
-                        )
-                        Spacer(Modifier.width(12.dp))
-                        Text(stringResource(resId), style = MaterialTheme.typography.bodyLarge)
-                    }
-                }
-            }
-
+            PremiumFeatureList()
             Spacer(Modifier.height(40.dp))
-
-            when (val state = billingState) {
-                is BillingState.Loading, is BillingState.Purchasing -> {
-                    CircularProgressIndicator()
-                }
-                is BillingState.Error -> {
-                    Text(
-                        state.message,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.error,
-                        textAlign = TextAlign.Center
-                    )
-                    Spacer(Modifier.height(16.dp))
-                    Button(
-                        onClick = { billingManager.connect() },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(stringResource(R.string.transcription_retry))
-                    }
-                    Spacer(Modifier.height(8.dp))
-                    OutlinedButton(
-                        onClick = { billingManager.restorePurchases {} },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(stringResource(R.string.premium_restore))
-                    }
-                }
-                is BillingState.Ready -> {
-                    val activity = context as? android.app.Activity
-                    val product = state.products.firstOrNull()
-                    if (product != null) {
-                        Button(
-                            onClick = { activity?.let { billingManager.launchPurchaseFlow(it, product) } },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                Text(
-                                    stringResource(R.string.premium_free_trial),
-                                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                                )
-                                Text(
-                                    stringResource(R.string.premium_trial_then_price, product.price),
-                                    style = MaterialTheme.typography.bodySmall
-                                )
-                            }
-                        }
-                        Spacer(Modifier.height(8.dp))
-                        Text(
-                            stringResource(R.string.premium_trial_terms, product.price),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center
-                        )
-                    } else {
-                        Text(
-                            stringResource(R.string.premium_unavailable),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-
-                    Spacer(Modifier.height(16.dp))
-                    OutlinedButton(
-                        onClick = { billingManager.restorePurchases {} },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(stringResource(R.string.premium_restore))
-                    }
-                }
-            }
-
+            BillingContent(
+                billingState = billingState,
+                billingManager = billingManager,
+                context = context
+            )
             Spacer(Modifier.height(32.dp))
+        }
+    }
+}
+
+@Composable
+private fun PaywallTopBar(onNavigateBack: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 4.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconButton(onClick = onNavigateBack) {
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+        }
+        Text(
+            text = stringResource(R.string.premium_title),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+private fun PremiumHeroSection() {
+    Icon(
+        Icons.Default.Star,
+        contentDescription = null,
+        modifier = Modifier.size(64.dp),
+        tint = MaterialTheme.colorScheme.primary
+    )
+    Spacer(Modifier.height(12.dp))
+    Text(
+        text = stringResource(R.string.premium_headline),
+        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+        textAlign = TextAlign.Center
+    )
+    Spacer(Modifier.height(8.dp))
+    Text(
+        text = stringResource(R.string.premium_subheadline),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Composable
+private fun PremiumFeatureList() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        premiumFeatures.forEach { resId ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    Icons.Default.Check,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(Modifier.width(12.dp))
+                Text(stringResource(resId), style = MaterialTheme.typography.bodyLarge)
+            }
+        }
+    }
+}
+
+@Composable
+private fun BillingContent(
+    billingState: BillingState,
+    billingManager: BillingRepository,
+    context: android.content.Context
+) {
+    when (val state = billingState) {
+        is BillingState.Loading, is BillingState.Purchasing -> {
+            CircularProgressIndicator()
+        }
+        is BillingState.Error -> {
+            Text(
+                state.message,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center
+            )
+            Spacer(Modifier.height(16.dp))
+            Button(
+                onClick = { billingManager.connect() },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.transcription_retry))
+            }
+            Spacer(Modifier.height(8.dp))
+            OutlinedButton(
+                onClick = { billingManager.restorePurchases {} },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.premium_restore))
+            }
+        }
+        is BillingState.Ready -> {
+            val activity = context as? android.app.Activity
+            val product = state.products.firstOrNull()
+            if (product != null) {
+                Button(
+                    onClick = { activity?.let { billingManager.launchPurchaseFlow(it, product) } },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            stringResource(R.string.premium_free_trial),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                        )
+                        Text(
+                            stringResource(R.string.premium_trial_then_price, product.price),
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
+                Text(
+                    stringResource(R.string.premium_trial_terms, product.price),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
+            } else {
+                Text(
+                    stringResource(R.string.premium_unavailable),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center
+                )
+            }
+            Spacer(Modifier.height(16.dp))
+            OutlinedButton(
+                onClick = { billingManager.restorePurchases {} },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.premium_restore))
+            }
         }
     }
 }

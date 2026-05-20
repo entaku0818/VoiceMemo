@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PremiumRepository private constructor(context: Context) {
+class PremiumRepository internal constructor(context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("premium_status", Context.MODE_PRIVATE)

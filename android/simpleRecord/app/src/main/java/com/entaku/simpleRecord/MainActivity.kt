@@ -67,7 +67,7 @@ import com.entaku.simpleRecord.store.PaywallScreen
 import com.entaku.simpleRecord.store.PremiumRepository
 import com.entaku.simpleRecord.transcription.TranscriptionScreen
 import com.entaku.simpleRecord.transcription.TranscriptionViewModelFactory
-import kotlinx.coroutines.CoroutineScope
+import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -419,13 +419,14 @@ fun AppNavHost() {
                     val uuid = runCatching { UUID.fromString(uuidString) }.getOrNull()
                     val database = remember { AppDatabase.getInstance(context) }
                     val repository = remember { RecordingRepositoryImpl(database) }
+                    val scope = rememberCoroutineScope()
 
                     TranscriptionScreen(
                         audioFilePath = filePath,
                         recordingUuid = uuid,
                         onNavigateBack = { navController.popBackStack() },
                         onTranscriptionSaved = { id, text ->
-                            kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+                            scope.launch(Dispatchers.IO) {
                                 repository.updateTranscription(id, text)
                             }
                         }

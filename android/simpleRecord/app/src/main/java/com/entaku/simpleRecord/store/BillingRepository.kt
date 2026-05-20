@@ -7,7 +7,6 @@ import com.entaku.simpleRecord.BuildConfig
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.Offerings
 import com.revenuecat.purchases.Package
-import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesError
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
@@ -31,7 +30,10 @@ sealed class BillingState {
     object Purchasing : BillingState()
 }
 
-class BillingRepository private constructor(private val context: Context) {
+class BillingRepository internal constructor(
+    private val context: Context,
+    private val purchasesClient: PurchasesClient = RealPurchasesClient
+) {
 
     private val premiumRepository = PremiumRepository.getInstance(context)
 
@@ -43,8 +45,12 @@ class BillingRepository private constructor(private val context: Context) {
         restoreCustomerInfo()
     }
 
+    fun disconnect() {
+        _billingState.value = BillingState.Loading
+    }
+
     private fun fetchOfferings() {
-        Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
+        purchasesClient.getOfferings(object : ReceiveOfferingsCallback {
             override fun onReceived(offerings: Offerings) {
                 val packages = offerings.current?.availablePackages ?: emptyList()
                 val products = packages.map { pkg ->
@@ -66,10 +72,9 @@ class BillingRepository private constructor(private val context: Context) {
     }
 
     private fun restoreCustomerInfo() {
-        Purchases.sharedInstance.getCustomerInfo(object : ReceiveCustomerInfoCallback {
+        purchasesClient.getCustomerInfo(object : ReceiveCustomerInfoCallback {
             override fun onReceived(customerInfo: CustomerInfo) {
-                val isPremium = customerInfo.entitlements["premium"]?.isActive == true
-                premiumRepository.setPremium(isPremium)
+                updatePremiumStatus(customerInfo)
             }
 
             override fun onError(error: PurchasesError) {
@@ -80,12 +85,12 @@ class BillingRepository private constructor(private val context: Context) {
 
     fun launchPurchaseFlow(activity: Activity, product: PremiumProduct) {
         _billingState.value = BillingState.Purchasing
-        Purchases.sharedInstance.purchase(
-            purchaseParams = com.revenuecat.purchases.PurchaseParams.Builder(activity, product.rcPackage).build(),
+        purchasesClient.purchase(
+            activity = activity,
+            pkg = product.rcPackage,
             callback = object : PurchaseCallback {
                 override fun onCompleted(storeTransaction: StoreTransaction, customerInfo: CustomerInfo) {
-                    val isPremium = customerInfo.entitlements["premium"]?.isActive == true
-                    premiumRepository.setPremium(isPremium)
+                    updatePremiumStatus(customerInfo)
                     fetchOfferings()
                 }
 
@@ -102,11 +107,10 @@ class BillingRepository private constructor(private val context: Context) {
     }
 
     fun restorePurchases(onComplete: (Boolean) -> Unit) {
-        Purchases.sharedInstance.restorePurchases(object : ReceiveCustomerInfoCallback {
+        purchasesClient.restorePurchases(object : ReceiveCustomerInfoCallback {
             override fun onReceived(customerInfo: CustomerInfo) {
-                val isPremium = customerInfo.entitlements["premium"]?.isActive == true
-                premiumRepository.setPremium(isPremium)
-                onComplete(isPremium)
+                updatePremiumStatus(customerInfo)
+                onComplete(customerInfo.entitlements[PREMIUM_ENTITLEMENT_KEY]?.isActive == true)
             }
 
             override fun onError(error: PurchasesError) {
@@ -116,8 +120,14 @@ class BillingRepository private constructor(private val context: Context) {
         })
     }
 
+    private fun updatePremiumStatus(customerInfo: CustomerInfo) {
+        val isPremium = customerInfo.entitlements[PREMIUM_ENTITLEMENT_KEY]?.isActive == true
+        premiumRepository.setPremium(isPremium)
+    }
+
     companion object {
         private const val TAG = "BillingRepository"
+        internal const val PREMIUM_ENTITLEMENT_KEY = "premium"
 
         @Volatile
         private var instance: BillingRepository? = null
