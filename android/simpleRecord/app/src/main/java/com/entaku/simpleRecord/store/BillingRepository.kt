@@ -3,6 +3,7 @@ package com.entaku.simpleRecord.store
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import com.entaku.simpleRecord.BuildConfig
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.Offerings
 import com.revenuecat.purchases.Package
@@ -58,7 +59,7 @@ class BillingRepository private constructor(private val context: Context) {
             }
 
             override fun onError(error: PurchasesError) {
-                Log.e(TAG, "Failed to fetch offerings: ${error.message}")
+                if (BuildConfig.DEBUG) Log.e(TAG, "Failed to fetch offerings: ${error.message}")
                 _billingState.value = BillingState.Error(error.message)
             }
         })
@@ -90,7 +91,7 @@ class BillingRepository private constructor(private val context: Context) {
 
                 override fun onError(error: PurchasesError, userCancelled: Boolean) {
                     if (!userCancelled) {
-                        Log.e(TAG, "Purchase failed: ${error.message}")
+                        if (BuildConfig.DEBUG) Log.e(TAG, "Purchase failed: ${error.message}")
                         _billingState.value = BillingState.Error(error.message)
                     } else {
                         fetchOfferings()
@@ -109,7 +110,7 @@ class BillingRepository private constructor(private val context: Context) {
             }
 
             override fun onError(error: PurchasesError) {
-                Log.e(TAG, "Restore failed: ${error.message}")
+                if (BuildConfig.DEBUG) Log.e(TAG, "Restore failed: ${error.message}")
                 onComplete(false)
             }
         })

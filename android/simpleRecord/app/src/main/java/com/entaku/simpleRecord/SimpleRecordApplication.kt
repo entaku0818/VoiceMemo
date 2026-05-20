@@ -18,7 +18,7 @@ class SimpleRecordApplication : Application() {
         ReminderScheduler.scheduleIfNeeded(this)
 
         // Initialize RevenueCat
-        Purchases.logLevel = LogLevel.DEBUG
+        Purchases.logLevel = if (BuildConfig.DEBUG) LogLevel.DEBUG else LogLevel.ERROR
         Purchases.configure(
             PurchasesConfiguration.Builder(this, BuildConfig.REVENUECAT_API_KEY).build()
         )
