@@ -40,18 +40,23 @@ class BillingRepository internal constructor(
     private val _billingState = MutableStateFlow<BillingState>(BillingState.Loading)
     val billingState: StateFlow<BillingState> = _billingState.asStateFlow()
 
+    @Volatile private var connected = false
+
     fun connect() {
+        connected = true
         fetchOfferings()
         restoreCustomerInfo()
     }
 
     fun disconnect() {
+        connected = false
         _billingState.value = BillingState.Loading
     }
 
     private fun fetchOfferings() {
         purchasesClient.getOfferings(object : ReceiveOfferingsCallback {
             override fun onReceived(offerings: Offerings) {
+                if (!connected) return
                 val packages = offerings.current?.availablePackages ?: emptyList()
                 val products = packages.map { pkg ->
                     PremiumProduct(
@@ -65,6 +70,7 @@ class BillingRepository internal constructor(
             }
 
             override fun onError(error: PurchasesError) {
+                if (!connected) return
                 if (BuildConfig.DEBUG) Log.e(TAG, "Failed to fetch offerings: ${error.message}")
                 _billingState.value = BillingState.Error(error.message)
             }
@@ -74,10 +80,12 @@ class BillingRepository internal constructor(
     private fun restoreCustomerInfo() {
         purchasesClient.getCustomerInfo(object : ReceiveCustomerInfoCallback {
             override fun onReceived(customerInfo: CustomerInfo) {
+                if (!connected) return
                 updatePremiumStatus(customerInfo)
             }
 
             override fun onError(error: PurchasesError) {
+                if (!connected) return
                 Log.w(TAG, "Could not fetch customer info: ${error.message}")
             }
         })
