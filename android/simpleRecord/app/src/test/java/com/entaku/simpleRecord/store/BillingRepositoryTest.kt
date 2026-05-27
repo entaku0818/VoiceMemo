@@ -13,6 +13,7 @@ import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
 import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
+import com.revenuecat.purchases.models.StoreTransaction
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first
@@ -117,6 +118,64 @@ class BillingRepositoryTest {
     fun `PREMIUM_ENTITLEMENT_KEY constant equals premium`() {
         assertEquals("premium", BillingRepository.PREMIUM_ENTITLEMENT_KEY)
     }
+
+    // --- launchPurchaseFlow tests (#143) ---
+
+    @Test
+    fun `launchPurchaseFlow sets state to Purchasing immediately`() = runTest {
+        fakePurchasesClient.offeringsResult = OfferingsResult.Success(emptyList())
+        fakePurchasesClient.purchaseResult = PurchaseResult.Pending
+        repository.connect()
+
+        val activity = mockk<Activity>()
+        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        repository.launchPurchaseFlow(activity, product)
+
+        assertEquals(BillingState.Purchasing, repository.billingState.value)
+    }
+
+    @Test
+    fun `launchPurchaseFlow success updates premium status and transitions to Ready`() = runTest {
+        fakePurchasesClient.offeringsResult = OfferingsResult.Success(emptyList())
+        fakePurchasesClient.purchaseResult = PurchaseResult.Success
+        repository.connect()
+
+        val activity = mockk<Activity>()
+        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        repository.launchPurchaseFlow(activity, product)
+
+        val premiumRepo = PremiumRepository.getInstance(context)
+        assertTrue(premiumRepo.isPremium.value)
+        assertTrue(repository.billingState.value is BillingState.Ready)
+    }
+
+    @Test
+    fun `launchPurchaseFlow error transitions to Error state`() = runTest {
+        fakePurchasesClient.offeringsResult = OfferingsResult.Success(emptyList())
+        fakePurchasesClient.purchaseResult = PurchaseResult.Error("Payment declined", userCancelled = false)
+        repository.connect()
+
+        val activity = mockk<Activity>()
+        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        repository.launchPurchaseFlow(activity, product)
+
+        // PurchasesError.message は PurchasesErrorCode が返す固定メッセージになるため
+        // メッセージ内容ではなく状態種別のみ検証する
+        assertTrue(repository.billingState.value is BillingState.Error)
+    }
+
+    @Test
+    fun `launchPurchaseFlow user cancellation reverts to Ready state`() = runTest {
+        fakePurchasesClient.offeringsResult = OfferingsResult.Success(emptyList())
+        fakePurchasesClient.purchaseResult = PurchaseResult.Error("Cancelled", userCancelled = true)
+        repository.connect()
+
+        val activity = mockk<Activity>()
+        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        repository.launchPurchaseFlow(activity, product)
+
+        assertTrue(repository.billingState.value is BillingState.Ready)
+    }
 }
 
 // --- Sealed result types for fake ---
@@ -132,12 +191,22 @@ sealed class CustomerInfoResult {
     data class Failure(val message: String) : CustomerInfoResult()
 }
 
+sealed class PurchaseResult {
+    /** Purchase completes successfully with premium entitlement */
+    object Success : PurchaseResult()
+    /** Purchase callback not invoked yet (for testing Purchasing state) */
+    object Pending : PurchaseResult()
+    /** Purchase fails or user cancels */
+    data class Error(val message: String, val userCancelled: Boolean = false) : PurchaseResult()
+}
+
 // --- Fake PurchasesClient ---
 
 class FakePurchasesClient : PurchasesClient {
     var offeringsResult: OfferingsResult = OfferingsResult.Success(emptyList())
     var customerInfoResult: CustomerInfoResult = CustomerInfoResult.NotPremium
     var restoreResult: CustomerInfoResult = CustomerInfoResult.NotPremium
+    var purchaseResult: PurchaseResult = PurchaseResult.Pending
 
     override fun getOfferings(callback: ReceiveOfferingsCallback) {
         when (val result = offeringsResult) {
@@ -161,7 +230,20 @@ class FakePurchasesClient : PurchasesClient {
     }
 
     override fun purchase(activity: Activity, pkg: Package, callback: PurchaseCallback) {
-        // Extended in purchase-flow tests as needed
+        when (val result = purchaseResult) {
+            is PurchaseResult.Success -> {
+                val transaction = mockk<StoreTransaction>()
+                callback.onCompleted(transaction, fakePremiumCustomerInfo())
+            }
+            is PurchaseResult.Pending -> {
+                // Do not invoke callback — simulates in-flight purchase (Purchasing state)
+            }
+            is PurchaseResult.Error ->
+                callback.onError(
+                    PurchasesError(PurchasesErrorCode.UnknownError, result.message),
+                    result.userCancelled
+                )
+        }
     }
 
     override fun restorePurchases(callback: ReceiveCustomerInfoCallback) {
