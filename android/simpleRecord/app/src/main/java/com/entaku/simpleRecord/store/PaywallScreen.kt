@@ -1,7 +1,9 @@
 package com.entaku.simpleRecord.store
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -39,6 +41,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.entaku.simpleRecord.R
+
+private fun Context.findActivity(): Activity? {
+    var context = this
+    while (context is ContextWrapper) {
+        if (context is Activity) return context
+        context = (context as ContextWrapper).baseContext
+    }
+    return null
+}
 
 private val premiumFeatures = listOf(
     R.string.premium_feature_no_ads,
@@ -87,8 +98,7 @@ fun PaywallScreen(
             Spacer(Modifier.height(40.dp))
             BillingContent(
                 billingState = billingState,
-                billingManager = billingManager,
-                context = context
+                billingManager = billingManager
             )
             Spacer(Modifier.height(32.dp))
         }
@@ -161,9 +171,10 @@ private fun PremiumFeatureList() {
 @Composable
 private fun BillingContent(
     billingState: BillingState,
-    billingManager: BillingRepository,
-    context: android.content.Context
+    billingManager: BillingRepository
 ) {
+    val context = LocalContext.current
+    val activity = remember(context) { context.findActivity() }
     when (val state = billingState) {
         is BillingState.Loading, is BillingState.Purchasing -> {
             CircularProgressIndicator()
@@ -191,11 +202,16 @@ private fun BillingContent(
             }
         }
         is BillingState.Ready -> {
-            val activity = context as? android.app.Activity
             val product = state.products.firstOrNull()
             if (product != null) {
                 Button(
-                    onClick = { activity?.let { billingManager.launchPurchaseFlow(it, product) } },
+                    onClick = {
+                        if (activity != null) {
+                            billingManager.launchPurchaseFlow(activity, product)
+                        } else {
+                            android.util.Log.e("BillingContent", "Activity is null — cannot launch purchase flow")
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
