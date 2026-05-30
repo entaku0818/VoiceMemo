@@ -1548,121 +1548,121 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إنشاء"
+            "value" : "استعادة المشتريات"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erstellen"
+            "value" : "Käufe wiederherstellen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Create"
+            "value" : "Restore Purchases"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crear"
+            "value" : "Restaurar compras"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Créer"
+            "value" : "Restaurer les achats"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "बनाएं"
+            "value" : "खरीदारी पुनर्स्थापित करें"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buat"
+            "value" : "Pulihkan Pembelian"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crea"
+            "value" : "Ripristina acquisti"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "作成"
+            "value" : "リストア購入"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "만들기"
+            "value" : "구매 복원"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Maken"
+            "value" : "Aankopen herstellen"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Utwórz"
+            "value" : "Przywróć zakupy"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Criar"
+            "value" : "Restaurar compras"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Создать"
+            "value" : "Восстановить покупки"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Skapa"
+            "value" : "Återställ köp"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "สร้าง"
+            "value" : "กู้คืนการซื้อ"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Oluştur"
+            "value" : "Satın Almaları Geri Yükle"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tạo"
+            "value" : "Khôi phục giao dịch mua"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "创建"
+            "value" : "恢复购买"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "建立"
+            "value" : "恢復購買"
           }
         }
       }
