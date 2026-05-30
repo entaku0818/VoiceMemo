@@ -100,26 +100,13 @@ struct AppIconSettingView: View {
     private func iconCellContent(icon: AppIconFeature.AppIcon, isSelected: Bool, isLocked: Bool) -> some View {
         VStack(spacing: 6) {
             ZStack {
-                // アイコン背景
-                RoundedRectangle(cornerRadius: 18)
-                    .fill(
-                        LinearGradient(
-                            colors: [icon.iconColor, icon.iconColor.opacity(0.7)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                // 実際のアイコン画像
+                Image(icon.rawValue)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 76, height: 76)
-                    .shadow(color: icon.iconColor.opacity(0.4), radius: 6, x: 0, y: 3)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 18)
-                            .stroke(Color.primary.opacity(0.12), lineWidth: 1)
-                    )
-
-                // マイクアイコン（デフォルトはダークモード対応で反転）
-                Image(systemName: "mic.fill")
-                    .font(.system(size: 30, weight: .medium))
-                    .foregroundColor(icon == .default ? Color(uiColor: .systemBackground) : .white)
+                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                    .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
 
                 // ロックオーバーレイ
                 if isLocked {
