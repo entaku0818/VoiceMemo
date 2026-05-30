@@ -77,23 +77,13 @@ struct AppIconSettingView: View {
         let isSelected = store.selectedIcon == icon
         let isLocked = icon.isPremium && !store.hasPurchasedPremium
 
-        Group {
-            if isLocked {
-                // プレミアム未購入: タップでペイウォールへ遷移
-                NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
-                    iconCellContent(icon: icon, isSelected: isSelected, isLocked: true)
-                }
-            } else {
-                // 解放済み: タップでアイコン変更
-                Button {
-                    store.send(.selectIcon(icon))
-                } label: {
-                    iconCellContent(icon: icon, isSelected: isSelected, isLocked: false)
-                }
-                .buttonStyle(.plain)
-                .disabled(store.isLoading)
-            }
+        Button {
+            store.send(.selectIcon(icon))
+        } label: {
+            iconCellContent(icon: icon, isSelected: isSelected, isLocked: isLocked)
         }
+        .buttonStyle(.plain)
+        .disabled(store.isLoading || isLocked)
     }
 
     @ViewBuilder
@@ -108,15 +98,11 @@ struct AppIconSettingView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                     .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
 
-                // ロックオーバーレイ
+                // ロック中はアイコンを暗く表示
                 if isLocked {
                     RoundedRectangle(cornerRadius: 18)
                         .fill(.black.opacity(0.4))
                         .frame(width: 76, height: 76)
-
-                    Image(systemName: "lock.fill")
-                        .font(.system(size: 22, weight: .semibold))
-                        .foregroundColor(.white)
                 }
 
                 // 選択済みインジケーター
