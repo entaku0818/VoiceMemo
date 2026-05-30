@@ -1,4 +1,1 @@
-Versione 1.8.1
 
-[Correzioni]
-・Risolti bug relativi al tracciamento analytics

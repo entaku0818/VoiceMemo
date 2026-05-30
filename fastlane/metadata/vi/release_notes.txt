@@ -1,4 +1,1 @@
-Phiên bản 1.8.1
 
-[Sửa lỗi]
-・Đã sửa lỗi theo dõi analytics

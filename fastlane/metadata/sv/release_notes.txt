@@ -1,4 +1,1 @@
-Version 1.8.1
 
-[Felrättningar]
-・Åtgärdade buggar i analysspårning

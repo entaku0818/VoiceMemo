@@ -1,4 +1,1 @@
-Sürüm 1.8.1
 
-[Hata Düzeltmeleri]
-・Analitik takip hataları düzeltildi

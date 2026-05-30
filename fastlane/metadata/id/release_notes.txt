@@ -1,4 +1,1 @@
-Versi 1.8.1
 
-[Perbaikan Bug]
-・Memperbaiki bug pelacakan analitik

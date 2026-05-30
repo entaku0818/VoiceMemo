@@ -1,4 +1,1 @@
-Version 1.8.1
 
-[Corrections]
-・Correction de bugs liés au suivi analytique

@@ -1,4 +1,1 @@
-Versão 1.8.1
 
-[Correções]
-・Corrigidos erros de rastreamento de análises
