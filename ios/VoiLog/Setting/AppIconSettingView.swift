@@ -98,13 +98,6 @@ struct AppIconSettingView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                     .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
 
-                // ロック中はアイコンを暗く表示
-                if isLocked {
-                    RoundedRectangle(cornerRadius: 18)
-                        .fill(.black.opacity(0.4))
-                        .frame(width: 76, height: 76)
-                }
-
                 // 選択済みインジケーター
                 if isSelected {
                     RoundedRectangle(cornerRadius: 18)
