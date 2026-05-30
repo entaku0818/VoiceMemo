@@ -163,12 +163,6 @@
             "value": "すべて"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Todos"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -508,7 +502,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Titel (A-Z)"
           }
         },
         "en": {
@@ -520,19 +514,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Título (A-Z)"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Titre (A-Z)"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Titolo (A-Z)"
           }
         },
         "ja": {
@@ -544,37 +538,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Título (A-Z)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Название (А-Я)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Başlık (A-Z)"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "Tiêu đề (A-Z)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "标题 (A-Z)"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Title (A-Z)"
+            "value": "標題 (A-Z)"
           }
         },
         "ar": {
@@ -663,12 +657,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "プレイリスト"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Playlist"
           }
         },
         "pt-PT": {
@@ -1010,7 +998,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Wiedergabeliste bearbeiten"
           }
         },
         "en": {
@@ -1022,19 +1010,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Editar lista de reproducción"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Modifier la liste de lecture"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Modifica playlist"
           }
         },
         "ja": {
@@ -1046,37 +1034,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Editar lista de reprodução"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Редактировать плейлист"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Çalma listesini düzenle"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "Chỉnh sửa danh sách phát"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "编辑播放列表"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edit Playlist"
+            "value": "編輯播放清單"
           }
         },
         "ar": {
@@ -1415,12 +1403,6 @@
             "value": "リピートモード"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modo de repetição"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -1512,7 +1494,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Mittel (1-5 Min.)"
           }
         },
         "en": {
@@ -1524,19 +1506,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Medio (1-5 min)"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Moyen (1-5 min)"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Medio (1-5 min)"
           }
         },
         "ja": {
@@ -1548,37 +1530,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Médio (1-5 min)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Средний (1-5 мин)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Orta (1-5 dak.)"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "Trung bình (1-5 phút)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "中等 (1-5分钟)"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Medium (1-5 min)"
+            "value": "中等 (1-5分鐘)"
           }
         },
         "ar": {
@@ -1667,12 +1649,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "作成"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Criar"
           }
         },
         "pt-PT": {
@@ -1799,12 +1775,6 @@
             "value": "作成して音声追加"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Criar e adicionar áudio"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -1929,12 +1899,6 @@
             "value": "作成のみ"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apenas criar"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -2026,7 +1990,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Erstellt:"
           }
         },
         "en": {
@@ -2038,19 +2002,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Creado:"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Créé le :"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Creato:"
           }
         },
         "ja": {
@@ -2062,37 +2026,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Criado:"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Создано:"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Oluşturuldu:"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "Ngày tạo:"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "创建日期："
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Created:"
+            "value": "建立日期："
           }
         },
         "ar": {
@@ -2307,12 +2271,6 @@
             "value": "再生していません"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Não está tocando"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -2435,12 +2393,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "再生モード"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Modo de reprodução"
           }
         },
         "pt-PT": {
@@ -2567,12 +2519,6 @@
             "value": "新規プレイリスト"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nova playlist"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -2664,7 +2610,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "Älteste zuerst"
           }
         },
         "en": {
@@ -2676,19 +2622,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "Más antiguo primero"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "Plus ancien d'abord"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "Prima il più vecchio"
           }
         },
         "ja": {
@@ -2700,37 +2646,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "Mais antigo primeiro"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "Сначала старые"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "En eski önce"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "Cũ nhất trước"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "最旧优先"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oldest First"
+            "value": "最舊優先"
           }
         },
         "ar": {
@@ -2788,7 +2734,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "Neueste zuerst"
           }
         },
         "en": {
@@ -2800,19 +2746,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "Más reciente primero"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "Plus récent d'abord"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "Prima il più recente"
           }
         },
         "ja": {
@@ -2824,37 +2770,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "Mais recente primeiro"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "Сначала новые"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "En yeni önce"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "Mới nhất trước"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "最新优先"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Newest First"
+            "value": "最新優先"
           }
         },
         "ar": {
@@ -2912,7 +2858,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "Kürzeste zuerst"
           }
         },
         "en": {
@@ -2924,19 +2870,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "Más corto primero"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "Plus court d'abord"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "Prima il più corto"
           }
         },
         "ja": {
@@ -2948,37 +2894,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "Mais curto primeiro"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "Сначала короткие"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "En kısa önce"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "Ngắn nhất trước"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "最短优先"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Shortest First"
+            "value": "最短優先"
           }
         },
         "ar": {
@@ -3036,7 +2982,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "Längste zuerst"
           }
         },
         "en": {
@@ -3048,19 +2994,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "Más largo primero"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "Plus long d'abord"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "Prima il più lungo"
           }
         },
         "ja": {
@@ -3072,37 +3018,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "Mais longo primeiro"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "Сначала длинные"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "En uzun önce"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "Dài nhất trước"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "最长优先"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Longest First"
+            "value": "最長優先"
           }
         },
         "ar": {
@@ -3160,7 +3106,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Kurz (< 1 Min.)"
           }
         },
         "en": {
@@ -3172,19 +3118,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Corto (< 1 min)"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Court (< 1 min)"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Breve (< 1 min)"
           }
         },
         "ja": {
@@ -3196,37 +3142,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Curto (< 1 min)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Короткий (< 1 мин)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Kısa (< 1 dak.)"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "Ngắn (< 1 phút)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "短 (< 1分钟)"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Short (< 1 min)"
+            "value": "短 (< 1分鐘)"
           }
         },
         "ar": {
@@ -3315,12 +3261,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "編集"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Editar"
           }
         },
         "pt-PT": {
@@ -3447,12 +3387,6 @@
             "value": "録音ファイルがありません"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sem gravações"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -3577,12 +3511,6 @@
             "value": "録音ファイルを追加"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicionar gravação"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -3674,7 +3602,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Aufgezeichnet:"
           }
         },
         "en": {
@@ -3686,19 +3614,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Grabado:"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Enregistré le :"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Registrato:"
           }
         },
         "ja": {
@@ -3710,37 +3638,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Gravado:"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Записано:"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Kaydedildi:"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "Ngày ghi:"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "录音日期："
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Recorded:"
+            "value": "錄音日期："
           }
         },
         "ar": {
@@ -3798,7 +3726,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "Lang (> 5 Min.)"
           }
         },
         "en": {
@@ -3810,7 +3738,7 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "Largo (> 5 min)"
           }
         },
         "fr": {
@@ -3822,7 +3750,7 @@
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "Lungo (> 5 min)"
           }
         },
         "ja": {
@@ -3834,37 +3762,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "Longo (> 5 min)"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "Длинный (> 5 мин)"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "Uzun (> 5 dak.)"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "Dài (> 5 phút)"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "长 (> 5分钟)"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Long (> 5 min)"
+            "value": "長 (> 5分鐘)"
           }
         },
         "ar": {
@@ -4575,12 +4503,6 @@
             "value": "録音ファイル (%lld件)"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gravações (%lld)"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -4703,12 +4625,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "「%@」に追加"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Adicionar a \"%@\""
           }
         },
         "pt-PT": {

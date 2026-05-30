@@ -39,12 +39,6 @@
             "value": "エラー"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Erro"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -136,7 +130,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Bitte wählen Sie einen Bereich zum Trimmen aus."
           }
         },
         "en": {
@@ -148,19 +142,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Por favor, seleccione un rango para recortar."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Veuillez sélectionner une plage à rogner."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Selezionare un intervallo da tagliare."
           }
         },
         "ja": {
@@ -172,37 +166,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Por favor, selecione um intervalo para cortar."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Пожалуйста, выберите диапазон для обрезки."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Lütfen kırpılacak bir aralık seçin."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "Vui lòng chọn phạm vi để cắt."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "请选择要裁剪的范围。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a range to trim."
+            "value": "請選擇要裁剪的範圍。"
           }
         },
         "ar": {
@@ -260,7 +254,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Trimmen fehlgeschlagen: %@"
           }
         },
         "en": {
@@ -272,19 +266,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Error al recortar: %@"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Échec du rognage : %@"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Taglio non riuscito: %@"
           }
         },
         "ja": {
@@ -296,37 +290,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Falha ao cortar: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Ошибка обрезки: %@"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Kırpma başarısız oldu: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "Cắt thất bại: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "裁剪失败：%@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to trim: %@"
+            "value": "裁剪失敗：%@"
           }
         },
         "ar": {
@@ -384,7 +378,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Speichern fehlgeschlagen: %@"
           }
         },
         "en": {
@@ -396,19 +390,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Error al guardar: %@"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Échec de l'enregistrement : %@"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Salvataggio non riuscito: %@"
           }
         },
         "ja": {
@@ -420,37 +414,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Falha ao guardar: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Ошибка сохранения: %@"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Kaydetme başarısız oldu: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "Lưu thất bại: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "保存失败：%@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save: %@"
+            "value": "儲存失敗：%@"
           }
         },
         "ar": {
@@ -508,7 +502,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Originale Sprachnotiz nicht gefunden."
           }
         },
         "en": {
@@ -520,19 +514,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Nota de voz original no encontrada."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Note vocale originale introuvable."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Nota vocale originale non trovata."
           }
         },
         "ja": {
@@ -544,37 +538,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Nota de voz original não encontrada."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Оригинальная голосовая заметка не найдена."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Orijinal sesli not bulunamadı."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "Không tìm thấy ghi chú giọng nói gốc."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "未找到原始语音备忘录。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Original voice memo not found."
+            "value": "找不到原始語音備忘錄。"
           }
         },
         "ar": {
@@ -632,7 +626,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Wiedergabe fehlgeschlagen: %@"
           }
         },
         "en": {
@@ -644,19 +638,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Error de reproducción: %@"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Échec de la lecture : %@"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Riproduzione non riuscita: %@"
           }
         },
         "ja": {
@@ -668,37 +662,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Falha na reprodução: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Ошибка воспроизведения: %@"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Oynatma başarısız oldu: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "Phát lại thất bại: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "播放失败：%@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Playback failed: %@"
+            "value": "播放失敗：%@"
           }
         },
         "ar": {
@@ -787,12 +781,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "処理中..."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Processando..."
           }
         },
         "pt-PT": {
@@ -919,12 +907,6 @@
             "value": "処理完了"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Processamento concluído"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -1049,12 +1031,6 @@
             "value": "分割"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Dividir"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -1146,7 +1122,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Bitte wählen Sie einen Teilungspunkt aus."
           }
         },
         "en": {
@@ -1158,19 +1134,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Por favor, seleccione un punto de división."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Veuillez sélectionner un point de division."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Selezionare un punto di divisione."
           }
         },
         "ja": {
@@ -1182,37 +1158,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Por favor, selecione um ponto de divisão."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Пожалуйста, выберите точку разделения."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Lütfen bir bölme noktası seçin."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "Vui lòng chọn điểm tách."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "请选择分割点。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Please select a split point."
+            "value": "請選擇分割點。"
           }
         },
         "ar": {
@@ -1270,7 +1246,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Teilen fehlgeschlagen: %@"
           }
         },
         "en": {
@@ -1282,19 +1258,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Error al dividir: %@"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Échec de la division : %@"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Divisione non riuscita: %@"
           }
         },
         "ja": {
@@ -1306,37 +1282,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Falha ao dividir: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Ошибка разделения: %@"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Bölme başarısız oldu: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "Tách thất bại: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "分割失败：%@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: %@"
+            "value": "分割失敗：%@"
           }
         },
         "ar": {
@@ -1394,7 +1370,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Teilen fehlgeschlagen: Es wurde keine neue Datei erstellt."
           }
         },
         "en": {
@@ -1406,19 +1382,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Error al dividir: No se creó ningún archivo nuevo."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Échec de la division : Aucun nouveau fichier n'a été créé."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Divisione non riuscita: Nessun nuovo file è stato creato."
           }
         },
         "ja": {
@@ -1430,37 +1406,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Falha ao dividir: Nenhum ficheiro novo foi criado."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Ошибка разделения: Новый файл не был создан."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Bölme başarısız oldu: Yeni bir dosya oluşturulmadı."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "Tách thất bại: Không có tệp mới nào được tạo."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "分割失败：未创建新文件。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split failed: No new file was created."
+            "value": "分割失敗：未建立新檔案。"
           }
         },
         "ar": {
@@ -1549,12 +1525,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "波形データがありません"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Sem dados de forma de onda"
           }
         },
         "pt-PT": {
@@ -1648,7 +1618,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Laden der Wellenformdaten fehlgeschlagen: %@"
           }
         },
         "en": {
@@ -1660,19 +1630,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Error al cargar datos de forma de onda: %@"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Échec du chargement des données de forme d'onde : %@"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Caricamento dati forma d'onda non riuscito: %@"
           }
         },
         "ja": {
@@ -1684,37 +1654,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Falha ao carregar dados da forma de onda: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Ошибка загрузки данных волновой формы: %@"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Dalga formu verileri yüklenemedi: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "Tải dữ liệu dạng sóng thất bại: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "波形数据加载失败：%@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to load waveform data: %@"
+            "value": "波形數據載入失敗：%@"
           }
         },
         "ar": {
@@ -1896,7 +1866,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "Bearbeitete Audiodatei nicht gefunden."
           }
         },
         "en": {
@@ -1908,19 +1878,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "Archivo de audio editado no encontrado."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "Fichier audio modifié introuvable."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "File audio modificato non trovato."
           }
         },
         "ja": {
@@ -1932,37 +1902,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "Ficheiro de áudio editado não encontrado."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "Отредактированный аудиофайл не найден."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "Düzenlenmiş ses dosyası bulunamadı."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "Không tìm thấy tệp âm thanh đã chỉnh sửa."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "找不到已编辑的音频文件。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Edited audio file not found."
+            "value": "找不到已編輯的音訊檔案。"
           }
         },
         "ar": {
@@ -2144,7 +2114,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Lautstärkeregelung fehlgeschlagen: %@"
           }
         },
         "en": {
@@ -2156,19 +2126,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Error al ajustar el volumen: %@"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Échec du réglage du volume : %@"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Regolazione volume non riuscita: %@"
           }
         },
         "ja": {
@@ -2180,37 +2150,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Falha ao ajustar o volume: %@"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Ошибка регулировки громкости: %@"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Ses seviyesi ayarlaması başarısız oldu: %@"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "Điều chỉnh âm lượng thất bại: %@"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "音量调整失败：%@"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to adjust volume: %@"
+            "value": "音量調整失敗：%@"
           }
         },
         "ar": {
@@ -2268,7 +2238,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "Teilen abgeschlossen.\nDer erste Teil bis zum Teilungspunkt wurde als \"%@\" gespeichert."
           }
         },
         "en": {
@@ -2280,19 +2250,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "División completada.\nLa primera parte hasta el punto de división se ha guardado como \"%@\"."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "Division terminée.\nLa première partie jusqu'au point de division a été sauvegardée sous \"%@\"."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "Divisione completata.\nLa prima metà fino al punto di divisione è stata salvata come \"%@\"."
           }
         },
         "ja": {
@@ -2304,37 +2274,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "Divisão concluída.\nA primeira metade até ao ponto de divisão foi guardada como \"%@\"."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "Разделение завершено.\nПервая половина до точки разделения сохранена как \"%@\"."
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "Bölme tamamlandı.\nBölme noktasına kadar olan ilk yarı \"%@\" olarak kaydedildi."
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "Tách hoàn thành.\nPhần đầu đến điểm tách đã được lưu là \"%@\"."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "分割完成。\n分割点之前的前半部分已另存为\"%@\"。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Split complete.\nThe first half up to the split point has been saved as '%@'."
+            "value": "分割完成。\n分割點之前的前半部分已儲存為\"%@\"。"
           }
         },
         "ar": {
@@ -2423,12 +2393,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "分割ポイントを選択しています: %@\n赤い線の位置で分割されます\n(分割すると赤い線までの前半部分が保存されます)"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Selecionando ponto de divisão: %@\nSerá dividido na linha vermelha\n(A primeira metade até a linha vermelha será salva)"
           }
         },
         "pt-PT": {
@@ -2651,7 +2615,7 @@
         },
         "en": {
           "stringUnit": {
-            "state": "new",
+            "state": "translated",
             "value": "Selection range: %1$@ - %2$@\n(Tap the range to reset)"
           }
         },
@@ -2677,12 +2641,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "選択範囲: %@ - %@\n(範囲をタップするとリセットされます)"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seleção: %@ - %@\n(Toque na seleção para redefinir)"
           }
         },
         "pt-PT": {

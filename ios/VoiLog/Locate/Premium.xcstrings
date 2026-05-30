@@ -134,10 +134,28 @@
             "value" : "بعد انتهاء الفترة التجريبية المجانية لمدة شهر، سيتم تحصيل %@/شهر تلقائيًا. يمكنك الإلغاء في أي وقت من إعدادات الاشتراك في Apple قبل 24 ساعة على الأقل من تاريخ التجديد."
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach dem 1-monatigen kostenlosen Testzeitraum werden %@/Monat automatisch abgerechnet. Sie können jederzeit über Apples Abonnementeinstellungen kündigen, mindestens 24 Stunden vor dem Verlängerungsdatum."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "After the 1-month free trial, you will be charged %@/month automatically. You can cancel anytime from Apple's subscription settings at least 24 hours before the renewal date."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tras la prueba gratuita de 1 mes, se te cobrará %@/mes automáticamente. Puedes cancelar en cualquier momento desde la configuración de suscripciones de Apple al menos 24 horas antes de la fecha de renovación."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Après l'essai gratuit d'1 mois, %@/mois vous seront facturés automatiquement. Vous pouvez annuler à tout moment depuis les paramètres d'abonnement d'Apple au moins 24 heures avant la date de renouvellement."
           }
         },
         "hi" : {
@@ -150,6 +168,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Setelah uji coba gratis 1 bulan, Anda akan dikenakan biaya %@/bulan secara otomatis. Anda dapat membatalkan kapan saja dari pengaturan langganan Apple setidaknya 24 jam sebelum tanggal pembaruan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dopo la prova gratuita di 1 mese, verranno addebitati %@/mese automaticamente. Puoi annullare in qualsiasi momento dalle impostazioni di abbonamento di Apple almeno 24 ore prima della data di rinnovo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1ヶ月の無料トライアル終了後、%@/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。"
           }
         },
         "ko" : {
@@ -170,6 +200,18 @@
             "value" : "Po miesięcznym bezpłatnym okresie próbnym będziesz automatycznie obciążany kwotą %@/miesiąc. Możesz anulować w dowolnym momencie w ustawieniach subskrypcji Apple, co najmniej 24 godziny przed datą odnowienia."
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Após o período de avaliação gratuita de 1 mês, serão cobrados %@/mês automaticamente. Pode cancelar a qualquer momento nas definições de subscrição da Apple, pelo menos 24 horas antes da data de renovação."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После 1-месячного бесплатного пробного периода с вас будет автоматически списываться %@/месяц. Вы можете отменить подписку в любое время в настройках подписок Apple не менее чем за 24 часа до даты продления."
+          }
+        },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
@@ -180,6 +222,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "หลังจากทดลองใช้ฟรี 1 เดือน คุณจะถูกเรียกเก็บเงิน %@/เดือนโดยอัตโนมัติ คุณสามารถยกเลิกได้ทุกเมื่อจากการตั้งค่าการสมัครสมาชิกของ Apple อย่างน้อย 24 ชั่วโมงก่อนวันต่ออายุ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 aylık ücretsiz deneme süresinin ardından %@/ay otomatik olarak ücretlendirileceksiniz. Apple'ın abonelik ayarlarından yenileme tarihinden en az 24 saat önce istediğiniz zaman iptal edebilirsiniz."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sau thời gian dùng thử miễn phí 1 tháng, bạn sẽ bị tính phí %@/tháng tự động. Bạn có thể hủy bất cứ lúc nào từ cài đặt đăng ký của Apple ít nhất 24 giờ trước ngày gia hạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1个月免费试用结束后，将自动收取%@/月的费用。您可以在续订日期前24小时内随时通过Apple订阅设置取消。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1個月免費試用結束後，將自動收取%@/月的費用。您可以在續訂日期前24小時內隨時透過Apple訂閱設定取消。"
           }
         }
       }
@@ -192,10 +258,28 @@
             "value" : "جرّب مجانًا لمدة شهر"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Monat kostenlos testen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Try Free for 1 Month"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prueba gratis 1 mes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayer gratuitement 1 mois"
           }
         },
         "hi" : {
@@ -208,6 +292,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Coba Gratis 1 Bulan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova gratis 1 mese"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1ヶ月無料で試す"
           }
         },
         "ko" : {
@@ -228,6 +324,18 @@
             "value" : "Wypróbuj za darmo przez 1 miesiąc"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimente grátis 1 mês"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте 1 месяц бесплатно"
+          }
+        },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
@@ -238,6 +346,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ทดลองใช้ฟรี 1 เดือน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 ay ücretsiz deneyin"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thử miễn phí 1 tháng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免费试用1个月"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免費試用1個月"
           }
         }
       }
@@ -500,6 +632,30 @@
             "value" : "تجربة مجانية لشهر ← ثم %@/شهر"
           }
         },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Monat kostenlos → Dann %@/Monat"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Month Free Trial → Then %@/month"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 mes gratis → Luego %@/mes"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 mois gratuit → Ensuite %@/mois"
+          }
+        },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -510,6 +666,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uji Coba Gratis 1 Bulan → Lalu %@/bulan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 mese gratis → Poi %@/mese"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1ヶ月無料体験 → その後%@/月"
           }
         },
         "ko" : {
@@ -530,6 +698,18 @@
             "value" : "Miesiąc za darmo → Potem %@/miesiąc"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 mês grátis → Depois %@/mês"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 месяц бесплатно → Затем %@/месяц"
+          }
+        },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
@@ -541,14 +721,280 @@
             "state" : "translated",
             "value" : "ทดลองฟรี 1 เดือน → จากนั้น %@/เดือน"
           }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 Aylık Ücretsiz Deneme → Sonra %@/ay"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 tháng dùng thử miễn phí → Sau đó %@/tháng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1个月免费体验 → 之后%@/月"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1個月免費體驗 → 之後%@/月"
+          }
         }
       }
     },
     "AI文字起こしを使いこなす" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أتقن استخدام الترجمة الصوتية بالذكاء الاصطناعي"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KI-Transkription optimal nutzen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Master AI Transcription"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domina la transcripción con IA"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maîtrisez la transcription IA"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ट्रांसक्रिप्शन में महारत हासिल करें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuasai Transkripsi AI"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfrutta al meglio la trascrizione AI"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI文字起こしを使いこなす"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 받아쓰기 완벽 활용"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI-transcriptie optimaal benutten"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opanuj transkrypcję AI"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dominar a transcrição por IA"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Освойте транскрипцию с ИИ"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bemästra AI-transkription"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ใช้งาน AI ถอดความเสียงได้อย่างเชี่ยวชาญ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Transkripsiyonunu Ustalıkla Kullanın"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Làm chủ phiên âm AI"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "熟练使用AI语音转文字"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "熟練使用AI語音轉文字"
+          }
+        }
+      }
     },
     "AI文字起こし無制限" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ترجمة صوتية غير محدودة بالذكاء الاصطناعي"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbegrenzte KI-Transkription"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited AI Transcription"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcripción IA ilimitada"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcription IA illimitée"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "असीमित AI ट्रांसक्रिप्शन"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsi AI Tak Terbatas"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trascrizione AI illimitata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI文字起こし無制限"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무제한 AI 받아쓰기"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onbeperkte AI-transcriptie"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieograniczona transkrypcja AI"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcrição IA ilimitada"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Безлимитная транскрипция ИИ"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obegränsad AI-transkription"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ถอดความเสียง AI ไม่จำกัด"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sınırsız AI Transkripsiyonu"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên âm AI không giới hạn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无限AI语音转文字"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無限AI語音轉文字"
+          }
+        }
+      }
     },
     "iCloud同期機能" : {
       "localizations" : {
@@ -3163,14 +3609,177 @@
       }
     },
     "高精度なAI文字起こしが無制限で使い放題！" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ترجمة صوتية عالية الدقة بالذكاء الاصطناعي بشكل غير محدود!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hochgenaue KI-Transkription unbegrenzt nutzen!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited high-accuracy AI transcription!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Transcripción IA de alta precisión ilimitada!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcription IA haute précision en illimité !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "उच्च-सटीकता AI ट्रांसक्रिप्शन असीमित रूप से उपयोग करें!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gunakan transkripsi AI presisi tinggi tanpa batas!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trascrizione AI ad alta precisione illimitata!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高精度なAI文字起こしが無制限で使い放題！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "고정밀 AI 받아쓰기를 무제한으로!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onbeperkt gebruik van hoognauwkeurige AI-transcriptie!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nieograniczona transkrypcja AI o wysokiej dokładności!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcrição IA de alta precisão ilimitada!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неограниченная высокоточная транскрипция ИИ!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obegränsad AI-transkription med hög noggrannhet!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ถอดความเสียง AI ความแม่นยำสูงได้ไม่จำกัด!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yüksek doğruluklu AI transkripsiyonu sınırsız kullanın!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sử dụng phiên âm AI độ chính xác cao không giới hạn!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高精度AI语音转文字，无限使用！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高精度AI語音轉文字，無限使用！"
+          }
+        }
+      }
     },
     "アイコンカスタマイズ" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تخصيص الأيقونة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Symbol anpassen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Icon Customization"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalización de icono"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personnalisation d'icône"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आइकन अनुकूलन"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kustomisasi Ikon"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalizzazione icona"
           }
         },
         "ja" : {
@@ -3178,21 +3787,195 @@
             "state" : "translated",
             "value" : "アイコンカスタマイズ"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "아이콘 커스터마이즈"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pictogram aanpassen"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dostosowanie ikony"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalização de ícone"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройка значка"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikonanpassning"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ปรับแต่งไอคอน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simge Özelleştirme"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tùy chỉnh biểu tượng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图标自定义"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "圖示自訂"
+          }
         }
       }
     },
     "6色のカラーバリエーションからお気に入りのアイコンに変更できます！" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر أيقونتك المفضلة من 6 ألوان مختلفة!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wähle dein Lieblingssymbol aus 6 Farbvarianten!"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choose your favorite icon from 6 color variations!"
           }
         },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Elige tu icono favorito entre 6 variaciones de color!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez votre icône préférée parmi 6 variantes de couleur !"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 रंग विविधताओं में से अपना पसंदीदा आइकन चुनें!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilih ikon favorit Anda dari 6 variasi warna!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli la tua icona preferita tra 6 varianti di colore!"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "6色のカラーバリエーションからお気に入りのアイコンに変更できます！"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6가지 색상 변형 중에서 좋아하는 아이콘을 선택하세요!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kies je favoriete pictogram uit 6 kleurvarianten!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz ulubioną ikonę spośród 6 wariantów kolorystycznych!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha o seu ícone favorito entre 6 variações de cor!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите любимый значок из 6 цветовых вариантов!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Välj din favoritikon bland 6 färgvarianter!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เลือกไอคอนที่ชื่นชอบจาก 6 สีสันให้เลือก!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "6 renk varyasyonundan en sevdiğiniz simgeyi seçin!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn biểu tượng yêu thích từ 6 biến thể màu sắc!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从6种颜色变体中选择您最喜欢的图标！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "從6種顏色變體中選擇您最喜歡的圖示！"
           }
         }
       }

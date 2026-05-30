@@ -11,8 +11,8 @@
         },
         "en": {
           "stringUnit": {
-            "state": "new",
-            "value": "%1$lld / %2$lld 件"
+            "state": "translated",
+            "value": "%1$lld / %2$lld items"
           }
         },
         "es": {
@@ -37,12 +37,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld / %lld 件"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld / %lld itens"
           }
         },
         "pt-PT": {
@@ -169,12 +163,6 @@
             "value": "%lld 単語"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld palavras"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -297,12 +285,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld 文字"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld caracteres"
           }
         },
         "pt-PT": {
@@ -774,7 +756,7 @@
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "Diese Aufnahme löschen?"
           }
         },
         "en": {
@@ -786,19 +768,19 @@
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "¿Eliminar esta grabación?"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "Supprimer cet enregistrement ?"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "Eliminare questa registrazione?"
           }
         },
         "ja": {
@@ -810,37 +792,37 @@
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "Eliminar esta gravação?"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "Удалить эту запись?"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "Bu kaydı silmek istiyor musunuz?"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "Xóa bản ghi này?"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "删除此录音？"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete this recording?"
+            "value": "刪除此錄音？"
           }
         },
         "ar": {
@@ -929,12 +911,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "この録音ファイルを削除しますか？"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Excluir esta gravação?"
           }
         },
         "pt-PT": {
@@ -2769,6 +2745,78 @@
     },
     "プレミアムにアップグレード": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auf Premium upgraden"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upgrade to Premium"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actualizar a Premium"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passer à Premium"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna a Premium"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プレミアムにアップグレード"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atualizar para Premium"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перейти на Premium"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium'a geç"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nâng cấp lên Premium"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "升级到高级版"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "升級至高級版"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -2821,6 +2869,78 @@
     },
     "プレミアム機能": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium-Funktionen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium Features"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funciones Premium"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fonctionnalités Premium"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funzionalità Premium"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "プレミアム機能"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Funcionalidades Premium"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Функции Premium"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Premium Özellikler"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tính năng Premium"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高级功能"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "高級功能"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -2907,12 +3027,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "メタデータ"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Metadados"
           }
         },
         "pt-PT": {
@@ -3163,12 +3277,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "並び順"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ordenação"
           }
         },
         "pt-PT": {
@@ -3669,12 +3777,6 @@
             "value": "共有"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Compartilhar"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -4049,12 +4151,6 @@
             "value": "削除"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Excluir"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -4177,12 +4273,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "削除確認"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Confirmar exclusão"
           }
         },
         "pt-PT": {
@@ -4555,12 +4645,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "基本情報"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Informações básicas"
           }
         },
         "pt-PT": {
@@ -5263,6 +5347,12 @@
             "state": "translated",
             "value": "프리미엄 회원은 문자 변환을 무제한으로 사용할 수 있습니다. 광고를 시청하면 1회 무료로 이용할 수 있습니다."
           }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。"
+          }
         }
       }
     },
@@ -5270,10 +5360,76 @@
       "comment": "A message displayed when a voice memo does not have transcription data.",
       "isCommentAutoGenerated": true,
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keine Transkriptionsdaten"
+          }
+        },
         "en": {
           "stringUnit": {
             "state": "translated",
             "value": "No transcription data"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No hay datos de transcripción"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune donnée de transcription"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun dato di trascrizione"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文字起こしデータがありません"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem dados de transcrição"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет данных транскрипции"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transkripsiyon verisi yok"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không có dữ liệu phiên âm"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无转录数据"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無轉錄資料"
           }
         },
         "ar": {
@@ -5984,12 +6140,6 @@
             "value": "統計"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Estatísticas"
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -6112,12 +6262,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "詳細情報"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Detalhes"
           }
         },
         "pt-PT": {
@@ -6366,12 +6510,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "録音ファイル"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Gravações"
           }
         },
         "pt-PT": {
@@ -6746,12 +6884,6 @@
             "value": "音声を分析中..."
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Analisando áudio..."
-          }
-        },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
@@ -6874,12 +7006,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "音声分析"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Análise de áudio"
           }
         },
         "pt-PT": {
@@ -7128,12 +7254,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "音声認識テキスト"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Transcrição"
           }
         },
         "pt-PT": {

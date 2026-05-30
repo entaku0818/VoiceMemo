@@ -123,12 +123,6 @@
             "state": "translated",
             "value": "AI"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AI"
-          }
         }
       }
     },
@@ -255,12 +249,6 @@
             "state": "translated",
             "value": "AIが文字起こし中..."
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "IA Transcrevendo..."
-          }
         }
       }
     },
@@ -386,12 +374,6 @@
             "state": "translated",
             "value": "AIで文字起こし"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Transcrição com IA"
-          }
         }
       }
     },
@@ -516,12 +498,6 @@
             "state": "translated",
             "value": "AI文字起こしがまだ実行されていません"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "A transcrição com IA ainda não foi executada"
-          }
         }
       }
     },
@@ -643,12 +619,6 @@
           }
         },
         "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apple"
-          }
-        },
-        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "Apple"
@@ -777,17 +747,77 @@
             "state": "translated",
             "value": "Apple 文字起こしデータがありません"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nenhum dado de transcrição Apple disponível"
-          }
         }
       }
     },
     "サーバーが混雑しています。しばらく待ってから再試行してください。": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Der Server ist überlastet. Bitte warten Sie einen Moment und versuchen Sie es erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The server is busy. Please wait a moment and try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El servidor está ocupado. Espera un momento y vuelve a intentarlo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Le serveur est occupé. Veuillez patienter un moment puis réessayer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il server è occupato. Attendi un momento e riprova."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O servidor está ocupado. Aguarde um momento e tente novamente."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервер перегружен. Подождите немного и повторите попытку."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu meşgul. Lütfen bir süre bekleyin ve tekrar deneyin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Máy chủ đang bận. Vui lòng chờ một lúc và thử lại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "服务器繁忙，请稍候再试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伺服器繁忙，請稍候再試。"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -841,17 +871,77 @@
             "state": "translated",
             "value": "サーバーが混雑しています。しばらく待ってから再試行してください。"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "O servidor está ocupado. Aguarde um momento e tente novamente."
-          }
         }
       }
     },
     "サーバーエラーが発生しました。再試行してください。": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Serverfehler ist aufgetreten. Bitte versuchen Sie es erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A server error occurred. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se produjo un error en el servidor. Por favor, inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une erreur serveur s'est produite. Veuillez réessayer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si è verificato un errore del server. Riprova."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocorreu um erro no servidor. Por favor, tente novamente."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Произошла ошибка сервера. Повторите попытку."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sunucu hatası oluştu. Lütfen tekrar deneyin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xảy ra lỗi máy chủ. Vui lòng thử lại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发生服务器错误，请重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "發生伺服器錯誤，請重試。"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -905,17 +995,77 @@
             "state": "translated",
             "value": "サーバーエラーが発生しました。再試行してください。"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ocorreu um erro no servidor. Por favor, tente novamente."
-          }
         }
       }
     },
     "リクエストが多すぎます。しばらく待ってから再試行してください。": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu viele Anfragen. Bitte warten Sie einen Moment und versuchen Sie es erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many requests. Please wait a moment and try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demasiadas solicitudes. Espera un momento y vuelve a intentarlo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trop de requêtes. Veuillez patienter un moment puis réessayer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Troppe richieste. Attendi un momento e riprova."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demasiados pedidos. Aguarde um momento e tente novamente."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слишком много запросов. Подождите немного и повторите попытку."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çok fazla istek var. Lütfen bir süre bekleyin ve tekrar deneyin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quá nhiều yêu cầu. Vui lòng chờ một lúc và thử lại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请求过多，请稍候再试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請求過多，請稍候再試。"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -968,12 +1118,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "リクエストが多すぎます。しばらく待ってから再試行してください。"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Muitas solicitações. Aguarde um momento e tente novamente."
           }
         }
       }
@@ -1099,12 +1243,6 @@
             "state": "translated",
             "value": "中文"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "中文"
-          }
         }
       }
     },
@@ -1112,6 +1250,72 @@
       "comment": "A button label that means \"re-run\" or \"restart\".",
       "isCommentAutoGenerated": true,
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut ausführen"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Re-run"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a ejecutar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réexécuter"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riesegui"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Executar novamente"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторить запуск"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yeniden çalıştır"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chạy lại"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新运行"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新執行"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -1164,12 +1368,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "再実行"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Executar novamente"
           }
         }
       }
@@ -1295,12 +1493,6 @@
             "state": "translated",
             "value": "再試行"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tentar novamente"
-          }
         }
       }
     },
@@ -1308,6 +1500,72 @@
       "comment": "A label displayed above the previously transcribed text.",
       "isCommentAutoGenerated": true,
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vorheriges Ergebnis"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous Result"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resultado anterior"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Résultat précédent"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Risultato precedente"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resultado anterior"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Предыдущий результат"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Önceki Sonuç"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết quả trước đó"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上次结果"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上次結果"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -1361,12 +1619,6 @@
             "state": "translated",
             "value": "前回の結果"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resultado anterior"
-          }
         }
       }
     },
@@ -1374,6 +1626,72 @@
       "comment": "Error message displayed when authentication fails.",
       "isCommentAutoGenerated": true,
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verbindung fehlgeschlagen. Bitte überprüfen Sie Ihr Netzwerk."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connection failed. Please check your network."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fallo de conexión. Por favor, comprueba tu red."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échec de la connexion. Veuillez vérifier votre réseau."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connessione fallita. Controlla la tua rete."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falha na ligação. Por favor, verifique a sua rede."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ошибка подключения. Проверьте сетевое соединение."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bağlantı başarısız oldu. Lütfen ağınızı kontrol edin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kết nối thất bại. Vui lòng kiểm tra mạng của bạn."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "连接失败，请检查您的网络。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連線失敗，請檢查您的網路。"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -1426,12 +1744,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "接続に失敗しました。ネットワークを確認してください。"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Falha na conexão. Por favor, verifique sua rede."
           }
         }
       }
@@ -1559,12 +1871,6 @@
             "state": "translated",
             "value": "文字起こしに失敗しました"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Transcrição Falhou"
-          }
         }
       }
     },
@@ -1691,12 +1997,6 @@
             "state": "translated",
             "value": "文字起こしを開始"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Iniciar Transcrição"
-          }
         }
       }
     },
@@ -1817,12 +2117,6 @@
           }
         },
         "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "日本語"
-          }
-        },
-        "pt-BR": {
           "stringUnit": {
             "state": "translated",
             "value": "日本語"
@@ -1951,12 +2245,6 @@
             "state": "translated",
             "value": "要約"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Resumo"
-          }
         }
       }
     },
@@ -2080,12 +2368,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "言語"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Idioma"
           }
         }
       }
@@ -2211,12 +2493,6 @@
             "state": "translated",
             "value": "通常2〜5分かかります。このまましばらくお待ちください。"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Normalmente leva 2–5 minutos. Por favor, aguarde."
-          }
         }
       }
     },
@@ -2340,12 +2616,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "開始"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Iniciar"
           }
         }
       }
@@ -2473,17 +2743,77 @@
             "state": "translated",
             "value": "音声をアップロード中..."
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enviando áudio..."
-          }
         }
       }
     },
     "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。": {
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Audio-Datei konnte nicht hochgeladen werden. Bitte überprüfen Sie Ihr Netzwerk."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to upload audio file. Please check your network."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo subir el archivo de audio. Por favor, comprueba tu red."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échec du téléchargement du fichier audio. Veuillez vérifier votre réseau."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caricamento file audio fallito. Controlla la tua rete."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falha ao carregar o ficheiro de áudio. Por favor, verifique a sua rede."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось загрузить аудиофайл. Проверьте сетевое соединение."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ses dosyası yüklenemedi. Lütfen ağınızı kontrol edin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tải lên tệp âm thanh thất bại. Vui lòng kiểm tra mạng của bạn."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音频文件上传失败，请检查您的网络。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "音頻檔案上傳失敗，請檢查您的網路。"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -2537,12 +2867,6 @@
             "state": "translated",
             "value": "音声ファイルのアップロードに失敗しました。ネットワークを確認してください。"
           }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Falha ao enviar o arquivo de áudio. Verifique sua rede."
-          }
         }
       }
     },
@@ -2550,6 +2874,72 @@
       "comment": "A description of an error that might occur when transcribing audio. The argument is the HTTP status code of the response.",
       "isCommentAutoGenerated": true,
       "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Fehler ist aufgetreten (Code: %lld). Bitte versuchen Sie es erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "An error occurred (code: %lld). Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se produjo un error (código: %lld). Por favor, inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une erreur s'est produite (code : %lld). Veuillez réessayer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si è verificato un errore (codice: %lld). Riprova."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocorreu um erro (código: %lld). Por favor, tente novamente."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Произошла ошибка (код: %lld). Повторите попытку."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bir hata oluştu (kod: %lld). Lütfen tekrar deneyin."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Đã xảy ra lỗi (mã: %lld). Vui lòng thử lại."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发生错误（代码：%lld），请重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "發生錯誤（代碼：%lld），請重試。"
+          }
+        },
         "ar": {
           "stringUnit": {
             "state": "translated",
@@ -2602,12 +2992,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "エラーが発生しました (コード: %lld)。再試行してください。"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ocorreu um erro (código: %lld). Por favor, tente novamente."
           }
         }
       }
@@ -2734,12 +3118,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "音声ファイルをアップロードして\nAIが自動で書き起こします"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Envie um arquivo de áudio e\na IA irá transcrever automaticamente"
           }
         }
       }
