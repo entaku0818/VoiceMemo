@@ -91,7 +91,7 @@ struct AppIconSettingView: View {
         VStack(spacing: 6) {
             ZStack {
                 // 実際のアイコン画像
-                Image(icon.rawValue)
+                Image(icon.previewImageName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 76, height: 76)

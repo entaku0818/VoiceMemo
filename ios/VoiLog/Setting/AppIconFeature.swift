@@ -88,6 +88,8 @@ struct AppIconFeature {
         /// デフォルト以外はプレミアム限定
         var isPremium: Bool { self != .default }
 
+        var previewImageName: String { "AppIconPreview\(self == .default ? "" : rawValue.replacingOccurrences(of: "AppIcon", with: ""))" }
+
         /// UIApplication.setAlternateIconName に渡す名前（デフォルトは nil）
         var alternateIconName: String? { self == .default ? nil : rawValue }
     }
