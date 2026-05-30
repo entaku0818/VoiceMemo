@@ -316,25 +316,13 @@ struct SettingView: View {
 
             NavigationLink(
                 destination: AppIconSettingView(
-                    store: Store(
-                        initialState: AppIconFeature.State(
-                            hasPurchasedPremium: store.hasPurchasedPremium
-                        )
-                    ) {
+                    store: Store(initialState: AppIconFeature.State()) {
                         AppIconFeature()
                     }
                 )
             ) {
-                HStack {
-                    Text(String(localized: "アイコンカスタマイズ", table: "Settings"))
-                        .foregroundColor(Color("Black"))
-                    Spacer()
-                    if !store.hasPurchasedPremium {
-                        Image(systemName: "crown.fill")
-                            .foregroundColor(.yellow)
-                            .font(.caption)
-                    }
-                }
+                Text(String(localized: "アイコンカスタマイズ", table: "Settings"))
+                    .foregroundColor(Color("Black"))
             }
 
             Button {

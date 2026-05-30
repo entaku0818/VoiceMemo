@@ -85,9 +85,6 @@ struct AppIconFeature {
             }
         }
 
-        /// デフォルト以外はプレミアム限定
-        var isPremium: Bool { self != .default }
-
         /// UIApplication.setAlternateIconName に渡す名前（デフォルトは nil）
         var alternateIconName: String? { self == .default ? nil : rawValue }
     }
@@ -97,13 +94,8 @@ struct AppIconFeature {
     @ObservableState
     struct State: Equatable {
         var selectedIcon: AppIcon = .default
-        var hasPurchasedPremium: Bool
         var isLoading = false
         var errorMessage: String?
-
-        init(hasPurchasedPremium: Bool = UserDefaultsManager.shared.hasPurchasedProduct) {
-            self.hasPurchasedPremium = hasPurchasedPremium
-        }
     }
 
     // MARK: - Action
@@ -125,7 +117,6 @@ struct AppIconFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
                 let currentIconName = iconClient.currentAlternateIconName()
                 if let iconName = currentIconName, let icon = AppIcon(rawValue: iconName) {
                     state.selectedIcon = icon

@@ -30,7 +30,7 @@ final class AppIconFeatureTests: XCTestCase {
         UserDefaultsManager.shared.hasPurchasedProduct = false
 
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: false)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -54,7 +54,7 @@ final class AppIconFeatureTests: XCTestCase {
         UserDefaultsManager.shared.hasPurchasedProduct = true
 
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: true)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -74,7 +74,7 @@ final class AppIconFeatureTests: XCTestCase {
         UserDefaultsManager.shared.hasPurchasedProduct = true
 
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: true)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -93,7 +93,7 @@ final class AppIconFeatureTests: XCTestCase {
 
     func test_selectIcon_setsLoadingAndCompletesSuccessfully() async {
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: true)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -116,7 +116,7 @@ final class AppIconFeatureTests: XCTestCase {
 
     func test_selectIcon_defaultIconSuccessfully() async {
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: true)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -128,7 +128,7 @@ final class AppIconFeatureTests: XCTestCase {
                 currentAlternateIconName: { nil }
             )
         }
-        var state = AppIconFeature.State(hasPurchasedPremium: true)
+        var state = AppIconFeature.State()
         state.selectedIcon = .blue
         let storeWithBlue = TestStore(initialState: state) {
             AppIconFeature()
@@ -156,7 +156,7 @@ final class AppIconFeatureTests: XCTestCase {
         }
 
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: true)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -178,7 +178,7 @@ final class AppIconFeatureTests: XCTestCase {
     }
 
     func test_selectIcon_ignoresWhenAlreadyLoading() async {
-        var state = AppIconFeature.State(hasPurchasedPremium: true)
+        var state = AppIconFeature.State()
         state.isLoading = true
 
         let store = TestStore(initialState: state) {
@@ -199,7 +199,7 @@ final class AppIconFeatureTests: XCTestCase {
         var setAlternateIconNameCalled: String? = "NOT_CALLED"
 
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: true)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -226,7 +226,7 @@ final class AppIconFeatureTests: XCTestCase {
         var capturedIconName: String? = nil
 
         let store = TestStore(
-            initialState: AppIconFeature.State(hasPurchasedPremium: true)
+            initialState: AppIconFeature.State()
         ) {
             AppIconFeature()
         } withDependencies: {
@@ -250,17 +250,6 @@ final class AppIconFeatureTests: XCTestCase {
     }
 
     // MARK: - AppIcon Enum Tests
-
-    func test_appIcon_isPremiumReturnsFalseForDefault() {
-        XCTAssertFalse(AppIconFeature.AppIcon.default.isPremium)
-    }
-
-    func test_appIcon_isPremiumReturnsTrueForColoredIcons() {
-        let premiumIcons: [AppIconFeature.AppIcon] = [.blue, .red, .green, .purple, .orange, .pink]
-        for icon in premiumIcons {
-            XCTAssertTrue(icon.isPremium, "\(icon.rawValue) はプレミアムアイコンのはず")
-        }
-    }
 
     func test_appIcon_alternateIconNameIsNilForDefault() {
         XCTAssertNil(AppIconFeature.AppIcon.default.alternateIconName)
