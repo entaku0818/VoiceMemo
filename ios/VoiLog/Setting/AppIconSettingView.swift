@@ -30,6 +30,27 @@ struct AppIconSettingView: View {
                 .padding(.vertical, 12)
             }
 
+            if !store.hasPurchasedPremium {
+                Section {
+                    NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
+                        HStack(spacing: 12) {
+                            Image(systemName: "crown.fill")
+                                .foregroundStyle(.yellow)
+                                .font(.title3)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(String(localized: "プレミアムにアップグレード"))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.primary)
+                                Text(String(localized: "全カラーバリエーションを解放"))
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+            }
+
             if let errorMessage = store.errorMessage {
                 Section {
                     Label(errorMessage, systemImage: "exclamationmark.triangle.fill")
@@ -54,20 +75,32 @@ struct AppIconSettingView: View {
     @ViewBuilder
     private func iconCell(_ icon: AppIconFeature.AppIcon) -> some View {
         let isSelected = store.selectedIcon == icon
+        let isLocked = icon.isPremium && !store.hasPurchasedPremium
 
-        Button {
-            store.send(.selectIcon(icon))
-        } label: {
-            iconCellContent(icon: icon, isSelected: isSelected)
+        Group {
+            if isLocked {
+                // プレミアム未購入: タップでペイウォールへ遷移
+                NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
+                    iconCellContent(icon: icon, isSelected: isSelected, isLocked: true)
+                }
+            } else {
+                // 解放済み: タップでアイコン変更
+                Button {
+                    store.send(.selectIcon(icon))
+                } label: {
+                    iconCellContent(icon: icon, isSelected: isSelected, isLocked: false)
+                }
+                .buttonStyle(.plain)
+                .disabled(store.isLoading)
+            }
         }
-        .buttonStyle(.plain)
-        .disabled(store.isLoading)
     }
 
     @ViewBuilder
-    private func iconCellContent(icon: AppIconFeature.AppIcon, isSelected: Bool) -> some View {
+    private func iconCellContent(icon: AppIconFeature.AppIcon, isSelected: Bool, isLocked: Bool) -> some View {
         VStack(spacing: 6) {
             ZStack {
+                // 実際のアイコン画像
                 Image(icon.rawValue)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -75,6 +108,18 @@ struct AppIconSettingView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                     .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
 
+                // ロックオーバーレイ
+                if isLocked {
+                    RoundedRectangle(cornerRadius: 18)
+                        .fill(.black.opacity(0.4))
+                        .frame(width: 76, height: 76)
+
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 22, weight: .semibold))
+                        .foregroundColor(.white)
+                }
+
+                // 選択済みインジケーター
                 if isSelected {
                     RoundedRectangle(cornerRadius: 18)
                         .stroke(Color.primary, lineWidth: 3)
@@ -98,6 +143,7 @@ struct AppIconSettingView: View {
             Text(icon.displayName)
                 .font(.caption)
                 .fontWeight(isSelected ? .semibold : .regular)
+                .foregroundColor(isLocked ? .secondary : .primary)
         }
     }
 }
@@ -108,7 +154,7 @@ struct AppIconSettingView: View {
     NavigationView {
         AppIconSettingView(
             store: Store(
-                initialState: AppIconFeature.State()
+                initialState: AppIconFeature.State(hasPurchasedPremium: false)
             ) {
                 AppIconFeature()
             } withDependencies: {
@@ -121,11 +167,11 @@ struct AppIconSettingView: View {
     }
 }
 
-#Preview("Blue Selected") {
+#Preview("Premium User") {
     NavigationView {
         AppIconSettingView(
             store: Store(
-                initialState: AppIconFeature.State()
+                initialState: AppIconFeature.State(hasPurchasedPremium: true)
             ) {
                 AppIconFeature()
             } withDependencies: {
