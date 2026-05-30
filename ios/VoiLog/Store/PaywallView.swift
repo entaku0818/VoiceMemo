@@ -113,6 +113,14 @@ struct PaywallView: View {
                         systemImage: true
                     )
 
+                    // アイコンカスタマイズ機能
+                    featureRow(
+                        systemName: "app.badge",
+                        title: String(localized: "アイコンカスタマイズ", table: "Premium"),
+                        description: String(localized: "6色のカラーバリエーションからお気に入りのアイコンに変更できます！", table: "Premium"),
+                        systemImage: true
+                    )
+
                 }
                 .padding(.horizontal)
 
