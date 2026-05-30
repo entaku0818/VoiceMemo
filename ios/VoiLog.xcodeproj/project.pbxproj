@@ -677,6 +677,7 @@
 			baseConfigurationReferenceRelativePath = Prod.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon_Blue AppIcon_Red AppIcon_Green AppIcon_Purple AppIcon_Orange AppIcon_Pink";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiceMemo.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -731,6 +732,7 @@
 			baseConfigurationReferenceRelativePath = Prod.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon_Blue AppIcon_Red AppIcon_Green AppIcon_Purple AppIcon_Orange AppIcon_Pink";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = VoiLog/VoiLogRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
