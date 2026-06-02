@@ -1,12 +1,4 @@
-Version 1.9.0
-
-[New Features]
-- Added app icon customization (Premium)
-  Choose from 6 colors: Blue, Red, Green, Purple, Orange, and Pink
+Version 1.9.1
 
 [Improvements]
-- Improved translations to 100% across all supported languages
-- Added icon customization to Premium benefits on the Paywall screen
-
-[Bug Fixes]
-- Fixed a mistranslation where the "Restore Purchases" button appeared as "Create" in some languages
+- Stability and performance improvements

@@ -1,1 +1,4 @@
+Versie 1.9.1
 
+[Verbeteringen]
+· Verbeteringen in stabiliteit en prestaties

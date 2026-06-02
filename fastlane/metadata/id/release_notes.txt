@@ -1,1 +1,4 @@
+Versi 1.9.1
 
+[Peningkatan]
+· Peningkatan stabilitas dan performa

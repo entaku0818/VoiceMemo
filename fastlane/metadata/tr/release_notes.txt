@@ -1,1 +1,4 @@
+Sürüm 1.9.1
 
+[İyileştirmeler]
+· Kararlılık ve performans iyileştirmeleri

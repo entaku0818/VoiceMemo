@@ -1,1 +1,4 @@
+Versión 1.9.1
 
+[Mejoras]
+· Mejoras de estabilidad y rendimiento

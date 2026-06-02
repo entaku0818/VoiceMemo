@@ -1,1 +1,4 @@
+Phiên bản 1.9.1
 
+[Cải tiến]
+· Cải thiện độ ổn định và hiệu suất

@@ -1,1 +1,4 @@
+Wersja 1.9.1
 
+[Ulepszenia]
+· Ulepszenia stabilności i wydajności

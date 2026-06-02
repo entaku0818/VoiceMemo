@@ -49,8 +49,8 @@ struct SplashView: View {
             return
         }
 
-        // 5回に1回広告表示
-        let shouldShowAd = appUsageCount > 0 && appUsageCount % 5 == 0
+        // 3回に1回広告表示
+        let shouldShowAd = appUsageCount > 0 && appUsageCount % 3 == 0
 
         if shouldShowAd {
             loadAndShowAd()
