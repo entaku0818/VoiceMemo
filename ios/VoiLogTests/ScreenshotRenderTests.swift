@@ -139,11 +139,37 @@ final class ScreenshotRenderTests: XCTestCase {
         }
     }
 
-    private func renderAndSave<V: View>(view: V, filename: String) throws {
-        // iPhone 15 Plus: 430x932 logical pts @ 3x = 1290x2796px
-        let renderer = ImageRenderer(content: view.frame(width: 430, height: 932))
-        renderer.proposedSize = ProposedViewSize(width: 430, height: 932)
-        renderer.scale = 3.0
+    // MARK: - iPad Screenshots
+
+    func testRenderIPadScreenshots() throws {
+        let screens: [(ScreenshotScreen, String)] = [
+            (.aiRecording,              "00_airecording"),
+            (.useCase,                  "02_usecase"),
+            (.backgroundRecording,      "04_backgroundrecording"),
+            (.timestampedTranscription, "06_transcription"),
+            (.waveformEditor,           "03_waveformeditor"),
+            (.playlist,                 "05_playlist"),
+            (.playbackList,             "01_playbacklist"),
+        ]
+        for (language, code) in languages {
+            for (screen, index) in screens {
+                let view = ScreenshotPageView(
+                    caption: language.screenshotCaption(for: screen),
+                    subtitle: language.screenshotSubtitle(for: screen),
+                    screen: screen,
+                    language: language
+                ) {
+                    PhoneFrameView { MockAIRecordingView(language: language) }
+                }
+                try renderAndSave(view: view, filename: "\(code)_ipad_\(index).png", width: 1024, height: 1366, scale: 2.0)
+            }
+        }
+    }
+
+    private func renderAndSave<V: View>(view: V, filename: String, width: CGFloat = 430, height: CGFloat = 932, scale: CGFloat = 3.0) throws {
+        let renderer = ImageRenderer(content: view.frame(width: width, height: height))
+        renderer.proposedSize = ProposedViewSize(width: width, height: height)
+        renderer.scale = scale
 
         guard let uiImage = renderer.uiImage,
               let pngData = uiImage.pngData() else {
@@ -153,6 +179,11 @@ final class ScreenshotRenderTests: XCTestCase {
 
         let fileURL = outputDir.appendingPathComponent(filename)
         try pngData.write(to: fileURL)
-        print("✓ \(filename): \(uiImage.size.width * 3)x\(uiImage.size.height * 3)px → \(fileURL.path)")
+        print("✓ \(filename): \(uiImage.size.width * scale)x\(uiImage.size.height * scale)px → \(fileURL.path)")
+    }
+
+    private func renderAndSave<V: View>(view: V, filename: String) throws {
+        // iPhone 16 Pro Max: 440x956 logical pts @ 3x = 1320x2868px (APP_IPHONE_69)
+        try renderAndSave(view: view, filename: filename, width: 440, height: 956, scale: 3.0)
     }
 }
