@@ -115,7 +115,7 @@ final class TranscriptionFeatureTests: XCTestCase {
 
         await store.send(.startTapped) { $0.status = .uploading }
         await store.receive(\._failed) {
-            $0.status = .failed("サーバーエラーが発生しました。再試行してください。")
+            $0.status = .failed("A server error occurred. Please try again.")
         }
     }
 
@@ -129,7 +129,7 @@ final class TranscriptionFeatureTests: XCTestCase {
         await store.send(.startTapped) { $0.status = .uploading }
         await store.receive(\._uploadCompleted) { $0.status = .transcribing }
         await store.receive(\._failed) {
-            $0.status = .failed("音声ファイルのアップロードに失敗しました。ネットワークを確認してください。")
+            $0.status = .failed("Failed to upload audio file. Please check your network.")
         }
     }
 
@@ -143,7 +143,7 @@ final class TranscriptionFeatureTests: XCTestCase {
         await store.send(.startTapped) { $0.status = .uploading }
         await store.receive(\._uploadCompleted) { $0.status = .transcribing }
         await store.receive(\._failed) {
-            $0.status = .failed("サーバーエラーが発生しました。再試行してください。")
+            $0.status = .failed("A server error occurred. Please try again.")
         }
     }
 
