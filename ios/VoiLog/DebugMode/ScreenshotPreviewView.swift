@@ -1458,6 +1458,68 @@ struct PhoneFrameView<Content: View>: View {
     }
 }
 
+// MARK: - iPad Frame View
+struct iPadFrameView<Content: View>: View {
+    @ViewBuilder let content: () -> Content
+
+    private let designWidth: CGFloat = 820
+    private let designHeight: CGFloat = 1180
+
+    var body: some View {
+        GeometryReader { geo in
+            let scale = geo.size.width / designWidth
+            let frameH = designHeight * scale
+
+            ZStack(alignment: .topLeading) {
+                RoundedRectangle(cornerRadius: 20 * scale)
+                    .fill(Color.white)
+                    .shadow(color: .black.opacity(0.12), radius: 12 * scale, y: 4 * scale)
+                    .frame(width: geo.size.width, height: frameH)
+
+                ZStack(alignment: .topLeading) {
+                    Color.white
+                    content()
+                        .preferredColorScheme(.light)
+                        .frame(width: designWidth, height: designHeight)
+                        .scaleEffect(scale, anchor: .topLeading)
+                }
+                .frame(width: geo.size.width, height: frameH, alignment: .topLeading)
+                .clipped()
+                .clipShape(RoundedRectangle(cornerRadius: 20 * scale))
+
+                RoundedRectangle(cornerRadius: 20 * scale)
+                    .stroke(Color(white: 0.75), lineWidth: 2)
+                    .frame(width: geo.size.width, height: frameH)
+
+                // Status bar
+                HStack {
+                    Text("20:53")
+                        .font(.system(size: 13 * scale, weight: .semibold))
+                    Spacer()
+                    HStack(spacing: 4 * scale) {
+                        Image(systemName: "wifi")
+                            .font(.system(size: 11 * scale))
+                        Image(systemName: "battery.100")
+                            .font(.system(size: 11 * scale))
+                    }
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 20 * scale)
+                .padding(.top, 10 * scale)
+                .frame(width: geo.size.width)
+
+                // Camera dot (top center)
+                Circle()
+                    .fill(Color.black)
+                    .frame(width: 10 * scale, height: 10 * scale)
+                    .offset(x: geo.size.width / 2 - 5 * scale, y: 8 * scale)
+            }
+            .frame(width: geo.size.width, height: frameH)
+        }
+        .aspectRatio(designWidth / designHeight, contentMode: .fit)
+    }
+}
+
 // MARK: - Mock Playback List View
 struct MockPlaybackListView: View {
     let language: AppLanguage

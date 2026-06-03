@@ -153,16 +153,34 @@ final class ScreenshotRenderTests: XCTestCase {
         ]
         for (language, code) in languages {
             for (screen, index) in screens {
-                let view = ScreenshotPageView(
-                    caption: language.screenshotCaption(for: screen),
-                    subtitle: language.screenshotSubtitle(for: screen),
-                    screen: screen,
-                    language: language
-                ) {
-                    PhoneFrameView { MockAIRecordingView(language: language) }
-                }
-                try renderAndSave(view: view, filename: "\(code)_ipad_\(index).png", width: 1024, height: 1366, scale: 2.0)
+                try renderIPadScreen(screen: screen, index: index, language: language, code: code)
             }
+        }
+    }
+
+    private func renderIPadScreen(screen: ScreenshotScreen, index: String, language: AppLanguage, code: String) throws {
+        func page<C: View>(@ViewBuilder content: () -> C) throws {
+            let view = ScreenshotPageView(
+                caption: language.screenshotCaption(for: screen),
+                subtitle: language.screenshotSubtitle(for: screen),
+                screen: screen,
+                language: language
+            ) {
+                // iPad: フレームなし、キャンバス全体にコンテンツを表示
+                content()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            try renderAndSave(view: view, filename: "\(code)_ipad_\(index).png", width: 1024, height: 1366, scale: 2.0)
+        }
+        switch screen {
+        case .aiRecording:              try page { iPadFrameView { MockAIRecordingView(language: language) } }
+        case .useCase:                  try page { iPadFrameView { MockUseCaseView(language: language) } }
+        case .backgroundRecording:      try page { iPadFrameView { MockBackgroundRecordingView(language: language) } }
+        case .timestampedTranscription: try page { iPadFrameView { MockTimestampedTranscriptionView(language: language) } }
+        case .waveformEditor:           try page { iPadFrameView { MockWaveformEditorView(language: language) } }
+        case .playlist:                 try page { iPadFrameView { MockPlaylistView(language: language) } }
+        case .playbackList:             try page { iPadFrameView { MockPlaybackListView(language: language) } }
+        default:                        try page { iPadFrameView { MockAIRecordingView(language: language) } }
         }
     }
 
