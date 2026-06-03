@@ -159,28 +159,27 @@ final class ScreenshotRenderTests: XCTestCase {
     }
 
     private func renderIPadScreen(screen: ScreenshotScreen, index: String, language: AppLanguage, code: String) throws {
-        func page<C: View>(@ViewBuilder content: () -> C) throws {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: screen),
-                subtitle: language.screenshotSubtitle(for: screen),
-                screen: screen,
-                language: language
-            ) {
-                // iPad: フレームなし、キャンバス全体にコンテンツを表示
-                content()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            try renderAndSave(view: view, filename: "\(code)_ipad_\(index).png", width: 1024, height: 1366, scale: 2.0)
-        }
+        let filename = "\(code)_ipad_\(index).png"
+        let caption = language.screenshotCaption(for: screen)
+        let subtitle = language.screenshotSubtitle(for: screen)
+
         switch screen {
-        case .aiRecording:              try page { iPadFrameView { MockAIRecordingView(language: language) } }
-        case .useCase:                  try page { iPadFrameView { MockUseCaseView(language: language) } }
-        case .backgroundRecording:      try page { iPadFrameView { MockBackgroundRecordingView(language: language) } }
-        case .timestampedTranscription: try page { iPadFrameView { MockTimestampedTranscriptionView(language: language) } }
-        case .waveformEditor:           try page { iPadFrameView { MockWaveformEditorView(language: language) } }
-        case .playlist:                 try page { iPadFrameView { MockPlaylistView(language: language) } }
-        case .playbackList:             try page { iPadFrameView { MockPlaybackListView(language: language) } }
-        default:                        try page { iPadFrameView { MockAIRecordingView(language: language) } }
+        case .aiRecording:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockAIRecordingView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
+        case .useCase:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockUseCaseView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
+        case .backgroundRecording:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockBackgroundRecordingView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
+        case .timestampedTranscription:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockTimestampedTranscriptionView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
+        case .waveformEditor:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockWaveformEditorView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
+        case .playlist:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockPlaylistView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
+        case .playbackList:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockPlaybackListView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
+        default:
+            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockAIRecordingView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
         }
     }
 

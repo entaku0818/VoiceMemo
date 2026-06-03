@@ -1459,7 +1459,7 @@ struct PhoneFrameView<Content: View>: View {
 }
 
 // MARK: - iPad Frame View
-struct iPadFrameView<Content: View>: View {
+struct IPadFrameView<Content: View>: View {
     @ViewBuilder let content: () -> Content
 
     private let designWidth: CGFloat = 820
