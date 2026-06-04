@@ -249,6 +249,34 @@ final class AppIconFeatureTests: XCTestCase {
         XCTAssertEqual(capturedIconName, "AppIcon_Green")
     }
 
+    // MARK: - PurchaseManager Dependency Tests
+
+    /// Issue #144: AppIconSettingView が `PurchaseManager.shared` を直接参照する代わりに
+    /// TCA Dependency 経由で課金処理を取得できる（=モック化できる）ことを検証する。
+    func test_purchaseManagerDependency_canBeOverriddenWithMock() {
+        let mock = MockPurchaseManager(productName: "Test Plan", productPrice: "¥980")
+        withDependencies {
+            $0.purchaseManager = mock
+        } operation: {
+            @Dependency(\.purchaseManager) var purchaseManager
+            XCTAssertTrue(
+                purchaseManager is MockPurchaseManager,
+                "テスト/Preview ではモックに差し替えられる必要がある"
+            )
+        }
+    }
+
+    /// テストコンテキストでは既定値（testValue = MockPurchaseManager）が解決され、
+    /// 本物の `PurchaseManager.shared` が初期化されないことを検証する。
+    func test_purchaseManagerDependency_defaultsToMockInTestContext() {
+        withDependencies { _ in
+            // 既定値を上書きせず testValue を解決させる
+        } operation: {
+            @Dependency(\.purchaseManager) var purchaseManager
+            XCTAssertTrue(purchaseManager is MockPurchaseManager)
+        }
+    }
+
     // MARK: - AppIcon Enum Tests
 
     func test_appIcon_isPremiumReturnsFalseForDefault() {

@@ -1,6 +1,7 @@
 import StoreKit
 import RevenueCat
 import os.log
+import Dependencies
 
 protocol PurchaseManagerProtocol {
     func fetchProPlan() async throws -> (name: String, price: String)
@@ -146,6 +147,23 @@ class PurchaseManager: PurchaseManagerProtocol {
         }
 
         os_log("=== One Time Purchase End ===", log: logger, type: .debug)
+    }
+}
+
+// MARK: - PurchaseManager Dependency
+
+private enum PurchaseManagerKey: DependencyKey {
+    static let liveValue: PurchaseManagerProtocol = PurchaseManager.shared
+    static let previewValue: PurchaseManagerProtocol = MockPurchaseManager()
+    static let testValue: PurchaseManagerProtocol = MockPurchaseManager()
+}
+
+extension DependencyValues {
+    /// 課金処理（RevenueCat ラッパー）への依存。
+    /// View / Reducer から `PurchaseManager.shared` を直接参照せず、これ経由で注入する。
+    var purchaseManager: PurchaseManagerProtocol {
+        get { self[PurchaseManagerKey.self] }
+        set { self[PurchaseManagerKey.self] = newValue }
     }
 }
 
