@@ -81,6 +81,15 @@ struct VoiceMemoApp: App {
 
     private let backgroundTaskManager = BackgroundTaskManager()
 
+    /// ユニットテスト（XCTest）実行中かどうか。
+    /// テストホストは VoiLog.app 本体のため、テスト時にアプリ UI を描画すると
+    /// `@Perception.Bindable` を使うビューが `WithPerceptionTracking` 外で
+    /// 評価され、`PerceptionRegistrar` 警告が非同期テストに紐づいて間欠失敗する (#147)。
+    /// テスト時は UI を描画しないことでこのフレークを防ぐ。
+    private var isRunningUnitTests: Bool {
+        ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
+
     init() {
         let environmentConfig = loadEnvironmentVariables()
         self.admobUnitId = environmentConfig.admobKey
@@ -101,7 +110,10 @@ struct VoiceMemoApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if showSplash {
+            if isRunningUnitTests {
+                // ユニットテスト時はアプリ UI を描画しない（#147 のフレーク対策）
+                EmptyView()
+            } else if showSplash {
                 SplashView {
                     withAnimation {
                         showSplash = false
