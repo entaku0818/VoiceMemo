@@ -13,6 +13,10 @@ import ComposableArchitecture
 struct AppIconSettingView: View {
     @Perception.Bindable var store: StoreOf<AppIconFeature>
 
+    /// 課金処理は Singleton を直接参照せず TCA Dependency 経由で注入する。
+    /// テスト・Preview では `previewValue` / `testValue`（MockPurchaseManager）が解決される。
+    @Dependency(\.purchaseManager) var purchaseManager
+
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -32,7 +36,7 @@ struct AppIconSettingView: View {
 
             if !store.hasPurchasedPremium {
                 Section {
-                    NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
+                    NavigationLink(destination: PaywallView(purchaseManager: purchaseManager)) {
                         HStack(spacing: 12) {
                             Image(systemName: "crown.fill")
                                 .foregroundStyle(.yellow)
