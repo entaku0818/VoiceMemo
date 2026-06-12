@@ -1,0 +1,62 @@
+name: Backend CI
+
+on:
+  pull_request:
+    paths:
+      - 'functions/**'
+      - 'server/**'
+      - '.github/workflows/backend-ci.yml'
+
+jobs:
+  functions:
+    name: Firebase Functions (lint & build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: functions/package-lock.json
+
+      - name: Install dependencies
+        working-directory: functions
+        run: npm ci
+
+      - name: Run ESLint
+        working-directory: functions
+        run: npm run lint
+
+      - name: Build (tsc)
+        working-directory: functions
+        run: npm run build
+
+  transcription-server:
+    name: Transcription Server (build & vet)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: server/transcription/go.mod
+          cache-dependency-path: server/transcription/go.sum
+
+      - name: Build
+        working-directory: server/transcription
+        run: go build ./...
+
+      - name: Vet
+        working-directory: server/transcription
+        run: go vet ./...
+
+      - name: Test
+        working-directory: server/transcription
+        run: go test ./...
