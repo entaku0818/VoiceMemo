@@ -22,6 +22,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x android/simpleRecord/gradlew
 
+      - name: Run lint
+        working-directory: android/simpleRecord
+        run: ./gradlew lintDebug
+
       - name: Run unit tests
         working-directory: android/simpleRecord
         run: ./gradlew test
@@ -32,3 +36,10 @@ jobs:
         with:
           name: test-results
           path: android/simpleRecord/app/build/reports/tests/
+
+      - name: Upload lint results
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: lint-results
+          path: android/simpleRecord/app/build/reports/lint-results-debug.html
