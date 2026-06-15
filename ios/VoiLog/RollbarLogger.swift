@@ -7,7 +7,6 @@
 
 import Foundation
 import FirebaseCrashlytics
-import RollbarNotifier
 
 class RollbarLogger {
     static let shared = RollbarLogger()
@@ -16,20 +15,17 @@ class RollbarLogger {
 
     func initialize(with accessToken: String) {
         Crashlytics.crashlytics().setCustomValue(UUID().uuidString, forKey: "UUID")
-        let config = RollbarConfig.mutableConfig(withAccessToken: accessToken)
-        Rollbar.initWithConfiguration(config)
     }
 
     func logError(_ message: String) {
         Crashlytics.crashlytics().log("Error: \(message)")
-        Rollbar.errorMessage(message)
     }
 
     func logInfo(_ message: String, context: String) {
-        Rollbar.infoMessage(message, data: nil, context: context)
+        Crashlytics.crashlytics().log("\(context): \(message)")
     }
 
     func logInfo(_ message: String) {
-        Rollbar.infoMessage(message)
+        Crashlytics.crashlytics().log(message)
     }
 }

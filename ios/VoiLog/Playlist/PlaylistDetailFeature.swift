@@ -384,7 +384,7 @@ struct PlaylistDetailFeature {
             // 音声再生開始
             async let playback: Void = {
                 do {
-                    _ = try await audioPlayer.play(url, 0, .normal, false)
+                    _ = try await audioPlayer.play(url, 0, .normal, false, 1.0)
                     await send(.playbackFinished)
                 } catch {
                     await send(.playbackFinished)

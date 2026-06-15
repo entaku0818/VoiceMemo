@@ -61,6 +61,9 @@ struct PlaybackFeature {
     var hasPurchasedPremium = false
     var showPaywall = false
 
+    // Volume boost (1.0 = no boost, up to 3.0)
+    var volumeBoost: Float = UserDefaultsManager.shared.playbackVolumeBoost
+
   }
 
   struct VoiceMemo: Identifiable, Equatable {
@@ -191,6 +194,9 @@ struct PlaybackFeature {
       case clearABLoop
 
       case toggleRepeatOne
+
+      case volumeBoostChanged(Float)
+      case volumeBoostApplied
     }
 
     enum DelegateAction: Equatable {
@@ -242,7 +248,7 @@ struct PlaybackFeature {
             state.abLoopEnd = nil
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
-              return startPlayback(url: memo.url, playSpeed: state.playSpeed)
+              return startPlayback(url: memo.url, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
             }
           }
           return .none
@@ -262,7 +268,7 @@ struct PlaybackFeature {
               // 停止中の場合は再生開始
               state.playbackState = .playing
               if let memo = state.voiceMemos.first(where: { $0.id == id }) {
-                return startPlayback(url: memo.url, playSpeed: state.playSpeed)
+                return startPlayback(url: memo.url, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
               }
             }
           } else {
@@ -274,7 +280,7 @@ struct PlaybackFeature {
             state.abLoopEnd = nil
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
-              return startPlayback(url: memo.url, playSpeed: state.playSpeed)
+              return startPlayback(url: memo.url, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
             }
           }
           return .none
@@ -295,7 +301,7 @@ struct PlaybackFeature {
           // 既存のAudioPlayerClientにはseekメソッドがないため、
           // 現在の再生を停止して新しい位置から再生を開始
           if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
-            return startPlayback(url: memo.url, startTime: time, playSpeed: state.playSpeed)
+            return startPlayback(url: memo.url, startTime: time, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
           }
           return .none
 
@@ -562,7 +568,7 @@ struct PlaybackFeature {
           guard state.playbackState == .playing,
                 let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo })
           else { return .none }
-          return startPlayback(url: memo.url, startTime: state.currentTime, playSpeed: state.playSpeed)
+          return startPlayback(url: memo.url, startTime: state.currentTime, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
 
         case .setABPointA:
           state.abLoopStart = state.currentTime
@@ -588,6 +594,17 @@ struct PlaybackFeature {
         case .toggleRepeatOne:
           state.isRepeatOne.toggle()
           return .none
+
+        case let .volumeBoostChanged(boost):
+          state.volumeBoost = boost
+          UserDefaultsManager.shared.playbackVolumeBoost = boost
+          return .none
+
+        case .volumeBoostApplied:
+          guard state.playbackState == .playing,
+                let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo })
+          else { return .none }
+          return startPlayback(url: memo.url, startTime: state.currentTime, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
         }
 
       case let .memosLoaded(memos):
@@ -614,7 +631,7 @@ struct PlaybackFeature {
            let loopEnd = state.abLoopEnd,
            time >= loopEnd,
            let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
-          return startPlayback(url: memo.url, startTime: loopStart, playSpeed: state.playSpeed)
+          return startPlayback(url: memo.url, startTime: loopStart, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
         }
         return .none
 
@@ -626,7 +643,7 @@ struct PlaybackFeature {
 
       case .audioPlayerDidFinish:
         if state.isRepeatOne, let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
-          return startPlayback(url: memo.url, startTime: 0, playSpeed: state.playSpeed)
+          return startPlayback(url: memo.url, startTime: 0, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
         }
         return .send(.playbackFinished)
 
@@ -692,14 +709,12 @@ struct PlaybackFeature {
     }
   }
 
-  private func startPlayback(url: URL, startTime: TimeInterval = 0, playSpeed: AudioPlayerClient.PlaybackSpeed = .normal) -> Effect<Action> {
+  private func startPlayback(url: URL, startTime: TimeInterval = 0, playSpeed: AudioPlayerClient.PlaybackSpeed = .normal, volumeBoost: Float = 1.0) -> Effect<Action> {
     .run { send in
       // 音声再生開始
       async let playback: Void = {
         do {
-          // AudioPlayerClientのplayメソッドのシグネチャに合わせる
-          // play(URL, startTime: Double, speed: PlaybackSpeed, isLooping: Bool)
-          _ = try await audioPlayer.play(url, startTime, playSpeed, false)
+          _ = try await audioPlayer.play(url, startTime, playSpeed, false, volumeBoost)
           await send(.audioPlayerDidFinish)
         } catch {
           await send(.playbackFinished)
@@ -726,7 +741,7 @@ struct PlaybackFeature {
 }
 
 struct PlaybackView: View {
-  @Perception.Bindable var store: StoreOf<PlaybackFeature>
+  @SwiftUI.Bindable var store: StoreOf<PlaybackFeature>
   @Environment(\.verticalSizeClass) var verticalSizeClass
 
   private func send(_ action: PlaybackFeature.Action.View) {
@@ -1214,6 +1229,31 @@ struct PlaybackView: View {
                   .foregroundColor(.accentColor)
               }
             }
+
+            HStack(spacing: 8) {
+              Image(systemName: "speaker.fill")
+                .font(.caption)
+                .foregroundColor(.secondary)
+              Slider(
+                value: Binding(
+                  get: { Double(store.volumeBoost) },
+                  set: { send(.volumeBoostChanged(Float($0))) }
+                ),
+                in: 1.0...3.0
+              ) { editing in
+                if !editing {
+                  send(.volumeBoostApplied)
+                }
+              }
+              Image(systemName: "speaker.wave.3.fill")
+                .font(.caption)
+                .foregroundColor(.secondary)
+              Text(String(format: "%.1fx", store.volumeBoost))
+                .font(.caption2)
+                .monospacedDigit()
+                .frame(width: 32)
+            }
+            .padding(.horizontal)
           }
           .padding()
         }

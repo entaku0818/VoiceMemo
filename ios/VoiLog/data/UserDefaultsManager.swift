@@ -157,4 +157,14 @@ class UserDefaultsManager {
         get { defaults.object(forKey: "TranscriptionEnabled") as? Bool ?? true }
         set { defaults.set(newValue, forKey: "TranscriptionEnabled") }
     }
+
+    var playbackVolumeBoost: Float {
+        get {
+            let value = defaults.float(forKey: "PlaybackVolumeBoost")
+            return value < 1.0 ? 1.0 : value
+        }
+        set {
+            defaults.set(newValue, forKey: "PlaybackVolumeBoost")
+        }
+    }
 }

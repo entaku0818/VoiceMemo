@@ -273,7 +273,7 @@ struct TranscriptionFeature {
 // MARK: - View
 
 struct TranscriptionView: View {
-    @Perception.Bindable var store: StoreOf<TranscriptionFeature>
+    @SwiftUI.Bindable var store: StoreOf<TranscriptionFeature>
     var onSaved: ((String) -> Void)?
     var onDismiss: (() -> Void)?
 

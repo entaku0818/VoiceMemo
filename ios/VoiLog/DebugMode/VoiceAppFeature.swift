@@ -370,7 +370,7 @@ struct VoiceAppFeature {
 }
 
 struct VoiceAppView: View {
-  @Perception.Bindable var store: StoreOf<VoiceAppFeature>
+  @SwiftUI.Bindable var store: StoreOf<VoiceAppFeature>
   let recordAdmobUnitId: String
   let playListAdmobUnitId: String
   let admobUnitId: String

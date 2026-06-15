@@ -151,7 +151,6 @@ struct RecordingMemo: Reducer {
                     await send(.finalRecordingTime(currentTime))
                 }
                 await self.audioRecorder.stopRecording()
-                RollbarLogger.shared.logInfo("record stop")
             }
 
         case .togglePauseResume:
@@ -159,13 +158,11 @@ struct RecordingMemo: Reducer {
                 state.mode = .recording
                 return .run { _ in
                     await self.audioRecorder.resumeRecording()
-                    RollbarLogger.shared.logInfo("record resumed")
                 }
             } else {
                 state.mode = .pause
                 return .run { _ in
                     await self.audioRecorder.pauseRecording()
-                    RollbarLogger.shared.logInfo("record paused")
                 }
             }
 
@@ -177,7 +174,6 @@ struct RecordingMemo: Reducer {
                         TaskResult { try await audioRecorder.startRecording(url) }
                     )
                 )
-                RollbarLogger.shared.logInfo("record start")
 
                 // Timer for other periodic updates
                 async let generalUpdates: Void = {

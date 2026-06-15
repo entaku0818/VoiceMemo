@@ -509,7 +509,7 @@ struct EnhancedPlaylistFeature {
                 // Start playback
                 group.addTask {
                     do {
-                        _ = try await audioPlayer.play(memo.url, startTime, .normal, false)
+                        _ = try await audioPlayer.play(memo.url, startTime, .normal, false, 1.0)
                         await send(.playbackFinished)
                     } catch {
                         await send(.playbackFailed(error))

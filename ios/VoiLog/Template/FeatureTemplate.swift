@@ -90,7 +90,7 @@ struct FeatureReducer {
 }
 
 struct FeatureView: View {
-  @Perception.Bindable var store: StoreOf<FeatureReducer>
+  @SwiftUI.Bindable var store: StoreOf<FeatureReducer>
 
   private func send(_ action: FeatureReducer.Action.View) {
     store.send(.view(action))

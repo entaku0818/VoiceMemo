@@ -12,7 +12,7 @@ import ComposableArchitecture
 // MARK: - PlaylistNameSection
 struct PlaylistNameSection: View {
     let name: String
-    @Perception.Bindable var store: StoreOf<PlaylistDetailFeature>
+    @SwiftUI.Bindable var store: StoreOf<PlaylistDetailFeature>
 
     var body: some View {
         Section {
@@ -256,7 +256,7 @@ struct CurrentPlayingSection: View {
 
 // MARK: - PlaylistDetailView
 struct PlaylistDetailView: View {
-    @Perception.Bindable var store: StoreOf<PlaylistDetailFeature>
+    @SwiftUI.Bindable var store: StoreOf<PlaylistDetailFeature>
     var admobUnitId: String
 
     private func send(_ action: PlaylistDetailFeature.Action.View) {

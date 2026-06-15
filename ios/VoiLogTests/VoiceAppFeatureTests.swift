@@ -22,7 +22,7 @@ final class VoiceAppFeatureTests: XCTestCase {
                 VoiceAppFeature()
             } withDependencies: {
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -51,7 +51,7 @@ final class VoiceAppFeatureTests: XCTestCase {
                 VoiceAppFeature()
             } withDependencies: {
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -77,7 +77,7 @@ final class VoiceAppFeatureTests: XCTestCase {
                 VoiceAppFeature()
             } withDependencies: {
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -113,7 +113,7 @@ final class VoiceAppFeatureTests: XCTestCase {
                 VoiceAppFeature()
             } withDependencies: {
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )

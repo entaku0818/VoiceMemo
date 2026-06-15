@@ -13,7 +13,7 @@ import XCTestDynamicOverlay
 import os.log
 
 struct AudioPlayerClient {
-    var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed, Bool) async throws -> Bool
+    var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed, Bool, Float) async throws -> Bool
     var stop: @Sendable () async throws -> Bool
     var getCurrentTime: @Sendable () async throws -> TimeInterval
 }
@@ -28,7 +28,7 @@ extension AudioPlayerClient {
 
 extension AudioPlayerClient: TestDependencyKey {
     static let previewValue = Self(
-        play: { _, _, _, _ in
+        play: { _, _, _, _, _ in
             try await Task.sleep(nanoseconds: NSEC_PER_SEC * 5)
             return true
         },
@@ -58,8 +58,8 @@ extension AudioPlayerClient: DependencyKey {
     static var liveValue: Self {
         let audioPlayer = AudioPlayer()
         return Self(
-            play: { url, startTime, playSpeed, isLooping in
-                try await audioPlayer.play(url: url, startTime: startTime, rate: playSpeed, isLooping: isLooping)
+            play: { url, startTime, playSpeed, isLooping, volume in
+                try await audioPlayer.play(url: url, startTime: startTime, rate: playSpeed, isLooping: isLooping, volume: volume)
             },
             stop: {
                 await audioPlayer.stop()
@@ -75,7 +75,7 @@ private actor AudioPlayer {
     var player: AVAudioPlayer?
     var delegate: Delegate?
 
-    func play(url: URL, startTime: Double, rate: AudioPlayerClient.PlaybackSpeed, isLooping: Bool) async throws -> Bool {
+    func play(url: URL, startTime: Double, rate: AudioPlayerClient.PlaybackSpeed, isLooping: Bool, volume: Float) async throws -> Bool {
 
         // ファイルの存在チェック
         let documentsPath = NSHomeDirectory() + "/Documents/" + url.lastPathComponent
@@ -103,6 +103,7 @@ private actor AudioPlayer {
                 player.currentTime = startTime
                 player.enableRate = true
                 player.rate = rate.rawValue
+                player.volume = volume
                 player.numberOfLoops = isLooping ? -1 : 0
 
                 player.play()

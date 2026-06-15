@@ -241,7 +241,7 @@ struct AudioEditorReducer: Reducer {
                 return .run { [url = state.audioURL, time = state.currentPlaybackTime] send in
                     let playTask = Task {
                         do {
-                            try await audioPlayer.play(url, time, .normal, false)
+                            try await audioPlayer.play(url, time, .normal, false, 1.0)
                             await send(.playPause) // 再生終了時に停止状態に
                         } catch {
                             // エラーメッセージをアクションを通して更新
@@ -276,7 +276,7 @@ struct AudioEditorReducer: Reducer {
                 // 再生中なら、新しい位置から再生を再開
                 return .run { [url = state.audioURL, position] _ in
                     try? await audioPlayer.stop()
-                    try? await audioPlayer.play(url, position, .normal, false)
+                    try? await audioPlayer.play(url, position, .normal, false, 1.0)
                 }
                 .cancellable(id: CancelID.playback, cancelInFlight: true)
             }

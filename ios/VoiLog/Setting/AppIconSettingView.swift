@@ -11,7 +11,7 @@ import ComposableArchitecture
 // MARK: - AppIconSettingView
 
 struct AppIconSettingView: View {
-    @Perception.Bindable var store: StoreOf<AppIconFeature>
+    @SwiftUI.Bindable var store: StoreOf<AppIconFeature>
 
     /// 課金処理は Singleton を直接参照せず TCA Dependency 経由で注入する。
     /// テスト・Preview では `previewValue` / `testValue`（MockPurchaseManager）が解決される。

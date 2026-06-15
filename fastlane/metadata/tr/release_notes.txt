@@ -1,4 +1,5 @@
-Sürüm 1.9.1
+Sürüm 1.10.0
 
 [İyileştirmeler]
+· iOS 26 ile uyumluluk iyileştirildi
 · Kararlılık ve performans iyileştirmeleri

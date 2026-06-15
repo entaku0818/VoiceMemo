@@ -1,4 +1,5 @@
-Versión 1.9.1
+Versión 1.10.0
 
 [Mejoras]
+· Compatibilidad mejorada con iOS 26
 · Mejoras de estabilidad y rendimiento

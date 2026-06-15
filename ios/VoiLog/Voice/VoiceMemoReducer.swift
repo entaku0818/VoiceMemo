@@ -56,7 +56,7 @@ struct VoiceMemoReducer: Reducer {
             }
 
             do {
-                let didComplete = try await audioPlayer.play(url, time, playSpeed, isLoop)
+                let didComplete = try await audioPlayer.play(url, time, playSpeed, isLoop, 1.0)
 
                 // Cancel the timer task when playback completes
                 timerTask.cancel()

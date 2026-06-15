@@ -71,7 +71,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -93,7 +93,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -126,7 +126,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -154,7 +154,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -185,7 +185,7 @@ final class PlaybackFeatureTests: XCTestCase {
             $0.voiceMemoRepository = mockRepository()
             $0.continuousClock = NeverClock()
             $0.audioPlayer = AudioPlayerClient(
-                play: { _, startTime, _, _ in
+                play: { _, startTime, _, _, _ in
                     playStartTimes.withValue { $0.append(startTime) }
                     playSignalCont.yield(startTime)
                     // Blocks until task cancellation; throws CancellationError so
@@ -239,7 +239,7 @@ final class PlaybackFeatureTests: XCTestCase {
                     checkForDifferences: { false }
                 )
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -271,7 +271,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -301,7 +301,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -329,7 +329,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true },
+                    play: { _, _, _, _, _ in true },
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
@@ -365,7 +365,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                    play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
                 )
                 $0.rewardedAdClient = RewardedAdClient(
                     preload: { },
@@ -393,7 +393,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                    play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
                 )
                 $0.rewardedAdClient = RewardedAdClient(
                     preload: { },
@@ -424,7 +424,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                    play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
                 )
                 $0.rewardedAdClient = RewardedAdClient(
                     preload: { },
@@ -451,7 +451,7 @@ final class PlaybackFeatureTests: XCTestCase {
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
                 $0.audioPlayer = AudioPlayerClient(
-                    play: { _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                    play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
                 )
                 $0.rewardedAdClient = .testValue
             }
@@ -462,6 +462,58 @@ final class PlaybackFeatureTests: XCTestCase {
             }
             // delegate(.showPaywall) はここで dispatch されるが Action が Equatable 非準拠のため
             // exhaustivity = .off で skip（VoiceAppFeature 側でペイウォール制御をテスト済み）
+        }
+    }
+
+    // MARK: - volumeBoostChanged: state更新 + UserDefaults永続化
+
+    func testVolumeBoostChanged_updatesStateAndPersists() async {
+        await withMainSerialExecutor {
+            let store = TestStore(initialState: PlaybackFeature.State()) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.volumeBoostChanged(2.0))) {
+                $0.volumeBoost = 2.0
+            }
+
+            XCTAssertEqual(UserDefaultsManager.shared.playbackVolumeBoost, 2.0)
+
+            // cleanup
+            UserDefaultsManager.shared.playbackVolumeBoost = 1.0
+        }
+    }
+
+    // MARK: - volumeBoostApplied: 再生中ならstartPlaybackを呼ぶ
+
+    func testVolumeBoostApplied_whenNotPlaying_doesNothing() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.playbackState = .idle
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in
+                        XCTFail("play should not be called when not playing")
+                        return true
+                    },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+
+            await store.send(.view(.volumeBoostApplied))
         }
     }
 }

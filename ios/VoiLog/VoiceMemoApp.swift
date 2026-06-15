@@ -10,7 +10,6 @@ import ComposableArchitecture
 import FirebaseCore
 import GoogleMobileAds
 import FirebaseCrashlytics
-import RollbarNotifier
 import RevenueCat
 import UIKit
 import Firebase
@@ -32,12 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
         // AdMob初期化を遅延実行（UIが表示された後）
+        #if !DEBUG
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             MobileAds.shared.start { _ in
                 // 広告初期化完了後にインタースティシャル広告をプリロード
                 AppOpenAdManager.shared.preloadAd()
             }
         }
+        #endif
 
         // 通知許可リクエストを遅延
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -96,9 +97,6 @@ struct VoiceMemoApp: App {
         self.recordAdmobUnitId = environmentConfig.recordAdmobKey
         self.playListAdmobUnitId = environmentConfig.playListAdmobKey
 
-        // Rollbarは軽量なので同期で初期化
-        RollbarLogger.shared.initialize(with: environmentConfig.rollbarKey)
-
         // RevenueCatを遅延初期化（StoreKit 2が重いため）
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
@@ -151,8 +149,7 @@ struct VoiceMemoApp: App {
 
 extension VoiceMemoApp {
     func loadEnvironmentVariables() -> EnvironmentConfig {
-        guard let rollbarKey = Bundle.main.object(forInfoDictionaryKey: "ROLLBAR_KEY") as? String,
-              let admobKey = Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String,
+        guard let admobKey = Bundle.main.object(forInfoDictionaryKey: "ADMOB_KEY") as? String,
               let recordAdmobKey = Bundle.main.object(forInfoDictionaryKey: "RECORD_ADMOB_KEY") as? String,
               let revenueCatKey = Bundle.main.object(forInfoDictionaryKey: "REVENUECAT_KEY") as? String,
               let playListAdmobKey = Bundle.main.object(forInfoDictionaryKey: "PLAYLIST_ADMOB_KEY") as? String
@@ -161,7 +158,6 @@ extension VoiceMemoApp {
         }
 
         return EnvironmentConfig(
-            rollbarKey: rollbarKey,
             admobKey: admobKey,
             recordAdmobKey: recordAdmobKey,
             revenueCatKey: revenueCatKey,
@@ -170,7 +166,6 @@ extension VoiceMemoApp {
     }
 
     struct EnvironmentConfig {
-        let rollbarKey: String
         let admobKey: String
         let recordAdmobKey: String
         let revenueCatKey: String

@@ -179,7 +179,7 @@ enum UserDefaultsKeys {
 
 // MARK: - Tutorial Overlay View
 struct TutorialOverlayView: View {
-  @Perception.Bindable var store: StoreOf<TutorialFeature>
+  @SwiftUI.Bindable var store: StoreOf<TutorialFeature>
 
   private func send(_ action: TutorialFeature.Action.View) {
     store.send(.view(action))

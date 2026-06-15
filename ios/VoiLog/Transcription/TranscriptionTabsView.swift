@@ -128,7 +128,7 @@ struct TranscriptionTabsView: View {
 // MARK: - AI tab (inline, no modal)
 
 struct AITranscriptionTab: View {
-    @Perception.Bindable var store: StoreOf<TranscriptionFeature>
+    @SwiftUI.Bindable var store: StoreOf<TranscriptionFeature>
     var onSaved: ((String) -> Void)?
 
     var body: some View {

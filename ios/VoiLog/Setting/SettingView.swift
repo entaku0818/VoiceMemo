@@ -186,7 +186,7 @@ struct SettingReducer {
 // MARK: - SettingView
 
 struct SettingView: View {
-    @Perception.Bindable var store: StoreOf<SettingReducer>
+    @SwiftUI.Bindable var store: StoreOf<SettingReducer>
     @Environment(\.colorScheme) var colorScheme
     let admobUnitId: String
 
@@ -312,6 +312,16 @@ struct SettingView: View {
 
             NavigationLink(destination: AboutSimpleRecoder()) {
                 Text(String(localized: "アプリについて", table: "Settings"))
+            }
+
+            NavigationLink(destination: FAQScreen()) {
+                HStack {
+                    Text(String(localized: "よくある質問", table: "Settings"))
+                        .foregroundColor(Color("Black"))
+                    Spacer()
+                    Image(systemName: "questionmark.circle")
+                        .foregroundColor(.blue)
+                }
             }
 
             NavigationLink(

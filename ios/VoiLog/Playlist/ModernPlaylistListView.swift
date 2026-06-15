@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ModernPlaylistListView: View {
-    @Perception.Bindable var store: StoreOf<PlaylistListFeature>
+    @SwiftUI.Bindable var store: StoreOf<PlaylistListFeature>
 
     var body: some View {
         VStack {
@@ -131,7 +131,7 @@ struct PlaylistRowView: View {
 }
 
 struct CreatePlaylistSheet: View {
-    @Perception.Bindable var store: StoreOf<PlaylistListFeature>
+    @SwiftUI.Bindable var store: StoreOf<PlaylistListFeature>
 
     var body: some View {
         NavigationStack {

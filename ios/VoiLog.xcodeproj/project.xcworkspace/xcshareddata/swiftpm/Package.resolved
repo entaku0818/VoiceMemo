@@ -1,303 +1,276 @@
 {
-  "originHash" : "464f5c0563240c78aa398abafd7a704bc894acf4abf4c55ec5573d96abf3ab60",
-  "pins" : [
+  "originHash": "06bb3d80584303a293638668de84f40046b8ddac3d939a7e74c26aa4b50903cc",
+  "pins": [
     {
-      "identity" : "abseil-cpp-binary",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/abseil-cpp-binary.git",
-      "state" : {
-        "revision" : "bbe8b69694d7873315fd3a4ad41efe043e1c07c5",
-        "version" : "1.2024072200.0"
+      "identity": "abseil-cpp-binary",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/abseil-cpp-binary.git",
+      "state": {
+        "revision": "bbe8b69694d7873315fd3a4ad41efe043e1c07c5",
+        "version": "1.2024072200.0"
       }
     },
     {
-      "identity" : "app-check",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/app-check.git",
-      "state" : {
-        "revision" : "61b85103a1aeed8218f17c794687781505fbbef5",
-        "version" : "11.2.0"
+      "identity": "app-check",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/app-check.git",
+      "state": {
+        "revision": "61b85103a1aeed8218f17c794687781505fbbef5",
+        "version": "11.2.0"
       }
     },
     {
-      "identity" : "cocoalumberjack",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
-      "state" : {
-        "revision" : "0188d31089b5881a269e01777be74c7316924346",
-        "version" : "3.8.0"
+      "identity": "combine-schedulers",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/combine-schedulers",
+      "state": {
+        "revision": "5928286acce13def418ec36d05a001a9641086f2",
+        "version": "1.0.3"
       }
     },
     {
-      "identity" : "combine-schedulers",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/combine-schedulers",
-      "state" : {
-        "revision" : "5928286acce13def418ec36d05a001a9641086f2",
-        "version" : "1.0.3"
+      "identity": "firebase-ios-sdk",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/firebase/firebase-ios-sdk",
+      "state": {
+        "revision": "8d5b4189f1f482df8d5c58c9985ea70491ef5382",
+        "version": "12.14.0"
       }
     },
     {
-      "identity" : "firebase-ios-sdk",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/firebase-ios-sdk",
-      "state" : {
-        "revision" : "85560b48b0ff099ad83fe53d67df3c67fbc2b7a6",
-        "version" : "12.10.0"
+      "identity": "google-ads-on-device-conversion-ios-sdk",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/googleads/google-ads-on-device-conversion-ios-sdk",
+      "state": {
+        "revision": "9bfcc6cf435b2e7c5562c1900b8680c594fa9a64",
+        "version": "3.6.0"
       }
     },
     {
-      "identity" : "google-ads-on-device-conversion-ios-sdk",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/googleads/google-ads-on-device-conversion-ios-sdk",
-      "state" : {
-        "revision" : "a5cd95c80e8efdd02155c6cea1cecf743bb683a5",
-        "version" : "3.3.0"
+      "identity": "googleappmeasurement",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/GoogleAppMeasurement.git",
+      "state": {
+        "revision": "219e564a8510e983e675c94f77f7f7c50049f22d",
+        "version": "12.14.0"
       }
     },
     {
-      "identity" : "googleappmeasurement",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/GoogleAppMeasurement.git",
-      "state" : {
-        "revision" : "68ba955e540dcff5e0805970ef4b1fd0150be100",
-        "version" : "12.10.0"
+      "identity": "googledatatransport",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/GoogleDataTransport.git",
+      "state": {
+        "revision": "617af071af9aa1d6a091d59a202910ac482128f9",
+        "version": "10.1.0"
       }
     },
     {
-      "identity" : "googledatatransport",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/GoogleDataTransport.git",
-      "state" : {
-        "revision" : "617af071af9aa1d6a091d59a202910ac482128f9",
-        "version" : "10.1.0"
+      "identity": "googleutilities",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/GoogleUtilities.git",
+      "state": {
+        "revision": "60da361632d0de02786f709bdc0c4df340f7613e",
+        "version": "8.1.0"
       }
     },
     {
-      "identity" : "googleutilities",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/GoogleUtilities.git",
-      "state" : {
-        "revision" : "60da361632d0de02786f709bdc0c4df340f7613e",
-        "version" : "8.1.0"
+      "identity": "grpc-binary",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/grpc-binary.git",
+      "state": {
+        "revision": "75b31c842f664a0f46a2e590a570e370249fd8f6",
+        "version": "1.69.1"
       }
     },
     {
-      "identity" : "grpc-binary",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/grpc-binary.git",
-      "state" : {
-        "revision" : "75b31c842f664a0f46a2e590a570e370249fd8f6",
-        "version" : "1.69.1"
+      "identity": "gtm-session-fetcher",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/gtm-session-fetcher.git",
+      "state": {
+        "revision": "0be208810d2e8b90fcd2464d1816723b47819fe7",
+        "version": "5.2.0"
       }
     },
     {
-      "identity" : "gtm-session-fetcher",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/gtm-session-fetcher.git",
-      "state" : {
-        "revision" : "0be208810d2e8b90fcd2464d1816723b47819fe7",
-        "version" : "5.2.0"
+      "identity": "interop-ios-for-google-sdks",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/interop-ios-for-google-sdks.git",
+      "state": {
+        "revision": "040d087ac2267d2ddd4cca36c757d1c6a05fdbfe",
+        "version": "101.0.0"
       }
     },
     {
-      "identity" : "interop-ios-for-google-sdks",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/interop-ios-for-google-sdks.git",
-      "state" : {
-        "revision" : "040d087ac2267d2ddd4cca36c757d1c6a05fdbfe",
-        "version" : "101.0.0"
+      "identity": "leveldb",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/firebase/leveldb.git",
+      "state": {
+        "revision": "a0bc79961d7be727d258d33d5a6b2f1023270ba1",
+        "version": "1.22.5"
       }
     },
     {
-      "identity" : "leveldb",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/leveldb.git",
-      "state" : {
-        "revision" : "a0bc79961d7be727d258d33d5a6b2f1023270ba1",
-        "version" : "1.22.5"
+      "identity": "nanopb",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/firebase/nanopb.git",
+      "state": {
+        "revision": "b7e1104502eca3a213b46303391ca4d3bc8ddec1",
+        "version": "2.30910.0"
       }
     },
     {
-      "identity" : "nanopb",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/firebase/nanopb.git",
-      "state" : {
-        "revision" : "b7e1104502eca3a213b46303391ca4d3bc8ddec1",
-        "version" : "2.30910.0"
+      "identity": "promises",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/google/promises.git",
+      "state": {
+        "revision": "540318ecedd63d883069ae7f1ed811a2df00b6ac",
+        "version": "2.4.0"
       }
     },
     {
-      "identity" : "promises",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/promises.git",
-      "state" : {
-        "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
-        "version" : "2.4.0"
+      "identity": "purchases-ios",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/RevenueCat/purchases-ios.git",
+      "state": {
+        "revision": "8d258661d1e5be78f39ad4b37b5ed72cf073149d",
+        "version": "5.48.0"
       }
     },
     {
-      "identity" : "purchases-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/RevenueCat/purchases-ios.git",
-      "state" : {
-        "revision" : "8d258661d1e5be78f39ad4b37b5ed72cf073149d",
-        "version" : "5.48.0"
+      "identity": "swift-case-paths",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-case-paths",
+      "state": {
+        "revision": "6989976265be3f8d2b5802c722f9ba168e227c71",
+        "version": "1.7.2"
       }
     },
     {
-      "identity" : "rollbar-apple",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/rollbar/rollbar-apple",
-      "state" : {
-        "revision" : "2077a05788a740eea7d804c293c7d5313169b5ed",
-        "version" : "3.3.3"
+      "identity": "swift-clocks",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-clocks",
+      "state": {
+        "revision": "cc46202b53476d64e824e0b6612da09d84ffde8e",
+        "version": "1.0.6"
       }
     },
     {
-      "identity" : "swift-case-paths",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-case-paths",
-      "state" : {
-        "revision" : "6989976265be3f8d2b5802c722f9ba168e227c71",
-        "version" : "1.7.2"
+      "identity": "swift-collections",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/apple/swift-collections",
+      "state": {
+        "revision": "7b847a3b7008b2dc2f47ca3110d8c782fb2e5c7e",
+        "version": "1.3.0"
       }
     },
     {
-      "identity" : "swift-clocks",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-clocks",
-      "state" : {
-        "revision" : "cc46202b53476d64e824e0b6612da09d84ffde8e",
-        "version" : "1.0.6"
+      "identity": "swift-composable-architecture",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-composable-architecture.git",
+      "state": {
+        "revision": "e2fa1df6cd9eec6fa6314aa20513e47da576f24e",
+        "version": "1.26.0"
       }
     },
     {
-      "identity" : "swift-collections",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-collections",
-      "state" : {
-        "revision" : "7b847a3b7008b2dc2f47ca3110d8c782fb2e5c7e",
-        "version" : "1.3.0"
+      "identity": "swift-concurrency-extras",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-concurrency-extras",
+      "state": {
+        "revision": "5a3825302b1a0d744183200915a47b508c828e6f",
+        "version": "1.3.2"
       }
     },
     {
-      "identity" : "swift-composable-architecture",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-composable-architecture.git",
-      "state" : {
-        "revision" : "b1d27a82b498b8e697acabd8cc01b585d26aab19",
-        "version" : "1.19.1"
+      "identity": "swift-custom-dump",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-custom-dump",
+      "state": {
+        "revision": "82645ec760917961cfa08c9c0c7104a57a0fa4b1",
+        "version": "1.3.3"
       }
     },
     {
-      "identity" : "swift-concurrency-extras",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-concurrency-extras",
-      "state" : {
-        "revision" : "5a3825302b1a0d744183200915a47b508c828e6f",
-        "version" : "1.3.2"
+      "identity": "swift-dependencies",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-dependencies",
+      "state": {
+        "revision": "a10f9feeb214bc72b5337b6ef6d5a029360db4cc",
+        "version": "1.10.0"
       }
     },
     {
-      "identity" : "swift-custom-dump",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-custom-dump",
-      "state" : {
-        "revision" : "82645ec760917961cfa08c9c0c7104a57a0fa4b1",
-        "version" : "1.3.3"
+      "identity": "swift-identified-collections",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-identified-collections",
+      "state": {
+        "revision": "322d9ffeeba85c9f7c4984b39422ec7cc3c56597",
+        "version": "1.1.1"
       }
     },
     {
-      "identity" : "swift-dependencies",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-dependencies",
-      "state" : {
-        "revision" : "a10f9feeb214bc72b5337b6ef6d5a029360db4cc",
-        "version" : "1.10.0"
+      "identity": "swift-navigation",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-navigation",
+      "state": {
+        "revision": "32f35241b8be0719c4c7f00eb27713b1cadb6248",
+        "version": "2.8.0"
       }
     },
     {
-      "identity" : "swift-identified-collections",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-identified-collections",
-      "state" : {
-        "revision" : "322d9ffeeba85c9f7c4984b39422ec7cc3c56597",
-        "version" : "1.1.1"
+      "identity": "swift-package-manager-google-mobile-ads",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/googleads/swift-package-manager-google-mobile-ads.git",
+      "state": {
+        "revision": "1239c23464503053c17d37ee5daa70de3455e9c8",
+        "version": "12.14.0"
       }
     },
     {
-      "identity" : "swift-log",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-log.git",
-      "state" : {
-        "revision" : "32e8d724467f8fe623624570367e3d50c5638e46",
-        "version" : "1.5.2"
+      "identity": "swift-package-manager-google-user-messaging-platform",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git",
+      "state": {
+        "revision": "9b68aa69fb508f0274853e226c734151a973c7b7",
+        "version": "2.4.0"
       }
     },
     {
-      "identity" : "swift-navigation",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-navigation",
-      "state" : {
-        "revision" : "bf498690e1f6b4af790260f542e8428a4ba10d78",
-        "version" : "2.6.0"
+      "identity": "swift-perception",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-perception",
+      "state": {
+        "revision": "d924c62a70fca5f43872f286dbd7cef0957f1c01",
+        "version": "1.6.0"
       }
     },
     {
-      "identity" : "swift-package-manager-google-mobile-ads",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/googleads/swift-package-manager-google-mobile-ads.git",
-      "state" : {
-        "revision" : "1239c23464503053c17d37ee5daa70de3455e9c8",
-        "version" : "12.14.0"
+      "identity": "swift-sharing",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/swift-sharing",
+      "state": {
+        "revision": "3bfc408cc2d0bee2287c174da6b1c76768377818",
+        "version": "2.7.4"
       }
     },
     {
-      "identity" : "swift-package-manager-google-user-messaging-platform",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/googleads/swift-package-manager-google-user-messaging-platform.git",
-      "state" : {
-        "revision" : "9b68aa69fb508f0274853e226c734151a973c7b7",
-        "version" : "2.4.0"
+      "identity": "swift-syntax",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/swiftlang/swift-syntax",
+      "state": {
+        "revision": "64889f0c732f210a935a0ad7cda38f77f876262d",
+        "version": "509.1.1"
       }
     },
     {
-      "identity" : "swift-perception",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-perception",
-      "state" : {
-        "revision" : "d924c62a70fca5f43872f286dbd7cef0957f1c01",
-        "version" : "1.6.0"
-      }
-    },
-    {
-      "identity" : "swift-sharing",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-sharing",
-      "state" : {
-        "revision" : "3bfc408cc2d0bee2287c174da6b1c76768377818",
-        "version" : "2.7.4"
-      }
-    },
-    {
-      "identity" : "swift-syntax",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swiftlang/swift-syntax",
-      "state" : {
-        "revision" : "64889f0c732f210a935a0ad7cda38f77f876262d",
-        "version" : "509.1.1"
-      }
-    },
-    {
-      "identity" : "xctest-dynamic-overlay",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
-      "state" : {
-        "revision" : "4c27acf5394b645b70d8ba19dc249c0472d5f618",
-        "version" : "1.7.0"
+      "identity": "xctest-dynamic-overlay",
+      "kind": "remoteSourceControl",
+      "location": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state": {
+        "revision": "4c27acf5394b645b70d8ba19dc249c0472d5f618",
+        "version": "1.7.0"
       }
     }
   ],
-  "version" : 3
+  "version": 3
 }

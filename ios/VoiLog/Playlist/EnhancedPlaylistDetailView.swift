@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct EnhancedPlaylistDetailView: View {
-    @Perception.Bindable var store: StoreOf<EnhancedPlaylistFeature>
+    @SwiftUI.Bindable var store: StoreOf<EnhancedPlaylistFeature>
 
     private func send(_ action: EnhancedPlaylistFeature.Action.View) {
         store.send(.view(action))
