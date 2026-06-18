@@ -1,5 +1,8 @@
-Versione 1.10.0
+Versione 1.11.0
+
+[Nuove funzionalità]
+- Aggiunto piano di abbonamento annuale con prova gratuita di 7 giorni
+- Il piano mensile ora include una prova gratuita di 7 giorni
 
 [Miglioramenti]
-· Compatibilità migliorata con iOS 26
-· Miglioramenti della stabilità e delle prestazioni
+- Miglioramenti alla stabilità e alle prestazioni

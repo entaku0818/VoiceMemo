@@ -1,5 +1,8 @@
-Versie 1.10.0
+Versie 1.11.0
+
+[Nieuwe functies]
+- Jaarabonnement toegevoegd met 7 dagen gratis probeerperiode
+- Maandabonnement bevat nu ook 7 dagen gratis probeerperiode
 
 [Verbeteringen]
-· Verbeterde compatibiliteit met iOS 26
-· Verbeteringen in stabiliteit en prestaties
+- Verbeteringen in stabiliteit en prestaties

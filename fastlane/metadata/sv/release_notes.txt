@@ -1,5 +1,8 @@
-Version 1.10.0
+Version 1.11.0
+
+[Nya funktioner]
+- Lagt till årsabonnemang med 7 dagars gratis provperiod
+- Månadsplanen inkluderar nu 7 dagars gratis provperiod
 
 [Förbättringar]
-· Förbättrad kompatibilitet med iOS 26
-· Förbättringar av stabilitet och prestanda
+- Förbättringar av stabilitet och prestanda

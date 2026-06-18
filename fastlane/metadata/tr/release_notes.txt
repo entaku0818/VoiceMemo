@@ -1,5 +1,8 @@
-Sürüm 1.10.0
+Sürüm 1.11.0
+
+[Yeni Özellikler]
+- 7 günlük ücretsiz deneme ile yıllık abonelik planı eklendi
+- Aylık plan artık 7 günlük ücretsiz deneme içeriyor
 
 [İyileştirmeler]
-· iOS 26 ile uyumluluk iyileştirildi
-· Kararlılık ve performans iyileştirmeleri
+- Kararlılık ve performans iyileştirmeleri

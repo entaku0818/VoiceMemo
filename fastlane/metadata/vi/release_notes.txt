@@ -1,5 +1,8 @@
-Phiên bản 1.10.0
+Phiên bản 1.11.0
+
+[Tính năng mới]
+- Thêm gói đăng ký hàng năm với 7 ngày dùng thử miễn phí
+- Gói hàng tháng hiện bao gồm 7 ngày dùng thử miễn phí
 
 [Cải tiến]
-· Cải thiện khả năng tương thích với iOS 26
-· Cải thiện độ ổn định và hiệu suất
+- Cải thiện độ ổn định và hiệu suất

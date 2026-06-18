@@ -1,5 +1,8 @@
-Version 1.10.0
+Version 1.11.0
+
+[New Features]
+- Added annual subscription plan with 7-day free trial
+- Monthly plan now includes a 7-day free trial
 
 [Improvements]
-- Improved compatibility with iOS 26
 - Stability and performance improvements

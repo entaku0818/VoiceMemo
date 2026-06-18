@@ -1,5 +1,8 @@
-Versi 1.10.0
+Versi 1.11.0
+
+[Fitur Baru]
+- Ditambahkan paket langganan tahunan dengan uji coba gratis 7 hari
+- Paket bulanan kini mencakup uji coba gratis 7 hari
 
 [Peningkatan]
-· Peningkatan kompatibilitas dengan iOS 26
-· Peningkatan stabilitas dan performa
+- Peningkatan stabilitas dan kinerja

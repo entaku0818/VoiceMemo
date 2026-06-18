@@ -1,5 +1,8 @@
-Version 1.10.0
+Version 1.11.0
+
+[Neue Funktionen]
+- Jahresabo-Plan mit 7-tägiger kostenloser Testversion hinzugefügt
+- Monatsplan beinhaltet jetzt eine 7-tägige kostenlose Testversion
 
 [Verbesserungen]
-· Verbesserte Kompatibilität mit iOS 26
-· Verbesserungen der Stabilität und Leistung
+- Stabilitäts- und Leistungsverbesserungen
