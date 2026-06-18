@@ -5,7 +5,9 @@ import Dependencies
 
 protocol PurchaseManagerProtocol {
     func fetchProPlan() async throws -> (name: String, price: String)
+    func fetchAnnualPlan() async throws -> (name: String, price: String)
     func purchasePro() async throws
+    func purchaseAnnual() async throws
     func restorePurchases() async throws
     func startOneTimePurchase() async throws
 }
@@ -16,6 +18,7 @@ class PurchaseManager: PurchaseManagerProtocol {
 
     private enum Package {
         static let pro = "$rc_monthly"
+        static let annual = "$rc_annual"
         static let developerSupport = "developerSupport"
     }
 
@@ -54,6 +57,16 @@ class PurchaseManager: PurchaseManagerProtocol {
                 price: package.localizedPriceString)
     }
 
+    func fetchAnnualPlan() async throws -> (name: String, price: String) {
+        let offerings = try await Purchases.shared.offerings()
+        guard let offering = offerings.current,
+              let package = offering.availablePackages.first(where: { $0.identifier == Package.annual }) else {
+            throw PurchaseError.productNotFound
+        }
+        return (name: package.storeProduct.localizedTitle,
+                price: package.localizedPriceString)
+    }
+
     func purchasePro() async throws {
         os_log("=== Purchase Pro Start ===", log: logger, type: .debug)
         let offerings = try await Purchases.shared.offerings()
@@ -82,6 +95,28 @@ class PurchaseManager: PurchaseManagerProtocol {
             throw PurchaseError.purchaseFailed
         }
         os_log("=== Purchase Pro End ===", log: logger, type: .debug)
+    }
+
+    func purchaseAnnual() async throws {
+        os_log("=== Purchase Annual Start ===", log: logger, type: .debug)
+        let offerings = try await Purchases.shared.offerings()
+        guard let offering = offerings.current,
+              let package = offering.availablePackages.first(where: { $0.identifier == Package.annual }) else {
+            throw PurchaseError.productNotFound
+        }
+        do {
+            let (_, customerInfo, _) = try await Purchases.shared.purchase(package: package)
+            if customerInfo.entitlements["premium"]?.isActive == true {
+                await MainActor.run {
+                    UserDefaultsManager.shared.hasPurchasedProduct = true
+                }
+            } else {
+                throw PurchaseError.purchaseFailed
+            }
+        } catch {
+            throw PurchaseError.purchaseFailed
+        }
+        os_log("=== Purchase Annual End ===", log: logger, type: .debug)
     }
 
     func restorePurchases() async throws {

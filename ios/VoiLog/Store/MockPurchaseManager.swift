@@ -26,7 +26,21 @@ class MockPurchaseManager: PurchaseManagerProtocol {
         return (name: productName, price: productPrice)
     }
 
+    func fetchAnnualPlan() async throws -> (name: String, price: String) {
+        if shouldThrowError {
+            throw PurchaseError.productNotFound
+        }
+        return (name: productName, price: "¥9800")
+    }
+
     func purchasePro() async throws {
+        if shouldThrowError {
+            throw PurchaseError.purchaseFailed
+        }
+        UserDefaultsManager.shared.hasPurchasedProduct = true
+    }
+
+    func purchaseAnnual() async throws {
         if shouldThrowError {
             throw PurchaseError.purchaseFailed
         }

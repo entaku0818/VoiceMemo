@@ -5,6 +5,8 @@ import Dependencies
 struct PaywallView: View {
     @State private var productName: String = ""
     @State private var productPrice: String = ""
+    @State private var annualPrice: String = ""
+    @State private var isAnnualSelected = true
     @State private var showAlert = false
     @State private var alertMessage: String = ""
     @State private var offering: Offering?
@@ -45,10 +47,17 @@ struct PaywallView: View {
                             .multilineTextAlignment(.center)
                             .padding(.bottom, 4)
 
-                        Text(String(localized: "1ヶ月無料体験 → その後\(productPrice.isEmpty ? "" : " \(productPrice)")/月", table: "Premium"))
-                            .font(.system(size: 18, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.9))
-                            .multilineTextAlignment(.center)
+                        if isAnnualSelected {
+                            Text(annualPrice.isEmpty ? "" : "\(annualPrice)/年")
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                        } else {
+                            Text(String(localized: "7日間無料体験 → その後\(productPrice.isEmpty ? "" : " \(productPrice)")/月", table: "Premium"))
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                        }
                     }
                     .padding(.vertical, 30)
                 }
@@ -70,6 +79,30 @@ struct PaywallView: View {
                     Spacer()
                 }
                 .padding(.vertical, 20)
+
+                // プラン選択
+                HStack(spacing: 12) {
+                    planButton(
+                        title: String(localized: "年額", table: "Premium"),
+                        price: annualPrice.isEmpty ? "-" : annualPrice,
+                        unit: String(localized: "/ 年", table: "Premium"),
+                        badge: String(localized: "お得", table: "Premium"),
+                        isSelected: isAnnualSelected
+                    ) {
+                        isAnnualSelected = true
+                    }
+                    planButton(
+                        title: String(localized: "月額", table: "Premium"),
+                        price: productPrice.isEmpty ? "-" : productPrice,
+                        unit: String(localized: "/ 月", table: "Premium"),
+                        badge: nil,
+                        isSelected: !isAnnualSelected
+                    ) {
+                        isAnnualSelected = false
+                    }
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 8)
 
                 // 機能リスト
                 VStack(spacing: 24) {
@@ -133,12 +166,21 @@ struct PaywallView: View {
                     }
                 }) {
                     VStack(spacing: 4) {
-                        Text(String(localized: "1ヶ月無料で試す", table: "Premium"))
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-                        Text("その後 \(productPrice)\(String(localized: "月（自動更新）", table: "Premium"))")
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.9))
+                        if isAnnualSelected {
+                            Text(String(localized: "年額プランを始める", table: "Premium"))
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                            Text("\(annualPrice)\(String(localized: "年（自動更新）", table: "Premium"))")
+                                .font(.system(size: 15, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.9))
+                        } else {
+                            Text(String(localized: "7日間無料で試す", table: "Premium"))
+                                .font(.system(size: 20, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                            Text("その後 \(productPrice)\(String(localized: "月（自動更新）", table: "Premium"))")
+                                .font(.system(size: 15, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.9))
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -156,7 +198,9 @@ struct PaywallView: View {
                 .padding(.top, 10)
 
                 // サブスクリプション条件の説明（Guideline 3.1.2 対応）
-                Text(String(localized: "1ヶ月の無料トライアル終了後、\(productPrice.isEmpty ? String(localized: "サブスクリプション料金", table: "Premium") : productPrice)/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。", table: "Premium"))
+                Text(isAnnualSelected
+                     ? String(localized: "\(annualPrice.isEmpty ? String(localized: "サブスクリプション料金", table: "Premium") : annualPrice)/年で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。", table: "Premium")
+                     : String(localized: "7日間の無料トライアル終了後、\(productPrice.isEmpty ? String(localized: "サブスクリプション料金", table: "Premium") : productPrice)/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。", table: "Premium"))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -225,18 +269,31 @@ struct PaywallView: View {
 
     // RevenueCat用の商品情報取得処理
     func fetchProductInfo() async {
+        async let monthly = purchaseManager.fetchProPlan()
+        async let annual = purchaseManager.fetchAnnualPlan()
         do {
-            let (name, price) = try await purchaseManager.fetchProPlan()
+            let (name, price) = try await monthly
             await MainActor.run {
                 productName = name
                 productPrice = price
             }
         } catch {
             await MainActor.run {
-                productName = String(localized: "製品情報の取得に失敗しました", table: "Premium")
                 productPrice = ""
-                showAlert = true
-                alertMessage = String(localized: "製品情報の取得に失敗しました", table: "Premium")
+            }
+        }
+        do {
+            let (_, price) = try await annual
+            await MainActor.run {
+                annualPrice = price
+            }
+        } catch {
+            await MainActor.run {
+                annualPrice = ""
+                if productPrice.isEmpty {
+                    showAlert = true
+                    alertMessage = String(localized: "製品情報の取得に失敗しました", table: "Premium")
+                }
             }
         }
     }
@@ -244,7 +301,7 @@ struct PaywallView: View {
     // RevenueCat用の購入処理
     func purchaseProduct() async {
         let name = productName
-        let price = productPrice
+        let price = isAnnualSelected ? annualPrice : productPrice
 
         await MainActor.run {
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseAttempted, [
@@ -255,7 +312,11 @@ struct PaywallView: View {
         }
 
         do {
-            try await purchaseManager.purchasePro()
+            if isAnnualSelected {
+                try await purchaseManager.purchaseAnnual()
+            } else {
+                try await purchaseManager.purchasePro()
+            }
 
             await MainActor.run {
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCompleted, [
@@ -320,6 +381,45 @@ struct PaywallView: View {
                 alertMessage = String(localized: "リストアに失敗しました", table: "Premium")
                 showAlert = true
             }
+        }
+    }
+
+    // プラン選択ボタン
+    @ViewBuilder
+    private func planButton(title: String, price: String, unit: String, badge: String?, isSelected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            VStack(spacing: 4) {
+                if let badge = badge {
+                    Text(badge)
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 2)
+                        .background(Color.orange)
+                        .cornerRadius(8)
+                } else {
+                    Spacer().frame(height: 18)
+                }
+                Text(title)
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(isSelected ? .white : (colorScheme == .dark ? .white : .black))
+                Text(price)
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(isSelected ? .white : (colorScheme == .dark ? .white : .black))
+                Text(unit)
+                    .font(.system(size: 12, weight: .regular))
+                    .foregroundColor(isSelected ? .white.opacity(0.8) : .secondary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .background(isSelected
+                        ? LinearGradient(colors: [Color.blue, Color.purple.opacity(0.8)], startPoint: .leading, endPoint: .trailing)
+                        : LinearGradient(colors: [Color.gray.opacity(0.1), Color.gray.opacity(0.1)], startPoint: .leading, endPoint: .trailing))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(isSelected ? Color.clear : Color.gray.opacity(0.3), lineWidth: 1)
+            )
         }
     }
 
