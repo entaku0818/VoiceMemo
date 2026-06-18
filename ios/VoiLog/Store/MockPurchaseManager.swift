@@ -30,7 +30,7 @@ class MockPurchaseManager: PurchaseManagerProtocol {
         if shouldThrowError {
             throw PurchaseError.productNotFound
         }
-        return (name: productName, price: "¥9800")
+        return (name: productName, price: "¥9,000")
     }
 
     func purchasePro() async throws {

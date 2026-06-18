@@ -27,7 +27,7 @@ final class PurchaseManagerTests: XCTestCase {
         let sut = MockPurchaseManager.succeeding
         let result = try await sut.fetchAnnualPlan()
         XCTAssertFalse(result.price.isEmpty)
-        XCTAssertEqual(result.price, "¥9800")
+        XCTAssertEqual(result.price, "¥9,000")
     }
 
     func testFetchAnnualPlanThrowsWhenShouldThrowError() async {
