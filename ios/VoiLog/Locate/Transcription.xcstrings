@@ -1,6 +1,31 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "議事録": {
+      "comment": "Tab label for meeting minutes",
+      "localizations": {
+        "ar": { "stringUnit": { "state": "translated", "value": "محضر" } },
+        "de": { "stringUnit": { "state": "translated", "value": "Protokoll" } },
+        "en": { "stringUnit": { "state": "translated", "value": "Minutes" } },
+        "es": { "stringUnit": { "state": "translated", "value": "Actas" } },
+        "fr": { "stringUnit": { "state": "translated", "value": "Compte rendu" } },
+        "hi": { "stringUnit": { "state": "translated", "value": "कार्यवृत्त" } },
+        "id": { "stringUnit": { "state": "translated", "value": "Risalah" } },
+        "it": { "stringUnit": { "state": "translated", "value": "Verbali" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "議事録" } },
+        "ko": { "stringUnit": { "state": "translated", "value": "회의록" } },
+        "nl": { "stringUnit": { "state": "translated", "value": "Notulen" } },
+        "pl": { "stringUnit": { "state": "translated", "value": "Protokół" } },
+        "pt-PT": { "stringUnit": { "state": "translated", "value": "Atas" } },
+        "ru": { "stringUnit": { "state": "translated", "value": "Протокол" } },
+        "sv": { "stringUnit": { "state": "translated", "value": "Protokoll" } },
+        "th": { "stringUnit": { "state": "translated", "value": "รายงานการประชุม" } },
+        "tr": { "stringUnit": { "state": "translated", "value": "Tutanaklar" } },
+        "vi": { "stringUnit": { "state": "translated", "value": "Biên bản" } },
+        "zh-Hans": { "stringUnit": { "state": "translated", "value": "会议记录" } },
+        "zh-Hant": { "stringUnit": { "state": "translated", "value": "會議記錄" } }
+      }
+    },
     "AI": {
       "comment": "Tab label for AI transcription",
       "localizations": {

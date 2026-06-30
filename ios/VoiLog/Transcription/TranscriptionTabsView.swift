@@ -5,20 +5,70 @@ import ComposableArchitecture
 /// VoiceMemoDetailView と CombinedTranscriptionView の両方で使用。
 struct TranscriptionTabsView: View {
     let memo: PlaybackFeature.VoiceMemo
+    let hasPurchasedPremium: Bool
     var onAISaved: ((String) -> Void)?
+    var onMeetingMinutesSaved: ((String) -> Void)?
 
     @State private var selectedTab = 0
     @State private var transcriptionStore: StoreOf<TranscriptionFeature>
+    @State private var meetingMinutesStore: StoreOf<MeetingMinutesFeature>?
 
-    init(memo: PlaybackFeature.VoiceMemo, onAISaved: ((String) -> Void)? = nil) {
+    init(
+        memo: PlaybackFeature.VoiceMemo,
+        hasPurchasedPremium: Bool = false,
+        onAISaved: ((String) -> Void)? = nil,
+        onMeetingMinutesSaved: ((String) -> Void)? = nil
+    ) {
         self.memo = memo
+        self.hasPurchasedPremium = hasPurchasedPremium
         self.onAISaved = onAISaved
+        self.onMeetingMinutesSaved = onMeetingMinutesSaved
         self._transcriptionStore = State(wrappedValue: Store(
             initialState: TranscriptionFeature.State(
                 audioURL: memo.url,
                 savedText: memo.aiTranscriptionText.isEmpty ? nil : memo.aiTranscriptionText
             )
         ) { TranscriptionFeature() })
+
+        // iOS 26 のみ議事録 Store を初期化
+        if #available(iOS 26, *) {
+            let transcriptionText = Self.extractTranscriptionText(memo: memo)
+            let savedMinutes = Self.parseSavedMinutes(memo.aiMeetingMinutesText)
+            self._meetingMinutesStore = State(wrappedValue: Store(
+                initialState: MeetingMinutesFeature.State(
+                    transcriptionText: transcriptionText,
+                    savedMinutes: savedMinutes
+                )
+            ) { MeetingMinutesFeature() })
+        }
+    }
+
+    private static func extractTranscriptionText(memo: PlaybackFeature.VoiceMemo) -> String {
+        if let json = memo.timestampedText,
+           let transcription = TimestampedTranscription.fromJSON(json),
+           !transcription.fullText.isEmpty {
+            return transcription.fullText
+        }
+        if !memo.aiTranscriptionText.isEmpty { return memo.aiTranscriptionText }
+        return memo.text
+    }
+
+    private static func parseSavedMinutes(_ text: String) -> MeetingMinutesResult? {
+        guard !text.isEmpty else { return nil }
+        var summary = ""
+        var todos: [String] = []
+        var inTodo = false
+        for line in text.components(separatedBy: "\n") {
+            if line == "# 要約" { inTodo = false; continue }
+            if line == "# TODO" { inTodo = true; continue }
+            if inTodo, line.hasPrefix("- ") {
+                todos.append(String(line.dropFirst(2)))
+            } else if !inTodo, !line.isEmpty {
+                summary += (summary.isEmpty ? "" : "\n") + line
+            }
+        }
+        guard !summary.isEmpty else { return nil }
+        return MeetingMinutesResult(summary: summary, todos: todos)
     }
 
     private var appleTranscription: TimestampedTranscription? {
@@ -28,13 +78,24 @@ struct TranscriptionTabsView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            Picker("", selection: $selectedTab) {
-                Label(String(localized: "Apple", table: "Transcription"), systemImage: "text.bubble.fill").tag(0)
-                Label(String(localized: "AI", table: "Transcription"), systemImage: "waveform.and.mic").tag(1)
+            if #available(iOS 26, *), meetingMinutesStore != nil {
+                Picker("", selection: $selectedTab) {
+                    Label(String(localized: "Apple", table: "Transcription"), systemImage: "text.bubble.fill").tag(0)
+                    Label(String(localized: "AI", table: "Transcription"), systemImage: "waveform.and.mic").tag(1)
+                    Label(String(localized: "議事録", table: "Transcription"), systemImage: "doc.text.fill").tag(2)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+            } else {
+                Picker("", selection: $selectedTab) {
+                    Label(String(localized: "Apple", table: "Transcription"), systemImage: "text.bubble.fill").tag(0)
+                    Label(String(localized: "AI", table: "Transcription"), systemImage: "waveform.and.mic").tag(1)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
             }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-            .padding(.vertical, 8)
 
             Divider()
 
@@ -44,6 +105,14 @@ struct TranscriptionTabsView: View {
                     onAISaved?(text)
                 })
                 .tag(1)
+                if #available(iOS 26, *), let mmStore = meetingMinutesStore {
+                    MeetingMinutesView(
+                        store: mmStore,
+                        hasPurchasedPremium: hasPurchasedPremium,
+                        onSaved: { text in onMeetingMinutesSaved?(text) }
+                    )
+                    .tag(2)
+                }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut(duration: 0.2), value: selectedTab)

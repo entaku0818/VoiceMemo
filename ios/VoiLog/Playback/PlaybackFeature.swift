@@ -75,6 +75,7 @@ struct PlaybackFeature {
     var text: String
     var timestampedText: String?
     var aiTranscriptionText: String = ""
+    var aiMeetingMinutesText: String = ""
     var tags: [String] = []
     // Legacy compatibility fields
     var fileFormat: String
@@ -92,6 +93,7 @@ struct PlaybackFeature {
       text: String = "",
       timestampedText: String? = nil,
       aiTranscriptionText: String = "",
+      aiMeetingMinutesText: String = "",
       tags: [String] = [],
       fileFormat: String = "",
       samplingFrequency: Double = 44100.0,
@@ -107,6 +109,7 @@ struct PlaybackFeature {
       self.text = text
       self.timestampedText = timestampedText
       self.aiTranscriptionText = aiTranscriptionText
+      self.aiMeetingMinutesText = aiMeetingMinutesText
       self.tags = tags
       self.fileFormat = fileFormat
       self.samplingFrequency = samplingFrequency
@@ -180,6 +183,9 @@ struct PlaybackFeature {
 
       // Combined transcription viewer (Apple + AI)
       case showCombinedTranscription(VoiceMemo.ID)
+
+      // Meeting minutes
+      case meetingMinutesSaved(VoiceMemo.ID, String)
 
       // Tag actions
       case showTagPicker(VoiceMemo.ID)
@@ -517,12 +523,25 @@ struct PlaybackFeature {
                 text: memo.text,
                 timestampedText: memo.timestampedText,
                 aiTranscriptionText: memo.aiTranscriptionText,
+                aiMeetingMinutesText: memo.aiMeetingMinutesText,
                 fileFormat: memo.fileFormat,
                 samplingFrequency: memo.samplingFrequency,
                 quantizationBitDepth: memo.quantizationBitDepth,
                 numberOfChannels: memo.numberOfChannels,
                 tags: memo.tags
               ))
+            }
+          }
+
+        case let .meetingMinutesSaved(memoID, text):
+          guard let idx = state.voiceMemos.firstIndex(where: { $0.id == memoID }) else {
+            return .none
+          }
+          state.voiceMemos[idx].aiMeetingMinutesText = text
+          let id = memoID
+          return .run { _ in
+            await MainActor.run {
+              voiceMemoRepository.updateMeetingMinutes(id, text)
             }
           }
 
@@ -696,6 +715,7 @@ struct PlaybackFeature {
           text: voice.text,
           timestampedText: voice.timestampedText,
           aiTranscriptionText: voice.aiTranscriptionText,
+          aiMeetingMinutesText: voice.aiMeetingMinutesText,
           tags: voice.tags,
           fileFormat: voice.fileFormat,
           samplingFrequency: voice.samplingFrequency,
@@ -833,8 +853,10 @@ struct PlaybackView: View {
            let memo = store.voiceMemos.first(where: { $0.id == memoID }) {
           CombinedTranscriptionView(
             memo: memo,
+            hasPurchasedPremium: store.hasPurchasedPremium,
             onDismiss: { send(.hideCombinedTranscription) },
-            onAISaved: { text in send(.geminiTranscriptionSaved(memoID, text)) }
+            onAISaved: { text in send(.geminiTranscriptionSaved(memoID, text)) },
+            onMeetingMinutesSaved: { text in send(.meetingMinutesSaved(memoID, text)) }
           )
         }
       }

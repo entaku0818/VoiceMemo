@@ -38,6 +38,7 @@ struct VoiceMemoRepositoryClient {
         var text: String
         var timestampedText: String?
         var aiTranscriptionText: String = ""
+        var aiMeetingMinutesText: String = ""
         var fileFormat: String
         var samplingFrequency: Double
         var quantizationBitDepth: Int
@@ -52,6 +53,7 @@ struct VoiceMemoRepositoryClient {
     var update: @MainActor (VoiceMemoVoice) -> Void
     var updateTitle: @MainActor (UUID, String) -> Void
     var updateTags: @MainActor (UUID, [String]) -> Void
+    var updateMeetingMinutes: @MainActor (UUID, String) -> Void
     var syncToCloud: @MainActor () async -> Bool
     var checkForDifferences: @MainActor () async -> Bool
 }
@@ -114,6 +116,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         text: voiceEntity.text ?? "",
                         timestampedText: voiceEntity.timestampedText,
                         aiTranscriptionText: voiceEntity.aiTranscriptionText ?? "",
+                        aiMeetingMinutesText: voiceEntity.aiMeetingMinutesText ?? "",
                         fileFormat: voiceEntity.fileFormat ?? "",
                         samplingFrequency: voiceEntity.samplingFrequency,
                         quantizationBitDepth: Int(voiceEntity.quantizationBitDepth),
@@ -188,6 +191,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                         voiceEntity.text = voiceMemoVoice.text
                         voiceEntity.timestampedText = voiceMemoVoice.timestampedText
                         voiceEntity.aiTranscriptionText = voiceMemoVoice.aiTranscriptionText.isEmpty ? nil : voiceMemoVoice.aiTranscriptionText
+                        voiceEntity.aiMeetingMinutesText = voiceMemoVoice.aiMeetingMinutesText.isEmpty ? nil : voiceMemoVoice.aiMeetingMinutesText
                         voiceEntity.createdAt = voiceMemoVoice.date
                         voiceEntity.updatedAt = Date()
                         voiceEntity.duration = voiceMemoVoice.duration
@@ -232,6 +236,21 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     }
                 } catch {
                     AppLogger.data.error("Repository updateTags failed: \(error.localizedDescription)")
+                }
+            },
+            updateMeetingMinutes: { uuid, text in
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                fetchRequest.fetchLimit = 1
+                fetchRequest.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
+                do {
+                    let results = try managedContext.fetch(fetchRequest)
+                    if let voiceEntity = results.first {
+                        voiceEntity.aiMeetingMinutesText = text.isEmpty ? nil : text
+                        voiceEntity.updatedAt = Date()
+                        try managedContext.saveIfStoreLoaded()
+                    }
+                } catch {
+                    AppLogger.data.error("Repository updateMeetingMinutes failed: \(error.localizedDescription)")
                 }
             },
             syncToCloud: {
@@ -484,6 +503,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         update: { _ in },
         updateTitle: { _, _ in },
         updateTags: { _, _ in },
+        updateMeetingMinutes: { _, _ in },
         syncToCloud: { true },
         checkForDifferences: { false }
     )

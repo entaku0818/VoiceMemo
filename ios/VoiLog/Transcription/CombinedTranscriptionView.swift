@@ -4,12 +4,33 @@ import SwiftUI
 /// NavigationStack を持ち、TranscriptionTabsView をラップする。
 struct CombinedTranscriptionView: View {
     let memo: PlaybackFeature.VoiceMemo
+    let hasPurchasedPremium: Bool
     let onDismiss: () -> Void
     var onAISaved: ((String) -> Void)?
+    var onMeetingMinutesSaved: ((String) -> Void)?
+
+    init(
+        memo: PlaybackFeature.VoiceMemo,
+        hasPurchasedPremium: Bool = false,
+        onDismiss: @escaping () -> Void,
+        onAISaved: ((String) -> Void)? = nil,
+        onMeetingMinutesSaved: ((String) -> Void)? = nil
+    ) {
+        self.memo = memo
+        self.hasPurchasedPremium = hasPurchasedPremium
+        self.onDismiss = onDismiss
+        self.onAISaved = onAISaved
+        self.onMeetingMinutesSaved = onMeetingMinutesSaved
+    }
 
     var body: some View {
         NavigationStack {
-            TranscriptionTabsView(memo: memo, onAISaved: onAISaved)
+            TranscriptionTabsView(
+                memo: memo,
+                hasPurchasedPremium: hasPurchasedPremium,
+                onAISaved: onAISaved,
+                onMeetingMinutesSaved: onMeetingMinutesSaved
+            )
                 .navigationTitle(String(localized: "文字起こし"))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {

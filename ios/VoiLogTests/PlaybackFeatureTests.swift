@@ -57,6 +57,7 @@ final class PlaybackFeatureTests: XCTestCase {
             update: { _ in },
             updateTitle: { _, _ in },
             updateTags: { _, _ in },
+            updateMeetingMinutes: { _, _ in },
             syncToCloud: { true },
             checkForDifferences: { false }
         )
@@ -235,6 +236,7 @@ final class PlaybackFeatureTests: XCTestCase {
                     update: { voice in updatedVoices.withValue { $0.append(voice) } },
                     updateTitle: { _, _ in },
                     updateTags: { _, _ in },
+                    updateMeetingMinutes: { _, _ in },
                     syncToCloud: { true },
                     checkForDifferences: { false }
                 )

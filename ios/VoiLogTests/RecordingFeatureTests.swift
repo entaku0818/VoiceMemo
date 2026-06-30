@@ -86,6 +86,7 @@ final class RecordingFeatureTests: XCTestCase {
                     update: { _ in },
                     updateTitle: { _, _ in },
                     updateTags: { _, _ in },
+                    updateMeetingMinutes: { _, _ in },
                     syncToCloud: { true },
                     checkForDifferences: { false }
                 )
@@ -170,6 +171,7 @@ final class RecordingFeatureTests: XCTestCase {
                     update: { _ in },
                     updateTitle: { _, _ in },
                     updateTags: { _, _ in },
+                    updateMeetingMinutes: { _, _ in },
                     syncToCloud: { true },
                     checkForDifferences: { false }
                 )
