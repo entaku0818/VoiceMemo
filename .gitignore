@@ -123,3 +123,7 @@ android/.idea/
 
 # Misc assets not for version control
 revenuecat-products.png
+
+# Local agent tool configs (not for version control)
+.agents/
+.codex/
