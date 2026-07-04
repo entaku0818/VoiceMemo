@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくある質問 - シンプル録音</title>
+    <meta name="description" content="シンプル録音アプリのよくある質問（FAQ）。音量が小さい、文字起こしの精度など。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.25rem; font-weight: 700; color: #ff6b6b; text-decoration: none; }
+
+        .nav-cta {
+            background: #ff6b6b;
+            color: #fff;
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+        .nav-cta:hover { opacity: 0.85; }
+
+        main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { color: #ff6b6b; }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #ff6b6b;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #ff6b6b;
+            margin: 2rem 0 0.75rem;
+        }
+
+        .faq-item {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .faq-item:hover { border-color: #444; }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            font-family: inherit;
+        }
+
+        .chevron {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .chevron { transform: rotate(180deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.2s ease;
+            padding: 0 1.5rem;
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 600px;
+            padding: 0 1.5rem 1.25rem;
+        }
+
+        .faq-answer ul {
+            padding-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .faq-answer li { margin-bottom: 0.25rem; }
+        .faq-answer strong { color: #ccc; }
+
+        .contact-box {
+            background: #111;
+            border: 1px solid #ff6b6b;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        .contact-box h2 { margin-bottom: 0.75rem; font-size: 1.3rem; }
+        .contact-box p { color: #888; }
+        .contact-box a { color: #ff6b6b; text-decoration: none; }
+        .contact-box a:hover { text-decoration: underline; }
+
+        footer {
+            margin-top: 4rem;
+            padding: 2rem;
+            border-top: 1px solid #222;
+            text-align: center;
+            color: #555;
+            font-size: 0.85rem;
+        }
+        footer a { color: #666; text-decoration: none; margin: 0 0.75rem; }
+        footer a:hover { color: #ff6b6b; }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="logo">シンプル録音</a>
+        <a href="https://apps.apple.com/app/id6443528409" class="nav-cta">ダウンロード</a>
+    </nav>
+</header>
+
+<main>
+    <div class="content">
+        <a href="index.html" class="back-link">← トップに戻る</a>
+        <h1>よくある質問</h1>
+        <p class="subtitle">お困りのことがあればこちらをご確認ください。</p>
+
+        <div class="section-label">録音・再生</div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>録音した音量が小さいのですが？</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p>再生画面で音声ファイルを再生すると、画面下部にコントロールバーが表示されます。</p>
+                <p style="margin-top:0.75rem;">スピーカーアイコンの隣にある<strong>音量ブーストスライダー</strong>を右に動かすと、音量を最大3倍まで増幅できます。設定は次回起動時にも引き継がれます。</p>
+                <p style="margin-top:0.75rem;">また、マイクをできるだけ口に近づけて（15〜20cm以内）録音することも効果的です。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>再生速度を変えるには？</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p>再生中にコントロールバーの速度ボタン（例: <strong>1x (標準)</strong>）をタップすると、0.5x〜2xの7段階で速度が切り替わります。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>録音ファイルはどこに保存されますか？</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p>録音ファイルはアプリ内の Documents フォルダに保存されます。</p>
+                <p style="margin-top:0.75rem;">iCloudが有効な場合は自動的にiCloudにもバックアップされます。ファイルへはiOSの「ファイル」アプリからもアクセスできます。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>A-Bループとは何ですか？</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p>A-Bループは指定した区間を繰り返し再生する機能です。語学学習や特定部分の確認に便利です。</p>
+                <p style="margin-top:0.75rem;">再生コントロールの <strong>A</strong> ボタンで開始点、<strong>B</strong> ボタンで終了点を設定してください。</p>
+            </div>
+        </div>
+
+        <div class="section-label">文字起こし</div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>文字起こしの精度を上げるには？</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p>以下の方法で認識精度が向上します：</p>
+                <ul>
+                    <li>マイクを話し手に近づける（20〜30cm以内）</li>
+                    <li>静かな環境で録音する</li>
+                    <li>ゆっくり、はっきりと話す</li>
+                    <li>録音後に音量ブーストで音量を上げてから文字起こし</li>
+                </ul>
+                <p style="margin-top:0.75rem;">複数人が同時に話す場合は精度が下がることがあります。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>AI文字起こし（Gemini）とApple文字起こしの違いは？</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p><strong>Apple文字起こし</strong>：デバイス上で処理するためオフラインでも利用可能。短時間の録音に適しています。</p>
+                <p style="margin-top:0.75rem;"><strong>AI文字起こし（Gemini）</strong>：ネットワーク接続が必要ですが、長時間・複雑な内容にも対応。プレミアム会員は無制限でご利用いただけます。</p>
+            </div>
+        </div>
+
+        <div class="section-label">その他</div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>プレミアム機能とは？</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p>プレミアム会員は以下の機能が利用できます：</p>
+                <ul>
+                    <li>AI文字起こし（Gemini）無制限</li>
+                    <li>音声ファイル編集</li>
+                    <li>アプリアイコンのカスタマイズ</li>
+                    <li>広告の非表示</li>
+                </ul>
+                <p style="margin-top:0.75rem;">設定画面からサブスクリプションをご確認いただけます。</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" onclick="toggle(this)">
+                <span>サブスクリプションを解約したい</span>
+                <span class="chevron">▼</span>
+            </button>
+            <div class="faq-answer">
+                <p>「設定」アプリ → 「Apple ID」→「サブスクリプション」から解約できます。</p>
+                <p style="margin-top:0.75rem;">解約後も期間終了まではプレミアム機能をご利用いただけます。</p>
+            </div>
+        </div>
+
+        <div class="contact-box">
+            <h2>解決しない場合は</h2>
+            <p>メールでお問い合わせください。</p>
+            <p style="margin-top: 1rem;">
+                <a href="mailto:entaku19890818@gmail.com">entaku19890818@gmail.com</a>
+            </p>
+            <p style="color: #555; margin-top: 0.75rem; font-size: 0.85rem;">※ 返信には数日かかる場合があります</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2025 シンプル録音. All rights reserved.</p>
+    <div style="margin-top:0.5rem;">
+        <a href="privacy_policy.html">プライバシーポリシー</a>
+        <a href="support.html">サポート</a>
+    </div>
+</footer>
+
+<script>
+    function toggle(btn) {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+    }
+</script>
+
+</body>
+</html>
