@@ -7,6 +7,7 @@ import com.entaku.simpleRecord.BuildConfig
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.Offerings
 import com.revenuecat.purchases.Package
+import com.revenuecat.purchases.PackageType
 import com.revenuecat.purchases.PurchasesError
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
@@ -16,10 +17,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+enum class PlanType {
+    MONTHLY,
+    ANNUAL,
+    OTHER
+}
+
 data class PremiumProduct(
     val productId: String,
     val title: String,
     val price: String,
+    val planType: PlanType,
     val rcPackage: Package
 )
 
@@ -63,6 +71,11 @@ class BillingRepository internal constructor(
                         productId = pkg.product.id,
                         title = pkg.product.title,
                         price = pkg.product.price.formatted,
+                        planType = when (pkg.packageType) {
+                            PackageType.MONTHLY -> PlanType.MONTHLY
+                            PackageType.ANNUAL -> PlanType.ANNUAL
+                            else -> PlanType.OTHER
+                        },
                         rcPackage = pkg
                     )
                 }

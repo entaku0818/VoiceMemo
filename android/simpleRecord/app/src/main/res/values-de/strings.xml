@@ -146,6 +146,13 @@
     <string name="premium_free_trial">7 Tage kostenlos testen</string>
     <string name="premium_trial_then_price">Dann %s / Monat (automatische Verlängerung)</string>
     <string name="premium_trial_terms">Nach der 7-tägigen kostenlosen Testphase werden %s/Monat berechnet. Sie können jederzeit in den Google Play-Abonnementeinstellungen vor dem Verlängerungsdatum kündigen.</string>
+    <string name="premium_plan_monthly">Monatlich</string>
+    <string name="premium_plan_annual">Jährlich</string>
+    <string name="premium_deal_badge">Bestes Angebot</string>
+    <string name="premium_price_per_month">%s / Monat</string>
+    <string name="premium_price_per_year">%s / Jahr</string>
+    <string name="premium_trial_then_price_annual">Danach %s / Jahr, verlängert sich automatisch</string>
+    <string name="premium_trial_terms_annual">Nach der 7-tägigen kostenlosen Testphase werden %s/Jahr berechnet. Jederzeit vor dem Verlängerungsdatum in den Google Play-Aboeinstellungen kündbar.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Transkription</string>
