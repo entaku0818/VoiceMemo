@@ -26,9 +26,12 @@ platform :ios do
     )
   end
 
-  # メタデータとスクリーンショットのアップロード、審査提出
-  desc "Upload metadata and screenshots to App Store Connect and submit for review"
-  lane :upload_metadata do
+  # リリース: スクリーンショットのアップロードと審査提出のみ
+  # メタデータは意図的にスキップする。ASC上で直接編集した name/subtitle/keywords を
+  # リリースのたびにリポジトリの値で巻き戻す事故（2026-06, ボイスメモ20位→67位）の再発防止。
+  # メタデータ更新は update_metadata レーンを明示的に実行すること。
+  desc "Release: upload screenshots and submit for review (metadata is NOT touched)"
+  lane :release do
     # Xcodeプロジェクトからバージョン番号を取得
     version_number = get_version_number(
       xcodeproj: "ios/VoiLog.xcodeproj",
@@ -45,7 +48,7 @@ platform :ios do
       skip_binary_upload: true,      # バイナリのアップロードをスキップ
       skip_app_version_update: false, # App Store Connect に新バージョンを作成
       app_version: version_number,    # アプリのバージョン番号を指定
-      skip_metadata: false,          # メタデータの更新をスキップしない
+      skip_metadata: true,           # メタデータは更新しない（update_metadata レーンで明示的に行う）
       skip_screenshots: false,       # スクリーンショットをアップロード
       force: true,                   # 確認なしで強制的に実行
       overwrite_screenshots: true,   # 既存スクリーンショットを上書き
@@ -104,23 +107,25 @@ platform :ios do
     )
   end
 
-  lane :upload_metadata_only do
-    version_number = get_version_number(
+  # メタデータ更新専用レーン（明示実行時のみ）
+  # name/subtitle/keywords はライブ版には反映できないため、編集可能バージョンが
+  # なければ app_version で指定したバージョンを ASC 上に新規作成してそこへ載せる。
+  # ストアへの反映は次回そのバージョンを審査提出・リリースしたタイミング。
+  desc "Upload metadata only to App Store Connect (no screenshots, no binary, no submission)"
+  lane :update_metadata do |options|
+    version_number = options[:version] || get_version_number(
       xcodeproj: "ios/VoiLog.xcodeproj",
       target: "VoiLog"
     )
-    app_store_connect_api_key(
-      key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],
-      issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"],
-      key_content: ENV["APP_STORE_CONNECT_API_KEY_CONTENT"]
-    )
+    UI.user_error!("バージョン番号を取得できませんでした。") unless version_number && !version_number.empty?
+    UI.success("メタデータをバージョン #{version_number} にアップロードします")
+
     deliver(
       skip_binary_upload: true,
       skip_screenshots: true,
       skip_metadata: false,
       app_version: version_number,
-      skip_app_version_update: true,   # 既存バージョンのメタデータを更新（新規作成しない）
-      use_live_version: true,          # 公開済みバージョンのメタデータを更新（promotional_text等）
+      skip_app_version_update: false,  # 編集可能バージョンがなければ新規作成する
       submit_for_review: false,
       automatic_release: false,
       force: true,

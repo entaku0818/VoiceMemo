@@ -68,6 +68,13 @@ launchpad android build
 launchpad android upload
 ```
 
+### App Store メタデータ運用ルール（2026-06 巻き戻し事故の再発防止）
+
+- **`fastlane/metadata/` が唯一のソース。App Store Connect 上で直接編集しない**（直接編集した場合は即座に同じ値を repo にコミットする）。
+- fastlane のリリースレーン `release` は `skip_metadata: true` でメタデータに一切触れない。
+- name/subtitle/keywords 等の更新は専用レーンで明示的に行う: `bundle exec fastlane update_metadata`（編集可能バージョンがなければ ASC 上に新規作成される。ストア反映はそのバージョンの審査通過後）。
+- 背景: 2026-04 に ASC 直編集した日本語タイトルが、2026-06 のリリース時に deliver で旧値に上書きされ「ボイスメモ」検索順位が20位→67位に急落した。
+
 ### Release Checklist
 **IMPORTANT: Before submitting to App Store or Google Play, always complete these steps:**
 
