@@ -167,6 +167,20 @@
     <string name="transcription_retry">Повторить</string>
     <string name="transcription_summary">Резюме</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Протокол</string>
+    <string name="minutes_premium_required">Протокол совещания ИИ — премиум-функция</string>
+    <string name="minutes_premium_desc">Подпишитесь, чтобы автоматически создавать резюме и задачи из результатов транскрипции.</string>
+    <string name="minutes_idle_desc">Автоматически создавать протоколы совещаний из результатов транскрипции</string>
+    <string name="minutes_no_text">Нет данных транскрипции</string>
+    <string name="minutes_generate">Создать протокол</string>
+    <string name="minutes_regenerate">Пересоздать</string>
+    <string name="minutes_generating">ИИ создаёт протокол...</string>
+    <string name="minutes_saved_title">Предыдущий протокол</string>
+    <string name="minutes_summary">Резюме</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Не удалось создать протокол</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Обратная связь</string>
     <string name="feedback_category">Категория</string>

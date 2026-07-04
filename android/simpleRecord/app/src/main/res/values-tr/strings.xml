@@ -167,6 +167,20 @@
     <string name="transcription_retry">Tekrar Dene</string>
     <string name="transcription_summary">Özet</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Toplantı tutanağı</string>
+    <string name="minutes_premium_required">AI Toplantı Tutanakları premium bir özelliktir</string>
+    <string name="minutes_premium_desc">Transkripsiyon sonuçlarından otomatik olarak özet ve TODO oluşturmak için abone olun.</string>
+    <string name="minutes_idle_desc">Transkripsiyon sonuçlarından toplantı tutanakları otomatik oluşturun</string>
+    <string name="minutes_no_text">Transkripsiyon verisi mevcut değil</string>
+    <string name="minutes_generate">Tutanak Oluştur</string>
+    <string name="minutes_regenerate">Yeniden Oluştur</string>
+    <string name="minutes_generating">Yapay zekâ tutanağı oluşturuyor...</string>
+    <string name="minutes_saved_title">Önceki Tutanaklar</string>
+    <string name="minutes_summary">Özet</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Toplantı tutanakları oluşturulamadı</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Geri Bildirim</string>
     <string name="feedback_category">Kategori</string>

@@ -167,6 +167,20 @@
     <string name="transcription_retry">重試</string>
     <string name="transcription_summary">摘要</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">會議紀要</string>
+    <string name="minutes_premium_required">AI會議記錄是付費功能</string>
+    <string name="minutes_premium_desc">訂閱後，可從轉錄結果自動生成摘要和TODO。</string>
+    <string name="minutes_idle_desc">從轉錄結果自動生成會議記錄</string>
+    <string name="minutes_no_text">沒有轉錄資料</string>
+    <string name="minutes_generate">生成會議記錄</string>
+    <string name="minutes_regenerate">重新生成</string>
+    <string name="minutes_generating">AI 正在生成會議紀要...</string>
+    <string name="minutes_saved_title">上次會議記錄</string>
+    <string name="minutes_summary">摘要</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">生成會議記錄失敗</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">意見回饋</string>
     <string name="feedback_category">類別</string>

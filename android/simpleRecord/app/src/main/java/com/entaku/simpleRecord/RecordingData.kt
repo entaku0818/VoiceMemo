@@ -13,5 +13,6 @@ data class RecordingData(
     val channels: Int,
     val duration: Long,
     val filePath: String,
-    val transcriptionText: String? = null
+    val transcriptionText: String? = null,
+    val meetingMinutesText: String? = null
 )

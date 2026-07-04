@@ -167,6 +167,20 @@
     <string name="transcription_retry">Thử lại</string>
     <string name="transcription_summary">Tóm tắt</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Biên bản</string>
+    <string name="minutes_premium_required">Biên bản họp AI là tính năng cao cấp</string>
+    <string name="minutes_premium_desc">Đăng ký để tự động tạo tóm tắt và TODO từ kết quả phiên âm.</string>
+    <string name="minutes_idle_desc">Tự động tạo biên bản họp từ kết quả phiên âm</string>
+    <string name="minutes_no_text">Không có dữ liệu phiên âm</string>
+    <string name="minutes_generate">Tạo biên bản</string>
+    <string name="minutes_regenerate">Tạo lại</string>
+    <string name="minutes_generating">AI đang tạo biên bản...</string>
+    <string name="minutes_saved_title">Biên bản trước</string>
+    <string name="minutes_summary">Tóm tắt</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Tạo biên bản thất bại</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Phản hồi</string>
     <string name="feedback_category">Danh mục</string>

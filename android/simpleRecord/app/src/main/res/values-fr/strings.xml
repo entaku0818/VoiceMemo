@@ -167,6 +167,20 @@
     <string name="transcription_retry">Réessayer</string>
     <string name="transcription_summary">Résumé</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Compte rendu</string>
+    <string name="minutes_premium_required">Les procès-verbaux IA est une fonctionnalité premium</string>
+    <string name="minutes_premium_desc">Abonnez-vous pour générer automatiquement des résumés et des TODOs à partir de vos résultats de transcription.</string>
+    <string name="minutes_idle_desc">Générer automatiquement des comptes rendus à partir des résultats de transcription</string>
+    <string name="minutes_no_text">Aucune donnée de transcription disponible</string>
+    <string name="minutes_generate">Générer le compte rendu</string>
+    <string name="minutes_regenerate">Régénérer</string>
+    <string name="minutes_generating">Génération du compte rendu par IA...</string>
+    <string name="minutes_saved_title">Compte rendu précédent</string>
+    <string name="minutes_summary">Résumé</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Échec de la génération du compte rendu</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Commentaires</string>
     <string name="feedback_category">Catégorie</string>

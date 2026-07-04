@@ -167,6 +167,20 @@
     <string name="transcription_retry">Tentar novamente</string>
     <string name="transcription_summary">Resumo</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Ata</string>
+    <string name="minutes_premium_required">As Atas de Reunião com IA é uma funcionalidade premium</string>
+    <string name="minutes_premium_desc">Subscreva para gerar automaticamente resumos e TODOs a partir dos resultados da transcrição.</string>
+    <string name="minutes_idle_desc">Gerar automaticamente atas de reunião a partir dos resultados da transcrição</string>
+    <string name="minutes_no_text">Não há dados de transcrição disponíveis</string>
+    <string name="minutes_generate">Gerar atas</string>
+    <string name="minutes_regenerate">Regenerar</string>
+    <string name="minutes_generating">A gerar a ata com IA...</string>
+    <string name="minutes_saved_title">Atas anteriores</string>
+    <string name="minutes_summary">Resumo</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Falha ao gerar as atas</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Feedback</string>
     <string name="feedback_category">Categoria</string>

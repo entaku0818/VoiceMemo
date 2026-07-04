@@ -167,6 +167,20 @@
     <string name="transcription_retry">Riprova</string>
     <string name="transcription_summary">Riepilogo</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Verbale</string>
+    <string name="minutes_premium_required">I verbali IA è una funzione premium</string>
+    <string name="minutes_premium_desc">Abbonati per generare automaticamente riepiloghi e TODO dai risultati della trascrizione.</string>
+    <string name="minutes_idle_desc">Genera automaticamente verbali dalle trascrizioni</string>
+    <string name="minutes_no_text">Nessun dato di trascrizione disponibile</string>
+    <string name="minutes_generate">Genera verbale</string>
+    <string name="minutes_regenerate">Rigenera</string>
+    <string name="minutes_generating">Generazione del verbale con IA...</string>
+    <string name="minutes_saved_title">Verbale precedente</string>
+    <string name="minutes_summary">Sommario</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Generazione verbale fallita</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Feedback</string>
     <string name="feedback_category">Categoria</string>

@@ -20,6 +20,11 @@ data class TranscriptionResult(
     val summary: String
 )
 
+data class MinutesResult(
+    val summary: String,
+    val todos: List<String>
+)
+
 class TranscriptionApiClient {
 
     private val baseUrl = BuildConfig.TRANSCRIPTION_SERVER_URL
@@ -97,6 +102,46 @@ class TranscriptionApiClient {
                 transcription = json.optString("transcription", ""),
                 segments = segments,
                 summary = json.optString("summary", "")
+            )
+        }
+
+    suspend fun generateMinutes(idToken: String, text: String, language: String): MinutesResult =
+        withContext(Dispatchers.IO) {
+            val url = URL("$baseUrl/minutes")
+            val conn = (url.openConnection() as HttpURLConnection).apply {
+                requestMethod = "POST"
+                setRequestProperty("Authorization", "Bearer $idToken")
+                setRequestProperty("Content-Type", "application/json")
+                connectTimeout = 30_000
+                readTimeout = 180_000
+                doOutput = true
+            }
+            // text には改行や引用符が含まれるため JSONObject でエスケープして組み立てる
+            val body = JSONObject()
+                .put("text", text)
+                .put("language", language)
+                .toString()
+                .toByteArray()
+            conn.outputStream.use { it.write(body) }
+
+            val status = conn.responseCode
+            val responseBody = if (status in 200..299) {
+                conn.inputStream.bufferedReader().readText()
+            } else {
+                conn.errorStream?.bufferedReader()?.readText() ?: ""
+            }
+            if (status !in 200..299) error("minutes failed: $status $responseBody")
+
+            val json = JSONObject(responseBody)
+            val todos = mutableListOf<String>()
+            json.optJSONArray("todos")?.let { arr ->
+                for (i in 0 until arr.length()) {
+                    todos.add(arr.getString(i))
+                }
+            }
+            MinutesResult(
+                summary = json.optString("summary", ""),
+                todos = todos
             )
         }
 }

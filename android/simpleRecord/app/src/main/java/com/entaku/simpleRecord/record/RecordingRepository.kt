@@ -18,6 +18,8 @@ interface RecordingRepository {
     suspend fun deleteRecording(uuid: UUID)
     suspend fun updateRecordingTitle(uuid: UUID, newTitle: String)
     suspend fun updateTranscription(uuid: UUID, text: String)
+    suspend fun getRecording(uuid: UUID): RecordingData?
+    suspend fun updateMeetingMinutes(uuid: UUID, text: String)
 }
 class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepository {
     companion object {
@@ -74,6 +76,18 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
         }
     }
 
+    override suspend fun getRecording(uuid: UUID): RecordingData? {
+        return withContext(Dispatchers.IO) {
+            database.recordingDao().getRecordingById(uuid)?.toRecordingData()
+        }
+    }
+
+    override suspend fun updateMeetingMinutes(uuid: UUID, text: String) {
+        withContext(Dispatchers.IO) {
+            database.recordingDao().updateMeetingMinutes(uuid, text)
+        }
+    }
+
     private fun RecordingEntity.toRecordingData(): RecordingData {
         return RecordingData(
             uuid = this.uuid,
@@ -85,7 +99,8 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
             channels = this.channels,
             duration = this.duration,
             filePath = this.filePath,
-            transcriptionText = this.transcriptionText
+            transcriptionText = this.transcriptionText,
+            meetingMinutesText = this.meetingMinutesText
         )
     }
 }

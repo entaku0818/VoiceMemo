@@ -66,7 +66,8 @@ fun TranscriptionScreen(
     audioFilePath: String,
     recordingUuid: UUID?,
     onNavigateBack: () -> Unit,
-    onTranscriptionSaved: ((UUID, String) -> Unit)? = null
+    onTranscriptionSaved: ((UUID, String) -> Unit)? = null,
+    onNavigateToMeetingMinutes: ((UUID, String) -> Unit)? = null
 ) {
     val factory = remember(audioFilePath) { TranscriptionViewModelFactory(audioFilePath) }
     val viewModel: TranscriptionViewModel = viewModel(factory = factory)
@@ -105,6 +106,13 @@ fun TranscriptionScreen(
                     context.startActivity(android.content.Intent.createChooser(sendIntent, null))
                 }) {
                     Icon(Icons.Default.Share, contentDescription = null)
+                }
+                if (recordingUuid != null && onNavigateToMeetingMinutes != null) {
+                    TextButton(onClick = {
+                        onNavigateToMeetingMinutes(recordingUuid, result.transcription)
+                    }) {
+                        Text(stringResource(R.string.minutes_title))
+                    }
                 }
                 TextButton(onClick = {
                     recordingUuid?.let { onTranscriptionSaved?.invoke(it, result.transcription) }

@@ -167,6 +167,20 @@
     <string name="transcription_retry">重试</string>
     <string name="transcription_summary">摘要</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">会议纪要</string>
+    <string name="minutes_premium_required">AI会议记录是高级功能</string>
+    <string name="minutes_premium_desc">订阅后，可从转录结果自动生成摘要和TODO。</string>
+    <string name="minutes_idle_desc">从转录结果自动生成会议记录</string>
+    <string name="minutes_no_text">没有转录数据</string>
+    <string name="minutes_generate">生成会议记录</string>
+    <string name="minutes_regenerate">重新生成</string>
+    <string name="minutes_generating">AI 正在生成会议纪要...</string>
+    <string name="minutes_saved_title">上次会议记录</string>
+    <string name="minutes_summary">摘要</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">生成会议记录失败</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">反馈</string>
     <string name="feedback_category">类别</string>
