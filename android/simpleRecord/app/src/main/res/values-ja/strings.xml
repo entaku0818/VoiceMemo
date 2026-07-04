@@ -157,6 +157,20 @@
     <string name="transcription_retry">再試行</string>
     <string name="transcription_summary">要約</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">議事録</string>
+    <string name="minutes_premium_required">AI議事録はプレミアム機能です</string>
+    <string name="minutes_premium_desc">サブスクリプションに登録すると、文字起こし結果から要約とTODOを自動生成できます。</string>
+    <string name="minutes_idle_desc">文字起こし結果から議事録を自動生成します</string>
+    <string name="minutes_no_text">文字起こしデータがありません</string>
+    <string name="minutes_generate">議事録を生成</string>
+    <string name="minutes_regenerate">再生成</string>
+    <string name="minutes_generating">AIが議事録を生成中...</string>
+    <string name="minutes_saved_title">前回の議事録</string>
+    <string name="minutes_summary">要約</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">議事録の生成に失敗しました</string>
+
     <!-- Ads -->
     <string name="rewarded_ad_watch">広告を見る</string>
     <string name="rewarded_ad_reward_earned">ご視聴ありがとうございます！</string>

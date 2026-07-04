@@ -179,6 +179,20 @@
     <string name="transcription_retry">Retry</string>
     <string name="transcription_summary">Summary</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Meeting Minutes</string>
+    <string name="minutes_premium_required">AI Meeting Minutes is a Premium Feature</string>
+    <string name="minutes_premium_desc">Subscribe to automatically generate summaries and TODOs from your transcription results.</string>
+    <string name="minutes_idle_desc">Automatically generate meeting minutes from transcription results</string>
+    <string name="minutes_no_text">No transcription data available</string>
+    <string name="minutes_generate">Generate Minutes</string>
+    <string name="minutes_regenerate">Regenerate</string>
+    <string name="minutes_generating">Generating meeting minutes with AI...</string>
+    <string name="minutes_saved_title">Previous Meeting Minutes</string>
+    <string name="minutes_summary">Summary</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Failed to Generate Meeting Minutes</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Feedback</string>
     <string name="feedback_category">Category</string>

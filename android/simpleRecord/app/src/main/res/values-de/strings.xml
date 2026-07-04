@@ -167,6 +167,20 @@
     <string name="transcription_retry">Wiederholen</string>
     <string name="transcription_summary">Zusammenfassung</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Protokoll</string>
+    <string name="minutes_premium_required">KI-Sitzungsprotokoll ist eine Premium-Funktion</string>
+    <string name="minutes_premium_desc">Abonnieren Sie, um automatisch Zusammenfassungen und TODOs aus Transkriptionsergebnissen zu erstellen.</string>
+    <string name="minutes_idle_desc">Sitzungsprotokoll automatisch aus Transkriptionsergebnissen erstellen</string>
+    <string name="minutes_no_text">Keine Transkriptionsdaten verfügbar</string>
+    <string name="minutes_generate">Protokoll erstellen</string>
+    <string name="minutes_regenerate">Neu erstellen</string>
+    <string name="minutes_generating">KI erstellt das Protokoll...</string>
+    <string name="minutes_saved_title">Vorheriges Protokoll</string>
+    <string name="minutes_summary">Zusammenfassung</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Protokoll konnte nicht erstellt werden</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Feedback</string>
     <string name="feedback_category">Kategorie</string>

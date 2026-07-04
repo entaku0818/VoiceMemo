@@ -16,7 +16,8 @@ data class RecordingEntity(
     @ColumnInfo(name = "channels") val channels: Int,
     @ColumnInfo(name = "duration") val duration: Long,
     @ColumnInfo(name = "file_path") val filePath: String,
-    @ColumnInfo(name = "transcription_text") val transcriptionText: String? = null
+    @ColumnInfo(name = "transcription_text") val transcriptionText: String? = null,
+    @ColumnInfo(name = "meeting_minutes_text") val meetingMinutesText: String? = null
 )
 
 @Dao
@@ -35,6 +36,8 @@ interface RecordingDao {
     suspend fun updateTitle(uuid: UUID, newTitle: String)
     @Query("UPDATE recordings SET transcription_text = :text WHERE uuid = :uuid")
     suspend fun updateTranscription(uuid: UUID, text: String)
+    @Query("UPDATE recordings SET meeting_minutes_text = :text WHERE uuid = :uuid")
+    suspend fun updateMeetingMinutes(uuid: UUID, text: String)
 }
 
 val MIGRATION_2_3 = object : androidx.room.migration.Migration(2, 3) {
@@ -43,9 +46,15 @@ val MIGRATION_2_3 = object : androidx.room.migration.Migration(2, 3) {
     }
 }
 
+val MIGRATION_3_4 = object : androidx.room.migration.Migration(3, 4) {
+    override fun migrate(database: androidx.sqlite.db.SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE recordings ADD COLUMN meeting_minutes_text TEXT")
+    }
+}
+
 @Database(
     entities = [RecordingEntity::class, PlaylistEntity::class, PlaylistRecordingCrossRef::class],
-    version = 3
+    version = 4
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun recordingDao(): RecordingDao
@@ -62,7 +71,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .addMigrations(MIGRATION_2_3)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

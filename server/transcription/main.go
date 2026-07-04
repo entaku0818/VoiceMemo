@@ -34,7 +34,9 @@ func getEnv(key, fallback string) string {
 	return fallback
 }
 
-func init() {
+// initClients は外部クライアントを初期化する。
+// init() ではなく main() から呼ぶことで、単体テスト時に認証情報を要求しない。
+func initClients() {
 	ctx := context.Background()
 
 	app, err := firebase.NewApp(ctx, nil)
@@ -221,6 +223,96 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(result)
 }
 
+// 議事録生成: 文字起こし済みテキストから要約とTODOを生成する
+func handleMinutes(w http.ResponseWriter, r *http.Request) {
+	_, err := verifyToken(r)
+	if err != nil {
+		http.Error(w, `{"error":"Unauthorized"}`, http.StatusUnauthorized)
+		return
+	}
+
+	var body struct {
+		Text     string `json:"text"`
+		Language string `json:"language"`
+	}
+	json.NewDecoder(r.Body).Decode(&body)
+	body.Text = strings.TrimSpace(body.Text)
+	if body.Text == "" {
+		http.Error(w, `{"error":"Text is required"}`, http.StatusBadRequest)
+		return
+	}
+	if body.Language == "" {
+		body.Language = "ja"
+	}
+	body.Text = truncateRunes(body.Text, maxMinutesInputRunes)
+
+	geminiCtx, geminiCancel := context.WithTimeout(r.Context(), 120*time.Second)
+	defer geminiCancel()
+
+	model := geminiClient.GenerativeModel(getEnv("GEMINI_MODEL", "gemini-2.5-flash"))
+	prompt := fmt.Sprintf(`以下の会議の文字起こしから議事録を作成し、次のJSON形式のみを返してください。
+出力言語: %s
+
+{
+  "summary": "会議の要約（3〜5文で簡潔に）",
+  "todos": ["会議で決まったアクションアイテムやTODO"]
+}
+
+TODOがない場合は todos を空配列にしてください。
+
+文字起こし:
+%s`, body.Language, body.Text)
+
+	resp, err := model.GenerateContent(geminiCtx, genai.Text(prompt))
+	if err != nil {
+		log.Printf("gemini minutes error: %s", redactAPIKey(err.Error()))
+		notifySlack(fmt.Sprintf(":x: [VoiLog] Minutes generation failed (Gemini)\n```%s```", sanitizeError(err)))
+		http.Error(w, `{"error":"Minutes generation failed"}`, http.StatusInternalServerError)
+		return
+	}
+
+	text := ""
+	if len(resp.Candidates) > 0 && len(resp.Candidates[0].Content.Parts) > 0 {
+		if t, ok := resp.Candidates[0].Content.Parts[0].(genai.Text); ok {
+			text = string(t)
+		}
+	}
+
+	result := parseMinutes(text)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
+}
+
+const maxMinutesInputRunes = 100_000
+
+func truncateRunes(s string, max int) string {
+	runes := []rune(s)
+	if len(runes) <= max {
+		return s
+	}
+	return string(runes[:max])
+}
+
+type minutesResult struct {
+	Summary string   `json:"summary"`
+	Todos   []string `json:"todos"`
+}
+
+// parseMinutes は Gemini の出力から {summary, todos} を取り出す。
+// JSONとしてパースできない場合は本文全体を summary として返す。
+func parseMinutes(raw string) minutesResult {
+	text := extractJSON(raw)
+	var result minutesResult
+	if err := json.Unmarshal([]byte(text), &result); err != nil {
+		log.Printf("minutes json parse error: %v", err)
+		return minutesResult{Summary: strings.TrimSpace(raw), Todos: []string{}}
+	}
+	if result.Todos == nil {
+		result.Todos = []string{}
+	}
+	return result
+}
+
 func notifySlack(msg string) {
 	webhookURL := getEnv("SLACK_WEBHOOK_URL", "")
 	if webhookURL == "" {
@@ -294,9 +386,12 @@ func extractJSON(s string) string {
 }
 
 func main() {
+	initClients()
+
 	http.HandleFunc("/health", handleHealth)
 	http.HandleFunc("/upload-url", handleUploadURL)
 	http.HandleFunc("/transcribe", handleTranscribe)
+	http.HandleFunc("/minutes", handleMinutes)
 
 	port := getEnv("PORT", "8080")
 	log.Printf("listening on :%s", port)

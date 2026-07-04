@@ -167,6 +167,20 @@
     <string name="transcription_retry">Reintentar</string>
     <string name="transcription_summary">Resumen</string>
 
+    <!-- Meeting Minutes -->
+    <string name="minutes_title">Acta</string>
+    <string name="minutes_premium_required">Las actas de reunión con IA es una función premium</string>
+    <string name="minutes_premium_desc">Suscríbete para generar automáticamente resúmenes y TODOs a partir de los resultados de la transcripción.</string>
+    <string name="minutes_idle_desc">Generar automáticamente actas de reunión a partir de los resultados de la transcripción</string>
+    <string name="minutes_no_text">No hay datos de transcripción disponibles</string>
+    <string name="minutes_generate">Generar actas</string>
+    <string name="minutes_regenerate">Volver a generar</string>
+    <string name="minutes_generating">Generando el acta con IA...</string>
+    <string name="minutes_saved_title">Actas anteriores</string>
+    <string name="minutes_summary">Resumen</string>
+    <string name="minutes_todo">TODO</string>
+    <string name="minutes_failed">Error al generar las actas</string>
+
     <!-- Feedback Screen -->
     <string name="feedback">Comentarios</string>
     <string name="feedback_category">Categoría</string>

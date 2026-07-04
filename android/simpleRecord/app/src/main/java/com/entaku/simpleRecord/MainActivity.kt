@@ -65,11 +65,13 @@ import com.entaku.simpleRecord.settings.TutorialScreen
 import com.entaku.simpleRecord.store.BillingRepository
 import com.entaku.simpleRecord.store.PaywallScreen
 import com.entaku.simpleRecord.store.PremiumRepository
+import com.entaku.simpleRecord.transcription.MeetingMinutesScreen
 import com.entaku.simpleRecord.transcription.TranscriptionScreen
 import com.entaku.simpleRecord.transcription.TranscriptionViewModelFactory
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.UUID
 
 // Bottom navigation destinations
@@ -429,7 +431,33 @@ fun AppNavHost() {
                             scope.launch(Dispatchers.IO) {
                                 repository.updateTranscription(id, text)
                             }
+                        },
+                        onNavigateToMeetingMinutes = { id, text ->
+                            // 議事録画面はDBの transcription_text を読むため、保存完了を待ってから遷移する
+                            scope.launch {
+                                withContext(Dispatchers.IO) {
+                                    repository.updateTranscription(id, text)
+                                }
+                                navController.navigate(Screen.MeetingMinutes.createRoute(id.toString()))
+                            }
                         }
+                    )
+                }
+
+                composable(
+                    route = Screen.MeetingMinutes.route,
+                    arguments = listOf(navArgument("uuid") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val uuidString = backStackEntry.arguments?.getString("uuid") ?: return@composable
+                    val uuid = runCatching { UUID.fromString(uuidString) }.getOrNull() ?: return@composable
+                    val database = remember { AppDatabase.getInstance(context) }
+                    val repository = remember { RecordingRepositoryImpl(database) }
+
+                    MeetingMinutesScreen(
+                        recordingUuid = uuid,
+                        repository = repository,
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToPaywall = { navController.navigate(Screen.Paywall.route) }
                     )
                 }
 
@@ -461,6 +489,9 @@ sealed class Screen(val route: String, val title: String) {
     object Transcription : Screen("transcription/{filePath}/{uuid}", "Transcription") {
         fun createRoute(filePath: String, uuid: String) =
             "transcription/${java.net.URLEncoder.encode(filePath, "UTF-8")}/$uuid"
+    }
+    object MeetingMinutes : Screen("meeting_minutes/{uuid}", "Meeting Minutes") {
+        fun createRoute(uuid: String) = "meeting_minutes/$uuid"
     }
     object Paywall : Screen("paywall", "Premium")
 }
