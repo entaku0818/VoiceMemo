@@ -1,8 +1,7 @@
-संस्करण 1.11.0
+Version 1.11.1
 
-[नई सुविधाएं]
-- 7 दिन के निःशुल्क परीक्षण के साथ वार्षिक सदस्यता योजना जोड़ी गई
-- मासिक योजना में अब 7 दिन का निःशुल्क परीक्षण शामिल है
+[New Features]
+- AI meeting minutes (iOS 26+): automatically generate summaries and to-do lists from your transcriptions
 
-[सुधार]
-- स्थिरता और प्रदर्शन में सुधार
+[Improvements]
+- Stability and performance improvements

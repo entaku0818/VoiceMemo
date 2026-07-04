@@ -1,8 +1,7 @@
-Phiên bản 1.11.0
+Phiên bản 1.11.1
 
 [Tính năng mới]
-- Thêm gói đăng ký hàng năm với 7 ngày dùng thử miễn phí
-- Gói hàng tháng hiện bao gồm 7 ngày dùng thử miễn phí
+- Biên bản cuộc họp AI (iOS 26+): tự động tạo bản tóm tắt và danh sách việc cần làm từ bản ghi chép
 
 [Cải tiến]
 - Cải thiện độ ổn định và hiệu suất

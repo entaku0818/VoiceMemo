@@ -1,8 +1,7 @@
-Versione 1.11.0
+Versione 1.11.1
 
 [Nuove funzionalità]
-- Aggiunto piano di abbonamento annuale con prova gratuita di 7 giorni
-- Il piano mensile ora include una prova gratuita di 7 giorni
+- Verbali delle riunioni con IA (iOS 26+): genera automaticamente riepiloghi ed elenchi di attività dalle trascrizioni
 
 [Miglioramenti]
-- Miglioramenti alla stabilità e alle prestazioni
+- Miglioramenti di stabilità e prestazioni

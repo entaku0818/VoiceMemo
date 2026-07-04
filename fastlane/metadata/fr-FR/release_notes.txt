@@ -1,8 +1,7 @@
-Version 1.11.0
+Version 1.11.1
 
 [Nouvelles fonctionnalités]
-- Ajout d'un abonnement annuel avec 7 jours d'essai gratuit
-- Le plan mensuel inclut désormais 7 jours d'essai gratuit
+- Comptes rendus de réunion IA (iOS 26+) : génération automatique de résumés et de listes de tâches à partir de vos transcriptions
 
 [Améliorations]
 - Améliorations de la stabilité et des performances

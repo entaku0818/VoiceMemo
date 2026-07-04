@@ -1,8 +1,7 @@
-Version 1.11.0
+Version 1.11.1
 
 [Nya funktioner]
-- Lagt till årsabonnemang med 7 dagars gratis provperiod
-- Månadsplanen inkluderar nu 7 dagars gratis provperiod
+- AI-mötesprotokoll (iOS 26+): skapa sammanfattningar och att-göra-listor automatiskt från dina transkriptioner
 
 [Förbättringar]
-- Förbättringar av stabilitet och prestanda
+- Stabilitets- och prestandaförbättringar

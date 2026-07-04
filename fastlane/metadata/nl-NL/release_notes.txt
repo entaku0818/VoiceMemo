@@ -1,8 +1,7 @@
-Versie 1.11.0
+Versie 1.11.1
 
 [Nieuwe functies]
-- Jaarabonnement toegevoegd met 7 dagen gratis probeerperiode
-- Maandabonnement bevat nu ook 7 dagen gratis probeerperiode
+- AI-vergadernotulen (iOS 26+): automatisch samenvattingen en takenlijsten genereren uit je transcripties
 
 [Verbeteringen]
 - Verbeteringen in stabiliteit en prestaties

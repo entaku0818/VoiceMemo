@@ -1,8 +1,7 @@
-Sürüm 1.11.0
+Sürüm 1.11.1
 
 [Yeni Özellikler]
-- 7 günlük ücretsiz deneme ile yıllık abonelik planı eklendi
-- Aylık plan artık 7 günlük ücretsiz deneme içeriyor
+- Yapay zekâ toplantı tutanakları (iOS 26+): transkripsiyonlardan otomatik özet ve yapılacaklar listesi oluşturun
 
 [İyileştirmeler]
 - Kararlılık ve performans iyileştirmeleri

@@ -1,8 +1,7 @@
-Version 1.11.0
+Version 1.11.1
 
 [Neue Funktionen]
-- Jahresabo-Plan mit 7-tägiger kostenloser Testversion hinzugefügt
-- Monatsplan beinhaltet jetzt eine 7-tägige kostenlose Testversion
+- KI-Sitzungsprotokolle (iOS 26+): Zusammenfassungen und To-do-Listen automatisch aus Transkriptionen erstellen
 
 [Verbesserungen]
 - Stabilitäts- und Leistungsverbesserungen

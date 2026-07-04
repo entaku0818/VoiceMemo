@@ -1,8 +1,7 @@
-Versi 1.11.0
+Versi 1.11.1
 
 [Fitur Baru]
-- Ditambahkan paket langganan tahunan dengan uji coba gratis 7 hari
-- Paket bulanan kini mencakup uji coba gratis 7 hari
+- Notulen rapat AI (iOS 26+): buat ringkasan dan daftar tugas secara otomatis dari transkripsi
 
 [Peningkatan]
-- Peningkatan stabilitas dan kinerja
+- Peningkatan stabilitas dan performa

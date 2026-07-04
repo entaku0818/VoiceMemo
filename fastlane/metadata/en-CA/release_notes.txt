@@ -1,8 +1,7 @@
-Version 1.11.0
+Version 1.11.1
 
 [New Features]
-- Added annual subscription plan with 7-day free trial
-- Monthly plan now includes a 7-day free trial
+- AI meeting minutes (iOS 26+): automatically generate summaries and to-do lists from your transcriptions
 
 [Improvements]
 - Stability and performance improvements

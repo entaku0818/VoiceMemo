@@ -1,8 +1,7 @@
-Versão 1.11.0
+Versão 1.11.1
 
 [Novas funcionalidades]
-- Adicionado plano de subscrição anual com 7 dias de teste gratuito
-- O plano mensal agora inclui 7 dias de teste gratuito
+- Atas de reunião com IA (iOS 26+): gere automaticamente resumos e listas de tarefas a partir das suas transcrições
 
 [Melhorias]
 - Melhorias de estabilidade e desempenho
