@@ -146,6 +146,13 @@
     <string name="premium_free_trial">7 Gün Ücretsiz Dene</string>
     <string name="premium_trial_then_price">Ardından %s / ay (otomatik yenileme)</string>
     <string name="premium_trial_terms">7 günlük ücretsiz deneme süresinin ardından aylık %s ücretlendirileceksiniz. Google Play abonelik ayarlarından yenileme tarihinden önce istediğiniz zaman iptal edebilirsiniz.</string>
+    <string name="premium_plan_monthly">Aylık</string>
+    <string name="premium_plan_annual">Yıllık</string>
+    <string name="premium_deal_badge">En avantajlı</string>
+    <string name="premium_price_per_month">%s / ay</string>
+    <string name="premium_price_per_year">%s / yıl</string>
+    <string name="premium_trial_then_price_annual">Sonrasında %s / yıl, otomatik yenilenir</string>
+    <string name="premium_trial_terms_annual">7 günlük ücretsiz deneme sonrasında %s/yıl ücretlendirilirsiniz. Yenileme tarihinden önce Google Play abonelik ayarlarından istediğiniz zaman iptal edebilirsiniz.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Transkripsiyon</string>

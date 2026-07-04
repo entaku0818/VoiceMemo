@@ -20,7 +20,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,7 +34,10 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -169,6 +174,90 @@ private fun PremiumFeatureList() {
 }
 
 @Composable
+private fun PlanSelector(
+    monthly: PremiumProduct,
+    annual: PremiumProduct,
+    isAnnualSelected: Boolean,
+    onSelect: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        PlanButton(
+            titleRes = R.string.premium_plan_annual,
+            priceText = stringResource(R.string.premium_price_per_year, annual.price),
+            badgeRes = R.string.premium_deal_badge,
+            selected = isAnnualSelected,
+            onClick = { onSelect(true) },
+            modifier = Modifier.weight(1f)
+        )
+        PlanButton(
+            titleRes = R.string.premium_plan_monthly,
+            priceText = stringResource(R.string.premium_price_per_month, monthly.price),
+            badgeRes = null,
+            selected = !isAnnualSelected,
+            onClick = { onSelect(false) },
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+private fun PlanButton(
+    titleRes: Int,
+    priceText: String,
+    badgeRes: Int?,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier,
+        border = BorderStroke(
+            width = if (selected) 2.dp else 1.dp,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.outline
+            }
+        ),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = if (selected) {
+                MaterialTheme.colorScheme.primaryContainer
+            } else {
+                MaterialTheme.colorScheme.surface
+            }
+        )
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(vertical = 8.dp)
+        ) {
+            if (badgeRes != null) {
+                Text(
+                    stringResource(badgeRes),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(Modifier.height(2.dp))
+            }
+            Text(
+                stringResource(titleRes),
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                priceText,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+@Composable
 private fun BillingContent(
     billingState: BillingState,
     billingManager: BillingRepository
@@ -202,12 +291,30 @@ private fun BillingContent(
             }
         }
         is BillingState.Ready -> {
-            val product = state.products.firstOrNull()
-            if (product != null) {
+            val monthly = state.products.firstOrNull { it.planType == PlanType.MONTHLY }
+                ?: state.products.firstOrNull()
+            val annual = state.products.firstOrNull { it.planType == PlanType.ANNUAL }
+            if (monthly != null) {
+                // 年額パッケージがofferingに存在する場合のみセレクターを表示する。
+                // 存在しない場合は従来どおり単一プラン（月額）のUIにフォールバックする。
+                var isAnnualSelected by rememberSaveable(annual != null) {
+                    mutableStateOf(annual != null)
+                }
+                val selectedProduct = if (isAnnualSelected && annual != null) annual else monthly
+
+                if (annual != null) {
+                    PlanSelector(
+                        monthly = monthly,
+                        annual = annual,
+                        isAnnualSelected = isAnnualSelected,
+                        onSelect = { isAnnualSelected = it }
+                    )
+                    Spacer(Modifier.height(16.dp))
+                }
                 Button(
                     onClick = {
                         if (activity != null) {
-                            billingManager.launchPurchaseFlow(activity, product)
+                            billingManager.launchPurchaseFlow(activity, selectedProduct)
                         } else {
                             android.util.Log.e("BillingContent", "Activity is null — cannot launch purchase flow")
                         }
@@ -220,14 +327,28 @@ private fun BillingContent(
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                         )
                         Text(
-                            stringResource(R.string.premium_trial_then_price, product.price),
+                            stringResource(
+                                if (selectedProduct.planType == PlanType.ANNUAL) {
+                                    R.string.premium_trial_then_price_annual
+                                } else {
+                                    R.string.premium_trial_then_price
+                                },
+                                selectedProduct.price
+                            ),
                             style = MaterialTheme.typography.bodySmall
                         )
                     }
                 }
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    stringResource(R.string.premium_trial_terms, product.price),
+                    stringResource(
+                        if (selectedProduct.planType == PlanType.ANNUAL) {
+                            R.string.premium_trial_terms_annual
+                        } else {
+                            R.string.premium_trial_terms
+                        },
+                        selectedProduct.price
+                    ),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center

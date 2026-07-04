@@ -6,13 +6,17 @@ import androidx.test.core.app.ApplicationProvider
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.EntitlementInfo
 import com.revenuecat.purchases.EntitlementInfos
+import com.revenuecat.purchases.Offering
 import com.revenuecat.purchases.Offerings
 import com.revenuecat.purchases.Package
+import com.revenuecat.purchases.PackageType
 import com.revenuecat.purchases.PurchasesError
 import com.revenuecat.purchases.PurchasesErrorCode
 import com.revenuecat.purchases.interfaces.PurchaseCallback
 import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
 import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
+import com.revenuecat.purchases.models.Price
+import com.revenuecat.purchases.models.StoreProduct
 import com.revenuecat.purchases.models.StoreTransaction
 import io.mockk.every
 import io.mockk.mockk
@@ -119,6 +123,59 @@ class BillingRepositoryTest {
         assertEquals("premium", BillingRepository.PREMIUM_ENTITLEMENT_KEY)
     }
 
+    // --- annual plan tests ---
+
+    @Test
+    fun `fetchOfferings maps monthly and annual packages to plan types`() = runTest {
+        fakePurchasesClient.offeringsResult = OfferingsResult.Success(
+            listOf(
+                fakeRcPackage(PackageType.MONTHLY, "premium_monthly", "¥300"),
+                fakeRcPackage(PackageType.ANNUAL, "premium_annual", "¥2,500")
+            )
+        )
+        repository.connect()
+
+        val state = repository.billingState.value as BillingState.Ready
+        assertEquals(2, state.products.size)
+
+        val monthly = state.products.first { it.planType == PlanType.MONTHLY }
+        assertEquals("premium_monthly", monthly.productId)
+        assertEquals("¥300", monthly.price)
+
+        val annual = state.products.first { it.planType == PlanType.ANNUAL }
+        assertEquals("premium_annual", annual.productId)
+        assertEquals("¥2,500", annual.price)
+    }
+
+    @Test
+    fun `fetchOfferings maps non-subscription package types to OTHER`() = runTest {
+        fakePurchasesClient.offeringsResult = OfferingsResult.Success(
+            listOf(fakeRcPackage(PackageType.LIFETIME, "premium_lifetime", "¥5,000"))
+        )
+        repository.connect()
+
+        val state = repository.billingState.value as BillingState.Ready
+        assertEquals(PlanType.OTHER, state.products.single().planType)
+    }
+
+    @Test
+    fun `launchPurchaseFlow with annual product success updates premium status`() = runTest {
+        fakePurchasesClient.offeringsResult = OfferingsResult.Success(
+            listOf(fakeRcPackage(PackageType.ANNUAL, "premium_annual", "¥2,500"))
+        )
+        fakePurchasesClient.purchaseResult = PurchaseResult.Success
+        repository.connect()
+
+        val annual = (repository.billingState.value as BillingState.Ready)
+            .products.single { it.planType == PlanType.ANNUAL }
+        val activity = mockk<Activity>()
+        repository.launchPurchaseFlow(activity, annual)
+
+        val premiumRepo = PremiumRepository.getInstance(context)
+        assertTrue(premiumRepo.isPremium.value)
+        assertTrue(repository.billingState.value is BillingState.Ready)
+    }
+
     // --- launchPurchaseFlow tests (#143) ---
 
     @Test
@@ -128,7 +185,7 @@ class BillingRepositoryTest {
         repository.connect()
 
         val activity = mockk<Activity>()
-        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        val product = PremiumProduct("id", "title", "$9.99", PlanType.MONTHLY, mockk())
         repository.launchPurchaseFlow(activity, product)
 
         assertEquals(BillingState.Purchasing, repository.billingState.value)
@@ -141,7 +198,7 @@ class BillingRepositoryTest {
         repository.connect()
 
         val activity = mockk<Activity>()
-        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        val product = PremiumProduct("id", "title", "$9.99", PlanType.MONTHLY, mockk())
         repository.launchPurchaseFlow(activity, product)
 
         val premiumRepo = PremiumRepository.getInstance(context)
@@ -156,7 +213,7 @@ class BillingRepositoryTest {
         repository.connect()
 
         val activity = mockk<Activity>()
-        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        val product = PremiumProduct("id", "title", "$9.99", PlanType.MONTHLY, mockk())
         repository.launchPurchaseFlow(activity, product)
 
         // PurchasesError.message は PurchasesErrorCode が返す固定メッセージになるため
@@ -171,7 +228,7 @@ class BillingRepositoryTest {
         repository.connect()
 
         val activity = mockk<Activity>()
-        val product = PremiumProduct("id", "title", "$9.99", mockk())
+        val product = PremiumProduct("id", "title", "$9.99", PlanType.MONTHLY, mockk())
         repository.launchPurchaseFlow(activity, product)
 
         assertTrue(repository.billingState.value is BillingState.Ready)
@@ -200,6 +257,22 @@ sealed class PurchaseResult {
     data class Error(val message: String, val userCancelled: Boolean = false) : PurchaseResult()
 }
 
+// --- Test helpers ---
+
+/** RevenueCat Package のモックを生成する（packageType / product.id / price のみ設定） */
+fun fakeRcPackage(type: PackageType, productId: String, formattedPrice: String): Package {
+    val price = mockk<Price>()
+    every { price.formatted } returns formattedPrice
+    val product = mockk<StoreProduct>()
+    every { product.id } returns productId
+    every { product.title } returns productId
+    every { product.price } returns price
+    val pkg = mockk<Package>()
+    every { pkg.packageType } returns type
+    every { pkg.product } returns product
+    return pkg
+}
+
 // --- Fake PurchasesClient ---
 
 class FakePurchasesClient : PurchasesClient {
@@ -212,7 +285,13 @@ class FakePurchasesClient : PurchasesClient {
         when (val result = offeringsResult) {
             is OfferingsResult.Success -> {
                 val offerings = mockk<Offerings>()
-                every { offerings.current } returns null
+                if (result.packages.isEmpty()) {
+                    every { offerings.current } returns null
+                } else {
+                    val offering = mockk<Offering>()
+                    every { offering.availablePackages } returns result.packages
+                    every { offerings.current } returns offering
+                }
                 callback.onReceived(offerings)
             }
             is OfferingsResult.Failure ->

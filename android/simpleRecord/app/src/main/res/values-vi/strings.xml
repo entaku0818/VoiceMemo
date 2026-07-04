@@ -146,6 +146,13 @@
     <string name="premium_free_trial">Dùng thử miễn phí 7 ngày</string>
     <string name="premium_trial_then_price">Sau đó %s / tháng (tự động gia hạn)</string>
     <string name="premium_trial_terms">Sau thời gian dùng thử miễn phí 7 ngày, bạn sẽ bị tính phí %s/tháng. Hủy bất cứ lúc nào trong cài đặt đăng ký Google Play trước ngày gia hạn.</string>
+    <string name="premium_plan_monthly">Hàng tháng</string>
+    <string name="premium_plan_annual">Hàng năm</string>
+    <string name="premium_deal_badge">Tiết kiệm nhất</string>
+    <string name="premium_price_per_month">%s / tháng</string>
+    <string name="premium_price_per_year">%s / năm</string>
+    <string name="premium_trial_then_price_annual">Sau đó %s / năm, tự động gia hạn</string>
+    <string name="premium_trial_terms_annual">Sau 7 ngày dùng thử miễn phí, bạn sẽ bị tính phí %s/năm. Hủy bất cứ lúc nào trong cài đặt đăng ký của Google Play trước ngày gia hạn.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Phiên âm</string>

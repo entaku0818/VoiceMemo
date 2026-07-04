@@ -146,6 +146,13 @@
     <string name="premium_free_trial">Prueba gratis 7 días</string>
     <string name="premium_trial_then_price">Luego %s / mes (renovación automática)</string>
     <string name="premium_trial_terms">Después de la prueba gratuita de 7 días, se cobrará %s/mes. Cancela en cualquier momento en la configuración de suscripciones de Google Play antes de la fecha de renovación.</string>
+    <string name="premium_plan_monthly">Mensual</string>
+    <string name="premium_plan_annual">Anual</string>
+    <string name="premium_deal_badge">Mejor oferta</string>
+    <string name="premium_price_per_month">%s / mes</string>
+    <string name="premium_price_per_year">%s / año</string>
+    <string name="premium_trial_then_price_annual">Después %s / año, se renueva automáticamente</string>
+    <string name="premium_trial_terms_annual">Tras la prueba gratuita de 7 días, se te cobrará %s/año. Cancela cuando quieras en los ajustes de suscripciones de Google Play antes de la fecha de renovación.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Transcripción</string>

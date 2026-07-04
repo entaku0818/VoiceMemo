@@ -146,6 +146,13 @@
     <string name="premium_free_trial">免費試用7天</string>
     <string name="premium_trial_then_price">之後 %s / 月（自動續費）</string>
     <string name="premium_trial_terms">7天免費試用結束後，將按每月%s收費。可在續費日期前隨時在Google Play訂閱設定中取消。</string>
+    <string name="premium_plan_monthly">月度</string>
+    <string name="premium_plan_annual">年度</string>
+    <string name="premium_deal_badge">超值</string>
+    <string name="premium_price_per_month">%s / 月</string>
+    <string name="premium_price_per_year">%s / 年</string>
+    <string name="premium_trial_then_price_annual">之後 %s / 年（自動續訂）</string>
+    <string name="premium_trial_terms_annual">7天免費試用結束後，將按 %s/年自動扣款。可在續訂日期前隨時在 Google Play 訂閱設定中取消。</string>
 
     <!-- Transcription -->
     <string name="transcription_title">轉錄</string>

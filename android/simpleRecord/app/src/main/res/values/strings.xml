@@ -158,6 +158,13 @@
     <string name="premium_free_trial">Try Free for 7 Days</string>
     <string name="premium_trial_then_price">Then %s / month, auto-renews</string>
     <string name="premium_trial_terms">After the 7-day free trial, you will be charged %s/month. Cancel anytime in Google Play subscription settings before the renewal date.</string>
+    <string name="premium_plan_monthly">Monthly</string>
+    <string name="premium_plan_annual">Annual</string>
+    <string name="premium_deal_badge">Best Value</string>
+    <string name="premium_price_per_month">%s / month</string>
+    <string name="premium_price_per_year">%s / year</string>
+    <string name="premium_trial_then_price_annual">Then %s / year, auto-renews</string>
+    <string name="premium_trial_terms_annual">After the 7-day free trial, you will be charged %s/year. Cancel anytime in Google Play subscription settings before the renewal date.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Transcription</string>

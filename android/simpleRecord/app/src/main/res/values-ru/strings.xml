@@ -146,6 +146,13 @@
     <string name="premium_free_trial">Попробовать бесплатно 7 дней</string>
     <string name="premium_trial_then_price">Затем %s / месяц (автообновление)</string>
     <string name="premium_trial_terms">После 7-дневного бесплатного пробного периода будет списываться %s/месяц. Отменить можно в любое время в настройках подписок Google Play до даты продления.</string>
+    <string name="premium_plan_monthly">Ежемесячно</string>
+    <string name="premium_plan_annual">Ежегодно</string>
+    <string name="premium_deal_badge">Выгодно</string>
+    <string name="premium_price_per_month">%s / месяц</string>
+    <string name="premium_price_per_year">%s / год</string>
+    <string name="premium_trial_then_price_annual">Затем %s / год, автопродление</string>
+    <string name="premium_trial_terms_annual">После 7-дневного бесплатного периода будет списываться %s/год. Отменить можно в любой момент в настройках подписок Google Play до даты продления.</string>
 
     <!-- Transcription -->
     <string name="transcription_title">Транскрипция</string>

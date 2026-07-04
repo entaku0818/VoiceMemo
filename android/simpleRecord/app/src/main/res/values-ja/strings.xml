@@ -109,6 +109,13 @@
     <string name="premium_free_trial">7日間無料で試す</string>
     <string name="premium_trial_then_price">その後 %s /月（自動更新）</string>
     <string name="premium_trial_terms">7日間の無料トライアル終了後、%s/月で自動的に課金されます。更新日の24時間前までにGoogle Playのサブスクリプション設定からいつでもキャンセルできます。</string>
+    <string name="premium_plan_monthly">月額</string>
+    <string name="premium_plan_annual">年額</string>
+    <string name="premium_deal_badge">お得</string>
+    <string name="premium_price_per_month">%s /月</string>
+    <string name="premium_price_per_year">%s /年</string>
+    <string name="premium_trial_then_price_annual">その後 %s /年（自動更新）</string>
+    <string name="premium_trial_terms_annual">7日間の無料トライアル終了後、%s/年で自動的に課金されます。更新日の24時間前までにGoogle Playのサブスクリプション設定からいつでもキャンセルできます。</string>
 
     <!-- Recording Presets -->
     <string name="preset_label">プリセット</string>
