@@ -187,40 +187,109 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
   "summary": "内容の要約（3文以内）"
 }`, body.Language)
 
-	resp, err := model.GenerateContent(geminiCtx,
-		genai.FileData{URI: geminiFile.URI, MIMEType: mimeType},
-		genai.Text(prompt),
-	)
+	result, err := transcribeWithRetry(func() (string, error) {
+		resp, err := model.GenerateContent(geminiCtx,
+			genai.FileData{URI: geminiFile.URI, MIMEType: mimeType},
+			genai.Text(prompt),
+		)
+		if err != nil {
+			return "", err
+		}
+		text := ""
+		if len(resp.Candidates) > 0 && len(resp.Candidates[0].Content.Parts) > 0 {
+			if t, ok := resp.Candidates[0].Content.Parts[0].(genai.Text); ok {
+				text = string(t)
+			}
+		}
+		return text, nil
+	})
 	if err != nil {
 		log.Printf("gemini error: %s", redactAPIKey(err.Error()))
 		notifySlack(fmt.Sprintf(":x: [VoiLog] Transcription failed (Gemini)\n```%s```", sanitizeError(err)))
 		http.Error(w, `{"error":"Transcription failed"}`, http.StatusInternalServerError)
 		return
 	}
-
-	// レスポンス返却
-	text := ""
-	if len(resp.Candidates) > 0 && len(resp.Candidates[0].Content.Parts) > 0 {
-		if t, ok := resp.Candidates[0].Content.Parts[0].(genai.Text); ok {
-			text = string(t)
-		}
-	}
-
-	// markdown コードブロック除去 → JSON境界抽出 → パース
-	text = extractJSON(text)
-	var result map[string]any
-	if err := json.Unmarshal([]byte(text), &result); err != nil {
-		log.Printf("json parse error: %v, raw: %s", err, text)
-		notifySlack(fmt.Sprintf(":warning: [VoiLog] JSON parse error (fell back to raw text)\n```%s```", sanitizeError(err)))
-		result = map[string]any{
-			"transcription": text,
-			"segments":      []any{},
-			"summary":       "",
-		}
+	if result == nil {
+		notifySlack(":x: [VoiLog] Transcription JSON unrecoverable after retry (no salvageable transcription field)")
+		http.Error(w, `{"error":"Transcription failed"}`, http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
+}
+
+// transcribeWithRetry は fetchText で Gemini の生レスポンスを取得し、JSON としてパースする。
+// パースに失敗した場合（Gemini の出力が途中で途切れるなど）は fetchText をもう一度だけ呼び直す。
+// リトライしてもパースできない場合は、壊れた JSON から transcription フィールドの値を
+// 可能な範囲でサルベージし、JSON の記号がユーザーに見えない形で返す。
+// サルベージもできない場合は nil, nil を返す（呼び出し元でエラー応答にする）。
+func transcribeWithRetry(fetchText func() (string, error)) (map[string]any, error) {
+	var lastBroken string
+	for attempt := 1; attempt <= 2; attempt++ {
+		raw, err := fetchText()
+		if err != nil {
+			return nil, err
+		}
+		text := extractJSON(raw)
+		var result map[string]any
+		if err := json.Unmarshal([]byte(text), &result); err == nil {
+			return result, nil
+		} else {
+			log.Printf("json parse error (attempt %d/2): %v, raw: %s", attempt, err, text)
+			lastBroken = text
+		}
+	}
+
+	salvaged := salvageTranscription(lastBroken)
+	if salvaged == "" {
+		return nil, nil
+	}
+	return map[string]any{
+		"transcription": salvaged,
+		"segments":      []any{},
+		"summary":       "",
+	}, nil
+}
+
+var transcriptionFieldPattern = regexp.MustCompile(`"transcription"\s*:\s*"`)
+
+// salvageTranscription は途切れた/壊れた JSON 文字列から transcription フィールドの値を
+// 可能な範囲で取り出す。JSON のエスケープシーケンス（\n, \", \\ など）を解決し、
+// クオートやブレースなどの JSON 記号がユーザーに見える形で残らないようにする。
+// フィールド自体が見つからない場合は空文字を返す。
+func salvageTranscription(broken string) string {
+	loc := transcriptionFieldPattern.FindStringIndex(broken)
+	if loc == nil {
+		return ""
+	}
+	rest := broken[loc[1]:]
+
+	var sb strings.Builder
+	for i := 0; i < len(rest); i++ {
+		c := rest[i]
+		if c == '"' {
+			break
+		}
+		if c == '\\' && i+1 < len(rest) {
+			i++
+			switch rest[i] {
+			case 'n':
+				sb.WriteByte('\n')
+			case 't':
+				sb.WriteByte('\t')
+			case '"':
+				sb.WriteByte('"')
+			case '\\':
+				sb.WriteByte('\\')
+			default:
+				sb.WriteByte(rest[i])
+			}
+			continue
+		}
+		sb.WriteByte(c)
+	}
+	return strings.TrimSpace(sb.String())
 }
 
 // 議事録生成: 文字起こし済みテキストから要約とTODOを生成する
