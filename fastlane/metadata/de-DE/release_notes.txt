@@ -1,7 +1,4 @@
-Version 1.11.1
+Version 1.11.2
 
-[Neue Funktionen]
-- KI-Sitzungsprotokolle (iOS 26+): Zusammenfassungen und To-do-Listen automatisch aus Transkriptionen erstellen
-
-[Verbesserungen]
-- Stabilitäts- und Leistungsverbesserungen
+[Fehlerbehebungen]
+- Problem behoben, bei dem der Upload der Audiodatei zur Transkription fehlschlagen konnte

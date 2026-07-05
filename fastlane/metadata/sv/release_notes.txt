@@ -1,7 +1,4 @@
-Version 1.11.1
+Version 1.11.2
 
-[Nya funktioner]
-- AI-mötesprotokoll (iOS 26+): skapa sammanfattningar och att-göra-listor automatiskt från dina transkriptioner
-
-[Förbättringar]
-- Stabilitets- och prestandaförbättringar
+[Buggfixar]
+- Åtgärdat ett problem som kunde göra att uppladdning av ljud för transkribering misslyckades

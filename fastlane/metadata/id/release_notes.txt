@@ -1,7 +1,4 @@
-Versi 1.11.1
+Versi 1.11.2
 
-[Fitur Baru]
-- Notulen rapat AI (iOS 26+): buat ringkasan dan daftar tugas secara otomatis dari transkripsi
-
-[Peningkatan]
-- Peningkatan stabilitas dan performa
+[Perbaikan Bug]
+- Memperbaiki masalah yang dapat menyebabkan pengunggahan audio untuk transkripsi gagal

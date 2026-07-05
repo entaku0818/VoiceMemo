@@ -1,7 +1,4 @@
-Wersja 1.11.1
+Wersja 1.11.2
 
-[Nowe funkcje]
-- Protokoły spotkań AI (iOS 26+): automatyczne generowanie podsumowań i list zadań z transkrypcji
-
-[Ulepszenia]
-- Poprawa stabilności i wydajności
+[Poprawki błędów]
+- Naprawiono problem, który mógł powodować niepowodzenie przesyłania audio do transkrypcji

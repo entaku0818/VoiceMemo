@@ -1,7 +1,4 @@
-Versión 1.11.1
+Versión 1.11.2
 
-[Nuevas funciones]
-- Actas de reunión con IA (iOS 26+): genera automáticamente resúmenes y listas de tareas a partir de tus transcripciones
-
-[Mejoras]
-- Mejoras de estabilidad y rendimiento
+[Correcciones de errores]
+- Se corrigió un problema por el que la subida de audio para la transcripción podía fallar

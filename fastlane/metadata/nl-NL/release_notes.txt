@@ -1,7 +1,4 @@
-Versie 1.11.1
+Versie 1.11.2
 
-[Nieuwe functies]
-- AI-vergadernotulen (iOS 26+): automatisch samenvattingen en takenlijsten genereren uit je transcripties
-
-[Verbeteringen]
-- Verbeteringen in stabiliteit en prestaties
+[Bugfixes]
+- Een probleem opgelost waardoor het uploaden van audio voor transcriptie kon mislukken

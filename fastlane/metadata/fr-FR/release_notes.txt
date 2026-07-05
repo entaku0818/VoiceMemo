@@ -1,7 +1,4 @@
-Version 1.11.1
+Version 1.11.2
 
-[Nouvelles fonctionnalités]
-- Comptes rendus de réunion IA (iOS 26+) : génération automatique de résumés et de listes de tâches à partir de vos transcriptions
-
-[Améliorations]
-- Améliorations de la stabilité et des performances
+[Corrections de bugs]
+- Correction d'un problème pouvant faire échouer l'envoi de l'audio pour la transcription

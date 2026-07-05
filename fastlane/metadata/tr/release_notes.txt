@@ -1,7 +1,4 @@
-Sürüm 1.11.1
+Sürüm 1.11.2
 
-[Yeni Özellikler]
-- Yapay zekâ toplantı tutanakları (iOS 26+): transkripsiyonlardan otomatik özet ve yapılacaklar listesi oluşturun
-
-[İyileştirmeler]
-- Kararlılık ve performans iyileştirmeleri
+[Hata Düzeltmeleri]
+- Transkripsiyon için ses yüklemesinin bazen başarısız olmasına neden olan sorun giderildi

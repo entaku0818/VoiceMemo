@@ -1,7 +1,4 @@
-Version 1.11.1
+Version 1.11.2
 
-[New Features]
-- AI meeting minutes (iOS 26+): automatically generate summaries and to-do lists from your transcriptions
-
-[Improvements]
-- Stability and performance improvements
+[Bug Fixes]
+- Fixed an issue where uploading audio for transcription could fail

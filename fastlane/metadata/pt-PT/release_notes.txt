@@ -1,7 +1,4 @@
-Versão 1.11.1
+Versão 1.11.2
 
-[Novas funcionalidades]
-- Atas de reunião com IA (iOS 26+): gere automaticamente resumos e listas de tarefas a partir das suas transcrições
-
-[Melhorias]
-- Melhorias de estabilidade e desempenho
+[Correções de erros]
+- Corrigido um problema que podia fazer falhar o envio do áudio para transcrição

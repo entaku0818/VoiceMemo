@@ -1,7 +1,4 @@
-Versione 1.11.1
+Versione 1.11.2
 
-[Nuove funzionalità]
-- Verbali delle riunioni con IA (iOS 26+): genera automaticamente riepiloghi ed elenchi di attività dalle trascrizioni
-
-[Miglioramenti]
-- Miglioramenti di stabilità e prestazioni
+[Correzioni di bug]
+- Risolto un problema che poteva causare il fallimento del caricamento dell'audio per la trascrizione
