@@ -4,12 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.entaku.simpleRecord.record.RecordingRepository
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
 /**
@@ -79,7 +77,7 @@ class MeetingMinutesViewModel(
     private val recordingUuid: UUID,
     private val repository: RecordingRepository,
     private val client: TranscriptionApiClient = TranscriptionApiClient(),
-    private val tokenProvider: suspend () -> String = ::firebaseIdToken
+    private val tokenProvider: suspend (forceRefresh: Boolean) -> String = ::firebaseIdToken
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<MeetingMinutesUiState>(MeetingMinutesUiState.Loading)
@@ -104,8 +102,9 @@ class MeetingMinutesViewModel(
         viewModelScope.launch {
             _uiState.value = MeetingMinutesUiState.Generating
             try {
-                val idToken = tokenProvider()
-                val result = client.generateMinutes(idToken, text, detectSystemLanguage())
+                val result = withAuthRetry(tokenProvider) { idToken ->
+                    client.generateMinutes(idToken, text, detectSystemLanguage())
+                }
                 _uiState.value = MeetingMinutesUiState.Done(result)
             } catch (e: Exception) {
                 _uiState.value = MeetingMinutesUiState.Failed(e.message ?: "Unknown error")
@@ -137,15 +136,6 @@ class MeetingMinutesViewModel(
             else -> "en"
         }
     }
-}
-
-private suspend fun firebaseIdToken(): String {
-    val auth = FirebaseAuth.getInstance()
-    if (auth.currentUser == null) {
-        auth.signInAnonymously().await()
-    }
-    return auth.currentUser!!.getIdToken(false).await().token
-        ?: error("Failed to get Firebase ID token")
 }
 
 class MeetingMinutesViewModelFactory(

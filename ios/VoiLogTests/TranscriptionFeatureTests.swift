@@ -16,7 +16,7 @@ final class TranscriptionFeatureTests: XCTestCase {
             .init(transcription: "テスト文章", segments: nil, summary: nil)
         },
         uploadAudio: @escaping @Sendable (URL, String, String) async throws -> Void = { _, _, _ in },
-        currentUserIDToken: @escaping @Sendable () async throws -> String = { "test-token" }
+        currentUserIDToken: @escaping @Sendable (Bool) async throws -> String = { _ in "test-token" }
     ) -> TestStore<TranscriptionFeature.State, TranscriptionFeature.Action> {
         TestStore(
             initialState: TranscriptionFeature.State(audioURL: testURL, status: status)
@@ -110,7 +110,7 @@ final class TranscriptionFeatureTests: XCTestCase {
         struct AuthError: LocalizedError {
             var errorDescription: String? { "認証エラー" }
         }
-        let store = makeStore(currentUserIDToken: { throw AuthError() })
+        let store = makeStore(currentUserIDToken: { _ in throw AuthError() })
 
         await store.send(.startTapped) { $0.status = .uploading }
         await store.receive(\._failed) {
@@ -131,6 +131,74 @@ final class TranscriptionFeatureTests: XCTestCase {
         await store.send(.startTapped)
         await store.receive(\._failed)
         assertStatusIsFailed(store.state.status)
+    }
+
+    // MARK: - アップロードURL取得が401 → トークンを強制リフレッシュして1回だけ再試行し成功する
+
+    func testStartTapped_uploadURL401_retriesWithForcedRefreshToken() async {
+        let tokenCalls = LockIsolated<[Bool]>([])
+        let store = makeStore(
+            uploadURL: { token, _ in
+                if token == "stale-token" {
+                    throw TranscriptionError.serverError(401, "Unauthorized")
+                }
+                return .init(uploadUrl: "https://signed.url/audio", fileId: "f1", blobName: "b1")
+            },
+            transcribe: { _, _, _ in .init(transcription: "再試行成功", segments: nil, summary: nil) },
+            currentUserIDToken: { forcingRefresh in
+                tokenCalls.withValue { $0.append(forcingRefresh) }
+                return forcingRefresh ? "fresh-token" : "stale-token"
+            }
+        )
+        store.exhaustivity = .off
+
+        await store.send(.startTapped)
+        await store.receive(\._uploadCompleted) { $0.status = .transcribing }
+        await store.receive(\._transcriptionCompleted) {
+            $0.status = .done
+            $0.savedText = "再試行成功"
+        }
+        XCTAssertTrue(tokenCalls.value.contains(true), "401後にforcingRefresh=trueで再取得しているはず")
+    }
+
+    // MARK: - アップロードURL取得が401を繰り返す → 1回のリトライ後は.failedになる
+
+    func testStartTapped_uploadURLRepeated401_failsAfterSingleRetry() async {
+        let callCount = LockIsolated(0)
+        let store = makeStore(
+            uploadURL: { _, _ in
+                callCount.withValue { $0 += 1 }
+                throw TranscriptionError.serverError(401, "Unauthorized")
+            }
+        )
+        store.exhaustivity = .off
+
+        await store.send(.startTapped)
+        await store.receive(\._failed)
+        assertStatusIsFailed(store.state.status)
+        XCTAssertEqual(callCount.value, 2, "初回 + 強制リフレッシュ後の1回のみ再試行するはず")
+    }
+
+    // MARK: - 文字起こしAPIが401 → トークンを強制リフレッシュして1回だけ再試行し成功する
+
+    func testStartTapped_transcribe401_retriesWithForcedRefreshToken() async {
+        let store = makeStore(
+            transcribe: { token, _, _ in
+                if token == "stale-token" {
+                    throw TranscriptionError.serverError(401, "Unauthorized")
+                }
+                return .init(transcription: "再試行成功", segments: nil, summary: nil)
+            },
+            currentUserIDToken: { forcingRefresh in forcingRefresh ? "fresh-token" : "stale-token" }
+        )
+        store.exhaustivity = .off
+
+        await store.send(.startTapped)
+        await store.receive(\._uploadCompleted) { $0.status = .transcribing }
+        await store.receive(\._transcriptionCompleted) {
+            $0.status = .done
+            $0.savedText = "再試行成功"
+        }
     }
 
     // MARK: - 音声アップロード失敗 → .failed

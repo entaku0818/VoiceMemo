@@ -1,7 +1,9 @@
 package com.entaku.simpleRecord.transcription
 
 import com.entaku.simpleRecord.BuildConfig
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.File
@@ -25,6 +27,40 @@ data class MinutesResult(
     val todos: List<String>
 )
 
+/** サーバーからのHTTPエラーをステータスコード付きで表す。401時の再認証リトライ判定に使う。 */
+class TranscriptionApiException(val status: Int, message: String) : Exception(message)
+
+/**
+ * IDトークンを使う operation を実行し、401（認証エラー）が返ってきた場合のみ
+ * tokenProvider(forceRefresh = true) でトークンを取り直して1回だけ再試行する。
+ * バックグラウンド復帰後などにキャッシュ済みトークンが期限切れになっているケースを救う。
+ */
+internal suspend fun <T> withAuthRetry(
+    tokenProvider: suspend (forceRefresh: Boolean) -> String,
+    operation: suspend (idToken: String) -> T
+): T {
+    val token = tokenProvider(false)
+    return try {
+        operation(token)
+    } catch (e: TranscriptionApiException) {
+        if (e.status != 401) throw e
+        operation(tokenProvider(true))
+    }
+}
+
+/**
+ * Firebase匿名認証のIDトークンを取得する。forceRefresh=trueの場合はキャッシュを使わず
+ * サーバーから新しいトークンを取り直す（バックグラウンド復帰後の期限切れ対策）。
+ */
+internal suspend fun firebaseIdToken(forceRefresh: Boolean = false): String {
+    val auth = FirebaseAuth.getInstance()
+    if (auth.currentUser == null) {
+        auth.signInAnonymously().await()
+    }
+    return auth.currentUser!!.getIdToken(forceRefresh).await().token
+        ?: error("Failed to get Firebase ID token")
+}
+
 class TranscriptionApiClient {
 
     private val baseUrl = BuildConfig.TRANSCRIPTION_SERVER_URL
@@ -42,8 +78,12 @@ class TranscriptionApiClient {
             conn.outputStream.use { it.write(body) }
 
             val status = conn.responseCode
-            val responseBody = conn.inputStream.bufferedReader().readText()
-            if (status !in 200..299) error("upload-url failed: $status $responseBody")
+            val responseBody = if (status in 200..299) {
+                conn.inputStream.bufferedReader().readText()
+            } else {
+                conn.errorStream?.bufferedReader()?.readText() ?: ""
+            }
+            if (status !in 200..299) throw TranscriptionApiException(status, "upload-url failed: $status $responseBody")
 
             val json = JSONObject(responseBody)
             Pair(json.getString("uploadUrl"), json.getString("blobName"))
@@ -82,7 +122,7 @@ class TranscriptionApiClient {
             } else {
                 conn.errorStream?.bufferedReader()?.readText() ?: ""
             }
-            if (status !in 200..299) error("transcribe failed: $status $responseBody")
+            if (status !in 200..299) throw TranscriptionApiException(status, "transcribe failed: $status $responseBody")
 
             val json = JSONObject(responseBody)
             val segments = mutableListOf<TranscriptionSegment>()
@@ -130,7 +170,7 @@ class TranscriptionApiClient {
             } else {
                 conn.errorStream?.bufferedReader()?.readText() ?: ""
             }
-            if (status !in 200..299) error("minutes failed: $status $responseBody")
+            if (status !in 200..299) throw TranscriptionApiException(status, "minutes failed: $status $responseBody")
 
             val json = JSONObject(responseBody)
             val todos = mutableListOf<String>()

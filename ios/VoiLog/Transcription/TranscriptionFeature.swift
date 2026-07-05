@@ -6,28 +6,19 @@ import FirebaseAuth
 // MARK: - Firebase Auth Dependency
 
 struct FirebaseAuthClient {
-    var currentUserIDToken: @Sendable () async throws -> String
+    var currentUserIDToken: @Sendable (_ forcingRefresh: Bool) async throws -> String
 }
 
 extension FirebaseAuthClient: DependencyKey {
     static let liveValue = FirebaseAuthClient(
-        currentUserIDToken: {
+        currentUserIDToken: { forcingRefresh in
             if Auth.auth().currentUser == nil {
                 try await Auth.auth().signInAnonymously()
             }
             guard let user = Auth.auth().currentUser else {
                 throw TranscriptionError.notAuthenticated
             }
-            return try await withCheckedThrowingContinuation { cont in
-                user.getIDToken { token, error in
-                    if let error { cont.resume(throwing: error); return }
-                    guard let token else {
-                        cont.resume(throwing: TranscriptionError.notAuthenticated)
-                        return
-                    }
-                    cont.resume(returning: token)
-                }
-            }
+            return try await user.getIDToken(forcingRefresh: forcingRefresh)
         }
     )
 }
@@ -154,6 +145,22 @@ extension DependencyValues {
     }
 }
 
+/// IDトークンを使う operation を実行し、401（認証エラー）が返ってきた場合のみ
+/// `currentUserIDToken(forcingRefresh: true)` でトークンを取り直して1回だけ再試行する。
+/// バックグラウンド復帰後などにキャッシュ済みトークンが期限切れになっているケースを救う。
+func withAuthRetry<T>(
+    firebaseAuth: FirebaseAuthClient,
+    currentToken: String,
+    operation: (String) async throws -> T
+) async throws -> (value: T, token: String) {
+    do {
+        return (try await operation(currentToken), currentToken)
+    } catch TranscriptionError.serverError(401, _) {
+        let refreshedToken = try await firebaseAuth.currentUserIDToken(true)
+        return (try await operation(refreshedToken), refreshedToken)
+    }
+}
+
 // MARK: - Feature
 
 @Reducer
@@ -225,11 +232,21 @@ struct TranscriptionFeature {
                 let lang = state.selectedLanguage
                 return .run { send in
                     do {
-                        let idToken = try await firebaseAuth.currentUserIDToken()
-                        let uploadResp = try await client.uploadURL(idToken, ext)
+                        let idToken = try await firebaseAuth.currentUserIDToken(false)
+                        let (uploadResp, tokenAfterUpload) = try await withAuthRetry(
+                            firebaseAuth: firebaseAuth,
+                            currentToken: idToken
+                        ) { token in
+                            try await client.uploadURL(token, ext)
+                        }
                         await send(._uploadCompleted(blobName: uploadResp.blobName, uploadURL: uploadResp.uploadUrl))
                         try await client.uploadAudio(audioURL, uploadResp.uploadUrl, mimeType)
-                        let resp = try await client.transcribe(idToken, uploadResp.blobName, lang)
+                        let (resp, _) = try await withAuthRetry(
+                            firebaseAuth: firebaseAuth,
+                            currentToken: tokenAfterUpload
+                        ) { token in
+                            try await client.transcribe(token, uploadResp.blobName, lang)
+                        }
                         await send(._transcriptionCompleted(.init(
                             transcription: resp.transcription,
                             segments: resp.segments ?? [],

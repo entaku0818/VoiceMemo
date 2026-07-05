@@ -3,6 +3,7 @@ package com.entaku.simpleRecord.transcription
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.record.RecordingRepository
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -64,6 +65,13 @@ class MeetingMinutesViewModelTest {
         tokenProvider = { "fake-token" }
     )
 
+    private fun viewModel(tokenProvider: suspend (Boolean) -> String) = MeetingMinutesViewModel(
+        recordingUuid = uuid,
+        repository = repository,
+        client = client,
+        tokenProvider = tokenProvider
+    )
+
     @Test
     fun `init loads recording and becomes Idle with transcription`() = runTest {
         repository.stored = recording()
@@ -113,6 +121,33 @@ class MeetingMinutesViewModelTest {
         vm.generate()
 
         assertTrue(vm.uiState.value is MeetingMinutesUiState.Failed)
+    }
+
+    @Test
+    fun `generate retries once with forced refresh token on 401`() = runTest {
+        repository.stored = recording()
+        coEvery { client.generateMinutes("fake-token", any(), any()) } throws
+            TranscriptionApiException(401, "unauthorized")
+        coEvery { client.generateMinutes("fresh-token", any(), any()) } returns
+            MinutesResult("再試行成功", emptyList())
+
+        val vm = viewModel { forceRefresh -> if (forceRefresh) "fresh-token" else "fake-token" }
+        vm.generate()
+
+        val state = vm.uiState.value as MeetingMinutesUiState.Done
+        assertEquals("再試行成功", state.result.summary)
+    }
+
+    @Test
+    fun `generate non-401 error does not retry`() = runTest {
+        repository.stored = recording()
+        coEvery { client.generateMinutes(any(), any(), any()) } throws RuntimeException("server error")
+
+        val vm = viewModel()
+        vm.generate()
+
+        assertTrue(vm.uiState.value is MeetingMinutesUiState.Failed)
+        coVerify(exactly = 1) { client.generateMinutes(any(), any(), any()) }
     }
 
     @Test
