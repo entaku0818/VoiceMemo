@@ -1,0 +1,8 @@
+Version 2.7.1
+
+[New Features]
+- Added a 7-day free trial to the annual plan
+- Added AI meeting minutes: automatically generate summaries and to-do lists from your transcriptions
+
+[Bug Fixes]
+- Fixed an issue where uploading audio for transcription could fail
