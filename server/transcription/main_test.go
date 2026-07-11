@@ -1,10 +1,16 @@
 package main
 
 import (
+	"context"
 	"errors"
+	"fmt"
 	"reflect"
 	"strings"
 	"testing"
+	"time"
+
+	"github.com/google/generative-ai-go/genai"
+	"google.golang.org/api/googleapi"
 )
 
 func TestParseMinutes(t *testing.T) {
@@ -155,6 +161,146 @@ func TestTranscribeWithRetry_UnrecoverableWhenNoTranscriptionField(t *testing.T)
 	}
 	if result != nil {
 		t.Errorf("result = %v, want nil (unrecoverable)", result)
+	}
+}
+
+type fakeTimeoutError struct{}
+
+func (fakeTimeoutError) Error() string   { return "fake timeout" }
+func (fakeTimeoutError) Timeout() bool   { return true }
+func (fakeTimeoutError) Temporary() bool { return true }
+
+func TestIsTransientGeminiError(t *testing.T) {
+	tests := []struct {
+		name string
+		err  error
+		want bool
+	}{
+		{"nil", nil, false},
+		{"deadline exceeded", context.DeadlineExceeded, true},
+		{"wrapped deadline exceeded", fmt.Errorf("post failed: %w", context.DeadlineExceeded), true},
+		{"net timeout error", fakeTimeoutError{}, true},
+		{"googleapi 429", &googleapi.Error{Code: 429}, true},
+		{"googleapi 500", &googleapi.Error{Code: 500}, true},
+		{"googleapi 503", &googleapi.Error{Code: 503}, true},
+		{"googleapi 400 (not transient)", &googleapi.Error{Code: 400}, false},
+		{"plain error", errors.New("boom"), false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isTransientGeminiError(tt.err); got != tt.want {
+				t.Errorf("isTransientGeminiError(%v) = %v, want %v", tt.err, got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGenerateContentWithRetry_SucceedsFirstTry(t *testing.T) {
+	calls := 0
+	want := &genai.GenerateContentResponse{}
+	callGenerate := func(ctx context.Context) (*genai.GenerateContentResponse, error) {
+		calls++
+		return want, nil
+	}
+	got, err := generateContentWithRetry(context.Background(), time.Second, callGenerate)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got != want {
+		t.Errorf("got %v, want %v", got, want)
+	}
+	if calls != 1 {
+		t.Errorf("calls = %d, want 1 (should not retry on success)", calls)
+	}
+}
+
+func TestGenerateContentWithRetry_RetriesOnceOnTransientError(t *testing.T) {
+	calls := 0
+	want := &genai.GenerateContentResponse{}
+	callGenerate := func(ctx context.Context) (*genai.GenerateContentResponse, error) {
+		calls++
+		if calls == 1 {
+			return nil, context.DeadlineExceeded
+		}
+		return want, nil
+	}
+	got, err := generateContentWithRetry(context.Background(), time.Second, callGenerate)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got != want {
+		t.Errorf("got %v, want %v", got, want)
+	}
+	if calls != 2 {
+		t.Errorf("calls = %d, want 2", calls)
+	}
+}
+
+func TestGenerateContentWithRetry_DoesNotRetryOnPermanentError(t *testing.T) {
+	calls := 0
+	wantErr := errors.New("invalid request")
+	callGenerate := func(ctx context.Context) (*genai.GenerateContentResponse, error) {
+		calls++
+		return nil, wantErr
+	}
+	_, err := generateContentWithRetry(context.Background(), time.Second, callGenerate)
+	if !errors.Is(err, wantErr) {
+		t.Fatalf("err = %v, want %v", err, wantErr)
+	}
+	if calls != 1 {
+		t.Errorf("calls = %d, want 1 (permanent errors must not be retried)", calls)
+	}
+}
+
+func TestGenerateContentWithRetry_GivesUpAfterTwoTransientErrors(t *testing.T) {
+	calls := 0
+	callGenerate := func(ctx context.Context) (*genai.GenerateContentResponse, error) {
+		calls++
+		return nil, context.DeadlineExceeded
+	}
+	_, err := generateContentWithRetry(context.Background(), time.Second, callGenerate)
+	if !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("err = %v, want context.DeadlineExceeded", err)
+	}
+	if calls != 2 {
+		t.Errorf("calls = %d, want 2 (at most one retry)", calls)
+	}
+}
+
+func TestGenerateContentWithRetry_SkipsRetryWhenParentDeadlineExpired(t *testing.T) {
+	parentCtx, cancel := context.WithTimeout(context.Background(), 0)
+	defer cancel()
+	time.Sleep(time.Millisecond)
+
+	calls := 0
+	callGenerate := func(ctx context.Context) (*genai.GenerateContentResponse, error) {
+		calls++
+		return nil, context.DeadlineExceeded
+	}
+	_, err := generateContentWithRetry(parentCtx, time.Second, callGenerate)
+	if !errors.Is(err, context.DeadlineExceeded) {
+		t.Fatalf("err = %v, want context.DeadlineExceeded", err)
+	}
+	if calls != 1 {
+		t.Errorf("calls = %d, want 1 (should not retry once parent ctx is already expired)", calls)
+	}
+}
+
+func TestGenerateContentWithRetry_AttemptContextBoundedByParent(t *testing.T) {
+	parentCtx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)
+	defer cancel()
+
+	var gotDeadline time.Time
+	callGenerate := func(ctx context.Context) (*genai.GenerateContentResponse, error) {
+		gotDeadline, _ = ctx.Deadline()
+		return &genai.GenerateContentResponse{}, nil
+	}
+	if _, err := generateContentWithRetry(parentCtx, time.Hour, callGenerate); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	parentDeadline, _ := parentCtx.Deadline()
+	if gotDeadline.After(parentDeadline) {
+		t.Errorf("attempt deadline %v exceeds parent deadline %v", gotDeadline, parentDeadline)
 	}
 }
 
