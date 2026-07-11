@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"regexp"
@@ -17,6 +19,7 @@ import (
 	"firebase.google.com/go/v4/auth"
 	"github.com/google/generative-ai-go/genai"
 	"github.com/google/uuid"
+	"google.golang.org/api/googleapi"
 	"google.golang.org/api/option"
 )
 
@@ -144,8 +147,9 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	ext := body.BlobName[strings.LastIndex(body.BlobName, ".")+1:]
 	mimeType := audioMIMEType(ext)
 
-	// Gemini操作に明示的なタイムアウトを設定（SDKデフォルトの120s上限を回避）
-	geminiCtx, geminiCancel := context.WithTimeout(r.Context(), 300*time.Second)
+	// Gemini操作に明示的なタイムアウトを設定（SDKデフォルトの120s上限を回避）。
+	// Cloud Run側のリクエストタイムアウト(600s)にバッファを残す。
+	geminiCtx, geminiCancel := context.WithTimeout(r.Context(), 480*time.Second)
 	defer geminiCancel()
 
 	// Cloud Storage から Gemini File API へストリーミングアップロード（メモリに乗せない）
@@ -188,10 +192,12 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 }`, body.Language)
 
 	result, err := transcribeWithRetry(func() (string, error) {
-		resp, err := model.GenerateContent(geminiCtx,
-			genai.FileData{URI: geminiFile.URI, MIMEType: mimeType},
-			genai.Text(prompt),
-		)
+		resp, err := generateContentWithRetry(geminiCtx, generateContentAttemptTimeout, func(attemptCtx context.Context) (*genai.GenerateContentResponse, error) {
+			return model.GenerateContent(attemptCtx,
+				genai.FileData{URI: geminiFile.URI, MIMEType: mimeType},
+				genai.Text(prompt),
+			)
+		})
 		if err != nil {
 			return "", err
 		}
@@ -217,6 +223,56 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
+}
+
+const generateContentAttemptTimeout = 240 * time.Second
+
+// generateContentWithRetry は callGenerate に対し、deadline exceeded やネットワーク瞬断など
+// 一時的なエラー時に限り1回だけ再試行する。JSONパース失敗のリトライ（transcribeWithRetry）とは
+// 独立したレイヤー。各試行は ctx から派生したタイムアウト付きコンテキストで実行されるため、
+// リトライしても呼び出し元が設定した ctx 全体のデッドラインを超えることはない。
+func generateContentWithRetry(ctx context.Context, timeout time.Duration, callGenerate func(context.Context) (*genai.GenerateContentResponse, error)) (*genai.GenerateContentResponse, error) {
+	var lastErr error
+	for attempt := 1; attempt <= 2; attempt++ {
+		attemptCtx, cancel := context.WithTimeout(ctx, timeout)
+		resp, err := callGenerate(attemptCtx)
+		cancel()
+		if err == nil {
+			return resp, nil
+		}
+		lastErr = err
+		if !isTransientGeminiError(err) {
+			return nil, err
+		}
+		if attempt == 2 || ctx.Err() != nil {
+			break
+		}
+		log.Printf("generateContent transient error (attempt %d/2), retrying: %s", attempt, redactAPIKey(err.Error()))
+	}
+	return nil, lastErr
+}
+
+// isTransientGeminiError は deadline exceeded・ネットワーク瞬断・Gemini側の5xx/429応答など
+// 再試行すれば成功しうる一時的なエラーかどうかを判定する。
+func isTransientGeminiError(err error) bool {
+	if err == nil {
+		return false
+	}
+	if errors.Is(err, context.DeadlineExceeded) {
+		return true
+	}
+	var netErr net.Error
+	if errors.As(err, &netErr) && netErr.Timeout() {
+		return true
+	}
+	var apiErr *googleapi.Error
+	if errors.As(err, &apiErr) {
+		switch apiErr.Code {
+		case http.StatusTooManyRequests, http.StatusInternalServerError, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout:
+			return true
+		}
+	}
+	return false
 }
 
 // transcribeWithRetry は fetchText で Gemini の生レスポンスを取得し、JSON としてパースする。
