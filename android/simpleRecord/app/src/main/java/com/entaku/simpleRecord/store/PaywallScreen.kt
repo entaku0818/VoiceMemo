@@ -257,6 +257,47 @@ private fun PlanButton(
     }
 }
 
+/**
+ * 年額プラン選択UIの分岐状態。年額パッケージの有無で表示モードが変わる（issue #182）。
+ * - [Unavailable]: 月額パッケージすら取得できない
+ * - [SinglePlan]: 年額パッケージが無く、月額単一UIにフォールバック
+ * - [DualPlan]: 月額・年額とも揃っており、プラン選択UIを表示
+ */
+internal sealed class PaywallPlansUiState {
+    data object Unavailable : PaywallPlansUiState()
+    data class SinglePlan(val product: PremiumProduct) : PaywallPlansUiState()
+    data class DualPlan(
+        val monthly: PremiumProduct,
+        val annual: PremiumProduct,
+        val isAnnualSelected: Boolean
+    ) : PaywallPlansUiState() {
+        val selectedProduct: PremiumProduct get() = if (isAnnualSelected) annual else monthly
+    }
+}
+
+/**
+ * offeringの商品リストと現在の選択状態から、Paywall画面の表示モードを決定する。
+ * 年額パッケージが取得できない場合は自動的に月額単一UI（[PaywallPlansUiState.SinglePlan]）に
+ * フォールバックする。
+ */
+internal fun resolvePaywallPlansUiState(
+    products: List<PremiumProduct>,
+    isAnnualSelected: Boolean
+): PaywallPlansUiState {
+    val monthly = products.firstOrNull { it.planType == PlanType.MONTHLY }
+        ?: products.firstOrNull()
+    val annual = products.firstOrNull { it.planType == PlanType.ANNUAL }
+    return when {
+        monthly == null -> PaywallPlansUiState.Unavailable
+        annual == null -> PaywallPlansUiState.SinglePlan(monthly)
+        else -> PaywallPlansUiState.DualPlan(monthly, annual, isAnnualSelected)
+    }
+}
+
+/** 年額パッケージがofferingに存在する場合、Paywall画面の初期選択状態は年額をデフォルトにする。 */
+internal fun defaultIsAnnualSelected(products: List<PremiumProduct>): Boolean =
+    products.any { it.planType == PlanType.ANNUAL }
+
 @Composable
 private fun BillingContent(
     billingState: BillingState,
@@ -291,75 +332,41 @@ private fun BillingContent(
             }
         }
         is BillingState.Ready -> {
-            val monthly = state.products.firstOrNull { it.planType == PlanType.MONTHLY }
-                ?: state.products.firstOrNull()
-            val annual = state.products.firstOrNull { it.planType == PlanType.ANNUAL }
-            if (monthly != null) {
-                // 年額パッケージがofferingに存在する場合のみセレクターを表示する。
-                // 存在しない場合は従来どおり単一プラン（月額）のUIにフォールバックする。
-                var isAnnualSelected by rememberSaveable(annual != null) {
-                    mutableStateOf(annual != null)
-                }
-                val selectedProduct = if (isAnnualSelected && annual != null) annual else monthly
+            // 年額パッケージがofferingに存在する場合のみセレクターを表示する。
+            // 存在しない場合は従来どおり単一プラン（月額）のUIにフォールバックする。
+            val hasAnnual = defaultIsAnnualSelected(state.products)
+            var isAnnualSelected by rememberSaveable(hasAnnual) { mutableStateOf(hasAnnual) }
 
-                if (annual != null) {
+            when (val plans = resolvePaywallPlansUiState(state.products, isAnnualSelected)) {
+                is PaywallPlansUiState.Unavailable -> {
+                    Text(
+                        stringResource(R.string.premium_unavailable),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
+                    )
+                }
+                is PaywallPlansUiState.SinglePlan -> {
+                    PurchasePlanSection(
+                        product = plans.product,
+                        activity = activity,
+                        billingManager = billingManager
+                    )
+                }
+                is PaywallPlansUiState.DualPlan -> {
                     PlanSelector(
-                        monthly = monthly,
-                        annual = annual,
-                        isAnnualSelected = isAnnualSelected,
+                        monthly = plans.monthly,
+                        annual = plans.annual,
+                        isAnnualSelected = plans.isAnnualSelected,
                         onSelect = { isAnnualSelected = it }
                     )
                     Spacer(Modifier.height(16.dp))
+                    PurchasePlanSection(
+                        product = plans.selectedProduct,
+                        activity = activity,
+                        billingManager = billingManager
+                    )
                 }
-                Button(
-                    onClick = {
-                        if (activity != null) {
-                            billingManager.launchPurchaseFlow(activity, selectedProduct)
-                        } else {
-                            android.util.Log.e("BillingContent", "Activity is null — cannot launch purchase flow")
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            stringResource(R.string.premium_free_trial),
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                        )
-                        Text(
-                            stringResource(
-                                if (selectedProduct.planType == PlanType.ANNUAL) {
-                                    R.string.premium_trial_then_price_annual
-                                } else {
-                                    R.string.premium_trial_then_price
-                                },
-                                selectedProduct.price
-                            ),
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
-                }
-                Spacer(Modifier.height(8.dp))
-                Text(
-                    stringResource(
-                        if (selectedProduct.planType == PlanType.ANNUAL) {
-                            R.string.premium_trial_terms_annual
-                        } else {
-                            R.string.premium_trial_terms
-                        },
-                        selectedProduct.price
-                    ),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                )
-            } else {
-                Text(
-                    stringResource(R.string.premium_unavailable),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center
-                )
             }
             Spacer(Modifier.height(16.dp))
             OutlinedButton(
@@ -370,4 +377,54 @@ private fun BillingContent(
             }
         }
     }
+}
+
+@Composable
+private fun PurchasePlanSection(
+    product: PremiumProduct,
+    activity: Activity?,
+    billingManager: BillingRepository
+) {
+    Button(
+        onClick = {
+            if (activity != null) {
+                billingManager.launchPurchaseFlow(activity, product)
+            } else {
+                android.util.Log.e("BillingContent", "Activity is null — cannot launch purchase flow")
+            }
+        },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                stringResource(R.string.premium_free_trial),
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+            )
+            Text(
+                stringResource(
+                    if (product.planType == PlanType.ANNUAL) {
+                        R.string.premium_trial_then_price_annual
+                    } else {
+                        R.string.premium_trial_then_price
+                    },
+                    product.price
+                ),
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+    }
+    Spacer(Modifier.height(8.dp))
+    Text(
+        stringResource(
+            if (product.planType == PlanType.ANNUAL) {
+                R.string.premium_trial_terms_annual
+            } else {
+                R.string.premium_trial_terms
+            },
+            product.price
+        ),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center
+    )
 }
