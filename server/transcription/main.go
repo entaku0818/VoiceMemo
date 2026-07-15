@@ -23,11 +23,17 @@ import (
 	"google.golang.org/api/option"
 )
 
+// idTokenVerifier abstracts auth.Client.VerifyIDToken so handler tests can inject a fake
+// verifier instead of requiring real Firebase credentials.
+type idTokenVerifier interface {
+	VerifyIDToken(ctx context.Context, idToken string) (*auth.Token, error)
+}
+
 var (
-	firebaseAuth   *auth.Client
-	storageClient  *storage.Client
-	geminiClient   *genai.Client
-	bucketName     = getEnv("AUDIO_BUCKET", "voilog-transcription-audio")
+	firebaseAuth  idTokenVerifier
+	storageClient *storage.Client
+	geminiClient  *genai.Client
+	bucketName    = getEnv("AUDIO_BUCKET", "voilog-transcription-audio")
 )
 
 func getEnv(key, fallback string) string {
@@ -227,6 +233,22 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 
 const generateContentAttemptTimeout = 240 * time.Second
 
+// minutesAttemptTimeout は handleMinutes の geminiCtx（120s）に対して、
+// generateContentWithRetry が最大2回試行してもgeminiCtxの期限内に収まるよう半分の値にする。
+const minutesAttemptTimeout = 60 * time.Second
+
+// contentGenerator abstracts genai.GenerativeModel.GenerateContent so handleMinutes'
+// HTTPハンドラレベルの異常系テストが実際のGeminiクライアントなしで書けるようにする。
+type contentGenerator interface {
+	GenerateContent(ctx context.Context, parts ...genai.Part) (*genai.GenerateContentResponse, error)
+}
+
+// newMinutesModel は handleMinutes が使うGeminiモデルを生成する。テストでは差し替え可能にする
+// ためパッケージ変数にしている。
+var newMinutesModel = func() contentGenerator {
+	return geminiClient.GenerativeModel(getEnv("GEMINI_MODEL", "gemini-2.5-flash"))
+}
+
 // generateContentWithRetry は callGenerate に対し、deadline exceeded やネットワーク瞬断など
 // 一時的なエラー時に限り1回だけ再試行する。JSONパース失敗のリトライ（transcribeWithRetry）とは
 // 独立したレイヤー。各試行は ctx から派生したタイムアウト付きコンテキストで実行されるため、
@@ -374,7 +396,7 @@ func handleMinutes(w http.ResponseWriter, r *http.Request) {
 	geminiCtx, geminiCancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer geminiCancel()
 
-	model := geminiClient.GenerativeModel(getEnv("GEMINI_MODEL", "gemini-2.5-flash"))
+	model := newMinutesModel()
 	prompt := fmt.Sprintf(`以下の会議の文字起こしから議事録を作成し、次のJSON形式のみを返してください。
 出力言語: %s
 
@@ -388,7 +410,9 @@ TODOがない場合は todos を空配列にしてください。
 文字起こし:
 %s`, body.Language, body.Text)
 
-	resp, err := model.GenerateContent(geminiCtx, genai.Text(prompt))
+	resp, err := generateContentWithRetry(geminiCtx, minutesAttemptTimeout, func(attemptCtx context.Context) (*genai.GenerateContentResponse, error) {
+		return model.GenerateContent(attemptCtx, genai.Text(prompt))
+	})
 	if err != nil {
 		log.Printf("gemini minutes error: %s", redactAPIKey(err.Error()))
 		notifySlack(fmt.Sprintf(":x: [VoiLog] Minutes generation failed (Gemini)\n```%s```", sanitizeError(err)))
@@ -522,4 +546,3 @@ func main() {
 	log.Printf("listening on :%s", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
-

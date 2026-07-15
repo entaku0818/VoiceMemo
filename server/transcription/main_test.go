@@ -2,16 +2,133 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+	"net/http/httptest"
 	"reflect"
 	"strings"
 	"testing"
 	"time"
 
+	firebaseauth "firebase.google.com/go/v4/auth"
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/googleapi"
 )
+
+type fakeVerifier struct {
+	uid string
+	err error
+}
+
+func (f fakeVerifier) VerifyIDToken(ctx context.Context, idToken string) (*firebaseauth.Token, error) {
+	if f.err != nil {
+		return nil, f.err
+	}
+	return &firebaseauth.Token{UID: f.uid}, nil
+}
+
+type fakeGenerator struct {
+	text string
+	err  error
+}
+
+func (f fakeGenerator) GenerateContent(ctx context.Context, parts ...genai.Part) (*genai.GenerateContentResponse, error) {
+	if f.err != nil {
+		return nil, f.err
+	}
+	return &genai.GenerateContentResponse{
+		Candidates: []*genai.Candidate{
+			{Content: &genai.Content{Parts: []genai.Part{genai.Text(f.text)}}},
+		},
+	}, nil
+}
+
+// withMinutesFakes swaps firebaseAuth/newMinutesModel for the duration of the test and
+// restores the originals afterward, since both are package-level vars.
+func withMinutesFakes(t *testing.T, verifier idTokenVerifier, generator contentGenerator) {
+	t.Helper()
+	origAuth, origModel := firebaseAuth, newMinutesModel
+	firebaseAuth = verifier
+	newMinutesModel = func() contentGenerator { return generator }
+	t.Cleanup(func() {
+		firebaseAuth = origAuth
+		newMinutesModel = origModel
+	})
+}
+
+func TestHandleMinutes_Unauthorized_NoHeader(t *testing.T) {
+	withMinutesFakes(t, fakeVerifier{uid: "user-1"}, fakeGenerator{text: `{"summary":"s","todos":[]}`})
+	req := httptest.NewRequest(http.MethodPost, "/minutes", strings.NewReader(`{"text":"hello"}`))
+	w := httptest.NewRecorder()
+
+	handleMinutes(w, req)
+
+	if w.Code != http.StatusUnauthorized {
+		t.Fatalf("status = %d, want %d", w.Code, http.StatusUnauthorized)
+	}
+}
+
+func TestHandleMinutes_Unauthorized_InvalidToken(t *testing.T) {
+	withMinutesFakes(t, fakeVerifier{err: errors.New("invalid token")}, fakeGenerator{text: `{"summary":"s","todos":[]}`})
+	req := httptest.NewRequest(http.MethodPost, "/minutes", strings.NewReader(`{"text":"hello"}`))
+	req.Header.Set("Authorization", "Bearer bad-token")
+	w := httptest.NewRecorder()
+
+	handleMinutes(w, req)
+
+	if w.Code != http.StatusUnauthorized {
+		t.Fatalf("status = %d, want %d", w.Code, http.StatusUnauthorized)
+	}
+}
+
+func TestHandleMinutes_EmptyText_BadRequest(t *testing.T) {
+	withMinutesFakes(t, fakeVerifier{uid: "user-1"}, fakeGenerator{text: `{"summary":"s","todos":[]}`})
+	req := httptest.NewRequest(http.MethodPost, "/minutes", strings.NewReader(`{"text":"   "}`))
+	req.Header.Set("Authorization", "Bearer good-token")
+	w := httptest.NewRecorder()
+
+	handleMinutes(w, req)
+
+	if w.Code != http.StatusBadRequest {
+		t.Fatalf("status = %d, want %d", w.Code, http.StatusBadRequest)
+	}
+}
+
+func TestHandleMinutes_GeminiFailure_InternalServerError(t *testing.T) {
+	withMinutesFakes(t, fakeVerifier{uid: "user-1"}, fakeGenerator{err: errors.New("gemini unavailable")})
+	req := httptest.NewRequest(http.MethodPost, "/minutes", strings.NewReader(`{"text":"会議の内容です"}`))
+	req.Header.Set("Authorization", "Bearer good-token")
+	w := httptest.NewRecorder()
+
+	handleMinutes(w, req)
+
+	if w.Code != http.StatusInternalServerError {
+		t.Fatalf("status = %d, want %d", w.Code, http.StatusInternalServerError)
+	}
+}
+
+func TestHandleMinutes_Success(t *testing.T) {
+	withMinutesFakes(t, fakeVerifier{uid: "user-1"}, fakeGenerator{text: `{"summary":"要約","todos":["TODO1"]}`})
+	req := httptest.NewRequest(http.MethodPost, "/minutes", strings.NewReader(`{"text":"会議の内容です"}`))
+	req.Header.Set("Authorization", "Bearer good-token")
+	w := httptest.NewRecorder()
+
+	handleMinutes(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Fatalf("status = %d, want %d, body: %s", w.Code, http.StatusOK, w.Body.String())
+	}
+	var got minutesResult
+	if err := json.Unmarshal(w.Body.Bytes(), &got); err != nil {
+		t.Fatalf("failed to decode response: %v", err)
+	}
+	want := minutesResult{Summary: "要約", Todos: []string{"TODO1"}}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("result = %+v, want %+v", got, want)
+	}
+}
 
 func TestParseMinutes(t *testing.T) {
 	tests := []struct {
