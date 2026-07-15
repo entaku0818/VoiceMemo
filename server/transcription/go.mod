@@ -7,6 +7,7 @@ require (
 	firebase.google.com/go/v4 v4.14.0
 	github.com/google/generative-ai-go v0.14.0
 	github.com/google/uuid v1.6.0
+	golang.org/x/time v0.5.0
 	google.golang.org/api v0.180.0
 )
 
@@ -41,7 +42,6 @@ require (
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
-	golang.org/x/time v0.5.0 // indirect
 	google.golang.org/appengine/v2 v2.0.2 // indirect
 	google.golang.org/genproto v0.0.0-20240401170217-c3f982113cda // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240513163218-0867130af1f8 // indirect

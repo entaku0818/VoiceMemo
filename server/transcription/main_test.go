@@ -13,6 +13,58 @@ import (
 	"google.golang.org/api/googleapi"
 )
 
+func TestPerUIDLimiter_AllowsUpToBurstThenBlocks(t *testing.T) {
+	l := newPerUIDLimiter(3)
+	for i := 0; i < 3; i++ {
+		if !l.Allow("uid-a") {
+			t.Fatalf("request %d should be allowed within burst of 3", i+1)
+		}
+	}
+	if l.Allow("uid-a") {
+		t.Errorf("4th request should be blocked once burst is exhausted")
+	}
+}
+
+func TestPerUIDLimiter_TracksUsersIndependently(t *testing.T) {
+	l := newPerUIDLimiter(1)
+	if !l.Allow("uid-a") {
+		t.Fatalf("uid-a first request should be allowed")
+	}
+	if l.Allow("uid-a") {
+		t.Errorf("uid-a second request should be blocked (burst=1)")
+	}
+	if !l.Allow("uid-b") {
+		t.Errorf("uid-b should have its own independent quota")
+	}
+}
+
+func TestParseRateEnv(t *testing.T) {
+	const key = "TEST_RATE_LIMIT_PER_HOUR"
+	tests := []struct {
+		name     string
+		envValue string
+		setEnv   bool
+		fallback int
+		want     int
+	}{
+		{"unset uses fallback", "", false, 20, 20},
+		{"valid value overrides fallback", "5", true, 20, 5},
+		{"invalid value falls back", "not-a-number", true, 20, 20},
+		{"zero falls back", "0", true, 20, 20},
+		{"negative falls back", "-1", true, 20, 20},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.setEnv {
+				t.Setenv(key, tt.envValue)
+			}
+			if got := parseRateEnv(key, tt.fallback); got != tt.want {
+				t.Errorf("parseRateEnv() = %d, want %d", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestParseMinutes(t *testing.T) {
 	tests := []struct {
 		name string
