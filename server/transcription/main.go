@@ -11,7 +11,9 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"cloud.google.com/go/storage"
@@ -19,15 +21,21 @@ import (
 	"firebase.google.com/go/v4/auth"
 	"github.com/google/generative-ai-go/genai"
 	"github.com/google/uuid"
+	"golang.org/x/time/rate"
 	"google.golang.org/api/googleapi"
 	"google.golang.org/api/option"
 )
 
 var (
-	firebaseAuth   *auth.Client
-	storageClient  *storage.Client
-	geminiClient   *genai.Client
-	bucketName     = getEnv("AUDIO_BUCKET", "voilog-transcription-audio")
+	firebaseAuth  *auth.Client
+	storageClient *storage.Client
+	geminiClient  *genai.Client
+	bucketName    = getEnv("AUDIO_BUCKET", "voilog-transcription-audio")
+
+	// premium会員判定を導入するまでの暫定的な濫用対策。UIDごとにGemini呼び出しを伴う
+	// エンドポイントの呼び出し回数を制限する（issue #180）。
+	transcribeLimiter = newPerUIDLimiter(parseRateEnv("TRANSCRIBE_RATE_LIMIT_PER_HOUR", 20))
+	minutesLimiter    = newPerUIDLimiter(parseRateEnv("MINUTES_RATE_LIMIT_PER_HOUR", 30))
 )
 
 func getEnv(key, fallback string) string {
@@ -76,6 +84,47 @@ func verifyToken(r *http.Request) (string, error) {
 		return "", err
 	}
 	return token.UID, nil
+}
+
+// perUIDLimiter is an in-memory per-UID token bucket. Since the service runs as a single
+// Cloud Run instance per request path (no shared store), this bounds cost abuse per instance
+// but is not a distributed guarantee across scaled-out instances.
+type perUIDLimiter struct {
+	mu       sync.Mutex
+	limiters map[string]*rate.Limiter
+	perHour  int
+}
+
+func newPerUIDLimiter(perHour int) *perUIDLimiter {
+	return &perUIDLimiter{
+		limiters: make(map[string]*rate.Limiter),
+		perHour:  perHour,
+	}
+}
+
+// Allow は指定UIDが1回分のクォータを消費できるかを返す。トークンバケット方式のため、
+// 未使用分は最大 perHour 件までバーストして消費できる（時間あたりの平均は perHour を超えない）。
+func (l *perUIDLimiter) Allow(uid string) bool {
+	l.mu.Lock()
+	defer l.mu.Unlock()
+	lim, ok := l.limiters[uid]
+	if !ok {
+		lim = rate.NewLimiter(rate.Limit(float64(l.perHour)/3600), l.perHour)
+		l.limiters[uid] = lim
+	}
+	return lim.Allow()
+}
+
+func parseRateEnv(key string, fallback int) int {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil || n <= 0 {
+		return fallback
+	}
+	return n
 }
 
 func handleHealth(w http.ResponseWriter, r *http.Request) {
@@ -127,6 +176,10 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	uid, err := verifyToken(r)
 	if err != nil {
 		http.Error(w, `{"error":"Unauthorized"}`, http.StatusUnauthorized)
+		return
+	}
+	if !transcribeLimiter.Allow(uid) {
+		http.Error(w, `{"error":"Rate limit exceeded"}`, http.StatusTooManyRequests)
 		return
 	}
 
@@ -350,9 +403,13 @@ func salvageTranscription(broken string) string {
 
 // 議事録生成: 文字起こし済みテキストから要約とTODOを生成する
 func handleMinutes(w http.ResponseWriter, r *http.Request) {
-	_, err := verifyToken(r)
+	uid, err := verifyToken(r)
 	if err != nil {
 		http.Error(w, `{"error":"Unauthorized"}`, http.StatusUnauthorized)
+		return
+	}
+	if !minutesLimiter.Allow(uid) {
+		http.Error(w, `{"error":"Rate limit exceeded"}`, http.StatusTooManyRequests)
 		return
 	}
 
@@ -522,4 +579,3 @@ func main() {
 	log.Printf("listening on :%s", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
-
