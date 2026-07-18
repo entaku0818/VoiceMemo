@@ -36,6 +36,7 @@ struct TranscriptionClient {
     var uploadURL: @Sendable (_ idToken: String, _ ext: String) async throws -> UploadURLResponse
     var transcribe: @Sendable (_ idToken: String, _ blobName: String, _ language: String) async throws -> TranscriptionResponse
     var uploadAudio: @Sendable (_ fileURL: URL, _ signedURL: String, _ mimeType: String) async throws -> Void
+    var generateMinutes: @Sendable (_ idToken: String, _ text: String, _ language: String) async throws -> MinutesResponse
 
     struct UploadURLResponse: Decodable {
         let uploadUrl: String
@@ -53,6 +54,12 @@ struct TranscriptionClient {
             let speaker: String?
             let text: String
         }
+    }
+
+    /// `/minutes`（オンデバイスFoundation Modelsが使えない環境向けのクラウドフォールバック）のレスポンス
+    struct MinutesResponse: Decodable {
+        let summary: String
+        let todos: [String]
     }
 }
 
@@ -133,6 +140,27 @@ extension TranscriptionClient: DependencyKey {
             guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
                 let code = (response as? HTTPURLResponse)?.statusCode ?? -1
                 throw TranscriptionError.uploadFailed(code)
+            }
+        },
+        generateMinutes: { idToken, text, language in
+            let url = URL(string: "\(serverBaseURL)/minutes")!
+            var req = URLRequest(url: url)
+            req.httpMethod = "POST"
+            req.setValue("Bearer \(idToken)", forHTTPHeaderField: "Authorization")
+            req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            req.httpBody = try JSONEncoder().encode(["text": text, "language": language])
+            req.timeoutInterval = 120
+            let (data, response) = try await URLSession.shared.data(for: req)
+            let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+            guard (200..<300).contains(status) else {
+                let body = String(data: data, encoding: .utf8) ?? "no body"
+                throw TranscriptionError.serverError(status, body)
+            }
+            do {
+                return try JSONDecoder().decode(MinutesResponse.self, from: data)
+            } catch {
+                let body = String(data: data, encoding: .utf8) ?? "no body"
+                throw TranscriptionError.serverError(0, "decode failed: \(body)")
             }
         }
     )
