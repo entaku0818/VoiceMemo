@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
+        // ロック画面/コントロールセンターからの再生操作を受け取る
+        NowPlayingCommandCenter.shared.configure()
+
         // AdMob初期化を遅延実行（UIが表示された後）
         #if !DEBUG
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -119,9 +122,7 @@ struct VoiceMemoApp: App {
                 }
             } else {
                 VoiceAppView(
-                    store: Store(initialState: VoiceAppFeature.State()) {
-                        VoiceAppFeature()
-                    },
+                    store: AppEnvironment.store,
                     recordAdmobUnitId: recordAdmobUnitId,
                     playListAdmobUnitId: playListAdmobUnitId,
                     admobUnitId: admobUnitId

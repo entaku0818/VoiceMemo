@@ -26,6 +26,7 @@ final class VoiceAppFeatureTests: XCTestCase {
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
+                $0.nowPlayingClient = NowPlayingClient(update: { _ in })
             }
             store.exhaustivity = .off
 

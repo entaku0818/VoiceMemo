@@ -131,6 +131,16 @@ struct PlaybackFeature {
     case audioPlayerDidFinish
     case audioEditor(AudioEditorReducer.Action)
 
+    /// ロック画面/コントロールセンター（MPRemoteCommandCenter）からの操作。
+    case nowPlayingCommand(NowPlayingCommand)
+
+    enum NowPlayingCommand: Equatable, Sendable {
+      case play
+      case pause
+      case togglePlayPause
+      case seek(TimeInterval)
+    }
+
     @CasePathable
     enum View {
       case onAppear
@@ -219,6 +229,7 @@ struct PlaybackFeature {
   @Dependency(\.continuousClock) var clock
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
   @Dependency(\.rewardedAdClient) var rewardedAdClient
+  @Dependency(\.nowPlayingClient) var nowPlayingClient
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -254,6 +265,7 @@ struct PlaybackFeature {
             state.abLoopEnd = nil
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
+              publishNowPlayingInfo(memo: memo, elapsedTime: 0, isPlaying: true)
               return startPlayback(url: memo.url, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
             }
           }
@@ -266,14 +278,23 @@ struct PlaybackFeature {
               state.playbackState = .idle
               state.currentPlayingMemo = nil
               state.currentTime = 0
+              nowPlayingClient.update(nil)
               return .merge(
                 .cancel(id: CancelID.playback),
                 .run { _ in try await audioPlayer.stop() }
               )
+            } else if state.playbackState == .paused {
+              // ロック画面等で一時停止していた場合は、同じ位置から再開する
+              state.playbackState = .playing
+              if let memo = state.voiceMemos.first(where: { $0.id == id }) {
+                publishNowPlayingInfo(memo: memo, elapsedTime: state.currentTime, isPlaying: true)
+              }
+              return .run { _ in await audioPlayer.resume() }
             } else {
               // 停止中の場合は再生開始
               state.playbackState = .playing
               if let memo = state.voiceMemos.first(where: { $0.id == id }) {
+                publishNowPlayingInfo(memo: memo, elapsedTime: 0, isPlaying: true)
                 return startPlayback(url: memo.url, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
               }
             }
@@ -286,6 +307,7 @@ struct PlaybackFeature {
             state.abLoopEnd = nil
 
             if let memo = state.voiceMemos.first(where: { $0.id == id }) {
+              publishNowPlayingInfo(memo: memo, elapsedTime: 0, isPlaying: true)
               return startPlayback(url: memo.url, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
             }
           }
@@ -297,6 +319,7 @@ struct PlaybackFeature {
           state.currentTime = 0
           state.abLoopStart = nil
           state.abLoopEnd = nil
+          nowPlayingClient.update(nil)
           return .merge(
             .cancel(id: CancelID.playback),
             .run { _ in try await audioPlayer.stop() }
@@ -644,7 +667,13 @@ struct PlaybackFeature {
         return .none
 
       case let .playbackTimeUpdated(time):
+        // ロック画面のNow Playing情報は1秒に1回だけ更新する（過剰な更新を避けるため）
+        let previousSecond = Int(state.currentTime)
         state.currentTime = time
+        if Int(time) != previousSecond,
+           let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+          publishNowPlayingInfo(memo: memo, elapsedTime: time, isPlaying: state.playbackState == .playing)
+        }
         // AB loop: seek back to A when current time reaches B
         if let loopStart = state.abLoopStart,
            let loopEnd = state.abLoopEnd,
@@ -658,13 +687,53 @@ struct PlaybackFeature {
         state.playbackState = .idle
         state.currentPlayingMemo = nil
         state.currentTime = 0
+        nowPlayingClient.update(nil)
         return .none
 
       case .audioPlayerDidFinish:
         if state.isRepeatOne, let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+          publishNowPlayingInfo(memo: memo, elapsedTime: 0, isPlaying: true)
           return startPlayback(url: memo.url, startTime: 0, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
         }
         return .send(.playbackFinished)
+
+      case let .nowPlayingCommand(command):
+        switch command {
+        case .play:
+          guard state.playbackState == .paused else { return .none }
+          state.playbackState = .playing
+          if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+            publishNowPlayingInfo(memo: memo, elapsedTime: state.currentTime, isPlaying: true)
+          }
+          return .run { _ in await audioPlayer.resume() }
+
+        case .pause:
+          guard state.playbackState == .playing else { return .none }
+          state.playbackState = .paused
+          if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+            publishNowPlayingInfo(memo: memo, elapsedTime: state.currentTime, isPlaying: false)
+          }
+          return .run { _ in await audioPlayer.pause() }
+
+        case .togglePlayPause:
+          switch state.playbackState {
+          case .playing:
+            return .send(.nowPlayingCommand(.pause))
+          case .paused:
+            return .send(.nowPlayingCommand(.play))
+          case .idle:
+            return .none
+          }
+
+        case let .seek(time):
+          guard state.currentPlayingMemo != nil else { return .none }
+          state.currentTime = time
+          if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
+            publishNowPlayingInfo(memo: memo, elapsedTime: time, isPlaying: state.playbackState == .playing)
+            return startPlayback(url: memo.url, startTime: time, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
+          }
+          return .none
+        }
 
       case .audioEditor(.save):
         // 編集完了時にPlaybackFeatureのデータを更新
@@ -727,6 +796,13 @@ struct PlaybackFeature {
 
       await send(.memosLoaded(memos))
     }
+  }
+
+  /// ロック画面/コントロールセンターのNow Playing情報を更新する。
+  private func publishNowPlayingInfo(memo: VoiceMemo, elapsedTime: TimeInterval, isPlaying: Bool) {
+    nowPlayingClient.update(
+      NowPlayingInfo(title: memo.title, duration: memo.duration, elapsedTime: elapsedTime, isPlaying: isPlaying)
+    )
   }
 
   private func startPlayback(url: URL, startTime: TimeInterval = 0, playSpeed: AudioPlayerClient.PlaybackSpeed = .normal, volumeBoost: Float = 1.0) -> Effect<Action> {

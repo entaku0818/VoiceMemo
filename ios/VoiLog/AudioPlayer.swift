@@ -16,6 +16,10 @@ struct AudioPlayerClient {
     var play: @Sendable (URL, Double, AudioPlayerClient.PlaybackSpeed, Bool, Float) async throws -> Bool
     var stop: @Sendable () async throws -> Bool
     var getCurrentTime: @Sendable () async throws -> TimeInterval
+    /// 現在の再生位置を保持したまま一時停止する（ロック画面/コントロールセンターの一時停止用）。
+    var pause: @Sendable () async -> Void = {}
+    /// `pause()` で止めた位置から再生を再開する（新しく読み込み直さない）。
+    var resume: @Sendable () async -> Void = {}
 }
 
 extension AudioPlayerClient {
@@ -37,13 +41,17 @@ extension AudioPlayerClient: TestDependencyKey {
         },
         getCurrentTime: {
             60
-        }
+        },
+        pause: {},
+        resume: {}
     )
 
     static let testValue = Self(
         play: unimplemented("\(Self.self).play"),
         stop: unimplemented("\(Self.self).stop"),
-        getCurrentTime: unimplemented("\(Self.self).getCurrentTime")
+        getCurrentTime: unimplemented("\(Self.self).getCurrentTime"),
+        pause: unimplemented("\(Self.self).pause"),
+        resume: unimplemented("\(Self.self).resume")
     )
 }
 extension DependencyValues {
@@ -66,6 +74,12 @@ extension AudioPlayerClient: DependencyKey {
             },
             getCurrentTime: {
                 await audioPlayer.getCurrentTime()
+            },
+            pause: {
+                await audioPlayer.pause()
+            },
+            resume: {
+                await audioPlayer.resume()
             }
         )
     }
@@ -133,6 +147,14 @@ private actor AudioPlayer {
         guard let player = player else { return false }
         player.stop()
         return true
+    }
+
+    func pause() {
+        player?.pause()
+    }
+
+    func resume() {
+        player?.play()
     }
 
     func getCurrentTime() async -> TimeInterval {
