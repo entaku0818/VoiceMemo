@@ -15,7 +15,7 @@ struct MeetingMinutesClient: Sendable {
     var generate: @Sendable (String) async throws -> MeetingMinutesResult
 }
 
-enum MeetingMinutesError: Error, LocalizedError {
+enum MeetingMinutesError: Error, LocalizedError, Equatable {
     case unavailable
     case noTranscriptionText
     case modelUnavailable
@@ -37,13 +37,20 @@ enum MeetingMinutesError: Error, LocalizedError {
 
 extension MeetingMinutesClient: DependencyKey {
     static let liveValue = MeetingMinutesClient(generate: { text in
-        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            throw MeetingMinutesError.noTranscriptionText
-        }
-        guard #available(iOS 26, *) else {
-            throw MeetingMinutesError.unavailable
-        }
-        return try await generateWithFoundationModels(text)
+        try await MeetingMinutesGenerator.generate(
+            text: text,
+            isOnDeviceAvailable: {
+                guard #available(iOS 26, *) else { return false }
+                return SystemLanguageModel.default.isAvailable
+            },
+            onDevice: { text in
+                guard #available(iOS 26, *) else { throw MeetingMinutesError.unavailable }
+                return try await generateWithFoundationModels(text)
+            },
+            cloudFallback: { text in
+                try await MeetingMinutesCloudFallback().generate(text: text)
+            }
+        )
     })
 
     static let testValue = MeetingMinutesClient(generate: { _ in
@@ -52,6 +59,50 @@ extension MeetingMinutesClient: DependencyKey {
             todos: ["TODO 1", "TODO 2"]
         )
     })
+}
+
+/// オンデバイス（Foundation Models）が使えるかどうかで処理を振り分ける純粋なロジック。
+///
+/// 実際の `SystemLanguageModel`/ネットワーク呼び出しは呼び出し元からクロージャとして注入するため、
+/// このロジック自体はモックだけで（実機のApple Intelligence状態に依存せず）テストできる。
+enum MeetingMinutesGenerator {
+    static func generate(
+        text: String,
+        isOnDeviceAvailable: () -> Bool,
+        onDevice: (String) async throws -> MeetingMinutesResult,
+        cloudFallback: (String) async throws -> MeetingMinutesResult
+    ) async throws -> MeetingMinutesResult {
+        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            throw MeetingMinutesError.noTranscriptionText
+        }
+        guard isOnDeviceAvailable() else {
+            return try await cloudFallback(text)
+        }
+        return try await onDevice(text)
+    }
+}
+
+/// オンデバイス（Foundation Models）が非対応の環境向けに、既存のクラウドAPI（Gemini `/minutes`）で
+/// 議事録要約を生成するフォールバック。
+struct MeetingMinutesCloudFallback {
+    @Dependency(\.transcriptionClient) var transcriptionClient
+    @Dependency(\.firebaseAuthClient) var firebaseAuth
+
+    func generate(text: String) async throws -> MeetingMinutesResult {
+        let language = TranscriptionFeature.State.detectLanguage()
+        do {
+            let idToken = try await firebaseAuth.currentUserIDToken(false)
+            let (response, _) = try await withAuthRetry(
+                firebaseAuth: firebaseAuth,
+                currentToken: idToken
+            ) { token in
+                try await transcriptionClient.generateMinutes(token, text, language)
+            }
+            return MeetingMinutesResult(summary: response.summary, todos: response.todos)
+        } catch {
+            throw MeetingMinutesError.generationFailed(error.localizedDescription)
+        }
+    }
 }
 
 extension DependencyValues {

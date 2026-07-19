@@ -16,6 +16,9 @@ final class TranscriptionFeatureTests: XCTestCase {
             .init(transcription: "テスト文章", segments: nil, summary: nil)
         },
         uploadAudio: @escaping @Sendable (URL, String, String) async throws -> Void = { _, _, _ in },
+        generateMinutes: @escaping @Sendable (String, String, String) async throws -> TranscriptionClient.MinutesResponse = { _, _, _ in
+            .init(summary: "テスト議事録", todos: [])
+        },
         currentUserIDToken: @escaping @Sendable (Bool) async throws -> String = { _ in "test-token" }
     ) -> TestStore<TranscriptionFeature.State, TranscriptionFeature.Action> {
         TestStore(
@@ -26,7 +29,8 @@ final class TranscriptionFeatureTests: XCTestCase {
             $0.transcriptionClient = TranscriptionClient(
                 uploadURL: uploadURL,
                 transcribe: transcribe,
-                uploadAudio: uploadAudio
+                uploadAudio: uploadAudio,
+                generateMinutes: generateMinutes
             )
             $0.firebaseAuthClient = FirebaseAuthClient(currentUserIDToken: currentUserIDToken)
         }
