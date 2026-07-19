@@ -131,6 +131,7 @@ final class PlaybackFeatureTests: XCTestCase {
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
+                $0.nowPlayingClient = NowPlayingClient(update: { _ in })
             }
 
             await store.send(.audioPlayerDidFinish)
@@ -159,6 +160,7 @@ final class PlaybackFeatureTests: XCTestCase {
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
+                $0.nowPlayingClient = NowPlayingClient(update: { _ in })
             }
 
             await store.send(.audioPlayerDidFinish)
@@ -197,6 +199,7 @@ final class PlaybackFeatureTests: XCTestCase {
                 stop: { true },
                 getCurrentTime: { 0 }
             )
+            $0.nowPlayingClient = NowPlayingClient(update: { _ in })
         }
         store.exhaustivity = .off
 
@@ -516,6 +519,264 @@ final class PlaybackFeatureTests: XCTestCase {
             }
 
             await store.send(.view(.volumeBoostApplied))
+        }
+    }
+
+    // MARK: - nowPlayingCommand: ロック画面/コントロールセンターからの操作（issue #190）
+
+    func testNowPlayingCommand_pause_whilePlaying_pausesAndUpdatesNowPlaying() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]
+            initial.currentPlayingMemo = testID
+            initial.playbackState = .playing
+            initial.currentTime = 3.5
+
+            let pauseCalled = LockIsolated(false)
+            let publishedInfo = LockIsolated<[NowPlayingInfo?]>([])
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 },
+                    pause: { pauseCalled.setValue(true) },
+                    resume: {}
+                )
+                $0.nowPlayingClient = NowPlayingClient(update: { info in
+                    publishedInfo.withValue { $0.append(info) }
+                })
+            }
+
+            await store.send(.nowPlayingCommand(.pause)) {
+                $0.playbackState = .paused
+            }
+
+            XCTAssertTrue(pauseCalled.value)
+            XCTAssertEqual(publishedInfo.value.last??.isPlaying, false)
+            XCTAssertEqual(publishedInfo.value.last??.elapsedTime, 3.5)
+        }
+    }
+
+    func testNowPlayingCommand_pause_whileIdle_doesNothing() async {
+        await withMainSerialExecutor {
+            let store = TestStore(initialState: PlaybackFeature.State()) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 },
+                    pause: { XCTFail("再生していない時にpauseが呼ばれてはいけない") },
+                    resume: {}
+                )
+            }
+
+            await store.send(.nowPlayingCommand(.pause))
+        }
+    }
+
+    func testNowPlayingCommand_play_whilePaused_resumesFromSamePosition() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]
+            initial.currentPlayingMemo = testID
+            initial.playbackState = .paused
+            initial.currentTime = 3.5
+
+            let resumeCalled = LockIsolated(false)
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in
+                        XCTFail("resumeはplayを呼び直さず、同じインスタンスをresumeするはず")
+                        return true
+                    },
+                    stop: { true },
+                    getCurrentTime: { 0 },
+                    pause: {},
+                    resume: { resumeCalled.setValue(true) }
+                )
+                $0.nowPlayingClient = NowPlayingClient(update: { _ in })
+            }
+
+            await store.send(.nowPlayingCommand(.play)) {
+                $0.playbackState = .playing
+            }
+
+            XCTAssertTrue(resumeCalled.value)
+            XCTAssertEqual(store.state.currentTime, 3.5, "位置がリセットされず再開されるはず")
+        }
+    }
+
+    func testNowPlayingCommand_play_whileIdle_doesNothing() async {
+        await withMainSerialExecutor {
+            let store = TestStore(initialState: PlaybackFeature.State()) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 },
+                    pause: {},
+                    resume: { XCTFail("再生していない時にresumeが呼ばれてはいけない") }
+                )
+            }
+
+            await store.send(.nowPlayingCommand(.play))
+        }
+    }
+
+    func testNowPlayingCommand_togglePlayPause_whilePlaying_sendsPause() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]
+            initial.currentPlayingMemo = testID
+            initial.playbackState = .playing
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 },
+                    pause: {},
+                    resume: {}
+                )
+                $0.nowPlayingClient = NowPlayingClient(update: { _ in })
+            }
+
+            await store.send(.nowPlayingCommand(.togglePlayPause))
+            await store.receive(\.nowPlayingCommand) {
+                $0.playbackState = .paused
+            }
+        }
+    }
+
+    func testNowPlayingCommand_togglePlayPause_whilePaused_sendsPlay() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]
+            initial.currentPlayingMemo = testID
+            initial.playbackState = .paused
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 },
+                    pause: {},
+                    resume: {}
+                )
+                $0.nowPlayingClient = NowPlayingClient(update: { _ in })
+            }
+
+            await store.send(.nowPlayingCommand(.togglePlayPause))
+            await store.receive(\.nowPlayingCommand) {
+                $0.playbackState = .playing
+            }
+        }
+    }
+
+    func testNowPlayingCommand_seek_whileNothingPlaying_doesNothing() async {
+        await withMainSerialExecutor {
+            let store = TestStore(initialState: PlaybackFeature.State()) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in
+                        XCTFail("再生していない時にplayが呼ばれてはいけない")
+                        return true
+                    },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+            }
+
+            await store.send(.nowPlayingCommand(.seek(10)))
+        }
+    }
+
+    func testPlayPauseButtonTapped_whilePaused_resumesInsteadOfRestarting() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]
+            initial.currentPlayingMemo = testID
+            initial.playbackState = .paused
+            initial.currentTime = 2.0
+
+            let resumeCalled = LockIsolated(false)
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in
+                        XCTFail("一時停止からの再開はplayを呼び直してはいけない")
+                        return true
+                    },
+                    stop: { true },
+                    getCurrentTime: { 0 },
+                    pause: {},
+                    resume: { resumeCalled.setValue(true) }
+                )
+                $0.nowPlayingClient = NowPlayingClient(update: { _ in })
+            }
+
+            await store.send(.view(.playPauseButtonTapped(testID))) {
+                $0.playbackState = .playing
+            }
+
+            XCTAssertTrue(resumeCalled.value)
+            XCTAssertEqual(store.state.currentTime, 2.0, "位置がリセットされないはず")
+        }
+    }
+
+    func testStopButtonTapped_clearsNowPlayingInfo() async {
+        await withMainSerialExecutor {
+            var initial = PlaybackFeature.State()
+            initial.voiceMemos = [makeMemo()]
+            initial.currentPlayingMemo = testID
+            initial.playbackState = .playing
+
+            let clearedCount = LockIsolated(0)
+
+            let store = TestStore(initialState: initial) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true },
+                    stop: { true },
+                    getCurrentTime: { 0 }
+                )
+                $0.nowPlayingClient = NowPlayingClient(update: { info in
+                    if info == nil { clearedCount.withValue { $0 += 1 } }
+                })
+            }
+
+            await store.send(.view(.stopButtonTapped)) {
+                $0.playbackState = .idle
+                $0.currentPlayingMemo = nil
+                $0.currentTime = 0
+            }
+
+            XCTAssertEqual(clearedCount.value, 1)
         }
     }
 }

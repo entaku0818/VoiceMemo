@@ -33,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // ライブアクティビティのボタン操作（一時停止/再開/停止）を受け取る
         RecordingControlSignalObserver.shared.startObserving()
 
+        // ロック画面/コントロールセンターからの再生操作を受け取る
+        NowPlayingCommandCenter.shared.configure()
+
         // AdMob初期化を遅延実行（UIが表示された後）
         #if !DEBUG
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
