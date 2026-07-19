@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
 
+        // ライブアクティビティのボタン操作（一時停止/再開/停止）を受け取る
+        RecordingControlSignalObserver.shared.startObserving()
+
         // AdMob初期化を遅延実行（UIが表示された後）
         #if !DEBUG
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
