@@ -1,4 +1,7 @@
-Version 1.11.2
+Version 1.12.0
 
-[Fehlerbehebungen]
-- Problem behoben, bei dem der Upload der Audiodatei zur Transkription fehlschlagen konnte
+[Neue Funktionen]
+- Wiedergabe, Pause und Suchlauf über Sperrbildschirm und Kontrollzentrum steuern
+- Aufnahmestatus in einer Live-Aktivität / Dynamic Island anzeigen
+- Aufnahme über Kurzbefehle/Siri starten/stoppen und die neueste Aufnahme transkribieren
+- Besprechungszusammenfassungen direkt auf dem Gerät mit Foundation Models erstellen (schneller, ohne Internetverbindung)

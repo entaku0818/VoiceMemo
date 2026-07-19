@@ -1,4 +1,7 @@
-Version 1.11.2
+Version 1.12.0
 
-[Corrections de bugs]
-- Correction d'un problème pouvant faire échouer l'envoi de l'audio pour la transcription
+[Nouvelles fonctionnalités]
+- Contrôlez la lecture, la pause et l'avance depuis l'écran verrouillé et le Centre de contrôle
+- Consultez l'état de l'enregistrement dans une Activité en direct / Dynamic Island
+- Démarrez/arrêtez l'enregistrement et transcrivez votre dernier enregistrement via Raccourcis/Siri
+- Générez des résumés de réunion directement sur l'appareil avec Foundation Models (plus rapide, sans connexion)

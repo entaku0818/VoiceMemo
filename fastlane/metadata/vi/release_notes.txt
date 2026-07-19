@@ -1,4 +1,7 @@
-Phiên bản 1.11.2
+Phiên bản 1.12.0
 
-[Sửa lỗi]
-- Đã sửa lỗi có thể khiến việc tải lên âm thanh để chuyển đổi thành văn bản bị thất bại
+[Tính năng mới]
+- Điều khiển phát, tạm dừng và tua từ Màn hình khóa và Trung tâm điều khiển
+- Xem trạng thái ghi âm qua Hoạt động trực tiếp / Dynamic Island
+- Bắt đầu/dừng ghi âm và chuyển văn bản bản ghi mới nhất qua Phím tắt/Siri
+- Tạo tóm tắt cuộc họp ngay trên thiết bị bằng Foundation Models (nhanh hơn, không cần mạng)

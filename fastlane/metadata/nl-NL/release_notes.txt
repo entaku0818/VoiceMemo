@@ -1,4 +1,7 @@
-Versie 1.11.2
+Versie 1.12.0
 
-[Bugfixes]
-- Een probleem opgelost waardoor het uploaden van audio voor transcriptie kon mislukken
+[Nieuwe functies]
+- Bedien afspelen, pauzeren en spoelen vanaf het vergrendelscherm en het Bedieningspaneel
+- Bekijk de opnamestatus in een Live-activiteit / Dynamic Island
+- Start/stop een opname en transcribeer je laatste opname via Opdrachten/Siri
+- Genereer vergaderingssamenvattingen direct op het apparaat met Foundation Models (sneller, geen internet nodig)

@@ -1,4 +1,7 @@
-Versión 1.11.2
+Versión 1.12.0
 
-[Correcciones de errores]
-- Se corrigió un problema por el que la subida de audio para la transcripción podía fallar
+[Nuevas funciones]
+- Controla la reproducción, pausa y avance desde la pantalla de bloqueo y el Centro de control
+- Consulta el estado de la grabación en una Actividad en directo / Dynamic Island
+- Inicia o detén la grabación y transcribe tu última grabación con Atajos/Siri
+- Genera resúmenes de reuniones en el dispositivo con Foundation Models (más rápido y sin conexión)

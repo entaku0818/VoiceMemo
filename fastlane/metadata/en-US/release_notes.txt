@@ -1,4 +1,7 @@
-Version 1.11.2
+Version 1.12.0
 
-[Bug Fixes]
-- Fixed an issue where uploading audio for transcription could fail
+[New Features]
+- Control playback, pause, and seek from the Lock Screen and Control Center
+- See your recording status in a Live Activity / Dynamic Island
+- Start/stop recording and transcribe your latest recording via Shortcuts/Siri
+- Generate meeting summaries on-device with Foundation Models (faster, no network needed)

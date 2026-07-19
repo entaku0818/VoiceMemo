@@ -1,4 +1,7 @@
-Version 1.11.2
+Version 1.12.0
 
-[Buggfixar]
-- Åtgärdat ett problem som kunde göra att uppladdning av ljud för transkribering misslyckades
+[Nya funktioner]
+- Styr uppspelning, paus och spolning från låsskärmen och Kontrollcenter
+- Se inspelningsstatus i en Live-aktivitet / Dynamic Island
+- Starta/stoppa inspelning och transkribera din senaste inspelning via Genvägar/Siri
+- Skapa mötessammanfattningar direkt på enheten med Foundation Models (snabbare, ingen internetanslutning behövs)

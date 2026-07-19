@@ -1,4 +1,7 @@
-Sürüm 1.11.2
+Sürüm 1.12.0
 
-[Hata Düzeltmeleri]
-- Transkripsiyon için ses yüklemesinin bazen başarısız olmasına neden olan sorun giderildi
+[Yeni Özellikler]
+- Kilit ekranından ve Kontrol Merkezi'nden oynatma, duraklatma ve ileri/geri sarma yapın
+- Kayıt durumunu bir Canlı Etkinlik / Dynamic Island üzerinden takip edin
+- Kısayollar/Siri ile kaydı başlatın/durdurun ve son kaydınızı yazıya dökün
+- Toplantı özetlerini Foundation Models ile cihaz üzerinde oluşturun (daha hızlı, internet gerektirmez)

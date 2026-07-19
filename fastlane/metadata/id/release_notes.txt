@@ -1,4 +1,7 @@
-Versi 1.11.2
+Versi 1.12.0
 
-[Perbaikan Bug]
-- Memperbaiki masalah yang dapat menyebabkan pengunggahan audio untuk transkripsi gagal
+[Fitur Baru]
+- Kendalikan pemutaran, jeda, dan pencarian dari Layar Kunci dan Control Center
+- Lihat status rekaman melalui Live Activity / Dynamic Island
+- Mulai/hentikan rekaman dan transkripsikan rekaman terbaru Anda melalui Pintasan/Siri
+- Buat ringkasan rapat langsung di perangkat dengan Foundation Models (lebih cepat, tanpa perlu koneksi internet)
