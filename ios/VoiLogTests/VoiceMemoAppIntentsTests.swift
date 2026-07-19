@@ -161,6 +161,9 @@ final class LatestRecordingTranscriptionRunnerTests: XCTestCase {
             .init(transcription: "文字起こし結果", segments: nil, summary: "要約結果")
         },
         uploadAudio: @escaping @Sendable (URL, String, String) async throws -> Void = { _, _, _ in },
+        generateMinutes: @escaping @Sendable (String, String, String) async throws -> TranscriptionClient.MinutesResponse = { _, _, _ in
+            .init(summary: "要約結果", todos: [])
+        },
         currentUserIDToken: @escaping @Sendable (Bool) async throws -> String = { _ in "test-token" },
         _ operation: (LatestRecordingTranscriptionRunner) async throws -> T
     ) async rethrows -> T {
@@ -180,7 +183,8 @@ final class LatestRecordingTranscriptionRunnerTests: XCTestCase {
             $0.transcriptionClient = TranscriptionClient(
                 uploadURL: uploadURL,
                 transcribe: transcribe,
-                uploadAudio: uploadAudio
+                uploadAudio: uploadAudio,
+                generateMinutes: generateMinutes
             )
             $0.firebaseAuthClient = FirebaseAuthClient(currentUserIDToken: currentUserIDToken)
         } operation: {
