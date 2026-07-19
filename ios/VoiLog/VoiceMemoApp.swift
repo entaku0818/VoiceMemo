@@ -119,9 +119,7 @@ struct VoiceMemoApp: App {
                 }
             } else {
                 VoiceAppView(
-                    store: Store(initialState: VoiceAppFeature.State()) {
-                        VoiceAppFeature()
-                    },
+                    store: AppEnvironment.store,
                     recordAdmobUnitId: recordAdmobUnitId,
                     playListAdmobUnitId: playListAdmobUnitId,
                     admobUnitId: admobUnitId
