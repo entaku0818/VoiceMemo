@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Reforço de volume</string>
+    <string name="trim_action">Cortar</string>
+    <string name="trim_title">Cortar áudio</string>
+    <string name="trim_start_label">Início: %s</string>
+    <string name="trim_end_label">Fim: %s</string>
+    <string name="trim_result_duration">Duração cortada: %s</string>
+    <string name="trim_apply_button">Cortar</string>
+    <string name="trim_success">Corte concluído. Guardado como nova gravação.</string>
+    <string name="trim_error_invalid_range">O fim deve ser posterior ao início.</string>
+    <string name="trim_error_unsupported_format">Este formato de gravação não é suportado para corte.</string>
+    <string name="trim_error_generic">Falha ao cortar. Tente novamente.</string>
     <string name="create_playlist">Criar playlist</string>
     <string name="enter_playlist_name">Nome da playlist</string>
     <string name="delete_playlist">Excluir playlist</string>

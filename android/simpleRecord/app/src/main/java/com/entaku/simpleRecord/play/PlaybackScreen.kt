@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.VolumeDown
 import androidx.compose.material.icons.automirrored.filled.VolumeUp
+import androidx.compose.material.icons.filled.ContentCut
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Repeat
@@ -51,6 +52,7 @@ fun PlaybackScreen(
     onSetAbLoopEnd: () -> Unit = {},
     onClearAbLoop: () -> Unit = {},
     onVolumeBoostChange: (Float) -> Unit = {},
+    onNavigateToTrim: () -> Unit = {},
 ) {
     val duration = if (playbackState.duration > 0) playbackState.duration
                    else (recordingData.duration * 1000).toInt()
@@ -66,6 +68,11 @@ fun PlaybackScreen(
                         onNavigateBack()
                     }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onNavigateToTrim) {
+                        Icon(Icons.Default.ContentCut, contentDescription = stringResource(R.string.trim_action))
                     }
                 }
             )

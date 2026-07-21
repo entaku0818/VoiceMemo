@@ -40,6 +40,9 @@ import com.entaku.simpleRecord.cloudsync.CloudSyncScreen
 import com.entaku.simpleRecord.cloudsync.CloudSyncViewModel
 import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
 import com.entaku.simpleRecord.db.AppDatabase
+import com.entaku.simpleRecord.edit.TrimScreen
+import com.entaku.simpleRecord.edit.TrimViewModel
+import com.entaku.simpleRecord.edit.TrimViewModelFactory
 import com.entaku.simpleRecord.feedback.FeedbackScreen
 import com.entaku.simpleRecord.feedback.FeedbackViewModel
 import com.entaku.simpleRecord.play.PlaybackActionListener
@@ -349,6 +352,33 @@ fun AppNavHost() {
                             onSetAbLoopEnd = { playbackViewModel.setAbLoopEnd() },
                             onClearAbLoop = { playbackViewModel.clearAbLoop() },
                             onVolumeBoostChange = { boost -> playbackViewModel.setVolumeBoost(boost) },
+                            onNavigateToTrim = { navController.navigate(Screen.Trim.route) },
+                        )
+                    }
+                }
+
+                // トリム編集画面 (issue #201, スコープ縮小: トリムのみ)
+                composable(Screen.Trim.route) {
+                    val selectedRecording by sharedViewModel.selectedRecording.collectAsState()
+
+                    selectedRecording?.let { recordingData ->
+                        val database = remember { AppDatabase.getInstance(context) }
+                        val repository = remember { RecordingRepositoryImpl(database) }
+                        val viewModelFactory = remember { TrimViewModelFactory(repository) }
+                        val trimViewModel: TrimViewModel = viewModel(factory = viewModelFactory)
+                        val trimState by trimViewModel.uiState.collectAsState()
+
+                        LaunchedEffect(recordingData.filePath) {
+                            trimViewModel.initialize(recordingData)
+                        }
+
+                        TrimScreen(
+                            title = recordingData.title.ifEmpty { stringResource(R.string.untitled_recording) },
+                            uiState = trimState,
+                            onStartChange = trimViewModel::setStart,
+                            onEndChange = trimViewModel::setEnd,
+                            onTrimClick = { trimViewModel.trim(recordingData) },
+                            onNavigateBack = { navController.popBackStack() }
                         )
                     }
                 }
@@ -530,6 +560,7 @@ sealed class Screen(val route: String, val title: String) {
     object Record : Screen("record", "Record")
     object Recordings : Screen("recordings", "Recordings")
     object Playback : Screen("playback", "Playback")
+    object Trim : Screen("trim", "Trim")
     object RecordingSettings : Screen("recording_settings", "Settings")
     object Playlists : Screen("playlists", "Playlists")
     object PlaylistDetail : Screen("playlist_detail/{playlistId}", "Playlist Detail") {

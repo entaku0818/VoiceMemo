@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">B ayarla</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Ses Yükseltme</string>
+    <string name="trim_action">Kırp</string>
+    <string name="trim_title">Sesi Kırp</string>
+    <string name="trim_start_label">Başlangıç: %s</string>
+    <string name="trim_end_label">Bitiş: %s</string>
+    <string name="trim_result_duration">Kırpılmış süre: %s</string>
+    <string name="trim_apply_button">Kırp</string>
+    <string name="trim_success">Kırpma tamamlandı. Yeni bir kayıt olarak kaydedildi.</string>
+    <string name="trim_error_invalid_range">Bitiş, başlangıçtan sonra olmalıdır.</string>
+    <string name="trim_error_unsupported_format">Bu kayıt formatı kırpma için desteklenmiyor.</string>
+    <string name="trim_error_generic">Kırpma başarısız oldu. Lütfen tekrar deneyin.</string>
     <string name="create_playlist">Çalma listesi oluştur</string>
     <string name="enter_playlist_name">Çalma listesi adı</string>
     <string name="delete_playlist">Çalma listesini sil</string>

@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Amplification du volume</string>
+    <string name="trim_action">Découper</string>
+    <string name="trim_title">Découper l\'audio</string>
+    <string name="trim_start_label">Début : %s</string>
+    <string name="trim_end_label">Fin : %s</string>
+    <string name="trim_result_duration">Durée découpée : %s</string>
+    <string name="trim_apply_button">Découper</string>
+    <string name="trim_success">Découpage terminé. Enregistré comme nouvel enregistrement.</string>
+    <string name="trim_error_invalid_range">La fin doit être après le début.</string>
+    <string name="trim_error_unsupported_format">Ce format d\'enregistrement n\'est pas pris en charge pour le découpage.</string>
+    <string name="trim_error_generic">Le découpage a échoué. Veuillez réessayer.</string>
     <string name="create_playlist">Créer une playlist</string>
     <string name="enter_playlist_name">Nom de la playlist</string>
     <string name="delete_playlist">Supprimer la playlist</string>

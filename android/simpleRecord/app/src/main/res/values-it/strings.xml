@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Potenziamento del volume</string>
+    <string name="trim_action">Taglia</string>
+    <string name="trim_title">Taglia audio</string>
+    <string name="trim_start_label">Inizio: %s</string>
+    <string name="trim_end_label">Fine: %s</string>
+    <string name="trim_result_duration">Durata ritagliata: %s</string>
+    <string name="trim_apply_button">Taglia</string>
+    <string name="trim_success">Taglio completato. Salvato come nuova registrazione.</string>
+    <string name="trim_error_invalid_range">La fine deve essere successiva all\'inizio.</string>
+    <string name="trim_error_unsupported_format">Questo formato di registrazione non è supportato per il taglio.</string>
+    <string name="trim_error_generic">Taglio non riuscito. Riprova.</string>
     <string name="create_playlist">Crea playlist</string>
     <string name="enter_playlist_name">Nome playlist</string>
     <string name="delete_playlist">Elimina playlist</string>

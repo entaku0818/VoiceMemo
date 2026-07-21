@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">B setzen</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Lautstärke-Verstärkung</string>
+    <string name="trim_action">Zuschneiden</string>
+    <string name="trim_title">Audio zuschneiden</string>
+    <string name="trim_start_label">Start: %s</string>
+    <string name="trim_end_label">Ende: %s</string>
+    <string name="trim_result_duration">Zugeschnittene Länge: %s</string>
+    <string name="trim_apply_button">Zuschneiden</string>
+    <string name="trim_success">Zuschnitt abgeschlossen. Als neue Aufnahme gespeichert.</string>
+    <string name="trim_error_invalid_range">Das Ende muss nach dem Start liegen.</string>
+    <string name="trim_error_unsupported_format">Dieses Aufnahmeformat wird für den Zuschnitt nicht unterstützt.</string>
+    <string name="trim_error_generic">Zuschneiden fehlgeschlagen. Bitte versuche es erneut.</string>
     <string name="create_playlist">Playlist erstellen</string>
     <string name="enter_playlist_name">Playlist-Name eingeben</string>
     <string name="delete_playlist">Playlist löschen</string>

@@ -55,6 +55,18 @@
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Volume Boost</string>
 
+    <!-- Trim Screen (Issue #201, trim-only scope) -->
+    <string name="trim_action">Trim</string>
+    <string name="trim_title">Trim Audio</string>
+    <string name="trim_start_label">Start: %s</string>
+    <string name="trim_end_label">End: %s</string>
+    <string name="trim_result_duration">Trimmed length: %s</string>
+    <string name="trim_apply_button">Trim</string>
+    <string name="trim_success">Trim complete. Saved as a new recording.</string>
+    <string name="trim_error_invalid_range">End must be after start.</string>
+    <string name="trim_error_unsupported_format">This recording format is not supported for trimming.</string>
+    <string name="trim_error_generic">Trim failed. Please try again.</string>
+
     <!-- Playlist -->
     <string name="create_playlist">Create Playlist</string>
     <string name="enter_playlist_name">Enter playlist name</string>

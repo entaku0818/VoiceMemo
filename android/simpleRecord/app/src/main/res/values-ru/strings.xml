@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Усиление громкости</string>
+    <string name="trim_action">Обрезать</string>
+    <string name="trim_title">Обрезка аудио</string>
+    <string name="trim_start_label">Начало: %s</string>
+    <string name="trim_end_label">Конец: %s</string>
+    <string name="trim_result_duration">Длина после обрезки: %s</string>
+    <string name="trim_apply_button">Обрезать</string>
+    <string name="trim_success">Обрезка завершена. Сохранено как новая запись.</string>
+    <string name="trim_error_invalid_range">Конец должен быть позже начала.</string>
+    <string name="trim_error_unsupported_format">Этот формат записи не поддерживается для обрезки.</string>
+    <string name="trim_error_generic">Не удалось обрезать. Попробуйте ещё раз.</string>
     <string name="create_playlist">Создать плейлист</string>
     <string name="enter_playlist_name">Название плейлиста</string>
     <string name="delete_playlist">Удалить плейлист</string>

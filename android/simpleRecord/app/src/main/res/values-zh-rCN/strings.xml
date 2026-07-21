@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">设B</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">音量增强</string>
+    <string name="trim_action">剪辑</string>
+    <string name="trim_title">音频剪辑</string>
+    <string name="trim_start_label">开始：%s</string>
+    <string name="trim_end_label">结束：%s</string>
+    <string name="trim_result_duration">剪辑后长度：%s</string>
+    <string name="trim_apply_button">剪辑</string>
+    <string name="trim_success">剪辑完成，已保存为新录音。</string>
+    <string name="trim_error_invalid_range">结束位置必须晚于开始位置。</string>
+    <string name="trim_error_unsupported_format">此录音格式不支持剪辑。</string>
+    <string name="trim_error_generic">剪辑失败，请重试。</string>
     <string name="create_playlist">创建播放列表</string>
     <string name="enter_playlist_name">播放列表名称</string>
     <string name="delete_playlist">删除播放列表</string>

@@ -35,6 +35,16 @@
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
     <string name="volume_boost">Tăng cường âm lượng</string>
+    <string name="trim_action">Cắt</string>
+    <string name="trim_title">Cắt âm thanh</string>
+    <string name="trim_start_label">Bắt đầu: %s</string>
+    <string name="trim_end_label">Kết thúc: %s</string>
+    <string name="trim_result_duration">Thời lượng sau khi cắt: %s</string>
+    <string name="trim_apply_button">Cắt</string>
+    <string name="trim_success">Đã cắt xong. Đã lưu thành bản ghi mới.</string>
+    <string name="trim_error_invalid_range">Điểm kết thúc phải sau điểm bắt đầu.</string>
+    <string name="trim_error_unsupported_format">Định dạng bản ghi này không được hỗ trợ để cắt.</string>
+    <string name="trim_error_generic">Cắt không thành công. Vui lòng thử lại.</string>
     <string name="create_playlist">Tạo danh sách</string>
     <string name="enter_playlist_name">Tên danh sách phát</string>
     <string name="delete_playlist">Xóa danh sách</string>
