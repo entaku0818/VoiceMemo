@@ -99,6 +99,10 @@
     <string name="mono">单声道</string>
     <string name="stereo">立体声</string>
     <string name="save_settings">保存设置</string>
+    <string name="app_icon_title">应用图标</string>
+    <string name="app_icon_default">默认</string>
+    <string name="app_icon_blue">蓝色</string>
+    <string name="app_icon_purple">紫色</string>
     <string name="notification_d1_title">今天来录音吧！</string>
     <string name="notification_d1_body">随时轻松录音。</string>
     <string name="notification_d3_title">回听您的录音</string>

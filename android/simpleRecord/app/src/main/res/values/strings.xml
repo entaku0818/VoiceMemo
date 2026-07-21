@@ -127,6 +127,12 @@
     <string name="stereo">Stereo</string>
     <string name="save_settings">Save Settings</string>
 
+    <!-- App Icon -->
+    <string name="app_icon_title">App Icon</string>
+    <string name="app_icon_default">Default</string>
+    <string name="app_icon_blue">Blue</string>
+    <string name="app_icon_purple">Purple</string>
+
     <!-- Notifications -->
     <string name="notification_d1_title">Why not record today?</string>
     <string name="notification_d1_body">Simple Record makes it easy to record anytime.</string>

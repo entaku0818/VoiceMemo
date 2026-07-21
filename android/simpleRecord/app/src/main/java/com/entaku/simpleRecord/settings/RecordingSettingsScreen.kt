@@ -285,6 +285,30 @@ fun RecordingSettingsScreen(
                 )
             }
 
+            // アプリアイコン
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(stringResource(R.string.app_icon_title), style = MaterialTheme.typography.titleMedium)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                val appIconRepository = remember { AppIconRepository(context) }
+                var selectedIcon by remember { mutableStateOf(appIconRepository.getCurrentIcon()) }
+                AppIcon.entries.forEach { icon ->
+                    FilterChip(
+                        selected = selectedIcon == icon,
+                        onClick = {
+                            appIconRepository.setIcon(icon)
+                            selectedIcon = icon
+                        },
+                        label = { Text(stringResource(appIconStringRes(icon))) }
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.height(16.dp))
 
             // Premium
@@ -425,6 +449,12 @@ private fun presetStringRes(preset: RecordingPreset): Int = when (preset) {
     RecordingPreset.PODCAST -> R.string.preset_podcast
     RecordingPreset.MUSIC -> R.string.preset_music
     RecordingPreset.CUSTOM -> R.string.preset_custom
+}
+
+private fun appIconStringRes(icon: AppIcon): Int = when (icon) {
+    AppIcon.DEFAULT -> R.string.app_icon_default
+    AppIcon.BLUE -> R.string.app_icon_blue
+    AppIcon.PURPLE -> R.string.app_icon_purple
 }
 
 @Preview(showBackground = true)

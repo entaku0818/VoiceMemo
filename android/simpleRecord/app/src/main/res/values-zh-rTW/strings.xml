@@ -99,6 +99,10 @@
     <string name="mono">單聲道</string>
     <string name="stereo">立體聲</string>
     <string name="save_settings">儲存設定</string>
+    <string name="app_icon_title">應用程式圖示</string>
+    <string name="app_icon_default">預設</string>
+    <string name="app_icon_blue">藍色</string>
+    <string name="app_icon_purple">紫色</string>
     <string name="notification_d1_title">今天來錄音吧！</string>
     <string name="notification_d1_body">隨時輕鬆錄音。</string>
     <string name="notification_d3_title">回聽您的錄音</string>

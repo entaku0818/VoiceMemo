@@ -99,6 +99,10 @@
     <string name="mono">Mono</string>
     <string name="stereo">Estéreo</string>
     <string name="save_settings">Guardar ajustes</string>
+    <string name="app_icon_title">Icono de la app</string>
+    <string name="app_icon_default">Predeterminado</string>
+    <string name="app_icon_blue">Azul</string>
+    <string name="app_icon_purple">Morado</string>
     <string name="notification_d1_title">¿Por qué no grabar hoy?</string>
     <string name="notification_d1_body">Graba fácilmente en cualquier momento.</string>
     <string name="notification_d3_title">Revisa tus grabaciones</string>

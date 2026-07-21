@@ -99,6 +99,10 @@
     <string name="mono">Mono</string>
     <string name="stereo">Stereo</string>
     <string name="save_settings">Lưu cài đặt</string>
+    <string name="app_icon_title">Biểu tượng ứng dụng</string>
+    <string name="app_icon_default">Mặc định</string>
+    <string name="app_icon_blue">Xanh dương</string>
+    <string name="app_icon_purple">Tím</string>
     <string name="notification_d1_title">Hôm nay hãy ghi âm nhé!</string>
     <string name="notification_d1_body">Ghi âm đơn giản dễ dàng mọi lúc.</string>
     <string name="notification_d3_title">Nghe lại ghi âm của bạn</string>

@@ -99,6 +99,10 @@
     <string name="mono">Моно</string>
     <string name="stereo">Стерео</string>
     <string name="save_settings">Сохранить настройки</string>
+    <string name="app_icon_title">Значок приложения</string>
+    <string name="app_icon_default">По умолчанию</string>
+    <string name="app_icon_blue">Синий</string>
+    <string name="app_icon_purple">Фиолетовый</string>
     <string name="notification_d1_title">Почему бы не записать что-нибудь сегодня?</string>
     <string name="notification_d1_body">Простая Запись позволяет легко записывать в любое время.</string>
     <string name="notification_d3_title">Прослушайте свои записи</string>

@@ -99,6 +99,10 @@
     <string name="mono">Mono</string>
     <string name="stereo">Stereo</string>
     <string name="save_settings">Salva impostazioni</string>
+    <string name="app_icon_title">Icona dell\'app</string>
+    <string name="app_icon_default">Predefinita</string>
+    <string name="app_icon_blue">Blu</string>
+    <string name="app_icon_purple">Viola</string>
     <string name="notification_d1_title">Perché non registrare oggi?</string>
     <string name="notification_d1_body">Registra facilmente in qualsiasi momento.</string>
     <string name="notification_d3_title">Riascolta le tue registrazioni</string>

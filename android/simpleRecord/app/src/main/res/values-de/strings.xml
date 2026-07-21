@@ -99,6 +99,10 @@
     <string name="mono">Mono</string>
     <string name="stereo">Stereo</string>
     <string name="save_settings">Einstellungen speichern</string>
+    <string name="app_icon_title">App-Symbol</string>
+    <string name="app_icon_default">Standard</string>
+    <string name="app_icon_blue">Blau</string>
+    <string name="app_icon_purple">Lila</string>
     <string name="notification_d1_title">Nehmen Sie heute etwas auf!</string>
     <string name="notification_d1_body">Mit Einfache Aufnahme jederzeit einfach aufnehmen.</string>
     <string name="notification_d3_title">Hören Sie sich Ihre Aufnahmen an</string>

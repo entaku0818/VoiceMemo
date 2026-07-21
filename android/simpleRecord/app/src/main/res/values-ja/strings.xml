@@ -110,6 +110,10 @@
     <string name="mono">モノラル</string>
     <string name="stereo">ステレオ</string>
     <string name="save_settings">設定を保存</string>
+    <string name="app_icon_title">アプリアイコン</string>
+    <string name="app_icon_default">デフォルト</string>
+    <string name="app_icon_blue">ブルー</string>
+    <string name="app_icon_purple">パープル</string>
     <string name="notification_d1_title">今日も録音してみませんか？</string>
     <string name="notification_d1_body">シンプル録音でいつでも簡単に録音できます。</string>
     <string name="notification_d3_title">録音を振り返りませんか？</string>

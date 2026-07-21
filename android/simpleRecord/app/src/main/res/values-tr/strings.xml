@@ -99,6 +99,10 @@
     <string name="mono">Mono</string>
     <string name="stereo">Stereo</string>
     <string name="save_settings">Ayarları kaydet</string>
+    <string name="app_icon_title">Uygulama Simgesi</string>
+    <string name="app_icon_default">Varsayılan</string>
+    <string name="app_icon_blue">Mavi</string>
+    <string name="app_icon_purple">Mor</string>
     <string name="notification_d1_title">Bugün kayıt yapmaya ne dersiniz?</string>
     <string name="notification_d1_body">Basit Kayıt ile istediğiniz zaman kolayca kayıt yapın.</string>
     <string name="notification_d3_title">Kayıtlarınızı dinleyin</string>

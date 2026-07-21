@@ -99,6 +99,10 @@
     <string name="mono">Mono</string>
     <string name="stereo">Stéréo</string>
     <string name="save_settings">Enregistrer les paramètres</string>
+    <string name="app_icon_title">Icône de l\'application</string>
+    <string name="app_icon_default">Par défaut</string>
+    <string name="app_icon_blue">Bleu</string>
+    <string name="app_icon_purple">Violet</string>
     <string name="notification_d1_title">Et si vous enregistriez aujourd\'hui?</string>
     <string name="notification_d1_body">Enregistrez facilement à tout moment.</string>
     <string name="notification_d3_title">Réécoutez vos enregistrements</string>
