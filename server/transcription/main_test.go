@@ -367,10 +367,14 @@ func TestGenerateContentWithRetry_AttemptContextBoundedByParent(t *testing.T) {
 }
 
 func TestNewGeminiHTTPClient_BoundsHungConnections(t *testing.T) {
-	client := newGeminiHTTPClient()
-	transport, ok := client.Transport.(*http.Transport)
+	client := newGeminiHTTPClient("test-key")
+	keyRT, ok := client.Transport.(*apiKeyRoundTripper)
 	if !ok {
-		t.Fatalf("Transport = %T, want *http.Transport", client.Transport)
+		t.Fatalf("Transport = %T, want *apiKeyRoundTripper", client.Transport)
+	}
+	transport, ok := keyRT.transport.(*http.Transport)
+	if !ok {
+		t.Fatalf("inner transport = %T, want *http.Transport", keyRT.transport)
 	}
 	if transport.ResponseHeaderTimeout <= 0 {
 		t.Error("ResponseHeaderTimeout must be set so a hung connection fails before the caller's context deadline")
@@ -379,6 +383,31 @@ func TestNewGeminiHTTPClient_BoundsHungConnections(t *testing.T) {
 		t.Error("IdleConnTimeout must be set to avoid reusing stale idle connections")
 	}
 }
+
+func TestApiKeyRoundTripper_AppendsKeyToRequest(t *testing.T) {
+	var gotKey string
+	rt := &apiKeyRoundTripper{
+		key: "secret-key",
+		transport: roundTripFunc(func(req *http.Request) (*http.Response, error) {
+			gotKey = req.URL.Query().Get("key")
+			return &http.Response{StatusCode: 200, Body: http.NoBody}, nil
+		}),
+	}
+	req, _ := http.NewRequest("POST", "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent", nil)
+	if _, err := rt.RoundTrip(req); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if gotKey != "secret-key" {
+		t.Errorf("key query param = %q, want %q", gotKey, "secret-key")
+	}
+	if req.URL.Query().Get("key") != "" {
+		t.Error("original request must not be mutated")
+	}
+}
+
+type roundTripFunc func(*http.Request) (*http.Response, error)
+
+func (f roundTripFunc) RoundTrip(req *http.Request) (*http.Response, error) { return f(req) }
 
 func TestSalvageTranscription(t *testing.T) {
 	tests := []struct {

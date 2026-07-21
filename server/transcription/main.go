@@ -68,7 +68,7 @@ func initClients() {
 	if geminiAPIKey == "" {
 		log.Fatal("GEMINI_API_KEY is required")
 	}
-	geminiClient, err = genai.NewClient(ctx, option.WithAPIKey(geminiAPIKey), option.WithHTTPClient(newGeminiHTTPClient()))
+	geminiClient, err = genai.NewClient(ctx, option.WithHTTPClient(newGeminiHTTPClient(geminiAPIKey)))
 	if err != nil {
 		log.Fatalf("gemini client: %v", err)
 	}
@@ -81,19 +81,42 @@ func initClients() {
 // を設定することで、ハングした試行を親コンテキストの残り時間いっぱい待たせず早期に
 // 失敗させ、generateContentWithRetry が新しいコネクションで実際にリトライできるようにする。
 // IdleConnTimeout は、NAT/LB 経由で無応答のまま片方だけ生き残ったアイドル接続の再利用を防ぐ。
-func newGeminiHTTPClient() *http.Client {
+//
+// option.WithHTTPClient と option.WithAPIKey を併用しても、google.golang.org/api の
+// transport/http.NewClient は settings.HTTPClient が非nilならそれをそのまま返し、
+// APIKey を付与するラッパーを一切適用しない（geminiClient.NewClientの実装依存の落とし穴）。
+// そのため独自の apiKeyRoundTripper で明示的にキーを付与する。これを怠ると全リクエストが
+// "403: Method doesn't allow unregistered callers" で失敗する。
+func newGeminiHTTPClient(apiKey string) *http.Client {
 	return &http.Client{
-		Transport: &http.Transport{
-			DialContext: (&net.Dialer{
-				Timeout:   10 * time.Second,
-				KeepAlive: 30 * time.Second,
-			}).DialContext,
-			TLSHandshakeTimeout:   10 * time.Second,
-			ResponseHeaderTimeout: 120 * time.Second,
-			IdleConnTimeout:       90 * time.Second,
-			ExpectContinueTimeout: 1 * time.Second,
+		Transport: &apiKeyRoundTripper{
+			key: apiKey,
+			transport: &http.Transport{
+				DialContext: (&net.Dialer{
+					Timeout:   10 * time.Second,
+					KeepAlive: 30 * time.Second,
+				}).DialContext,
+				TLSHandshakeTimeout:   10 * time.Second,
+				ResponseHeaderTimeout: 120 * time.Second,
+				IdleConnTimeout:       90 * time.Second,
+				ExpectContinueTimeout: 1 * time.Second,
+			},
 		},
 	}
+}
+
+// apiKeyRoundTripper は Gemini APIキーをクエリパラメータ "key" として全リクエストに付与する。
+type apiKeyRoundTripper struct {
+	key       string
+	transport http.RoundTripper
+}
+
+func (t *apiKeyRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	newReq := req.Clone(req.Context())
+	q := newReq.URL.Query()
+	q.Set("key", t.key)
+	newReq.URL.RawQuery = q.Encode()
+	return t.transport.RoundTrip(newReq)
 }
 
 func verifyToken(r *http.Request) (string, error) {
