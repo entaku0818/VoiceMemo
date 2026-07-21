@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/http/httptest"
 	"reflect"
 	"strings"
 	"testing"
@@ -12,6 +13,7 @@ import (
 
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/googleapi"
+	"google.golang.org/api/option"
 )
 
 func TestPerUIDLimiter_AllowsUpToBurstThenBlocks(t *testing.T) {
@@ -408,6 +410,57 @@ func TestApiKeyRoundTripper_AppendsKeyToRequest(t *testing.T) {
 type roundTripFunc func(*http.Request) (*http.Response, error)
 
 func (f roundTripFunc) RoundTrip(req *http.Request) (*http.Response, error) { return f(req) }
+
+// TestGeminiClient_AttachesAPIKeyEndToEnd exercises the exact construction used by
+// initClients (option.WithAPIKey + option.WithHTTPClient(newGeminiHTTPClient(...)))
+// through a real genai.Client against a fake HTTP server, rather than unit-testing
+// apiKeyRoundTripper in isolation.
+//
+// This class of bug bit production on 2026-07-21: passing option.WithHTTPClient
+// silently disables the SDK's own API-key-attaching transport wrapper, so a change
+// that looks correct in isolated unit tests (and passes `go vet`/`go build`) can
+// still mean 100% of real requests get rejected with "403: Method doesn't allow
+// unregistered callers". Only a test that goes through genai.NewClient and actually
+// sends a request catches that. If this test ever fails to compile because
+// newGeminiHTTPClient's signature changed, or starts failing because gotKey is
+// empty, treat it as a signal that Gemini auth is broken — do not loosen the
+// assertion to make it pass.
+func TestGeminiClient_AttachesAPIKeyEndToEnd(t *testing.T) {
+	const testKey = "test-api-key"
+
+	var gotKey string
+	var requestCount int
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestCount++
+		gotKey = r.URL.Query().Get("key")
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"candidates":[{"content":{"parts":[{"text":"ok"}],"role":"model"}}]}`))
+	}))
+	defer srv.Close()
+
+	ctx := context.Background()
+	client, err := genai.NewClient(ctx,
+		option.WithAPIKey(testKey),
+		option.WithHTTPClient(newGeminiHTTPClient(testKey)),
+		option.WithEndpoint(srv.URL),
+	)
+	if err != nil {
+		t.Fatalf("genai.NewClient failed: %v", err)
+	}
+	defer client.Close()
+
+	model := client.GenerativeModel("gemini-2.5-flash")
+	if _, err := model.GenerateContent(ctx, genai.Text("hi")); err != nil {
+		t.Fatalf("GenerateContent failed: %v", err)
+	}
+
+	if requestCount == 0 {
+		t.Fatal("fake server never received a request")
+	}
+	if gotKey != testKey {
+		t.Errorf("request reached the server without the API key attached: got query key %q, want %q", gotKey, testKey)
+	}
+}
 
 func TestSalvageTranscription(t *testing.T) {
 	tests := []struct {
