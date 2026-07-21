@@ -34,13 +34,17 @@ data class RecordingUiState(
     val currentFilePath: String? = null,
     val currentVolume: Int = 0,
     val elapsedTime: Duration = Duration.ZERO,
-    val amplitudeHistory: List<Float> = emptyList()
+    val amplitudeHistory: List<Float> = emptyList(),
+    // 録音中のリアルタイム音声文字起こし結果 (issue #198)。既存の録音後サーバー文字起こしとは独立。
+    val transcribedText: String = "",
+    val isTranscriptionActive: Boolean = false
 )
 
 class RecordViewModel(
     private val repository: RecordingRepository,
     private val settingsManager: SettingsRepository,
-    private val sharedViewModel: SharedRecordingsViewModel
+    private val sharedViewModel: SharedRecordingsViewModel,
+    private val speechTranscriptionController: SpeechTranscriptionController = AndroidSpeechTranscriptionController()
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RecordingUiState())
@@ -144,6 +148,7 @@ class RecordViewModel(
                 RecordingNotificationService.start(applicationContext, startTime)
                 startVolumeMonitoring()
                 startTimeUpdates()
+                startRealtimeTranscription(applicationContext, initialText = "")
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -181,6 +186,21 @@ class RecordViewModel(
         private const val MAX_AMPLITUDE_HISTORY = 100
     }
 
+    // 録音中のリアルタイム音声文字起こしを開始する (issue #198)。
+    // 端末が音声認識に対応していない場合は isTranscriptionActive が false のままとなり、
+    // UI 側でリアルタイム文字起こし表示を出さない。
+    private fun startRealtimeTranscription(context: Context, initialText: String) {
+        val started = speechTranscriptionController.start(context, initialText) { text ->
+            _uiState.update { it.copy(transcribedText = text) }
+        }
+        _uiState.update { it.copy(transcribedText = initialText, isTranscriptionActive = started) }
+    }
+
+    private fun stopRealtimeTranscription() {
+        speechTranscriptionController.stop()
+        _uiState.update { it.copy(isTranscriptionActive = false) }
+    }
+
     // ongoing notification を停止し、リスナー登録を解除する (issue #197)。
     private fun stopNotificationService() {
         notificationContext?.let { RecordingNotificationService.stop(it) }
@@ -192,6 +212,7 @@ class RecordViewModel(
         timeUpdateJob = null
         volumeMonitorJob?.cancel()
         volumeMonitorJob = null
+        stopRealtimeTranscription()
 
         mediaRecorder?.apply {
             try {
@@ -236,7 +257,9 @@ class RecordViewModel(
                 currentFilePath = null,
                 currentVolume = 0,
                 elapsedTime = Duration.ZERO,
-                amplitudeHistory = emptyList()
+                amplitudeHistory = emptyList(),
+                transcribedText = "",
+                isTranscriptionActive = false
             )
         }
         sharedViewModel.updateRecordingState(RecordingState.FINISHED)
@@ -274,6 +297,7 @@ class RecordViewModel(
                 pauseStartTime = System.currentTimeMillis()
                 volumeMonitorJob?.cancel()
                 timeUpdateJob?.cancel()
+                stopRealtimeTranscription()
                 _uiState.update { it.copy(recordingState = RecordingState.PAUSED) }
                 sharedViewModel.updateRecordingState(RecordingState.PAUSED)
                 updateNotification(isPaused = true)
@@ -288,6 +312,9 @@ class RecordViewModel(
                 pausedDuration += System.currentTimeMillis() - pauseStartTime
                 startVolumeMonitoring()
                 startTimeUpdates()
+                notificationContext?.let { ctx ->
+                    startRealtimeTranscription(ctx, initialText = _uiState.value.transcribedText)
+                }
                 _uiState.update { it.copy(recordingState = RecordingState.RECORDING) }
                 sharedViewModel.updateRecordingState(RecordingState.RECORDING)
                 updateNotification(isPaused = false)
@@ -302,5 +329,6 @@ class RecordViewModel(
         mediaRecorder?.release()
         mediaRecorder = null
         stopNotificationService()
+        speechTranscriptionController.destroy()
     }
 }

@@ -26,6 +26,8 @@
     <string name="resume">Reprendre</string>
     <string name="stop">Arrêter</string>
     <string name="volume_label">Volume: %d%%</string>
+    <string name="realtime_transcription_label">Transcription en direct</string>
+    <string name="realtime_transcription_placeholder">Écoute en cours…</string>
     <string name="play">Lire</string>
     <string name="back_to_recordings">Retour aux enregistrements</string>
     <string name="repeat">Répéter</string>

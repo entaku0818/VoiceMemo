@@ -26,6 +26,8 @@
     <string name="resume">Продолжить</string>
     <string name="stop">Стоп</string>
     <string name="volume_label">Громкость: %d%%</string>
+    <string name="realtime_transcription_label">Расшифровка в реальном времени</string>
+    <string name="realtime_transcription_placeholder">Слушаю…</string>
     <string name="play">Воспроизвести</string>
     <string name="back_to_recordings">К записям</string>
     <string name="repeat">Повтор</string>

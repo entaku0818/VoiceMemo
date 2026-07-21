@@ -26,6 +26,8 @@
     <string name="resume">Tiếp tục</string>
     <string name="stop">Dừng</string>
     <string name="volume_label">Âm lượng: %d%%</string>
+    <string name="realtime_transcription_label">Chuyển văn bản trực tiếp</string>
+    <string name="realtime_transcription_placeholder">Đang nghe…</string>
     <string name="play">Phát</string>
     <string name="back_to_recordings">Quay lại ghi âm</string>
     <string name="repeat">Lặp lại</string>

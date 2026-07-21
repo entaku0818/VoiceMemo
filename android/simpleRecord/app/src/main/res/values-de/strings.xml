@@ -26,6 +26,8 @@
     <string name="resume">Fortsetzen</string>
     <string name="stop">Stopp</string>
     <string name="volume_label">Lautstärke: %d%%</string>
+    <string name="realtime_transcription_label">Live-Transkription</string>
+    <string name="realtime_transcription_placeholder">Höre zu…</string>
     <string name="play">Abspielen</string>
     <string name="back_to_recordings">Zurück zu Aufnahmen</string>
     <string name="repeat">Wiederholen</string>

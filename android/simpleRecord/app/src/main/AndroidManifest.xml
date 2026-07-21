@@ -11,6 +11,15 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
+    <!-- 録音中のリアルタイム音声文字起こし(android.speech.SpeechRecognizer)用。 (issue #198)
+         API 30+ のパッケージ可視性制限下でも SpeechRecognizer.isRecognitionAvailable() が
+         音声認識サービスを見つけられるようにするための宣言。 -->
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
     <application
         android:name=".SimpleRecordApplication"
         android:allowBackup="true"

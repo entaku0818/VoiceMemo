@@ -3,6 +3,7 @@ package com.entaku.simpleRecord.record
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -254,6 +255,34 @@ fun RecordScreen(
                             },
                             backgroundColor = MaterialTheme.colorScheme.surfaceVariant
                         )
+                    }
+
+                    // 録音中のリアルタイム音声文字起こし表示 (issue #198)。
+                    // 端末が音声認識に対応していない場合は isTranscriptionActive が false のため表示しない。
+                    if (uiState.isTranscriptionActive) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 8.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.realtime_transcription_label),
+                                style = MaterialTheme.typography.labelMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(bottom = 4.dp)
+                            )
+                            Text(
+                                text = uiState.transcribedText.ifBlank {
+                                    stringResource(R.string.realtime_transcription_placeholder)
+                                },
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                                    .padding(12.dp)
+                            )
+                        }
                     }
                 }
             }

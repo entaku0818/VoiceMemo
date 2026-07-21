@@ -26,6 +26,8 @@
     <string name="resume">Devam et</string>
     <string name="stop">Durdur</string>
     <string name="volume_label">Ses: %d%%</string>
+    <string name="realtime_transcription_label">Canlı yazıya dökme</string>
+    <string name="realtime_transcription_placeholder">Dinleniyor…</string>
     <string name="play">Oynat</string>
     <string name="back_to_recordings">Kayıtlara dön</string>
     <string name="repeat">Tekrar</string>

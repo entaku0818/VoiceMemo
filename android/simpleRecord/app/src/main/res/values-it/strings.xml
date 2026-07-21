@@ -26,6 +26,8 @@
     <string name="resume">Riprendi</string>
     <string name="stop">Stop</string>
     <string name="volume_label">Volume: %d%%</string>
+    <string name="realtime_transcription_label">Trascrizione in tempo reale</string>
+    <string name="realtime_transcription_placeholder">In ascolto…</string>
     <string name="play">Riproduci</string>
     <string name="back_to_recordings">Torna alle registrazioni</string>
     <string name="repeat">Ripeti</string>

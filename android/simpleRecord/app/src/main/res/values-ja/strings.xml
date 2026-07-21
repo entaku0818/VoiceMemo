@@ -37,6 +37,8 @@
     <string name="resume">再開</string>
     <string name="stop">停止</string>
     <string name="volume_label">音量: %d%%</string>
+    <string name="realtime_transcription_label">リアルタイム文字起こし</string>
+    <string name="realtime_transcription_placeholder">音声を認識中…</string>
     <string name="play">再生</string>
     <string name="back_to_recordings">録音一覧へ戻る</string>
     <string name="repeat">リピート</string>

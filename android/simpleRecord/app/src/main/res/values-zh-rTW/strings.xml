@@ -26,6 +26,8 @@
     <string name="resume">繼續</string>
     <string name="stop">停止</string>
     <string name="volume_label">音量: %d%%</string>
+    <string name="realtime_transcription_label">即時轉錄</string>
+    <string name="realtime_transcription_placeholder">正在聆聽…</string>
     <string name="play">播放</string>
     <string name="back_to_recordings">返回錄音</string>
     <string name="repeat">重複</string>
