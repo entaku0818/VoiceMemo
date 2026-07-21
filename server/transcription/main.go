@@ -68,7 +68,11 @@ func initClients() {
 	if geminiAPIKey == "" {
 		log.Fatal("GEMINI_API_KEY is required")
 	}
-	geminiClient, err = genai.NewClient(ctx, option.WithHTTPClient(newGeminiHTTPClient(geminiAPIKey)))
+	// option.WithAPIKey is required here even though newGeminiHTTPClient's apiKeyRoundTripper
+	// is what actually attaches the key: genai.NewClient has a separate hasAuthOption
+	// pre-flight check on the raw opts list that rejects the call outright without it,
+	// regardless of what the HTTPClient itself does.
+	geminiClient, err = genai.NewClient(ctx, option.WithAPIKey(geminiAPIKey), option.WithHTTPClient(newGeminiHTTPClient(geminiAPIKey)))
 	if err != nil {
 		log.Fatalf("gemini client: %v", err)
 	}
