@@ -68,9 +68,31 @@ func initClients() {
 	if geminiAPIKey == "" {
 		log.Fatal("GEMINI_API_KEY is required")
 	}
-	geminiClient, err = genai.NewClient(ctx, option.WithAPIKey(geminiAPIKey))
+	geminiClient, err = genai.NewClient(ctx, option.WithAPIKey(geminiAPIKey), option.WithHTTPClient(newGeminiHTTPClient()))
 	if err != nil {
 		log.Fatalf("gemini client: %v", err)
+	}
+}
+
+// newGeminiHTTPClient は Gemini API 呼び出し用の http.Client を構築する。
+// 本番で観測された /transcribe 失敗は、成功リクエストが10〜20sで完了する一方
+// 失敗は例外なく親コンテキストの480sタイムアウトぴったりで発生しており、処理が
+// 遅いのではなく接続がハングして応答が返らないパターンだった。ResponseHeaderTimeout
+// を設定することで、ハングした試行を親コンテキストの残り時間いっぱい待たせず早期に
+// 失敗させ、generateContentWithRetry が新しいコネクションで実際にリトライできるようにする。
+// IdleConnTimeout は、NAT/LB 経由で無応答のまま片方だけ生き残ったアイドル接続の再利用を防ぐ。
+func newGeminiHTTPClient() *http.Client {
+	return &http.Client{
+		Transport: &http.Transport{
+			DialContext: (&net.Dialer{
+				Timeout:   10 * time.Second,
+				KeepAlive: 30 * time.Second,
+			}).DialContext,
+			TLSHandshakeTimeout:   10 * time.Second,
+			ResponseHeaderTimeout: 120 * time.Second,
+			IdleConnTimeout:       90 * time.Second,
+			ExpectContinueTimeout: 1 * time.Second,
+		},
 	}
 }
 
@@ -307,6 +329,9 @@ func generateContentWithRetry(ctx context.Context, timeout time.Duration, callGe
 
 // isTransientGeminiError は deadline exceeded・ネットワーク瞬断・Gemini側の5xx/429応答など
 // 再試行すれば成功しうる一時的なエラーかどうかを判定する。
+// net.Error は Timeout() の真偽に関わらず一時的なものとして扱う。
+// "read tcp ...: connection reset by peer" のような接続断は Timeout()==false だが、
+// 再送すれば成功しうる一時的なネットワークエラーであるため。
 func isTransientGeminiError(err error) bool {
 	if err == nil {
 		return false
@@ -315,7 +340,7 @@ func isTransientGeminiError(err error) bool {
 		return true
 	}
 	var netErr net.Error
-	if errors.As(err, &netErr) && netErr.Timeout() {
+	if errors.As(err, &netErr) {
 		return true
 	}
 	var apiErr *googleapi.Error
