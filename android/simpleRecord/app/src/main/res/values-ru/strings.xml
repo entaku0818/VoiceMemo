@@ -88,6 +88,10 @@
     <string name="recording_notification_channel_name">Статус записи</string>
     <string name="recording_notification_channel_description">Показывает прошедшее время и элементы управления во время записи</string>
 
+    <!-- Playback Media Session Notification (issue #200) -->
+    <string name="playback_notification_channel_name">Статус воспроизведения</string>
+    <string name="playback_notification_channel_description">Показывает элементы управления воспроизведением на экране блокировки и в уведомлении</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Запись</string>
     <string name="tab_recordings">Воспроизведение</string>

@@ -35,6 +35,7 @@ androidx-activity-compose = { group = "androidx.activity", name = "activity-comp
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-media = { group = "androidx.media", name = "media", version = "1.7.0" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version = "2.5.2" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version = "2.5.2" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version = "2.5.2" }

@@ -88,6 +88,10 @@
     <string name="recording_notification_channel_name">Estado da gravação</string>
     <string name="recording_notification_channel_description">Mostra o tempo decorrido e os controlos durante a gravação</string>
 
+    <!-- Playback Media Session Notification (issue #200) -->
+    <string name="playback_notification_channel_name">Estado de reprodução</string>
+    <string name="playback_notification_channel_description">Mostra os controlos de reprodução no ecrã de bloqueio e na notificação</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Gravar</string>
     <string name="tab_recordings">Reprodução</string>

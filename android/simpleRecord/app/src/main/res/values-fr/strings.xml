@@ -88,6 +88,10 @@
     <string name="recording_notification_channel_name">État de l\'enregistrement</string>
     <string name="recording_notification_channel_description">Affiche le temps écoulé et les commandes pendant l\'enregistrement</string>
 
+    <!-- Playback Media Session Notification (issue #200) -->
+    <string name="playback_notification_channel_name">État de la lecture</string>
+    <string name="playback_notification_channel_description">Affiche les commandes de lecture sur l\'écran de verrouillage et la notification</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Enregistrer</string>
     <string name="tab_recordings">Lecture</string>

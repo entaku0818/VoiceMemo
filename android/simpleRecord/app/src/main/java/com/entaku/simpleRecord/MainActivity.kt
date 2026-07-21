@@ -18,6 +18,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,6 +42,8 @@ import com.entaku.simpleRecord.cloudsync.CloudSyncViewModelFactory
 import com.entaku.simpleRecord.db.AppDatabase
 import com.entaku.simpleRecord.feedback.FeedbackScreen
 import com.entaku.simpleRecord.feedback.FeedbackViewModel
+import com.entaku.simpleRecord.play.PlaybackActionListener
+import com.entaku.simpleRecord.play.PlaybackNotificationService
 import com.entaku.simpleRecord.play.PlaybackScreen
 import com.entaku.simpleRecord.play.PlaybackViewModel
 import com.entaku.simpleRecord.playlist.PlaylistDetailScreen
@@ -279,17 +282,68 @@ fun AppNavHost() {
                     val playbackState by playbackViewModel.playbackState.collectAsState()
 
                     selectedRecording?.let { recordingData ->
+                        val notificationTitle = recordingData.title.ifEmpty {
+                            context.getString(R.string.untitled_recording)
+                        }
+
+                        // ロック画面/通知・Bluetooth・Android Autoからの操作をPlaybackViewModelに転送する (issue #200)
+                        DisposableEffect(playbackViewModel) {
+                            PlaybackNotificationService.actionListener = object : PlaybackActionListener {
+                                override fun onPlayPauseRequested() {
+                                    playbackViewModel.playOrPause()
+                                    val state = playbackViewModel.playbackState.value
+                                    PlaybackNotificationService.updateState(
+                                        context, notificationTitle, state.isPlaying,
+                                        state.currentPosition.toLong(), playbackViewModel.getDuration().toLong()
+                                    )
+                                }
+
+                                override fun onSeekToRequested(positionMs: Long) {
+                                    playbackViewModel.seekTo(positionMs.toInt())
+                                    PlaybackNotificationService.updateState(
+                                        context, notificationTitle, playbackViewModel.playbackState.value.isPlaying,
+                                        positionMs, playbackViewModel.getDuration().toLong()
+                                    )
+                                }
+
+                                override fun onStopRequested() {
+                                    playbackViewModel.stopPlayback()
+                                    PlaybackNotificationService.stop(context)
+                                }
+                            }
+                            onDispose {
+                                PlaybackNotificationService.actionListener = null
+                                PlaybackNotificationService.stop(context)
+                            }
+                        }
+
                         LaunchedEffect(recordingData.filePath) {
                             playbackViewModel.setupMediaPlayer(recordingData.filePath)
                         }
                         PlaybackScreen(
                             recordingData = recordingData,
                             playbackState = playbackState,
-                            onStop = { playbackViewModel.stopPlayback() },
-                            onPlayPause = { playbackViewModel.playOrPause() },
+                            onStop = {
+                                playbackViewModel.stopPlayback()
+                                PlaybackNotificationService.stop(context)
+                            },
+                            onPlayPause = {
+                                playbackViewModel.playOrPause()
+                                val state = playbackViewModel.playbackState.value
+                                PlaybackNotificationService.updateState(
+                                    context, notificationTitle, state.isPlaying,
+                                    state.currentPosition.toLong(), playbackViewModel.getDuration().toLong()
+                                )
+                            },
                             onNavigateBack = { navController.popBackStack() },
                             onSpeedChange = { speed -> playbackViewModel.setPlaybackSpeed(speed) },
-                            onSeekTo = { pos -> playbackViewModel.seekTo(pos) },
+                            onSeekTo = { pos ->
+                                playbackViewModel.seekTo(pos)
+                                PlaybackNotificationService.updateState(
+                                    context, notificationTitle, playbackState.isPlaying,
+                                    pos.toLong(), playbackViewModel.getDuration().toLong()
+                                )
+                            },
                             onToggleRepeat = { playbackViewModel.toggleRepeatOne() },
                             onSetAbLoopStart = { playbackViewModel.setAbLoopStart() },
                             onSetAbLoopEnd = { playbackViewModel.setAbLoopEnd() },

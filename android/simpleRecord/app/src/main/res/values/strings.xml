@@ -115,6 +115,10 @@
     <string name="recording_notification_channel_name">Recording Status</string>
     <string name="recording_notification_channel_description">Shows elapsed time and controls while recording</string>
 
+    <!-- Playback Media Session Notification (issue #200) -->
+    <string name="playback_notification_channel_name">Playback Status</string>
+    <string name="playback_notification_channel_description">Shows playback controls on the lock screen and notification</string>
+
     <!-- Support / Inquiry -->
     <string name="contact_us">Contact / Feedback</string>
     <string name="contact_us_email_subject">Simple Record - Inquiry</string>

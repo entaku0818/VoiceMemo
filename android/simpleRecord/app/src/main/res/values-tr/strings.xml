@@ -88,6 +88,10 @@
     <string name="recording_notification_channel_name">Kayıt Durumu</string>
     <string name="recording_notification_channel_description">Kayıt sırasında geçen süreyi ve kontrolleri gösterir</string>
 
+    <!-- Playback Media Session Notification (issue #200) -->
+    <string name="playback_notification_channel_name">Oynatma Durumu</string>
+    <string name="playback_notification_channel_description">Kilit ekranında ve bildirimde oynatma kontrollerini gösterir</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Kayıt</string>
     <string name="tab_recordings">Oynatma</string>

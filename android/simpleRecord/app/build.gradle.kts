@@ -127,6 +127,9 @@ dependencies {
     // Material Icons
     implementation("androidx.compose.material:material-icons-extended:1.7.8")
 
+    // MediaSessionCompat + MediaStyle notification for lock screen / Bluetooth / Android Auto playback controls (issue #200)
+    implementation(libs.androidx.media)
+
     // Drag and Drop for playlist reordering
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 

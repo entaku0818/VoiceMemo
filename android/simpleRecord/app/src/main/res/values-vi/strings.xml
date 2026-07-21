@@ -88,6 +88,10 @@
     <string name="recording_notification_channel_name">Trạng thái ghi âm</string>
     <string name="recording_notification_channel_description">Hiển thị thời gian đã trôi qua và các điều khiển trong khi ghi âm</string>
 
+    <!-- Playback Media Session Notification (issue #200) -->
+    <string name="playback_notification_channel_name">Trạng thái phát</string>
+    <string name="playback_notification_channel_description">Hiển thị điều khiển phát trên màn hình khóa và thông báo</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Ghi âm</string>
     <string name="tab_recordings">Phát lại</string>

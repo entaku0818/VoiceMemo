@@ -88,6 +88,10 @@
     <string name="recording_notification_channel_name">錄音狀態</string>
     <string name="recording_notification_channel_description">錄音時顯示已用時間和控制按鈕</string>
 
+    <!-- Playback Media Session Notification (issue #200) -->
+    <string name="playback_notification_channel_name">播放狀態</string>
+    <string name="playback_notification_channel_description">在鎖定畫面和通知中顯示播放控制</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">錄音</string>
     <string name="tab_recordings">播放</string>

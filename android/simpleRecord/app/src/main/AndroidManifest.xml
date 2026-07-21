@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <!-- 録音中のリアルタイム音声文字起こし(android.speech.SpeechRecognizer)用。 (issue #198)
@@ -56,6 +57,12 @@
             android:name=".record.RecordingNotificationService"
             android:exported="false"
             android:foregroundServiceType="microphone" />
+
+        <!-- ロック画面/通知・Bluetooth・Android Autoからの再生操作用MediaSession通知 (issue #200) -->
+        <service
+            android:name=".play.PlaybackNotificationService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
 
         <activity
             android:name=".MainActivity"
