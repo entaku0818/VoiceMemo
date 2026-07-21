@@ -36,6 +36,20 @@
     <string name="edit_name_title">Edit Name</string>
     <string name="edit_name_label">Name</string>
     <string name="edit_name_prompt">Enter a new name</string>
+    <string name="search_recordings_placeholder">Search recordings…</string>
+    <string name="clear_search">Clear search</string>
+    <string name="sort_by">Sort by</string>
+    <string name="sort_date_descending">Date (newest first)</string>
+    <string name="sort_date_ascending">Date (oldest first)</string>
+    <string name="sort_title_ascending">Title (A-Z)</string>
+    <string name="sort_title_descending">Title (Z-A)</string>
+    <string name="sort_duration_descending">Duration (longest first)</string>
+    <string name="sort_duration_ascending">Duration (shortest first)</string>
+    <string name="duration_filter_all">All</string>
+    <string name="duration_filter_short">Short (&lt;1 min)</string>
+    <string name="duration_filter_medium">Medium (1–5 min)</string>
+    <string name="duration_filter_long">Long (5+ min)</string>
+    <string name="no_search_results">No matching recordings</string>
 
     <!-- Record Screen -->
     <string name="record">Record</string>

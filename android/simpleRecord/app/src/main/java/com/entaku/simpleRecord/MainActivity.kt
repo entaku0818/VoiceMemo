@@ -233,6 +233,9 @@ fun AppNavHost() {
                         },
                         onDeleteClick = { uuid -> viewModel.deleteRecording(uuid) },
                         onEditRecordingName = { uuid, title -> viewModel.updateRecordingTitle(uuid, title) },
+                        onSearchQueryChange = { query -> viewModel.setSearchQuery(query) },
+                        onSortOptionSelected = { option -> viewModel.setSortOption(option) },
+                        onDurationFilterSelected = { filter -> viewModel.setDurationFilter(filter) },
                         colorScheme = colorScheme
                     )
                 }

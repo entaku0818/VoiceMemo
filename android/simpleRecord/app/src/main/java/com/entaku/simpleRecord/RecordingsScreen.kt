@@ -1,5 +1,6 @@
 package com.entaku.simpleRecord
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,14 +14,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Sort
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Cloud
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.TextFields
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -29,11 +34,13 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -67,6 +74,9 @@ fun RecordingsScreen(
     onNavigateToTranscription: (RecordingData) -> Unit = {},
     onDeleteClick: (UUID) -> Unit,
     onEditRecordingName: (UUID, String) -> Unit,
+    onSearchQueryChange: (String) -> Unit = {},
+    onSortOptionSelected: (SortOption) -> Unit = {},
+    onDurationFilterSelected: (DurationFilter) -> Unit = {},
     colorScheme: ColorScheme
 ) {
     LaunchedEffect(key1 = Unit) {
@@ -97,62 +107,173 @@ fun RecordingsScreen(
             BannerAdView(modifier = Modifier.fillMaxWidth())
         }
     ) { innerPadding ->
-        if (state.isLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        } else if (state.recordings.isEmpty()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        Icons.Default.Mic,
-                        contentDescription = null,
-                        modifier = Modifier.size(64.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.no_recordings),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.tap_mic_to_record),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            RecordingsSearchAndFilterBar(
+                searchQuery = state.searchQuery,
+                onSearchQueryChange = onSearchQueryChange,
+                sortOption = state.sortOption,
+                onSortOptionSelected = onSortOptionSelected,
+                durationFilter = state.durationFilter,
+                onDurationFilterSelected = onDurationFilterSelected
+            )
+
+            if (state.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else if (state.recordings.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(
+                            Icons.Default.Mic,
+                            contentDescription = null,
+                            modifier = Modifier.size(64.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        val isFiltered = state.searchQuery.isNotBlank() || state.durationFilter != DurationFilter.ALL
+                        Text(
+                            text = stringResource(
+                                if (isFiltered) R.string.no_search_results else R.string.no_recordings
+                            ),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        if (!isFiltered) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = stringResource(R.string.tap_mic_to_record),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(vertical = 8.dp)
+                ) {
+                    items(state.recordings) { recording ->
+                        RecordingListItem(
+                            recording = recording,
+                            onItemClick = { onNavigateToPlaybackScreen(recording) },
+                            onDeleteClick = { recording.uuid?.let { onDeleteClick(it) } },
+                            onEditNameClick = { newTitle ->
+                                recording.uuid?.let { onEditRecordingName(it, newTitle) }
+                            },
+                            onTranscribeClick = { onNavigateToTranscription(recording) }
+                        )
+                        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+                    }
                 }
             }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                contentPadding = PaddingValues(vertical = 8.dp)
-            ) {
-                items(state.recordings) { recording ->
-                    RecordingListItem(
-                        recording = recording,
-                        onItemClick = { onNavigateToPlaybackScreen(recording) },
-                        onDeleteClick = { recording.uuid?.let { onDeleteClick(it) } },
-                        onEditNameClick = { newTitle ->
-                            recording.uuid?.let { onEditRecordingName(it, newTitle) }
-                        },
-                        onTranscribeClick = { onNavigateToTranscription(recording) }
-                    )
-                    HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+        }
+    }
+}
+
+@Composable
+private fun SortOption.displayName(): String = stringResource(
+    when (this) {
+        SortOption.DATE_DESCENDING -> R.string.sort_date_descending
+        SortOption.DATE_ASCENDING -> R.string.sort_date_ascending
+        SortOption.TITLE_ASCENDING -> R.string.sort_title_ascending
+        SortOption.TITLE_DESCENDING -> R.string.sort_title_descending
+        SortOption.DURATION_DESCENDING -> R.string.sort_duration_descending
+        SortOption.DURATION_ASCENDING -> R.string.sort_duration_ascending
+    }
+)
+
+@Composable
+private fun DurationFilter.displayName(): String = stringResource(
+    when (this) {
+        DurationFilter.ALL -> R.string.duration_filter_all
+        DurationFilter.SHORT -> R.string.duration_filter_short
+        DurationFilter.MEDIUM -> R.string.duration_filter_medium
+        DurationFilter.LONG -> R.string.duration_filter_long
+    }
+)
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun RecordingsSearchAndFilterBar(
+    searchQuery: String,
+    onSearchQueryChange: (String) -> Unit,
+    sortOption: SortOption,
+    onSortOptionSelected: (SortOption) -> Unit,
+    durationFilter: DurationFilter,
+    onDurationFilterSelected: (DurationFilter) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        OutlinedTextField(
+            value = searchQuery,
+            onValueChange = onSearchQueryChange,
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            placeholder = { Text(stringResource(R.string.search_recordings_placeholder)) },
+            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+            trailingIcon = {
+                if (searchQuery.isNotEmpty()) {
+                    IconButton(onClick = { onSearchQueryChange("") }) {
+                        Icon(Icons.Default.Clear, contentDescription = stringResource(R.string.clear_search))
+                    }
                 }
+            }
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            var sortMenuExpanded by remember { mutableStateOf(false) }
+            Box {
+                IconButton(onClick = { sortMenuExpanded = true }) {
+                    Icon(Icons.AutoMirrored.Filled.Sort, contentDescription = stringResource(R.string.sort_by))
+                }
+                DropdownMenu(
+                    expanded = sortMenuExpanded,
+                    onDismissRequest = { sortMenuExpanded = false }
+                ) {
+                    SortOption.entries.forEach { option ->
+                        DropdownMenuItem(
+                            onClick = {
+                                sortMenuExpanded = false
+                                onSortOptionSelected(option)
+                            },
+                            text = { Text(option.displayName()) }
+                        )
+                    }
+                }
+            }
+            Text(
+                text = sortOption.displayName(),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(DurationFilter.entries) { filter ->
+                FilterChip(
+                    selected = filter == durationFilter,
+                    onClick = { onDurationFilterSelected(filter) },
+                    label = { Text(filter.displayName()) }
+                )
             }
         }
     }
