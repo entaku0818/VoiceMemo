@@ -5,6 +5,7 @@ import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.media.MediaPlayer
 import android.media.PlaybackParams
+import android.media.audiofx.LoudnessEnhancer
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import kotlin.math.abs
+import kotlin.math.log10
 import kotlin.math.sqrt
 
 // Playbackの状態をまとめたデータクラス
@@ -29,16 +31,29 @@ data class PlaybackState(
     val isRepeatOne: Boolean = false,
     val abLoopStart: Int? = null,
     val abLoopEnd: Int? = null,
-    val waveformData: List<Float> = emptyList()
+    val waveformData: List<Float> = emptyList(),
+    val volumeBoost: Float = PlaybackViewModel.DEFAULT_VOLUME_BOOST
 )
 
 class PlaybackViewModel : ViewModel() {
+
+    companion object {
+        // iOS版(PlaybackFeature.swift)と同じレンジ: 1.0x(ブーストなし)〜3.0x
+        const val MIN_VOLUME_BOOST = 1.0f
+        const val MAX_VOLUME_BOOST = 3.0f
+        const val DEFAULT_VOLUME_BOOST = MIN_VOLUME_BOOST
+
+        // LoudnessEnhancerのtarget gainの安全上限(mB=1/100dB)。
+        // 音割れ・スピーカー保護のため20dBを超えては増幅しない。
+        private const val MAX_TARGET_GAIN_MILLIBEL = 2000
+    }
 
     // 状態をStateFlowにまとめる
     private val _playbackState = MutableStateFlow(PlaybackState())
     val playbackState: StateFlow<PlaybackState> = _playbackState
 
     private var mediaPlayer: MediaPlayer? = null
+    private var loudnessEnhancer: LoudnessEnhancer? = null
     private var updateJob: Job? = null
     private var onCompletionCallback: (() -> Unit)? = null
 
@@ -60,6 +75,15 @@ class PlaybackViewModel : ViewModel() {
                 }
 
                 _playbackState.update { it.copy(duration = duration) }
+
+                try {
+                    loudnessEnhancer = LoudnessEnhancer(audioSessionId)
+                    applyVolumeBoost(_playbackState.value.volumeBoost)
+                } catch (e: Exception) {
+                    // LoudnessEnhancerが使えない機種でも再生自体は継続する
+                    Log.e("Playback", "Failed to initialize LoudnessEnhancer", e)
+                    loudnessEnhancer = null
+                }
             } catch (e: IOException) {
                 Log.e("MediaPlayer", "Failed to set data source", e)
             } catch (e: IllegalStateException) {
@@ -67,6 +91,38 @@ class PlaybackViewModel : ViewModel() {
             }
         }
         viewModelScope.launch { extractWaveform(filePath) }
+    }
+
+    /**
+     * Set volume boost (loudness enhancement) applied on top of normal playback volume.
+     * Value is clamped to [MIN_VOLUME_BOOST, MAX_VOLUME_BOOST] to avoid excessive
+     * amplification that could distort audio or stress the device speaker.
+     */
+    fun setVolumeBoost(boost: Float) {
+        val clamped = boost.coerceIn(MIN_VOLUME_BOOST, MAX_VOLUME_BOOST)
+        _playbackState.update { it.copy(volumeBoost = clamped) }
+        applyVolumeBoost(clamped)
+    }
+
+    private fun applyVolumeBoost(boost: Float) {
+        val enhancer = loudnessEnhancer ?: return
+        try {
+            val gainMillibel = boostToTargetGainMillibel(boost)
+            enhancer.setTargetGain(gainMillibel)
+            enhancer.enabled = gainMillibel > 0
+        } catch (e: Exception) {
+            Log.e("Playback", "Failed to apply volume boost", e)
+        }
+    }
+
+    /**
+     * Convert a linear volume multiplier (1.0x = no boost) into LoudnessEnhancer's
+     * target gain in millibel (1/100 dB), clamped to a safe upper bound.
+     */
+    private fun boostToTargetGainMillibel(boost: Float): Int {
+        val clamped = boost.coerceIn(MIN_VOLUME_BOOST, MAX_VOLUME_BOOST)
+        val gainDb = 20.0 * log10(clamped.toDouble())
+        return (gainDb * 100).toInt().coerceIn(0, MAX_TARGET_GAIN_MILLIBEL)
     }
 
     private suspend fun extractWaveform(filePath: String, targetSamples: Int = 100) {
@@ -231,6 +287,7 @@ class PlaybackViewModel : ViewModel() {
                 mediaPlayer = null
             }
         }
+        releaseLoudnessEnhancer()
         stopUpdatingProgress()
         _playbackState.update { currentState ->
             currentState.copy(
@@ -296,6 +353,16 @@ class PlaybackViewModel : ViewModel() {
             } catch (e: IllegalStateException) {
                 Log.e("MediaPlayer", "Error seeking to position", e)
             }
+        }
+    }
+
+    private fun releaseLoudnessEnhancer() {
+        try {
+            loudnessEnhancer?.release()
+        } catch (e: Exception) {
+            Log.e("Playback", "Error releasing LoudnessEnhancer", e)
+        } finally {
+            loudnessEnhancer = null
         }
     }
 

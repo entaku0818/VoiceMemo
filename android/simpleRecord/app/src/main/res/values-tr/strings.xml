@@ -34,6 +34,7 @@
     <string name="ab_loop_set_a">A ayarla</string>
     <string name="ab_loop_set_b">B ayarla</string>
     <string name="ab_loop_clear">✕</string>
+    <string name="volume_boost">Ses Yükseltme</string>
     <string name="create_playlist">Çalma listesi oluştur</string>
     <string name="enter_playlist_name">Çalma listesi adı</string>
     <string name="delete_playlist">Çalma listesini sil</string>

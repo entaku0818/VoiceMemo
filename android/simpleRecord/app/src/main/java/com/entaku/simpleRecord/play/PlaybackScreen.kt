@@ -5,6 +5,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.VolumeDown
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Repeat
@@ -48,6 +50,7 @@ fun PlaybackScreen(
     onSetAbLoopStart: () -> Unit = {},
     onSetAbLoopEnd: () -> Unit = {},
     onClearAbLoop: () -> Unit = {},
+    onVolumeBoostChange: (Float) -> Unit = {},
 ) {
     val duration = if (playbackState.duration > 0) playbackState.duration
                    else (recordingData.duration * 1000).toInt()
@@ -190,7 +193,50 @@ fun PlaybackScreen(
                     onClear = onClearAbLoop
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // 音量ブースト
+            VolumeBoostControl(
+                volumeBoost = playbackState.volumeBoost,
+                onVolumeBoostChange = onVolumeBoostChange
+            )
         }
+    }
+}
+
+@Composable
+private fun VolumeBoostControl(
+    volumeBoost: Float,
+    onVolumeBoostChange: (Float) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.VolumeDown,
+            contentDescription = stringResource(R.string.volume_boost),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Slider(
+            value = volumeBoost,
+            onValueChange = onVolumeBoostChange,
+            valueRange = PlaybackViewModel.MIN_VOLUME_BOOST..PlaybackViewModel.MAX_VOLUME_BOOST,
+            modifier = Modifier.weight(1f)
+        )
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.VolumeUp,
+            contentDescription = stringResource(R.string.volume_boost),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = "%.1fx".format(volumeBoost),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.widthIn(min = 36.dp)
+        )
     }
 }
 

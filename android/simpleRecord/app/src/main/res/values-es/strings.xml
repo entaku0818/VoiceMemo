@@ -34,6 +34,7 @@
     <string name="ab_loop_set_a">Set A</string>
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
+    <string name="volume_boost">Refuerzo de volumen</string>
     <string name="create_playlist">Crear lista</string>
     <string name="enter_playlist_name">Nombre de la lista</string>
     <string name="delete_playlist">Eliminar lista</string>

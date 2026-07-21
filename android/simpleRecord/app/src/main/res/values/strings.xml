@@ -53,6 +53,7 @@
     <string name="ab_loop_set_a">Set A</string>
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
+    <string name="volume_boost">Volume Boost</string>
 
     <!-- Playlist -->
     <string name="create_playlist">Create Playlist</string>

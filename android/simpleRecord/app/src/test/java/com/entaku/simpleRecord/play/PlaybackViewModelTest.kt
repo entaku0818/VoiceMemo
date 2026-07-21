@@ -27,6 +27,7 @@ class PlaybackViewModelTest {
         assertFalse(state.isRepeatOne)
         assertNull(state.abLoopStart)
         assertNull(state.abLoopEnd)
+        assertEquals(1.0f, state.volumeBoost)
     }
 
     // --- toggleRepeatOne ---
@@ -161,6 +162,63 @@ class PlaybackViewModelTest {
 
         assertTrue(viewModel.playbackState.value.isRepeatOne)
         assertNull(viewModel.playbackState.value.abLoopStart)
+    }
+
+    // --- setVolumeBoost (Issue #199: volume boost on playback) ---
+
+    @Test
+    fun `setVolumeBoost - updates volumeBoost within valid range`() {
+        val viewModel = PlaybackViewModel()
+
+        viewModel.setVolumeBoost(2.0f)
+
+        assertEquals(2.0f, viewModel.playbackState.value.volumeBoost)
+    }
+
+    @Test
+    fun `setVolumeBoost - clamps value above MAX_VOLUME_BOOST to protect against distortion`() {
+        val viewModel = PlaybackViewModel()
+
+        viewModel.setVolumeBoost(10.0f)
+
+        assertEquals(PlaybackViewModel.MAX_VOLUME_BOOST, viewModel.playbackState.value.volumeBoost)
+    }
+
+    @Test
+    fun `setVolumeBoost - clamps value below MIN_VOLUME_BOOST`() {
+        val viewModel = PlaybackViewModel()
+
+        viewModel.setVolumeBoost(0.1f)
+
+        assertEquals(PlaybackViewModel.MIN_VOLUME_BOOST, viewModel.playbackState.value.volumeBoost)
+    }
+
+    @Test
+    fun `setVolumeBoost - MIN and MAX bounds match expected safety range`() {
+        assertEquals(1.0f, PlaybackViewModel.MIN_VOLUME_BOOST)
+        assertEquals(3.0f, PlaybackViewModel.MAX_VOLUME_BOOST)
+    }
+
+    @Test
+    fun `setVolumeBoost - is safe to call when mediaPlayer is not set up`() {
+        val viewModel = PlaybackViewModel()
+
+        // setupMediaPlayer() を呼んでいない(mediaPlayer/loudnessEnhancerがnull)状態でも
+        // 例外を投げずに状態のみ更新できることを確認する
+        viewModel.setVolumeBoost(2.5f)
+
+        assertEquals(2.5f, viewModel.playbackState.value.volumeBoost)
+    }
+
+    @Test
+    fun `setVolumeBoost - does not affect other playback state fields`() {
+        val viewModel = PlaybackViewModel()
+        viewModel.toggleRepeatOne()
+
+        viewModel.setVolumeBoost(2.0f)
+
+        assertTrue(viewModel.playbackState.value.isRepeatOne)
+        assertEquals(2.0f, viewModel.playbackState.value.volumeBoost)
     }
 
     // --- PlaybackState copy ---

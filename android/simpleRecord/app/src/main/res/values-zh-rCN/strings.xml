@@ -34,6 +34,7 @@
     <string name="ab_loop_set_a">设A</string>
     <string name="ab_loop_set_b">设B</string>
     <string name="ab_loop_clear">✕</string>
+    <string name="volume_boost">音量增强</string>
     <string name="create_playlist">创建播放列表</string>
     <string name="enter_playlist_name">播放列表名称</string>
     <string name="delete_playlist">删除播放列表</string>

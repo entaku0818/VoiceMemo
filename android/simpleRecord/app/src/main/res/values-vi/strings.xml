@@ -34,6 +34,7 @@
     <string name="ab_loop_set_a">Set A</string>
     <string name="ab_loop_set_b">Set B</string>
     <string name="ab_loop_clear">✕</string>
+    <string name="volume_boost">Tăng cường âm lượng</string>
     <string name="create_playlist">Tạo danh sách</string>
     <string name="enter_playlist_name">Tên danh sách phát</string>
     <string name="delete_playlist">Xóa danh sách</string>

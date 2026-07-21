@@ -45,6 +45,7 @@
     <string name="ab_loop_set_a">A点設定</string>
     <string name="ab_loop_set_b">B点設定</string>
     <string name="ab_loop_clear">✕</string>
+    <string name="volume_boost">音量ブースト</string>
     <string name="create_playlist">プレイリスト作成</string>
     <string name="enter_playlist_name">プレイリスト名を入力</string>
     <string name="delete_playlist">プレイリストを削除</string>

@@ -294,6 +294,7 @@ fun AppNavHost() {
                             onSetAbLoopStart = { playbackViewModel.setAbLoopStart() },
                             onSetAbLoopEnd = { playbackViewModel.setAbLoopEnd() },
                             onClearAbLoop = { playbackViewModel.clearAbLoop() },
+                            onVolumeBoostChange = { boost -> playbackViewModel.setVolumeBoost(boost) },
                         )
                     }
                 }
