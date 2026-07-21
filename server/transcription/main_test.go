@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/http"
 	"reflect"
 	"strings"
 	"testing"
@@ -222,6 +223,14 @@ func (fakeTimeoutError) Error() string   { return "fake timeout" }
 func (fakeTimeoutError) Timeout() bool   { return true }
 func (fakeTimeoutError) Temporary() bool { return true }
 
+// fakeConnResetError models a net.Error like "read tcp ...: connection reset by peer",
+// where Timeout() is false but the error is still a transient network failure.
+type fakeConnResetError struct{}
+
+func (fakeConnResetError) Error() string   { return "read tcp: connection reset by peer" }
+func (fakeConnResetError) Timeout() bool   { return false }
+func (fakeConnResetError) Temporary() bool { return false }
+
 func TestIsTransientGeminiError(t *testing.T) {
 	tests := []struct {
 		name string
@@ -232,6 +241,7 @@ func TestIsTransientGeminiError(t *testing.T) {
 		{"deadline exceeded", context.DeadlineExceeded, true},
 		{"wrapped deadline exceeded", fmt.Errorf("post failed: %w", context.DeadlineExceeded), true},
 		{"net timeout error", fakeTimeoutError{}, true},
+		{"net error without timeout (connection reset)", fakeConnResetError{}, true},
 		{"googleapi 429", &googleapi.Error{Code: 429}, true},
 		{"googleapi 500", &googleapi.Error{Code: 500}, true},
 		{"googleapi 503", &googleapi.Error{Code: 503}, true},
@@ -353,6 +363,20 @@ func TestGenerateContentWithRetry_AttemptContextBoundedByParent(t *testing.T) {
 	parentDeadline, _ := parentCtx.Deadline()
 	if gotDeadline.After(parentDeadline) {
 		t.Errorf("attempt deadline %v exceeds parent deadline %v", gotDeadline, parentDeadline)
+	}
+}
+
+func TestNewGeminiHTTPClient_BoundsHungConnections(t *testing.T) {
+	client := newGeminiHTTPClient()
+	transport, ok := client.Transport.(*http.Transport)
+	if !ok {
+		t.Fatalf("Transport = %T, want *http.Transport", client.Transport)
+	}
+	if transport.ResponseHeaderTimeout <= 0 {
+		t.Error("ResponseHeaderTimeout must be set so a hung connection fails before the caller's context deadline")
+	}
+	if transport.IdleConnTimeout <= 0 {
+		t.Error("IdleConnTimeout must be set to avoid reusing stale idle connections")
 	}
 }
 
