@@ -46,6 +46,13 @@
     <string name="duration_filter_medium">中間（1〜5分）</string>
     <string name="duration_filter_long">長い（5分以上）</string>
     <string name="no_search_results">該当する録音がありません</string>
+    <string name="edit_tags">タグを編集</string>
+    <string name="add_tag_placeholder">タグを追加</string>
+    <string name="add_tag_button">追加</string>
+    <string name="remove_tag">タグを削除</string>
+    <string name="no_tags_yet">タグがまだありません</string>
+    <string name="tags_filter_label">タグ</string>
+    <string name="tag_filter_all">すべて</string>
     <string name="record">録音</string>
     <string name="pause">一時停止</string>
     <string name="resume">再開</string>

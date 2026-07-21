@@ -27,8 +27,10 @@ class RecordingsViewModel(
                         recordings = recordings,
                         query = _uiState.value.searchQuery,
                         sortOption = _uiState.value.sortOption,
-                        durationFilter = _uiState.value.durationFilter
+                        durationFilter = _uiState.value.durationFilter,
+                        tagFilter = _uiState.value.tagFilter
                     ),
+                    availableTags = recordings.flatMap { it.tags }.distinct().sorted(),
                     isLoading = false
                 )
             }
@@ -52,29 +54,51 @@ class RecordingsViewModel(
     fun setSearchQuery(query: String) {
         val newState = _uiState.value.copy(searchQuery = query)
         _uiState.value = newState.copy(
-            recordings = applyFilters(allRecordings, query, newState.sortOption, newState.durationFilter)
+            recordings = applyFilters(allRecordings, query, newState.sortOption, newState.durationFilter, newState.tagFilter)
         )
     }
 
     fun setSortOption(option: SortOption) {
         val newState = _uiState.value.copy(sortOption = option)
         _uiState.value = newState.copy(
-            recordings = applyFilters(allRecordings, newState.searchQuery, option, newState.durationFilter)
+            recordings = applyFilters(allRecordings, newState.searchQuery, option, newState.durationFilter, newState.tagFilter)
         )
     }
 
     fun setDurationFilter(filter: DurationFilter) {
         val newState = _uiState.value.copy(durationFilter = filter)
         _uiState.value = newState.copy(
-            recordings = applyFilters(allRecordings, newState.searchQuery, newState.sortOption, filter)
+            recordings = applyFilters(allRecordings, newState.searchQuery, newState.sortOption, filter, newState.tagFilter)
         )
+    }
+
+    fun setTagFilter(tag: String?) {
+        val newState = _uiState.value.copy(tagFilter = tag)
+        _uiState.value = newState.copy(
+            recordings = applyFilters(allRecordings, newState.searchQuery, newState.sortOption, newState.durationFilter, tag)
+        )
+    }
+
+    fun addTagToRecording(uuid: UUID, tagName: String) {
+        viewModelScope.launch {
+            repository.addTagToRecording(uuid, tagName)
+            loadRecordings()
+        }
+    }
+
+    fun removeTagFromRecording(uuid: UUID, tagName: String) {
+        viewModelScope.launch {
+            repository.removeTagFromRecording(uuid, tagName)
+            loadRecordings()
+        }
     }
 
     private fun applyFilters(
         recordings: List<RecordingData>,
         query: String,
         sortOption: SortOption,
-        durationFilter: DurationFilter
+        durationFilter: DurationFilter,
+        tagFilter: String? = null
     ): List<RecordingData> {
         var result = recordings
 
@@ -83,6 +107,10 @@ class RecordingsViewModel(
         }
 
         result = result.filter { durationFilter.matches(it.duration) }
+
+        if (!tagFilter.isNullOrBlank()) {
+            result = result.filter { it.tags.contains(tagFilter) }
+        }
 
         result = when (sortOption) {
             SortOption.DATE_DESCENDING -> result.sortedByDescending { it.creationDate }
@@ -103,7 +131,9 @@ data class RecordingsUiState(
     val error: String? = null,
     val searchQuery: String = "",
     val sortOption: SortOption = SortOption.DATE_DESCENDING,
-    val durationFilter: DurationFilter = DurationFilter.ALL
+    val durationFilter: DurationFilter = DurationFilter.ALL,
+    val tagFilter: String? = null,
+    val availableTags: List<String> = emptyList()
 )
 
 enum class SortOption {

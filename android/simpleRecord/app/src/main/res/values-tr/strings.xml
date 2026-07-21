@@ -35,6 +35,13 @@
     <string name="duration_filter_medium">Orta (1–5 dk)</string>
     <string name="duration_filter_long">Uzun (5+ dk)</string>
     <string name="no_search_results">Eşleşen kayıt yok</string>
+    <string name="edit_tags">Etiketleri Düzenle</string>
+    <string name="add_tag_placeholder">Etiket ekle</string>
+    <string name="add_tag_button">Ekle</string>
+    <string name="remove_tag">Etiketi kaldır</string>
+    <string name="no_tags_yet">Henüz etiket yok</string>
+    <string name="tags_filter_label">Etiketler</string>
+    <string name="tag_filter_all">Tümü</string>
     <string name="record">Kayıt</string>
     <string name="pause">Duraklat</string>
     <string name="resume">Devam et</string>

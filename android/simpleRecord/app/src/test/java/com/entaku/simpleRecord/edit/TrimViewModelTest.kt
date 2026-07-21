@@ -258,4 +258,6 @@ private class FakeRecordingRepository : RecordingRepository {
     override suspend fun updateTranscription(uuid: UUID, text: String) = Unit
     override suspend fun getRecording(uuid: UUID): RecordingData? = null
     override suspend fun updateMeetingMinutes(uuid: UUID, text: String) = Unit
+    override suspend fun addTagToRecording(recordingUuid: UUID, tagName: String) = Unit
+    override suspend fun removeTagFromRecording(recordingUuid: UUID, tagName: String) = Unit
 }

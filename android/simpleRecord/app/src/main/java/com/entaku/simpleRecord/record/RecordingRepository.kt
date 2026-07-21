@@ -4,8 +4,11 @@ import android.util.Log
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.db.AppDatabase
 import com.entaku.simpleRecord.db.RecordingEntity
+import com.entaku.simpleRecord.db.RecordingTagCrossRef
+import com.entaku.simpleRecord.db.TagEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
@@ -20,6 +23,8 @@ interface RecordingRepository {
     suspend fun updateTranscription(uuid: UUID, text: String)
     suspend fun getRecording(uuid: UUID): RecordingData?
     suspend fun updateMeetingMinutes(uuid: UUID, text: String)
+    suspend fun addTagToRecording(recordingUuid: UUID, tagName: String)
+    suspend fun removeTagFromRecording(recordingUuid: UUID, tagName: String)
 }
 class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepository {
     companion object {
@@ -51,9 +56,13 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
         }
     }
     override fun getAllRecordings(): Flow<List<RecordingData>> {
-        return database.recordingDao().getAllRecordings().map { entities ->
+        return combine(
+            database.recordingDao().getAllRecordings(),
+            database.tagDao().getAllRecordingTagNames()
+        ) { entities, tagRows ->
+            val tagsByRecording = tagRows.groupBy({ it.recordingUuid }, { it.tagName })
             entities
-                .map { it.toRecordingData() }
+                .map { it.toRecordingData(tagsByRecording[it.uuid] ?: emptyList()) }
                 .sortedByDescending { it.creationDate }
         }
     }
@@ -78,7 +87,9 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
 
     override suspend fun getRecording(uuid: UUID): RecordingData? {
         return withContext(Dispatchers.IO) {
-            database.recordingDao().getRecordingById(uuid)?.toRecordingData()
+            val entity = database.recordingDao().getRecordingById(uuid) ?: return@withContext null
+            val tags = database.tagDao().getTagsForRecordingSync(uuid).map { it.name }
+            entity.toRecordingData(tags)
         }
     }
 
@@ -88,7 +99,37 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
         }
     }
 
-    private fun RecordingEntity.toRecordingData(): RecordingData {
+    override suspend fun addTagToRecording(recordingUuid: UUID, tagName: String) {
+        withContext(Dispatchers.IO) {
+            val trimmed = tagName.trim()
+            if (trimmed.isEmpty()) return@withContext
+            try {
+                val existingTag = database.tagDao().getTagByName(trimmed)
+                val tag = existingTag ?: TagEntity(uuid = UUID.randomUUID(), name = trimmed).also {
+                    database.tagDao().insert(it)
+                }
+                database.tagDao().insertCrossRef(RecordingTagCrossRef(recordingUuid, tag.uuid))
+                Log.d(TAG, "Tag '$trimmed' added to recording $recordingUuid")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error adding tag to recording: ${e.message}", e)
+                throw e
+            }
+        }
+    }
+
+    override suspend fun removeTagFromRecording(recordingUuid: UUID, tagName: String) {
+        withContext(Dispatchers.IO) {
+            val tag = database.tagDao().getTagByName(tagName.trim()) ?: return@withContext
+            database.tagDao().removeCrossRef(recordingUuid, tag.uuid)
+            // Clean up tags that are no longer referenced by any recording.
+            if (database.tagDao().getUsageCount(tag.uuid) == 0) {
+                database.tagDao().deleteTag(tag.uuid)
+            }
+            Log.d(TAG, "Tag '${tag.name}' removed from recording $recordingUuid")
+        }
+    }
+
+    private fun RecordingEntity.toRecordingData(tags: List<String> = emptyList()): RecordingData {
         return RecordingData(
             uuid = this.uuid,
             title = this.title,
@@ -100,7 +141,8 @@ class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepo
             duration = this.duration,
             filePath = this.filePath,
             transcriptionText = this.transcriptionText,
-            meetingMinutesText = this.meetingMinutesText
+            meetingMinutesText = this.meetingMinutesText,
+            tags = tags
         )
     }
 }

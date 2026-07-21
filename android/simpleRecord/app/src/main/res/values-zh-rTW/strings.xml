@@ -35,6 +35,13 @@
     <string name="duration_filter_medium">中（1–5分鐘）</string>
     <string name="duration_filter_long">長（5分鐘以上）</string>
     <string name="no_search_results">沒有符合的錄音</string>
+    <string name="edit_tags">編輯標籤</string>
+    <string name="add_tag_placeholder">新增標籤</string>
+    <string name="add_tag_button">新增</string>
+    <string name="remove_tag">刪除標籤</string>
+    <string name="no_tags_yet">尚無標籤</string>
+    <string name="tags_filter_label">標籤</string>
+    <string name="tag_filter_all">全部</string>
     <string name="record">錄音</string>
     <string name="pause">暫停</string>
     <string name="resume">繼續</string>

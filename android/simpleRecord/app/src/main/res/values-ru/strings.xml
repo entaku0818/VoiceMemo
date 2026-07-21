@@ -35,6 +35,13 @@
     <string name="duration_filter_medium">Средние (1–5 мин)</string>
     <string name="duration_filter_long">Длинные (5+ мин)</string>
     <string name="no_search_results">Совпадений не найдено</string>
+    <string name="edit_tags">Редактировать теги</string>
+    <string name="add_tag_placeholder">Добавить тег</string>
+    <string name="add_tag_button">Добавить</string>
+    <string name="remove_tag">Удалить тег</string>
+    <string name="no_tags_yet">Пока нет тегов</string>
+    <string name="tags_filter_label">Теги</string>
+    <string name="tag_filter_all">Все</string>
     <string name="record">Запись</string>
     <string name="pause">Пауза</string>
     <string name="resume">Продолжить</string>

@@ -35,6 +35,13 @@
     <string name="duration_filter_medium">Mittel (1–5 Min)</string>
     <string name="duration_filter_long">Lang (5+ Min)</string>
     <string name="no_search_results">Keine passenden Aufnahmen</string>
+    <string name="edit_tags">Tags bearbeiten</string>
+    <string name="add_tag_placeholder">Tag hinzufügen</string>
+    <string name="add_tag_button">Hinzufügen</string>
+    <string name="remove_tag">Tag entfernen</string>
+    <string name="no_tags_yet">Noch keine Tags</string>
+    <string name="tags_filter_label">Tags</string>
+    <string name="tag_filter_all">Alle</string>
     <string name="record">Aufnahme</string>
     <string name="pause">Pause</string>
     <string name="resume">Fortsetzen</string>

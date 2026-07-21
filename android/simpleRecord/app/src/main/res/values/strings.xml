@@ -50,6 +50,13 @@
     <string name="duration_filter_medium">Medium (1–5 min)</string>
     <string name="duration_filter_long">Long (5+ min)</string>
     <string name="no_search_results">No matching recordings</string>
+    <string name="edit_tags">Edit Tags</string>
+    <string name="add_tag_placeholder">Add a tag</string>
+    <string name="add_tag_button">Add</string>
+    <string name="remove_tag">Remove tag</string>
+    <string name="no_tags_yet">No tags yet</string>
+    <string name="tags_filter_label">Tags</string>
+    <string name="tag_filter_all">All</string>
 
     <!-- Record Screen -->
     <string name="record">Record</string>

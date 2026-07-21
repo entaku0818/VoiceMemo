@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Sell
 import androidx.compose.material.icons.filled.TextFields
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -77,6 +78,9 @@ fun RecordingsScreen(
     onSearchQueryChange: (String) -> Unit = {},
     onSortOptionSelected: (SortOption) -> Unit = {},
     onDurationFilterSelected: (DurationFilter) -> Unit = {},
+    onTagFilterSelected: (String?) -> Unit = {},
+    onAddTag: (UUID, String) -> Unit = { _, _ -> },
+    onRemoveTag: (UUID, String) -> Unit = { _, _ -> },
     colorScheme: ColorScheme
 ) {
     LaunchedEffect(key1 = Unit) {
@@ -118,7 +122,10 @@ fun RecordingsScreen(
                 sortOption = state.sortOption,
                 onSortOptionSelected = onSortOptionSelected,
                 durationFilter = state.durationFilter,
-                onDurationFilterSelected = onDurationFilterSelected
+                onDurationFilterSelected = onDurationFilterSelected,
+                availableTags = state.availableTags,
+                tagFilter = state.tagFilter,
+                onTagFilterSelected = onTagFilterSelected
             )
 
             if (state.isLoading) {
@@ -141,7 +148,9 @@ fun RecordingsScreen(
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        val isFiltered = state.searchQuery.isNotBlank() || state.durationFilter != DurationFilter.ALL
+                        val isFiltered = state.searchQuery.isNotBlank() ||
+                            state.durationFilter != DurationFilter.ALL ||
+                            !state.tagFilter.isNullOrBlank()
                         Text(
                             text = stringResource(
                                 if (isFiltered) R.string.no_search_results else R.string.no_recordings
@@ -172,7 +181,9 @@ fun RecordingsScreen(
                             onEditNameClick = { newTitle ->
                                 recording.uuid?.let { onEditRecordingName(it, newTitle) }
                             },
-                            onTranscribeClick = { onNavigateToTranscription(recording) }
+                            onTranscribeClick = { onNavigateToTranscription(recording) },
+                            onAddTag = { tagName -> recording.uuid?.let { onAddTag(it, tagName) } },
+                            onRemoveTag = { tagName -> recording.uuid?.let { onRemoveTag(it, tagName) } }
                         )
                         HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                     }
@@ -212,7 +223,10 @@ private fun RecordingsSearchAndFilterBar(
     sortOption: SortOption,
     onSortOptionSelected: (SortOption) -> Unit,
     durationFilter: DurationFilter,
-    onDurationFilterSelected: (DurationFilter) -> Unit
+    onDurationFilterSelected: (DurationFilter) -> Unit,
+    availableTags: List<String> = emptyList(),
+    tagFilter: String? = null,
+    onTagFilterSelected: (String?) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -276,6 +290,32 @@ private fun RecordingsSearchAndFilterBar(
                 )
             }
         }
+
+        if (availableTags.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(R.string.tags_filter_label),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                item {
+                    FilterChip(
+                        selected = tagFilter == null,
+                        onClick = { onTagFilterSelected(null) },
+                        label = { Text(stringResource(R.string.tag_filter_all)) }
+                    )
+                }
+                items(availableTags) { tag ->
+                    FilterChip(
+                        selected = tag == tagFilter,
+                        onClick = { onTagFilterSelected(if (tag == tagFilter) null else tag) },
+                        label = { Text(tag) }
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -285,7 +325,9 @@ fun RecordingListItem(
     onItemClick: () -> Unit,
     onDeleteClick: () -> Unit,
     onEditNameClick: (String) -> Unit,
-    onTranscribeClick: () -> Unit = {}
+    onTranscribeClick: () -> Unit = {},
+    onAddTag: (String) -> Unit = {},
+    onRemoveTag: (String) -> Unit = {}
 ) {
     val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
     val formattedDate = recording.creationDate.format(formatter)
@@ -293,6 +335,7 @@ fun RecordingListItem(
     var expanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showEditNameDialog by remember { mutableStateOf(false) }
+    var showEditTagsDialog by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
@@ -326,6 +369,16 @@ fun RecordingListItem(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+            if (recording.tags.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = recording.tags.joinToString(separator = "  ") { "#$it" },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
 
         // 再生時間
@@ -356,6 +409,11 @@ fun RecordingListItem(
                     leadingIcon = { Icon(Icons.Default.Edit, contentDescription = null) }
                 )
                 DropdownMenuItem(
+                    onClick = { expanded = false; showEditTagsDialog = true },
+                    text = { Text(stringResource(R.string.edit_tags)) },
+                    leadingIcon = { Icon(Icons.Default.Sell, contentDescription = null) }
+                )
+                DropdownMenuItem(
                     onClick = { expanded = false; onTranscribeClick() },
                     text = { Text(stringResource(R.string.transcription_title)) },
                     leadingIcon = { Icon(Icons.Default.TextFields, contentDescription = null) }
@@ -367,6 +425,15 @@ fun RecordingListItem(
                 )
             }
         }
+    }
+
+    if (showEditTagsDialog) {
+        EditTagsDialog(
+            tags = recording.tags,
+            onAddTag = onAddTag,
+            onRemoveTag = onRemoveTag,
+            onDismiss = { showEditTagsDialog = false }
+        )
     }
 
     if (showDeleteDialog) {
@@ -427,6 +494,73 @@ fun EditNameDialog(
         dismissButton = {
             Button(onClick = { onDismiss() }) {
                 Text(stringResource(R.string.cancel))
+            }
+        }
+    )
+}
+
+@Composable
+fun EditTagsDialog(
+    tags: List<String>,
+    onAddTag: (String) -> Unit,
+    onRemoveTag: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var newTag by remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.edit_tags)) },
+        text = {
+            Column {
+                if (tags.isEmpty()) {
+                    Text(
+                        text = stringResource(R.string.no_tags_yet),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                } else {
+                    tags.forEach { tag ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(text = tag, modifier = Modifier.weight(1f))
+                            IconButton(onClick = { onRemoveTag(tag) }) {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = stringResource(R.string.remove_tag)
+                                )
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    TextField(
+                        value = newTag,
+                        onValueChange = { newTag = it },
+                        modifier = Modifier.weight(1f),
+                        singleLine = true,
+                        placeholder = { Text(stringResource(R.string.add_tag_placeholder)) }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Button(
+                        onClick = {
+                            if (newTag.isNotBlank()) {
+                                onAddTag(newTag.trim())
+                                newTag = ""
+                            }
+                        }
+                    ) {
+                        Text(stringResource(R.string.add_tag_button))
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            Button(onClick = onDismiss) {
+                Text(stringResource(R.string.ok))
             }
         }
     )

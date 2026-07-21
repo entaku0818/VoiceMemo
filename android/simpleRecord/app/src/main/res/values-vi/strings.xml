@@ -35,6 +35,13 @@
     <string name="duration_filter_medium">Trung bình (1–5 phút)</string>
     <string name="duration_filter_long">Dài (5+ phút)</string>
     <string name="no_search_results">Không có bản ghi âm phù hợp</string>
+    <string name="edit_tags">Chỉnh sửa thẻ</string>
+    <string name="add_tag_placeholder">Thêm thẻ</string>
+    <string name="add_tag_button">Thêm</string>
+    <string name="remove_tag">Xóa thẻ</string>
+    <string name="no_tags_yet">Chưa có thẻ nào</string>
+    <string name="tags_filter_label">Thẻ</string>
+    <string name="tag_filter_all">Tất cả</string>
     <string name="record">Ghi âm</string>
     <string name="pause">Tạm dừng</string>
     <string name="resume">Tiếp tục</string>

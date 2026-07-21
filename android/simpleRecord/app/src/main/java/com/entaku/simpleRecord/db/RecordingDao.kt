@@ -52,13 +52,45 @@ val MIGRATION_3_4 = object : androidx.room.migration.Migration(3, 4) {
     }
 }
 
+// Issue #203: tag support. Adds a tags table and a recording<->tag join table without
+// touching the existing recordings/playlists data.
+val MIGRATION_4_5 = object : androidx.room.migration.Migration(4, 5) {
+    override fun migrate(database: androidx.sqlite.db.SupportSQLiteDatabase) {
+        database.execSQL(
+            "CREATE TABLE IF NOT EXISTS `tags` (`uuid` BLOB NOT NULL, `name` TEXT NOT NULL, PRIMARY KEY(`uuid`))"
+        )
+        database.execSQL(
+            "CREATE TABLE IF NOT EXISTS `recording_tag_cross_ref` (" +
+                "`recording_uuid` BLOB NOT NULL, `tag_uuid` BLOB NOT NULL, " +
+                "PRIMARY KEY(`recording_uuid`, `tag_uuid`), " +
+                "FOREIGN KEY(`recording_uuid`) REFERENCES `recordings`(`uuid`) ON DELETE CASCADE, " +
+                "FOREIGN KEY(`tag_uuid`) REFERENCES `tags`(`uuid`) ON DELETE CASCADE)"
+        )
+        database.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_recording_tag_cross_ref_recording_uuid` " +
+                "ON `recording_tag_cross_ref` (`recording_uuid`)"
+        )
+        database.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_recording_tag_cross_ref_tag_uuid` " +
+                "ON `recording_tag_cross_ref` (`tag_uuid`)"
+        )
+    }
+}
+
 @Database(
-    entities = [RecordingEntity::class, PlaylistEntity::class, PlaylistRecordingCrossRef::class],
-    version = 4
+    entities = [
+        RecordingEntity::class,
+        PlaylistEntity::class,
+        PlaylistRecordingCrossRef::class,
+        TagEntity::class,
+        RecordingTagCrossRef::class
+    ],
+    version = 5
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun recordingDao(): RecordingDao
     abstract fun playlistDao(): PlaylistDao
+    abstract fun tagDao(): TagDao
 
     companion object {
         @Volatile
@@ -71,7 +103,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

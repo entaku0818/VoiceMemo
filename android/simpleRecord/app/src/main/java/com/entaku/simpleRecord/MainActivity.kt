@@ -236,6 +236,9 @@ fun AppNavHost() {
                         onSearchQueryChange = { query -> viewModel.setSearchQuery(query) },
                         onSortOptionSelected = { option -> viewModel.setSortOption(option) },
                         onDurationFilterSelected = { filter -> viewModel.setDurationFilter(filter) },
+                        onTagFilterSelected = { tag -> viewModel.setTagFilter(tag) },
+                        onAddTag = { uuid, tagName -> viewModel.addTagToRecording(uuid, tagName) },
+                        onRemoveTag = { uuid, tagName -> viewModel.removeTagFromRecording(uuid, tagName) },
                         colorScheme = colorScheme
                     )
                 }

@@ -188,6 +188,70 @@ class RecordingsViewModelTest {
         assertTrue(viewModel.uiState.value.recordings.isEmpty())
     }
 
+    @Test
+    fun `addTagToRecording attaches tag and updates availableTags`() = runTest {
+        loadSample()
+
+        viewModel.addTagToRecording(apple.uuid!!, "会議")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        val updatedApple = viewModel.uiState.value.recordings.first { it.uuid == apple.uuid }
+        assertEquals(listOf("会議"), updatedApple.tags)
+        assertEquals(listOf("会議"), viewModel.uiState.value.availableTags)
+    }
+
+    @Test
+    fun `removeTagFromRecording detaches tag`() = runTest {
+        loadSample()
+        viewModel.addTagToRecording(apple.uuid!!, "会議")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        viewModel.removeTagFromRecording(apple.uuid!!, "会議")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        val updatedApple = viewModel.uiState.value.recordings.first { it.uuid == apple.uuid }
+        assertTrue(updatedApple.tags.isEmpty())
+        assertTrue(viewModel.uiState.value.availableTags.isEmpty())
+    }
+
+    @Test
+    fun `setTagFilter keeps only recordings with that tag`() = runTest {
+        loadSample()
+        viewModel.addTagToRecording(apple.uuid!!, "重要")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        viewModel.setTagFilter("重要")
+
+        assertEquals(listOf(apple.uuid), viewModel.uiState.value.recordings.map { it.uuid })
+        assertEquals("重要", viewModel.uiState.value.tagFilter)
+    }
+
+    @Test
+    fun `setTagFilter null clears the tag filter`() = runTest {
+        loadSample()
+        viewModel.addTagToRecording(apple.uuid!!, "重要")
+        testDispatcher.scheduler.advanceUntilIdle()
+        viewModel.setTagFilter("重要")
+
+        viewModel.setTagFilter(null)
+
+        assertEquals(3, viewModel.uiState.value.recordings.size)
+        assertEquals(null, viewModel.uiState.value.tagFilter)
+    }
+
+    @Test
+    fun `tag filter combines with search and duration filters`() = runTest {
+        loadSample()
+        viewModel.addTagToRecording(apple.uuid!!, "重要")
+        viewModel.addTagToRecording(cherry.uuid!!, "重要")
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        viewModel.setTagFilter("重要")
+        viewModel.setDurationFilter(DurationFilter.LONG)
+
+        assertEquals(listOf(cherry.uuid), viewModel.uiState.value.recordings.map { it.uuid })
+    }
+
     private fun recording(title: String, daysAgo: Long, durationSeconds: Long): RecordingData {
         return RecordingData(
             uuid = UUID.randomUUID(),
@@ -235,6 +299,24 @@ private class FakeRecordingRepository : RecordingRepository {
     override suspend fun updateMeetingMinutes(uuid: UUID, text: String) {
         recordingsFlow.value = recordingsFlow.value.map {
             if (it.uuid == uuid) it.copy(meetingMinutesText = text) else it
+        }
+    }
+
+    override suspend fun addTagToRecording(recordingUuid: UUID, tagName: String) {
+        val trimmed = tagName.trim()
+        if (trimmed.isEmpty()) return
+        recordingsFlow.value = recordingsFlow.value.map {
+            if (it.uuid == recordingUuid && !it.tags.contains(trimmed)) {
+                it.copy(tags = it.tags + trimmed)
+            } else {
+                it
+            }
+        }
+    }
+
+    override suspend fun removeTagFromRecording(recordingUuid: UUID, tagName: String) {
+        recordingsFlow.value = recordingsFlow.value.map {
+            if (it.uuid == recordingUuid) it.copy(tags = it.tags - tagName.trim()) else it
         }
     }
 }

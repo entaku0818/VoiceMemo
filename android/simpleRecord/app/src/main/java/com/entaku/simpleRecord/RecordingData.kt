@@ -14,5 +14,6 @@ data class RecordingData(
     val duration: Long,
     val filePath: String,
     val transcriptionText: String? = null,
-    val meetingMinutesText: String? = null
+    val meetingMinutesText: String? = null,
+    val tags: List<String> = emptyList()
 )

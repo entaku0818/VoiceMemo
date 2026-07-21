@@ -35,6 +35,13 @@
     <string name="duration_filter_medium">Média (1–5 min)</string>
     <string name="duration_filter_long">Longa (5+ min)</string>
     <string name="no_search_results">Nenhuma gravação encontrada</string>
+    <string name="edit_tags">Editar etiquetas</string>
+    <string name="add_tag_placeholder">Adicionar etiqueta</string>
+    <string name="add_tag_button">Adicionar</string>
+    <string name="remove_tag">Remover etiqueta</string>
+    <string name="no_tags_yet">Ainda sem etiquetas</string>
+    <string name="tags_filter_label">Etiquetas</string>
+    <string name="tag_filter_all">Todas</string>
     <string name="record">Gravar</string>
     <string name="pause">Pausar</string>
     <string name="resume">Retomar</string>
