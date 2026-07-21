@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ホーム画面長押しで表示される静的ショートカット。iOSのApp Intents/Siriショートカット
+     (VoiceMemoAppIntents.swift)の「録音開始」相当をAndroidでも提供する (issue #204)。 -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="start_recording"
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_start_recording_short_label"
+        android:shortcutLongLabel="@string/shortcut_start_recording_long_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.entaku.simpleRecord"
+            android:targetClass="com.entaku.simpleRecord.MainActivity">
+            <extra
+                android:name="shortcut_action"
+                android:value="start_recording" />
+        </intent>
+    </shortcut>
+</shortcuts>

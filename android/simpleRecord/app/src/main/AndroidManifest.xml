@@ -64,9 +64,17 @@
             android:exported="false"
             android:foregroundServiceType="mediaPlayback" />
 
+        <!-- singleTask: ホーム画面ショートカット(shortcuts.xml)からの起動時、既存インスタンスを
+             再利用してonNewIntentでハンドリングできるようにする (issue #204)。単一Activity構成のため
+             通常launchへの影響はない。 -->
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTask">
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
 
         <!-- アプリアイコン切り替え用のactivity-alias (issue #205)。
              選択されたアイコンのaliasだけをPackageManager.setComponentEnabledSettingで有効化する。 -->

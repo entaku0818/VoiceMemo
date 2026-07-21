@@ -243,4 +243,8 @@
     <string name="feedback_sent">已发送！</string>
     <string name="feedback_thanks">感谢您的反馈。</string>
     <string name="feedback_error">发送失败</string>
+
+    <!-- Home screen shortcut (issue #204) -->
+    <string name="shortcut_start_recording_short_label">录音</string>
+    <string name="shortcut_start_recording_long_label">开始新的录音</string>
 </resources>

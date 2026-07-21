@@ -1,5 +1,6 @@
 package com.entaku.simpleRecord
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,14 +21,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.entaku.simpleRecord.shortcut.ShortcutIntentHandler
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -102,10 +107,31 @@ val topLevelRoutes = listOf(
 class MainActivity : ComponentActivity() {
     private var showingAd = false
 
+    // ホーム画面ショートカット「録音開始」から起動された場合にtrueになる (issue #204)。
+    // AppNavHostに渡し、録音タブへの遷移とrecording開始を自動で行うために使う。
+    private val autoStartRecording: MutableState<Boolean> = mutableStateOf(false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppOpenAdController.getInstance(this).incrementLaunchCount()
+        handleShortcutIntent(intent)
         showSplashAndAd()
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleShortcutIntent(intent)
+    }
+
+    private fun handleShortcutIntent(intent: Intent?) {
+        if (ShortcutIntentHandler.isStartRecordingRequested(intent)) {
+            ShortcutManagerCompat.reportShortcutUsed(
+                this,
+                ShortcutIntentHandler.SHORTCUT_ID_START_RECORDING
+            )
+            autoStartRecording.value = true
+        }
     }
 
     private fun showSplashAndAd() {
@@ -113,7 +139,7 @@ class MainActivity : ComponentActivity() {
         setContent { SplashScreen() }
         AppOpenAdController.getInstance(this).showAdIfNeeded(this) {
             showingAd = false
-            setContent { AppNavHost() }
+            setContent { AppNavHost(autoStartRecording = autoStartRecording) }
         }
     }
 }
@@ -141,7 +167,7 @@ fun SplashScreen() {
 }
 
 @Composable
-fun AppNavHost() {
+fun AppNavHost(autoStartRecording: MutableState<Boolean> = remember { mutableStateOf(false) }) {
     val navController = rememberNavController()
     val context = LocalContext.current
     val sharedViewModel: SharedRecordingsViewModel = viewModel()
@@ -152,6 +178,20 @@ fun AppNavHost() {
     // Routes that show the bottom nav bar
     val topLevelRouteStrings = topLevelRoutes.map { it.route }.toSet()
     val showBottomBar = currentRoute in topLevelRouteStrings
+
+    // ショートカット「録音開始」で起動された場合、録音タブが表示中でなければ切り替える (issue #204)。
+    // 実際の録音開始はRecordScreen側のLaunchedEffectが権限チェックを経て行う。
+    LaunchedEffect(autoStartRecording.value, currentRoute) {
+        if (autoStartRecording.value && currentRoute != Screen.Record.route) {
+            navController.navigate(Screen.Record.route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+    }
 
     MaterialTheme(colorScheme = LightColorScheme, typography = Typography) {
         Scaffold(
@@ -206,7 +246,9 @@ fun AppNavHost() {
                                 launchSingleTop = true
                                 restoreState = true
                             }
-                        }
+                        },
+                        autoStartRecording = autoStartRecording.value,
+                        onAutoStartRecordingConsumed = { autoStartRecording.value = false }
                     )
                 }
 

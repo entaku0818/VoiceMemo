@@ -59,7 +59,11 @@ fun RecordScreen(
     onStopRecording: () -> Unit,
     onPauseRecording: () -> Unit,
     onResumeRecording: () -> Unit,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    // ホーム画面ショートカット「録音開始」からの起動時にtrueになる (issue #204)。
+    // trueになったら権限チェックを経て自動で録音を開始し、消費後にonAutoStartRecordingConsumedで通知する。
+    autoStartRecording: Boolean = false,
+    onAutoStartRecordingConsumed: () -> Unit = {}
 ) {
     val uiState by uiStateFlow.collectAsState()
     val context = LocalContext.current
@@ -100,6 +104,16 @@ fun RecordScreen(
             onStartRecording()
         } else {
             permissionLauncher.launch(permissionsToRequest.toTypedArray())
+        }
+    }
+
+    // ショートカット起動時、録音待機中(IDLE/ERROR)であれば自動で録音を開始する (issue #204)。
+    LaunchedEffect(autoStartRecording, uiState.recordingState) {
+        if (autoStartRecording &&
+            (uiState.recordingState == RecordingState.IDLE || uiState.recordingState == RecordingState.ERROR)
+        ) {
+            checkPermissionAndStartRecording()
+            onAutoStartRecordingConsumed()
         }
     }
 

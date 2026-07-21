@@ -237,4 +237,8 @@
     <string name="feedback_sent">送信しました</string>
     <string name="feedback_thanks">フィードバックありがとうございます。</string>
     <string name="feedback_error">送信に失敗しました</string>
+
+    <!-- ホーム画面ショートカット (issue #204) -->
+    <string name="shortcut_start_recording_short_label">録音</string>
+    <string name="shortcut_start_recording_long_label">新しい録音を開始</string>
 </resources>

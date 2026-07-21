@@ -243,4 +243,8 @@
     <string name="feedback_sent">Envoyé !</string>
     <string name="feedback_thanks">Merci pour vos commentaires.</string>
     <string name="feedback_error">Échec de l\'envoi</string>
+
+    <!-- Home screen shortcut (issue #204) -->
+    <string name="shortcut_start_recording_short_label">Enregistrer</string>
+    <string name="shortcut_start_recording_long_label">Démarrer un nouvel enregistrement</string>
 </resources>
