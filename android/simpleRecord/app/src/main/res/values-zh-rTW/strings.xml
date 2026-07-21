@@ -79,6 +79,12 @@
     <string name="notification_channel_name">錄音提醒</string>
     <string name="notification_channel_description">鼓勵錄音的提醒通知</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">正在錄音</string>
+    <string name="recording_notification_title_paused">錄音已暫停</string>
+    <string name="recording_notification_channel_name">錄音狀態</string>
+    <string name="recording_notification_channel_description">錄音時顯示已用時間和控制按鈕</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">錄音</string>
     <string name="tab_recordings">播放</string>

@@ -79,6 +79,12 @@
     <string name="notification_channel_name">Напоминания о записи</string>
     <string name="notification_channel_description">Напоминания для стимулирования записи</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">Идёт запись</string>
+    <string name="recording_notification_title_paused">Запись на паузе</string>
+    <string name="recording_notification_channel_name">Статус записи</string>
+    <string name="recording_notification_channel_description">Показывает прошедшее время и элементы управления во время записи</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Запись</string>
     <string name="tab_recordings">Воспроизведение</string>

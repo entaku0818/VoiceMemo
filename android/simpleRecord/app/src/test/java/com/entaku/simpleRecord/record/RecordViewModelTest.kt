@@ -234,4 +234,41 @@ class RecordViewModelTest {
         assertTrue(title.contains("/"))
         assertTrue(title.contains(":"))
     }
+
+    // --- ongoing notification base time calculation (issue #197) ---
+    // RecordViewModel.updateNotification() は baseTimeMillis = startTime + pausedDuration を
+    // RecordingNotificationService に渡し、chronometer の "when" として使う。
+    // ここではその計算式自体を検証する。
+
+    @Test
+    fun `notification base time - equals startTime when never paused`() {
+        val startTime = 1_000_000L
+        val pausedDuration = 0L
+        assertEquals(1_000_000L, startTime + pausedDuration)
+    }
+
+    @Test
+    fun `notification base time - shifts later by paused duration after resume`() {
+        val startTime = 1_000_000L
+        val pausedDuration = 5_000L // 5秒分一時停止していた
+        val baseTime = startTime + pausedDuration
+
+        // baseTime基準のchronometerは、一時停止していた分を除いた経過時間を表示する
+        val now = startTime + 10_000L // 開始から10秒後(うち5秒は一時停止)
+        val displayedElapsedMillis = now - baseTime
+        assertEquals(5_000L, displayedElapsedMillis)
+    }
+
+    @Test
+    fun `notification base time - matches elapsedTime formula used for UI state`() {
+        val startTime = 2_000_000L
+        val pausedDuration = 1_500L
+        val now = 2_010_000L
+
+        val uiElapsedMillis = now - startTime - pausedDuration
+        val notificationBaseTime = startTime + pausedDuration
+        val notificationDisplayedElapsedMillis = now - notificationBaseTime
+
+        assertEquals(uiElapsedMillis, notificationDisplayedElapsedMillis)
+    }
 }

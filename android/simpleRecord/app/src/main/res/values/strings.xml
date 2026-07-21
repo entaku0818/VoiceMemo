@@ -106,6 +106,12 @@
     <string name="notification_channel_name">Recording Reminders</string>
     <string name="notification_channel_description">Reminders to encourage recording</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">Recording</string>
+    <string name="recording_notification_title_paused">Recording paused</string>
+    <string name="recording_notification_channel_name">Recording Status</string>
+    <string name="recording_notification_channel_description">Shows elapsed time and controls while recording</string>
+
     <!-- Support / Inquiry -->
     <string name="contact_us">Contact / Feedback</string>
     <string name="contact_us_email_subject">Simple Record - Inquiry</string>

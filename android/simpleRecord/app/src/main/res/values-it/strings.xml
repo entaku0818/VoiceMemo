@@ -79,6 +79,12 @@
     <string name="notification_channel_name">Promemoria registrazione</string>
     <string name="notification_channel_description">Promemoria per incoraggiare la registrazione</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">Registrazione in corso</string>
+    <string name="recording_notification_title_paused">Registrazione in pausa</string>
+    <string name="recording_notification_channel_name">Stato registrazione</string>
+    <string name="recording_notification_channel_description">Mostra il tempo trascorso e i controlli durante la registrazione</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Registra</string>
     <string name="tab_recordings">Riproduzione</string>

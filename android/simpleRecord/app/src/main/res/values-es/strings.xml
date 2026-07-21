@@ -79,6 +79,12 @@
     <string name="notification_channel_name">Recordatorios de grabación</string>
     <string name="notification_channel_description">Recordatorios para grabar</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">Grabando</string>
+    <string name="recording_notification_title_paused">Grabación en pausa</string>
+    <string name="recording_notification_channel_name">Estado de grabación</string>
+    <string name="recording_notification_channel_description">Muestra el tiempo transcurrido y los controles durante la grabación</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Grabar</string>
     <string name="tab_recordings">Reproducción</string>

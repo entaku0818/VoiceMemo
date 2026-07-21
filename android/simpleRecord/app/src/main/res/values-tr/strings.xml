@@ -79,6 +79,12 @@
     <string name="notification_channel_name">Kayıt hatırlatıcıları</string>
     <string name="notification_channel_description">Kayıt yapmayı teşvik eden hatırlatıcılar</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">Kayıt yapılıyor</string>
+    <string name="recording_notification_title_paused">Kayıt duraklatıldı</string>
+    <string name="recording_notification_channel_name">Kayıt Durumu</string>
+    <string name="recording_notification_channel_description">Kayıt sırasında geçen süreyi ve kontrolleri gösterir</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Kayıt</string>
     <string name="tab_recordings">Oynatma</string>

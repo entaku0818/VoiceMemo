@@ -57,6 +57,20 @@ class RecordViewModel(
     private var pausedDuration: Long = 0
     private var pauseStartTime: Long = 0
 
+    // ロック画面の常時通知(ongoing notification)用。録音中のみ非null。 (issue #197)
+    // WeakReferenceで保持し、ViewModelがContextを直接保持し続けることによるリーク(lint: StaticFieldLeak)を避ける。
+    private var notificationContextRef: java.lang.ref.WeakReference<Context>? = null
+    private var notificationContext: Context?
+        get() = notificationContextRef?.get()
+        set(value) {
+            notificationContextRef = value?.let { java.lang.ref.WeakReference(it) }
+        }
+    private val recordingActionListener = object : RecordingActionListener {
+        override fun onPauseRequested() = pauseRecording()
+        override fun onResumeRequested() = resumeRecording()
+        override fun onStopRequested() = stopRecording()
+    }
+
     // 録音設定パラメータを取得
     private fun getRecordingSettings(): RecordingSettings {
         return settingsManager.getRecordingSettings()
@@ -71,8 +85,22 @@ class RecordViewModel(
                 val currentTime = System.currentTimeMillis()
                 val elapsed = Duration.ofMillis(currentTime - startTime - pausedDuration)
                 _uiState.update { it.copy(elapsedTime = elapsed) }
+                updateNotification(isPaused = false)
                 delay(1000)
             }
+        }
+    }
+
+    // ongoing notification の経過時間・音量表示を更新する。
+    // chronometer に時間表示を任せているため、呼び出しは1秒に1回程度で十分 (issue #197)。
+    private fun updateNotification(isPaused: Boolean) {
+        notificationContext?.let { ctx ->
+            RecordingNotificationService.updateProgress(
+                context = ctx,
+                baseTimeMillis = startTime + pausedDuration,
+                isPaused = isPaused,
+                volume = _uiState.value.currentVolume
+            )
         }
     }
 
@@ -111,6 +139,9 @@ class RecordViewModel(
                     amplitudeHistory = emptyList()
                 ) }
                 sharedViewModel.updateRecordingState(RecordingState.RECORDING)
+                notificationContext = applicationContext
+                RecordingNotificationService.actionListener = recordingActionListener
+                RecordingNotificationService.start(applicationContext, startTime)
                 startVolumeMonitoring()
                 startTimeUpdates()
             } catch (e: IOException) {
@@ -150,6 +181,12 @@ class RecordViewModel(
         private const val MAX_AMPLITUDE_HISTORY = 100
     }
 
+    // ongoing notification を停止し、リスナー登録を解除する (issue #197)。
+    private fun stopNotificationService() {
+        notificationContext?.let { RecordingNotificationService.stop(it) }
+        notificationContext = null
+    }
+
     fun stopRecording() {
         timeUpdateJob?.cancel()
         timeUpdateJob = null
@@ -161,12 +198,14 @@ class RecordViewModel(
                 stop()
             } catch (e: IllegalStateException) {
                 e.printStackTrace()
+                stopNotificationService()
                 return
             } finally {
                 release()
             }
         }
         mediaRecorder = null
+        stopNotificationService()
 
         val endTime = System.currentTimeMillis()
         val duration = Duration.ofMillis(endTime - startTime - pausedDuration)
@@ -237,6 +276,7 @@ class RecordViewModel(
                 timeUpdateJob?.cancel()
                 _uiState.update { it.copy(recordingState = RecordingState.PAUSED) }
                 sharedViewModel.updateRecordingState(RecordingState.PAUSED)
+                updateNotification(isPaused = true)
             }
         }
     }
@@ -250,6 +290,7 @@ class RecordViewModel(
                 startTimeUpdates()
                 _uiState.update { it.copy(recordingState = RecordingState.RECORDING) }
                 sharedViewModel.updateRecordingState(RecordingState.RECORDING)
+                updateNotification(isPaused = false)
             }
         }
     }
@@ -260,5 +301,6 @@ class RecordViewModel(
         timeUpdateJob?.cancel()
         mediaRecorder?.release()
         mediaRecorder = null
+        stopNotificationService()
     }
 }

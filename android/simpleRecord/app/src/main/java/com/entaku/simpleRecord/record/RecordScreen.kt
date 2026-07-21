@@ -40,6 +40,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import android.os.Build
 import com.entaku.simpleRecord.R
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
@@ -70,22 +71,34 @@ fun RecordScreen(
     }
 
     val permissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { granted ->
-            if (granted) {
+        contract = ActivityResultContracts.RequestMultiplePermissions(),
+        onResult = { results ->
+            // 録音の常時通知(ongoing notification)表示にはPOST_NOTIFICATIONSが必要だが、
+            // 拒否されても録音自体は継続できるためRECORD_AUDIOの許可のみを起動条件にする (issue #197)。
+            if (results[Manifest.permission.RECORD_AUDIO] == true) {
                 onStartRecording()
             }
         }
     )
 
     fun checkPermissionAndStartRecording() {
-        when (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO)) {
-            PermissionChecker.PERMISSION_GRANTED -> {
-                onStartRecording()
-            }
-            else -> {
-                permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
-            }
+        val permissionsToRequest = mutableListOf<String>()
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) !=
+            PermissionChecker.PERMISSION_GRANTED
+        ) {
+            permissionsToRequest.add(Manifest.permission.RECORD_AUDIO)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+            PermissionChecker.PERMISSION_GRANTED
+        ) {
+            permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        if (permissionsToRequest.isEmpty()) {
+            onStartRecording()
+        } else {
+            permissionLauncher.launch(permissionsToRequest.toTypedArray())
         }
     }
 

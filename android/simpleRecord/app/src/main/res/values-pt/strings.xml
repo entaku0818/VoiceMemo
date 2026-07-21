@@ -79,6 +79,12 @@
     <string name="notification_channel_name">Lembretes de gravação</string>
     <string name="notification_channel_description">Lembretes para encorajar a gravação</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">A gravar</string>
+    <string name="recording_notification_title_paused">Gravação em pausa</string>
+    <string name="recording_notification_channel_name">Estado da gravação</string>
+    <string name="recording_notification_channel_description">Mostra o tempo decorrido e os controlos durante a gravação</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Gravar</string>
     <string name="tab_recordings">Reprodução</string>

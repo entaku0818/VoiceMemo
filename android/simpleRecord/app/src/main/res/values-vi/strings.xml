@@ -79,6 +79,12 @@
     <string name="notification_channel_name">Nhắc nhở ghi âm</string>
     <string name="notification_channel_description">Nhắc nhở để khuyến khích ghi âm</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">Đang ghi âm</string>
+    <string name="recording_notification_title_paused">Đã tạm dừng ghi âm</string>
+    <string name="recording_notification_channel_name">Trạng thái ghi âm</string>
+    <string name="recording_notification_channel_description">Hiển thị thời gian đã trôi qua và các điều khiển trong khi ghi âm</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Ghi âm</string>
     <string name="tab_recordings">Phát lại</string>

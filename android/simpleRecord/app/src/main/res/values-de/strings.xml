@@ -79,6 +79,12 @@
     <string name="notification_channel_name">Aufnahme-Erinnerungen</string>
     <string name="notification_channel_description">Erinnerungen zum Aufnehmen</string>
 
+    <!-- Ongoing Recording Notification (issue #197) -->
+    <string name="recording_notification_title">Aufnahme läuft</string>
+    <string name="recording_notification_title_paused">Aufnahme pausiert</string>
+    <string name="recording_notification_channel_name">Aufnahmestatus</string>
+    <string name="recording_notification_channel_description">Zeigt die verstrichene Zeit und Steuerelemente während der Aufnahme an</string>
+
     <!-- Bottom Navigation -->
     <string name="tab_record">Aufnehmen</string>
     <string name="tab_recordings">Wiedergabe</string>
