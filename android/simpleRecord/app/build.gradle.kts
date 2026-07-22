@@ -30,7 +30,7 @@ if (revenuecatPropertiesFile.exists()) {
 
 android {
     namespace = "com.entaku.simpleRecord"
-    compileSdk = 35
+    compileSdk = 36
 
     signingConfigs {
         create("release") {
@@ -44,7 +44,7 @@ android {
     defaultConfig {
         applicationId = "com.entaku.simpleRecord"
         minSdk = 29
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 16
         versionName = "2.7.1"
 
@@ -174,12 +174,9 @@ dependencies {
     // Google Mobile Ads
     implementation("com.google.android.gms:play-services-ads:23.6.0")
 
-    // Google Play Billing
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
-
-    // RevenueCat
-    implementation("com.revenuecat.purchases:purchases:8.10.3")
-    implementation("com.revenuecat.purchases:purchases-ui:8.10.3")
+    // RevenueCat (bundles/manages the Google Play Billing Library dependency transitively)
+    implementation("com.revenuecat.purchases:purchases:10.14.1")
+    implementation("com.revenuecat.purchases:purchases-ui:10.14.1")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
