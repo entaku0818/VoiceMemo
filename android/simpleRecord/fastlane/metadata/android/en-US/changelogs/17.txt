@@ -1,0 +1,14 @@
+[New Features]
+• Ongoing lock screen/notification controls while recording (elapsed time, pause/stop)
+• Live speech-to-text transcription while recording
+• Volume boost for playback
+• Lock screen and notification media controls for playback (play/pause/seek)
+• Trim editing for recordings (cut start/end)
+• Sort, search, and duration filter for the recordings list
+• Tag recordings for organization
+• Home screen shortcut to start recording instantly
+• App icon customization
+
+[Under the hood]
+• Now targets Android 16 (API level 36)
+• Updated Google Play Billing Library to the latest version
