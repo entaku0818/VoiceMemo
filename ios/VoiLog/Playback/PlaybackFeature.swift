@@ -5,6 +5,12 @@ import os.log
 
 @Reducer
 struct PlaybackFeature {
+  // 文字起こしプレミアムプロンプトを表示する理由（文言出し分け用）
+  enum TranscriptionPromptReason: Equatable {
+    case adSkipped
+    case freeLimitReached
+  }
+
   @ObservableState
   struct State: Equatable {
     var voiceMemos: [VoiceMemo] = []
@@ -34,6 +40,13 @@ struct PlaybackFeature {
     var selectedMemoForTranscription: VoiceMemo.ID?
     var showTranscriptionSheet = false
     var showTranscriptionPremiumPrompt = false
+    var transcriptionPromptReason: TranscriptionPromptReason = .adSkipped
+    // 広告視聴での無料アンロック回数（lifetime）。issue #207: 上限がなく無料で使い放題だった不具合の修正
+    var adBasedTranscriptionUnlockCount: Int = UserDefaultsManager.shared.adBasedTranscriptionUnlockCount
+
+    var hasFreeTranscriptionUnlockRemaining: Bool {
+      adBasedTranscriptionUnlockCount < UserDefaultsManager.freeAdBasedTranscriptionLimit
+    }
 
     // Apple transcription (timestampedText viewer)
     var selectedMemoForAppleTranscription: VoiceMemo.ID?
@@ -439,14 +452,7 @@ struct PlaybackFeature {
           state.showDetailSheet = false
           state.selectedMemoForDetails = nil
           state.selectedMemoForTranscription = memoID
-          guard state.hasPurchasedPremium else {
-            return .run { send in
-              await rewardedAdClient.show({ Task { @MainActor in send(.view(.rewardedAdCompleted)) } }, { Task { @MainActor in send(.view(.rewardedAdSkipped)) } }
-              )
-            }
-          }
-          state.showTranscriptionSheet = true
-          return .none
+          return startTranscriptionUnlockFlow(state: &state)
 
         case let .showCombinedTranscriptionFromDetail(memoID):
           state.showDetailSheet = false
@@ -496,21 +502,17 @@ struct PlaybackFeature {
 
         case let .showTranscription(memoID):
           state.selectedMemoForTranscription = memoID
-          guard state.hasPurchasedPremium else {
-            return .run { send in
-              await rewardedAdClient.show({ Task { @MainActor in send(.view(.rewardedAdCompleted)) } }, { Task { @MainActor in send(.view(.rewardedAdSkipped)) } }
-              )
-            }
-          }
-          state.showTranscriptionSheet = true
-          return .none
+          return startTranscriptionUnlockFlow(state: &state)
 
         case .rewardedAdCompleted:
+          state.adBasedTranscriptionUnlockCount += 1
+          UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = state.adBasedTranscriptionUnlockCount
           state.showTranscriptionSheet = true
           return .none
 
         case .rewardedAdSkipped:
           state.selectedMemoForTranscription = nil
+          state.transcriptionPromptReason = .adSkipped
           state.showTranscriptionPremiumPrompt = true
           return .none
 
@@ -805,6 +807,25 @@ struct PlaybackFeature {
     )
   }
 
+  // 文字起こしの利用可否を判定する。プレミアム会員は即座に、無料会員は広告視聴での
+  // アンロック回数が上限（lifetime）に達していなければ広告フローへ、達していればアップグレード導線へ誘導する。
+  private func startTranscriptionUnlockFlow(state: inout State) -> Effect<Action> {
+    guard !state.hasPurchasedPremium else {
+      state.showTranscriptionSheet = true
+      return .none
+    }
+    guard state.hasFreeTranscriptionUnlockRemaining else {
+      state.selectedMemoForTranscription = nil
+      state.transcriptionPromptReason = .freeLimitReached
+      state.showTranscriptionPremiumPrompt = true
+      return .none
+    }
+    return .run { send in
+      await rewardedAdClient.show({ Task { @MainActor in send(.view(.rewardedAdCompleted)) } }, { Task { @MainActor in send(.view(.rewardedAdSkipped)) } }
+      )
+    }
+  }
+
   private func startPlayback(url: URL, startTime: TimeInterval = 0, playSpeed: AudioPlayerClient.PlaybackSpeed = .normal, volumeBoost: Float = 1.0) -> Effect<Action> {
     .run { send in
       // 音声再生開始
@@ -892,7 +913,12 @@ struct PlaybackView: View {
           send(.dismissTranscriptionPremiumPrompt)
         }
       } message: {
-        Text(String(localized: "文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。", table: "Playback"))
+        switch store.transcriptionPromptReason {
+        case .adSkipped:
+          Text(String(localized: "文字起こしはプレミアム会員なら無制限で利用できます。広告を視聴すると1回ご利用いただけます。", table: "Playback"))
+        case .freeLimitReached:
+          Text(String(localized: "無料でご利用いただける文字起こし（広告視聴で3回）を使い切りました。プレミアム会員に登録すると、引き続き無制限でご利用いただけます。7日間の無料トライアルもご利用いただけます。", table: "Playback"))
+        }
       }
       .fullScreenCover(isPresented: $store.showDetailSheet) {
         if let selectedId = store.selectedMemoForDetails,

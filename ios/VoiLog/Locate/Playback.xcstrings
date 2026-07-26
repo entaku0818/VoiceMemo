@@ -5356,6 +5356,131 @@
         }
       }
     },
+    "無料でご利用いただける文字起こし（広告視聴で3回）を使い切りました。プレミアム会員に登録すると、引き続き無制限でご利用いただけます。7日間の無料トライアルもご利用いただけます。": {
+      "comment": "Premium prompt shown when the free (ad-based) transcription unlock limit has been reached",
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sie haben Ihre kostenlosen Transkriptionen (3, durch Ansehen von Anzeigen) aufgebraucht. Mit einem Premium-Abo erhalten Sie unbegrenzte Transkription – auch eine 7-tägige kostenlose Testversion ist verfügbar."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You've used up your free transcriptions (3, via watching ads). Subscribe to Premium for unlimited transcription — a 7-day free trial is available too."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Has agotado tus transcripciones gratuitas (3, viendo anuncios). Suscríbete a Premium para transcripción ilimitada; también hay una prueba gratuita de 7 días disponible."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous avez utilisé toutes vos transcriptions gratuites (3, en regardant des publicités). Abonnez-vous à Premium pour une transcription illimitée – un essai gratuit de 7 jours est aussi disponible."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hai esaurito le trascrizioni gratuite (3, guardando annunci). Abbonati a Premium per trascrizioni illimitate: è disponibile anche una prova gratuita di 7 giorni."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esgotou as suas transcrições gratuitas (3, ao assistir a anúncios). Subscreva o Premium para transcrição ilimitada — também está disponível um período experimental gratuito de 7 dias."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Вы использовали все бесплатные расшифровки (3, за просмотр рекламы). Оформите Premium-подписку для неограниченной расшифровки — также доступна бесплатная 7-дневная пробная версия."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ücretsiz transkripsiyon hakkınızı (reklam izleyerek kazanılan 3 hak) kullandınız. Sınırsız transkripsiyon için Premium'a abone olun — 7 günlük ücretsiz deneme de mevcuttur."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bạn đã dùng hết lượt phiên âm miễn phí (3 lượt, qua xem quảng cáo). Đăng ký Premium để phiên âm không giới hạn — cũng có bản dùng thử miễn phí 7 ngày."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您已用完免费文字转录次数（观看广告获得的3次）。订阅Premium即可无限次转录——还可享受7天免费试用。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您已用完免費文字轉錄次數（觀看廣告獲得的3次）。訂閱Premium即可無限次轉錄——還可享受7天免費試用。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لقد استنفدت عمليات التفريغ الصوتي المجانية (3 عبر مشاهدة الإعلانات). اشترك في Premium للحصول على تفريغ صوتي غير محدود — تتوفر أيضًا نسخة تجريبية مجانية لمدة 7 أيام."
+          }
+        },
+        "id": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anda telah menghabiskan transkripsi gratis (3 kali, melalui menonton iklan). Berlangganan Premium untuk transkripsi tanpa batas — uji coba gratis 7 hari juga tersedia."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "आपने अपने मुफ़्त ट्रांसक्रिप्शन (विज्ञापन देखकर मिलने वाले 3) का उपयोग कर लिया है। असीमित ट्रांसक्रिप्शन के लिए Premium सब्सक्राइब करें — 7-दिन का मुफ़्त ट्रायल भी उपलब्ध है।"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Je hebt je gratis transcripties (3, via het bekijken van advertenties) verbruikt. Abonneer je op Premium voor onbeperkte transcriptie — er is ook een gratis proefperiode van 7 dagen beschikbaar."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wykorzystałeś już darmowe transkrypcje (3, za obejrzenie reklam). Subskrybuj Premium, aby uzyskać nieograniczoną transkrypcję — dostępny jest również 7-dniowy bezpłatny okres próbny."
+          }
+        },
+        "sv": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Du har använt dina gratis transkriberingar (3, genom att titta på annonser). Prenumerera på Premium för obegränsad transkribering – en 7-dagars gratis provperiod finns också."
+          }
+        },
+        "th": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "คุณใช้สิทธิ์ถอดความฟรีครบแล้ว (3 ครั้งจากการดูโฆษณา) สมัคร Premium เพื่อถอดความได้ไม่จำกัด — พร้อมทดลองใช้ฟรี 7 วัน"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무료로 이용할 수 있는 문자 변환(광고 시청으로 얻는 3회)을 모두 사용했습니다. 프리미엄을 구독하면 무제한으로 이용할 수 있으며, 7일 무료 체험도 가능합니다."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無料でご利用いただける文字起こし（広告視聴で3回）を使い切りました。プレミアム会員に登録すると、引き続き無制限でご利用いただけます。7日間の無料トライアルもご利用いただけます。"
+          }
+        }
+      }
+    },
     "文字起こしデータがありません": {
       "comment": "A message displayed when a voice memo does not have transcription data.",
       "isCommentAutoGenerated": true,
