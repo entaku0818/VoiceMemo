@@ -167,4 +167,18 @@ class UserDefaultsManager {
             defaults.set(newValue, forKey: "PlaybackVolumeBoost")
         }
     }
+
+    // 広告視聴による文字起こし無料アンロック回数の上限（lifetime）
+    // 参考: issue #207 (無料枠が無制限になっていた不具合の修正)
+    static let freeAdBasedTranscriptionLimit = 3
+
+    // 広告視聴で文字起こしをアンロックした回数（lifetime、購入前提の回数のみカウント）
+    var adBasedTranscriptionUnlockCount: Int {
+        get {
+            defaults.integer(forKey: "AdBasedTranscriptionUnlockCount")
+        }
+        set {
+            defaults.set(newValue, forKey: "AdBasedTranscriptionUnlockCount")
+        }
+    }
 }

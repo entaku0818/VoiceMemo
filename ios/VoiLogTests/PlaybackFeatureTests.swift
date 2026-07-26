@@ -441,6 +441,116 @@ final class PlaybackFeatureTests: XCTestCase {
             await store.send(.view(.showTranscription(memoID)))
             await store.receive(\.view.rewardedAdSkipped) {
                 $0.selectedMemoForTranscription = nil
+                $0.transcriptionPromptReason = .adSkipped
+                $0.showTranscriptionPremiumPrompt = true
+            }
+        }
+    }
+
+    // MARK: - 無料アンロック上限（issue #207: 広告視聴バイパスに上限がなく無料で使い放題だった不具合の修正）
+
+    func testShowTranscription_freeUser_belowLimit_watchesAdAndIncrementsUnlockCount() async {
+        await withMainSerialExecutor {
+            UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = 1
+
+            let memoID = UUID()
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = false
+            var rewardedCalled = false
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { },
+                    show: { onRewarded, _ in
+                        rewardedCalled = true
+                        onRewarded()
+                    }
+                )
+            }
+            store.exhaustivity = .off
+
+            XCTAssertEqual(store.state.adBasedTranscriptionUnlockCount, 1)
+            XCTAssertTrue(store.state.hasFreeTranscriptionUnlockRemaining)
+
+            await store.send(.view(.showTranscription(memoID)))
+            await store.receive(\.view.rewardedAdCompleted) {
+                $0.adBasedTranscriptionUnlockCount = 2
+                $0.showTranscriptionSheet = true
+            }
+            XCTAssertTrue(rewardedCalled)
+            XCTAssertEqual(UserDefaultsManager.shared.adBasedTranscriptionUnlockCount, 2)
+
+            // cleanup
+            UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = 0
+        }
+    }
+
+    func testShowTranscription_freeUser_atLimit_skipsAdAndShowsFreeLimitReachedPrompt() async {
+        await withMainSerialExecutor {
+            UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = 0
+
+            let memoID = UUID()
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = false
+            initialState.adBasedTranscriptionUnlockCount = UserDefaultsManager.freeAdBasedTranscriptionLimit
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { },
+                    show: { _, _ in XCTFail("free-limit到達後は広告を出さずpremium promptへ直行するべき") }
+                )
+            }
+            store.exhaustivity = .off
+
+            XCTAssertFalse(store.state.hasFreeTranscriptionUnlockRemaining)
+
+            await store.send(.view(.showTranscription(memoID))) {
+                $0.selectedMemoForTranscription = nil
+                $0.transcriptionPromptReason = .freeLimitReached
+                $0.showTranscriptionPremiumPrompt = true
+            }
+        }
+    }
+
+    func testShowGeminiTranscriptionFromDetail_freeUser_atLimit_skipsAdAndShowsFreeLimitReachedPrompt() async {
+        await withMainSerialExecutor {
+            let memoID = UUID()
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = false
+            initialState.adBasedTranscriptionUnlockCount = UserDefaultsManager.freeAdBasedTranscriptionLimit
+            initialState.selectedMemoForDetails = memoID
+            initialState.showDetailSheet = true
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.audioPlayer = AudioPlayerClient(
+                    play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
+                )
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { },
+                    show: { _, _ in XCTFail("free-limit到達後は広告を出さずpremium promptへ直行するべき") }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.showGeminiTranscriptionFromDetail(memoID))) {
+                $0.showDetailSheet = false
+                $0.selectedMemoForDetails = nil
+                $0.transcriptionPromptReason = .freeLimitReached
                 $0.showTranscriptionPremiumPrompt = true
             }
         }
