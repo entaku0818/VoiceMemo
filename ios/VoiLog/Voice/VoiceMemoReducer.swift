@@ -39,6 +39,7 @@ struct VoiceMemoReducer: Reducer {
     private enum CancelID { case play }
     @Dependency(\.audioPlayer) var audioPlayer
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.userDefaults) var userDefaults
 
     private func playAudioEffect(
         url: URL,
@@ -192,7 +193,7 @@ struct VoiceMemoReducer: Reducer {
             }
 
         case .onAppear:
-            state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+            state.hasPurchasedPremium = userDefaults.hasPurchasedProduct()
             return .none
 
         }

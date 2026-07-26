@@ -157,6 +157,7 @@ struct PlaylistDetailFeature {
     @Dependency(\.voiceMemoCoredataAccessor) var voiceMemoAccessor
     @Dependency(\.continuousClock) var clock
     @Dependency(\.audioPlayer) var audioPlayer
+    @Dependency(\.userDefaults) var userDefaults
 
     private enum CancelID { case playback }
 
@@ -174,7 +175,7 @@ struct PlaylistDetailFeature {
                 switch viewAction {
                 case .onAppear:
                     state.isLoading = true
-                    state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+                    state.hasPurchasedPremium = userDefaults.hasPurchasedProduct()
 
                     return .run { [id = state.id] send in
                         do {

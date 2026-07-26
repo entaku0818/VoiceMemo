@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import Dependencies
 class MockPurchaseManager: PurchaseManagerProtocol {
+    @Dependency(\.userDefaults) var userDefaults
     var productName: String
     var productPrice: String
     var shouldThrowError: Bool
@@ -37,28 +39,28 @@ class MockPurchaseManager: PurchaseManagerProtocol {
         if shouldThrowError {
             throw PurchaseError.purchaseFailed
         }
-        UserDefaultsManager.shared.hasPurchasedProduct = true
+        userDefaults.setHasPurchasedProduct(true)
     }
 
     func purchaseAnnual() async throws {
         if shouldThrowError {
             throw PurchaseError.purchaseFailed
         }
-        UserDefaultsManager.shared.hasPurchasedProduct = true
+        userDefaults.setHasPurchasedProduct(true)
     }
 
     func startOneTimePurchase() async throws {
         if shouldThrowError {
             throw PurchaseError.purchaseFailed
         }
-        UserDefaultsManager.shared.hasSupportedDeveloper = true
+        userDefaults.setHasSupportedDeveloper(true)
     }
 
     func restorePurchases() async throws {
         if shouldThrowError {
             throw PurchaseError.noEntitlements
         }
-        UserDefaultsManager.shared.hasPurchasedProduct = true
+        userDefaults.setHasPurchasedProduct(true)
     }
 }
 

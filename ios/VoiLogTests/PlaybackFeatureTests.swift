@@ -451,12 +451,12 @@ final class PlaybackFeatureTests: XCTestCase {
 
     func testShowTranscription_freeUser_belowLimit_watchesAdAndIncrementsUnlockCount() async {
         await withMainSerialExecutor {
-            UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = 1
-
             let memoID = UUID()
             var initialState = PlaybackFeature.State()
             initialState.hasPurchasedPremium = false
+            initialState.adBasedTranscriptionUnlockCount = 1
             var rewardedCalled = false
+            var persistedCount: Int?
 
             let store = TestStore(initialState: initialState) {
                 PlaybackFeature()
@@ -472,6 +472,7 @@ final class PlaybackFeatureTests: XCTestCase {
                         onRewarded()
                     }
                 )
+                $0.userDefaults.setAdBasedTranscriptionUnlockCount = { persistedCount = $0 }
             }
             store.exhaustivity = .off
 
@@ -484,21 +485,16 @@ final class PlaybackFeatureTests: XCTestCase {
                 $0.showTranscriptionSheet = true
             }
             XCTAssertTrue(rewardedCalled)
-            XCTAssertEqual(UserDefaultsManager.shared.adBasedTranscriptionUnlockCount, 2)
-
-            // cleanup
-            UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = 0
+            XCTAssertEqual(persistedCount, 2)
         }
     }
 
     func testShowTranscription_freeUser_atLimit_skipsAdAndShowsFreeLimitReachedPrompt() async {
         await withMainSerialExecutor {
-            UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = 0
-
             let memoID = UUID()
             var initialState = PlaybackFeature.State()
             initialState.hasPurchasedPremium = false
-            initialState.adBasedTranscriptionUnlockCount = UserDefaultsManager.freeAdBasedTranscriptionLimit
+            initialState.adBasedTranscriptionUnlockCount = UserDefaultsClient.freeAdBasedTranscriptionLimit
 
             let store = TestStore(initialState: initialState) {
                 PlaybackFeature()
@@ -529,7 +525,7 @@ final class PlaybackFeatureTests: XCTestCase {
             let memoID = UUID()
             var initialState = PlaybackFeature.State()
             initialState.hasPurchasedPremium = false
-            initialState.adBasedTranscriptionUnlockCount = UserDefaultsManager.freeAdBasedTranscriptionLimit
+            initialState.adBasedTranscriptionUnlockCount = UserDefaultsClient.freeAdBasedTranscriptionLimit
             initialState.selectedMemoForDetails = memoID
             initialState.showDetailSheet = true
 
@@ -584,6 +580,8 @@ final class PlaybackFeatureTests: XCTestCase {
 
     func testVolumeBoostChanged_updatesStateAndPersists() async {
         await withMainSerialExecutor {
+            var persistedBoost: Float?
+
             let store = TestStore(initialState: PlaybackFeature.State()) {
                 PlaybackFeature()
             } withDependencies: {
@@ -593,6 +591,7 @@ final class PlaybackFeatureTests: XCTestCase {
                     stop: { true },
                     getCurrentTime: { 0 }
                 )
+                $0.userDefaults.setPlaybackVolumeBoost = { persistedBoost = $0 }
             }
             store.exhaustivity = .off
 
@@ -600,10 +599,7 @@ final class PlaybackFeatureTests: XCTestCase {
                 $0.volumeBoost = 2.0
             }
 
-            XCTAssertEqual(UserDefaultsManager.shared.playbackVolumeBoost, 2.0)
-
-            // cleanup
-            UserDefaultsManager.shared.playbackVolumeBoost = 1.0
+            XCTAssertEqual(persistedBoost, 2.0)
         }
     }
 

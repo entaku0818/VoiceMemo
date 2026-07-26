@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Dependencies
 
 struct SplashView: View {
     let onComplete: () -> Void
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some View {
         GeometryReader { geometry in
@@ -40,7 +42,7 @@ struct SplashView: View {
     }
 
     private func checkAndShowAd() {
-        let isPremium = UserDefaultsManager.shared.hasPurchasedProduct
+        let isPremium = userDefaults.hasPurchasedProduct()
         let appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount")
 
         // プレミアムユーザーはスキップ

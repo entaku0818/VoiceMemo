@@ -126,7 +126,7 @@ struct VoiceAppFeature {
         switch viewAction {
         case .onAppear:
           // 課金状態を更新
-          let hasPurchased = UserDefaultsManager.shared.hasPurchasedProduct
+          let hasPurchased = userDefaultsClient.hasPurchasedProduct()
           state.settingFeature.hasPurchasedPremium = hasPurchased
           state.playbackFeature.hasPurchasedPremium = hasPurchased
 
@@ -208,8 +208,8 @@ struct VoiceAppFeature {
         case .dismissPaywall:
           state.showPaywall = false
           // 購入状態を更新
-          state.settingFeature.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
-          state.playbackFeature.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+          state.settingFeature.hasPurchasedPremium = userDefaultsClient.hasPurchasedProduct()
+          state.playbackFeature.hasPurchasedPremium = userDefaultsClient.hasPurchasedProduct()
           return .none
 
         case .dismissFirstRecordingCelebration:

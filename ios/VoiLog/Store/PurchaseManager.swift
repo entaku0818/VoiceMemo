@@ -15,6 +15,7 @@ protocol PurchaseManagerProtocol {
 class PurchaseManager: PurchaseManagerProtocol {
     private let logger = OSLog(subsystem: "com.entaku.VoiLog", category: "Purchase")
     static let shared = PurchaseManager()
+    @Dependency(\.userDefaults) var userDefaults
 
     private enum Package {
         static let pro = "$rc_monthly"
@@ -83,7 +84,7 @@ class PurchaseManager: PurchaseManagerProtocol {
 
             if customerInfo.entitlements["premium"]?.isActive == true {
                 await MainActor.run {
-                    UserDefaultsManager.shared.hasPurchasedProduct = true
+                    userDefaults.setHasPurchasedProduct(true)
                 }
                 os_log("Pro purchase successful", log: logger, type: .debug)
             } else {
@@ -108,7 +109,7 @@ class PurchaseManager: PurchaseManagerProtocol {
             let (_, customerInfo, _) = try await Purchases.shared.purchase(package: package)
             if customerInfo.entitlements["premium"]?.isActive == true {
                 await MainActor.run {
-                    UserDefaultsManager.shared.hasPurchasedProduct = true
+                    userDefaults.setHasPurchasedProduct(true)
                 }
             } else {
                 throw PurchaseError.purchaseFailed
@@ -124,7 +125,7 @@ class PurchaseManager: PurchaseManagerProtocol {
         do {
             let customerInfo = try await Purchases.shared.restorePurchases()
             if customerInfo.entitlements["premium"]?.isActive == true {
-                UserDefaultsManager.shared.hasPurchasedProduct = true
+                userDefaults.setHasPurchasedProduct(true)
                 os_log("Restore successful", log: logger, type: .debug)
             } else {
                 os_log("Restore failed: no entitlements found", log: logger, type: .error)
@@ -174,7 +175,7 @@ class PurchaseManager: PurchaseManagerProtocol {
                    String(customerInfo.entitlements["premium"]?.isActive ?? false))
 
             if customerInfo.entitlements["premium"]?.isActive == true {
-                UserDefaultsManager.shared.hasSupportedDeveloper = true
+                userDefaults.setHasSupportedDeveloper(true)
             }
         } catch {
             os_log("Purchase failed: %{public}@", log: logger, type: .error, error.localizedDescription)

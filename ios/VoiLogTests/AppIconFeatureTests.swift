@@ -12,23 +12,10 @@ import ComposableArchitecture
 @MainActor
 final class AppIconFeatureTests: XCTestCase {
 
-    /// テスト前に UserDefaults を既知の状態にリセット
-    override func setUp() {
-        super.setUp()
-        UserDefaultsManager.shared.hasPurchasedProduct = false
-    }
-
-    override func tearDown() {
-        super.tearDown()
-        UserDefaultsManager.shared.hasPurchasedProduct = false
-    }
-
     // MARK: - onAppear Tests
 
     func test_onAppear_setsDefaultIconWhenNoAlternate() async {
         // Given: 未購入状態で初期化
-        UserDefaultsManager.shared.hasPurchasedProduct = false
-
         let store = TestStore(
             initialState: AppIconFeature.State(hasPurchasedPremium: false)
         ) {
@@ -40,7 +27,7 @@ final class AppIconFeatureTests: XCTestCase {
             )
         }
 
-        // onAppear は UserDefaultsManager から hasPurchasedPremium を再読み込みする
+        // onAppear は userDefaults(dependency)から hasPurchasedPremium を再読み込みする
         // false → false なら selectedIcon のみ変更 (no-op)
         // state は変わらないため exhaustivity を off にする
         store.exhaustivity = .off
@@ -51,8 +38,6 @@ final class AppIconFeatureTests: XCTestCase {
 
     func test_onAppear_setsBlueIconWhenAlternateIsBlue() async {
         // Given: プレミアム購入済み状態
-        UserDefaultsManager.shared.hasPurchasedProduct = true
-
         let store = TestStore(
             initialState: AppIconFeature.State(hasPurchasedPremium: true)
         ) {
@@ -71,8 +56,6 @@ final class AppIconFeatureTests: XCTestCase {
 
     func test_onAppear_setsDefaultWhenUnknownAlternate() async {
         // Given: 不明なアイコン名が返ってくる場合
-        UserDefaultsManager.shared.hasPurchasedProduct = true
-
         let store = TestStore(
             initialState: AppIconFeature.State(hasPurchasedPremium: true)
         ) {

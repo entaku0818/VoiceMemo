@@ -56,6 +56,7 @@ struct PlaylistListFeature {
     }
 
     @Dependency(\.playlistRepository) var playlistRepository
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some ReducerOf<Self> {
         BindingReducer()
@@ -64,7 +65,7 @@ struct PlaylistListFeature {
         switch action {
         case .onAppear:
             state.isLoading = true
-            state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+            state.hasPurchasedPremium = userDefaults.hasPurchasedProduct()
 
             return .run { send in
                 do {

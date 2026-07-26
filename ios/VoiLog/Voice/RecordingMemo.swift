@@ -116,6 +116,7 @@ struct RecordingMemo: Reducer {
 
     @Dependency(\.audioRecorder) var audioRecorder
     @Dependency(\.continuousClock) var clock
+    @Dependency(\.userDefaults) var userDefaults
 
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
@@ -142,10 +143,10 @@ struct RecordingMemo: Reducer {
 
         case .stopButtonTapped:
             state.mode = .encoding
-            state.fileFormat = UserDefaultsManager.shared.selectedFileFormat
-            state.samplingFrequency = UserDefaultsManager.shared.samplingFrequency
-            state.quantizationBitDepth = UserDefaultsManager.shared.quantizationBitDepth
-            state.numberOfChannels = UserDefaultsManager.shared.numberOfChannels
+            state.fileFormat = userDefaults.selectedFileFormat()
+            state.samplingFrequency = userDefaults.samplingFrequency()
+            state.quantizationBitDepth = userDefaults.quantizationBitDepth()
+            state.numberOfChannels = userDefaults.numberOfChannels()
             return .run { send in
                 if let currentTime = await self.audioRecorder.currentTime() {
                     await send(.finalRecordingTime(currentTime))
@@ -216,7 +217,7 @@ struct RecordingMemo: Reducer {
         case .getVolumes:
             return .run { send in
                 let volume = await audioRecorder.volumes()
-                UserDefaultsManager.shared.logError(String(format: "RecordingMemo - Volume: %.2f dB", volume))
+                userDefaults.logError(String(format: "RecordingMemo - Volume: %.2f dB", volume))
                 await send(.updateVolumes(volume))
             }
 

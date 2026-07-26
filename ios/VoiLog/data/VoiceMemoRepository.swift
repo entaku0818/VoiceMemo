@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import Dependencies
 
 @MainActor
 class VoiceMemoRepository {
+
+    @Dependency(\.userDefaults) var userDefaults
 
     private let coreDataAccessor: VoiceMemoCoredataAccessorProtocol
     private let cloudUploader: CloudUploaderProtocol
@@ -50,7 +53,7 @@ class VoiceMemoRepository {
                 samplingFrequency: voice.samplingFrequency,
                 quantizationBitDepth: Int(voice.quantizationBitDepth),
                 numberOfChannels: Int(voice.numberOfChannels),
-                hasPurchasedPremium: UserDefaultsManager.shared.hasPurchasedProduct
+                hasPurchasedPremium: userDefaults.hasPurchasedProduct()
             )
         }
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Dependencies
 
 struct ErrorLogsView: View {
     @ObservedObject private var viewModel = ErrorLogsViewModel()
@@ -27,10 +28,11 @@ struct ErrorLogsView: View {
 }
 
 class ErrorLogsViewModel: ObservableObject {
+    @Dependency(\.userDefaults) var userDefaults
     @Published var errorLogs: [String] = []
 
     func fetchErrorLogs() {
-        errorLogs = UserDefaultsManager.shared.errorLogs
+        errorLogs = userDefaults.errorLogs()
     }
 }
 

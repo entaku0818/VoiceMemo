@@ -19,6 +19,7 @@ import ActivityKit
 import os.log
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+    @Dependency(\.userDefaults) var userDefaults
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
@@ -55,8 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         UNUserNotificationCenter.current().delegate = self
                     }
                     // 初回インストール時のみ D1/D3 リテンション通知をスケジュール
-                    if UserDefaultsManager.shared.installDate == nil {
-                        UserDefaultsManager.shared.installDate = Date()
+                    if self.userDefaults.installDate() == nil {
+                        self.userDefaults.setInstallDate(Date())
                         NotificationScheduler.shared.scheduleD1Notification()
                         NotificationScheduler.shared.scheduleD3Notification()
                     }
@@ -81,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 struct VoiceMemoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State private var showSplash = true
+    @Dependency(\.userDefaults) var userDefaults
 
     var admobUnitId: String!
     var recordAdmobUnitId: String!
@@ -139,11 +141,11 @@ struct VoiceMemoApp: App {
                     backgroundTaskManager.endBackgroundTask()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
-                    UserDefaultsManager.shared.logError("applicationWillTerminate")
+                    userDefaults.logError("applicationWillTerminate")
                     cleanupLiveActivities()
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
-                    UserDefaultsManager.shared.logError("applicationWillTerminate")
+                    userDefaults.logError("applicationWillTerminate")
                     cleanupLiveActivities()
                 }
             }

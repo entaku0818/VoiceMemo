@@ -102,6 +102,8 @@ extension AudioRecorderClient: DependencyKey {
     }
 }
 private actor AudioRecorder {
+    @Dependency(\.userDefaults) var userDefaults
+
     var speechRecognizer: SFSpeechRecognizer?
     var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     var recognitionTask: SFSpeechRecognitionTask?
@@ -155,10 +157,10 @@ private actor AudioRecorder {
                 .mixWithOthers,
                 .duckOthers  // 他の音声を小さくして録音を継続
             ])
-            try audioSession.setPreferredSampleRate(UserDefaultsManager.shared.samplingFrequency)
+            try audioSession.setPreferredSampleRate(userDefaults.samplingFrequency())
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
-            UserDefaultsManager.shared.logError("Failed to set up AVAudioSession: \(error.localizedDescription)")
+            userDefaults.logError("Failed to set up AVAudioSession: \(error.localizedDescription)")
         }
     }
 
@@ -177,7 +179,7 @@ private actor AudioRecorder {
                 inputNode = audioEngine?.inputNode
 
                 guard let inputNode = inputNode else {
-                    UserDefaultsManager.shared.logError("Input node not available")
+                    userDefaults.logError("Input node not available")
                     continuation.finish(throwing: NSError(domain: "InputNodeError", code: -1, userInfo: nil))
                     return
                 }
@@ -185,11 +187,11 @@ private actor AudioRecorder {
                 // 割り込み処理を安全に登録
                 self.setupInterruptionHandling()
 
-                inputNode.volume = Float(UserDefaultsManager.shared.microphonesVolume)
+                inputNode.volume = Float(userDefaults.microphonesVolume())
 
                 recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
                 guard let recognitionRequest = recognitionRequest else {
-                    UserDefaultsManager.shared.logError("Unable to create a SFSpeechAudioBufferRecognitionRequest object")
+                    userDefaults.logError("Unable to create a SFSpeechAudioBufferRecognitionRequest object")
                     fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object")
                 }
                 recognitionRequest.shouldReportPartialResults = true
@@ -210,16 +212,16 @@ private actor AudioRecorder {
                     }
 
                     if self.isFinal {
-                        UserDefaultsManager.shared.logError("isFinal")
+                        self.userDefaults.logError("isFinal")
                         self.recognitionTask = nil
                         continuation.yield(true)
                         continuation.finish()
                     }
                 }
 
-                let fileFormat: AudioFormatID = Constants.FileFormat(rawValue: UserDefaultsManager.shared.selectedFileFormat)?.audioId ?? kAudioFormatMPEG4AAC
-                let quantizationBitDepth: Int = UserDefaultsManager.shared.quantizationBitDepth
-                let sampleRate: Double = UserDefaultsManager.shared.samplingFrequency
+                let fileFormat: AudioFormatID = Constants.FileFormat(rawValue: userDefaults.selectedFileFormat())?.audioId ?? kAudioFormatMPEG4AAC
+                let quantizationBitDepth: Int = userDefaults.quantizationBitDepth()
+                let sampleRate: Double = userDefaults.samplingFrequency()
                 let numberOfChannels: Int = 1
 
                 let settings = [
@@ -262,7 +264,7 @@ private actor AudioRecorder {
                     converter.convert(to: convertedBuffer, error: &error, withInputFrom: inputBlock)
 
                     if let error = error {
-                        UserDefaultsManager.shared.logError("Conversion error: \(error.localizedDescription)")
+                        self.userDefaults.logError("Conversion error: \(error.localizedDescription)")
                         return
                     }
 
@@ -272,7 +274,7 @@ private actor AudioRecorder {
                     do {
                         try audioFile.write(from: convertedBuffer)
                     } catch {
-                        UserDefaultsManager.shared.logError(error.localizedDescription)
+                        self.userDefaults.logError(error.localizedDescription)
                         RollbarLogger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
                         continuation.finish(throwing: error)
                     }
@@ -282,7 +284,7 @@ private actor AudioRecorder {
                 try audioEngine?.start()
 
             } catch {
-                UserDefaultsManager.shared.logError(error.localizedDescription)
+                userDefaults.logError(error.localizedDescription)
                 RollbarLogger.shared.logError(error.localizedDescription)
                 continuation.finish(throwing: error)
             }
@@ -290,12 +292,12 @@ private actor AudioRecorder {
 
         do {
             guard let action = try await stream.first(where: { @Sendable _ in true }) else {
-                UserDefaultsManager.shared.logError("CancellationError")
+                userDefaults.logError("CancellationError")
                 return false
             }
             return action
         } catch {
-            UserDefaultsManager.shared.logError("Stream error: \(error.localizedDescription)")
+            userDefaults.logError("Stream error: \(error.localizedDescription)")
             return false
         }
     }
@@ -327,7 +329,7 @@ private actor AudioRecorder {
     }
 
     func audioEngineConfigurationChange(notification: Notification) async {
-        UserDefaultsManager.shared.logError("AudioEngine configuration change detected")
+        userDefaults.logError("AudioEngine configuration change detected")
     }
 
     func getWaveFormHeights() -> [Float] {
@@ -340,7 +342,7 @@ private actor AudioRecorder {
 
     private func updateAudioLevel(buffer: AVAudioPCMBuffer) {
         guard let channelData = buffer.floatChannelData else {
-            UserDefaultsManager.shared.logError("AudioLevel: channelData is nil")
+            userDefaults.logError("AudioLevel: channelData is nil")
             return
         }
         let channelDataValue = channelData.pointee
@@ -364,8 +366,8 @@ private actor AudioRecorder {
         }
 
         // デバッグ情報を詳細にログ出力
-        UserDefaultsManager.shared.logError(String(format: "AudioLevel Debug - RMS: %.6f, Power: %.2f dB, Max: %.6f, Min: %.6f, Samples: %d",
-                                                  rms, avgPower, maxValue, minValue, buffer.frameLength))
+        userDefaults.logError(String(format: "AudioLevel Debug - RMS: %.6f, Power: %.2f dB, Max: %.6f, Min: %.6f, Samples: %d",
+                                     rms, avgPower, maxValue, minValue, buffer.frameLength))
 
         // actorのコンテキストで更新
         self.audioLevel = avgPower
@@ -425,7 +427,7 @@ private actor AudioRecorder {
 
         switch type {
         case .began:
-            UserDefaultsManager.shared.logError("Audio interruption began - trying to maintain recording")
+            userDefaults.logError("Audio interruption began - trying to maintain recording")
             // 録音を継続するために何もしない（duckOthersオプションで他の音を小さくする）
 
         case .ended:
@@ -435,12 +437,12 @@ private actor AudioRecorder {
             let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
 
             if options.contains(.shouldResume) {
-                UserDefaultsManager.shared.logError("Audio interruption ended - resuming recording")
+                userDefaults.logError("Audio interruption ended - resuming recording")
                 // AudioSessionを再アクティブ化
                 do {
                     try AVAudioSession.sharedInstance().setActive(true)
                 } catch {
-                    UserDefaultsManager.shared.logError("Failed to reactivate audio session: \(error)")
+                    userDefaults.logError("Failed to reactivate audio session: \(error)")
                 }
             }
 
@@ -461,9 +463,9 @@ private actor AudioRecorder {
 
         switch reason {
         case .newDeviceAvailable:
-            UserDefaultsManager.shared.logError("New audio device available")
+            userDefaults.logError("New audio device available")
         case .oldDeviceUnavailable:
-            UserDefaultsManager.shared.logError("Audio device disconnected")
+            userDefaults.logError("Audio device disconnected")
         default:
             break
         }
