@@ -1,7 +1,4 @@
-Version 1.12.0
+संस्करण 1.12.1
 
-[New Features]
-- Control playback, pause, and seek from the Lock Screen and Control Center
-- See your recording status in a Live Activity / Dynamic Island
-- Start/stop recording and transcribe your latest recording via Shortcuts/Siri
-- Generate meeting summaries on-device with Foundation Models (faster, no network needed)
+[सुधार]
+- ट्रांसक्रिप्शन सुविधा की मुफ़्त ट्रायल सीमा को स्पष्ट किया गया और सीमा तक पहुंचने पर दिखाए जाने वाले संदेश में सुधार किया गया

@@ -1,7 +1,4 @@
-Wersja 1.12.0
+Wersja 1.12.1
 
-[Nowe funkcje]
-- Steruj odtwarzaniem, pauzą i przewijaniem z ekranu blokady i Centrum sterowania
-- Sprawdzaj status nagrywania w Aktywności na żywo / Dynamic Island
-- Rozpoczynaj/kończ nagrywanie i transkrybuj ostatnie nagranie za pomocą Skrótów/Siri
-- Generuj podsumowania spotkań bezpośrednio na urządzeniu dzięki Foundation Models (szybciej, bez połączenia z siecią)
+[Ulepszenia]
+- Doprecyzowano limit bezpłatnej wersji próbnej funkcji transkrypcji i poprawiono komunikat wyświetlany po jego osiągnięciu

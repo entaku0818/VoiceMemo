@@ -1,7 +1,4 @@
-Versione 1.12.0
+Versione 1.12.1
 
-[Nuove funzionalità]
-- Controlla riproduzione, pausa e avanzamento dalla schermata di blocco e dal Centro di Controllo
-- Visualizza lo stato della registrazione in un'Attività Live / Dynamic Island
-- Avvia/interrompi la registrazione e trascrivi l'ultima registrazione tramite Comandi Rapidi/Siri
-- Genera i riepiloghi delle riunioni sul dispositivo con Foundation Models (più veloce, senza connessione)
+[Miglioramenti]
+- Chiarito il limite di prova gratuita della funzione di trascrizione e migliorato il messaggio mostrato al raggiungimento del limite

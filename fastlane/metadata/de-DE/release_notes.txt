@@ -1,7 +1,4 @@
-Version 1.12.0
+Version 1.12.1
 
-[Neue Funktionen]
-- Wiedergabe, Pause und Suchlauf über Sperrbildschirm und Kontrollzentrum steuern
-- Aufnahmestatus in einer Live-Aktivität / Dynamic Island anzeigen
-- Aufnahme über Kurzbefehle/Siri starten/stoppen und die neueste Aufnahme transkribieren
-- Besprechungszusammenfassungen direkt auf dem Gerät mit Foundation Models erstellen (schneller, ohne Internetverbindung)
+[Verbesserungen]
+- Das kostenlose Testkontingent für die Transkriptionsfunktion wurde klargestellt und der Hinweis beim Erreichen des Limits verbessert
