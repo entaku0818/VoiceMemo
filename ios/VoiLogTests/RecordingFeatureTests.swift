@@ -249,6 +249,8 @@ final class RecordingFeatureTests: XCTestCase {
 
     func testPresetSelected_UpdatesStateAndUserDefaults() async {
         await withMainSerialExecutor {
+            var persistedPreset: String?
+
             let store = TestStore(initialState: RecordingFeature.State()) {
                 RecordingFeature()
             } withDependencies: {
@@ -263,6 +265,7 @@ final class RecordingFeatureTests: XCTestCase {
                     recordingState: { .idle },
                     recognizeAudio: { _ in nil }
                 )
+                $0.userDefaults.setSelectedRecordingPreset = { persistedPreset = $0 }
             }
 
             await store.send(.view(.presetSelected(.meeting))) {
@@ -271,7 +274,7 @@ final class RecordingFeatureTests: XCTestCase {
                 $0.autoGainControlEnabled = RecordingPreset.meeting.autoGainControlEnabled
             }
 
-            XCTAssertEqual(UserDefaultsManager.shared.selectedRecordingPreset, RecordingPreset.meeting.rawValue)
+            XCTAssertEqual(persistedPreset, RecordingPreset.meeting.rawValue)
         }
     }
 
@@ -339,6 +342,9 @@ final class RecordingFeatureTests: XCTestCase {
 
     func testNoiseCancellationToggled_SwitchesToCustomPreset() async {
         await withMainSerialExecutor {
+            var persistedNoiseCancellation: Bool?
+            var persistedPreset: String?
+
             let store = TestStore(
                 initialState: RecordingFeature.State(
                     selectedPreset: .memo,
@@ -358,6 +364,8 @@ final class RecordingFeatureTests: XCTestCase {
                     recordingState: { .idle },
                     recognizeAudio: { _ in nil }
                 )
+                $0.userDefaults.setNoiseCancellationEnabled = { persistedNoiseCancellation = $0 }
+                $0.userDefaults.setSelectedRecordingPreset = { persistedPreset = $0 }
             }
 
             await store.send(.view(.noiseCancellationToggled(false))) {
@@ -365,13 +373,16 @@ final class RecordingFeatureTests: XCTestCase {
                 $0.selectedPreset = .custom
             }
 
-            XCTAssertFalse(UserDefaultsManager.shared.noiseCancellationEnabled)
-            XCTAssertEqual(UserDefaultsManager.shared.selectedRecordingPreset, RecordingPreset.custom.rawValue)
+            XCTAssertEqual(persistedNoiseCancellation, false)
+            XCTAssertEqual(persistedPreset, RecordingPreset.custom.rawValue)
         }
     }
 
     func testAutoGainControlToggled_SwitchesToCustomPreset() async {
         await withMainSerialExecutor {
+            var persistedAutoGain: Bool?
+            var persistedPreset: String?
+
             let store = TestStore(
                 initialState: RecordingFeature.State(
                     selectedPreset: .memo,
@@ -391,6 +402,8 @@ final class RecordingFeatureTests: XCTestCase {
                     recordingState: { .idle },
                     recognizeAudio: { _ in nil }
                 )
+                $0.userDefaults.setAutoGainControlEnabled = { persistedAutoGain = $0 }
+                $0.userDefaults.setSelectedRecordingPreset = { persistedPreset = $0 }
             }
 
             await store.send(.view(.autoGainControlToggled(false))) {
@@ -398,8 +411,8 @@ final class RecordingFeatureTests: XCTestCase {
                 $0.selectedPreset = .custom
             }
 
-            XCTAssertFalse(UserDefaultsManager.shared.autoGainControlEnabled)
-            XCTAssertEqual(UserDefaultsManager.shared.selectedRecordingPreset, RecordingPreset.custom.rawValue)
+            XCTAssertEqual(persistedAutoGain, false)
+            XCTAssertEqual(persistedPreset, RecordingPreset.custom.rawValue)
         }
     }
 

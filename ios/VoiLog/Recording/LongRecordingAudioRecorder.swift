@@ -2,8 +2,11 @@ import Foundation
 import AVFoundation
 import UIKit
 import os.log
+import Dependencies
 
 actor LongRecordingAudioRecorder: NSObject {
+    @Dependency(\.userDefaults) var userDefaults
+
     private var audioRecorder: AVAudioRecorder?
     private var startTime: Date?
     private var pausedDuration: TimeInterval = 0
@@ -140,7 +143,7 @@ actor LongRecordingAudioRecorder: NSObject {
 
             // デバッグログ
             logger.debug("AudioLevel: Raw power: \(String(format: "%.2f", power)) dB, Clipped: \(String(format: "%.2f", clippedPower)) dB")
-            UserDefaultsManager.shared.logError(String(format: "LongRecordingAudioRecorder - Power: %.2f dB, Clipped: %.2f dB", power, clippedPower))
+            userDefaults.logError(String(format: "LongRecordingAudioRecorder - Power: %.2f dB, Clipped: %.2f dB", power, clippedPower))
 
             return clippedPower
         default:

@@ -103,7 +103,10 @@ struct AppIconFeature {
         var isLoading = false
         var errorMessage: String?
 
-        init(hasPurchasedPremium: Bool = UserDefaultsManager.shared.hasPurchasedProduct) {
+        init(hasPurchasedPremium: Bool = {
+            @Dependency(\.userDefaults) var userDefaults
+            return userDefaults.hasPurchasedProduct()
+        }()) {
             self.hasPurchasedPremium = hasPurchasedPremium
         }
     }
@@ -120,6 +123,7 @@ struct AppIconFeature {
     // MARK: - Dependencies
 
     @Dependency(\.uiApplicationIconClient) var iconClient
+    @Dependency(\.userDefaults) var userDefaults
 
     // MARK: - Body
 
@@ -127,7 +131,7 @@ struct AppIconFeature {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+                state.hasPurchasedPremium = userDefaults.hasPurchasedProduct()
                 let currentIconName = iconClient.currentAlternateIconName()
                 if let iconName = currentIconName, let icon = AppIcon(rawValue: iconName) {
                     state.selectedIcon = icon

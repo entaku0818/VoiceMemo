@@ -7,9 +7,12 @@
 
 import GoogleMobileAds
 import UIKit
+import Dependencies
 
 final class AppOpenAdManager: NSObject {
     static let shared = AppOpenAdManager()
+
+    @Dependency(\.userDefaults) var userDefaults
 
     private var appOpenAd: AppOpenAd?
     private var isLoading = false
@@ -82,7 +85,7 @@ final class AppOpenAdManager: NSObject {
     @discardableResult
     func showAdIfNeeded(onDismiss: (() -> Void)? = nil) -> Bool {
         let appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount")
-        let isPremium = UserDefaultsManager.shared.hasPurchasedProduct
+        let isPremium = userDefaults.hasPurchasedProduct()
 
         // プレミアムユーザーは広告を表示しない
         guard !isPremium else {

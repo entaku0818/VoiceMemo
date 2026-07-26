@@ -39,28 +39,30 @@ struct SettingReducer {
         case startTutorialRequested
     }
 
+    @Dependency(\.userDefaults) var userDefaults
+
     var body: some ReducerOf<Self> {
         Reduce { state, action in
         switch action {
         case let .selectFileFormat(fileFormat):
             state.selectedFileFormat = fileFormat
-            UserDefaultsManager.shared.selectedFileFormat = fileFormat
+            userDefaults.setSelectedFileFormat(fileFormat)
             return .none
         case let .samplingFrequency(rate):
             state.samplingFrequency = rate
-            UserDefaultsManager.shared.samplingFrequency = rate
+            userDefaults.setSamplingFrequency(rate)
             return .none
         case let .quantizationBitDepth(bit):
             state.quantizationBitDepth = bit
-            UserDefaultsManager.shared.quantizationBitDepth = bit
+            userDefaults.setQuantizationBitDepth(bit)
             return .none
         case let .numberOfChannels(number):
             state.numberOfChannels = number
-            UserDefaultsManager.shared.numberOfChannels = number
+            userDefaults.setNumberOfChannels(number)
             return .none
         case let .microphonesVolume(volume):
             state.microphonesVolume = volume
-            UserDefaultsManager.shared.microphonesVolume = volume
+            userDefaults.setMicrophonesVolume(volume)
             return .none
         case .showSupportDeveloperAlert:
             if state.developerSupported { return .none }
@@ -82,15 +84,15 @@ struct SettingReducer {
         case .supported:
             state.developerSupported = true
             state.showPurchaseSuccessAlert = true
-            UserDefaultsManager.shared.hasSupportedDeveloper = true
+            userDefaults.setHasSupportedDeveloper(true)
             return .none
         case .onAppear:
-            state.developerSupported = UserDefaultsManager.shared.hasSupportedDeveloper
-            state.hasPurchasedPremium = UserDefaultsManager.shared.hasPurchasedProduct
+            state.developerSupported = userDefaults.hasSupportedDeveloper()
+            state.hasPurchasedPremium = userDefaults.hasPurchasedProduct()
             state.dailyReminderEnabled = UserDefaults.standard.bool(forKey: "DailyReminderEnabled")
             state.dailyReminderHour = UserDefaults.standard.object(forKey: "DailyReminderHour") as? Int ?? 9
             state.dailyReminderMinute = UserDefaults.standard.object(forKey: "DailyReminderMinute") as? Int ?? 0
-            state.isTranscriptionEnabled = UserDefaultsManager.shared.isTranscriptionEnabled
+            state.isTranscriptionEnabled = userDefaults.isTranscriptionEnabled()
             return .none
         case .restorePurchases:
             return .run { send in
@@ -138,7 +140,7 @@ struct SettingReducer {
             return .none
         case let .toggleTranscription(enabled):
             state.isTranscriptionEnabled = enabled
-            UserDefaultsManager.shared.isTranscriptionEnabled = enabled
+            userDefaults.setIsTranscriptionEnabled(enabled)
             return .none
         case let .setDailyReminderTime(date):
             let hour = Calendar.current.component(.hour, from: date)
@@ -168,7 +170,10 @@ struct SettingReducer {
         var dailyReminderEnabled = false
         var dailyReminderHour: Int = 9
         var dailyReminderMinute: Int = 0
-        var isTranscriptionEnabled = UserDefaultsManager.shared.isTranscriptionEnabled
+        var isTranscriptionEnabled: Bool = {
+            @Dependency(\.userDefaults) var userDefaults
+            return userDefaults.isTranscriptionEnabled()
+        }()
         var showPurchaseConfirmAlert = false
         var showPurchaseSuccessAlert = false
         var showRestoreSuccessAlert = false

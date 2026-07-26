@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Dependencies
 
 #if DEBUG
 struct AdDebugView: View {
     @State private var appUsageCount: Int = UserDefaults.standard.integer(forKey: "appUsageCount")
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some View {
         List {
@@ -61,7 +63,7 @@ struct AdDebugView: View {
                 HStack {
                     Text("プレミアムユーザー")
                     Spacer()
-                    Text(UserDefaultsManager.shared.hasPurchasedProduct ? String(localized: "はい", table: "Settings") : String(localized: "いいえ", table: "Settings"))
+                    Text(userDefaults.hasPurchasedProduct() ? String(localized: "はい", table: "Settings") : String(localized: "いいえ", table: "Settings"))
                         .foregroundColor(.secondary)
                 }
             }

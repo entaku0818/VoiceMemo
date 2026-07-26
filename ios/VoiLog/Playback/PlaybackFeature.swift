@@ -42,10 +42,13 @@ struct PlaybackFeature {
     var showTranscriptionPremiumPrompt = false
     var transcriptionPromptReason: TranscriptionPromptReason = .adSkipped
     // 広告視聴での無料アンロック回数（lifetime）。issue #207: 上限がなく無料で使い放題だった不具合の修正
-    var adBasedTranscriptionUnlockCount: Int = UserDefaultsManager.shared.adBasedTranscriptionUnlockCount
+    var adBasedTranscriptionUnlockCount: Int = {
+      @Dependency(\.userDefaults) var userDefaults
+      return userDefaults.adBasedTranscriptionUnlockCount()
+    }()
 
     var hasFreeTranscriptionUnlockRemaining: Bool {
-      adBasedTranscriptionUnlockCount < UserDefaultsManager.freeAdBasedTranscriptionLimit
+      adBasedTranscriptionUnlockCount < UserDefaultsClient.freeAdBasedTranscriptionLimit
     }
 
     // Apple transcription (timestampedText viewer)
@@ -75,7 +78,10 @@ struct PlaybackFeature {
     var showPaywall = false
 
     // Volume boost (1.0 = no boost, up to 3.0)
-    var volumeBoost: Float = UserDefaultsManager.shared.playbackVolumeBoost
+    var volumeBoost: Float = {
+      @Dependency(\.userDefaults) var userDefaults
+      return userDefaults.playbackVolumeBoost()
+    }()
 
   }
 
@@ -243,6 +249,7 @@ struct PlaybackFeature {
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
   @Dependency(\.rewardedAdClient) var rewardedAdClient
   @Dependency(\.nowPlayingClient) var nowPlayingClient
+  @Dependency(\.userDefaults) var userDefaults
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -506,7 +513,7 @@ struct PlaybackFeature {
 
         case .rewardedAdCompleted:
           state.adBasedTranscriptionUnlockCount += 1
-          UserDefaultsManager.shared.adBasedTranscriptionUnlockCount = state.adBasedTranscriptionUnlockCount
+          userDefaults.setAdBasedTranscriptionUnlockCount(state.adBasedTranscriptionUnlockCount)
           state.showTranscriptionSheet = true
           return .none
 
@@ -641,7 +648,7 @@ struct PlaybackFeature {
 
         case let .volumeBoostChanged(boost):
           state.volumeBoost = boost
-          UserDefaultsManager.shared.playbackVolumeBoost = boost
+          userDefaults.setPlaybackVolumeBoost(boost)
           return .none
 
         case .volumeBoostApplied:

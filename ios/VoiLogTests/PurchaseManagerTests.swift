@@ -1,4 +1,5 @@
 import XCTest
+import Dependencies
 @testable import VoiLog
 
 final class PurchaseManagerTests: XCTestCase {
@@ -43,10 +44,14 @@ final class PurchaseManagerTests: XCTestCase {
     // MARK: - purchasePro
 
     func testPurchaseProSetsHasPurchasedProduct() async throws {
-        UserDefaultsManager.shared.hasPurchasedProduct = false
-        let sut = MockPurchaseManager.succeeding
-        try await sut.purchasePro()
-        XCTAssertTrue(UserDefaultsManager.shared.hasPurchasedProduct)
+        var persisted: Bool?
+        try await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { persisted = $0 }
+        } operation: {
+            let sut = MockPurchaseManager.succeeding
+            try await sut.purchasePro()
+        }
+        XCTAssertEqual(persisted, true)
     }
 
     func testPurchaseProThrowsWhenShouldThrowError() async {
@@ -62,10 +67,14 @@ final class PurchaseManagerTests: XCTestCase {
     // MARK: - purchaseAnnual
 
     func testPurchaseAnnualSetsHasPurchasedProduct() async throws {
-        UserDefaultsManager.shared.hasPurchasedProduct = false
-        let sut = MockPurchaseManager.succeeding
-        try await sut.purchaseAnnual()
-        XCTAssertTrue(UserDefaultsManager.shared.hasPurchasedProduct)
+        var persisted: Bool?
+        try await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { persisted = $0 }
+        } operation: {
+            let sut = MockPurchaseManager.succeeding
+            try await sut.purchaseAnnual()
+        }
+        XCTAssertEqual(persisted, true)
     }
 
     func testPurchaseAnnualThrowsWhenShouldThrowError() async {
@@ -81,10 +90,14 @@ final class PurchaseManagerTests: XCTestCase {
     // MARK: - restorePurchases
 
     func testRestorePurchasesSetsHasPurchasedProduct() async throws {
-        UserDefaultsManager.shared.hasPurchasedProduct = false
-        let sut = MockPurchaseManager.succeeding
-        try await sut.restorePurchases()
-        XCTAssertTrue(UserDefaultsManager.shared.hasPurchasedProduct)
+        var persisted: Bool?
+        try await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { persisted = $0 }
+        } operation: {
+            let sut = MockPurchaseManager.succeeding
+            try await sut.restorePurchases()
+        }
+        XCTAssertEqual(persisted, true)
     }
 
     func testRestorePurchasesThrowsWhenShouldThrowError() async {

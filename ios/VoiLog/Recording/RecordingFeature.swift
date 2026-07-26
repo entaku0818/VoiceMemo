@@ -88,6 +88,7 @@ struct RecordingFeature {
   @Dependency(\.uuid) var uuid
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
   @Dependency(\.liveActivityClient) var liveActivityClient
+  @Dependency(\.userDefaults) var userDefaults
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -160,7 +161,7 @@ struct RecordingFeature {
             .send(.delegate(.recordingCompleted(result))),
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
-              guard UserDefaultsManager.shared.isTranscriptionEnabled else { return }
+              guard userDefaults.isTranscriptionEnabled() else { return }
               if let (text, segs) = await longRecordingAudioClient.recognizeAudio(recordingUrl) {
                 let transcription = TimestampedTranscription(segments: segs, fullText: text)
                 await send(.transcriptionCompleted(recordingId, transcription.toJSON()))
@@ -215,7 +216,7 @@ struct RecordingFeature {
             .send(.delegate(.recordingCompleted(result))),
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
-              guard UserDefaultsManager.shared.isTranscriptionEnabled else { return }
+              guard userDefaults.isTranscriptionEnabled() else { return }
               if let (text, segs) = await longRecordingAudioClient.recognizeAudio(recordingUrl) {
                 let transcription = TimestampedTranscription(segments: segs, fullText: text)
                 await send(.transcriptionCompleted(recordingId, transcription.toJSON()))
@@ -241,20 +242,20 @@ struct RecordingFeature {
           }
 
         case .onAppear:
-          let preset = RecordingPreset(rawValue: UserDefaultsManager.shared.selectedRecordingPreset) ?? .memo
+          let preset = RecordingPreset(rawValue: userDefaults.selectedRecordingPreset()) ?? .memo
           state.selectedPreset = preset
           if preset != .custom {
             state.noiseCancellationEnabled = preset.noiseCancellationEnabled
             state.autoGainControlEnabled = preset.autoGainControlEnabled
           } else {
-            state.noiseCancellationEnabled = UserDefaultsManager.shared.noiseCancellationEnabled
-            state.autoGainControlEnabled = UserDefaultsManager.shared.autoGainControlEnabled
+            state.noiseCancellationEnabled = userDefaults.noiseCancellationEnabled()
+            state.autoGainControlEnabled = userDefaults.autoGainControlEnabled()
           }
           return .none
 
         case let .presetSelected(preset):
           state.selectedPreset = preset
-          UserDefaultsManager.shared.selectedRecordingPreset = preset.rawValue
+          userDefaults.setSelectedRecordingPreset(preset.rawValue)
           if preset != .custom {
             state.noiseCancellationEnabled = preset.noiseCancellationEnabled
             state.autoGainControlEnabled = preset.autoGainControlEnabled
@@ -264,15 +265,15 @@ struct RecordingFeature {
         case let .noiseCancellationToggled(enabled):
           state.noiseCancellationEnabled = enabled
           state.selectedPreset = .custom
-          UserDefaultsManager.shared.noiseCancellationEnabled = enabled
-          UserDefaultsManager.shared.selectedRecordingPreset = RecordingPreset.custom.rawValue
+          userDefaults.setNoiseCancellationEnabled(enabled)
+          userDefaults.setSelectedRecordingPreset(RecordingPreset.custom.rawValue)
           return .none
 
         case let .autoGainControlToggled(enabled):
           state.autoGainControlEnabled = enabled
           state.selectedPreset = .custom
-          UserDefaultsManager.shared.autoGainControlEnabled = enabled
-          UserDefaultsManager.shared.selectedRecordingPreset = RecordingPreset.custom.rawValue
+          userDefaults.setAutoGainControlEnabled(enabled)
+          userDefaults.setSelectedRecordingPreset(RecordingPreset.custom.rawValue)
           return .none
         }
 
@@ -358,10 +359,10 @@ struct RecordingFeature {
 
   private func startRecording(state: inout State) -> Effect<Action> {
     // 録音開始時の設定をStateに保存
-    let fileFormat = UserDefaultsManager.shared.selectedFileFormat
-    let samplingFrequency = UserDefaultsManager.shared.samplingFrequency
-    let bitDepth = UserDefaultsManager.shared.quantizationBitDepth
-    let channels = UserDefaultsManager.shared.numberOfChannels
+    let fileFormat = userDefaults.selectedFileFormat()
+    let samplingFrequency = userDefaults.samplingFrequency()
+    let bitDepth = userDefaults.quantizationBitDepth()
+    let channels = userDefaults.numberOfChannels()
 
     state.recordingFileFormat = fileFormat
     state.recordingSamplingFrequency = samplingFrequency

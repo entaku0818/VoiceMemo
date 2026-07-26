@@ -24,8 +24,25 @@ struct UserDefaultsClient {
     var setHasPurchasedProduct: @Sendable (Bool) -> Void
     var hasSeenTutorial: @Sendable () -> Bool
     var setHasSeenTutorial: @Sendable (Bool) -> Void
+    var hasShownTrialPromotion: @Sendable () -> Bool
+    var setHasShownTrialPromotion: @Sendable (Bool) -> Void
+    var noiseCancellationEnabled: @Sendable () -> Bool
+    var setNoiseCancellationEnabled: @Sendable (Bool) -> Void
+    var autoGainControlEnabled: @Sendable () -> Bool
+    var setAutoGainControlEnabled: @Sendable (Bool) -> Void
+    var selectedRecordingPreset: @Sendable () -> String
+    var setSelectedRecordingPreset: @Sendable (String) -> Void
+    var isTranscriptionEnabled: @Sendable () -> Bool
+    var setIsTranscriptionEnabled: @Sendable (Bool) -> Void
+    var playbackVolumeBoost: @Sendable () -> Float
+    var setPlaybackVolumeBoost: @Sendable (Float) -> Void
+    var adBasedTranscriptionUnlockCount: @Sendable () -> Int
+    var setAdBasedTranscriptionUnlockCount: @Sendable (Int) -> Void
     var bool: @Sendable (String) -> Bool
     var set: @Sendable (Bool, String) -> Void
+
+    // 広告視聴による文字起こし無料アンロック回数の上限（lifetime）。issue #207
+    static let freeAdBasedTranscriptionLimit = 3
 }
 
 extension UserDefaultsClient: DependencyKey {
@@ -106,6 +123,49 @@ extension UserDefaultsClient: DependencyKey {
         setHasSeenTutorial: { newValue in
             UserDefaults.standard.set(newValue, forKey: "HasSeenTutorial")
         },
+        hasShownTrialPromotion: {
+            UserDefaults.standard.bool(forKey: "HasShownTrialPromotion")
+        },
+        setHasShownTrialPromotion: { newValue in
+            UserDefaults.standard.set(newValue, forKey: "HasShownTrialPromotion")
+        },
+        noiseCancellationEnabled: {
+            UserDefaults.standard.bool(forKey: "NoiseCancellationEnabled")
+        },
+        setNoiseCancellationEnabled: { newValue in
+            UserDefaults.standard.set(newValue, forKey: "NoiseCancellationEnabled")
+        },
+        autoGainControlEnabled: {
+            UserDefaults.standard.bool(forKey: "AutoGainControlEnabled")
+        },
+        setAutoGainControlEnabled: { newValue in
+            UserDefaults.standard.set(newValue, forKey: "AutoGainControlEnabled")
+        },
+        selectedRecordingPreset: {
+            UserDefaults.standard.string(forKey: "SelectedRecordingPreset") ?? RecordingPreset.memo.rawValue
+        },
+        setSelectedRecordingPreset: { newValue in
+            UserDefaults.standard.set(newValue, forKey: "SelectedRecordingPreset")
+        },
+        isTranscriptionEnabled: {
+            UserDefaults.standard.object(forKey: "TranscriptionEnabled") as? Bool ?? true
+        },
+        setIsTranscriptionEnabled: { newValue in
+            UserDefaults.standard.set(newValue, forKey: "TranscriptionEnabled")
+        },
+        playbackVolumeBoost: {
+            let value = UserDefaults.standard.float(forKey: "PlaybackVolumeBoost")
+            return value < 1.0 ? 1.0 : value
+        },
+        setPlaybackVolumeBoost: { newValue in
+            UserDefaults.standard.set(newValue, forKey: "PlaybackVolumeBoost")
+        },
+        adBasedTranscriptionUnlockCount: {
+            UserDefaults.standard.integer(forKey: "AdBasedTranscriptionUnlockCount")
+        },
+        setAdBasedTranscriptionUnlockCount: { newValue in
+            UserDefaults.standard.set(newValue, forKey: "AdBasedTranscriptionUnlockCount")
+        },
         bool: { key in
             UserDefaults.standard.bool(forKey: key)
         },
@@ -137,6 +197,20 @@ extension UserDefaultsClient: DependencyKey {
         setHasPurchasedProduct: { _ in },
         hasSeenTutorial: { false },
         setHasSeenTutorial: { _ in },
+        hasShownTrialPromotion: { false },
+        setHasShownTrialPromotion: { _ in },
+        noiseCancellationEnabled: { false },
+        setNoiseCancellationEnabled: { _ in },
+        autoGainControlEnabled: { false },
+        setAutoGainControlEnabled: { _ in },
+        selectedRecordingPreset: { RecordingPreset.memo.rawValue },
+        setSelectedRecordingPreset: { _ in },
+        isTranscriptionEnabled: { true },
+        setIsTranscriptionEnabled: { _ in },
+        playbackVolumeBoost: { 1.0 },
+        setPlaybackVolumeBoost: { _ in },
+        adBasedTranscriptionUnlockCount: { 0 },
+        setAdBasedTranscriptionUnlockCount: { _ in },
         bool: { _ in false },
         set: { _, _ in }
     )
