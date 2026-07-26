@@ -212,7 +212,7 @@ private actor AudioRecorder {
                     }
 
                     if self.isFinal {
-                        userDefaults.logError("isFinal")
+                        self.userDefaults.logError("isFinal")
                         self.recognitionTask = nil
                         continuation.yield(true)
                         continuation.finish()
@@ -264,7 +264,7 @@ private actor AudioRecorder {
                     converter.convert(to: convertedBuffer, error: &error, withInputFrom: inputBlock)
 
                     if let error = error {
-                        userDefaults.logError("Conversion error: \(error.localizedDescription)")
+                        self.userDefaults.logError("Conversion error: \(error.localizedDescription)")
                         return
                     }
 
@@ -274,7 +274,7 @@ private actor AudioRecorder {
                     do {
                         try audioFile.write(from: convertedBuffer)
                     } catch {
-                        userDefaults.logError(error.localizedDescription)
+                        self.userDefaults.logError(error.localizedDescription)
                         RollbarLogger.shared.logError("audioFile.writeFromBuffer error:" + error.localizedDescription)
                         continuation.finish(throwing: error)
                     }
