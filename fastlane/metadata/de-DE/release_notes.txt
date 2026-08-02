@@ -1,4 +1,8 @@
-Version 1.12.1
+Version 1.12.2
+
+[Fehlerbehebungen]
+- Problem behoben, bei dem beim Start eine Anzeige über dem App-Bildschirm erscheinen konnte
+- Problem behoben, bei dem das Intervall für Start-Anzeigen nicht wie konfiguriert funktionierte
 
 [Verbesserungen]
-- Das kostenlose Testkontingent für die Transkriptionsfunktion wurde klargestellt und der Hinweis beim Erreichen des Limits verbessert
+- Für Premium-Mitglieder werden keine unnötigen Anzeigen mehr geladen

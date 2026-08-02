@@ -1,4 +1,8 @@
-Versione 1.12.1
+Versione 1.12.2
+
+[Correzioni]
+- Risolto un problema per cui all'avvio un annuncio poteva comparire sopra la schermata dell'app
+- Corretto l'intervallo degli annunci all'avvio, che non funzionava come configurato
 
 [Miglioramenti]
-- Chiarito il limite di prova gratuita della funzione di trascrizione e migliorato il messaggio mostrato al raggiungimento del limite
+- Gli annunci non necessari non vengono più caricati per i membri Premium

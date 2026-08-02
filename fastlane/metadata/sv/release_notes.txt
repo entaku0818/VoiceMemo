@@ -1,4 +1,8 @@
-Version 1.12.1
+Version 1.12.2
+
+[Korrigeringar]
+- Åtgärdade ett problem där en annons kunde visas ovanpå appens skärm vid start
+- Åtgärdade intervallet för startannonser som inte fungerade enligt inställningen
 
 [Förbättringar]
-- Förtydligade gränsen för gratis provperiod för transkriptionsfunktionen och förbättrade meddelandet som visas när gränsen nås
+- Onödiga annonser laddas inte längre för Premium-medlemmar

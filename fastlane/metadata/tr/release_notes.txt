@@ -1,4 +1,8 @@
-Sürüm 1.12.1
+Sürüm 1.12.2
+
+[Düzeltmeler]
+- Uygulama açılışında reklamın uygulama ekranının üzerinde görünebilmesine yol açan sorun giderildi
+- Açılış reklamı aralığının ayarlandığı gibi çalışmaması sorunu giderildi
 
 [İyileştirmeler]
-- Transkripsiyon özelliğinin ücretsiz deneme limiti netleştirildi ve limite ulaşıldığında gösterilen mesaj iyileştirildi
+- Premium üyeler için gereksiz reklam yüklemesi durduruldu

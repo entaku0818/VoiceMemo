@@ -1,4 +1,8 @@
-Version 1.12.1
+Version 1.12.2
+
+[Corrections]
+- Correction d'un problème où une publicité pouvait s'afficher par-dessus l'écran de l'application au démarrage
+- Correction de l'intervalle d'affichage des publicités au démarrage qui ne fonctionnait pas comme configuré
 
 [Améliorations]
-- Clarification de la limite d'essai gratuit de la fonction de transcription et amélioration du message affiché lorsque vous l'atteignez
+- Les publicités inutiles ne sont plus chargées pour les membres Premium

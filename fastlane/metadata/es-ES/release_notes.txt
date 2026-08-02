@@ -1,4 +1,8 @@
-Versión 1.12.1
+Versión 1.12.2
+
+[Correcciones]
+- Se ha corregido un problema por el que un anuncio podía aparecer sobre la pantalla de la aplicación al iniciarla
+- Se ha corregido el intervalo de los anuncios de inicio, que no funcionaba según lo configurado
 
 [Mejoras]
-- Se aclaró el límite de prueba gratuita de la función de transcripción y se mejoró el mensaje que aparece al alcanzarlo
+- Se ha dejado de cargar anuncios innecesarios para los miembros Premium

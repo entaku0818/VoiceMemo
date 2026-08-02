@@ -1,4 +1,8 @@
-Versi 1.12.1
+Versi 1.12.2
+
+[Perbaikan]
+- Memperbaiki masalah saat iklan dapat muncul di atas layar aplikasi ketika dibuka
+- Memperbaiki interval iklan saat pembukaan yang tidak berjalan sesuai pengaturan
 
 [Peningkatan]
-- Memperjelas batas uji coba gratis untuk fitur transkripsi dan meningkatkan pesan yang ditampilkan saat mencapai batas tersebut
+- Berhenti memuat iklan yang tidak diperlukan bagi anggota Premium

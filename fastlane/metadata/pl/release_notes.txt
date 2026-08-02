@@ -1,4 +1,8 @@
-Wersja 1.12.1
+Wersja 1.12.2
+
+[Poprawki]
+- Naprawiono problem, przez który przy uruchamianiu reklama mogła pojawiać się na ekranie aplikacji
+- Naprawiono odstęp między reklamami przy uruchamianiu, który nie działał zgodnie z ustawieniami
 
 [Ulepszenia]
-- Doprecyzowano limit bezpłatnej wersji próbnej funkcji transkrypcji i poprawiono komunikat wyświetlany po jego osiągnięciu
+- Zaprzestano ładowania zbędnych reklam dla członków Premium

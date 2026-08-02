@@ -1,4 +1,8 @@
-Phiên bản 1.12.1
+Phiên bản 1.12.2
+
+[Sửa lỗi]
+- Đã sửa lỗi quảng cáo có thể hiển thị đè lên màn hình ứng dụng khi khởi động
+- Đã sửa lỗi khoảng cách hiển thị quảng cáo khi khởi động không hoạt động đúng như thiết lập
 
 [Cải tiến]
-- Đã làm rõ giới hạn dùng thử miễn phí của tính năng phiên âm và cải thiện thông báo khi đạt đến giới hạn
+- Ngừng tải quảng cáo không cần thiết đối với thành viên Premium

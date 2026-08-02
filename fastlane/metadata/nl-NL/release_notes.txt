@@ -1,4 +1,8 @@
-Versie 1.12.1
+Versie 1.12.2
+
+[Oplossingen]
+- Probleem opgelost waarbij bij het opstarten een advertentie over het app-scherm kon verschijnen
+- Probleem opgelost waarbij het interval voor opstartadvertenties niet werkte zoals ingesteld
 
 [Verbeteringen]
-- De gratis proeflimiet voor de transcriptiefunctie is verduidelijkt en het bericht dat wordt getoond bij het bereiken van de limiet is verbeterd
+- Er worden geen onnodige advertenties meer geladen voor Premium-leden

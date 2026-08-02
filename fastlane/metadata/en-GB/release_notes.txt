@@ -1,4 +1,8 @@
-Version 1.12.1
+Version 1.12.2
+
+[Fixes]
+- Fixed an issue where an advert could appear on top of the app screen at launch
+- Fixed the launch advert interval not working as configured
 
 [Improvements]
-- Clarified the free trial limit for the transcription feature and improved the messaging shown when you reach it
+- Stopped loading unnecessary adverts for Premium members
