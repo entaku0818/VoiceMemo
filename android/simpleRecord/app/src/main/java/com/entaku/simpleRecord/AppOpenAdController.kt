@@ -44,6 +44,12 @@ class AppOpenAdController private constructor(private val context: Context) {
         }
 
     fun loadAd(onAdLoaded: ((Boolean) -> Unit)? = null) {
+        // プレミアムユーザーには広告を表示しないので、リクエスト自体を投げない
+        if (PremiumRepository.getInstance(context).isPremium.value) {
+            onAdLoaded?.invoke(false)
+            return
+        }
+
         if (isLoadingAd || isAdAvailable) {
             onAdLoaded?.invoke(isAdAvailable)
             return

@@ -8,9 +8,27 @@
 import SwiftUI
 import Dependencies
 
+/// onCompleteが二重に呼ばれるのを防ぐためのフラグ置き場。
+/// SplashViewは値型なので、escapingクロージャ間で状態を共有するには参照型が必要。
+private final class SplashCompletionGuard {
+    private(set) var isCompleted = false
+
+    /// 初回のみtrueを返す。2回目以降は常にfalse。
+    func claim() -> Bool {
+        guard !isCompleted else { return false }
+        isCompleted = true
+        return true
+    }
+}
+
 struct SplashView: View {
     let onComplete: () -> Void
     @Dependency(\.userDefaults) var userDefaults
+
+    /// 広告のロード完了・表示終了・5秒タイムアウトは互いに独立して発火するため、
+    /// ガードが無いとonCompleteが複数回呼ばれる（タイムアウト後に広告がロードされると
+    /// 本編UIの上にApp Open広告が被さる）
+    @State private var completionGuard = SplashCompletionGuard()
 
     var body: some View {
         GeometryReader { geometry in
@@ -51,8 +69,9 @@ struct SplashView: View {
             return
         }
 
-        // 3回に1回広告表示
-        let shouldShowAd = appUsageCount > 0 && appUsageCount % 3 == 0
+        // AppOpenAdManager側の表示条件と必ず一致させる（別の間隔値を持たせない）
+        let displayInterval = AppOpenAdManager.shared.displayInterval
+        let shouldShowAd = appUsageCount > 0 && appUsageCount % displayInterval == 0
 
         if shouldShowAd {
             loadAndShowAd()
@@ -78,17 +97,20 @@ struct SplashView: View {
         }
 
         // タイムアウト（5秒後に広告ロードを諦める）
+        // 広告を表示中の場合は、ユーザーが視聴し終えるまで待つ
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [self] in
-            if !AppOpenAdManager.shared.isAdReady {
-                completeAfterDelay(delay: 0.0)
-            }
+            guard !AppOpenAdManager.shared.isPresentingAd else { return }
+            complete()
         }
     }
 
     private func showAdAndComplete() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            // タイムアウト等で既に本編へ遷移済みなら、広告を後から被せない
+            guard !completionGuard.isCompleted else { return }
+
             let adShown = AppOpenAdManager.shared.showAdIfNeeded {
-                onComplete()
+                complete()
             }
             if !adShown {
                 completeAfterDelay(delay: 0.5)
@@ -98,8 +120,14 @@ struct SplashView: View {
 
     private func completeAfterDelay(delay: Double) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            onComplete()
+            complete()
         }
+    }
+
+    /// onCompleteを最大1回だけ呼ぶ
+    private func complete() {
+        guard completionGuard.claim() else { return }
+        onComplete()
     }
 }
 

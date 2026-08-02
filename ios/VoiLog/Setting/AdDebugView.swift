@@ -13,6 +13,9 @@ struct AdDebugView: View {
     @State private var appUsageCount: Int = UserDefaults.standard.integer(forKey: "appUsageCount")
     @Dependency(\.userDefaults) var userDefaults
 
+    /// 表示間隔はAppOpenAdManagerが唯一の情報源。デバッグ画面でも値をハードコードしない
+    private var displayInterval: Int { AppOpenAdManager.shared.displayInterval }
+
     var body: some View {
         List {
             Section(header: Text("起動回数")) {
@@ -28,7 +31,8 @@ struct AdDebugView: View {
                         UserDefaults.standard.set(newValue, forKey: "appUsageCount")
                     }
 
-                Text(String(localized: "5回に1回（5, 10, 15...回目）に広告表示", table: "Settings"))
+                // DEBUGビルド専用画面なのでローカライズ対象外
+                Text(verbatim: "Ad shown every \(displayInterval) launches")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -44,7 +48,7 @@ struct AdDebugView: View {
                 .foregroundColor(.blue)
 
                 Button(String(localized: "次回起動で広告表示（カウント調整）", table: "Settings")) {
-                    let nextAdCount = ((appUsageCount / 5) + 1) * 5 - 1
+                    let nextAdCount = ((appUsageCount / displayInterval) + 1) * displayInterval - 1
                     appUsageCount = nextAdCount
                     UserDefaults.standard.set(nextAdCount, forKey: "appUsageCount")
                 }
@@ -55,7 +59,7 @@ struct AdDebugView: View {
                 HStack {
                     Text(String(localized: "次の広告表示", table: "Settings"))
                     Spacer()
-                    let nextAd = ((appUsageCount / 5) + 1) * 5
+                    let nextAd = ((appUsageCount / displayInterval) + 1) * displayInterval
                     Text(String(format: String(localized: "Launch #%lld", table: "Settings"), nextAd))
                         .foregroundColor(.secondary)
                 }
