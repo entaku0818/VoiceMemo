@@ -139,7 +139,7 @@ iOS同等の「リワード視聴で文字起こしアンロック」を実装�
 
 | 項目 | 内容 |
 |---|---|
-| `android/.../res/xml/gma_ad_services_config.xml` が**未追跡** | `AndroidManifest.xml:42-45` が `@xml/gma_ad_services_config` を参照済みなので、**クリーンcloneやCIではリソースリンクに失敗してビルドが通らない**。このマシンでしかビルドできない状態 |
+| `android/.../res/xml/gma_ad_services_config.xml` が**未追跡** | ローカルとリリースで**挙動が食い違う**。`AndroidManifest.xml:42-45` が `@xml/gma_ad_services_config` を参照しているが、この名前のリソースは play-services-ads の AAR にデフォルトが同梱されているため**ビルドは通る**（クリーンworktreeで `assembleDebug` 成功を確認済み）。問題は、ローカルの未追跡ファイルが `ad_services_enabled=false` でそれを上書きしている点。**手元では Privacy Sandbox Ad Services が無効、CI/リリースビルドでは AAR デフォルト（有効）** になる。追跡するか削除するかを決めて、両者を一致させる必要がある |
 | `ios/VoiLog/Prod.xcconfig` が**git追跡下で本番ユニットIDが平文** | `git ls-files` に載っている。gitignoreされていない |
 | Metaアダプタが `branch = main` ピン | `project.pbxproj:972-979`。バージョン固定でないため再現性なし。タグ指定にすべき |
 | SKAdNetworkリスト未更新 | `Info.plist` に50件（AdMob標準リストのみ）。Metaアダプタを足したのに Meta のパートナーIDリストを追加していない |
@@ -304,7 +304,7 @@ AdMob を主体のまま維持
    - `AppOpenAdManager.swift` / `SplashView.swift` / `AdDebugView.swift`
    - `VoiLogTests/AppOpenAdManagerTests.swift` を `git add`
    - **Meta関連（`project.pbxproj` / `Package.resolved` / `VoiceMemoApp.swift` の `FBAdSettings`）はこのPRに含めない** — Phase 3へ切り出す
-1-2. `android/.../res/xml/gma_ad_services_config.xml` を `git add`（クリーンcloneでビルドが通らない現状の修正）
+1-2. `android/.../res/xml/gma_ad_services_config.xml` の扱いを決める（ローカルとリリースで Privacy Sandbox Ad Services の有効/無効が食い違っている。追跡するか削除するか）
 1-3. Androidバナーを `AdSize.BANNER` → アダプティブアンカーバナーに変更（`BannerAdView.kt`）
 1-4. Androidの `RewardedAdController.loadAd()` 呼び出しを削除（表示先が無いため）。iOS同等のリワード導線は別issueに切り出す
 1-5. iOS/Androidとも、課金ユーザーに対する preload をゲート
