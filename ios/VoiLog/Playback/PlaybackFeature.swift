@@ -262,6 +262,10 @@ struct PlaybackFeature {
       case let .view(viewAction):
         switch viewAction {
         case .onAppear:
+          // プレミアムユーザーにはリワード広告を出さないので、リクエスト自体を投げない
+          guard !state.hasPurchasedPremium else {
+            return loadMemos()
+          }
           let preload = rewardedAdClient.preload
           return .merge(
             .run { _ in preload() },

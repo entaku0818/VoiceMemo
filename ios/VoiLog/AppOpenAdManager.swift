@@ -21,7 +21,8 @@ final class AppOpenAdManager: NSObject {
     private var onAdLoaded: ((Bool) -> Void)?
 
     /// 広告を表示する間隔（何回に1回表示するか）
-    private let displayInterval = 5
+    /// SplashView側も必ずこの値を参照すること（別々の値を持つと二重ゲートで表示が握りつぶされる）
+    let displayInterval = 5
 
     /// 広告の有効期限（4時間）
     private let adExpirationHours: TimeInterval = 4
@@ -30,6 +31,9 @@ final class AppOpenAdManager: NSObject {
     var isAdReady: Bool {
         appOpenAd != nil && !isAdExpired
     }
+
+    /// 広告を全画面表示中かどうか（スプラッシュ側のタイムアウト判定に使う）
+    private(set) var isPresentingAd = false
 
     /// 広告が期限切れかどうか
     private var isAdExpired: Bool {
@@ -46,6 +50,12 @@ final class AppOpenAdManager: NSObject {
     /// 広告をプリロードする
     /// - Parameter completion: ロード完了時に呼ばれるクロージャ（成功時true、失敗時false）
     func preloadAd(completion: ((Bool) -> Void)? = nil) {
+        // プレミアムユーザーには広告を表示しないので、リクエスト自体を投げない
+        guard !userDefaults.hasPurchasedProduct() else {
+            completion?(false)
+            return
+        }
+
         guard !isLoading && appOpenAd == nil else {
             if appOpenAd != nil {
                 completion?(true)
@@ -92,7 +102,7 @@ final class AppOpenAdManager: NSObject {
             return false
         }
 
-        // 5回に1回表示（5, 10, 15, 20...回目の起動時）
+        // displayInterval回に1回表示（5, 10, 15, 20...回目の起動時）
         guard appUsageCount > 0 && appUsageCount % displayInterval == 0 else {
             // 次回のために広告をプリロード
             preloadAd()
@@ -119,6 +129,7 @@ final class AppOpenAdManager: NSObject {
         }
 
         self.onDismiss = onDismiss
+        isPresentingAd = true
         ad.present(from: rootViewController)
         return true
     }
@@ -127,6 +138,7 @@ final class AppOpenAdManager: NSObject {
 // MARK: - FullScreenContentDelegate
 extension AppOpenAdManager: FullScreenContentDelegate {
     func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
+        isPresentingAd = false
         appOpenAd = nil
         loadTime = nil
         // 次回のために新しい広告をプリロード
@@ -137,6 +149,7 @@ extension AppOpenAdManager: FullScreenContentDelegate {
     }
 
     func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        isPresentingAd = false
         appOpenAd = nil
         loadTime = nil
         preloadAd()
