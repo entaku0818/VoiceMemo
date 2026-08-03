@@ -82,6 +82,7 @@ struct VoiceAppFeature {
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
   @Dependency(\.userDefaults) var userDefaultsClient
   @Dependency(\.voiceMemoCoredataAccessor) var coreDataAccessor
+  @Dependency(\.appTracking) var appTracking
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -150,13 +151,17 @@ struct VoiceAppFeature {
 
           if isFirstLaunch && !tutorialCompleted {
             state.shouldShowTutorial = true
+            // ATTプロンプトはチュートリアル完了後まで遅らせる（ダイアログを重ねない）
             return .merge(
               cleanupEffect,
               .send(.tutorialFeature(.view(.start)))
             )
           }
 
-          return cleanupEffect
+          return .merge(
+            cleanupEffect,
+            requestAppTrackingAuthorizationEffect()
+          )
 
         case .startTutorial:
           state.shouldShowTutorial = true
@@ -319,7 +324,8 @@ struct VoiceAppFeature {
 
       case .tutorialFeature(.delegate(.tutorialCompleted)):
         state.shouldShowTutorial = false
-        return .none
+        // 初回起動でチュートリアルを見せた場合、onAppearでは出していないのでここで出す
+        return requestAppTrackingAuthorizationEffect()
 
       case .tutorialFeature(.delegate(.switchToTab(let tabIndex))):
         state.selectedTab = tabIndex
@@ -365,6 +371,15 @@ struct VoiceAppFeature {
         state.syncStatus = .idle
         return .none
       }
+    }
+  }
+
+  /// ATTの許諾プロンプトを表示する effect。
+  /// 未決定のときだけプロンプトが出る（決定済みなら client 側で早期リターンする）。
+  /// 課金ユーザーにも呼ぶ：ATTはFirebase Analytics等の計測にも影響し、広告専用の許諾ではないため。
+  private func requestAppTrackingAuthorizationEffect() -> Effect<Action> {
+    .run { _ in
+      _ = await appTracking.requestAuthorization()
     }
   }
 }

@@ -103,11 +103,22 @@ App Openは全フォーマット中もっともeCPMが高い部類。**この修
 
 > ⚠️ 3への短縮は保留中。15回に1回 → 3回に1回は**体感5倍**でリテンション/レビューへの影響があり得るため、v1.12.2ではまず**5回に1回**で出した。リリース+7日のAdMob数値を見てから3を検討する。
 
-### 2-2. 🔴 ATT（App Tracking Transparency）プロンプトを一度も出していない（iOS）
+### 2-2. ✅ ATT（App Tracking Transparency）プロンプトが約19ヶ月間出ていなかった（実装済み・未リリース）
 
-【事実】`ATTrackingManager` / `AppTrackingTransparency` / `requestTrackingAuthorization` はリポジトリ全体で**ヒットゼロ**。`INFOPLIST_KEY_NSUserTrackingUsageDescription` は `project.pbxproj:747, 801` に設定済みなので、**プロンプトを出す準備だけできていて、実際には一度も出していない**。
+**これは「未実装」ではなく「デグレ」だった。**
 
-結果、IDFA取得率は実質0%。全iOSインプレッションが非パーソナライズ扱いで配信されている。
+【事実】git履歴:
+- **2023-06-24 `147b417e`「ATTを追加」** — レガシーの `VoiLog/VoiceList.swift` の `VoiceMemosView.init` から `checkTrackingAuthorizationStatus()` を呼ぶ形で実装されていた
+- **2025-01-09 `fdd03382`「update」** — Modern Architecture 移行に伴い `VoiLog/Voice/VoiceList.swift` が削除され、**ATTも一緒に失われた**（コミットメッセージにATTへの言及なし）
+- 以降、約19ヶ月間プロンプトは表示されていなかった
+
+結果、IDFA取得率は実質0%。全iOSインプレッションが非パーソナライズ扱いで配信されていた。**eCPM ¥49.8 が日本のiOSバナー相場（≒¥196）の1/4である最有力の説明。**
+
+**対応済み（2026-08-03）**: `ios/VoiLog/data/AppTrackingClient.swift` としてTCA dependency化し、`VoiceAppFeature` の reducer から呼ぶように再実装した。Viewの`init`から呼ぶ元の実装と違い、reducer経由なのでテストで固定できる（`AppTrackingClientTests` / `VoiceAppFeatureAppTrackingTests` で回帰を防止）。
+
+表示タイミング:
+- 通常起動 … `VoiceAppFeature.onAppear`（スプラッシュ／App Open広告の後）
+- 初回起動 … チュートリアル完了後まで遅延（ダイアログを重ねないため）
 
 - ATTオプトイン率の業界水準は **25〜27%** ([Playwire](https://www.playwire.com/blog/mastering-idfa-opt-in-rates-the-complete-apptrackingtransparency-guide-for-ios-apps), [adlibrary 2026](https://adlibrary.com/posts/ios-14-att))
 - IDFA不可トラフィックのeCPMは可のトラフィックより **37〜42%低い** ([InMobi](https://advertising.inmobi.com/blog/att-and-ios-14.5-impact-analysis-initial-insights/inmobi-exchange-ios-14-and-idfa-what-you-should-know))
@@ -327,7 +338,7 @@ AdMob を主体のまま維持
 
 ### Phase 3: ATT + 同意管理（Metaの有無に関わらず単体で価値あり）
 
-3-1. `AppTrackingTransparency` を導入し、適切なタイミング（オンボーディング後、初回録音完了後など）で `requestTrackingAuthorization` を呼ぶ
+3-1. ~~`AppTrackingTransparency` を導入~~ → **2026-08-03 実装済み**（`AppTrackingClient.swift`）。次回リリースに含める
 3-2. UMP (User Messaging Platform) を導入し、EEA/UK向けの同意フォームを表示（iOS/Android両方）
 3-3. `FBAdSettings.setAdvertiserTrackingEnabled()` に**実際のATTステータス**を渡す。Android側にも同意シグナルを配線
 3-4. Meta の SKAdNetwork ID を `Info.plist` に追加
@@ -356,7 +367,7 @@ Phase 2 で有意な上乗せが確認できた場合に限り、LY Ads Network 
 
 ### Phase 3 の前に判断が必要（製品判断・エンジニアが決められない）
 
-- [ ] **ATTプロンプトをどこで出すか**。初回起動時に出すと許諾率が下がる。「オンボーディング完了後」「初回録音の保存後」などの候補から選ぶ必要がある。**ここは仕様の分かれ道なので指示がほしい**
+- [x] ~~**ATTプロンプトをどこで出すか**~~ → 2023年に一度シップされていた挙動（メイン画面表示時）を踏襲し、**通常起動はスプラッシュ後 / 初回起動はチュートリアル完了後**で実装した。許諾率を見て「初回録音の保存後」に後ろへずらす選択肢は残る
 - [ ] **App Open広告の表示頻度**。現状は実質15起動に1回。設計意図の5回に1回に戻すか、未コミット変更どおり3回に1回まで攻めるか。収益とリテンションのトレードオフ
 - [x] ~~**Metaアダプタをリリースするかどうか**~~ → **2026-08-03に「一旦なくす」と判断し撤去**。`wip/meta-audience-network` に退避。期待上乗せが月¥0〜150程度に対しATT/UMP実装が前提条件になるため。ATT自体は広告全体に効くので Phase 3 として単体で残す
 
