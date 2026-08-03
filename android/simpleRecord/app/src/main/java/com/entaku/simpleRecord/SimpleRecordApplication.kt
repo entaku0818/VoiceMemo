@@ -23,11 +23,8 @@ class SimpleRecordApplication : Application() {
             PurchasesConfiguration.Builder(this, BuildConfig.REVENUECAT_API_KEY).build()
         )
 
-        // NOTE: com.facebook.ads.AdSettings.setAdvertiserTrackingEnabled(Boolean) はiOS版FBAudienceNetwork
-        // (Objective-C/Swift) のAPIであり、Android版audience-network-sdk 6.21.0には存在しない
-        // (App Tracking TransparencyはApple固有の仕組みのため)。そのためAndroidでは何も呼び出していない。
-        // GDPR同意管理(UMP)も未導入のため、Meta側の同意関連設定(AdSettings.setDataProcessingOptions等)は
-        // 未実装のまま。導入時は実際の同意状態を渡すこと（詳細はissue #212）
+        // NOTE: GDPR同意管理(UMP)は未導入。メディエーションを導入する際は同意状態の取得と
+        // 各ネットワークへの伝達が前提になる（詳細はissue #212 / docs/ad_mediation_plan.md）
 
         // Initialize Mobile Ads SDK
         // NOTE: RewardedAdControllerのプリロードはここで呼んでいたが、showAd()の呼び出し元が

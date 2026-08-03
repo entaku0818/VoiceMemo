@@ -14,11 +14,11 @@
 
 | 依頼時の前提 | 実態 | 根拠 |
 |---|---|---|
-| iOSは GoogleMobileAds のみ。**メディエーションアダプタは一切入っていない** | **Meta Audience Network アダプタが既に追加済み**（未コミット）。`googleads-mobile-ios-mediation-meta`（branch main）+ `fbaudiencenetwork` 6.21.1、GMA 12.14.0→13.7.0 | `ios/VoiLog.xcodeproj/project.pbxproj:972-979, 1012-1019`、`Package.resolved` |
+| iOSは GoogleMobileAds のみ。**メディエーションアダプタは一切入っていない** | 調査時点では **Meta Audience Network アダプタが未コミットで追加済み**だった（`googleads-mobile-ios-mediation-meta` branch main + `fbaudiencenetwork` 6.21.1、GMA 12.14.0→13.7.0）。**2026-08-03に撤去し `wip/meta-audience-network` へ退避**。現在の main は依頼時の前提どおり GoogleMobileAds 単独 | `wip/meta-audience-network` ブランチ |
 | 広告ユニットは**3枠**（ADMOB_KEY / RECORD_ADMOB_KEY / PLAYLIST_ADMOB_KEY） | **5枠**。上記に加え `INTERSTITIAL_ADMOB_KEY`（実際はApp Open広告が使用）、`REWARDED_ADMOB_KEY` | `ios/VoiLog/Info.plist:5-24`、`ios/VoiLog/Prod.xcconfig:11-16` |
-| （Android側の言及なし） | Androidにも広告あり。**しかもMetaアダプタが同じく未コミットで追加済み** | `android/simpleRecord/app/build.gradle.kts:179-180` |
+| （Android側の言及なし） | Androidにも広告あり。Metaアダプタも同じく未コミットで追加されていたが、**2026-08-03に撤去**（`play-services-ads` 25.4.0 へのバンプは維持） | `android/simpleRecord/app/build.gradle.kts` |
 
-つまり**方針Aは既に半分着手されていて、未コミット・未リリースのまま止まっている**。これが今回いちばん重要な発見。
+調査時点では**方針Aが既に半分着手されていて、未コミット・未リリースのまま止まっていた**。その後 2026-08-03 に「Metaは一旦なくす」と判断して撤去したため、現在の main は GoogleMobileAds 単独に戻っている。
 
 ---
 
@@ -43,7 +43,7 @@
 
 **頻度制御** — App Openのみ。`appUsageCount`（`VoiceMemoApp.swift:28-29` でコールドラウンチごとに+1）を使う。
 
-**課金ユーザー判定** — RevenueCatのライブ問い合わせではなく `UserDefaults` の `HasPurchasedProduct` bool（`data/UserDefaultsClient.swift:114-116`）。**表示箇所は6/6すべてゲート済み**。ただし preload 側は未ゲート（`VoiceMemoApp.swift:49`、`PlaybackFeature.swift:265-268` など）で、課金ユーザーにも広告リクエストだけは飛んでいる。
+**課金ユーザー判定** — RevenueCatのライブ問い合わせではなく `UserDefaults` の `HasPurchasedProduct` bool（`data/UserDefaultsClient.swift:114-116`）。**表示箇所は6/6すべてゲート済み**。preload 側も v1.12.2 でゲート済み（`AppOpenAdManager.preloadAd` と `PlaybackFeature` の `rewardedAdClient.preload`）。
 
 ### 1-2. Android (シンプル録音)
 
@@ -54,7 +54,7 @@
 | 6 | リワード | **なし（ロードのみ、表示コールサイトゼロ）** | なし | `RewardedAdController.kt:54-80` |
 
 - **録音タブ（アプリの主画面）にバナーがない**。
-- リワード広告は毎起動 `loadAd()` されるが `showAd()` の呼び出し元が存在しない。**リクエストだけ投げて1インプレッションも出していない**。
+- ~~リワード広告は毎起動 `loadAd()` されるが `showAd()` の呼び出し元が存在しない~~ → PR #213 でプリロード呼び出しを削除済み（`showAd()` の導線は未実装のまま）。
 - バナーが `AdSize.BANNER` 固定サイズ。**iOSと違ってアダプティブ化されていない**。
 - `adView.destroy()/pause()/resume()` のライフサイクル処理なし。
 - App Open頻度: `DISPLAY_INTERVAL = 5`（5起動に1回）、有効期限4時間（`AppOpenAdController.kt:20-24`）。
@@ -86,20 +86,22 @@
 
 依頼のスコープ外だが、**メディエーションより期待値が大きい**ので先に出す。
 
-### 2-1. 🔴 App Open広告の二重ゲートで、意図の1/5しか表示されていない（iOS・本番稼働中）
+### 2-1. ✅ App Open広告の二重ゲートで、意図の1/5しか表示されていなかった（iOS・v1.12.2で修正済み）
 
-【事実】main (v1.12.1、本番) のコード:
+【事実】v1.12.1（当時の本番）のコード:
 
 - `SplashView.swift:54` … `appUsageCount % 3 == 0` （ハードコード）
 - `AppOpenAdManager.swift:24, 96` … `appUsageCount % displayInterval == 0`、`displayInterval = 5`
 
 両方を通過する必要があるため、実際に表示されるのは **`appUsageCount % 15 == 0`、つまり15起動に1回**。設計意図は5起動に1回。
 
-作業ツリーの未コミット修正（`displayInterval = 3` + SplashViewがマネージャの値を読む）で **3起動に1回 = 現状比5倍** になる。テストも `ios/VoiLogTests/AppOpenAdManagerTests.swift`（未追跡）に書かれている。
+**対応済み（PR #213 / v1.12.2、2026-08-03提出）**: `displayInterval` を `AppOpenAdManager` の唯一の情報源にし、設計意図どおり **5起動に1回**（当時比3倍）に統一した。再発防止テストは `ios/VoiLogTests/AppOpenAdManagerTests.swift`。
+
+併せて `SplashView` の `onComplete` 二重呼び出し（タイムアウト後に広告がロードされると本編UIの上に被さる）も修正した。
 
 App Openは全フォーマット中もっともeCPMが高い部類。**この修正が未リリースであること自体が、eCPM ¥49.8 という低い実効単価の有力な説明になる**（高単価フォーマットがほぼ死んでいて、収益が低単価バナーで構成されている）。
 
-> ⚠️ 注意: 15回に1回 → 3回に1回は**体感5倍**の変化。リテンションとレビュー評価への影響があり得る。まず5回に1回（設計意図どおり）で出して、数値を見てから3回に1回を検討する方が安全。
+> ⚠️ 3への短縮は保留中。15回に1回 → 3回に1回は**体感5倍**でリテンション/レビューへの影響があり得るため、v1.12.2ではまず**5回に1回**で出した。リリース+7日のAdMob数値を見てから3を検討する。
 
 ### 2-2. 🔴 ATT（App Tracking Transparency）プロンプトを一度も出していない（iOS）
 
@@ -110,7 +112,7 @@ App Openは全フォーマット中もっともeCPMが高い部類。**この修
 - ATTオプトイン率の業界水準は **25〜27%** ([Playwire](https://www.playwire.com/blog/mastering-idfa-opt-in-rates-the-complete-apptrackingtransparency-guide-for-ios-apps), [adlibrary 2026](https://adlibrary.com/posts/ios-14-att))
 - IDFA不可トラフィックのeCPMは可のトラフィックより **37〜42%低い** ([InMobi](https://advertising.inmobi.com/blog/att-and-ios-14.5-impact-analysis-initial-insights/inmobi-exchange-ios-14-and-idfa-what-you-should-know))
 
-### 2-3. 🔴 Metaに嘘のトラッキング同意シグナルを送っている（iOS・未リリース）
+### 2-3. ✅ Metaに嘘のトラッキング同意シグナルを送っていた（iOS・2026-08-03に撤去して解消）
 
 【事実】作業ツリーの `VoiceMemoApp.swift:44-46`:
 
@@ -121,7 +123,7 @@ FBAdSettings.setAdvertiserTrackingEnabled(true)
 
 ATTの許諾を一度も取っていない状態で `advertiserTrackingEnabled = true` を固定値で渡している。Metaはこの値がATTの実際の許諾状態を反映することを要求しており、**Audience Networkのアカウント停止リスクがある**。UMPもiOS/Androidとも未導入（Androidは `com.google.android.ump` 依存すら無し）。
 
-**このままリリースしてはいけない。** ATT実装（2-2）とセットでないとMetaアダプタは出せない。
+**対応済み**: 2026-08-03にMetaアダプタごと撤去し、`wip/meta-audience-network` へ退避した。再導入はATT実装（2-2）とセットにすること。なお **ATT未実装そのもの（2-2）は未解決**で、Metaと無関係に広告単価へ効く。
 
 ### 2-4. 🟡 Androidのバナーが非アダプティブ
 
@@ -129,11 +131,11 @@ ATTの許諾を一度も取っていない状態で `advertiserTrackingEnabled =
 
 アダプティブアンカーバナーへの差し替えは事実上ドロップイン。日本の家計簿アプリ Zaim の公式事例で **Android +48% / iOS +27% eCPM** ([Google AdMob](https://admob.google.com/home/resources/zaim-boosts-ecpm-up-to-forty-eight-percent-admob-adaptive-banners/))。一般的なレンジは +15〜25%、大きい事例で +200%。
 
-### 2-5. 🟡 Androidのリワード広告が「ロードするだけで一度も表示されない」
+### 2-5. ✅ Androidのリワード広告が「ロードするだけで一度も表示されない」（PR #213で解消）
 
 【事実】`RewardedAdController.showAd()`（`RewardedAdController.kt:54-80`）の呼び出し元がゼロ。文言リソース `rewarded_ad_watch` / `rewarded_ad_reward_earned` もKotlinから未参照。毎起動リクエストだけ発生 → **フィルレート統計を汚し、収益はゼロ**。
 
-iOS同等の「リワード視聴で文字起こしアンロック」を実装するか、ロード呼び出しを削除するかの二択。
+**対応済み（PR #213）**: ロード呼び出しを削除した。iOS同等の「リワード視聴で文字起こしアンロック」導線は別issueとして残る。
 
 ### 2-6. 🟠 リポジトリ衛生（メディエーションとは別件だが実害あり）
 
@@ -141,8 +143,8 @@ iOS同等の「リワード視聴で文字起こしアンロック」を実装�
 |---|---|
 | `android/.../res/xml/gma_ad_services_config.xml` が**未追跡** | ローカルとリリースで**挙動が食い違う**。`AndroidManifest.xml:42-45` が `@xml/gma_ad_services_config` を参照しているが、この名前のリソースは play-services-ads の AAR にデフォルトが同梱されているため**ビルドは通る**（クリーンworktreeで `assembleDebug` 成功を確認済み）。問題は、ローカルの未追跡ファイルが `ad_services_enabled=false` でそれを上書きしている点。**手元では Privacy Sandbox Ad Services が無効、CI/リリースビルドでは AAR デフォルト（有効）** になる。追跡するか削除するかを決めて、両者を一致させる必要がある |
 | `ios/VoiLog/Prod.xcconfig` が**git追跡下で本番ユニットIDが平文** | `git ls-files` に載っている。gitignoreされていない |
-| Metaアダプタが `branch = main` ピン | `project.pbxproj:972-979`。バージョン固定でないため再現性なし。タグ指定にすべき |
-| SKAdNetworkリスト未更新 | `Info.plist` に50件（AdMob標準リストのみ）。Metaアダプタを足したのに Meta のパートナーIDリストを追加していない |
+| ~~Metaアダプタが `branch = main` ピン~~ | 撤去済み。再導入時はバージョンタグで固定すること |
+| SKAdNetworkリストはAdMob標準のみ | `Info.plist` に50件。SDKアダプタを追加する際は各社のパートナーIDリストを追記する必要がある |
 | `setHasPurchasedProduct(false)` の呼び出しがゼロ | 解約・返金後も広告が二度と出ない（収益漏れ） |
 | Android: `app-keys/admob.properties` 不在時に**Googleのテストユニットへ黙ってフォールバック** | `build.gradle.kts:59-62`。警告もビルド失敗もなし |
 
@@ -156,7 +158,7 @@ iOS同等の「リワード視聴で文字起こしアンロック」を実装�
 | **App Open在庫への効果** | **サードパーティSDKありの広告ソースは App Open を1社も対応していない**【事実・公式表で確認】。SDK不要のbidding枠では **Ad Generation が App Open 対応**（後述） | 同上。MAXもApp Openのサードパーティ需要は薄い |
 | **ATT環境での埋まり具合** | 現状マッチ率82.66% → 上限100%なので**フィル改善の理論上限は+21%**。ここは大きな伸びしろではない | 同じ制約。乗り換えてもフィル上限は変わらない |
 | **アプリサイズ / 起動時間** | SDK不要のbidding partnerなら**増加ゼロ**。SDKアダプタは1社あたり数MB + 初期化コスト | MAX SDK本体 + 各アダプタで**最大の増加**。既存GMA SDKも残すので二重 |
-| **審査リスク** | 低。ただしATT未実装のままMetaを出すのは**Meta側のポリシー違反リスク**（§2-3）。SDK追加時はApple の privacy manifest + signature 要件に適合したアダプタバージョンが必須（GMA 11.2.0+ が対応、現在13.7.0なのでOK）([Apple](https://developer.apple.com/news/?id=3d8a9yyh)) | 中。SDK数が増えるほど privacy manifest / SKAdNetwork / データ開示の管理対象が増える |
+| **審査リスク** | 低。ただしATT未実装のままMetaを出すのは**Meta側のポリシー違反リスク**（§2-3）。SDK追加時はApple の privacy manifest + signature 要件に適合したアダプタバージョンが必須（GMA 11.2.0+ が対応、mainは12.14.0なのでOK）([Apple](https://developer.apple.com/news/?id=3d8a9yyh)) | 中。SDK数が増えるほど privacy manifest / SKAdNetwork / データ開示の管理対象が増える |
 | **実装工数** | SDK不要枠: **コード0行・リリース0回**（管理画面のみ）。SDKアダプタ: 2025年9月からSPM対応済み([Google Ads Developer Blog](https://ads-developers.googleblog.com/2025/09/google-mobile-ads-mediation-adapters.html))なので1社あたり iOS+Android で概ね2〜4時間 + リリース1回 | **全画面の広告呼び出しコードを書き換え**。iOS/Android両方。加えて**60〜90日の学習期間があり、その間は収益が下がる可能性がある**([Segwise](https://segwise.ai/blog/applovin-publisher-monetization-guide)) |
 | **本人作業量** | SDK不要枠: AdMob管理画面でメディエーショングループ作成のみ。SDKアダプタ: 各社アカウント開設 + 税務 + 支払情報 | MAXアカウント審査 + 各ネットワークのアカウント + AdMobをMAX配下に登録し直し + 全ユニットの再マッピング |
 | **規模適合性** | 制約なし | **AppLovin公式ガイドの推奨水準は 100K+ DAU。50K DAU未満は「データ点が足りない」**とされ、運用に 0.5〜1 FTE 相当を想定([Segwise](https://segwise.ai/blog/applovin-publisher-monetization-guide)) |
@@ -198,9 +200,11 @@ VoiLogの規模は **1,640 imp/日**。1ユーザー1日3インプレッショ�
 | **LY Ads Network**（LINEヤフー） | AdMob bidding partner一覧に「LINE / JP」で掲載。Banner・Interstitial・Rewarded・Native | 日本の非ゲームアプリと相性が良い可能性。第1優先層の結果を見てから |
 | **i-mobile / maio / Zucks** | AdMobのアダプタ一覧で「Japan-only」扱い | 日本特化。ただし個別アカウント・税務が必要 |
 
-### 第3優先: 既に着手済みの Meta Audience Network
+### 第3優先: Meta Audience Network（2026-08-03に一旦撤去）
 
-**iOS/Androidとも実装済み（未コミット）。** ただし:
+**一度iOS/Androidとも実装されたが、ATT/UMP 未実装のまま `setAdvertiserTrackingEnabled(true)` を固定値で渡す形になっていたため撤去した。** iOS側の作業は `wip/meta-audience-network` ブランチに退避済み（再開時は main の 1.12.2 バージョンバンプと pbxproj が競合するので rebase 必要）。再開の前提条件は Phase 3 参照。
+
+ただし、そもそも上乗せ期待値は小さい:
 
 - 2026年にMetaのiOS収益が急伸したのは **リワード動画とインタースティシャルのみで、バナーは横ばい** ([Gamesforum](https://www.globalgamesforum.com/features/is-meta-back-on-ios-the-data-is-here), [GameBiz Consulting](https://www.gamebizconsulting.com/newsletter/admon-newsletter-8-meta-is-back-on-ios))
 - VoiLogの在庫はバナー中心。リワードは生涯3回上限で volume が小さい。**App Openは Meta 非対応**
@@ -224,7 +228,7 @@ AdMob を主体のまま維持
   │    Ad Generation ★App Open対応
   │    Fluct / YieldOne
   │    Index Exchange / PubMatic / Magnite / OpenX / Sharethrough
-  ├─ Meta Audience Network             ← 実装済み。ATT対応後にリリース
+  ├─ （Meta Audience Network）          ← 2026-08-03撤去。ATT対応後に再検討
   └─ （効果が出れば）LY Ads Network / AppLovin
 ```
 
@@ -262,7 +266,7 @@ AdMob を主体のまま維持
 
 | 施策 | 月次上乗せ【推定】 | 根拠 |
 |---|---|---|
-| Meta（実装済み分） | +¥0 〜 +¥150 | バナー中心の在庫に対しMetaのiOSバナーは横ばいとの報告 |
+| Meta（再導入する場合） | +¥0 〜 +¥150 | バナー中心の在庫に対しMetaのiOSバナーは横ばいとの報告 |
 | LY Ads / AppLovin 追加 | +¥150 〜 +¥400 | Tier 1で頭数が揃った後の限界的な上乗せ |
 | 小計 | **+¥150 〜 +¥550 / 月** | **年 +¥1,800 〜 +¥6,600** |
 
@@ -278,7 +282,7 @@ AdMob を主体のまま維持
 ### 「割に合うのか」への正直な回答
 
 - **Tier 0 と Tier 1 は明確に割に合う。** Tier 1 に至っては**コードを1行も書かずに年間4,000〜9,000円**。Tier 0 は**すでに書き終わっているコードをリリースしていないだけ**で、時間単価は最も高い。
-- **Tier 2（SDKアダプタの新規追加）は割に合わない。** 年間2,000〜7,000円のために、1社ごとにアカウント開設・税務書類・支払情報・SKAdNetwork ID追加・privacy manifest確認・アプリ更新1回、さらに恒久的な管理対象が増える。**時間単価は数百円**。ただし **Metaはすでに実装済みなので、ATT対応さえ済めば「捨てるよりリリースした方が得」**。
+- **Tier 2（SDKアダプタの新規追加）は割に合わない。** 年間2,000〜7,000円のために、1社ごとにアカウント開設・税務書類・支払情報・SKAdNetwork ID追加・privacy manifest確認・アプリ更新1回、さらに恒久的な管理対象が増える。**時間単価は数百円**。Metaも一度実装されていたが、ATT/UMPが前提条件になるため撤去した（2026-08-03）。
 - **方針B（MAX乗り換え）は論外。** 規模が2桁足りない。
 - そして全体として: **広告全体を仮に1.5倍にできても月+¥1,200程度。同じ労力をサブスク転換率に向けた方が期待値は大きい**（MRR $37.68 に対し、課金ユーザーが数人増えるだけで同額に届く）。広告は「取りこぼしを拾う」対象であって、成長ドライバーとして投資する対象ではない、というのが数字から見た結論。
 
@@ -303,7 +307,7 @@ AdMob を主体のまま維持
 1-1. 未コミットのiOS変更を整理してPR化。**ただし `displayInterval` はまず `5`（設計意図どおり）に。** 3への変更はリテンション影響を見てから別PR。
    - `AppOpenAdManager.swift` / `SplashView.swift` / `AdDebugView.swift`
    - `VoiLogTests/AppOpenAdManagerTests.swift` を `git add`
-   - **Meta関連（`project.pbxproj` / `Package.resolved` / `VoiceMemoApp.swift` の `FBAdSettings`）はこのPRに含めない** — Phase 3へ切り出す
+   - **Meta関連はこのPRに含めない** — Phase 3へ切り出す（→ 実際に PR #213 では除外し、その後 `wip/meta-audience-network` へ退避した）
 1-2. `android/.../res/xml/gma_ad_services_config.xml` の扱いを決める（ローカルとリリースで Privacy Sandbox Ad Services の有効/無効が食い違っている。追跡するか削除するか）
 1-3. Androidバナーを `AdSize.BANNER` → アダプティブアンカーバナーに変更（`BannerAdView.kt`）
 1-4. Androidの `RewardedAdController.loadAd()` 呼び出しを削除（表示先が無いため）。iOS同等のリワード導線は別issueに切り出す
@@ -321,13 +325,13 @@ AdMob を主体のまま維持
 2-3. eCPM floor は初回は設定しない（低volumeで絞ると機会損失になるため）
 2-4. **設定から14日後に効果測定**。Phase 0 の基準線と比較
 
-### Phase 3: ATT + 同意管理 → Meta のリリース（Phase 1・2の結果を見て判断）
+### Phase 3: ATT + 同意管理（Metaの有無に関わらず単体で価値あり）
 
 3-1. `AppTrackingTransparency` を導入し、適切なタイミング（オンボーディング後、初回録音完了後など）で `requestTrackingAuthorization` を呼ぶ
 3-2. UMP (User Messaging Platform) を導入し、EEA/UK向けの同意フォームを表示（iOS/Android両方）
 3-3. `FBAdSettings.setAdvertiserTrackingEnabled()` に**実際のATTステータス**を渡す。Android側にも同意シグナルを配線
 3-4. Meta の SKAdNetwork ID を `Info.plist` に追加
-3-5. Metaアダプタのピンを `branch = main` → **バージョンタグ**に変更
+3-5. Metaを再導入する場合、SPMのピンを `branch = main` → **バージョンタグ**に変更し、`wip/meta-audience-network` を main に rebase する
 3-6. リリース → 7日後に効果測定
 3-7. issue #212 をクローズ、または残タスクを再定義
 
@@ -354,7 +358,7 @@ Phase 2 で有意な上乗せが確認できた場合に限り、LY Ads Network 
 
 - [ ] **ATTプロンプトをどこで出すか**。初回起動時に出すと許諾率が下がる。「オンボーディング完了後」「初回録音の保存後」などの候補から選ぶ必要がある。**ここは仕様の分かれ道なので指示がほしい**
 - [ ] **App Open広告の表示頻度**。現状は実質15起動に1回。設計意図の5回に1回に戻すか、未コミット変更どおり3回に1回まで攻めるか。収益とリテンションのトレードオフ
-- [ ] **Metaアダプタをリリースするかどうか**。期待上乗せは月¥0〜150程度。ATT/UMP実装（Phase 3の工数の大半）が前提条件になるので、「ATTは広告全体のためにやる価値があるが、Metaのためだけならやらない」という整理もあり得る
+- [x] ~~**Metaアダプタをリリースするかどうか**~~ → **2026-08-03に「一旦なくす」と判断し撤去**。`wip/meta-audience-network` に退避。期待上乗せが月¥0〜150程度に対しATT/UMP実装が前提条件になるため。ATT自体は広告全体に効くので Phase 3 として単体で残す
 
 ### Phase 4 に進む場合のみ（現時点では不要）
 
