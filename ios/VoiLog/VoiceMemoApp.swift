@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 import FirebaseCore
 import GoogleMobileAds
+import FBAudienceNetwork
 import FirebaseCrashlytics
 import RevenueCat
 import UIKit
@@ -40,6 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // AdMob初期化を遅延実行（UIが表示された後）
         #if !DEBUG
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // Meta Audience Networkのメディエーション用プライバシー設定。GDPR同意管理(UMP)未導入のため
+            // 暫定値。導入後は実際の同意状態を渡すこと（詳細はissue #212）
+            FBAdSettings.setAdvertiserTrackingEnabled(true)
             MobileAds.shared.start { _ in
                 // 広告初期化完了後にインタースティシャル広告をプリロード
                 AppOpenAdManager.shared.preloadAd()

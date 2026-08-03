@@ -20,6 +20,8 @@
 		61D17BD02F5BD97800FB1EAA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 61D17BCF2F5BD97800FB1EAA /* FirebaseStorage */; };
 		61D17BD22F5BD97800FB1EAA /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 61D17BD12F5BD97800FB1EAA /* FirebaseFunctions */; };
 		B78550F5C6D209E15FF72B54 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 4A996C419D74D828583BD732 /* FirebaseAuth */; };
+		DB47CA4D1C08C517AA8F63DC /* MetaAdapterTarget in Frameworks */ = {isa = PBXBuildFile; productRef = 01A1594844E013550CBF5B32 /* MetaAdapterTarget */; };
+		E38607EDEB114182CF419FAC /* FBAudienceNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 9678FB1FAB5C5AE460D35E2C /* FBAudienceNetwork */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,21 +72,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		61618F902DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		61618F902DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "VoiLog" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				recordActivityLiveActivity.swift,
 			);
 			target = 619799E128C34A2500169FB6 /* VoiLog */;
 		};
-		61618F912DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		61618F912DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "recordActivityExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 61458CCE2C4B939300B7107E /* recordActivityExtension */;
 		};
-		616190402DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		616190402DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLog" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -92,7 +94,7 @@
 			);
 			target = 619799E128C34A2500169FB6 /* VoiLog */;
 		};
-		616190412DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		616190412DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLogTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				data/Voice.xcdatamodeld,
@@ -102,10 +104,54 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		61618F782DF3FBD200801BB0 /* VoiLogTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VoiLogTests; sourceTree = "<group>"; };
-		61618F812DF3FBE000801BB0 /* VoiLogUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VoiLogUITests; sourceTree = "<group>"; };
-		61618F892DF3FBE100801BB0 /* recordActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (61618F902DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 61618F912DF3FBE100801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = recordActivity; sourceTree = "<group>"; };
-		616190052DF3FC3B00801BB0 /* VoiLog */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (616190402DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 616190412DF3FC3B00801BB0 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = VoiLog; sourceTree = "<group>"; };
+		61618F782DF3FBD200801BB0 /* VoiLogTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = VoiLogTests;
+			sourceTree = "<group>";
+		};
+		61618F812DF3FBE000801BB0 /* VoiLogUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = VoiLogUITests;
+			sourceTree = "<group>";
+		};
+		61618F892DF3FBE100801BB0 /* recordActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				61618F902DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "VoiLog" target */,
+				61618F912DF3FBE100801BB0 /* Exceptions for "recordActivity" folder in "recordActivityExtension" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = recordActivity;
+			sourceTree = "<group>";
+		};
+		616190052DF3FC3B00801BB0 /* VoiLog */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				616190402DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLog" target */,
+				616190412DF3FC3B00801BB0 /* Exceptions for "VoiLog" folder in "VoiLogTests" target */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = VoiLog;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +178,8 @@
 				61D17BD22F5BD97800FB1EAA /* FirebaseFunctions in Frameworks */,
 				61979A1428C34F5C00169FB6 /* ComposableArchitecture in Frameworks */,
 				B78550F5C6D209E15FF72B54 /* FirebaseAuth in Frameworks */,
+				DB47CA4D1C08C517AA8F63DC /* MetaAdapterTarget in Frameworks */,
+				E38607EDEB114182CF419FAC /* FBAudienceNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +286,8 @@
 				61D17BCF2F5BD97800FB1EAA /* FirebaseStorage */,
 				61D17BD12F5BD97800FB1EAA /* FirebaseFunctions */,
 				4A996C419D74D828583BD732 /* FirebaseAuth */,
+				01A1594844E013550CBF5B32 /* MetaAdapterTarget */,
+				9678FB1FAB5C5AE460D35E2C /* FBAudienceNetwork */,
 			);
 			productName = VoiceMemo;
 			productReference = 619799E228C34A2500169FB6 /* VoiLog.app */;
@@ -345,6 +395,8 @@
 				61A8818B2A30015500A4189C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */,
 				61D17BC82F5BD97800FB1EAA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				154BEE26846D66F59D825F66 /* XCRemoteSwiftPackageReference "googleads-mobile-ios-mediation-meta" */,
+				E6912DD933B2A052D5466079 /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */,
 			);
 			productRefGroup = 619799E328C34A2500169FB6 /* Products */;
 			projectDirPath = "";
@@ -917,6 +969,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		154BEE26846D66F59D825F66 /* XCRemoteSwiftPackageReference "googleads-mobile-ios-mediation-meta" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/googleads-mobile-ios-mediation-meta.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		61979A1228C34F5C00169FB6 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
@@ -930,7 +990,7 @@
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 12.0.0;
+				minimumVersion = 13.4.0;
 			};
 		};
 		61A91BBC2BC245660033532A /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
@@ -949,9 +1009,22 @@
 				minimumVersion = 12.10.0;
 			};
 		};
+		E6912DD933B2A052D5466079 /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/FBAudienceNetwork.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.20.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		01A1594844E013550CBF5B32 /* MetaAdapterTarget */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 154BEE26846D66F59D825F66 /* XCRemoteSwiftPackageReference "googleads-mobile-ios-mediation-meta" */;
+			productName = MetaAdapterTarget;
+		};
 		4A996C419D74D828583BD732 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FirebaseAuth;
@@ -1000,6 +1073,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61D17BC82F5BD97800FB1EAA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
+		};
+		9678FB1FAB5C5AE460D35E2C /* FBAudienceNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E6912DD933B2A052D5466079 /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */;
+			productName = FBAudienceNetwork;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
