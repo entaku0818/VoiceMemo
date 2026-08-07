@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -11,9 +12,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/generative-ai-go/genai"
-	"google.golang.org/api/googleapi"
-	"google.golang.org/api/option"
+	"google.golang.org/genai"
 )
 
 func TestPerUIDLimiter_AllowsUpToBurstThenBlocks(t *testing.T) {
@@ -244,10 +243,11 @@ func TestIsTransientGeminiError(t *testing.T) {
 		{"wrapped deadline exceeded", fmt.Errorf("post failed: %w", context.DeadlineExceeded), true},
 		{"net timeout error", fakeTimeoutError{}, true},
 		{"net error without timeout (connection reset)", fakeConnResetError{}, true},
-		{"googleapi 429", &googleapi.Error{Code: 429}, true},
-		{"googleapi 500", &googleapi.Error{Code: 500}, true},
-		{"googleapi 503", &googleapi.Error{Code: 503}, true},
-		{"googleapi 400 (not transient)", &googleapi.Error{Code: 400}, false},
+		{"gemini api 429", genai.APIError{Code: 429}, true},
+		{"gemini api 500", genai.APIError{Code: 500}, true},
+		{"gemini api 503", genai.APIError{Code: 503}, true},
+		{"gemini api 400 (not transient)", genai.APIError{Code: 400}, false},
+		{"wrapped gemini api 503", fmt.Errorf("generate failed: %w", genai.APIError{Code: 503}), true},
 		{"plain error", errors.New("boom"), false},
 	}
 	for _, tt := range tests {
@@ -369,14 +369,10 @@ func TestGenerateContentWithRetry_AttemptContextBoundedByParent(t *testing.T) {
 }
 
 func TestNewGeminiHTTPClient_BoundsHungConnections(t *testing.T) {
-	client := newGeminiHTTPClient("test-key")
-	keyRT, ok := client.Transport.(*apiKeyRoundTripper)
+	client := newGeminiHTTPClient()
+	transport, ok := client.Transport.(*http.Transport)
 	if !ok {
-		t.Fatalf("Transport = %T, want *apiKeyRoundTripper", client.Transport)
-	}
-	transport, ok := keyRT.transport.(*http.Transport)
-	if !ok {
-		t.Fatalf("inner transport = %T, want *http.Transport", keyRT.transport)
+		t.Fatalf("Transport = %T, want *http.Transport", client.Transport)
 	}
 	if transport.ResponseHeaderTimeout <= 0 {
 		t.Error("ResponseHeaderTimeout must be set so a hung connection fails before the caller's context deadline")
@@ -386,44 +382,35 @@ func TestNewGeminiHTTPClient_BoundsHungConnections(t *testing.T) {
 	}
 }
 
-func TestApiKeyRoundTripper_AppendsKeyToRequest(t *testing.T) {
-	var gotKey string
-	rt := &apiKeyRoundTripper{
-		key: "secret-key",
-		transport: roundTripFunc(func(req *http.Request) (*http.Response, error) {
-			gotKey = req.URL.Query().Get("key")
-			return &http.Response{StatusCode: 200, Body: http.NoBody}, nil
-		}),
+// newTestGeminiClient builds a genai.Client the same way initClients does, but pointed
+// at a fake server. Keeping the construction identical (APIKey + custom HTTPClient) is
+// the point: see TestGeminiClient_AttachesAPIKeyEndToEnd.
+func newTestGeminiClient(t *testing.T, baseURL, apiKey string) *genai.Client {
+	t.Helper()
+	client, err := genai.NewClient(context.Background(), &genai.ClientConfig{
+		APIKey:      apiKey,
+		Backend:     genai.BackendGeminiAPI,
+		HTTPClient:  newGeminiHTTPClient(),
+		HTTPOptions: genai.HTTPOptions{BaseURL: baseURL},
+	})
+	if err != nil {
+		t.Fatalf("genai.NewClient failed: %v", err)
 	}
-	req, _ := http.NewRequest("POST", "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent", nil)
-	if _, err := rt.RoundTrip(req); err != nil {
-		t.Fatalf("unexpected error: %v", err)
-	}
-	if gotKey != "secret-key" {
-		t.Errorf("key query param = %q, want %q", gotKey, "secret-key")
-	}
-	if req.URL.Query().Get("key") != "" {
-		t.Error("original request must not be mutated")
-	}
+	return client
 }
 
-type roundTripFunc func(*http.Request) (*http.Response, error)
-
-func (f roundTripFunc) RoundTrip(req *http.Request) (*http.Response, error) { return f(req) }
-
 // TestGeminiClient_AttachesAPIKeyEndToEnd exercises the exact construction used by
-// initClients (option.WithAPIKey + option.WithHTTPClient(newGeminiHTTPClient(...)))
-// through a real genai.Client against a fake HTTP server, rather than unit-testing
-// apiKeyRoundTripper in isolation.
+// initClients (APIKey + a custom HTTPClient) through a real genai.Client against a
+// fake HTTP server, rather than unit-testing the transport in isolation.
 //
-// This class of bug bit production on 2026-07-21: passing option.WithHTTPClient
-// silently disables the SDK's own API-key-attaching transport wrapper, so a change
-// that looks correct in isolated unit tests (and passes `go vet`/`go build`) can
-// still mean 100% of real requests get rejected with "403: Method doesn't allow
-// unregistered callers". Only a test that goes through genai.NewClient and actually
-// sends a request catches that. If this test ever fails to compile because
-// newGeminiHTTPClient's signature changed, or starts failing because gotKey is
-// empty, treat it as a signal that Gemini auth is broken — do not loosen the
+// This class of bug bit production on 2026-07-21: under the old
+// github.com/google/generative-ai-go SDK, passing option.WithHTTPClient silently
+// disabled the SDK's own API-key-attaching transport wrapper, so a change that looked
+// correct in isolated unit tests (and passed `go vet`/`go build`) still meant 100% of
+// real requests were rejected with "403: Method doesn't allow unregistered callers".
+// google.golang.org/genai sets x-goog-api-key itself and is not supposed to have that
+// coupling — this test is what proves it stays true. If it ever fails because gotKey
+// is empty, treat it as a signal that Gemini auth is broken — do not loosen the
 // assertion to make it pass.
 func TestGeminiClient_AttachesAPIKeyEndToEnd(t *testing.T) {
 	const testKey = "test-api-key"
@@ -432,25 +419,19 @@ func TestGeminiClient_AttachesAPIKeyEndToEnd(t *testing.T) {
 	var requestCount int
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		requestCount++
-		gotKey = r.URL.Query().Get("key")
+		gotKey = r.Header.Get("x-goog-api-key")
+		if gotKey == "" {
+			gotKey = r.URL.Query().Get("key")
+		}
 		w.Header().Set("Content-Type", "application/json")
 		w.Write([]byte(`{"candidates":[{"content":{"parts":[{"text":"ok"}],"role":"model"}}]}`))
 	}))
 	defer srv.Close()
 
 	ctx := context.Background()
-	client, err := genai.NewClient(ctx,
-		option.WithAPIKey(testKey),
-		option.WithHTTPClient(newGeminiHTTPClient(testKey)),
-		option.WithEndpoint(srv.URL),
-	)
-	if err != nil {
-		t.Fatalf("genai.NewClient failed: %v", err)
-	}
-	defer client.Close()
+	client := newTestGeminiClient(t, srv.URL, testKey)
 
-	model := client.GenerativeModel("gemini-2.5-flash")
-	if _, err := model.GenerateContent(ctx, genai.Text("hi")); err != nil {
+	if _, err := client.Models.GenerateContent(ctx, "gemini-2.5-flash", genai.Text("hi"), nil); err != nil {
 		t.Fatalf("GenerateContent failed: %v", err)
 	}
 
@@ -458,7 +439,81 @@ func TestGeminiClient_AttachesAPIKeyEndToEnd(t *testing.T) {
 		t.Fatal("fake server never received a request")
 	}
 	if gotKey != testKey {
-		t.Errorf("request reached the server without the API key attached: got query key %q, want %q", gotKey, testKey)
+		t.Errorf("request reached the server without the API key attached: got %q, want %q", gotKey, testKey)
+	}
+}
+
+// TestGeminiGenerationConfig_DisablesThinkingOnTheWire は thinkingBudget=0 と
+// maxOutputTokens が実際にリクエストボディに載ることを、SDK を通した実リクエストで確認する。
+// 思考トークンは出力トークンとして課金され、本番の Gemini コストの半分以上を占めていた。
+// 設定が落ちても応答は正常に返るため、ボディを見る以外に回帰を検出する手段がない。
+func TestGeminiGenerationConfig_DisablesThinkingOnTheWire(t *testing.T) {
+	var gotBody map[string]any
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		json.NewDecoder(r.Body).Decode(&gotBody)
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"candidates":[{"content":{"parts":[{"text":"ok"}],"role":"model"}}]}`))
+	}))
+	defer srv.Close()
+
+	client := newTestGeminiClient(t, srv.URL, "test-api-key")
+	cfg := geminiGenerationConfig(1234)
+	if _, err := client.Models.GenerateContent(context.Background(), "gemini-2.5-flash", genai.Text("hi"), cfg); err != nil {
+		t.Fatalf("GenerateContent failed: %v", err)
+	}
+
+	genCfg, ok := gotBody["generationConfig"].(map[string]any)
+	if !ok {
+		t.Fatalf("request body has no generationConfig: %v", gotBody)
+	}
+	if got := genCfg["maxOutputTokens"]; got != float64(1234) {
+		t.Errorf("maxOutputTokens = %v, want 1234", got)
+	}
+	thinking, ok := genCfg["thinkingConfig"].(map[string]any)
+	if !ok {
+		t.Fatalf("generationConfig has no thinkingConfig: %v", genCfg)
+	}
+	if got := thinking["thinkingBudget"]; got != float64(0) {
+		t.Errorf("thinkingBudget = %v, want 0 (thinking must be disabled — it is billed as output tokens)", got)
+	}
+}
+
+func TestGeminiGenerationConfig_OmitsThinkingWhenBudgetNegative(t *testing.T) {
+	// Gemini 3.x 系は thinkingBudget を受け付けず 400 になるため、負値で送信自体を止められる。
+	t.Setenv("GEMINI_THINKING_BUDGET", "-1")
+	cfg := geminiGenerationConfig(100)
+	if cfg.ThinkingConfig != nil {
+		t.Errorf("ThinkingConfig = %+v, want nil when GEMINI_THINKING_BUDGET is negative", cfg.ThinkingConfig)
+	}
+	if cfg.MaxOutputTokens != 100 {
+		t.Errorf("MaxOutputTokens = %d, want 100", cfg.MaxOutputTokens)
+	}
+}
+
+func TestParseIntEnv(t *testing.T) {
+	tests := []struct {
+		name     string
+		set      bool
+		value    string
+		fallback int
+		want     int
+	}{
+		{"unset uses fallback", false, "", 42, 42},
+		{"zero is a valid value", true, "0", 42, 0},
+		{"negative is a valid value", true, "-1", 42, -1},
+		{"positive", true, "8192", 42, 8192},
+		{"garbage uses fallback", true, "abc", 42, 42},
+		{"empty uses fallback", true, "", 42, 42},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.set {
+				t.Setenv("TEST_PARSE_INT_ENV", tt.value)
+			}
+			if got := parseIntEnv("TEST_PARSE_INT_ENV", tt.fallback); got != tt.want {
+				t.Errorf("parseIntEnv() = %d, want %d", got, tt.want)
+			}
+		})
 	}
 }
 

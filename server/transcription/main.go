@@ -19,11 +19,9 @@ import (
 	"cloud.google.com/go/storage"
 	firebase "firebase.google.com/go/v4"
 	"firebase.google.com/go/v4/auth"
-	"github.com/google/generative-ai-go/genai"
 	"github.com/google/uuid"
 	"golang.org/x/time/rate"
-	"google.golang.org/api/googleapi"
-	"google.golang.org/api/option"
+	"google.golang.org/genai"
 )
 
 var (
@@ -68,11 +66,11 @@ func initClients() {
 	if geminiAPIKey == "" {
 		log.Fatal("GEMINI_API_KEY is required")
 	}
-	// option.WithAPIKey is required here even though newGeminiHTTPClient's apiKeyRoundTripper
-	// is what actually attaches the key: genai.NewClient has a separate hasAuthOption
-	// pre-flight check on the raw opts list that rejects the call outright without it,
-	// regardless of what the HTTPClient itself does.
-	geminiClient, err = genai.NewClient(ctx, option.WithAPIKey(geminiAPIKey), option.WithHTTPClient(newGeminiHTTPClient(geminiAPIKey)))
+	geminiClient, err = genai.NewClient(ctx, &genai.ClientConfig{
+		APIKey:     geminiAPIKey,
+		Backend:    genai.BackendGeminiAPI,
+		HTTPClient: newGeminiHTTPClient(),
+	})
 	if err != nil {
 		log.Fatalf("gemini client: %v", err)
 	}
@@ -86,41 +84,75 @@ func initClients() {
 // 失敗させ、generateContentWithRetry が新しいコネクションで実際にリトライできるようにする。
 // IdleConnTimeout は、NAT/LB 経由で無応答のまま片方だけ生き残ったアイドル接続の再利用を防ぐ。
 //
-// option.WithHTTPClient と option.WithAPIKey を併用しても、google.golang.org/api の
-// transport/http.NewClient は settings.HTTPClient が非nilならそれをそのまま返し、
-// APIKey を付与するラッパーを一切適用しない（geminiClient.NewClientの実装依存の落とし穴）。
-// そのため独自の apiKeyRoundTripper で明示的にキーを付与する。これを怠ると全リクエストが
-// "403: Method doesn't allow unregistered callers" で失敗する。
-func newGeminiHTTPClient(apiKey string) *http.Client {
+// 旧 SDK（github.com/google/generative-ai-go）では option.WithHTTPClient を渡すと
+// google.golang.org/api の transport が APIキー付与ラッパーを一切適用しなくなるため、
+// 自前の RoundTripper で ?key= を足す必要があった（2026-07-21 の本番全断の原因）。
+// google.golang.org/genai は HTTPClient を差し替えても自分で x-goog-api-key ヘッダを
+// 付けるので、その回避策は不要になった。回帰はテストで担保する
+// （TestGeminiClient_AttachesAPIKeyEndToEnd）。
+func newGeminiHTTPClient() *http.Client {
 	return &http.Client{
-		Transport: &apiKeyRoundTripper{
-			key: apiKey,
-			transport: &http.Transport{
-				DialContext: (&net.Dialer{
-					Timeout:   10 * time.Second,
-					KeepAlive: 30 * time.Second,
-				}).DialContext,
-				TLSHandshakeTimeout:   10 * time.Second,
-				ResponseHeaderTimeout: 120 * time.Second,
-				IdleConnTimeout:       90 * time.Second,
-				ExpectContinueTimeout: 1 * time.Second,
-			},
+		Transport: &http.Transport{
+			DialContext: (&net.Dialer{
+				Timeout:   10 * time.Second,
+				KeepAlive: 30 * time.Second,
+			}).DialContext,
+			TLSHandshakeTimeout:   10 * time.Second,
+			ResponseHeaderTimeout: 120 * time.Second,
+			IdleConnTimeout:       90 * time.Second,
+			ExpectContinueTimeout: 1 * time.Second,
 		},
 	}
 }
 
-// apiKeyRoundTripper は Gemini APIキーをクエリパラメータ "key" として全リクエストに付与する。
-type apiKeyRoundTripper struct {
-	key       string
-	transport http.RoundTripper
+// geminiGenerationConfig は Gemini 呼び出し共通の生成設定を作る。
+//
+// gemini-2.5-flash は thinking（思考トークン）が既定でONで、思考トークンは
+// candidatesTokenCount とは別枠で「出力トークン」として課金される。実測では
+// /transcribe で出力の約45%、/minutes では約81%が思考トークンだった（本番の課金内訳で
+// 「短いテキスト入力に対し出力200万トークン」という不自然な比率が出ていた原因）。
+// thinkingBudget=0 で無効化する。
+//
+// maxOutputTokens は暴走時のコスト上限。思考トークンも maxOutputTokens を消費するため、
+// thinking を切らずに小さい上限だけ入れると思考だけで打ち切られて空応答になる。
+// 必ず両方セットで設定すること。
+//
+// GEMINI_THINKING_BUDGET に負値を指定すると thinkingConfig 自体を送らない。
+// Gemini 3.x 系（gemini-3.5-flash-lite 等）は thinkingBudget を受け付けず
+// 400 INVALID_ARGUMENT になるため、GEMINI_MODEL をそれらに切り替える場合に必要。
+func geminiGenerationConfig(maxOutputTokens int32) *genai.GenerateContentConfig {
+	cfg := &genai.GenerateContentConfig{MaxOutputTokens: maxOutputTokens}
+	if budget := int32(parseIntEnv("GEMINI_THINKING_BUDGET", 0)); budget >= 0 {
+		cfg.ThinkingConfig = &genai.ThinkingConfig{ThinkingBudget: &budget}
+	}
+	return cfg
 }
 
-func (t *apiKeyRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	newReq := req.Clone(req.Context())
-	q := newReq.URL.Query()
-	q.Set("key", t.key)
-	newReq.URL.RawQuery = q.Encode()
-	return t.transport.RoundTrip(newReq)
+// 出力トークンの上限。実測では2分の会議音声で文字起こし出力は約1,300〜1,800トークン
+// （およそ650トークン/分）なので、32768 は1時間近い録音でも切り詰めない一方で
+// 暴走時のコストを1リクエストあたりで頭打ちにできる水準。議事録は summary + todos だけの
+// 短い出力（実測168〜239トークン）なので 2048 で十分。
+const (
+	defaultTranscribeMaxOutputTokens = 32768
+	defaultMinutesMaxOutputTokens    = 2048
+)
+
+// logGeminiUsage は1リクエストあたりのトークン内訳を構造化ログに出す。
+// thoughts が 0 でない場合は thinking 無効化が効いていない（モデルが thinkingBudget を
+// 無視した等）ことを意味するので、コスト回帰にすぐ気づけるようにしている。
+// finishReason が MAX_TOKENS の場合は出力が途中で打ち切られており、
+// 文字起こしが欠けたまま返っているので上限の見直しが必要。
+func logGeminiUsage(endpoint, model string, resp *genai.GenerateContentResponse) {
+	if resp == nil || resp.UsageMetadata == nil {
+		return
+	}
+	u := resp.UsageMetadata
+	log.Printf("gemini usage endpoint=%s model=%s prompt=%d thoughts=%d candidates=%d total=%d",
+		endpoint, model, u.PromptTokenCount, u.ThoughtsTokenCount, u.CandidatesTokenCount, u.TotalTokenCount)
+	if len(resp.Candidates) > 0 && resp.Candidates[0].FinishReason == genai.FinishReasonMaxTokens {
+		log.Printf("gemini output truncated by maxOutputTokens endpoint=%s model=%s", endpoint, model)
+		notifySlack(fmt.Sprintf(":warning: [VoiLog] Gemini output hit maxOutputTokens (endpoint=%s, model=%s) — 出力が途中で切れています", endpoint, model))
+	}
 }
 
 func verifyToken(r *http.Request) (string, error) {
@@ -171,6 +203,20 @@ func parseRateEnv(key string, fallback int) int {
 	}
 	n, err := strconv.Atoi(v)
 	if err != nil || n <= 0 {
+		return fallback
+	}
+	return n
+}
+
+// parseIntEnv は parseRateEnv と違い 0 や負値も有効な設定値として通す
+// （thinkingBudget=0 が「思考を無効化する」という意味を持つため）。
+func parseIntEnv(key string, fallback int) int {
+	v := os.Getenv(key)
+	if v == "" {
+		return fallback
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
 		return fallback
 	}
 	return n
@@ -263,7 +309,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	}
 	defer reader.Close()
 
-	geminiFile, err := geminiClient.UploadFile(geminiCtx, "", reader, &genai.UploadFileOptions{
+	geminiFile, err := geminiClient.Files.Upload(geminiCtx, reader, &genai.UploadFileConfig{
 		MIMEType: mimeType,
 	})
 	if err != nil {
@@ -274,10 +320,10 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	}
 	// GCS の元ファイルとGeminiファイルを後始末
 	go obj.Delete(context.Background())
-	defer geminiClient.DeleteFile(context.Background(), geminiFile.Name)
+	defer geminiClient.Files.Delete(context.Background(), geminiFile.Name, nil)
 
 	// Gemini で文字起こし
-	model := geminiClient.GenerativeModel(getEnv("GEMINI_MODEL", "gemini-2.5-flash"))
+	modelName := getEnv("GEMINI_MODEL", "gemini-2.5-flash")
 	prompt := fmt.Sprintf(`この音声を文字起こしして、以下のJSON形式のみを返してください。
 言語: %s
 
@@ -293,23 +339,24 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
   "summary": "内容の要約（3文以内）"
 }`, body.Language)
 
+	contents := []*genai.Content{{
+		Role: genai.RoleUser,
+		Parts: []*genai.Part{
+			{FileData: &genai.FileData{FileURI: geminiFile.URI, MIMEType: mimeType}},
+			{Text: prompt},
+		},
+	}}
+	genConfig := geminiGenerationConfig(int32(parseIntEnv("TRANSCRIBE_MAX_OUTPUT_TOKENS", defaultTranscribeMaxOutputTokens)))
+
 	result, err := transcribeWithRetry(func() (string, error) {
 		resp, err := generateContentWithRetry(geminiCtx, generateContentAttemptTimeout, func(attemptCtx context.Context) (*genai.GenerateContentResponse, error) {
-			return model.GenerateContent(attemptCtx,
-				genai.FileData{URI: geminiFile.URI, MIMEType: mimeType},
-				genai.Text(prompt),
-			)
+			return geminiClient.Models.GenerateContent(attemptCtx, modelName, contents, genConfig)
 		})
 		if err != nil {
 			return "", err
 		}
-		text := ""
-		if len(resp.Candidates) > 0 && len(resp.Candidates[0].Content.Parts) > 0 {
-			if t, ok := resp.Candidates[0].Content.Parts[0].(genai.Text); ok {
-				text = string(t)
-			}
-		}
-		return text, nil
+		logGeminiUsage("transcribe", modelName, resp)
+		return resp.Text(), nil
 	})
 	if err != nil {
 		log.Printf("gemini error: %s", redactAPIKey(err.Error()))
@@ -370,7 +417,7 @@ func isTransientGeminiError(err error) bool {
 	if errors.As(err, &netErr) {
 		return true
 	}
-	var apiErr *googleapi.Error
+	var apiErr genai.APIError
 	if errors.As(err, &apiErr) {
 		switch apiErr.Code {
 		case http.StatusTooManyRequests, http.StatusInternalServerError, http.StatusBadGateway, http.StatusServiceUnavailable, http.StatusGatewayTimeout:
@@ -483,7 +530,7 @@ func handleMinutes(w http.ResponseWriter, r *http.Request) {
 	geminiCtx, geminiCancel := context.WithTimeout(r.Context(), 120*time.Second)
 	defer geminiCancel()
 
-	model := geminiClient.GenerativeModel(getEnv("GEMINI_MODEL", "gemini-2.5-flash"))
+	modelName := getEnv("GEMINI_MODEL", "gemini-2.5-flash")
 	prompt := fmt.Sprintf(`以下の会議の文字起こしから議事録を作成し、次のJSON形式のみを返してください。
 出力言語: %s
 
@@ -497,22 +544,17 @@ TODOがない場合は todos を空配列にしてください。
 文字起こし:
 %s`, body.Language, body.Text)
 
-	resp, err := model.GenerateContent(geminiCtx, genai.Text(prompt))
+	resp, err := geminiClient.Models.GenerateContent(geminiCtx, modelName, genai.Text(prompt),
+		geminiGenerationConfig(int32(parseIntEnv("MINUTES_MAX_OUTPUT_TOKENS", defaultMinutesMaxOutputTokens))))
 	if err != nil {
 		log.Printf("gemini minutes error: %s", redactAPIKey(err.Error()))
 		notifySlack(fmt.Sprintf(":x: [VoiLog] Minutes generation failed (Gemini)\n```%s```", sanitizeError(err)))
 		http.Error(w, `{"error":"Minutes generation failed"}`, http.StatusInternalServerError)
 		return
 	}
+	logGeminiUsage("minutes", modelName, resp)
 
-	text := ""
-	if len(resp.Candidates) > 0 && len(resp.Candidates[0].Content.Parts) > 0 {
-		if t, ok := resp.Candidates[0].Content.Parts[0].(genai.Text); ok {
-			text = string(t)
-		}
-	}
-
-	result := parseMinutes(text)
+	result := parseMinutes(resp.Text())
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
 }
