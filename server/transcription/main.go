@@ -118,8 +118,10 @@ func newGeminiHTTPClient() *http.Client {
 // 必ず両方セットで設定すること。
 //
 // GEMINI_THINKING_BUDGET に負値を指定すると thinkingConfig 自体を送らない。
-// Gemini 3.x 系（gemini-3.5-flash-lite 等）は thinkingBudget を受け付けず
-// 400 INVALID_ARGUMENT になるため、GEMINI_MODEL をそれらに切り替える場合に必要。
+// thinkingBudget を受け付けるかはモデルごとに違い、世代では割り切れない（2026-08-07 実測:
+// gemini-2.5-flash と gemini-3.1-flash-lite は受け付ける / gemini-3.5-flash-lite は
+// 400 INVALID_ARGUMENT を返す）。GEMINI_MODEL を変えるときは実際に叩いて確認し、
+// 弾かれるモデルなら GEMINI_THINKING_BUDGET=-1 で送信自体を止めること。
 func geminiGenerationConfig(maxOutputTokens int32) *genai.GenerateContentConfig {
 	cfg := &genai.GenerateContentConfig{MaxOutputTokens: maxOutputTokens}
 	if budget := int32(parseIntEnv("GEMINI_THINKING_BUDGET", 0)); budget >= 0 {
