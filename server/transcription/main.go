@@ -130,12 +130,27 @@ func geminiGenerationConfig(maxOutputTokens int32) *genai.GenerateContentConfig 
 	return cfg
 }
 
-// 出力トークンの上限。実測では2分の会議音声で文字起こし出力は約1,300〜1,800トークン
-// （およそ650トークン/分）なので、32768 は1時間近い録音でも切り詰めない一方で
-// 暴走時のコストを1リクエストあたりで頭打ちにできる水準。議事録は summary + todos だけの
-// 短い出力（実測168〜239トークン）なので 2048 で十分。
+// 出力トークンの上限。
+//
+// transcribe は「モデルの outputTokenLimit そのもの」を入れる。当初 32768 にしていたが、
+// 2026-08-08 に35分の実録音（音声52,859トークン）で本当に打ち切られた。
+// このプロンプトは transcription（全文）と segments[].text（同じ内容の分割）を
+// **両方**返させるので、出力トークンは音声の長さのおよそ2倍で伸びる。
+// 2分で約1,100トークンだったから1時間でも余裕、という見積もりはこの二重出力を
+// 数え落としていた。65536 は gemini-2.5-flash / gemini-3.1-flash-lite 共通の上限で、
+// これ以上は上げられない（models.get の outputTokenLimit で確認できる）。
+//
+// 上限に当たると transcribeWithRetry がもう一度モデルを呼ぶため、打ち切りは
+// 「ユーザーの文字起こしが欠ける」だけでなく出力トークンを二重に課金する。
+// 暴走の歯止めとしては thinking 無効化＋この上限で足り、ここを絞ることではない。
+//
+// なお 65536 でも約25〜30分を超える録音は構造的に収まらない。恒久対策は
+// transcription フィールドをモデルに出させず segments[].text をサーバ側で連結すること
+// （出力が半分になり、コストも収容時間も倍改善する）。
+//
+// 議事録は summary + todos だけの短い出力（実測168〜239トークン）なので 2048 で十分。
 const (
-	defaultTranscribeMaxOutputTokens = 32768
+	defaultTranscribeMaxOutputTokens = 65536
 	defaultMinutesMaxOutputTokens    = 2048
 )
 
