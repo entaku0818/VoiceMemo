@@ -341,20 +341,19 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 
 	// Gemini で文字起こし
 	modelName := getEnv("GEMINI_MODEL", "gemini-2.5-flash")
-	prompt := fmt.Sprintf(`この音声を文字起こしして、以下のJSON形式のみを返してください。
+	// transcription（全文）はモデルに出させない。segments[].text と同じ内容の二重出力になり、
+	// 出力トークンが倍になっていたため。全文はサーバ側で segments を連結して組み立てる
+	// （クライアントに返すJSONの形は変えない）。
+	prompt := fmt.Sprintf(`この音声を文字起こししてください。
 言語: %s
 
-話者が複数いる場合は speaker フィールドで識別してください（A, B, C ...）。
-話者が1人または不明な場合は speaker を空文字にしてください。
-
-{
-  "transcription": "全文テキスト（話者ラベルなし）",
-  "segments": [
-    {"time": "0:00", "speaker": "A", "text": "..."},
-    {"time": "0:15", "speaker": "B", "text": "..."}
-  ],
-  "summary": "内容の要約（3文以内）"
-}`, body.Language)
+- segments に発話を時系列で入れてください。全文は segments の text をつなげたものになるので、
+  取りこぼしがないようにしてください。
+- 1つの segment は15〜30秒程度のまとまりにしてください。1文ごとに細かく分割しないでください。
+- time は "0:00" 形式の開始時刻です。
+- 話者が複数いる場合は speaker で識別してください（A, B, C ...）。
+  話者が1人または不明な場合は speaker を空文字にしてください。
+- summary は内容の要約を3文以内で。`, body.Language)
 
 	contents := []*genai.Content{{
 		Role: genai.RoleUser,
@@ -364,8 +363,10 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 		},
 	}}
 	genConfig := geminiGenerationConfig(int32(parseIntEnv("TRANSCRIBE_MAX_OUTPUT_TOKENS", defaultTranscribeMaxOutputTokens)))
+	genConfig.ResponseMIMEType = "application/json"
+	genConfig.ResponseSchema = transcribeResponseSchema()
 
-	result, err := transcribeWithRetry(func() (string, error) {
+	result, err := transcribeWithRetry(body.Language, func() (string, error) {
 		resp, err := generateContentWithRetry(geminiCtx, generateContentAttemptTimeout, func(attemptCtx context.Context) (*genai.GenerateContentResponse, error) {
 			return geminiClient.Models.GenerateContent(attemptCtx, modelName, contents, genConfig)
 		})
@@ -382,7 +383,7 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if result == nil {
-		notifySlack(":x: [VoiLog] Transcription JSON unrecoverable after retry (no salvageable transcription field)")
+		notifySlack(":x: [VoiLog] Transcription JSON unrecoverable after retry (no salvageable segments)")
 		http.Error(w, `{"error":"Transcription failed"}`, http.StatusInternalServerError)
 		return
 	}
@@ -444,12 +445,81 @@ func isTransientGeminiError(err error) bool {
 	return false
 }
 
+type transcriptionSegment struct {
+	Time    string `json:"time"`
+	Speaker string `json:"speaker"`
+	Text    string `json:"text"`
+}
+
+// transcriptionResult はクライアントに返す形。transcription はモデル出力ではなく
+// segments を連結してサーバ側で組み立てる（[[二重出力の廃止]]）。
+type transcriptionResult struct {
+	Transcription string                 `json:"transcription"`
+	Segments      []transcriptionSegment `json:"segments"`
+	Summary       string                 `json:"summary"`
+}
+
+// transcribeResponseSchema はモデル出力の構造を固定する。responseSchema を付けると
+// マークダウンフェンスや前置きが混ざらなくなるため、JSONパース失敗による再試行
+// （＝出力トークンの二重課金）が起きなくなる。
+func transcribeResponseSchema() *genai.Schema {
+	return &genai.Schema{
+		Type: genai.TypeObject,
+		Properties: map[string]*genai.Schema{
+			"segments": {
+				Type: genai.TypeArray,
+				Items: &genai.Schema{
+					Type: genai.TypeObject,
+					Properties: map[string]*genai.Schema{
+						"time":    {Type: genai.TypeString},
+						"speaker": {Type: genai.TypeString},
+						"text":    {Type: genai.TypeString},
+					},
+					Required:         []string{"time", "speaker", "text"},
+					PropertyOrdering: []string{"time", "speaker", "text"},
+				},
+			},
+			"summary": {Type: genai.TypeString},
+		},
+		Required:         []string{"segments", "summary"},
+		PropertyOrdering: []string{"segments", "summary"},
+	}
+}
+
+// joinSegmentText は segments[].text を全文テキストに連結する。
+// 日本語・中国語は語の間に空白を入れない。それ以外の言語は入れないと単語が繋がってしまう。
+func joinSegmentText(segments []transcriptionSegment, language string) string {
+	sep := " "
+	switch strings.ToLower(language) {
+	case "ja", "zh", "zh-hans", "zh-hant", "zh-cn", "zh-tw":
+		sep = ""
+	}
+	parts := make([]string, 0, len(segments))
+	for _, s := range segments {
+		if t := strings.TrimSpace(s.Text); t != "" {
+			parts = append(parts, t)
+		}
+	}
+	return strings.Join(parts, sep)
+}
+
+func newTranscriptionResult(segments []transcriptionSegment, summary, language string) *transcriptionResult {
+	if segments == nil {
+		segments = []transcriptionSegment{}
+	}
+	return &transcriptionResult{
+		Transcription: joinSegmentText(segments, language),
+		Segments:      segments,
+		Summary:       summary,
+	}
+}
+
 // transcribeWithRetry は fetchText で Gemini の生レスポンスを取得し、JSON としてパースする。
-// パースに失敗した場合（Gemini の出力が途中で途切れるなど）は fetchText をもう一度だけ呼び直す。
-// リトライしてもパースできない場合は、壊れた JSON から transcription フィールドの値を
-// 可能な範囲でサルベージし、JSON の記号がユーザーに見えない形で返す。
-// サルベージもできない場合は nil, nil を返す（呼び出し元でエラー応答にする）。
-func transcribeWithRetry(fetchText func() (string, error)) (map[string]any, error) {
+// パースに失敗した場合（出力が maxOutputTokens で途切れるなど）は fetchText をもう一度だけ呼び直す。
+// リトライしてもパースできない場合は、壊れた JSON から完結している segment だけを
+// 可能な範囲でサルベージする。サルベージもできない場合は nil, nil を返す
+// （呼び出し元でエラー応答にする）。
+func transcribeWithRetry(language string, fetchText func() (string, error)) (*transcriptionResult, error) {
 	var lastBroken string
 	for attempt := 1; attempt <= 2; attempt++ {
 		raw, err := fetchText()
@@ -457,64 +527,46 @@ func transcribeWithRetry(fetchText func() (string, error)) (map[string]any, erro
 			return nil, err
 		}
 		text := extractJSON(raw)
-		var result map[string]any
-		if err := json.Unmarshal([]byte(text), &result); err == nil {
-			return result, nil
+		var parsed struct {
+			Segments []transcriptionSegment `json:"segments"`
+			Summary  string                 `json:"summary"`
+		}
+		if err := json.Unmarshal([]byte(text), &parsed); err == nil && len(parsed.Segments) > 0 {
+			return newTranscriptionResult(parsed.Segments, parsed.Summary, language), nil
+		} else if err != nil {
+			// 生テキストはユーザーの録音内容そのものなのでログに出さない。
+			// 切り分けに要るのは「どこで壊れたか」だけなので長さと末尾の形だけ残す。
+			log.Printf("json parse error (attempt %d/2): %v (len=%d, endsWithBrace=%t)",
+				attempt, err, len(text), strings.HasSuffix(strings.TrimSpace(text), "}"))
+			lastBroken = text
 		} else {
-			log.Printf("json parse error (attempt %d/2): %v, raw: %s", attempt, err, text)
+			log.Printf("json parsed but had no segments (attempt %d/2, len=%d)", attempt, len(text))
 			lastBroken = text
 		}
 	}
 
-	salvaged := salvageTranscription(lastBroken)
-	if salvaged == "" {
+	salvaged := salvageSegments(lastBroken)
+	if len(salvaged) == 0 {
 		return nil, nil
 	}
-	return map[string]any{
-		"transcription": salvaged,
-		"segments":      []any{},
-		"summary":       "",
-	}, nil
+	log.Printf("salvaged %d segments from broken JSON", len(salvaged))
+	return newTranscriptionResult(salvaged, "", language), nil
 }
 
-var transcriptionFieldPattern = regexp.MustCompile(`"transcription"\s*:\s*"`)
+// segmentObjectPattern は途切れた JSON の中から「閉じている」segment オブジェクトだけを拾う。
+// 出力が途中で切れた場合、最後の不完全なオブジェクトはマッチしないので自然に捨てられる。
+var segmentObjectPattern = regexp.MustCompile(`\{[^{}]*"text"\s*:\s*"(?:[^"\\]|\\.)*"[^{}]*\}`)
 
-// salvageTranscription は途切れた/壊れた JSON 文字列から transcription フィールドの値を
-// 可能な範囲で取り出す。JSON のエスケープシーケンス（\n, \", \\ など）を解決し、
-// クオートやブレースなどの JSON 記号がユーザーに見える形で残らないようにする。
-// フィールド自体が見つからない場合は空文字を返す。
-func salvageTranscription(broken string) string {
-	loc := transcriptionFieldPattern.FindStringIndex(broken)
-	if loc == nil {
-		return ""
-	}
-	rest := broken[loc[1]:]
-
-	var sb strings.Builder
-	for i := 0; i < len(rest); i++ {
-		c := rest[i]
-		if c == '"' {
-			break
+// salvageSegments は壊れた JSON から復元できる segment を順に取り出す。
+func salvageSegments(broken string) []transcriptionSegment {
+	var out []transcriptionSegment
+	for _, m := range segmentObjectPattern.FindAllString(broken, -1) {
+		var s transcriptionSegment
+		if err := json.Unmarshal([]byte(m), &s); err == nil && strings.TrimSpace(s.Text) != "" {
+			out = append(out, s)
 		}
-		if c == '\\' && i+1 < len(rest) {
-			i++
-			switch rest[i] {
-			case 'n':
-				sb.WriteByte('\n')
-			case 't':
-				sb.WriteByte('\t')
-			case '"':
-				sb.WriteByte('"')
-			case '\\':
-				sb.WriteByte('\\')
-			default:
-				sb.WriteByte(rest[i])
-			}
-			continue
-		}
-		sb.WriteByte(c)
 	}
-	return strings.TrimSpace(sb.String())
+	return out
 }
 
 // 議事録生成: 文字起こし済みテキストから要約とTODOを生成する
@@ -561,8 +613,11 @@ TODOがない場合は todos を空配列にしてください。
 文字起こし:
 %s`, body.Language, body.Text)
 
-	resp, err := geminiClient.Models.GenerateContent(geminiCtx, modelName, genai.Text(prompt),
-		geminiGenerationConfig(int32(parseIntEnv("MINUTES_MAX_OUTPUT_TOKENS", defaultMinutesMaxOutputTokens))))
+	minutesConfig := geminiGenerationConfig(int32(parseIntEnv("MINUTES_MAX_OUTPUT_TOKENS", defaultMinutesMaxOutputTokens)))
+	minutesConfig.ResponseMIMEType = "application/json"
+	minutesConfig.ResponseSchema = minutesResponseSchema()
+
+	resp, err := geminiClient.Models.GenerateContent(geminiCtx, modelName, genai.Text(prompt), minutesConfig)
 	if err != nil {
 		log.Printf("gemini minutes error: %s", redactAPIKey(err.Error()))
 		notifySlack(fmt.Sprintf(":x: [VoiLog] Minutes generation failed (Gemini)\n```%s```", sanitizeError(err)))
@@ -589,6 +644,21 @@ func truncateRunes(s string, max int) string {
 type minutesResult struct {
 	Summary string   `json:"summary"`
 	Todos   []string `json:"todos"`
+}
+
+// minutesResponseSchema は議事録出力の構造を固定する。これがないと Gemini が
+// マークダウンフェンスや前置きを付けることがあり、parseMinutes のフォールバックで
+// 本文まるごとが summary に入る（TODOが失われる）事故になる。
+func minutesResponseSchema() *genai.Schema {
+	return &genai.Schema{
+		Type: genai.TypeObject,
+		Properties: map[string]*genai.Schema{
+			"summary": {Type: genai.TypeString},
+			"todos":   {Type: genai.TypeArray, Items: &genai.Schema{Type: genai.TypeString}},
+		},
+		Required:         []string{"summary", "todos"},
+		PropertyOrdering: []string{"summary", "todos"},
+	}
 }
 
 // parseMinutes は Gemini の出力から {summary, todos} を取り出す。

@@ -129,17 +129,58 @@ func TestTranscribeWithRetry_SucceedsFirstTry(t *testing.T) {
 	calls := 0
 	fetch := func() (string, error) {
 		calls++
-		return `{"transcription":"こんにちは","segments":[],"summary":"挨拶"}`, nil
+		return `{"segments":[{"time":"0:00","speaker":"A","text":"こんにちは"}],"summary":"挨拶"}`, nil
 	}
-	result, err := transcribeWithRetry(fetch)
+	result, err := transcribeWithRetry("ja", fetch)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if calls != 1 {
 		t.Errorf("calls = %d, want 1 (should not retry on success)", calls)
 	}
-	if result["transcription"] != "こんにちは" {
-		t.Errorf("transcription = %v", result["transcription"])
+	if result.Transcription != "こんにちは" {
+		t.Errorf("transcription = %q", result.Transcription)
+	}
+	if result.Summary != "挨拶" {
+		t.Errorf("summary = %q", result.Summary)
+	}
+}
+
+// 全文はモデルではなくサーバが segments を連結して作る。ここが壊れると
+// クライアントには「文字起こしが空」に見えるので、連結そのものを固定する。
+func TestTranscribeWithRetry_BuildsTranscriptionByJoiningSegments(t *testing.T) {
+	fetch := func() (string, error) {
+		return `{"segments":[
+			{"time":"0:00","speaker":"A","text":"おはようございます。"},
+			{"time":"0:20","speaker":"B","text":"よろしくお願いします。"}
+		],"summary":"挨拶"}`, nil
+	}
+	result, err := transcribeWithRetry("ja", fetch)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	want := "おはようございます。よろしくお願いします。"
+	if result.Transcription != want {
+		t.Errorf("transcription = %q, want %q", result.Transcription, want)
+	}
+	if len(result.Segments) != 2 {
+		t.Errorf("segments = %d, want 2", len(result.Segments))
+	}
+}
+
+func TestJoinSegmentText_SeparatorByLanguage(t *testing.T) {
+	segs := []transcriptionSegment{{Text: "Hello there."}, {Text: "Nice to meet you."}}
+	if got := joinSegmentText(segs, "en"); got != "Hello there. Nice to meet you." {
+		t.Errorf("en join = %q (space-separated languages must not run words together)", got)
+	}
+	ja := []transcriptionSegment{{Text: "おはよう"}, {Text: "ございます"}}
+	if got := joinSegmentText(ja, "ja"); got != "おはようございます" {
+		t.Errorf("ja join = %q, want no space", got)
+	}
+	// 空・空白だけの segment は落とす（連結結果に余分な区切りが残らないこと）
+	mixed := []transcriptionSegment{{Text: "A"}, {Text: "   "}, {Text: "B"}}
+	if got := joinSegmentText(mixed, "en"); got != "A B" {
+		t.Errorf("blank segment handling = %q, want %q", got, "A B")
 	}
 }
 
@@ -148,19 +189,19 @@ func TestTranscribeWithRetry_RecoversOnRetry(t *testing.T) {
 	fetch := func() (string, error) {
 		calls++
 		if calls == 1 {
-			return `{"transcription": "途中で切れた`, nil // unexpected end of JSON input
+			return `{"segments":[{"time":"0:00","speaker":"","text":"途中で切れた`, nil
 		}
-		return `{"transcription":"やり直し成功","segments":[],"summary":""}`, nil
+		return `{"segments":[{"time":"0:00","speaker":"","text":"やり直し成功"}],"summary":""}`, nil
 	}
-	result, err := transcribeWithRetry(fetch)
+	result, err := transcribeWithRetry("ja", fetch)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if calls != 2 {
 		t.Errorf("calls = %d, want 2", calls)
 	}
-	if result["transcription"] != "やり直し成功" {
-		t.Errorf("transcription = %v, want retried result", result["transcription"])
+	if result.Transcription != "やり直し成功" {
+		t.Errorf("transcription = %q, want retried result", result.Transcription)
 	}
 }
 
@@ -171,7 +212,7 @@ func TestTranscribeWithRetry_PropagatesFetchError(t *testing.T) {
 		calls++
 		return "", wantErr
 	}
-	result, err := transcribeWithRetry(fetch)
+	result, err := transcribeWithRetry("ja", fetch)
 	if !errors.Is(err, wantErr) {
 		t.Fatalf("err = %v, want %v", err, wantErr)
 	}
@@ -183,38 +224,65 @@ func TestTranscribeWithRetry_PropagatesFetchError(t *testing.T) {
 	}
 }
 
-func TestTranscribeWithRetry_SalvagesAfterBothAttemptsBroken(t *testing.T) {
+// maxOutputTokens で出力が切れた場合、完結している segment までは返す。
+// ここが効かないとユーザーには一切結果が返らない。
+func TestTranscribeWithRetry_SalvagesCompletedSegments(t *testing.T) {
 	calls := 0
 	fetch := func() (string, error) {
 		calls++
-		return `{"transcription": "録音の内容はここまでしか届きませんでした`, nil
+		return `{"segments":[` +
+			`{"time":"0:00","speaker":"A","text":"最初の発言です。"},` +
+			`{"time":"0:20","speaker":"B","text":"二つ目の発言です。"},` +
+			`{"time":"0:40","speaker":"A","text":"ここで切れ`, nil
 	}
-	result, err := transcribeWithRetry(fetch)
+	result, err := transcribeWithRetry("ja", fetch)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if calls != 2 {
 		t.Errorf("calls = %d, want 2", calls)
 	}
-	transcription, _ := result["transcription"].(string)
-	if transcription != "録音の内容はここまでしか届きませんでした" {
-		t.Errorf("transcription = %q, want salvaged text", transcription)
+	if len(result.Segments) != 2 {
+		t.Fatalf("salvaged %d segments, want 2 (the incomplete one must be dropped)", len(result.Segments))
 	}
-	if strings.ContainsAny(transcription, "{}") || strings.Contains(transcription, `"transcription"`) {
-		t.Errorf("transcription leaked raw JSON syntax: %q", transcription)
+	want := "最初の発言です。二つ目の発言です。"
+	if result.Transcription != want {
+		t.Errorf("transcription = %q, want %q", result.Transcription, want)
+	}
+	if strings.ContainsAny(result.Transcription, "{}") || strings.Contains(result.Transcription, `"text"`) {
+		t.Errorf("transcription leaked raw JSON syntax: %q", result.Transcription)
 	}
 }
 
-func TestTranscribeWithRetry_UnrecoverableWhenNoTranscriptionField(t *testing.T) {
+func TestTranscribeWithRetry_UnrecoverableWhenNoSegments(t *testing.T) {
 	fetch := func() (string, error) {
 		return `{"summary": "要約だけ壊れ`, nil
 	}
-	result, err := transcribeWithRetry(fetch)
+	result, err := transcribeWithRetry("ja", fetch)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if result != nil {
 		t.Errorf("result = %v, want nil (unrecoverable)", result)
+	}
+}
+
+// segments が空配列で返ってきたら成功扱いにしない（文字起こしが空になるため）。
+func TestTranscribeWithRetry_EmptySegmentsIsNotSuccess(t *testing.T) {
+	calls := 0
+	fetch := func() (string, error) {
+		calls++
+		return `{"segments":[],"summary":"要約だけ"}`, nil
+	}
+	result, err := transcribeWithRetry("ja", fetch)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if calls != 2 {
+		t.Errorf("calls = %d, want 2 (empty segments must trigger the retry)", calls)
+	}
+	if result != nil {
+		t.Errorf("result = %v, want nil", result)
 	}
 }
 
@@ -517,37 +585,43 @@ func TestParseIntEnv(t *testing.T) {
 	}
 }
 
-func TestSalvageTranscription(t *testing.T) {
+func TestSalvageSegments(t *testing.T) {
 	tests := []struct {
 		name   string
 		broken string
-		want   string
+		want   []string // 復元される text の並び
 	}{
 		{
-			name:   "truncated mid string",
-			broken: `{"transcription": "途中で切れたテキストです`,
-			want:   "途中で切れたテキストです",
+			name:   "drops the truncated trailing object",
+			broken: `{"segments":[{"time":"0:00","speaker":"A","text":"完全な発言"},{"time":"0:20","speaker":"B","text":"途中で切`,
+			want:   []string{"完全な発言"},
 		},
 		{
 			name:   "resolves escape sequences",
-			broken: `{"transcription": "line1\nline2\ttabbed and \"quoted\"`,
-			want:   "line1\nline2\ttabbed and \"quoted\"",
+			broken: `{"segments":[{"time":"0:00","speaker":"","text":"line1\nline2 and \"quoted\""},{"time":"0:20"`,
+			want:   []string{"line1\nline2 and \"quoted\""},
 		},
 		{
-			name:   "properly closed string",
-			broken: `{"transcription": "完全なテキスト", "summary": "壊れて`,
-			want:   "完全なテキスト",
-		},
-		{
-			name:   "field not present",
+			name:   "no segments present",
 			broken: `{"summary": "壊れて`,
-			want:   "",
+			want:   nil,
+		},
+		{
+			name:   "skips blank text",
+			broken: `{"segments":[{"time":"0:00","speaker":"","text":"   "},{"time":"0:10","speaker":"","text":"有効"}]}`,
+			want:   []string{"有効"},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := salvageTranscription(tt.broken); got != tt.want {
-				t.Errorf("salvageTranscription() = %q, want %q", got, tt.want)
+			got := salvageSegments(tt.broken)
+			if len(got) != len(tt.want) {
+				t.Fatalf("salvageSegments() returned %d segments, want %d (%+v)", len(got), len(tt.want), got)
+			}
+			for i := range tt.want {
+				if got[i].Text != tt.want[i] {
+					t.Errorf("segment[%d].Text = %q, want %q", i, got[i].Text, tt.want[i])
+				}
 			}
 		})
 	}
