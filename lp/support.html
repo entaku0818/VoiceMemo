@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サポート - シンプル録音</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Segoe UI", sans-serif;
+    background: #f5f7fb; color: #1f2937; line-height: 1.8;
+  }
+  .hero { background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%); color: #fff; padding: 56px 24px 48px; text-align: center; }
+  .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 8px; }
+  .hero p { opacity: 0.92; }
+  .container { max-width: 720px; margin: 0 auto; padding: 48px 24px 64px; }
+  h2 { font-size: 1.2rem; font-weight: 600; margin: 40px 0 16px; color: #1e40af; }
+  .faq { background: #fff; border: 1px solid #e3e8f0; border-radius: 14px; padding: 20px 24px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(31,41,55,0.05); }
+  .faq h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+  .faq p { color: #4b5563; font-size: 0.92rem; }
+  .contact { background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%); color: #fff; border-radius: 18px; padding: 34px; text-align: center; margin-top: 48px; }
+  .contact h2 { margin: 0 0 12px; color: #fff; }
+  .contact p { opacity: 0.92; margin-bottom: 22px; font-size: 0.95rem; }
+  .btn { display: inline-block; padding: 14px 30px; background: #fff; color: #1e40af; border-radius: 11px; font-weight: 600; text-decoration: none; }
+  .btn:hover { background: #eef2ff; }
+  .en { margin-top: 56px; padding-top: 32px; border-top: 1px solid #e3e8f0; }
+  footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid #e3e8f0; text-align: center; color: #8b93a7; font-size: 0.85rem; }
+  footer a { color: #2563eb; text-decoration: none; margin: 0 10px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>サポート</h1>
+  <p>シンプル録音 — AI文字起こし &amp; ボイスメモ</p>
+</div>
+<div class="container">
+
+  <h2>よくあるご質問</h2>
+
+  <div class="faq">
+    <h3>画面を閉じると録音が止まってしまいます</h3>
+    <p>バックグラウンド録音に対応しているため、通常はホーム画面に戻っても録音は継続します。止まる場合は、iOS の低電力モードがオンになっていないか、他の録音アプリや通話がマイクを使用していないかをご確認ください。</p>
+  </div>
+
+  <div class="faq">
+    <h3>録音が開始できません</h3>
+    <p>設定アプリ → シンプル録音 → マイク が許可されているかご確認ください。許可がオフのままだと録音を開始できません。</p>
+  </div>
+
+  <div class="faq">
+    <h3>WAV と AAC(M4A) はどう使い分けますか？</h3>
+    <p>WAV は非圧縮で音質を最優先したい場合に、AAC(M4A) はファイルサイズを抑えたい場合に向いています。長時間録音では AAC をおすすめします。</p>
+  </div>
+
+  <div class="faq">
+    <h3>特定の区間だけを繰り返し再生したい</h3>
+    <p>AB区間リピートをご利用ください。開始点(A)と終了点(B)を指定すると、その区間だけを繰り返し再生します。再生スピードは 0.5〜2.0 倍速まで変更できるため、語学学習のシャドーイングにも活用できます。</p>
+  </div>
+
+  <div class="faq">
+    <h3>文字起こしはどのように動作しますか？</h3>
+    <p>文字起こしは Gemini AI を利用しており、処理のために音声データが外部の AI サービスへ送信されます。広告を視聴することで無料でご利用いただけるほか、プレミアムプランでは回数制限なくお使いいただけます。機密性の高い音声については、この点をご了承のうえご利用ください。</p>
+  </div>
+
+  <div class="faq">
+    <h3>文字起こしが失敗します</h3>
+    <p>通信環境をご確認ください。また、極端に長い音声や、話し声がほとんど含まれない音声では失敗することがあります。うまくいかない場合は、録音を分割してからお試しください。</p>
+  </div>
+
+  <div class="faq">
+    <h3>iCloud 同期が反映されません</h3>
+    <p>設定アプリ → ユーザー名 → iCloud で iCloud Drive がオンになっているか、端末が Wi-Fi に接続されているかをご確認ください。ファイル数が多い場合、初回の同期には時間がかかることがあります。</p>
+  </div>
+
+  <div class="faq">
+    <h3>録音ファイルを整理したい</h3>
+    <p>ファイル名の変更・並べ替えのほか、プレイリストを作成してまとめて管理できます。波形エディタで録音内容を確認しながら編集することも可能です。</p>
+  </div>
+
+  <div class="faq">
+    <h3>機種変更しました。プレミアムを引き継ぐには？</h3>
+    <p>購入時と同じ Apple ID でサインインし、アプリ内の「購入を復元」をお試しください。解約は iOS の 設定 → ユーザー名 → サブスクリプション から行えます。</p>
+  </div>
+
+  <div class="faq">
+    <h3>録音データが消えてしまいました</h3>
+    <p>アプリを削除すると端末内の録音データも削除されます。大切な録音は、共有機能で他のアプリやクラウドへ書き出すか、iCloud 同期をオンにしてお使いください。</p>
+  </div>
+
+  <div class="contact">
+    <h2>お問い合わせ</h2>
+    <p>上記で解決しない場合は、メールでご連絡ください。<br>ご利用中の iOS バージョンと端末名を添えていただけると調査がスムーズです。</p>
+    <a class="btn" href="mailto:entaku19890818@gmail.com?subject=%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E9%8C%B2%E9%9F%B3%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">メールで問い合わせる</a>
+  </div>
+
+  <div class="en">
+    <h2>Support (English)</h2>
+    <div class="faq">
+      <h3>Recording stops when I leave the app</h3>
+      <p>Background recording is supported. If it stops, check that Low Power Mode is off and that no other app or call is using the microphone.</p>
+    </div>
+    <div class="faq">
+      <h3>Recording won't start</h3>
+      <p>Open Settings → Simple Voice Recorder → Microphone and make sure access is allowed.</p>
+    </div>
+    <div class="faq">
+      <h3>How does transcription work?</h3>
+      <p>Transcription is powered by Gemini AI, so audio is sent to an external AI service for processing. It's free with an ad, or unlimited with Premium. Please keep this in mind for sensitive recordings.</p>
+    </div>
+    <div class="faq">
+      <h3>Repeating a section (A-B repeat)</h3>
+      <p>Set point A and point B to loop just that segment. Playback speed is adjustable from 0.5x to 2.0x — useful for language shadowing.</p>
+    </div>
+    <div class="faq">
+      <h3>Restoring Premium on a new device</h3>
+      <p>Sign in with the same Apple ID and use "Restore Purchases". Manage or cancel via Settings → your name → Subscriptions.</p>
+    </div>
+    <div class="faq">
+      <h3>Still need help?</h3>
+      <p>Email <a href="mailto:entaku19890818@gmail.com" style="color:#2563eb">entaku19890818@gmail.com</a> with your iOS version and device model.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>シンプル録音 / Simple Voice Recorder &amp; Memo</p>
+    <p style="margin-top:10px;">
+      <a href="/privacy_policy.html">プライバシーポリシー</a>
+      <a href="/terms_of_service.html">利用規約</a>
+    </p>
+  </footer>
+</div>
+</body>
+</html>
