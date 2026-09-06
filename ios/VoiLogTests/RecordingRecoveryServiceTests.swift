@@ -226,4 +226,42 @@ final class RecordingRecoveryServiceTests: XCTestCase {
 
         XCTAssertFalse(title.isEmpty, "復元した録音には日時ベースのタイトルを付けること")
     }
+
+    // MARK: - 対象ファイルの判定
+
+    func testLooksLikeRecording_acceptsSupportedExtensions() {
+        XCTAssertTrue(RecordingRecoveryService.looksLikeRecording(URL(fileURLWithPath: "/tmp/a.m4a")))
+        XCTAssertTrue(RecordingRecoveryService.looksLikeRecording(URL(fileURLWithPath: "/tmp/a.WAV")))
+    }
+
+    func testLooksLikeRecording_acceptsExtensionlessUUIDFromCloudDownload() {
+        // CloudUploader.downloadVoiceFile は拡張子なしの <UUID> で保存する。
+        // これを弾くと、iCloud から戻した録音が次の消失時に復元できなくなる
+        let url = URL(fileURLWithPath: "/tmp/\(UUID().uuidString)")
+
+        XCTAssertTrue(RecordingRecoveryService.looksLikeRecording(url))
+    }
+
+    func testLooksLikeRecording_rejectsExtensionlessNonUUID() {
+        // Documents 直下には無関係のファイルもあるため UUID 以外は拾わない
+        XCTAssertFalse(RecordingRecoveryService.looksLikeRecording(URL(fileURLWithPath: "/tmp/README")))
+    }
+
+    func testLooksLikeRecording_rejectsOtherExtensions() {
+        XCTAssertFalse(RecordingRecoveryService.looksLikeRecording(URL(fileURLWithPath: "/tmp/Voice.sqlite")))
+        XCTAssertFalse(RecordingRecoveryService.looksLikeRecording(URL(fileURLWithPath: "/tmp/a.txt")))
+    }
+
+    func testFindOrphanedRecordings_findsExtensionlessCloudRestoredFile() throws {
+        let id = UUID()
+        let url = subDirectory.appendingPathComponent(id.uuidString)
+        try Data(repeating: 0, count: 2048).write(to: url)
+
+        let orphans = RecordingRecoveryService.findOrphanedRecordings(
+            in: [subDirectory], knownIDs: []
+        )
+
+        XCTAssertEqual(orphans.count, 1)
+        XCTAssertEqual(orphans.first?.id, id)
+    }
 }

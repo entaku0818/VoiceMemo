@@ -97,7 +97,9 @@ final class CoreDataStack {
     }
 
     /// 退避済みストアファイルを列挙する（サポート調査・復元検討用）
-    static func quarantinedStoreFiles(
+    ///
+    /// FileManager しか触らないので nonisolated。診断情報の収集から呼べるようにしている
+    nonisolated static func quarantinedStoreFiles(
         storeURL: URL,
         fileManager: FileManager = .default
     ) -> [URL] {
@@ -110,9 +112,19 @@ final class CoreDataStack {
             .map { directory.appendingPathComponent($0) }
     }
 
+    /// 直近のストア読み込み失敗を保存しておく UserDefaults キー。
+    /// 失敗の瞬間に問い合わせが来るとは限らないため、後から診断情報に載せられるよう残す。
+    static let lastStoreFailureKey = "LastStoreLoadFailure"
+
+    /// 直近のストア読み込み失敗（診断情報用）。未発生なら nil
+    static func lastStoreFailure(defaults: UserDefaults = .standard) -> String? {
+        defaults.string(forKey: lastStoreFailureKey)
+    }
+
     /// ストア読み込み失敗を Crashlytics の非致命ログとして記録する。
     /// 旧実装ではこの経路が完全に無記録だったため、全消失が起きても検知できなかった。
     private static func reportStoreFailure(_ error: NSError, phase: String) {
+        persistStoreFailure(error, phase: phase)
         guard FirebaseApp.app() != nil else { return }
         let reported = NSError(
             domain: "CoreDataStoreLoadFailure",
@@ -125,6 +137,22 @@ final class CoreDataStack {
             ]
         )
         Crashlytics.crashlytics().record(error: reported)
+    }
+
+    /// 失敗内容を1行に畳んで保存する（診断情報の "last store failure" 行になる）
+    static func persistStoreFailure(
+        _ error: NSError,
+        phase: String,
+        timestamp: Date = Date(),
+        defaults: UserDefaults = .standard
+    ) {
+        let formatter = ISO8601DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        let sqlite = (error.userInfo["NSSQLiteErrorDomain"] as? Int).map { " sqlite=\($0)" } ?? ""
+        defaults.set(
+            "\(error.domain)(\(error.code))\(sqlite) phase=\(phase) at \(formatter.string(from: timestamp))",
+            forKey: lastStoreFailureKey
+        )
     }
 }
 

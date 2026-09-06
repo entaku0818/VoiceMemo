@@ -144,4 +144,71 @@ final class CoreDataStackTests: XCTestCase {
 
         XCTAssertTrue(CoreDataStack.quarantinedStoreFiles(storeURL: storeURL).isEmpty)
     }
+
+    // MARK: - 失敗の記録（診断情報用）
+
+    private func makeDefaults() throws -> UserDefaults {
+        let name = "CoreDataStackTests-\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: name))
+        addTeardownBlock { UserDefaults.standard.removePersistentDomain(forName: name) }
+        return defaults
+    }
+
+    @MainActor
+    func testLastStoreFailure_isNilBeforeAnyFailure() throws {
+        let defaults = try makeDefaults()
+
+        XCTAssertNil(CoreDataStack.lastStoreFailure(defaults: defaults))
+    }
+
+    @MainActor
+    func testPersistStoreFailure_recordsDomainCodeAndPhase() throws {
+        let defaults = try makeDefaults()
+        let error = NSError(
+            domain: "NSCocoaErrorDomain",
+            code: 256,
+            userInfo: ["NSSQLiteErrorDomain": 23]
+        )
+
+        CoreDataStack.persistStoreFailure(
+            error,
+            phase: "load",
+            timestamp: Date(timeIntervalSince1970: 0),
+            defaults: defaults
+        )
+
+        let recorded = try XCTUnwrap(CoreDataStack.lastStoreFailure(defaults: defaults))
+        XCTAssertTrue(recorded.contains("NSCocoaErrorDomain(256)"))
+        XCTAssertTrue(recorded.contains("sqlite=23"), "SQLITE_AUTH(23) 判別のため下位コードを残すこと")
+        XCTAssertTrue(recorded.contains("phase=load"))
+        XCTAssertTrue(recorded.contains("1970-01-01T00:00:00Z"))
+    }
+
+    @MainActor
+    func testPersistStoreFailure_omitsSqliteCodeWhenAbsent() throws {
+        let defaults = try makeDefaults()
+        let error = NSError(domain: "NSCocoaErrorDomain", code: 134_030, userInfo: [:])
+
+        CoreDataStack.persistStoreFailure(error, phase: "retry", defaults: defaults)
+
+        let recorded = try XCTUnwrap(CoreDataStack.lastStoreFailure(defaults: defaults))
+        XCTAssertFalse(recorded.contains("sqlite="))
+        XCTAssertTrue(recorded.contains("phase=retry"))
+    }
+
+    @MainActor
+    func testPersistStoreFailure_keepsOnlyTheMostRecentFailure() throws {
+        let defaults = try makeDefaults()
+
+        CoreDataStack.persistStoreFailure(
+            NSError(domain: "First", code: 1), phase: "load", defaults: defaults
+        )
+        CoreDataStack.persistStoreFailure(
+            NSError(domain: "Second", code: 2), phase: "load", defaults: defaults
+        )
+
+        let recorded = try XCTUnwrap(CoreDataStack.lastStoreFailure(defaults: defaults))
+        XCTAssertTrue(recorded.contains("Second"))
+        XCTAssertFalse(recorded.contains("First"))
+    }
 }

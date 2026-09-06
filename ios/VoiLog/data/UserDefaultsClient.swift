@@ -43,6 +43,8 @@ struct UserDefaultsClient {
 
     // 広告視聴による文字起こし無料アンロック回数の上限（lifetime）。issue #207
     static let freeAdBasedTranscriptionLimit = 3
+    /// UserDefaults に残すエラーログの上限件数
+    static let errorLogLimit = 200
 }
 
 extension UserDefaultsClient: DependencyKey {
@@ -53,8 +55,12 @@ extension UserDefaultsClient: DependencyKey {
             let defaults = UserDefaults.standard
             var errorLogs = defaults.array(forKey: "ErrorLogs") as? [String] ?? []
             errorLogs.append(logMessage)
+            // 以前は無制限に追記していて UserDefaults が際限なく膨らんでいた。
+            // 調査に使うのは直近だけなので上限を設ける
+            if errorLogs.count > UserDefaultsClient.errorLogLimit {
+                errorLogs.removeFirst(errorLogs.count - UserDefaultsClient.errorLogLimit)
+            }
             defaults.set(errorLogs, forKey: "ErrorLogs")
-            defaults.synchronize()
         },
         errorLogs: {
             UserDefaults.standard.array(forKey: "ErrorLogs") as? [String] ?? []

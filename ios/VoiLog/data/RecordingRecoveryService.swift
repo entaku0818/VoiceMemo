@@ -30,6 +30,20 @@ enum RecordingRecoveryService {
     /// 復元候補として無視するファイルサイズの下限（空ファイル・書きかけの除外）
     static let minimumFileSize: Int64 = 1024
 
+    /// 録音ファイルとして扱ってよいファイルか。
+    ///
+    /// 通常は `<UUID>.m4a` だが、iCloud から引き戻したファイルは
+    /// `CloudUploader.downloadVoiceFile` が拡張子なしの `<UUID>` で保存する。
+    /// 拡張子が無くてもファイル名が UUID なら対象に含める（Documents 直下には
+    /// plist や sqlite など無関係のファイルもあるため、UUID 判定で絞る）。
+    static func looksLikeRecording(_ url: URL) -> Bool {
+        let ext = url.pathExtension.lowercased()
+        if ext.isEmpty {
+            return UUID(uuidString: url.lastPathComponent) != nil
+        }
+        return supportedExtensions.contains(ext)
+    }
+
     // MARK: - Scan (pure / testable)
 
     /// 指定ディレクトリ群を走査し、`knownIDs` に含まれない音声ファイルを列挙する。
@@ -56,7 +70,7 @@ enum RecordingRecoveryService {
             ) else { continue }
 
             for url in entries {
-                guard supportedExtensions.contains(url.pathExtension.lowercased()) else { continue }
+                guard looksLikeRecording(url) else { continue }
 
                 let values = try? url.resourceValues(
                     forKeys: [.creationDateKey, .fileSizeKey, .isRegularFileKey]
