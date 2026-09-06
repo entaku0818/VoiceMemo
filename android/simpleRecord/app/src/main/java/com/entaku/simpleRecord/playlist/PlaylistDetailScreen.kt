@@ -47,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.entaku.simpleRecord.BannerAdView
 import com.entaku.simpleRecord.R
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.formatTime
@@ -98,6 +99,9 @@ fun PlaylistDetailScreen(
                     Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_recording))
                 }
             }
+        },
+        bottomBar = {
+            BannerAdView(modifier = Modifier.fillMaxWidth())
         }
     ) { innerPadding ->
         Column(

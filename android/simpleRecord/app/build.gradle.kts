@@ -174,7 +174,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0")
 
     // Google Mobile Ads
-    implementation("com.google.android.gms:play-services-ads:23.6.0")
+    implementation("com.google.android.gms:play-services-ads:25.4.0")
 
     // RevenueCat (bundles/manages the Google Play Billing Library dependency transitively)
     implementation("com.revenuecat.purchases:purchases:10.14.1")
