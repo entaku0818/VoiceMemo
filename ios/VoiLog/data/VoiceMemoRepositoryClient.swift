@@ -59,6 +59,22 @@ struct VoiceMemoRepositoryClient {
     /// Documents 配下に残っているがCore Dataに行が無い音声ファイルを一覧へ復帰させる。
     /// - Returns: 復元した件数
     var restoreOrphanedRecordings: @MainActor () async -> Int
+
+    /// iCloud(CloudKit) 上にあってCore Dataに行が無い録音を、実体ごと引き戻す。
+    /// 端末からファイルが消えている場合や機種変更後は、こちらでしか戻せない。
+    var restoreFromCloud: @MainActor () async -> CloudRestoreResult = { CloudRestoreResult() }
+
+    /// 消失時の状況スナップショットを集める（Crashlytics 送信・問い合わせ添付用）
+    var collectRecoveryDiagnostics: @MainActor () async -> RecoveryDiagnostics = { .empty }
+
+    // MARK: - Cloud Restore Result
+    struct CloudRestoreResult: Equatable {
+        var restoredCount: Int = 0
+        /// iCloud のレコード一覧を取得できたか。未ログイン・圏外・権限なしなら false
+        var isCloudAvailable = false
+        /// iCloud 上に存在した録音の総数
+        var cloudRecordCount: Int = 0
+    }
 }
 
 // MARK: - Dependency Key
@@ -529,6 +545,107 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     AppLogger.data.error("Failed to restore orphaned recordings: \(error.localizedDescription)")
                     return 0
                 }
+            },
+            restoreFromCloud: {
+                let isAvailable = await isCloudAccountAvailable(container: cloudContainer)
+                guard isAvailable else {
+                    AppLogger.sync.info("Cloud restore skipped: iCloud account unavailable")
+                    return VoiceMemoRepositoryClient.CloudRestoreResult()
+                }
+
+                let uploader = CloudUploader()
+                let cloudVoices = await uploader.fetchAllVoices()
+
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                let existing = (try? managedContext.fetch(fetchRequest)) ?? []
+                let knownIDs = Set(existing.compactMap(\.id))
+                let missing = cloudVoices.filter { !knownIDs.contains($0.id) }
+
+                var restoredCount = 0
+                for voice in missing {
+                    // 実体を Documents に引き戻せたものだけ一覧に載せる。
+                    // ダウンロードに失敗した行を作ると「開けない録音」が並ぶことになる
+                    guard await uploader.downloadVoiceFile(id: voice.id) else {
+                        AppLogger.sync.error("Cloud restore failed to download \(voice.id.uuidString)")
+                        continue
+                    }
+                    guard let voiceEntity = NSManagedObject(
+                        entity: entity!, insertInto: managedContext
+                    ) as? VoiLog.Voice else { continue }
+
+                    voiceEntity.id = voice.id
+                    voiceEntity.url = voice.url
+                    voiceEntity.title = voice.title
+                    voiceEntity.text = voice.text
+                    voiceEntity.createdAt = voice.createdAt
+                    voiceEntity.updatedAt = Date()
+                    voiceEntity.duration = voice.duration
+                    voiceEntity.fileFormat = voice.fileFormat
+                    voiceEntity.samplingFrequency = voice.samplingFrequency
+                    voiceEntity.quantizationBitDepth = voice.quantizationBitDepth
+                    voiceEntity.numberOfChannels = voice.numberOfChannels
+                    voiceEntity.isCloud = true
+                    restoredCount += 1
+                }
+
+                guard restoredCount > 0 else {
+                    return VoiceMemoRepositoryClient.CloudRestoreResult(
+                        restoredCount: 0,
+                        isCloudAvailable: true,
+                        cloudRecordCount: cloudVoices.count
+                    )
+                }
+
+                do {
+                    try managedContext.saveIfStoreLoaded()
+                    AppLogger.sync.info("Restored \(restoredCount) recording(s) from iCloud")
+                    return VoiceMemoRepositoryClient.CloudRestoreResult(
+                        restoredCount: restoredCount,
+                        isCloudAvailable: true,
+                        cloudRecordCount: cloudVoices.count
+                    )
+                } catch {
+                    managedContext.rollback()
+                    AppLogger.sync.error("Failed to restore from iCloud: \(error.localizedDescription)")
+                    return VoiceMemoRepositoryClient.CloudRestoreResult(
+                        restoredCount: 0,
+                        isCloudAvailable: true,
+                        cloudRecordCount: cloudVoices.count
+                    )
+                }
+            },
+            collectRecoveryDiagnostics: {
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                let existing = (try? managedContext.fetch(fetchRequest)) ?? []
+                let knownIDs = Set(existing.compactMap(\.id))
+                let directories = RecordingRecoveryService.defaultSearchDirectories()
+
+                var diagnostics = RecoveryDiagnostics()
+                let info = Bundle.main.infoDictionary
+                diagnostics.appVersion = info?["CFBundleShortVersionString"] as? String ?? "unknown"
+                diagnostics.buildNumber = info?["CFBundleVersion"] as? String ?? "unknown"
+                diagnostics.osVersion = ProcessInfo.processInfo.operatingSystemVersionString
+                diagnostics.deviceModel = RecoveryDiagnostics.deviceModelIdentifier()
+                diagnostics.freeDiskBytes = RecoveryDiagnostics.freeDiskBytes()
+                diagnostics.coreDataRowCount = existing.count
+                diagnostics.audio = RecoveryDiagnostics.audioState(in: directories)
+                diagnostics.orphanCount = RecordingRecoveryService.findOrphanedRecordings(
+                    in: directories,
+                    knownIDs: knownIDs
+                ).count
+                diagnostics.lastStoreFailure = CoreDataStack.lastStoreFailure()
+
+                if let storeURL = CoreDataStack.shared.container
+                    .persistentStoreDescriptions.first?.url {
+                    diagnostics.store = RecoveryDiagnostics.storeState(storeURL: storeURL)
+                }
+
+                // iCloud は通信するので、アカウントが使えるときだけ数える
+                if await isCloudAccountAvailable(container: cloudContainer) {
+                    diagnostics.cloudRecordCount = await CloudUploader().fetchAllVoices().count
+                }
+
+                return diagnostics
             }
         )
     }()
@@ -560,6 +677,19 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
 
     @MainActor
     static let testValue: VoiceMemoRepositoryClient = previewValue
+}
+
+/// iCloud アカウントが使える状態か。
+///
+/// `CloudUploader.fetchAllVoices()` は取得に失敗しても空配列を返すため、
+/// 「本当に0件」と「取得できなかった」を区別するのにアカウント状態を使う。
+private func isCloudAccountAvailable(container: CKContainer) async -> Bool {
+    do {
+        return try await container.accountStatus() == .available
+    } catch {
+        AppLogger.sync.error("Failed to read iCloud account status: \(error.localizedDescription)")
+        return false
+    }
 }
 
 extension DependencyValues {

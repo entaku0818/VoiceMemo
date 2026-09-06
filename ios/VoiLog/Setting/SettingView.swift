@@ -34,8 +34,21 @@ struct SettingReducer {
         case restorePurchases
         case restoreResponse(Bool)
         case restoreRecordings
-        case restoreRecordingsResponse(Int)
+        case restoreRecordingsResponse(RestoreOutcome)
         case dismissRestoreRecordingsAlert
+        case prepareDiagnostics
+        case diagnosticsPrepared(String)
+        case dismissDiagnostics
+    }
+
+    /// 復元の結果。端末内と iCloud で戻せた件数を分けて持つ
+    struct RestoreOutcome: Equatable {
+        var localCount: Int = 0
+        var cloudCount: Int = 0
+        /// iCloud を実際に確認できたか。未ログイン・圏外なら false
+        var isCloudAvailable = false
+
+        var total: Int { localCount + cloudCount }
     }
 
     @CasePathable
@@ -163,16 +176,39 @@ struct SettingReducer {
             guard !state.isRestoringRecordings else { return .none }
             state.isRestoringRecordings = true
             return .run { send in
-                let count = await voiceMemoRepository.restoreOrphanedRecordings()
-                await send(.restoreRecordingsResponse(count))
+                // 診断は「復元前の壊れた状態」を写したいので、必ず復元より先に集める
+                let diagnostics = await voiceMemoRepository.collectRecoveryDiagnostics()
+                diagnostics.reportIfDataLoss()
+
+                let localCount = await voiceMemoRepository.restoreOrphanedRecordings()
+                let cloud = await voiceMemoRepository.restoreFromCloud()
+                await send(.restoreRecordingsResponse(RestoreOutcome(
+                    localCount: localCount,
+                    cloudCount: cloud.restoredCount,
+                    isCloudAvailable: cloud.isCloudAvailable
+                )))
             }
-        case let .restoreRecordingsResponse(count):
+        case let .restoreRecordingsResponse(outcome):
             state.isRestoringRecordings = false
-            state.restoredRecordingsCount = count
-            guard count > 0 else { return .none }
+            state.restoreOutcome = outcome
+            guard outcome.total > 0 else { return .none }
             return .send(.delegate(.recordingsRestored))
         case .dismissRestoreRecordingsAlert:
-            state.restoredRecordingsCount = nil
+            state.restoreOutcome = nil
+            return .none
+        case .prepareDiagnostics:
+            guard !state.isCollectingDiagnostics else { return .none }
+            state.isCollectingDiagnostics = true
+            return .run { send in
+                let diagnostics = await voiceMemoRepository.collectRecoveryDiagnostics()
+                await send(.diagnosticsPrepared(diagnostics.formatted()))
+            }
+        case let .diagnosticsPrepared(text):
+            state.isCollectingDiagnostics = false
+            state.diagnosticsText = text
+            return .none
+        case .dismissDiagnostics:
+            state.diagnosticsText = nil
             return .none
         }
         }
@@ -200,8 +236,11 @@ struct SettingReducer {
         var showRestoreSuccessAlert = false
         var showRestoreFailureAlert = false
         var isRestoringRecordings = false
-        /// 復元実行の結果件数。nil のあいだは結果アラートを出さない
-        var restoredRecordingsCount: Int?
+        /// 復元実行の結果。nil のあいだは結果アラートを出さない
+        var restoreOutcome: RestoreOutcome?
+        var isCollectingDiagnostics = false
+        /// 共有シートに出す診断本文。nil のあいだはシートを出さない
+        var diagnosticsText: String?
 
         var dailyReminderDate: Date {
             var components = DateComponents()
@@ -281,26 +320,26 @@ struct SettingView: View {
             Text(String(localized: "購入履歴が見つかりませんでした。", table: "Settings"))
         }
         .alert(
-            (store.restoredRecordingsCount ?? 0) > 0
+            (store.restoreOutcome?.total ?? 0) > 0
                 ? String(localized: "録音を復元しました", table: "Settings")
                 : String(localized: "復元できる録音はありませんでした", table: "Settings"),
             isPresented: Binding(
-                get: { store.restoredRecordingsCount != nil },
+                get: { store.restoreOutcome != nil },
                 set: { if !$0 { store.send(.dismissRestoreRecordingsAlert) } }
             )
         ) {
             Button("OK", role: .cancel) {}
         } message: {
-            if let count = store.restoredRecordingsCount, count > 0 {
-                Text(String(
-                    format: String(localized: "%d件の録音を一覧に戻しました。", table: "Settings"),
-                    count
-                ))
-            } else {
-                Text(String(
-                    localized: "端末内に未登録の録音ファイルは見つかりませんでした。",
-                    table: "Settings"
-                ))
+            if let outcome = store.restoreOutcome {
+                Text(Self.restoreMessage(for: outcome))
+            }
+        }
+        .sheet(isPresented: Binding(
+            get: { store.diagnosticsText != nil },
+            set: { if !$0 { store.send(.dismissDiagnostics) } }
+        )) {
+            DiagnosticsShareView(text: store.diagnosticsText ?? "") {
+                store.send(.dismissDiagnostics)
             }
         }
 
@@ -353,7 +392,11 @@ struct SettingView: View {
         Section(
             header: Text(String(localized: "録音の復元", table: "Settings")),
             footer: Text(String(
-                localized: "一覧から録音が消えてしまった場合、端末内に残っている録音ファイルを探して一覧に戻します。",
+                localized: """
+                一覧から録音が消えても、音声ファイル自体は端末内やiCloudに残っていることがあります。\
+                両方を調べて一覧に戻します。タイトル・タグ・文字起こしは復元されず、録音日時からタイトルを付け直します。
+                復元できない場合は「診断情報を共有」で状況をコピーし、お問い合わせに添付してください。
+                """,
                 table: "Settings"
             ))
         ) {
@@ -373,7 +416,65 @@ struct SettingView: View {
                 }
             }
             .disabled(store.isRestoringRecordings)
+
+            Button {
+                store.send(.prepareDiagnostics)
+            } label: {
+                HStack {
+                    Text(String(localized: "診断情報を共有", table: "Settings"))
+                        .foregroundColor(Color("Black"))
+                    Spacer()
+                    if store.isCollectingDiagnostics {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+            .disabled(store.isCollectingDiagnostics)
         }
+    }
+
+    /// 復元結果の本文。「どこから何件戻ったか」「何が戻らないか」まで書く
+    static func restoreMessage(for outcome: SettingReducer.RestoreOutcome) -> String {
+        if outcome.localCount > 0 && outcome.cloudCount > 0 {
+            return String(
+                format: String(
+                    localized: "端末内から%1$d件、iCloudから%2$d件の録音を一覧に戻しました。タイトルは録音日時から付け直しています。",
+                    table: "Settings"
+                ),
+                outcome.localCount, outcome.cloudCount
+            )
+        }
+        if outcome.cloudCount > 0 {
+            return String(
+                format: String(
+                    localized: "iCloudから%d件の録音を一覧に戻しました。タイトル・文字起こしも一緒に戻っています。",
+                    table: "Settings"
+                ),
+                outcome.cloudCount
+            )
+        }
+        if outcome.localCount > 0 {
+            return String(
+                format: String(
+                    localized: "端末内から%d件の録音を一覧に戻しました。タイトルは録音日時から付け直しているため、必要に応じて変更してください。",
+                    table: "Settings"
+                ),
+                outcome.localCount
+            )
+        }
+        if outcome.isCloudAvailable {
+            return String(localized: """
+                端末内とiCloudの両方を調べましたが、一覧に無い録音は見つかりませんでした。\
+                端末からファイルごと削除された録音は、この方法では戻せません。
+                """, table: "Settings")
+        }
+        return String(localized: """
+            端末内を調べましたが、一覧に無い録音は見つかりませんでした。\
+            iCloudにサインインすると、iCloudに同期済みの録音も確認できます。
+            """, table: "Settings")
     }
 
     @ViewBuilder
@@ -669,6 +770,47 @@ struct MicrophonesVolumeView: View {
             isSelected: { $0.rawValue == store.microphonesVolume },
             onSelect: { store.send(.microphonesVolume($0.rawValue)) }
         )
+    }
+}
+
+// MARK: - Diagnostics Share
+
+/// 診断情報を本文のまま見せて、共有（メール添付・コピー）できるようにするシート。
+/// 何を送ることになるのかユーザーが読んでから送れる形にしている。
+struct DiagnosticsShareView: View {
+    let text: String
+    let onClose: () -> Void
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                Text(text)
+                    .font(.system(.footnote, design: .monospaced))
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+            }
+            .navigationTitle(String(localized: "診断情報", table: "Settings"))
+            .navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .bottom) {
+                Text(String(
+                    localized: "この内容に録音の音声や文字起こしは含まれません。件数・サイズ・端末情報だけです。",
+                    table: "Settings"
+                ))
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+                .padding()
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(String(localized: "閉じる", table: "Settings"), action: onClose)
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    ShareLink(item: text)
+                }
+            }
+        }
     }
 }
 
