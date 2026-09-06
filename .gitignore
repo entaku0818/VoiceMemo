@@ -127,3 +127,6 @@ revenuecat-products.png
 # Local agent tool configs (not for version control)
 .agents/
 .codex/
+
+# Firebase CLI deploy cache
+.firebase/

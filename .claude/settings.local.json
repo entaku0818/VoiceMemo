@@ -52,7 +52,9 @@
       "Bash(python3 /tmp/sales_report.py)",
       "Bash(xcrun simctl:*)",
       "Bash(open -a Simulator)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(JAVA_HOME=/Users/entaku/Library/Java/JavaVirtualMachines/jbr-17.0.14/Contents/Home ./gradlew bundleRelease --console=plain)",
+      "Read(//tmp/**)"
     ],
     "deny": []
   },
