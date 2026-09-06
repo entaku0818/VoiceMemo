@@ -1,0 +1,5 @@
+[Changes]
+• Added banner ads to the playlist and settings screens (not shown for Premium members)
+
+[Improvements]
+• Updated Kotlin, Compose, and Room to the latest versions for better stability
