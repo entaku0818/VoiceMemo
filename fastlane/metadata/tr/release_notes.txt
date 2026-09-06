@@ -1,8 +1,9 @@
-Sürüm 1.12.2
+Sürüm 1.13.0
+
+[Yenilikler]
+- Ayarlar'a “Kaybolan kayıtları geri yükle” eklendi. Bu cihaz ve iCloud taranır, bulunanlar listeye geri eklenir
+- Ayarlar'a “Tanılama bilgilerini paylaş” eklendi; cihazın durumunu destek talebinize ekleyebilirsiniz
 
 [Düzeltmeler]
-- Uygulama açılışında reklamın uygulama ekranının üzerinde görünebilmesine yol açan sorun giderildi
-- Açılış reklamı aralığının ayarlandığı gibi çalışmaması sorunu giderildi
-
-[İyileştirmeler]
-- Premium üyeler için gereksiz reklam yüklemesi durduruldu
+- Veriler geçici olarak yüklenemediğinde kayıt listesinin kaybolabilmesi sorunu giderildi
+- İzleme izni iletişim kutusunun görünmemesi sorunu giderildi

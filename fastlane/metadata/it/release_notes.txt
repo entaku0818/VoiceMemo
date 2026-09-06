@@ -1,8 +1,9 @@
-Versione 1.12.2
+Versione 1.13.0
+
+[Novità]
+- Aggiunta «Ripristina registrazioni mancanti» nelle Impostazioni. Controlla questo dispositivo e iCloud e riporta le registrazioni nell'elenco
+- Aggiunta «Condividi diagnostica» nelle Impostazioni per allegare lo stato del dispositivo alla richiesta di assistenza
 
 [Correzioni]
-- Risolto un problema per cui all'avvio un annuncio poteva comparire sopra la schermata dell'app
-- Corretto l'intervallo degli annunci all'avvio, che non funzionava come configurato
-
-[Miglioramenti]
-- Gli annunci non necessari non vengono più caricati per i membri Premium
+- Risolto un problema per cui l'elenco delle registrazioni poteva andare perso quando i dati non venivano caricati temporaneamente
+- Risolta la mancata comparsa della finestra di autorizzazione al tracciamento

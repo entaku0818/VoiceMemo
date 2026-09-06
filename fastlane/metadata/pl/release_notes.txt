@@ -1,8 +1,9 @@
-Wersja 1.12.2
+Wersja 1.13.0
+
+[Nowości]
+- Dodano „Przywróć brakujące nagrania” w Ustawieniach. Sprawdza to urządzenie i iCloud, a znalezione nagrania wracają na listę
+- Dodano „Udostępnij dane diagnostyczne” w Ustawieniach, aby dołączyć stan urządzenia do zgłoszenia
 
 [Poprawki]
-- Naprawiono problem, przez który przy uruchamianiu reklama mogła pojawiać się na ekranie aplikacji
-- Naprawiono odstęp między reklamami przy uruchamianiu, który nie działał zgodnie z ustawieniami
-
-[Ulepszenia]
-- Zaprzestano ładowania zbędnych reklam dla członków Premium
+- Naprawiono problem, przez który lista nagrań mogła zniknąć, gdy dane chwilowo nie dały się wczytać
+- Naprawiono brak okna zgody na śledzenie

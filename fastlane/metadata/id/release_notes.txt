@@ -1,8 +1,9 @@
-Versi 1.12.2
+Versi 1.13.0
+
+[Baru]
+- Menambahkan “Pulihkan Rekaman yang Hilang” di Pengaturan. Perangkat ini dan iCloud diperiksa, lalu rekaman yang ditemukan dikembalikan ke daftar
+- Menambahkan “Bagikan Info Diagnostik” di Pengaturan agar Anda bisa melampirkan status perangkat pada pertanyaan
 
 [Perbaikan]
-- Memperbaiki masalah saat iklan dapat muncul di atas layar aplikasi ketika dibuka
-- Memperbaiki interval iklan saat pembukaan yang tidak berjalan sesuai pengaturan
-
-[Peningkatan]
-- Berhenti memuat iklan yang tidak diperlukan bagi anggota Premium
+- Memperbaiki masalah daftar rekaman bisa hilang saat data sementara gagal dimuat
+- Memperbaiki dialog izin pelacakan yang tidak muncul

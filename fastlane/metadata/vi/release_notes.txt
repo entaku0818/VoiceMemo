@@ -1,8 +1,9 @@
-Phiên bản 1.12.2
+Phiên bản 1.13.0
+
+[Mới]
+- Thêm “Khôi phục bản ghi bị mất” trong Cài đặt. Ứng dụng kiểm tra thiết bị này và iCloud rồi đưa các bản ghi trở lại danh sách
+- Thêm “Chia sẻ thông tin chẩn đoán” trong Cài đặt để đính kèm tình trạng thiết bị vào yêu cầu hỗ trợ
 
 [Sửa lỗi]
-- Đã sửa lỗi quảng cáo có thể hiển thị đè lên màn hình ứng dụng khi khởi động
-- Đã sửa lỗi khoảng cách hiển thị quảng cáo khi khởi động không hoạt động đúng như thiết lập
-
-[Cải tiến]
-- Ngừng tải quảng cáo không cần thiết đối với thành viên Premium
+- Sửa lỗi danh sách bản ghi có thể bị mất khi dữ liệu tạm thời không tải được
+- Sửa lỗi hộp thoại xin quyền theo dõi không hiện ra

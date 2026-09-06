@@ -1,8 +1,9 @@
-Versão 1.12.2
+Versão 1.13.0
+
+[Novidades]
+- Adicionado «Restaurar gravações perdidas» nas Definições. Verifica este dispositivo e o iCloud e devolve as gravações à lista
+- Adicionado «Partilhar diagnóstico» nas Definições para anexar o estado do dispositivo ao seu pedido
 
 [Correções]
-- Corrigido um problema em que um anúncio podia aparecer sobre o ecrã da aplicação ao iniciar
-- Corrigido o intervalo dos anúncios de arranque, que não funcionava conforme configurado
-
-[Melhorias]
-- Deixaram de ser carregados anúncios desnecessários para os membros Premium
+- Corrigido um problema que podia fazer perder a lista de gravações quando os dados não carregavam temporariamente
+- Corrigida a caixa de diálogo de autorização de rastreio que não aparecia

@@ -1,8 +1,9 @@
-Version 1.12.2
+Version 1.13.0
+
+[Neu]
+- „Fehlende Aufnahmen wiederherstellen“ in den Einstellungen hinzugefügt. Dieses Gerät und iCloud werden durchsucht und Gefundenes wird wieder in die Liste aufgenommen
+- „Diagnosedaten teilen“ in den Einstellungen hinzugefügt, um den Status des Geräts an eine Supportanfrage anzuhängen
 
 [Fehlerbehebungen]
-- Problem behoben, bei dem beim Start eine Anzeige über dem App-Bildschirm erscheinen konnte
-- Problem behoben, bei dem das Intervall für Start-Anzeigen nicht wie konfiguriert funktionierte
-
-[Verbesserungen]
-- Für Premium-Mitglieder werden keine unnötigen Anzeigen mehr geladen
+- Problem behoben, bei dem die Aufnahmeliste verloren gehen konnte, wenn die Daten vorübergehend nicht geladen werden konnten
+- Problem behoben, bei dem der Dialog zur Tracking-Erlaubnis nicht erschien

@@ -1,8 +1,9 @@
-Version 1.12.2
+Version 1.13.0
+
+[Nouveautés]
+- Ajout de « Restaurer les enregistrements manquants » dans les Réglages. Cet appareil et iCloud sont analysés et les enregistrements trouvés sont remis dans la liste
+- Ajout de « Partager les diagnostics » dans les Réglages pour joindre l'état de l'appareil à votre demande d'assistance
 
 [Corrections]
-- Correction d'un problème où une publicité pouvait s'afficher par-dessus l'écran de l'application au démarrage
-- Correction de l'intervalle d'affichage des publicités au démarrage qui ne fonctionnait pas comme configuré
-
-[Améliorations]
-- Les publicités inutiles ne sont plus chargées pour les membres Premium
+- Correction d'un problème pouvant faire perdre la liste des enregistrements lorsque les données ne se chargeaient pas temporairement
+- Correction de la boîte de dialogue d'autorisation de suivi qui n'apparaissait pas

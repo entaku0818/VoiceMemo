@@ -1,8 +1,9 @@
-Versie 1.12.2
+Versie 1.13.0
+
+[Nieuw]
+- 'Ontbrekende opnames herstellen' toegevoegd aan Instellingen. Dit apparaat en iCloud worden doorzocht en gevonden opnames komen terug in de lijst
+- 'Diagnostische gegevens delen' toegevoegd aan Instellingen om de status van je apparaat aan een vraag toe te voegen
 
 [Oplossingen]
-- Probleem opgelost waarbij bij het opstarten een advertentie over het app-scherm kon verschijnen
-- Probleem opgelost waarbij het interval voor opstartadvertenties niet werkte zoals ingesteld
-
-[Verbeteringen]
-- Er worden geen onnodige advertenties meer geladen voor Premium-leden
+- Probleem opgelost waarbij de opnamelijst verloren kon gaan als gegevens tijdelijk niet konden worden geladen
+- Probleem opgelost waarbij het dialoogvenster voor trackingtoestemming niet verscheen
