@@ -59,7 +59,8 @@ final class PlaybackFeatureTests: XCTestCase {
             updateTags: { _, _ in },
             updateMeetingMinutes: { _, _ in },
             syncToCloud: { true },
-            checkForDifferences: { false }
+            checkForDifferences: { false },
+            restoreOrphanedRecordings: { 0 }
         )
     }
 
@@ -241,7 +242,8 @@ final class PlaybackFeatureTests: XCTestCase {
                     updateTags: { _, _ in },
                     updateMeetingMinutes: { _, _ in },
                     syncToCloud: { true },
-                    checkForDifferences: { false }
+                    checkForDifferences: { false },
+                    restoreOrphanedRecordings: { 0 }
                 )
                 $0.audioPlayer = AudioPlayerClient(
                     play: { _, _, _, _, _ in true },

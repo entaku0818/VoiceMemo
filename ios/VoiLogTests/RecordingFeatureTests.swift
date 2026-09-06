@@ -88,7 +88,8 @@ final class RecordingFeatureTests: XCTestCase {
                     updateTags: { _, _ in },
                     updateMeetingMinutes: { _, _ in },
                     syncToCloud: { true },
-                    checkForDifferences: { false }
+                    checkForDifferences: { false },
+                    restoreOrphanedRecordings: { 0 }
                 )
                 $0.liveActivityClient = .init(
                     startActivity: {},
@@ -173,7 +174,8 @@ final class RecordingFeatureTests: XCTestCase {
                     updateTags: { _, _ in },
                     updateMeetingMinutes: { _, _ in },
                     syncToCloud: { true },
-                    checkForDifferences: { false }
+                    checkForDifferences: { false },
+                    restoreOrphanedRecordings: { 0 }
                 )
                 $0.liveActivityClient = .init(
                     startActivity: {},

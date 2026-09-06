@@ -45,7 +45,8 @@ final class RecordingControlSignalTests: XCTestCase {
                 updateTags: { _, _ in },
                 updateMeetingMinutes: { _, _ in },
                 syncToCloud: { true },
-                checkForDifferences: { false }
+                checkForDifferences: { false },
+                restoreOrphanedRecordings: { 0 }
             )
         }
     }

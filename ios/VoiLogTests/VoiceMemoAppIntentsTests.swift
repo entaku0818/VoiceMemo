@@ -49,7 +49,8 @@ final class VoiceMemoAppIntentsTests: XCTestCase {
                 updateTags: { _, _ in },
                 updateMeetingMinutes: { _, _ in },
                 syncToCloud: { true },
-                checkForDifferences: { false }
+                checkForDifferences: { false },
+                restoreOrphanedRecordings: { 0 }
             )
         }
     }
@@ -178,7 +179,8 @@ final class LatestRecordingTranscriptionRunnerTests: XCTestCase {
                 updateTags: { _, _ in },
                 updateMeetingMinutes: { _, _ in },
                 syncToCloud: { true },
-                checkForDifferences: { false }
+                checkForDifferences: { false },
+                restoreOrphanedRecordings: { 0 }
             )
             $0.transcriptionClient = TranscriptionClient(
                 uploadURL: uploadURL,

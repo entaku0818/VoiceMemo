@@ -56,6 +56,9 @@ struct VoiceMemoRepositoryClient {
     var updateMeetingMinutes: @MainActor (UUID, String) -> Void
     var syncToCloud: @MainActor () async -> Bool
     var checkForDifferences: @MainActor () async -> Bool
+    /// Documents 配下に残っているがCore Dataに行が無い音声ファイルを一覧へ復帰させる。
+    /// - Returns: 復元した件数
+    var restoreOrphanedRecordings: @MainActor () async -> Int
 }
 
 // MARK: - Dependency Key
@@ -480,6 +483,52 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                     AppLogger.sync.error("Error fetching voice records from CloudKit: \(error)")
                     return false
                 }
+            },
+            restoreOrphanedRecordings: {
+                // Core Data に登録済みの ID を集める
+                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+                let existing = (try? managedContext.fetch(fetchRequest)) ?? []
+                let knownIDs = Set(existing.compactMap(\.id))
+
+                let orphans = RecordingRecoveryService.findOrphanedRecordings(
+                    in: RecordingRecoveryService.defaultSearchDirectories(),
+                    knownIDs: knownIDs
+                )
+                guard !orphans.isEmpty else { return 0 }
+
+                @Dependency(\.userDefaults) var userDefaults
+                var restoredCount = 0
+
+                for orphan in orphans {
+                    let duration = await RecordingRecoveryService.duration(of: orphan.url)
+                    guard let voiceEntity = NSManagedObject(
+                        entity: entity!, insertInto: managedContext
+                    ) as? VoiLog.Voice else { continue }
+
+                    voiceEntity.id = orphan.id
+                    voiceEntity.url = orphan.url
+                    voiceEntity.title = RecordingRecoveryService.recoveredTitle(for: orphan.createdAt)
+                    voiceEntity.text = ""
+                    voiceEntity.createdAt = orphan.createdAt
+                    voiceEntity.updatedAt = Date()
+                    voiceEntity.duration = duration
+                    voiceEntity.fileFormat = orphan.url.pathExtension.uppercased()
+                    voiceEntity.samplingFrequency = userDefaults.samplingFrequency()
+                    voiceEntity.quantizationBitDepth = Int16(userDefaults.quantizationBitDepth())
+                    voiceEntity.numberOfChannels = Int16(userDefaults.numberOfChannels())
+                    voiceEntity.isCloud = false
+                    restoredCount += 1
+                }
+
+                do {
+                    try managedContext.saveIfStoreLoaded()
+                    AppLogger.data.info("Restored \(restoredCount) orphaned recording(s)")
+                    return restoredCount
+                } catch {
+                    managedContext.rollback()
+                    AppLogger.data.error("Failed to restore orphaned recordings: \(error.localizedDescription)")
+                    return 0
+                }
             }
         )
     }()
@@ -505,7 +554,8 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
         updateTags: { _, _ in },
         updateMeetingMinutes: { _, _ in },
         syncToCloud: { true },
-        checkForDifferences: { false }
+        checkForDifferences: { false },
+        restoreOrphanedRecordings: { 0 }
     )
 
     @MainActor

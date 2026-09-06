@@ -33,13 +33,19 @@ struct SettingReducer {
         case dismissInfoAlert
         case restorePurchases
         case restoreResponse(Bool)
+        case restoreRecordings
+        case restoreRecordingsResponse(Int)
+        case dismissRestoreRecordingsAlert
     }
 
+    @CasePathable
     enum DelegateAction: Equatable {
         case startTutorialRequested
+        case recordingsRestored
     }
 
     @Dependency(\.userDefaults) var userDefaults
+    @Dependency(\.voiceMemoRepository) var voiceMemoRepository
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -153,6 +159,21 @@ struct SettingReducer {
                 NotificationScheduler.shared.scheduleDailyReminder(hour: hour, minute: minute)
             }
             return .none
+        case .restoreRecordings:
+            guard !state.isRestoringRecordings else { return .none }
+            state.isRestoringRecordings = true
+            return .run { send in
+                let count = await voiceMemoRepository.restoreOrphanedRecordings()
+                await send(.restoreRecordingsResponse(count))
+            }
+        case let .restoreRecordingsResponse(count):
+            state.isRestoringRecordings = false
+            state.restoredRecordingsCount = count
+            guard count > 0 else { return .none }
+            return .send(.delegate(.recordingsRestored))
+        case .dismissRestoreRecordingsAlert:
+            state.restoredRecordingsCount = nil
+            return .none
         }
         }
     }
@@ -178,6 +199,9 @@ struct SettingReducer {
         var showPurchaseSuccessAlert = false
         var showRestoreSuccessAlert = false
         var showRestoreFailureAlert = false
+        var isRestoringRecordings = false
+        /// 復元実行の結果件数。nil のあいだは結果アラートを出さない
+        var restoredRecordingsCount: Int?
 
         var dailyReminderDate: Date {
             var components = DateComponents()
@@ -207,6 +231,7 @@ struct SettingView: View {
                 purchaseSection
                 notificationSection
                 transcriptionSection
+                recoverySection
                 DeveloperAppsSectionView()
 
                 #if DEBUG
@@ -255,6 +280,29 @@ struct SettingView: View {
         } message: {
             Text(String(localized: "購入履歴が見つかりませんでした。", table: "Settings"))
         }
+        .alert(
+            (store.restoredRecordingsCount ?? 0) > 0
+                ? String(localized: "録音を復元しました", table: "Settings")
+                : String(localized: "復元できる録音はありませんでした", table: "Settings"),
+            isPresented: Binding(
+                get: { store.restoredRecordingsCount != nil },
+                set: { if !$0 { store.send(.dismissRestoreRecordingsAlert) } }
+            )
+        ) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            if let count = store.restoredRecordingsCount, count > 0 {
+                Text(String(
+                    format: String(localized: "%d件の録音を一覧に戻しました。", table: "Settings"),
+                    count
+                ))
+            } else {
+                Text(String(
+                    localized: "端末内に未登録の録音ファイルは見つかりませんでした。",
+                    table: "Settings"
+                ))
+            }
+        }
 
         if !store.hasPurchasedPremium {
             AdmobBannerView(unitId: admobUnitId).frame(height: AdmobBannerView.adaptiveHeight)
@@ -297,6 +345,34 @@ struct SettingView: View {
                 }
             }
             #endif
+        }
+    }
+
+    @ViewBuilder
+    private var recoverySection: some View {
+        Section(
+            header: Text(String(localized: "録音の復元", table: "Settings")),
+            footer: Text(String(
+                localized: "一覧から録音が消えてしまった場合、端末内に残っている録音ファイルを探して一覧に戻します。",
+                table: "Settings"
+            ))
+        ) {
+            Button {
+                store.send(.restoreRecordings)
+            } label: {
+                HStack {
+                    Text(String(localized: "消えた録音を復元", table: "Settings"))
+                        .foregroundColor(Color("Black"))
+                    Spacer()
+                    if store.isRestoringRecordings {
+                        ProgressView()
+                    } else {
+                        Image(systemName: "arrow.clockwise")
+                            .foregroundColor(.blue)
+                    }
+                }
+            }
+            .disabled(store.isRestoringRecordings)
         }
     }
 

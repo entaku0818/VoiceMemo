@@ -319,6 +319,10 @@ struct VoiceAppFeature {
         state.shouldShowTutorial = true
         return .send(.tutorialFeature(.view(.start)))
 
+      case .settingFeature(.delegate(.recordingsRestored)):
+        // 復元した録音を一覧へ反映する
+        return .send(.playbackFeature(.view(.reloadData)))
+
       case .settingFeature:
         return .none
 
