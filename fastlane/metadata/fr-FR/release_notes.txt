@@ -1,9 +1,5 @@
-Version 1.13.0
+Version 1.13.1
 
-[Nouveautés]
-- Ajout de « Restaurer les enregistrements manquants » dans les Réglages. Cet appareil et iCloud sont analysés et les enregistrements trouvés sont remis dans la liste
-- Ajout de « Partager les diagnostics » dans les Réglages pour joindre l'état de l'appareil à votre demande d'assistance
-
-[Corrections]
-- Correction d'un problème pouvant faire perdre la liste des enregistrements lorsque les données ne se chargeaient pas temporairement
-- Correction de la boîte de dialogue d'autorisation de suivi qui n'apparaissait pas
+[Améliorations]
+- Amélioration de la visibilité sur l'App Store
+- Optimisations internes

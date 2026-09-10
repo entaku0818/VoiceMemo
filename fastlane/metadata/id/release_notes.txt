@@ -1,9 +1,5 @@
-Versi 1.13.0
+Versi 1.13.1
 
-[Baru]
-- Menambahkan “Pulihkan Rekaman yang Hilang” di Pengaturan. Perangkat ini dan iCloud diperiksa, lalu rekaman yang ditemukan dikembalikan ke daftar
-- Menambahkan “Bagikan Info Diagnostik” di Pengaturan agar Anda bisa melampirkan status perangkat pada pertanyaan
-
-[Perbaikan]
-- Memperbaiki masalah daftar rekaman bisa hilang saat data sementara gagal dimuat
-- Memperbaiki dialog izin pelacakan yang tidak muncul
+[Peningkatan]
+- Meningkatkan kemudahan ditemukan di App Store
+- Penyempurnaan internal

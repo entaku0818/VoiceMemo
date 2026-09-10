@@ -1,9 +1,5 @@
-Versión 1.13.0
+Versión 1.13.1
 
-[Novedades]
-- Se añadió «Restaurar grabaciones perdidas» en Ajustes. Busca en este dispositivo y en iCloud y devuelve las grabaciones a la lista
-- Se añadió «Compartir diagnóstico» en Ajustes para adjuntar el estado del dispositivo a tu consulta
-
-[Correcciones]
-- Se corrigió un problema por el que la lista de grabaciones podía perderse cuando los datos no se cargaban temporalmente
-- Se corrigió que no apareciera el diálogo de permiso de seguimiento
+[Mejoras]
+- Mejor visibilidad en el App Store
+- Ajustes internos

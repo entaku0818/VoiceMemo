@@ -1,9 +1,5 @@
-Phiên bản 1.13.0
+Phiên bản 1.13.1
 
-[Mới]
-- Thêm “Khôi phục bản ghi bị mất” trong Cài đặt. Ứng dụng kiểm tra thiết bị này và iCloud rồi đưa các bản ghi trở lại danh sách
-- Thêm “Chia sẻ thông tin chẩn đoán” trong Cài đặt để đính kèm tình trạng thiết bị vào yêu cầu hỗ trợ
-
-[Sửa lỗi]
-- Sửa lỗi danh sách bản ghi có thể bị mất khi dữ liệu tạm thời không tải được
-- Sửa lỗi hộp thoại xin quyền theo dõi không hiện ra
+[Cải tiến]
+- Cải thiện khả năng tìm thấy ứng dụng trên App Store
+- Tinh chỉnh nội bộ

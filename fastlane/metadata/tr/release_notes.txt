@@ -1,9 +1,5 @@
-Sürüm 1.13.0
+Sürüm 1.13.1
 
-[Yenilikler]
-- Ayarlar'a “Kaybolan kayıtları geri yükle” eklendi. Bu cihaz ve iCloud taranır, bulunanlar listeye geri eklenir
-- Ayarlar'a “Tanılama bilgilerini paylaş” eklendi; cihazın durumunu destek talebinize ekleyebilirsiniz
-
-[Düzeltmeler]
-- Veriler geçici olarak yüklenemediğinde kayıt listesinin kaybolabilmesi sorunu giderildi
-- İzleme izni iletişim kutusunun görünmemesi sorunu giderildi
+[İyileştirmeler]
+- App Store'da bulunabilirlik iyileştirildi
+- Dahili düzenlemeler

@@ -1,9 +1,5 @@
-Version 1.13.0
+Version 1.13.1
 
-[Nytt]
-- Lade till ”Återställ saknade inspelningar” i Inställningar. Enheten och iCloud genomsöks och det som hittas läggs tillbaka i listan
-- Lade till ”Dela diagnostik” i Inställningar så att du kan bifoga enhetens status till din fråga
-
-[Korrigeringar]
-- Åtgärdade ett problem där inspelningslistan kunde försvinna när data tillfälligt inte kunde läsas in
-- Åtgärdade att dialogrutan för spårningstillstånd inte visades
+[Förbättringar]
+- Förbättrad upptäckbarhet i App Store
+- Interna justeringar
