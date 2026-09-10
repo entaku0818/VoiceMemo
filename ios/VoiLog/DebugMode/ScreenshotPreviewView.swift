@@ -1359,12 +1359,14 @@ struct ScreenshotPageView<Content: View>: View {
     var body: some View {
         GeometryReader { _ in
             ZStack {
-                Color.white.ignoresSafeArea()
+                // 検索結果の一覧ではスクショが小さく表示されるため、白背景だと
+                // 「空白のタイル」に見えて選ばれない。画面ごとの色で面を作る。
+                screen.backgroundGradient.ignoresSafeArea()
 
                 VStack(spacing: 0) {
                     Text(caption)
                         .font(.system(size: 36, weight: .bold))
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 36)
                         .padding(.top, language == .vietnamese ? 52 : 36)
@@ -1373,7 +1375,7 @@ struct ScreenshotPageView<Content: View>: View {
 
                     Text(subtitle)
                         .font(.system(size: 17, weight: .regular))
-                        .foregroundColor(Color(white: 0.3))
+                        .foregroundColor(.white.opacity(0.85))
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 36)
                         .padding(.bottom, 10)
