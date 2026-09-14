@@ -887,4 +887,82 @@ final class PlaybackFeatureTests: XCTestCase {
             XCTAssertEqual(clearedCount.value, 1)
         }
     }
+
+    // MARK: - リワード広告のプリロード条件（広告歩留まり調査 2026-09）
+
+    func testOnAppear_freeUserWithUnlocksRemaining_preloadsRewardedAd() async {
+        await withMainSerialExecutor {
+            let preloadCalled = LockIsolated(false)
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = false
+            initialState.adBasedTranscriptionUnlockCount = 0
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { preloadCalled.setValue(true) },
+                    show: { _, onSkipped in onSkipped() }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.onAppear))
+            await store.finish()
+
+            XCTAssertTrue(preloadCalled.value, "無料枠が残っている間はプリロードすること")
+        }
+    }
+
+    func testOnAppear_freeUserAtLimit_doesNotPreloadRewardedAd() async {
+        await withMainSerialExecutor {
+            let preloadCalled = LockIsolated(false)
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = false
+            initialState.adBasedTranscriptionUnlockCount = UserDefaultsClient.freeAdBasedTranscriptionLimit
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { preloadCalled.setValue(true) },
+                    show: { _, onSkipped in onSkipped() }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.onAppear))
+            await store.finish()
+
+            // 上限到達後は show() が呼ばれる経路が無いため、リクエストしても表示されない。
+            // 表示率が3.1%まで落ちていた主因なので、リクエスト自体を止める。
+            XCTAssertFalse(preloadCalled.value, "無料枠を使い切ったらプリロードしないこと")
+        }
+    }
+
+    func testOnAppear_premiumUser_doesNotPreloadRewardedAd() async {
+        await withMainSerialExecutor {
+            let preloadCalled = LockIsolated(false)
+            var initialState = PlaybackFeature.State()
+            initialState.hasPurchasedPremium = true
+
+            let store = TestStore(initialState: initialState) {
+                PlaybackFeature()
+            } withDependencies: {
+                $0.voiceMemoRepository = mockRepository()
+                $0.rewardedAdClient = RewardedAdClient(
+                    preload: { preloadCalled.setValue(true) },
+                    show: { _, onSkipped in onSkipped() }
+                )
+            }
+            store.exhaustivity = .off
+
+            await store.send(.view(.onAppear))
+            await store.finish()
+
+            XCTAssertFalse(preloadCalled.value, "プレミアム会員にはリクエストも投げないこと")
+        }
+    }
 }

@@ -262,8 +262,11 @@ struct PlaybackFeature {
       case let .view(viewAction):
         switch viewAction {
         case .onAppear:
-          // プレミアムユーザーにはリワード広告を出さないので、リクエスト自体を投げない
-          guard !state.hasPurchasedPremium else {
+          // プレミアムユーザーにはリワード広告を出さないので、リクエスト自体を投げない。
+          // 無料アンロックを使い切った人も同様。使い切ると startTranscriptionUnlockFlow は
+          // アップグレード導線へ分岐し show() を一切呼ばないため、プリロードしても
+          // 表示されることが無い（毎回の onAppear でリクエストだけ積み上がっていた）。
+          guard !state.hasPurchasedPremium, state.hasFreeTranscriptionUnlockRemaining else {
             return loadMemos()
           }
           let preload = rewardedAdClient.preload

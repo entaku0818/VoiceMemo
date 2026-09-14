@@ -175,6 +175,10 @@ enum UserDefaultsKeys {
   static let firstLaunch = "first_launch"
   static let firstRecordingCompleted = "first_recording_completed"
   static let trialPromotionShown = "trial_promotion_shown"
+  /// 録音完了の累計回数。
+  /// 以前は起動回数と同じ "appUsageCount" を共有しており、録音するたびに
+  /// App Open 広告の「5回に1回」ゲートがずれていた（widget/#ad-yield 調査）。
+  static let recordingCompletedCount = "recording_completed_count"
 }
 
 // MARK: - Tutorial Overlay View

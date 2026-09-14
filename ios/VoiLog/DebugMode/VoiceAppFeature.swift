@@ -264,8 +264,13 @@ struct VoiceAppFeature {
         }
 
         // 録音回数をインクリメントしてレビューリクエスト判定（Apple側で年3回まで自動制限）
-        let recordingCount = UserDefaults.standard.integer(forKey: "appUsageCount") + 1
-        UserDefaults.standard.set(recordingCount, forKey: "appUsageCount")
+        //
+        // 以前はここが起動回数と同じ "appUsageCount" を加算していた。そのため
+        // 録音のたびにカウンタが進み、App Open 広告の「起動5回に1回」ゲート
+        // (AppOpenAdManager.showAdIfNeeded) が5の倍数を跨いで空振りしていた。
+        // 逆に「10回録音でトライアル訴求」も起動回数で水増しされ早く出ていた。
+        let recordingCount = UserDefaults.standard.integer(forKey: UserDefaultsKeys.recordingCompletedCount) + 1
+        UserDefaults.standard.set(recordingCount, forKey: UserDefaultsKeys.recordingCompletedCount)
 
         let reviewEffect: Effect<Action> = recordingCount >= 2 ? .run { _ in
           try? await Task.sleep(nanoseconds: 2_000_000_000)
@@ -430,9 +435,8 @@ struct VoiceAppView: View {
         .toolbar {
           ToolbarItem(placement: .navigationBarTrailing) {
             SyncStatusView(
-              syncStatus: store.syncStatus,
-              onSync: { store.send(.view(.syncToCloud)) }
-            )
+              syncStatus: store.syncStatus
+            )              { store.send(.view(.syncToCloud)) }
           }
         }
       }
