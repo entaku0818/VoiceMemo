@@ -12,7 +12,46 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
 import java.util.Date
 
-class AppOpenAdController private constructor(private val context: Context) {
+/** 起動回数の永続化を抽象化する。テストではインメモリ実装を差し込める（Issue #218）。 */
+internal interface LaunchCountStore {
+    fun getLaunchCount(): Int
+    fun incrementLaunchCount()
+}
+
+/** 遅延実行の抽象化。本番は Handler、テストはフェイクを差し込める（Issue #218）。 */
+internal interface DelayedScheduler {
+    fun postDelayed(runnable: Runnable, delayMillis: Long)
+    fun removeCallbacks(runnable: Runnable)
+}
+
+private class SharedPrefsLaunchCountStore(context: Context) : LaunchCountStore {
+    private val prefs = context.getSharedPreferences(
+        AppOpenAdController.PREF_NAME,
+        Context.MODE_PRIVATE
+    )
+
+    override fun getLaunchCount(): Int = prefs.getInt(AppOpenAdController.KEY_LAUNCH_COUNT, 0)
+
+    override fun incrementLaunchCount() {
+        val currentCount = prefs.getInt(AppOpenAdController.KEY_LAUNCH_COUNT, 0)
+        prefs.edit().putInt(AppOpenAdController.KEY_LAUNCH_COUNT, currentCount + 1).apply()
+    }
+}
+
+private class HandlerScheduler(looper: Looper) : DelayedScheduler {
+    private val handler = Handler(looper)
+    override fun postDelayed(runnable: Runnable, delayMillis: Long) {
+        handler.postDelayed(runnable, delayMillis)
+    }
+    override fun removeCallbacks(runnable: Runnable) {
+        handler.removeCallbacks(runnable)
+    }
+}
+
+class AppOpenAdController internal constructor(
+    private val context: Context,
+    private val launchCountStore: LaunchCountStore = SharedPrefsLaunchCountStore(context)
+) {
 
     private var appOpenAd: AppOpenAd? = null
     private var isLoadingAd = false
@@ -26,8 +65,8 @@ class AppOpenAdController private constructor(private val context: Context) {
         // コールドスタートでApp Open広告のロードを待つ上限。
         // 超えたら広告を諦めて本編へ進む（起動を人質に取らない）。
         private const val AD_LOAD_TIMEOUT_MS = 3000L
-        private const val PREF_NAME = "app_open_ad_prefs"
-        private const val KEY_LAUNCH_COUNT = "launch_count"
+        internal const val PREF_NAME = "app_open_ad_prefs"
+        internal const val KEY_LAUNCH_COUNT = "launch_count"
 
         @Volatile
         private var instance: AppOpenAdController? = null
@@ -35,6 +74,58 @@ class AppOpenAdController private constructor(private val context: Context) {
         fun getInstance(context: Context): AppOpenAdController {
             return instance ?: synchronized(this) {
                 instance ?: AppOpenAdController(context.applicationContext).also { instance = it }
+            }
+        }
+
+        /**
+         * App Open 広告を表示しにいくべきか（副作用なし）。
+         * - プレミアムユーザーには出さない
+         * - 初回起動(launchCount=0)では出さない
+         * - displayInterval の倍数の起動回でのみ出す
+         */
+        internal fun shouldAttemptShow(
+            launchCount: Int,
+            isPremium: Boolean,
+            displayInterval: Int = DISPLAY_INTERVAL
+        ): Boolean {
+            if (isPremium) return false
+            if (launchCount <= 0) return false
+            return launchCount % displayInterval == 0
+        }
+
+        /**
+         * ロード完了 or タイムアウトのどちらか早い方で1回だけ決着させる（Issue #218）。
+         * isSettled により onDismiss / onPresent は高々1回しか呼ばれない。
+         * - startLoad 成功かつ広告あり → onPresent
+         * - startLoad 失敗 or 広告なし → onDismiss
+         * - timeoutMs 超過 → onDismiss（本編へ進む）
+         */
+        internal fun awaitAdThenSettle(
+            scheduler: DelayedScheduler,
+            timeoutMs: Long,
+            startLoad: (onLoaded: (Boolean) -> Unit) -> Unit,
+            isAdReady: () -> Boolean,
+            onPresent: () -> Unit,
+            onDismiss: () -> Unit
+        ) {
+            var isSettled = false
+
+            val giveUp = Runnable {
+                if (isSettled) return@Runnable
+                isSettled = true
+                onDismiss()
+            }
+            scheduler.postDelayed(giveUp, timeoutMs)
+
+            startLoad { loaded ->
+                if (isSettled) return@startLoad
+                isSettled = true
+                scheduler.removeCallbacks(giveUp)
+                if (loaded && isAdReady()) {
+                    onPresent()
+                } else {
+                    onDismiss()
+                }
             }
         }
     }
@@ -83,14 +174,11 @@ class AppOpenAdController private constructor(private val context: Context) {
     }
 
     fun showAdIfNeeded(activity: Activity, onAdDismissed: () -> Unit) {
-        if (PremiumRepository.getInstance(context).isPremium.value) {
-            onAdDismissed()
-            return
-        }
+        val isPremium = PremiumRepository.getInstance(context).isPremium.value
 
-        val launchCount = getLaunchCount()
-        if (launchCount <= 0 || launchCount % DISPLAY_INTERVAL != 0) {
-            loadAd()
+        if (!shouldAttemptShow(getLaunchCount(), isPremium)) {
+            // 表示しない起動回でも、次回に備えてロードは仕込んでおく（プレミアムを除く）。
+            if (!isPremium) loadAd()
             onAdDismissed()
             return
         }
@@ -111,26 +199,14 @@ class AppOpenAdController private constructor(private val context: Context) {
     // ロード完了を待ってから表示する。AD_LOAD_TIMEOUT_MS を過ぎたら諦めて本編へ進む。
     // スプラッシュ表示中に呼ばれるので、待っている間もユーザーには通常の起動画面が出ている。
     private fun waitForAdThenShow(activity: Activity, onAdDismissed: () -> Unit) {
-        var isSettled = false
-        val handler = Handler(Looper.getMainLooper())
-
-        val giveUp = Runnable {
-            if (isSettled) return@Runnable
-            isSettled = true
-            onAdDismissed()
-        }
-        handler.postDelayed(giveUp, AD_LOAD_TIMEOUT_MS)
-
-        loadAd { loaded ->
-            if (isSettled) return@loadAd
-            isSettled = true
-            handler.removeCallbacks(giveUp)
-            if (loaded && isAdAvailable) {
-                presentAd(activity, onAdDismissed)
-            } else {
-                onAdDismissed()
-            }
-        }
+        awaitAdThenSettle(
+            scheduler = HandlerScheduler(Looper.getMainLooper()),
+            timeoutMs = AD_LOAD_TIMEOUT_MS,
+            startLoad = { onLoaded -> loadAd(onLoaded) },
+            isAdReady = { isAdAvailable },
+            onPresent = { presentAd(activity, onAdDismissed) },
+            onDismiss = onAdDismissed
+        )
     }
 
     private fun presentAd(activity: Activity, onAdDismissed: () -> Unit) {
@@ -154,13 +230,10 @@ class AppOpenAdController private constructor(private val context: Context) {
     }
 
     fun incrementLaunchCount() {
-        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val currentCount = prefs.getInt(KEY_LAUNCH_COUNT, 0)
-        prefs.edit().putInt(KEY_LAUNCH_COUNT, currentCount + 1).apply()
+        launchCountStore.incrementLaunchCount()
     }
 
     fun getLaunchCount(): Int {
-        val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        return prefs.getInt(KEY_LAUNCH_COUNT, 0)
+        return launchCountStore.getLaunchCount()
     }
 }
