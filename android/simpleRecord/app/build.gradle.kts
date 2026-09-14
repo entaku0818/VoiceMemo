@@ -24,6 +24,16 @@ if (admobPropertiesFile.exists()) {
     admobProperties.load(FileInputStream(admobPropertiesFile))
 }
 
+// AdMob の広告ユニットID。app-keys/admob.properties が無い環境では
+// Google公式のテスト用IDにフォールバックする（debugビルドを動かすため）。
+// releaseビルドでテストIDのまま焼くと本番の広告収益が全部0になるので、
+// ファイル末尾の gradle.taskGraph.whenReady ガードで必ず落とす。
+val googleTestAdPublisherId = "ca-app-pub-3940256099942544"
+val admobAppId = admobProperties.getProperty("ADMOB_APP_ID", "$googleTestAdPublisherId~3347511713")
+val appOpenAdUnitId = admobProperties.getProperty("APP_OPEN_AD_UNIT_ID", "$googleTestAdPublisherId/9257395921")
+val bannerAdUnitId = admobProperties.getProperty("BANNER_AD_UNIT_ID", "$googleTestAdPublisherId/6300978111")
+val rewardedAdUnitId = admobProperties.getProperty("REWARDED_AD_UNIT_ID", "$googleTestAdPublisherId/5224354917")
+
 val revenuecatPropertiesFile = rootProject.file("app-keys/revenuecat.properties")
 val revenuecatProperties = Properties()
 if (revenuecatPropertiesFile.exists()) {
@@ -55,11 +65,7 @@ android {
             useSupportLibrary = true
         }
 
-        // AdMob configuration from admob.properties
-        val admobAppId = admobProperties.getProperty("ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
-        val appOpenAdUnitId = admobProperties.getProperty("APP_OPEN_AD_UNIT_ID", "ca-app-pub-3940256099942544/9257395921")
-        val bannerAdUnitId = admobProperties.getProperty("BANNER_AD_UNIT_ID", "ca-app-pub-3940256099942544/6300978111")
-        val rewardedAdUnitId = admobProperties.getProperty("REWARDED_AD_UNIT_ID", "ca-app-pub-3940256099942544/5224354917")
+        // AdMob configuration from admob.properties（IDの定義は上部 admobIds を参照）
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
         buildConfigField("String", "APP_OPEN_AD_UNIT_ID", "\"$appOpenAdUnitId\"")
         buildConfigField("String", "BANNER_AD_UNIT_ID", "\"$bannerAdUnitId\"")
@@ -186,4 +192,39 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-functions")
     implementation("com.google.firebase:firebase-auth")
+}
+
+// release ビルドで AdMob のテスト用IDが混入していたら失敗させる。
+//
+// app-keys/admob.properties は git 管理外なので、別マシンやCIでは存在しない。
+// 従来はその場合フォールバックのテストIDで本番AABが焼けてしまい、
+// 気付かないまま Android の広告収益が全額失われる状態だった（広告歩留まり調査 2026-09）。
+gradle.taskGraph.whenReady {
+    val isReleaseArtifactBuild = allTasks.any { task ->
+        task.name.contains("Release") &&
+            (task.name.startsWith("assemble") || task.name.startsWith("bundle") || task.name.startsWith("package"))
+    }
+    if (isReleaseArtifactBuild) {
+        val testIds = mapOf(
+            "ADMOB_APP_ID" to admobAppId,
+            "APP_OPEN_AD_UNIT_ID" to appOpenAdUnitId,
+            "BANNER_AD_UNIT_ID" to bannerAdUnitId,
+            "REWARDED_AD_UNIT_ID" to rewardedAdUnitId
+        ).filterValues { it.startsWith(googleTestAdPublisherId) }
+
+        if (testIds.isNotEmpty()) {
+            throw GradleException(
+                buildString {
+                    appendLine("release ビルドに AdMob のテスト用IDが混入しています。")
+                    appendLine("このまま公開すると Android の広告収益が0になります。")
+                    appendLine()
+                    appendLine("テストIDのままの項目:")
+                    testIds.forEach { (key, value) -> appendLine("  - $key = $value") }
+                    appendLine()
+                    appendLine("対処: ${admobPropertiesFile.path} に本番IDを書いてから再実行してください。")
+                    appendLine("（このファイルは git 管理外です。存在しない場合はフォールバックが効きます）")
+                }
+            )
+        }
+    }
 }
