@@ -43,9 +43,19 @@ bundle install
   bundle exec fastlane release
   ```
 
-### Xcode Cloudと併用する場合
+### CI（GitHub Actions self-hosted）
 
-ビルドはXcode Cloudで行い、メタデータとスクリーンショットの更新のみFastlaneで管理する場合は以下のレーンを使用できます：
+iOS の build/test は GitHub Actions の self-hosted runner（`.github/workflows/ios-ci.yml`）で実行します（Xcode Cloud は廃止）。GitHub-hosted の macOS ランナー（課金）は使わず、self-hosted のみ可です。ローカルでも同じコマンドで再現できます：
+
+```
+ios/ci/ios_ci.sh simulator   # リポジトリ専用シミュレータ CI-VoiceMemo の作成・boot
+ios/ci/ios_ci.sh build       # VoiLogDevelop / VoiLog を Debug でビルド
+ios/ci/ios_ci.sh test        # VoiLogTests を実行
+```
+
+### メタデータ・スクリーンショットのみ Fastlane で更新する場合
+
+メタデータとスクリーンショットの更新のみFastlaneで管理する場合は以下のレーンを使用できます：
 
 - スクリーンショット生成:
   ```

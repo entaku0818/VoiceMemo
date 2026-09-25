@@ -1,0 +1,52 @@
+name: iOS CI
+
+# entaku の Mac に登録した self-hosted runner で build/test を回す。
+# GitHub-hosted の macOS ランナー（課金）は使わない。self-hosted のみ可。
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: iOS build & test (Xcode 27)
+    # public リポジトリのため、フォークからの PR では self-hosted runner を使わない
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: [self-hosted, macOS, xcode27]
+    timeout-minutes: 60
+    env:
+      CI_SIM_NAME: CI-VoiceMemo
+      CI_SIM_RUNTIME: com.apple.CoreSimulator.SimRuntime.iOS-27-0
+      CI_SIM_DEVICE: com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
+      CI_OUTPUT_DIR: ${{ github.workspace }}/.ci-build
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: xcodebuild -version
+
+      - name: Prepare simulator
+        run: ios/ci/ios_ci.sh simulator
+
+      - name: Build (VoiLogDevelop / VoiLog)
+        run: ios/ci/ios_ci.sh build
+
+      - name: Test (VoiLogTests)
+        run: ios/ci/ios_ci.sh test
+
+      - name: Upload xcresult
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: VoiLogTests-xcresult
+          path: .ci-build/VoiLogTests.xcresult
+          if-no-files-found: ignore

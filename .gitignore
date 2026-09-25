@@ -130,3 +130,6 @@ revenuecat-products.png
 
 # Firebase CLI deploy cache
 .firebase/
+
+# iOS CI (ios/ci/ios_ci.sh) の出力
+.ci-build/

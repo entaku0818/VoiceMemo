@@ -187,6 +187,11 @@ ADMOB_KEY="your_admob_key"
 REVENUECAT_KEY="your_revenuecat_key"
 ```
 
+### CI
+- **iOS**: GitHub Actions self-hosted runner（`.github/workflows/ios-ci.yml`、labels `self-hosted, macOS, xcode27`）。Xcode Cloud は廃止
+- GitHub-hosted の macOS ランナー（課金）は禁止。self-hosted のみ可。フォーク PR では実行しない
+- ワークフローと同じコマンドをローカルで: `ios/ci/ios_ci.sh simulator && ios/ci/ios_ci.sh build && ios/ci/ios_ci.sh test`
+
 ### Code Quality
 - **SwiftLint**: Automatic fixing and checking integrated in build process
 - **Configuration**: `ios/.swiftlint.yml` with project-specific rules
