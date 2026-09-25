@@ -132,8 +132,8 @@
       "kind": "remoteSourceControl",
       "location": "https://github.com/RevenueCat/purchases-ios.git",
       "state": {
-        "revision": "8d258661d1e5be78f39ad4b37b5ed72cf073149d",
-        "version": "5.48.0"
+        "revision": "1de9b3d745b008be5b291b96041fd9644fbb48f5",
+        "version": "5.80.1"
       }
     },
     {
@@ -249,8 +249,8 @@
       "kind": "remoteSourceControl",
       "location": "https://github.com/pointfreeco/swift-sharing",
       "state": {
-        "revision": "3bfc408cc2d0bee2287c174da6b1c76768377818",
-        "version": "2.7.4"
+        "revision": "c525e53936c878c102421eee241d82711eb38104",
+        "version": "2.8.1"
       }
     },
     {

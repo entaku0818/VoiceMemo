@@ -28,7 +28,7 @@ extension LongRecordingAudioClient: TestDependencyKey {
                 await recordingState.setValue(.recording(startTime: Date()))
 
                 // シミュレーション用の時間更新
-                Task {
+                _ = Task {
                     while true {
                         let recording = await isRecording.value
                         let paused = await isPaused.value

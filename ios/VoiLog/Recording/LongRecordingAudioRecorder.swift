@@ -219,7 +219,7 @@ actor LongRecordingAudioRecorder: NSObject {
     private func beginBackgroundTask() {
         endBackgroundTask() // End any existing task first
 
-        Task { @MainActor in
+        Task { @MainActor [self] in
             let taskId = UIApplication.shared.beginBackgroundTask { [weak self] in
                 Task { await self?.endBackgroundTask() }
             }

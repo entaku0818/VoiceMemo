@@ -166,7 +166,8 @@ private final class Delegate: NSObject, AVAudioPlayerDelegate, Sendable {
     let didFinishPlaying: @Sendable (Bool) -> Void
     let decodeErrorDidOccur: @Sendable (Error?) -> Void
 
-    init(
+    // Xcode 27 SDK で AVAudioPlayerDelegate が @MainActor になったため、actor 内から生成できるよう nonisolated にする
+    nonisolated init(
         didFinishPlaying: @escaping @Sendable (Bool) -> Void,
         decodeErrorDidOccur: @escaping @Sendable (Error?) -> Void
     ) throws {
