@@ -29,7 +29,7 @@ jobs:
       CI_OUTPUT_DIR: ${{ github.workspace }}/.ci-build
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Show Xcode version
         run: xcodebuild -version
@@ -45,8 +45,13 @@ jobs:
 
       - name: Upload xcresult
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: VoiLogTests-xcresult
           path: .ci-build/VoiLogTests.xcresult
           if-no-files-found: ignore
+
+      # xcresult の upload より後に置く（upload 対象を消さないため）
+      - name: Cleanup build outputs
+        if: always()
+        run: ios/ci/ios_ci.sh cleanup

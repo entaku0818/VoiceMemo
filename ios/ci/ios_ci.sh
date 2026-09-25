@@ -1,6 +1,6 @@
 #!/bin/bash
 # iOS CI (GitHub Actions self-hosted runner: .github/workflows/ios-ci.yml)
-# ローカルでも同じコマンドで再現できる: ios/ci/ios_ci.sh <simulator|build|test>
+# ローカルでも同じコマンドで再現できる: ios/ci/ios_ci.sh <simulator|build|test|cleanup>
 #
 # 環境変数:
 #   CI_SIM_NAME     使用するシミュレータ名（他リポジトリの runner と取り合わないようリポジトリ専用）
@@ -76,8 +76,19 @@ case "${1:-}" in
       -retry-tests-on-failure \
       -test-iterations 2
     ;;
+  cleanup)
+    # self-hosted runner のディスク逼迫対策。job ごとの DerivedData / xcresult を消す。
+    # ~/Library/Caches/org.swift.swiftpm（全リポジトリ共有の SPM キャッシュ）は消さない。
+    # シミュレータは次回再利用するので削除せず shutdown のみ。
+    UDID=$(sim_udid || true)
+    if [ -n "$UDID" ]; then
+      xcrun simctl shutdown "$UDID" 2>/dev/null || true
+    fi
+    rm -rf "$DERIVED_DATA" "$CI_OUTPUT_DIR"/*.xcresult
+    rmdir "$CI_OUTPUT_DIR" 2>/dev/null || true
+    ;;
   *)
-    echo "usage: $0 <simulator|build|test>" >&2
+    echo "usage: $0 <simulator|build|test|cleanup>" >&2
     exit 64
     ;;
 esac
