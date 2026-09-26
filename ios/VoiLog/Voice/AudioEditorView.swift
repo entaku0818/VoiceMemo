@@ -310,9 +310,8 @@ struct AudioEditorView_Previews: PreviewProvider {
                     duration: 60.0,
                     waveformData: (0..<100).map { _ in Float.random(in: 0...1) },
                     shouldDismiss: false
-                ),
-                reducer: { AudioEditorReducer() }
-            )
+                )
+            ) { AudioEditorReducer() }
         )
     }
 }

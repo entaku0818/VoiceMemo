@@ -436,7 +436,7 @@ struct VoiceAppView: View {
           ToolbarItem(placement: .navigationBarTrailing) {
             SyncStatusView(
               syncStatus: store.syncStatus
-            )              { store.send(.view(.syncToCloud)) }
+            ) { store.send(.view(.syncToCloud)) }
           }
         }
       }

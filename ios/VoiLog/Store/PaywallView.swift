@@ -438,14 +438,12 @@ struct PaywallView: View {
 
                 if systemImage, let systemName = systemName {
                     Image(systemName: systemName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .resizable().scaledToFit()
                         .frame(width: 30, height: 30)
                         .foregroundColor(Color.blue)
                 } else if let image = image {
                     image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .resizable().scaledToFit()
                         .frame(width: 30, height: 30)
                 }
             }

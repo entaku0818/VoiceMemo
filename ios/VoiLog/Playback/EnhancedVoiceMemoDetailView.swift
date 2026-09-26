@@ -309,7 +309,6 @@ struct EnhancedVoiceMemoDetailView: View {
             quantizationBitDepth: 16,
             numberOfChannels: 2,
             fileSize: 1024576
-        ),
-        onDismiss: {}
-    )
+        )
+    ) {}
 }

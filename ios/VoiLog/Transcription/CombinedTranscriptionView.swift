@@ -53,7 +53,6 @@ struct CombinedTranscriptionView: View {
             url: URL(fileURLWithPath: "/tmp/test.m4a"),
             text: "Apple transcription text here.",
             aiTranscriptionText: "AI transcription result with more detail and accuracy."
-        ),
-        onDismiss: {}
-    )
+        )
+    ) {}
 }

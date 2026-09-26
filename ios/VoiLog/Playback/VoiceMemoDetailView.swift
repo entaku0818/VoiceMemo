@@ -162,7 +162,6 @@ extension DateFormatter {
       quantizationBitDepth: 16,
       numberOfChannels: 2,
       fileSize: 1024576
-    ),
-    onDismiss: {}
-  )
+    )
+  ) {}
 }

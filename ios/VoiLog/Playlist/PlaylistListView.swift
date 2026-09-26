@@ -69,9 +69,8 @@ struct PlaylistListView: View {
            }
            .sheet(
                isPresented: viewStore.binding(
-                   get: \.isShowingCreateSheet,
-                   send: { $0 ? .view(.createPlaylistButtonTapped) : .view(.createPlaylistSheetDismissed) }
-               )
+                   get: \.isShowingCreateSheet
+               ) { $0 ? .view(.createPlaylistButtonTapped) : .view(.createPlaylistSheetDismissed) }
            ) {
                CreatePlaylistView(store: store)
            }
@@ -135,9 +134,8 @@ struct CreatePlaylistView: View {
                 Form {
                     Section {
                         TextField("プレイリスト名", text: viewStore.binding(
-                            get: \.newPlaylistName,
-                            send: { PlaylistListFeature.Action.view(.updateNewPlaylistName($0)) }
-                        ))
+                            get: \.newPlaylistName
+                        ) { PlaylistListFeature.Action.view(.updateNewPlaylistName($0)) })
                     }
                 }
                 .navigationTitle("新規プレイリスト")

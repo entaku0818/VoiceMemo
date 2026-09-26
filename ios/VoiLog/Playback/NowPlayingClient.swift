@@ -24,7 +24,7 @@ struct NowPlayingClient {
 }
 
 extension NowPlayingClient: TestDependencyKey {
-    static let previewValue = Self(update: { _ in })
+    static let previewValue = Self { _ in }
     static let testValue = Self(update: unimplemented("\(Self.self).update"))
 }
 
@@ -36,7 +36,7 @@ extension DependencyValues {
 }
 
 extension NowPlayingClient: DependencyKey {
-    static let liveValue = Self(update: { info in
+    static let liveValue = Self { info in
         guard let info else {
             MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
             return
@@ -47,5 +47,5 @@ extension NowPlayingClient: DependencyKey {
             MPNowPlayingInfoPropertyElapsedPlaybackTime: info.elapsedTime,
             MPNowPlayingInfoPropertyPlaybackRate: info.isPlaying ? 1.0 : 0.0
         ]
-    })
+    }
 }

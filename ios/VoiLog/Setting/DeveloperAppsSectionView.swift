@@ -58,8 +58,7 @@ private struct DeveloperAppRowView: View {
             HStack(spacing: 12) {
                 AsyncImage(url: artworkURL) { image in
                     image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .resizable().scaledToFill()
                 } placeholder: {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.2))

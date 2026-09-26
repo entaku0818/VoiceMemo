@@ -117,7 +117,6 @@ struct AppleTranscriptionView: View {
             duration: 180,
             url: URL(fileURLWithPath: "/tmp/test.m4a"),
             text: "本日の会議を始めます。まず先週のアクションアイテムを確認しましょう。"
-        ),
-        onDismiss: {}
-    )
+        )
+    ) {}
 }

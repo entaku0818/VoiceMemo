@@ -36,7 +36,7 @@ enum MeetingMinutesError: Error, LocalizedError, Equatable {
 }
 
 extension MeetingMinutesClient: DependencyKey {
-    static let liveValue = MeetingMinutesClient(generate: { text in
+    static let liveValue = MeetingMinutesClient { text in
         try await MeetingMinutesGenerator.generate(
             text: text,
             isOnDeviceAvailable: {
@@ -51,14 +51,14 @@ extension MeetingMinutesClient: DependencyKey {
                 try await MeetingMinutesCloudFallback().generate(text: text)
             }
         )
-    })
+    }
 
-    static let testValue = MeetingMinutesClient(generate: { _ in
+    static let testValue = MeetingMinutesClient { _ in
         MeetingMinutesResult(
             summary: "テスト要約です。",
             todos: ["TODO 1", "TODO 2"]
         )
-    })
+    }
 }
 
 /// オンデバイス（Foundation Models）が使えるかどうかで処理を振り分ける純粋なロジック。

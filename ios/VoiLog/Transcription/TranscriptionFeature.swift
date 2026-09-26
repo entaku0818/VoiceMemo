@@ -10,17 +10,15 @@ struct FirebaseAuthClient {
 }
 
 extension FirebaseAuthClient: DependencyKey {
-    static let liveValue = FirebaseAuthClient(
-        currentUserIDToken: { forcingRefresh in
-            if Auth.auth().currentUser == nil {
-                try await Auth.auth().signInAnonymously()
-            }
-            guard let user = Auth.auth().currentUser else {
-                throw TranscriptionError.notAuthenticated
-            }
-            return try await user.getIDToken(forcingRefresh: forcingRefresh)
+    static let liveValue = FirebaseAuthClient { forcingRefresh in
+        if Auth.auth().currentUser == nil {
+            try await Auth.auth().signInAnonymously()
         }
-    )
+        guard let user = Auth.auth().currentUser else {
+            throw TranscriptionError.notAuthenticated
+        }
+        return try await user.getIDToken(forcingRefresh: forcingRefresh)
+    }
 }
 
 extension DependencyValues {

@@ -101,16 +101,15 @@ struct TranscriptionTabsView: View {
 
             TabView(selection: $selectedTab) {
                 appleTab.tag(0)
-                AITranscriptionTab(store: transcriptionStore, onSaved: { text in
+                AITranscriptionTab(store: transcriptionStore) { text in
                     onAISaved?(text)
-                })
+                }
                 .tag(1)
                 if #available(iOS 26, *), let mmStore = meetingMinutesStore {
                     MeetingMinutesView(
                         store: mmStore,
-                        hasPurchasedPremium: hasPurchasedPremium,
-                        onSaved: { text in onMeetingMinutesSaved?(text) }
-                    )
+                        hasPurchasedPremium: hasPurchasedPremium
+                    ) { text in onMeetingMinutesSaved?(text) }
                     .tag(2)
                 }
             }

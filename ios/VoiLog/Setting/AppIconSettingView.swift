@@ -96,8 +96,7 @@ struct AppIconSettingView: View {
             ZStack {
                 // 実際のアイコン画像
                 Image(icon.previewImageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .resizable().scaledToFill()
                     .frame(width: 76, height: 76)
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                     .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)

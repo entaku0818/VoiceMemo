@@ -27,9 +27,9 @@ struct ScreenshotPreviewView: View {
             .navigationTitle("Select Language")
             .navigationBarTitleDisplayMode(.inline)
             .fullScreenCover(item: $selectedLanguage) { language in
-                FullscreenScreenshotView(language: language, onDismiss: {
+                FullscreenScreenshotView(language: language) {
                     selectedLanguage = nil
-                })
+                }
             }
         }
     }
