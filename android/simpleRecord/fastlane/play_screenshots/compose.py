@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Google Play 用スクリーンショット合成スクリプト（ja-JP）。
+"""Google Play 用スクリーンショット合成スクリプト（ja-JP / en-US）。
 
-raw/ にあるエミュレータの実画面キャプチャ（1080x2400）に
+raw/<lang>/ にあるエミュレータの実画面キャプチャ（1080x2400）に
 背景グラデーション＋キャッチコピー＋端末フレームを合成し、
-fastlane/metadata/android/ja-JP/images/phoneScreenshots/ に 1080x1920 (9:16) PNG を書き出す。
+fastlane/metadata/android/<locale>/images/phoneScreenshots/ に 1080x1920 (9:16) PNG を書き出す。
 
 依存: Pillow / macOS 標準のヒラギノ角ゴシック
 使い方: python3 fastlane/play_screenshots/compose.py
@@ -13,8 +13,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = Path(__file__).resolve().parent
-RAW = HERE / "raw"
-OUT = HERE.parent / "metadata" / "android" / "ja-JP" / "images" / "phoneScreenshots"
+METADATA = HERE.parent / "metadata" / "android"
 
 W, H = 1080, 1920
 FONT_HEAVY = "/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc"
@@ -24,19 +23,40 @@ WHITE = (255, 255, 255)
 ACCENT = (255, 216, 77)
 PILL_TEXT = (74, 50, 180)
 
-# (出力名, 実画面, ラベル, キャッチ1行目, キャッチ2行目(アクセント色), 背景上端色, 背景下端色, 拡大カード領域)
-SHOTS = [
-    ("01_ai_transcription.png", "01_transcript.png", "AI文字起こし",
-     "録音するだけで", "AIが文字起こし", (108, 76, 240), (40, 22, 110), (24, 596, 1056, 1430)),
-    ("02_ai_minutes.png", "02_minutes.png", "AI議事録",
-     "要約もTODOも", "自動でまとめる", (88, 70, 220), (30, 24, 96), None),
-    ("03_recordings.png", "03_list.png", "録音一覧",
-     "会議も講義も", "すぐに見つかる", (70, 88, 214), (24, 30, 92), None),
-    ("04_playback.png", "04_playback.png", "再生",
-     "倍速・区間リピートで", "聴き返しラクラク", (96, 64, 206), (34, 20, 88), None),
-    ("05_presets.png", "05_settings.png", "録音設定",
-     "用途別プリセットで", "音質設定もかんたん", (84, 72, 200), (28, 24, 84), None),
+# 画面ごとの共通設定: (出力名, 実画面, 背景上端色, 背景下端色)
+SCREENS = [
+    ("01_ai_transcription.png", "01_transcript.png", (108, 76, 240), (40, 22, 110)),
+    ("02_ai_minutes.png", "02_minutes.png", (88, 70, 220), (30, 24, 96)),
+    ("03_recordings.png", "03_list.png", (70, 88, 214), (24, 30, 92)),
+    ("04_playback.png", "04_playback.png", (96, 64, 206), (34, 20, 88)),
+    ("05_cloud_backup.png", "05_cloud.png", (84, 72, 200), (28, 24, 84)),
 ]
+
+# ロケールごとの文言: (ラベル, キャッチ1行目, キャッチ2行目(アクセント色)) と 1枚目の拡大カード領域
+LOCALES = {
+    "ja-JP": {
+        "raw": "ja",
+        "zoom_box": (24, 596, 1056, 1430),
+        "copy": [
+            ("AI文字起こし", "録音するだけで", "AIが文字起こし"),
+            ("AI議事録", "要約もTODOも", "自動でまとめる"),
+            ("録音一覧", "会議も講義も", "すぐに見つかる"),
+            ("再生", "倍速・区間リピートで", "聴き返しラクラク"),
+            ("クラウドバックアップ", "Googleドライブに保存", "機種変更も安心"),
+        ],
+    },
+    "en-US": {
+        "raw": "en",
+        "zoom_box": (24, 636, 1056, 1470),
+        "copy": [
+            ("AI Transcription", "Just hit record.", "AI writes it down"),
+            ("AI Meeting Notes", "Summaries & to-dos", "done for you"),
+            ("Recordings", "Meetings, lectures & more", "Find any in seconds"),
+            ("Playback", "Speed control & A-B repeat", "Review with ease"),
+            ("Cloud Backup", "Back up to Google Drive", "Keep recordings safe"),
+        ],
+    },
+}
 
 
 def gradient(top, bottom):
@@ -83,7 +103,7 @@ def fit_font(draw, text, path, size, max_w):
     return ImageFont.truetype(path, size)
 
 
-def compose(out_name, raw_name, label, line1, line2, top, bottom, zoom_box):
+def compose(raw_dir, out_dir, out_name, raw_name, label, line1, line2, top, bottom, zoom_box):
     canvas = gradient(top, bottom)
     d = ImageDraw.Draw(canvas)
 
@@ -101,7 +121,7 @@ def compose(out_name, raw_name, label, line1, line2, top, bottom, zoom_box):
     centered_text(d, 336, line2, f2, ACCENT)
 
     # 端末フレーム（下端ははみ出させる）
-    shot = Image.open(RAW / raw_name).convert("RGB")
+    shot = Image.open(raw_dir / raw_name).convert("RGB")
     screen_w = 780
     screen_h = int(shot.height * screen_w / shot.width)
     shot = shot.resize((screen_w, screen_h), Image.LANCZOS)
@@ -116,7 +136,7 @@ def compose(out_name, raw_name, label, line1, line2, top, bottom, zoom_box):
 
     # 1枚目: 文字起こし結果の要部を拡大カードで重ねて、検索結果サムネでも読めるようにする
     if zoom_box:
-        src = Image.open(RAW / raw_name).convert("RGB").crop(zoom_box)
+        src = Image.open(raw_dir / raw_name).convert("RGB").crop(zoom_box)
         card_w = 960
         card = src.resize((card_w, int(src.height * card_w / src.width)), Image.LANCZOS)
         cx0 = (W - card_w) // 2
@@ -126,14 +146,18 @@ def compose(out_name, raw_name, label, line1, line2, top, bottom, zoom_box):
         canvas.paste(card, (cx0, cy0), rounded_mask(card.size, 40))
         ImageDraw.Draw(canvas).rounded_rectangle(cbox, 40, outline=ACCENT, width=6)
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    canvas.save(OUT / out_name, "PNG")
-    return OUT / out_name
+    out_dir.mkdir(parents=True, exist_ok=True)
+    canvas.save(out_dir / out_name, "PNG")
+    return out_dir / out_name
 
 
 def main():
-    for s in SHOTS:
-        print(compose(*s))
+    for locale, conf in LOCALES.items():
+        raw_dir = HERE / "raw" / conf["raw"]
+        out_dir = METADATA / locale / "images" / "phoneScreenshots"
+        for i, ((out_name, raw_name, top, bottom), (label, line1, line2)) in enumerate(zip(SCREENS, conf["copy"])):
+            zoom_box = conf["zoom_box"] if i == 0 else None
+            print(compose(raw_dir, out_dir, out_name, raw_name, label, line1, line2, top, bottom, zoom_box))
 
 
 if __name__ == "__main__":
