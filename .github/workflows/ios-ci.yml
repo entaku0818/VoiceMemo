@@ -23,6 +23,8 @@ jobs:
     runs-on: [self-hosted, macOS, xcode27]
     timeout-minutes: 60
     env:
+      # Mac 側の xcode-select に左右されないよう Xcode 27 を固定する（xcode-select が 26.5 に戻って iOS 27 シミュレータが起動できなくなったことがある）
+      DEVELOPER_DIR: /Applications/Xcode-27.0.0.app/Contents/Developer
       CI_SIM_NAME: CI-VoiceMemo
       CI_SIM_RUNTIME: com.apple.CoreSimulator.SimRuntime.iOS-27-0
       CI_SIM_DEVICE: com.apple.CoreSimulator.SimDeviceType.iPhone-17-Pro
