@@ -502,8 +502,8 @@ struct VoiceAppView: View {
         )
       }
     }
-    .sheet(isPresented: $store.showPaywall) {
-      PaywallView(purchaseManager: PurchaseManager.shared)
+    .fullScreenCover(isPresented: $store.showPaywall) {
+      PaywallView(purchaseManager: PurchaseManager.shared, showsCloseButton: true)
         .onDisappear {
           store.send(.view(.dismissPaywall))
         }

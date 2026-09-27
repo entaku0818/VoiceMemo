@@ -56,8 +56,8 @@ struct ModernPlaylistListView: View {
         .sheet(isPresented: $store.isShowingCreateSheet) {
             CreatePlaylistSheet(store: store)
         }
-        .sheet(isPresented: $store.isShowingPaywall) {
-            PaywallView(purchaseManager: PurchaseManager.shared)
+        .fullScreenCover(isPresented: $store.isShowingPaywall) {
+            PaywallView(purchaseManager: PurchaseManager.shared, showsCloseButton: true)
         }
         .alert("エラー", isPresented: .constant(store.error != nil)) {
             Button("OK") { }

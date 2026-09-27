@@ -74,11 +74,11 @@ struct PlaylistListView: View {
            ) {
                CreatePlaylistView(store: store)
            }
-           .sheet(isPresented: viewStore.binding(
+           .fullScreenCover(isPresented: viewStore.binding(
                get: \.isShowingPaywall,
                send: PlaylistListFeature.Action.view(.paywallDismissed)
            )) {
-               PaywallView(purchaseManager: PurchaseManager.shared)
+               PaywallView(purchaseManager: PurchaseManager.shared, showsCloseButton: true)
            }
            .sheet(isPresented: viewStore.binding(
                get: \.isShowingVoiceSelection,

@@ -7,6 +7,8 @@ struct PaywallView: View {
     @State private var productPrice: String = ""
     @State private var annualPrice: String = ""
     @State private var isAnnualSelected = true
+    /// 年額プランの商品を取得できたか。取得に失敗したら年額のカードを隠し、月額を選択状態にする
+    @State private var isAnnualAvailable = true
     @State private var showAlert = false
     @State private var alertMessage: String = ""
     @State private var offering: Offering?
@@ -17,9 +19,12 @@ struct PaywallView: View {
     @Dependency(\.firebaseAnalytics) var analytics
 
     var purchaseManager: PurchaseManagerProtocol
+    /// 全画面（fullScreenCover）で出すときは閉じるボタンを表示する。NavigationLink で push する場合は戻るボタンがあるので不要。
+    var showsCloseButton: Bool
 
-    init(purchaseManager: PurchaseManagerProtocol) {
+    init(purchaseManager: PurchaseManagerProtocol, showsCloseButton: Bool = false) {
         self.purchaseManager = purchaseManager
+        self.showsCloseButton = showsCloseButton
     }
 
     var body: some View {
@@ -45,6 +50,8 @@ struct PaywallView: View {
                             .font(.system(size: 32, weight: .bold, design: .rounded))
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.6)
                             .padding(.bottom, 4)
 
                         if isAnnualSelected {
@@ -60,6 +67,8 @@ struct PaywallView: View {
                         }
                     }
                     .padding(.vertical, 30)
+                    // 文字がグラデーションのカードからはみ出さないよう、カードの内側に収める
+                    .padding(.horizontal, 36)
                 }
                 .padding(.top, 20)
 
@@ -82,14 +91,17 @@ struct PaywallView: View {
 
                 // プラン選択
                 HStack(spacing: 12) {
-                    planButton(
-                        title: String(localized: "年額", table: "Premium"),
-                        price: annualPrice.isEmpty ? "-" : annualPrice,
-                        unit: String(localized: "/ 年", table: "Premium"),
-                        badge: String(localized: "お得", table: "Premium"),
-                        isSelected: isAnnualSelected
-                    ) {
-                        isAnnualSelected = true
+                    // 年額の商品が取れないとき（ストア側で未承認など）は "-" のカードを出さず月額だけにする
+                    if isAnnualAvailable {
+                        planButton(
+                            title: String(localized: "年額", table: "Premium"),
+                            price: annualPrice.isEmpty ? "-" : annualPrice,
+                            unit: String(localized: "/ 年", table: "Premium"),
+                            badge: String(localized: "お得", table: "Premium"),
+                            isSelected: isAnnualSelected
+                        ) {
+                            isAnnualSelected = true
+                        }
                     }
                     planButton(
                         title: String(localized: "月額", table: "Premium"),
@@ -265,6 +277,21 @@ struct PaywallView: View {
         .alert(isPresented: $showAlert) {
             Alert(title: Text(""), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
+        .overlay(alignment: .topTrailing) {
+            if showsCloseButton {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 30))
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.secondary, Color(uiColor: .systemGray5))
+                }
+                .padding(.top, 8)
+                .padding(.trailing, 16)
+                .accessibilityLabel(String(localized: "閉じる"))
+            }
+        }
     }
 
     // RevenueCat用の商品情報取得処理
@@ -290,6 +317,8 @@ struct PaywallView: View {
         } catch {
             await MainActor.run {
                 annualPrice = ""
+                isAnnualAvailable = false
+                isAnnualSelected = false
                 if productPrice.isEmpty {
                     showAlert = true
                     alertMessage = String(localized: "製品情報の取得に失敗しました", table: "Premium")
