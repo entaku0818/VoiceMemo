@@ -1,5 +1,9 @@
-Version 1.13.1
+Version 1.14.0
+
+[Nyheter]
+- En mjukt rullande vågform visas nu medan du spelar in
+- Ny förmånlig årsplan för Premium
 
 [Förbättringar]
-- Förbättrad upptäckbarhet i App Store
-- Interna justeringar
+- Premium-skärmen öppnas nu i helskärm och är lättare att läsa
+- Om en annan app börjar spela in under din inspelning visas nu pausläget korrekt

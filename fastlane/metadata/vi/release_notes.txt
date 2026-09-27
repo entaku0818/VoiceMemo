@@ -1,5 +1,9 @@
-Phiên bản 1.13.1
+Phiên bản 1.14.0
 
-[Cải tiến]
-- Cải thiện khả năng tìm thấy ứng dụng trên App Store
-- Tinh chỉnh nội bộ
+[Mới]
+- Giờ đây dạng sóng cuộn mượt mà được hiển thị khi bạn ghi âm
+- Thêm gói Premium theo năm tiết kiệm hơn
+
+[Cải thiện]
+- Màn hình Premium giờ mở toàn màn hình và dễ đọc hơn
+- Khi một ứng dụng khác bắt đầu ghi âm trong lúc bạn đang ghi, trạng thái tạm dừng giờ được hiển thị chính xác

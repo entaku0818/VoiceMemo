@@ -1,5 +1,9 @@
-Version 1.13.1
+Version 1.14.0
+
+[Neu]
+- Während der Aufnahme wird jetzt eine flüssig laufende Wellenform angezeigt
+- Neuer günstiger Premium-Jahresplan
 
 [Verbesserungen]
-- Auffindbarkeit im App Store verbessert
-- Interne Optimierungen
+- Der Premium-Bildschirm öffnet sich jetzt im Vollbild und ist übersichtlicher
+- Wenn eine andere App während Ihrer Aufnahme mit einer Aufnahme beginnt, wird der pausierte Zustand jetzt korrekt angezeigt

@@ -1,5 +1,9 @@
-Version 1.13.1
+Version 1.14.0
+
+[Nouveautés]
+- Une forme d'onde qui défile de façon fluide s'affiche désormais pendant l'enregistrement
+- Nouvel abonnement Premium annuel plus avantageux
 
 [Améliorations]
-- Amélioration de la visibilité sur l'App Store
-- Optimisations internes
+- L'écran Premium s'ouvre désormais en plein écran et est plus lisible
+- Si une autre app commence à enregistrer pendant votre enregistrement, l'état de pause s'affiche désormais correctement

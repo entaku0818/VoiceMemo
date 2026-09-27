@@ -1,5 +1,9 @@
-Versión 1.13.1
+Versión 1.14.0
+
+[Novedades]
+- Ahora se muestra una forma de onda que se desplaza con fluidez mientras grabas
+- Nuevo plan Premium anual con descuento
 
 [Mejoras]
-- Mejor visibilidad en el App Store
-- Ajustes internos
+- La pantalla Premium ahora se abre a pantalla completa y es más fácil de leer
+- Si otra app empieza a grabar durante tu grabación, ahora se muestra correctamente el estado de pausa

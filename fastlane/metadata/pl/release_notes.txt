@@ -1,5 +1,9 @@
-Wersja 1.13.1
+Wersja 1.14.0
+
+[Nowości]
+- Podczas nagrywania wyświetla się teraz płynnie przewijany przebieg fali
+- Nowy, korzystniejszy roczny plan Premium
 
 [Ulepszenia]
-- Poprawiono wykrywalność w App Store
-- Wewnętrzne usprawnienia
+- Ekran Premium otwiera się teraz na pełnym ekranie i jest czytelniejszy
+- Gdy inna aplikacja zacznie nagrywać w trakcie Twojego nagrania, stan pauzy jest teraz wyświetlany poprawnie

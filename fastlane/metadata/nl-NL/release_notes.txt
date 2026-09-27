@@ -1,5 +1,9 @@
-Versie 1.13.1
+Versie 1.14.0
+
+[Nieuw]
+- Tijdens het opnemen wordt nu een vloeiend meelopende golfvorm getoond
+- Nieuw voordelig Premium-jaarabonnement
 
 [Verbeteringen]
-- Betere vindbaarheid in de App Store
-- Interne optimalisaties
+- Het Premium-scherm opent nu schermvullend en is beter leesbaar
+- Als een andere app begint met opnemen tijdens je opname, wordt de gepauzeerde status nu correct weergegeven

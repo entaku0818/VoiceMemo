@@ -1,5 +1,9 @@
-Sürüm 1.13.1
+Sürüm 1.14.0
+
+[Yenilikler]
+- Kayıt sırasında artık akıcı şekilde kayan bir ses dalgası gösteriliyor
+- Daha avantajlı yıllık Premium plan eklendi
 
 [İyileştirmeler]
-- App Store'da bulunabilirlik iyileştirildi
-- Dahili düzenlemeler
+- Premium ekranı artık tam ekran açılıyor ve daha kolay okunuyor
+- Kaydınız sırasında başka bir uygulama kayda başladığında duraklatma durumu artık doğru gösteriliyor

@@ -1,5 +1,9 @@
-Versi 1.13.1
+Versi 1.14.0
+
+[Baru]
+- Kini gelombang suara yang bergulir mulus ditampilkan saat merekam
+- Paket Premium tahunan yang lebih hemat telah ditambahkan
 
 [Peningkatan]
-- Meningkatkan kemudahan ditemukan di App Store
-- Penyempurnaan internal
+- Layar Premium kini terbuka dalam layar penuh dan lebih mudah dibaca
+- Saat aplikasi lain mulai merekam di tengah rekaman Anda, status jeda kini ditampilkan dengan benar

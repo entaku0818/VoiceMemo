@@ -1,5 +1,9 @@
-Versione 1.13.1
+Versione 1.14.0
+
+[Novità]
+- Durante la registrazione ora viene mostrata una forma d'onda che scorre in modo fluido
+- Nuovo piano Premium annuale più conveniente
 
 [Miglioramenti]
-- Migliorata la reperibilità su App Store
-- Ottimizzazioni interne
+- La schermata Premium ora si apre a schermo intero ed è più leggibile
+- Se un'altra app inizia a registrare durante la tua registrazione, lo stato di pausa ora viene mostrato correttamente

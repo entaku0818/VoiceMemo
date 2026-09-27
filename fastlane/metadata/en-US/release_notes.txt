@@ -1,5 +1,9 @@
-Version 1.13.2
+Version 1.14.0
+
+[New]
+- A smoothly scrolling waveform now appears while you record
+- Added a money-saving annual Premium plan
 
 [Improvements]
-- Refreshed our App Store search keywords
-- No changes to app functionality
+- The Premium screen now opens full screen and is easier to read
+- When another app starts recording during your recording, the paused state is now shown correctly
