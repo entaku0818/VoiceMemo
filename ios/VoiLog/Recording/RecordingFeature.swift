@@ -466,8 +466,9 @@ struct RecordingView: View {
 
           // Recording Status and Timer
           recordingStatusView
+            .padding(.horizontal)
 
-          // Audio Level Visualization
+          // Audio Level Visualization（波形は画面の端から端まで使うので左右の余白を付けない）
           if store.recordingState == .recording || store.recordingState == .paused {
             audioVisualizationView
           }
@@ -475,14 +476,16 @@ struct RecordingView: View {
           // Transcription Text
           if !store.resultText.isEmpty {
             transcriptionView
+              .padding(.horizontal)
           }
 
           Spacer()
 
           // Control Buttons
           controlButtonsView
+            .padding(.horizontal)
         }
-        .padding()
+        .padding(.vertical)
         .navigationTitle(String(localized: "録音", table: "Recording"))
         .navigationBarTitleDisplayMode(.large)
         .onAppear {

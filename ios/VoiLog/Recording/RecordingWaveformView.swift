@@ -4,7 +4,7 @@ import SwiftUI
 ///
 /// 最新のサンプルを赤い再生ヘッドの位置に描き、古いサンプルほど左へ流す。
 /// 上部には経過時間の目盛り、再生ヘッドより右（これから録る部分）には点線の基準線を引く。
-/// 録音済みの範囲（再生ヘッドより左）は背景をグレーにする。
+/// 録音済みの範囲（0:00〜再生ヘッド）は背景をグレーにし、0:00 より左（録音前）はそれより薄いグレーにする。
 /// サンプルは 100ms ごとにしか増えないので、録音中は TimelineView で毎フレーム
 /// 「前のサンプルからの経過時間」ぶん左へずらし、波形と目盛りを連続的にスクロールさせる。
 struct RecordingWaveformView: View {
@@ -19,8 +19,8 @@ struct RecordingWaveformView: View {
     private let barWidth: CGFloat = 3
     private let barSpacing: CGFloat = 2
     private let rulerHeight: CGFloat = 22
-    /// 再生ヘッドの横位置（幅に対する割合）。左側に過去の波形を多く見せる。
-    private let playheadRatio: CGFloat = 0.72
+    /// 再生ヘッドの横位置（幅に対する割合）。画面の真ん中に置く。
+    private let playheadRatio: CGFloat = 0.5
 
     /// 最後にサンプルが増えた時刻（スクロールの補間の起点）
     @State private var lastSampleDate = Date()
@@ -50,11 +50,20 @@ struct RecordingWaveformView: View {
             let waveTop = rulerHeight
             let waveHeight = size.height - rulerHeight
             let midY = waveTop + waveHeight / 2
-            let scroll = progress * step
+            // サンプルがまだ無いうちはずらさない（何も無い範囲が1本ぶん録音済みに見えないように）
+            let scroll = samples.isEmpty ? 0 : progress * step
+            // 録音開始（0:00）の位置。録音直後は再生ヘッドと同じで、録音が進むほど左へ流れる
+            let recordingStartX = playheadX - CGFloat(samples.count) * step - scroll
 
-            // 録音済みの範囲の背景（最初のサンプルの位置から再生ヘッドまで）
+            // 0:00 より左（録音前）の背景。録音済みの範囲より薄いグレーにする
+            if recordingStartX > 0 {
+                let beforeStart = CGRect(x: 0, y: waveTop, width: recordingStartX, height: waveHeight)
+                context.fill(Path(beforeStart), with: .color(Color(uiColor: .systemGray6)))
+            }
+
+            // 録音済みの範囲の背景（0:00 の位置から再生ヘッドまで）
             if !samples.isEmpty {
-                let startX = max(0, playheadX - CGFloat(samples.count) * step - scroll)
+                let startX = max(0, recordingStartX)
                 let recorded = CGRect(x: startX, y: waveTop, width: playheadX - startX, height: waveHeight)
                 context.fill(Path(recorded), with: .color(Color(uiColor: .systemGray5)))
             }
