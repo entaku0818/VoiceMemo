@@ -40,6 +40,13 @@ struct RecordingWaveform: Equatable {
         samples.removeAll()
     }
 
+    /// 直近のサンプルからの経過時間を、次のサンプルまでの進み具合（0...1）に変換する。
+    /// 表示側はこの割合だけ波形を左へずらし、100ms ごとのカクつきをなくして連続的にスクロールさせる。
+    static func scrollProgress(sinceLastSample elapsed: TimeInterval, interval: TimeInterval) -> Double {
+        guard interval > 0, elapsed.isFinite else { return 0 }
+        return min(1, max(0, elapsed / interval))
+    }
+
     /// dBFS を 0...1 のバーの高さに変換する（ノイズゲート＋累乗カーブ）。
     static func normalizedLevel(decibels: Float) -> Float {
         guard decibels.isFinite, decibels > noiseFloor else { return 0 }

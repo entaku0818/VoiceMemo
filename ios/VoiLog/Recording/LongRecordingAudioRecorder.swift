@@ -114,8 +114,18 @@ actor LongRecordingAudioRecorder: NSObject {
         }
 
         logger.info("録音再開開始")
+        // 他アプリの録音などで割り込まれた後はセッションが非アクティブになっているので、再開前にアクティブにし直す
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            logger.error("録音再開時のオーディオセッション有効化に失敗: \(error.localizedDescription)")
+        }
         // pausedDurationの加算を削除（recorder.currentTimeが既に正しい値を持っている）
-        audioRecorder?.record()
+        guard audioRecorder?.record() == true else {
+            // 他アプリがマイクを使用中などで再開できない。一時停止のまま残す
+            logger.error("録音再開に失敗 - 一時停止のまま")
+            return
+        }
 
         state = .recording(startTime: startTime)
         logger.info("録音再開完了")

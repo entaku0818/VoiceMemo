@@ -4,10 +4,15 @@ import SwiftUI
 ///
 /// 最新のサンプルを赤い再生ヘッドの位置に描き、古いサンプルほど左へ流す。
 /// 上部には経過時間の目盛り、再生ヘッドより右（これから録る部分）には点線の基準線を引く。
+/// 録音済みの範囲（再生ヘッドより左）は背景をグレーにする。
+/// サンプルは 100ms ごとにしか増えないので、録音中は TimelineView で毎フレーム
+/// 「前のサンプルからの経過時間」ぶん左へずらし、波形と目盛りを連続的にスクロールさせる。
 struct RecordingWaveformView: View {
     let samples: [Float]
     /// 録音の経過時間。目盛りの位置合わせに使う。
     let duration: TimeInterval
+    /// 録音中だけスクロールを動かす（一時停止中は止める）
+    var isRecording = true
     /// 1 サンプルあたりの時間（RecordingFeature のメータータイマー間隔と揃える）
     var sampleInterval: TimeInterval = 0.1
 
@@ -17,16 +22,44 @@ struct RecordingWaveformView: View {
     /// 再生ヘッドの横位置（幅に対する割合）。左側に過去の波形を多く見せる。
     private let playheadRatio: CGFloat = 0.72
 
+    /// 最後にサンプルが増えた時刻（スクロールの補間の起点）
+    @State private var lastSampleDate = Date()
+
     private var step: CGFloat { barWidth + barSpacing }
 
     var body: some View {
+        TimelineView(.animation(paused: !isRecording)) { timeline in
+            let progress = isRecording
+                ? RecordingWaveform.scrollProgress(
+                    sinceLastSample: timeline.date.timeIntervalSince(lastSampleDate),
+                    interval: sampleInterval
+                )
+                : 0
+            canvas(progress: CGFloat(progress))
+        }
+        .onChange(of: samples.count) { _, _ in
+            lastSampleDate = Date()
+        }
+        .accessibilityHidden(true)
+    }
+
+    /// - Parameter progress: 次のサンプルまでの進み具合（0...1）。この割合ぶん波形と目盛りを左へずらす。
+    private func canvas(progress: CGFloat) -> some View {
         Canvas { context, size in
             let playheadX = (size.width * playheadRatio).rounded()
             let waveTop = rulerHeight
             let waveHeight = size.height - rulerHeight
             let midY = waveTop + waveHeight / 2
+            let scroll = progress * step
 
-            drawRuler(in: &context, size: size, playheadX: playheadX)
+            // 録音済みの範囲の背景（最初のサンプルの位置から再生ヘッドまで）
+            if !samples.isEmpty {
+                let startX = max(0, playheadX - CGFloat(samples.count) * step - scroll)
+                let recorded = CGRect(x: startX, y: waveTop, width: playheadX - startX, height: waveHeight)
+                context.fill(Path(recorded), with: .color(Color(uiColor: .systemGray5)))
+            }
+
+            drawRuler(in: &context, size: size, playheadX: playheadX, time: duration + Double(progress) * sampleInterval)
 
             // 未来側（再生ヘッドより右）の点線基準線
             var baseline = Path()
@@ -37,7 +70,7 @@ struct RecordingWaveformView: View {
             // 波形（末尾=最新を再生ヘッド位置に置き、左へ遡って描く）
             let maxBarHeight = waveHeight * 0.92
             for (offset, level) in samples.reversed().enumerated() {
-                let x = playheadX - CGFloat(offset) * step - barWidth
+                let x = playheadX - CGFloat(offset) * step - barWidth - scroll
                 if x < -barWidth { break }
                 let height = max(2, CGFloat(level) * maxBarHeight)
                 let rect = CGRect(x: x, y: midY - height / 2, width: barWidth, height: height)
@@ -52,11 +85,10 @@ struct RecordingWaveformView: View {
             let knob = CGRect(x: playheadX - 5, y: waveTop - 9, width: 10, height: 10)
             context.fill(Path(ellipseIn: knob), with: .color(.red))
         }
-        .accessibilityHidden(true)
     }
 
     /// 経過時間の目盛り。0.5 秒ごとに短い線、1 秒ごとに長い線とラベル。
-    private func drawRuler(in context: inout GraphicsContext, size: CGSize, playheadX: CGFloat) {
+    private func drawRuler(in context: inout GraphicsContext, size: CGSize, playheadX: CGFloat, time duration: TimeInterval) {
         let pointsPerSecond = step / CGFloat(sampleInterval)
         let halfSeconds = Int((Double(playheadX) / Double(pointsPerSecond) + 1) * 2)
         let futureHalfSeconds = Int((Double(size.width - playheadX) / Double(pointsPerSecond) + 1) * 2)

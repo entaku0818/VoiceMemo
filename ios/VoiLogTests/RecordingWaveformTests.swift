@@ -95,4 +95,22 @@ final class RecordingWaveformTests: XCTestCase {
         }
         XCTAssertEqual(store.state.waveform.samples.count, 2)
     }
+
+    // MARK: - scrollProgress
+
+    func testScrollProgress_IsFractionOfInterval() {
+        XCTAssertEqual(RecordingWaveform.scrollProgress(sinceLastSample: 0, interval: 0.1), 0)
+        XCTAssertEqual(RecordingWaveform.scrollProgress(sinceLastSample: 0.05, interval: 0.1), 0.5, accuracy: 0.0001)
+    }
+
+    func testScrollProgress_ClampsToZeroAndOne() {
+        XCTAssertEqual(RecordingWaveform.scrollProgress(sinceLastSample: 0.35, interval: 0.1), 1, "次のサンプルが遅れても1本ぶんより先へは流さない")
+        XCTAssertEqual(RecordingWaveform.scrollProgress(sinceLastSample: -0.02, interval: 0.1), 0, "時計のずれで負になっても逆走しない")
+    }
+
+    func testScrollProgress_InvalidInput_IsZero() {
+        XCTAssertEqual(RecordingWaveform.scrollProgress(sinceLastSample: 0.05, interval: 0), 0)
+        XCTAssertEqual(RecordingWaveform.scrollProgress(sinceLastSample: .nan, interval: 0.1), 0)
+        XCTAssertEqual(RecordingWaveform.scrollProgress(sinceLastSample: .infinity, interval: 0.1), 0)
+    }
 }

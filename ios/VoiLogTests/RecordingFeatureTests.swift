@@ -138,6 +138,109 @@ final class RecordingFeatureTests: XCTestCase {
         }
     }
 
+    /// 他アプリの録音などでレコーダーが自動で一時停止/再開したとき、画面の状態も追従する
+    func testInterruption_RecorderPausedByOtherApp_SyncsStateToPaused() async {
+        await withMainSerialExecutor {
+            let clock = TestClock()
+            var recordingState: RecordingState = .recording(startTime: Date())
+            let store = makeInterruptionTestStore(clock: clock, recordingState: { recordingState })
+            store.exhaustivity = .off
+
+            await store.send(.permissionResponse(true)) {
+                $0.recordingState = .recording
+                $0.audioPermission = .granted
+                $0.duration = 0
+            }
+            await clock.advance(by: .milliseconds(100))
+            await store.receive(\.timerUpdated)
+
+            // When: 他アプリが録音を始め、レコーダーが自分で一時停止する
+            recordingState = .paused(startTime: Date(), pausedTime: Date(), duration: 5.0)
+            await clock.advance(by: .milliseconds(100))
+
+            // Then: 画面も一時停止になる
+            await store.receive(\.recorderPauseStateChanged) {
+                $0.recordingState = .paused
+            }
+
+            // When: 割り込みが終わり、レコーダーが自動で再開する
+            recordingState = .recording(startTime: Date())
+            await clock.advance(by: .milliseconds(100))
+
+            // Then: 画面も録音中に戻る
+            await store.receive(\.recorderPauseStateChanged) {
+                $0.recordingState = .recording
+            }
+        }
+    }
+
+    /// 割り込み後に再開ボタンを押しても再開できなかった場合は、一時停止の表示に戻す
+    func testResumeAfterInterruption_WhenRecorderCannotResume_StaysPaused() async {
+        await withMainSerialExecutor {
+            let clock = TestClock()
+            let store = makeInterruptionTestStore(
+                clock: clock,
+                recordingState: { .paused(startTime: Date(), pausedTime: Date(), duration: 5.0) },
+                initialRecordingState: .paused
+            )
+            store.exhaustivity = .off
+
+            await store.send(.view(.pauseResumeButtonTapped)) {
+                $0.recordingState = .recording
+            }
+            await store.receive(\.recorderPauseStateChanged) {
+                $0.recordingState = .paused
+            }
+        }
+    }
+
+    private func makeInterruptionTestStore(
+        clock: TestClock<Duration>,
+        recordingState: @escaping @Sendable () async -> RecordingState,
+        initialRecordingState: RecordingFeature.State.RecordingState = .idle
+    ) -> TestStoreOf<RecordingFeature> {
+        TestStore(
+            initialState: RecordingFeature.State(
+                recordingState: initialRecordingState,
+                audioPermission: .granted
+            )
+        ) {
+            RecordingFeature()
+        } withDependencies: {
+            $0.continuousClock = clock
+            $0.uuid = .constant(UUID())
+            $0.longRecordingAudioClient = .init(
+                currentTime: { 5.0 },
+                requestRecordPermission: { true },
+                startRecording: { _, _ in true },
+                stopRecording: {},
+                pauseRecording: {},
+                resumeRecording: {},
+                audioLevel: { -30 },
+                recordingState: recordingState,
+                recognizeAudio: { _ in nil }
+            )
+            $0.voiceMemoRepository = .init(
+                insert: { _ in },
+                selectAllData: { [] },
+                fetch: { _ in nil },
+                delete: { _ in },
+                update: { _ in },
+                updateTitle: { _, _ in },
+                updateTags: { _, _ in },
+                updateMeetingMinutes: { _, _ in },
+                syncToCloud: { true },
+                checkForDifferences: { false },
+                restoreOrphanedRecordings: { 0 }
+            )
+            $0.liveActivityClient = .init(
+                startActivity: {},
+                updateActivity: { _, _ in },
+                endActivity: {}
+            )
+        }
+    }
+
     func testRecordingInProgress_UpdatesTimerContinuously() async {
         await withMainSerialExecutor {
             let clock = TestClock()

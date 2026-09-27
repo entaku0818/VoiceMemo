@@ -55,6 +55,8 @@ struct RecordingFeature {
     case audioRecorderDidFinish(TaskResult<Bool>)
     case timerUpdated(TimeInterval)
     case volumesUpdated(Float)
+    /// レコーダー側の一時停止状態が変わった（他アプリの録音・電話などの割り込みで自動停止/再開したときに画面へ反映する）
+    case recorderPauseStateChanged(isPaused: Bool)
     case resultTextUpdated(String)
     case waveFormHeightsUpdated([Float])
     case permissionResponse(Bool)
@@ -230,8 +232,13 @@ struct RecordingFeature {
           if state.recordingState == .paused {
             state.recordingState = .recording
             let duration = state.duration
-            return .run { _ in
+            return .run { send in
               await longRecordingAudioClient.resumeRecording()
+              // 割り込み直後などで再開できなかった場合は一時停止の表示に戻す
+              if case .paused = await longRecordingAudioClient.recordingState() {
+                await send(.recorderPauseStateChanged(isPaused: true))
+                return
+              }
               await liveActivityClient.updateActivity(duration, false)
             }
           } else {
@@ -316,6 +323,19 @@ struct RecordingFeature {
           await liveActivityClient.updateActivity(time, isPaused)
         }
 
+      case let .recorderPauseStateChanged(isPaused):
+        // ボタン操作による一時停止/再開では既に同じ状態になっているので何もしない
+        let duration = state.duration
+        if isPaused, state.recordingState == .recording {
+          state.recordingState = .paused
+          return .run { _ in await liveActivityClient.updateActivity(duration, true) }
+        }
+        if !isPaused, state.recordingState == .paused {
+          state.recordingState = .recording
+          return .run { _ in await liveActivityClient.updateActivity(duration, false) }
+        }
+        return .none
+
       case let .volumesUpdated(volume):
         state.volumes = volume
         state.waveform.append(decibels: volume)
@@ -395,9 +415,22 @@ struct RecordingFeature {
       )
 
       async let timerUpdates: Void = {
+        // 他アプリの録音や電話の割り込みでは、レコーダーが自分で一時停止/再開する。
+        // その変化を画面に伝えないと「録音中」の表示のまま時間と波形だけが止まって見えるので、変化したときだけ通知する。
+        var wasRecording = true
         for await _ in clock.timer(interval: .milliseconds(100)) {
           let state = await longRecordingAudioClient.recordingState()
-          guard case .recording = state else { continue }
+          let isRecording: Bool
+          switch state {
+          case .recording: isRecording = true
+          case .paused: isRecording = false
+          default: continue
+          }
+          if isRecording != wasRecording {
+            wasRecording = isRecording
+            await send(.recorderPauseStateChanged(isPaused: !isRecording))
+          }
+          guard isRecording else { continue }
           let currentTime = await longRecordingAudioClient.currentTime()
           let volume = await longRecordingAudioClient.audioLevel()
           await send(.timerUpdated(currentTime))
@@ -599,7 +632,11 @@ struct RecordingView: View {
   }
 
   private var audioVisualizationView: some View {
-    RecordingWaveformView(samples: store.waveform.samples, duration: store.duration)
+    RecordingWaveformView(
+      samples: store.waveform.samples,
+      duration: store.duration,
+      isRecording: store.recordingState == .recording
+    )
       .frame(height: 220)
       .padding(.vertical, 8)
   }
