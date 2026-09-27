@@ -17,6 +17,8 @@ struct RecordingFeature {
     var isLoading = false
     var audioPermission: AudioPermission = .notDetermined
     var waveFormHeights: [Float] = []
+    /// 録音中のスクロール波形（メーター値の履歴）
+    var waveform = RecordingWaveform()
     var recordingId = UUID()
     // 録音開始時の設定を保持
     var recordingFileFormat: String = ""
@@ -316,6 +318,7 @@ struct RecordingFeature {
 
       case let .volumesUpdated(volume):
         state.volumes = volume
+        state.waveform.append(decibels: volume)
         return .none
 
       case let .resultTextUpdated(text):
@@ -380,8 +383,9 @@ struct RecordingFeature {
       autoGainControlEnabled: state.autoGainControlEnabled
     )
 
-    // 録音時間を初期化
+    // 録音時間と波形を初期化
     state.duration = 0
+    state.waveform.reset()
 
     return .run { send in
       async let recording: Void = send(
@@ -595,13 +599,9 @@ struct RecordingView: View {
   }
 
   private var audioVisualizationView: some View {
-    VStack(spacing: 12) {
-      // Audio Level Meter
-      AudioLevelView(audioLevel: store.volumes)
-        .frame(height: 20)
-
-    }
-    .padding(.horizontal)
+    RecordingWaveformView(samples: store.waveform.samples, duration: store.duration)
+      .frame(height: 220)
+      .padding(.vertical, 8)
   }
 
   private var transcriptionView: some View {
