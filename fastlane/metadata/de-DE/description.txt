@@ -1,25 +1,30 @@
-Simple Voice Recorder ist eine einfach zu bedienende Sprachaufnahme-App, die mit nur einem Tippen startet. Unterstützt hochwertige Audioaufnahmen, Hintergrundaufnahmen und eine Vielzahl von Wiedergabefunktionen.
+Meetings, Vorlesungen und Ideen sofort festhalten – ein Tippen genügt. Die Hintergrundaufnahme läuft weiter, auch wenn Sie die App wechseln.
 
-Aufnahmeformate: Verlustfreies PCM (WAV) und komprimiertes AAC (M4A).
-Abtastrate: 8kHz–192kHz. Bittiefe: 8/16/24/32-Bit.
+Ob Sprachenlernen oder Interview: VoiLog nimmt in hochwertigem WAV oder AAC auf und hält mit Playlists alles übersichtlich.
 
 [Aufnahme]
-・Hochwertige WAV / AAC(M4A)-Aufnahme
-・Hintergrundaufnahme
+・Hochwertige Aufnahme in WAV / AAC (M4A)
+・Wellenform-Editor – Aufnahmen ansehen, kürzen und aufteilen
+・Aufnahme im Hintergrund
 ・Aufnahme mit einem Tippen starten
 
 [Wiedergabe]
-・Hintergrundwiedergabe
-・A-B-Loop (beliebigen Abschnitt wiederholen)
+・Wiedergabe im Hintergrund
+・A-B-Schleife (beliebigen Abschnitt wiederholen)
 ・Wiedergabegeschwindigkeit (0,5x–2,0x)
-・10s / 60s Vor- und Zurückspulen
+・10 s / 60 s vor- und zurückspringen
 ・Wiederholen (ein Titel / alle)
-・Playlist erstellen und verwalten
+・Playlists erstellen und verwalten
 ・Dateien umbenennen und sortieren
 
 [Sonstiges]
 ・iCloud-Synchronisierung
-・Einfaches Teilen von Aufnahmen
-・Schlichtes und übersichtliches Design
+・Aufnahmen einfach teilen
+・Schlichtes, übersichtliches Design
 
-Von Geschäftsmeetings bis zum Sprachlernen und täglichen Sprachnotizen — jetzt herunterladen und müheloses Aufnehmen erleben.
+[Transkription – Neu]
+・KI-Spracherkennung: Sprache zu Text (Gemini)
+・Kostenlos testen – einfach eine kurze Werbung ansehen
+・Unbegrenzt mit Premium
+
+Vom Geschäftsmeeting über das Sprachenlernen bis zur alltäglichen Sprachnotiz – jetzt laden und mühelos aufnehmen.

@@ -1,9 +1,9 @@
-Version 1.14.0
+Version 1.15.0
 
 [Neu]
-- Während der Aufnahme wird jetzt eine flüssig laufende Wellenform angezeigt
-- Neuer günstiger Premium-Jahresplan
+- Jetzt in 25 weiteren Sprachen verfügbar, darunter brasilianisches Portugiesisch, Ukrainisch, Hebräisch, Griechisch sowie indische Sprachen wie Tamil, Bengalisch und Telugu
+- Berechtigungsabfragen (z. B. für den Mikrofonzugriff) werden jetzt in Ihrer Sprache angezeigt
 
 [Verbesserungen]
-- Der Premium-Bildschirm öffnet sich jetzt im Vollbild und ist übersichtlicher
-- Wenn eine andere App während Ihrer Aufnahme mit einer Aufnahme beginnt, wird der pausierte Zustand jetzt korrekt angezeigt
+- Texte zum Jahresabo und zu Siri-Kurzbefehlen, die bisher nur auf Japanisch angezeigt wurden, sind jetzt übersetzt
+- Übersetzungen in allen Sprachen überprüft und verbessert

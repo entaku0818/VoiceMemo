@@ -1,9 +1,9 @@
-Version 1.14.0
+Version 1.15.0
 
 [Nyheter]
-- En mjukt rullande vågform visas nu medan du spelar in
-- Ny förmånlig årsplan för Premium
+- Nu tillgänglig på 25 nya språk, bland annat brasiliansk portugisiska, ukrainska, hebreiska, grekiska och indiska språk som tamil, bengali och telugu
+- Behörighetsmeddelanden (till exempel för mikrofonåtkomst) visas nu på ditt språk
 
 [Förbättringar]
-- Premium-skärmen öppnas nu i helskärm och är lättare att läsa
-- Om en annan app börjar spela in under din inspelning visas nu pausläget korrekt
+- Texter för årsabonnemanget och Siri-genvägar som bara visades på japanska är nu översatta
+- Översättningarna på alla språk har granskats och förbättrats

@@ -1,0 +1,9 @@
+Versjon 1.15.0
+
+[Nytt]
+- Nå tilgjengelig på 25 nye språk, blant annet brasiliansk portugisisk, ukrainsk, hebraisk, gresk og indiske språk som tamil, bengali og telugu
+- Tillatelsesmeldinger (for eksempel om mikrofontilgang) vises nå på ditt språk
+
+[Forbedringer]
+- Tekster for årsabonnementet og Siri-snarveier som bare ble vist på japansk, er nå oversatt
+- Oversettelsene på alle språk er gjennomgått og forbedret

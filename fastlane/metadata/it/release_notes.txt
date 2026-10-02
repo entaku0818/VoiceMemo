@@ -1,9 +1,9 @@
-Versione 1.14.0
+Versione 1.15.0
 
 [Novità]
-- Durante la registrazione ora viene mostrata una forma d'onda che scorre in modo fluido
-- Nuovo piano Premium annuale più conveniente
+- Ora disponibile in altre 25 lingue, tra cui portoghese brasiliano, ucraino, ebraico, greco e lingue indiane come tamil, bengalese e telugu
+- I messaggi di autorizzazione (ad esempio per l'accesso al microfono) ora vengono mostrati nella tua lingua
 
 [Miglioramenti]
-- La schermata Premium ora si apre a schermo intero ed è più leggibile
-- Se un'altra app inizia a registrare durante la tua registrazione, lo stato di pausa ora viene mostrato correttamente
+- I testi del piano annuale e dei Comandi Rapidi di Siri, prima visibili solo in giapponese, ora sono tradotti
+- Traduzioni riviste e migliorate in tutte le lingue

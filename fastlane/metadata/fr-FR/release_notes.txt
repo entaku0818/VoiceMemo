@@ -1,9 +1,9 @@
-Version 1.14.0
+Version 1.15.0
 
 [Nouveautés]
-- Une forme d'onde qui défile de façon fluide s'affiche désormais pendant l'enregistrement
-- Nouvel abonnement Premium annuel plus avantageux
+- Désormais disponible dans 25 langues supplémentaires, dont le portugais du Brésil, l'ukrainien, l'hébreu, le grec et des langues indiennes comme le tamoul, le bengali et le télougou
+- Les demandes d'autorisation (comme l'accès au micro) s'affichent désormais dans votre langue
 
 [Améliorations]
-- L'écran Premium s'ouvre désormais en plein écran et est plus lisible
-- Si une autre app commence à enregistrer pendant votre enregistrement, l'état de pause s'affiche désormais correctement
+- Les textes de l'abonnement annuel et des raccourcis Siri, qui ne s'affichaient qu'en japonais, sont désormais traduits
+- Traductions revues et améliorées dans toutes les langues

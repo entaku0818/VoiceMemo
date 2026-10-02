@@ -1,0 +1,9 @@
+Version 1.15.0
+
+[Nouveautés]
+- L'appli est maintenant offerte en 25 langues de plus, dont le portugais du Brésil, l'ukrainien, l'hébreu, le grec et des langues de l'Inde comme le tamoul, le bengali et le télougou
+- Les messages d'autorisation (comme l'accès au micro) s'affichent maintenant dans votre langue
+
+[Améliorations]
+- Les textes du forfait annuel et des raccourcis Siri, qui ne s'affichaient qu'en japonais, sont maintenant traduits
+- Traductions révisées et améliorées dans toutes les langues

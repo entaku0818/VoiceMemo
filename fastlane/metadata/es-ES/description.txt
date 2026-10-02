@@ -1,25 +1,30 @@
-Simple Voice Recorder es una app de grabación de voz fácil de usar que se inicia con un solo toque. Compatible con audio de alta calidad, grabación en segundo plano y una variedad de funciones de reproducción.
+Graba reuniones, clases e ideas al instante: basta un toque para empezar. La grabación en segundo plano continúa aunque cambies de app.
 
-Formatos: PCM sin pérdidas (WAV) y AAC comprimido (M4A).
-Frecuencia de muestreo: 8kHz–192kHz. Profundidad de bits: 8/16/24/32-bit.
+Del aprendizaje de idiomas a las entrevistas, VoiLog graba en WAV o AAC de alta calidad y lo mantiene todo ordenado con listas de reproducción.
 
 [Grabación]
-・Grabación en WAV / AAC(M4A) de alta calidad
+・Grabación de alta calidad en WAV / AAC (M4A)
+・Editor de forma de onda: visualiza, recorta y divide tus grabaciones
 ・Grabación en segundo plano
-・Iniciar grabación con un solo toque
+・Empieza a grabar con un solo toque
 
 [Reproducción]
 ・Reproducción en segundo plano
-・Bucle A-B (repetir cualquier sección)
+・Bucle A-B (repite cualquier fragmento)
 ・Control de velocidad de reproducción (0,5x–2,0x)
-・Avance/retroceso de 10s / 60s
+・Avance y retroceso de 10 s / 60 s
 ・Repetición (una pista / todas)
 ・Creación y gestión de listas de reproducción
 ・Renombrar y reordenar archivos
 
 [Otros]
 ・Sincronización con iCloud
-・Compartir archivos fácilmente
-・Diseño simple y limpio
+・Comparte archivos fácilmente
+・Diseño sencillo y limpio
 
-Desde reuniones de trabajo hasta el aprendizaje de idiomas y notas de voz diarias — descárgalo ahora y disfruta de una grabación sin complicaciones.
+[Transcripción — Novedad]
+・Transcripción de voz a texto con IA (Gemini)
+・Pruébala gratis viendo un breve anuncio
+・Ilimitada con Premium
+
+De las reuniones de trabajo al aprendizaje de idiomas y las notas de voz del día a día: descárgala ahora y graba sin complicaciones.

@@ -1,0 +1,9 @@
+Verzija 1.15.0
+
+[Novo]
+- Sada dostupno na još 25 jezika, uključujući brazilski portugalski, ukrajinski, hebrejski, grčki te indijske jezike poput tamilskog, bengalskog i telugua
+- Poruke o dopuštenjima (npr. za pristup mikrofonu) sada se prikazuju na vašem jeziku
+
+[Poboljšanja]
+- Tekstovi za godišnju pretplatu i Siri prečace koji su se prikazivali samo na japanskom sada su prevedeni
+- Pregledani su i poboljšani prijevodi na svim jezicima

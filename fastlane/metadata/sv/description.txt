@@ -1,30 +1,30 @@
-Fånga möten, föreläsningar och idéer direkt — bara ett tryck för att börja. Bakgrundsinspelning fortsätter även när du byter app.
+Fånga möten, föreläsningar och idéer direkt — ett tryck räcker för att börja. Bakgrundsinspelningen fortsätter även när du byter app.
 
-Från språkinlärning till intervjuer spelar VoiLog in i högkvalitativ WAV eller AAC och håller allt organiserat med spellistor.
+Från språkinlärning till intervjuer: VoiLog spelar in i hög kvalitet (WAV eller AAC) och håller ordning på allt med spellistor.
 
 [Inspelning]
-・Högkvalitativ WAV / AAC(M4A)-inspelning
-・Vågformsredigerare — visualisera dina inspelningar
+・Inspelning i hög kvalitet: WAV / AAC (M4A)
+・Vågformsredigerare — se dina inspelningar visuellt
 ・Bakgrundsinspelning
-・Starta inspelning med ett enda tryck
+・Starta inspelningen med ett enda tryck
 
 [Uppspelning]
 ・Bakgrundsuppspelning
-・A-B-loop (repetera valfri sektion)
+・A-B-loop (upprepa valfritt avsnitt)
 ・Uppspelningshastighet (0,5x–2,0x)
-・Hoppa 10s / 60s framåt och bakåt
-・Repetera (ett spår / alla)
+・Hoppa 10 s / 60 s framåt och bakåt
+・Upprepa (en inspelning / alla)
 ・Skapa och hantera spellistor
 ・Byt namn på och ordna om filer
 
 [Övrigt]
 ・iCloud-synkronisering
 ・Enkel fildelning
-・Enkelt och rent design
+・Enkel och ren design
 
 [Transkription — Nytt]
-・AI-driven tal-till-text (Gemini)
-・Prova gratis — titta på en kort annons
+・Tal till text med AI (Gemini)
+・Prova gratis — titta bara på en kort annons
 ・Obegränsat med Premium
 
-Från affärsmöten till språkinlärning och vardagliga röstanteckningar — ladda ner nu och upplev problemfri inspelning.
+Från affärsmöten till språkinlärning och vardagliga röstmemon — ladda ner nu och spela in utan krångel.

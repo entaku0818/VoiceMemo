@@ -1,30 +1,30 @@
-Leg vergaderingen, colleges en ideeën direct vast — slechts één tik om te beginnen. Opname op de achtergrond blijft doorgaan, zelfs als u van app wisselt.
+Leg vergaderingen, colleges en ideeën direct vast — met één tik begin je met opnemen. Opnemen op de achtergrond gaat gewoon door, ook als je van app wisselt.
 
-Van taal leren tot interviews, VoiLog neemt op in hoge kwaliteit WAV of AAC en houdt alles overzichtelijk georganiseerd met afspeellijsten.
+Van taal leren tot interviews: VoiLog neemt op in hoge kwaliteit (WAV of AAC) en houdt alles overzichtelijk met afspeellijsten.
 
-[Opname]
-・Hoge kwaliteit WAV / AAC(M4A) opname
-・Golfvorm-editor — visualiseer uw opnames
-・Opname op de achtergrond
-・Start opname met één tik
+[Opnemen]
+・Opnemen in hoge kwaliteit: WAV / AAC (M4A)
+・Golfvormeditor — bekijk je opnamen visueel
+・Opnemen op de achtergrond
+・Start een opname met één tik
 
 [Afspelen]
 ・Afspelen op de achtergrond
-・A-B lus herhaling (herhaal elk gedeelte)
-・Afspeelsnelheidsregeling (0.5x–2.0x)
-・10s / 60s vooruit & achteruit springen
-・Herhalen (één nummer / alles)
-・Afspeellijsten maken & beheren
-・Bestanden hernoemen & herschikken
+・A-B-herhaling (herhaal elk gewenst fragment)
+・Afspeelsnelheid aanpassen (0,5x–2,0x)
+・10 of 60 seconden vooruit en terug springen
+・Herhalen (één opname / alles)
+・Afspeellijsten maken en beheren
+・Bestanden hernoemen en herschikken
 
 [Overig]
-・iCloud synchronisatie
-・Eenvoudig bestanden delen
+・iCloud-synchronisatie
+・Bestanden eenvoudig delen
 ・Eenvoudig en overzichtelijk ontwerp
 
 [Transcriptie — Nieuw]
-・AI-aangedreven spraak-naar-tekst (Gemini)
-・Gratis te proberen — bekijk gewoon een korte advertentie
+・Spraak naar tekst met AI (Gemini)
+・Gratis uitproberen — bekijk gewoon een korte advertentie
 ・Onbeperkt met Premium
 
-Van zakelijke vergaderingen tot taal leren en dagelijkse spraakmemo's — download nu en ervaar zorgeloos opnemen.
+Van zakelijke vergaderingen tot taal leren en dagelijkse spraakmemo's — download nu en neem zorgeloos op.

@@ -1,19 +1,19 @@
-Simple Voice Recorder est une app d'enregistrement vocal facile à utiliser qui démarre en un seul tap. Compatible avec l'audio haute qualité, l'enregistrement en arrière-plan et de nombreuses fonctions de lecture.
+Enregistrez réunions, cours et idées en un instant : un seul toucher suffit. L'enregistrement continue en arrière-plan, même lorsque vous changez d'app.
 
-Formats : PCM sans perte (WAV) et AAC compressé (M4A).
-Fréquence d'échantillonnage : 8kHz–192kHz. Profondeur de bits : 8/16/24/32-bit.
+De l'apprentissage des langues aux interviews, VoiLog enregistre en WAV ou AAC haute qualité et garde tout bien rangé grâce aux listes de lecture.
 
 [Enregistrement]
-・Enregistrement WAV / AAC(M4A) haute qualité
+・Enregistrement haute qualité en WAV / AAC (M4A)
+・Éditeur de forme d'onde : visualisez, rognez et divisez vos enregistrements
 ・Enregistrement en arrière-plan
-・Démarrer l'enregistrement en un tap
+・Démarrage de l'enregistrement en un toucher
 
 [Lecture]
 ・Lecture en arrière-plan
-・Boucle A-B (répéter n'importe quelle section)
-・Contrôle de la vitesse de lecture (0,5x–2,0x)
-・Avance/retour de 10s / 60s
-・Répétition (un titre / tous)
+・Boucle A-B (répéter n'importe quel passage)
+・Vitesse de lecture réglable (0,5x–2,0x)
+・Saut avant/arrière de 10 s / 60 s
+・Répétition (un morceau / tous)
 ・Création et gestion de listes de lecture
 ・Renommer et réorganiser les fichiers
 
@@ -22,4 +22,9 @@ Fréquence d'échantillonnage : 8kHz–192kHz. Profondeur de bits : 8/16/24/32-b
 ・Partage de fichiers facile
 ・Design simple et épuré
 
-Des réunions professionnelles à l'apprentissage des langues et aux mémos vocaux quotidiens — téléchargez maintenant et profitez d'un enregistrement sans tracas.
+[Transcription — Nouveau]
+・Transcription de la voix en texte par IA (Gemini)
+・Essai gratuit : il suffit de regarder une courte publicité
+・Illimitée avec Premium
+
+Des réunions professionnelles à l'apprentissage des langues en passant par les mémos vocaux du quotidien : téléchargez l'app et enregistrez en toute simplicité.

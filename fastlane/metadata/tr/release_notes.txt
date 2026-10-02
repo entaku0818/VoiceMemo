@@ -1,9 +1,9 @@
-Sürüm 1.14.0
+Sürüm 1.15.0
 
 [Yenilikler]
-- Kayıt sırasında artık akıcı şekilde kayan bir ses dalgası gösteriliyor
-- Daha avantajlı yıllık Premium plan eklendi
+- Uygulama artık Brezilya Portekizcesi, Ukraynaca, İbranice, Yunanca ve Tamilce, Bengalce, Teluguca gibi Hint dilleri dahil 25 yeni dilde kullanılabiliyor
+- İzin mesajları (mikrofon erişimi gibi) artık kendi dilinizde gösteriliyor
 
 [İyileştirmeler]
-- Premium ekranı artık tam ekran açılıyor ve daha kolay okunuyor
-- Kaydınız sırasında başka bir uygulama kayda başladığında duraklatma durumu artık doğru gösteriliyor
+- Yalnızca Japonca gösterilen yıllık plan ve Siri Kestirmeleri metinleri artık çevrildi
+- Tüm dillerdeki çeviriler gözden geçirildi ve iyileştirildi

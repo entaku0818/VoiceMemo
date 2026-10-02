@@ -1,0 +1,1 @@
+optager,optagelse,stemmeoptager,talememo,transskription,tale til tekst,referat,forelæsning,podcast

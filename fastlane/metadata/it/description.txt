@@ -1,20 +1,20 @@
-Simple Voice Recorder è un'app di registrazione vocale semplice da usare che si avvia con un solo tocco. Supporta audio di alta qualità, registrazione in background e una serie di funzioni di riproduzione.
+Registra riunioni, lezioni e idee all'istante: basta un tocco. La registrazione in background continua anche quando passi a un'altra app.
 
-Formati: PCM senza perdita (WAV) e AAC compresso (M4A).
-Frequenza di campionamento: 8kHz–192kHz. Profondità di bit: 8/16/24/32-bit.
+Dallo studio delle lingue alle interviste, VoiLog registra in WAV o AAC di alta qualità e tiene tutto in ordine con le playlist.
 
 [Registrazione]
-・Registrazione WAV / AAC(M4A) di alta qualità
+・Registrazione di alta qualità in WAV / AAC (M4A)
+・Editor della forma d'onda: visualizza, taglia e dividi le registrazioni
 ・Registrazione in background
 ・Avvia la registrazione con un solo tocco
 
 [Riproduzione]
 ・Riproduzione in background
 ・Loop A-B (ripeti qualsiasi sezione)
-・Controllo velocità di riproduzione (0,5x–2,0x)
-・Avanzamento/ritorno di 10s / 60s
+・Velocità di riproduzione regolabile (0,5x–2,0x)
+・Salto avanti/indietro di 10 s / 60 s
 ・Ripetizione (un brano / tutti)
-・Creazione e gestione playlist
+・Creazione e gestione di playlist
 ・Rinomina e riordina i file
 
 [Altro]
@@ -22,4 +22,9 @@ Frequenza di campionamento: 8kHz–192kHz. Profondità di bit: 8/16/24/32-bit.
 ・Condivisione file semplice
 ・Design semplice e pulito
 
-Da riunioni di lavoro all'apprendimento delle lingue e ai promemoria vocali quotidiani — scarica ora e goditi una registrazione senza problemi.
+[Trascrizione — Novità]
+・Trascrizione da voce a testo con IA (Gemini)
+・Provala gratis guardando un breve annuncio
+・Illimitata con Premium
+
+Dalle riunioni di lavoro allo studio delle lingue fino ai memo vocali di tutti i giorni: scarica ora l'app e registra senza pensieri.

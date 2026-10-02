@@ -1,0 +1,1 @@
+enregistreur,dictaphone,transcription,dictée,audio,balado,podcast,procès-verbal,notes,conférence,son

@@ -1,10 +1,10 @@
-Simple Voice Recorder là ứng dụng ghi âm dễ sử dụng, khởi động chỉ với một lần chạm. Hỗ trợ âm thanh chất lượng cao, ghi âm nền và nhiều tính năng phát lại.
+Ghi lại cuộc họp, bài giảng và ý tưởng ngay lập tức — chỉ cần một lần chạm để bắt đầu. Tính năng ghi âm nền vẫn tiếp tục ngay cả khi bạn chuyển sang ứng dụng khác.
 
-Định dạng: PCM không nén (WAV) và AAC nén (M4A).
-Tần số lấy mẫu: 8kHz–192kHz. Độ sâu bit: 8/16/24/32-bit.
+Từ học ngoại ngữ đến phỏng vấn, VoiLog ghi âm chất lượng cao ở định dạng WAV hoặc AAC và giúp bạn sắp xếp mọi thứ gọn gàng bằng danh sách phát.
 
 [Ghi âm]
-・Ghi âm WAV / AAC(M4A) chất lượng cao
+・Ghi âm WAV / AAC (M4A) chất lượng cao
+・Trình chỉnh sửa dạng sóng — xem trực quan bản ghi của bạn
 ・Ghi âm nền
 ・Bắt đầu ghi âm chỉ với một lần chạm
 
@@ -12,8 +12,8 @@ Tần số lấy mẫu: 8kHz–192kHz. Độ sâu bit: 8/16/24/32-bit.
 ・Phát lại nền
 ・Lặp A-B (lặp lại bất kỳ đoạn nào)
 ・Điều chỉnh tốc độ phát (0,5x–2,0x)
-・Tua nhanh/lùi 10s / 60s
-・Lặp lại (một bài / tất cả)
+・Tua tới / lùi 10 giây / 60 giây
+・Lặp lại (một bản ghi / tất cả)
 ・Tạo và quản lý danh sách phát
 ・Đổi tên và sắp xếp lại tệp
 
@@ -22,4 +22,9 @@ Tần số lấy mẫu: 8kHz–192kHz. Độ sâu bit: 8/16/24/32-bit.
 ・Chia sẻ tệp dễ dàng
 ・Thiết kế đơn giản, gọn gàng
 
-Từ cuộc họp công việc đến học ngoại ngữ và ghi chú hàng ngày — tải xuống ngay và trải nghiệm việc ghi âm không rắc rối.
+[Phiên âm — Mới]
+・Chuyển giọng nói thành văn bản bằng AI (Gemini)
+・Dùng thử miễn phí — chỉ cần xem một quảng cáo ngắn
+・Không giới hạn với Premium
+
+Từ cuộc họp công việc đến học ngoại ngữ và ghi chú giọng nói hằng ngày — tải xuống ngay và trải nghiệm việc ghi âm không rắc rối.

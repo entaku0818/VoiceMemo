@@ -1,9 +1,9 @@
-Versie 1.14.0
+Versie 1.15.0
 
 [Nieuw]
-- Tijdens het opnemen wordt nu een vloeiend meelopende golfvorm getoond
-- Nieuw voordelig Premium-jaarabonnement
+- Nu beschikbaar in 25 extra talen, waaronder Braziliaans-Portugees, Oekraïens, Hebreeuws, Grieks en Indiase talen zoals Tamil, Bengaals en Telugu
+- Toestemmingsmeldingen (zoals voor toegang tot de microfoon) worden nu in je eigen taal weergegeven
 
 [Verbeteringen]
-- Het Premium-scherm opent nu schermvullend en is beter leesbaar
-- Als een andere app begint met opnemen tijdens je opname, wordt de gepauzeerde status nu correct weergegeven
+- Teksten voor het jaarabonnement en Siri-opdrachten die alleen in het Japans werden getoond, zijn nu vertaald
+- Vertalingen in alle talen nagekeken en verbeterd

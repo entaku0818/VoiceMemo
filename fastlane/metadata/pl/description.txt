@@ -1,30 +1,30 @@
-Nagrywaj spotkania, wykłady i pomysły natychmiast — wystarczy jedno dotknięcie, aby rozpocząć. Nagrywanie w tle działa nawet po przełączeniu aplikacji.
+Nagrywaj spotkania, wykłady i pomysły od razu — wystarczy jedno dotknięcie. Nagrywanie w tle działa nawet po przełączeniu się na inną aplikację.
 
-Od nauki języków po wywiady — VoiLog nagrywa w wysokiej jakości WAV lub AAC i utrzymuje porządek dzięki listom odtwarzania.
+Od nauki języków po wywiady — VoiLog nagrywa w wysokiej jakości (WAV lub AAC) i utrzymuje porządek dzięki listom odtwarzania.
 
 [Nagrywanie]
-・Nagrywanie wysokiej jakości WAV / AAC(M4A)
-・Edytor fali dźwiękowej — wizualizuj nagrania
+・Nagrywanie w wysokiej jakości: WAV / AAC (M4A)
+・Edytor przebiegu fali — zobacz swoje nagrania
 ・Nagrywanie w tle
-・Rozpocznij nagrywanie jednym dotknięciem
+・Rozpoczęcie nagrywania jednym dotknięciem
 
 [Odtwarzanie]
 ・Odtwarzanie w tle
-・Pętla A-B (zapętlaj dowolną sekcję)
-・Kontrola prędkości odtwarzania (0,5x–2,0x)
-・Przewijanie o 10s / 60s do przodu i do tyłu
-・Powtarzanie (jeden utwór / wszystkie)
-・Tworzenie i zarządzanie listami odtwarzania
+・Pętla A-B (zapętlanie dowolnego fragmentu)
+・Regulacja prędkości odtwarzania (0,5x–2,0x)
+・Przewijanie o 10 s / 60 s do przodu i do tyłu
+・Powtarzanie (jedno nagranie / wszystkie)
+・Tworzenie list odtwarzania i zarządzanie nimi
 ・Zmiana nazw i kolejności plików
 
 [Inne]
-・Synchronizacja iCloud
+・Synchronizacja przez iCloud
 ・Łatwe udostępnianie plików
-・Prosty i przejrzysty design
+・Prosty i przejrzysty wygląd
 
 [Transkrypcja — Nowość]
-・Zamiana mowy na tekst z pomocą AI (Gemini)
-・Wypróbuj za darmo — obejrzyj krótką reklamę
-・Nieograniczony dostęp z Premium
+・Zamiana mowy na tekst za pomocą AI (Gemini)
+・Wypróbuj za darmo — wystarczy obejrzeć krótką reklamę
+・Bez ograniczeń w Premium
 
-Od spotkań biznesowych po naukę języków i codzienne notatki głosowe — pobierz teraz i doświadcz bezproblemowego nagrywania.
+Od spotkań biznesowych po naukę języków i codzienne notatki głosowe — pobierz teraz i nagrywaj bez stresu.

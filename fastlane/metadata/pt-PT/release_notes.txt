@@ -1,9 +1,9 @@
-Versão 1.14.0
+Versão 1.15.0
 
 [Novidades]
-- Durante a gravação é agora apresentada uma forma de onda que desliza de forma fluida
-- Novo plano Premium anual mais económico
+- Agora disponível em mais 25 idiomas, incluindo português do Brasil, ucraniano, hebraico, grego e línguas indianas como tâmil, bengali e telugu
+- As mensagens de permissão (como o acesso ao microfone) são agora apresentadas no seu idioma
 
 [Melhorias]
-- O ecrã Premium abre agora em ecrã inteiro e é mais fácil de ler
-- Se outra app começar a gravar durante a sua gravação, o estado de pausa é agora apresentado corretamente
+- Os textos do plano anual e dos atalhos da Siri, que apareciam apenas em japonês, estão agora traduzidos
+- Traduções revistas e melhoradas em todos os idiomas

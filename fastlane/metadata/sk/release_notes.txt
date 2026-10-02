@@ -1,0 +1,9 @@
+Verzia 1.15.0
+
+[Novinky]
+- Aplikácia je teraz dostupná v ďalších 25 jazykoch vrátane brazílskej portugalčiny, ukrajinčiny, hebrejčiny, gréčtiny a indických jazykov, ako je tamilčina, bengálčina a telugčina
+- Žiadosti o povolenia (napríklad o prístup k mikrofónu) sa teraz zobrazujú vo vašom jazyku
+
+[Vylepšenia]
+- Texty ročného predplatného a skratiek Siri, ktoré sa zobrazovali iba v japončine, sú teraz preložené
+- Preklady vo všetkých jazykoch boli skontrolované a vylepšené

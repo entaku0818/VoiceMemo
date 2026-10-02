@@ -1,0 +1,9 @@
+Versión 1.15.0
+
+[Novedades]
+- Ahora disponible en 25 idiomas más, entre ellos portugués de Brasil, ucraniano, hebreo, griego e idiomas de la India como tamil, bengalí y telugu
+- Los mensajes de permisos (como el acceso al micrófono) ahora aparecen en tu idioma
+
+[Mejoras]
+- Los textos del plan anual y de los Atajos de Siri que solo aparecían en japonés ahora están traducidos
+- Revisamos y mejoramos las traducciones en todos los idiomas

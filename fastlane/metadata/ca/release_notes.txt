@@ -1,0 +1,9 @@
+Versió 1.15.0
+
+[Novetats]
+- Ara disponible en 25 idiomes més, com ara el portuguès del Brasil, l'ucraïnès, l'hebreu, el grec i llengües de l'Índia com el tàmil, el bengalí i el telugu
+- Els missatges de permisos (com l'accés al micròfon) ara apareixen en el teu idioma
+
+[Millores]
+- S'han traduït els textos del pla anual i de les dreceres de Siri que només es mostraven en japonès
+- S'han revisat i millorat les traduccions de tots els idiomes

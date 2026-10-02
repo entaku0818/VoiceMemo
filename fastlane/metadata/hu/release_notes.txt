@@ -1,0 +1,9 @@
+1.15.0-s verzió
+
+[Újdonságok]
+- Mostantól 25 további nyelven is elérhető, köztük brazil portugálul, ukránul, héberül, görögül, valamint indiai nyelveken, például tamilul, bengáliul és telugu nyelven
+- Az engedélykérő üzenetek (például a mikrofon-hozzáférés) mostantól a te nyelveden jelennek meg
+
+[Fejlesztések]
+- Az éves csomag és a Siri-parancsok csak japánul megjelenő szövegei mostantól le vannak fordítva
+- Átnéztük és javítottuk a fordításokat minden nyelven

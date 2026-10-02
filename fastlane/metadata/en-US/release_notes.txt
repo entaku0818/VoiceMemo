@@ -1,9 +1,9 @@
-Version 1.14.0
+Version 1.15.0
 
 [New]
-- A smoothly scrolling waveform now appears while you record
-- Added a money-saving annual Premium plan
+- Now available in 25 more languages, including Brazilian Portuguese, Ukrainian, Hebrew, Greek, and Indian languages such as Tamil, Bengali and Telugu
+- Permission messages (such as microphone access) now appear in your language
 
 [Improvements]
-- The Premium screen now opens full screen and is easier to read
-- When another app starts recording during your recording, the paused state is now shown correctly
+- Text for the annual plan and Siri Shortcuts that previously appeared only in Japanese is now translated
+- Reviewed and improved translations in all languages

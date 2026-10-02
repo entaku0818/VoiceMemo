@@ -1,9 +1,9 @@
-Phiên bản 1.14.0
+Phiên bản 1.15.0
 
 [Mới]
-- Giờ đây dạng sóng cuộn mượt mà được hiển thị khi bạn ghi âm
-- Thêm gói Premium theo năm tiết kiệm hơn
+- Hỗ trợ thêm 25 ngôn ngữ, bao gồm tiếng Bồ Đào Nha (Brazil), tiếng Ukraina, tiếng Do Thái, tiếng Hy Lạp và các ngôn ngữ Ấn Độ như tiếng Tamil, tiếng Bengal và tiếng Telugu
+- Các thông báo xin quyền (như quyền truy cập micrô) giờ hiển thị bằng ngôn ngữ của bạn
 
 [Cải thiện]
-- Màn hình Premium giờ mở toàn màn hình và dễ đọc hơn
-- Khi một ứng dụng khác bắt đầu ghi âm trong lúc bạn đang ghi, trạng thái tạm dừng giờ được hiển thị chính xác
+- Nội dung về gói theo năm và Phím tắt Siri trước đây chỉ hiển thị bằng tiếng Nhật nay đã được dịch
+- Rà soát và cải thiện bản dịch ở tất cả ngôn ngữ

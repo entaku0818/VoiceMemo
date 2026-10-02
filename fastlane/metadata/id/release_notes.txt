@@ -1,9 +1,9 @@
-Versi 1.14.0
+Versi 1.15.0
 
 [Baru]
-- Kini gelombang suara yang bergulir mulus ditampilkan saat merekam
-- Paket Premium tahunan yang lebih hemat telah ditambahkan
+- Kini tersedia dalam 25 bahasa tambahan, termasuk Portugis Brasil, Ukraina, Ibrani, Yunani, serta bahasa-bahasa India seperti Tamil, Bengali, dan Telugu
+- Pesan izin (seperti akses mikrofon) kini ditampilkan dalam bahasa Anda
 
 [Peningkatan]
-- Layar Premium kini terbuka dalam layar penuh dan lebih mudah dibaca
-- Saat aplikasi lain mulai merekam di tengah rekaman Anda, status jeda kini ditampilkan dengan benar
+- Teks paket tahunan dan Pintasan Siri yang sebelumnya hanya tampil dalam bahasa Jepang kini telah diterjemahkan
+- Terjemahan di semua bahasa telah ditinjau dan diperbaiki
