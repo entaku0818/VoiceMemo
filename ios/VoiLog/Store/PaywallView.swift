@@ -189,7 +189,7 @@ struct PaywallView: View {
                             Text(String(localized: "7日間無料で試す", table: "Premium"))
                                 .font(.system(size: 20, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
-                            Text("その後 \(productPrice)\(String(localized: "月（自動更新）", table: "Premium"))")
+                            Text(String(localized: "その後 \(productPrice)", table: "Premium") + String(localized: "月（自動更新）", table: "Premium"))
                                 .font(.system(size: 15, weight: .medium, design: .rounded))
                                 .foregroundColor(.white.opacity(0.9))
                         }

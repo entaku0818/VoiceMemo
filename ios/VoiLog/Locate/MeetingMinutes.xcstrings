@@ -3,386 +3,4386 @@
   "strings" : {
     "iOS 26 以上が必要です" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "يلزم iOS 26 أو أحدث" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 oder höher ist erforderlich" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 or later is required" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Se requiere iOS 26 o posterior" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 ou version ultérieure est requis" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 या उसके बाद का संस्करण आवश्यक है" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 atau lebih baru diperlukan" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "È richiesto iOS 26 o versione successiva" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 以上が必要です" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 이상이 필요합니다" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 of hoger is vereist" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Wymagany jest iOS 26 lub nowszy" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "É necessário iOS 26 ou posterior" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Требуется iOS 26 или выше" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 eller senare krävs" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "ต้องใช้ iOS 26 ขึ้นไป" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "iOS 26 veya üzeri gereklidir" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Yêu cầu iOS 26 trở lên" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "需要 iOS 26 或更高版本" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "需要 iOS 26 或更高版本" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يلزم iOS 26 أو أحدث"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 বা তার পরের সংস্করণ প্রয়োজন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cal l'iOS 26 o posterior"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyžaduje iOS 26 nebo novější"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kræver iOS 26 eller nyere"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 oder höher ist erforderlich"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Απαιτείται iOS 26 ή νεότερη έκδοση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 or later is required"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se requiere iOS 26 o posterior"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vaatii iOS 26:n tai uudemman"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 ou version ultérieure est requis"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 કે પછીનું વર્ઝન જરૂરી છે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נדרש iOS 26 ואילך"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 या उसके बाद का संस्करण आवश्यक है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potreban je iOS 26 ili noviji"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 vagy újabb szükséges"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 atau lebih baru diperlukan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "È richiesto iOS 26 o versione successiva"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 以上が必要です"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 ಅಥವಾ ನಂತರದ ಆವೃತ್ತಿ ಅಗತ್ಯವಿದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 이상이 필요합니다"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 അല്ലെങ്കിൽ പുതിയത് ആവശ്യമാണ്"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 किंवा नंतरची आवृत्ती आवश्यक आहे"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 atau lebih baharu diperlukan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krever iOS 26 eller nyere"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 of hoger is vereist"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 କିମ୍ବା ପରବର୍ତ୍ତୀ ସଂସ୍କରଣ ଆବଶ୍ୟକ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 ਜਾਂ ਇਸ ਤੋਂ ਬਾਅਦ ਦਾ ਵਰਜ਼ਨ ਲੋੜੀਂਦਾ ਹੈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wymagany jest iOS 26 lub nowszy"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requer iOS 26 ou posterior"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "É necessário iOS 26 ou posterior"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este necesar iOS 26 sau o versiune ulterioară"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Требуется iOS 26 или выше"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyžaduje sa iOS 26 alebo novší"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Potreben je iOS 26 ali novejši"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 eller senare krävs"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 அல்லது அதற்குப் பிந்தையது தேவை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 లేదా తర్వాతి వెర్షన్ అవసరం"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ต้องใช้ iOS 26 ขึ้นไป"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 veya üzeri gereklidir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потрібна iOS 26 або новіша"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS 26 یا اس کے بعد کا ورژن درکار ہے"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yêu cầu iOS 26 trở lên"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要 iOS 26 或更高版本"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "需要 iOS 26 或更高版本"
+          }
+        }
       }
     },
     "文字起こしデータがありません" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "لا تتوفر بيانات نسخ" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Keine Transkriptionsdaten verfügbar" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No transcription data available" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "No hay datos de transcripción disponibles" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucune donnée de transcription disponible" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "कोई ट्रांसक्रिप्शन डेटा उपलब्ध नहीं है" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Tidak ada data transkripsi" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Nessun dato di trascrizione disponibile" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "文字起こしデータがありません" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "받아쓰기 데이터가 없습니다" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Geen transcriptiegegevens beschikbaar" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Brak danych transkrypcji" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Não há dados de transcrição disponíveis" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Нет данных транскрипции" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Inga transkriptionsdata tillgängliga" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "ไม่มีข้อมูลการถอดความ" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Transkripsiyon verisi mevcut değil" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không có dữ liệu phiên âm" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "没有转录数据" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "沒有轉錄資料" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا تتوفر بيانات نسخ"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "কোনো ট্রান্সক্রিপশন ডেটা নেই"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hi ha dades de transcripció"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přepis není k dispozici"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen transskriptionsdata"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Transkriptionsdaten verfügbar"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν υπάρχουν δεδομένα απομαγνητοφώνησης"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No transcription data available"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No hay datos de transcripción disponibles"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Litterointia ei ole"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune donnée de transcription disponible"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "કોઈ ટ્રાન્સક્રિપ્શન ડેટા નથી"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אין נתוני תמלול"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "कोई ट्रांसक्रिप्शन डेटा उपलब्ध नहीं है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nema podataka transkripcije"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nincs elérhető átirat"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada data transkripsi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun dato di trascrizione disponibile"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字起こしデータがありません"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಪ್ರತಿಲೇಖನ ಡೇಟಾ ಲಭ್ಯವಿಲ್ಲ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "문자 변환 데이터가 없습니다"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ട്രാൻസ്ക്രിപ്ഷൻ ഡാറ്റ ലഭ്യമല്ല"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ट्रान्सक्रिप्शन डेटा उपलब्ध नाही"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiada data transkripsi"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingen transkripsjon tilgjengelig"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen transcriptiegegevens beschikbaar"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "କୌଣସି ଟ୍ରାନ୍ସକ୍ରିପସନ୍ ଡାଟା ନାହିଁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਕੋਈ ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਡਾਟਾ ਨਹੀਂ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brak danych transkrypcji"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenhum dado de transcrição disponível"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não há dados de transcrição disponíveis"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu există date de transcriere"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет данных транскрипции"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Žiadny prepis nie je k dispozícii"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ni podatkov prepisa"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inga transkriptionsdata tillgängliga"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "உரையாக்கத் தரவு இல்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ట్రాన్స్‌క్రిప్షన్ డేటా లేదు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีข้อมูลการถอดเสียง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsiyon verisi mevcut değil"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Немає даних транскрипції"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ٹرانسکرپشن ڈیٹا دستیاب نہیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có dữ liệu phiên âm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "没有转录数据"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "沒有轉錄資料"
+          }
+        }
       }
     },
     "Apple Intelligence が利用できません。設定を確認してください。" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence غير متاح. يرجى التحقق من الإعدادات." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence ist nicht verfügbar. Bitte überprüfen Sie Ihre Einstellungen." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence is not available. Please check your settings." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence no está disponible. Por favor, comprueba tu configuración." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence n'est pas disponible. Veuillez vérifier vos paramètres." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence उपलब्ध नहीं है। कृपया अपनी सेटिंग जांचें।" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence tidak tersedia. Periksa pengaturan Anda." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence non è disponibile. Controlla le impostazioni." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence が利用できません。設定を確認してください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence를 사용할 수 없습니다. 설정을 확인해 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence is niet beschikbaar. Controleer uw instellingen." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence jest niedostępny. Sprawdź ustawienia." } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "O Apple Intelligence não está disponível. Verifique as suas definições." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence недоступен. Проверьте настройки." } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence är inte tillgängligt. Kontrollera dina inställningar." } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence ไม่พร้อมใช้งาน โปรดตรวจสอบการตั้งค่าของคุณ" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence kullanılamıyor. Lütfen ayarlarınızı kontrol edin." } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence không khả dụng. Vui lòng kiểm tra cài đặt của bạn." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence 不可用，请检查设置。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence 無法使用，請檢查設定。" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence غير متاح. يرجى التحقق من الإعدادات."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence উপলভ্য নয়। আপনার সেটিংস দেখে নিন।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence no està disponible. Revisa la configuració."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence není k dispozici. Zkontrolujte nastavení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence er ikke tilgængelig. Kontroller dine indstillinger."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ist nicht verfügbar. Bitte überprüfen Sie Ihre Einstellungen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το Apple Intelligence δεν είναι διαθέσιμο. Ελέγξτε τις ρυθμίσεις σας."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence is not available. Please check your settings."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence no está disponible. Comprueba los ajustes."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ei ole käytettävissä. Tarkista asetukset."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence n'est pas disponible. Veuillez vérifier vos paramètres."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ઉપલબ્ધ નથી. કૃપા કરીને તમારી સેટિંગ્સ તપાસો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence אינו זמין. יש לבדוק את ההגדרות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence उपलब्ध नहीं है। कृपया अपनी सेटिंग जांचें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence nije dostupan. Provjerite postavke."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az Apple Intelligence nem érhető el. Ellenőrizd a beállításaidat."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence tidak tersedia. Periksa pengaturan Anda."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence non è disponibile. Controlla le impostazioni."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence が利用できません。設定を確認してください。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ಲಭ್ಯವಿಲ್ಲ. ನಿಮ್ಮ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence를 사용할 수 없습니다. 설정을 확인해 주세요."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ലഭ്യമല്ല. ക്രമീകരണങ്ങൾ പരിശോധിക്കുക."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence उपलब्ध नाही. कृपया तुमची सेटिंग्ज तपासा."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence tidak tersedia. Sila semak seting anda."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence er ikke tilgjengelig. Sjekk innstillingene."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence is niet beschikbaar. Controleer je instellingen."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ଉପଲବ୍ଧ ନାହିଁ। ଦୟାକରି ଆପଣଙ୍କ ସେଟିଂସ୍ ଯାଞ୍ଚ କରନ୍ତୁ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ਉਪਲਬਧ ਨਹੀਂ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀਆਂ ਸੈਟਿੰਗਾਂ ਜਾਂਚੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence jest niedostępny. Sprawdź ustawienia."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Apple Intelligence não está disponível. Verifique seus ajustes."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Apple Intelligence não está disponível. Verifique as suas definições."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence nu este disponibil. Verificați configurările."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence недоступен. Проверьте настройки."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence nie je k dispozícii. Skontrolujte nastavenia."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ni na voljo. Preverite nastavitve."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence är inte tillgängligt. Kontrollera dina inställningar."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence கிடைக்கவில்லை. அமைப்புகளைச் சரிபார்க்கவும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence అందుబాటులో లేదు. మీ సెట్టింగ్‌లను తనిఖీ చేయండి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ไม่พร้อมใช้งาน โปรดตรวจสอบการตั้งค่าของคุณ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence kullanılamıyor. Lütfen ayarlarınızı kontrol edin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence недоступна. Перевірте параметри."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence دستیاب نہیں ہے۔ براہ کرم اپنی سیٹنگز چیک کریں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence không khả dụng. Vui lòng kiểm tra cài đặt của bạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence 不可用，请检查设置。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence 無法使用，請檢查設定。"
+          }
+        }
       }
     },
     "AI議事録はプレミアム機能です" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "محضر اجتماع AI ميزة مميزة" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "KI-Sitzungsprotokoll ist eine Premium-Funktion" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "AI Meeting Minutes is a Premium Feature" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Las actas de reunión con IA es una función premium" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Les procès-verbaux IA est une fonctionnalité premium" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "AI मीटिंग मिनट्स एक प्रीमियम सुविधा है" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Risalah Rapat AI adalah fitur premium" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "I verbali IA è una funzione premium" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "AI議事録はプレミアム機能です" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "AI 회의록은 프리미엄 기능입니다" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "AI Vergadernotulen is een premium functie" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Protokół ze spotkania AI to funkcja premium" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "As Atas de Reunião com IA é uma funcionalidade premium" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Протокол совещания ИИ — премиум-функция" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "AI-mötesprotokoll är en premiumfunktion" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "AI บันทึกการประชุมเป็นฟีเจอร์พรีเมียม" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "AI Toplantı Tutanakları premium bir özelliktir" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Biên bản họp AI là tính năng cao cấp" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "AI会议记录是高级功能" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "AI會議記錄是付費功能" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محضر الاجتماع بالذكاء الاصطناعي ميزة Premium"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI মিটিং মিনিটস একটি প্রিমিয়াম ফিচার"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les actes amb IA són una funció Premium"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI zápis z porady je funkce Premium"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI-mødereferat er en Premium-funktion"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KI-Sitzungsprotokoll ist eine Premium-Funktion"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Τα πρακτικά με AI είναι λειτουργία Premium"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Meeting Minutes is a Premium Feature"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las actas de reunión con IA son una función Premium"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tekoälyn luoma kokousmuistio on Premium-ominaisuus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les comptes rendus IA sont une fonctionnalité Premium"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI મીટિંગ મિનિટ્સ એક પ્રીમિયમ ફીચર છે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "פרוטוקול AI הוא תכונת פרימיום"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI से बैठक के मिनट्स एक Premium सुविधा है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI zapisnik je Premium značajka"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az MI-jegyzőkönyv Prémium funkció"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Risalah Rapat AI adalah fitur Premium"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I verbali IA sono una funzione Premium"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI議事録はプレミアム機能です"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ಸಭೆಯ ನಡಾವಳಿ ಪ್ರೀಮಿಯಂ ವೈಶಿಷ್ಟ್ಯವಾಗಿದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 회의록은 프리미엄 기능입니다"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI മീറ്റിംഗ് മിനിറ്റ്സ് ഒരു പ്രീമിയം ഫീച്ചറാണ്"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI मीटिंग मिनिट्स हे प्रीमियम फीचर आहे"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minit Mesyuarat AI ialah Ciri Premium"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KI-møtereferat er en Premium-funksjon"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI-notulen zijn een Premium-functie"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ମିଟିଂ ମିନିଟ୍ସ ଏକ ପ୍ରିମିୟମ୍ ଫିଚର୍"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ਮੀਟਿੰਗ ਮਿੰਟਸ ਇੱਕ ਪ੍ਰੀਮੀਅਮ ਫ਼ੀਚਰ ਹੈ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protokoły spotkań AI to funkcja Premium"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A ata com IA é um recurso Premium"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As atas de reunião com IA são uma funcionalidade Premium"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procesul-verbal AI este o funcție Premium"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ИИ-протоколы встреч — функция Premium"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI zápisnica je funkcia Premium"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapisnik z UI je funkcija Premium"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI-mötesprotokoll är en premiumfunktion"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI கூட்டக் குறிப்புகள் ஒரு பிரீமியம் அம்சம்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI మీటింగ్ మినిట్స్ ప్రీమియం ఫీచర్"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึกการประชุมด้วย AI เป็นฟีเจอร์ Premium"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Toplantı Tutanakları premium bir özelliktir"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ШІ-протокол — функція Преміум"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI میٹنگ منٹس ایک پریمیم فیچر ہے"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biên bản họp AI là tính năng Premium"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI会议记录是高级版功能"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI會議記錄是進階版功能"
+          }
+        }
       }
     },
     "サブスクリプションに登録すると、文字起こし結果から要約とTODOを自動生成できます。" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "اشترك لإنشاء ملخصات ومهام تلقائياً من نتائج النسخ." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Abonnieren Sie, um automatisch Zusammenfassungen und TODOs aus Transkriptionsergebnissen zu erstellen." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Subscribe to automatically generate summaries and TODOs from your transcription results." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Suscríbete para generar automáticamente resúmenes y TODOs a partir de los resultados de la transcripción." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Abonnez-vous pour générer automatiquement des résumés et des TODOs à partir de vos résultats de transcription." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ट्रांसक्रिप्शन परिणामों से स्वचालित रूप से सारांश और TODO जनरेट करने के लिए सदस्यता लें।" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Berlangganan untuk membuat ringkasan dan TODO secara otomatis dari hasil transkripsi." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Abbonati per generare automaticamente riepiloghi e TODO dai risultati della trascrizione." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "サブスクリプションに登録すると、文字起こし結果から要約とTODOを自動生成できます。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "구독하면 문자 변환 결과에서 요약과 TODO를 자동 생성할 수 있습니다." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Abonneer u om automatisch samenvattingen en taken te genereren uit transcriptieresultaten." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Subskrybuj, aby automatycznie generować podsumowania i TODO z wyników transkrypcji." } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Subscreva para gerar automaticamente resumos e TODOs a partir dos resultados da transcrição." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Подпишитесь, чтобы автоматически создавать резюме и задачи из результатов транскрипции." } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Prenumerera för att automatiskt generera sammanfattningar och TODOs från transkriptionsresultat." } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "สมัครสมาชิกเพื่อสร้างสรุปและ TODO จากผลการถอดความโดยอัตโนมัติ" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Transkripsiyon sonuçlarından otomatik olarak özet ve TODO oluşturmak için abone olun." } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đăng ký để tự động tạo tóm tắt và TODO từ kết quả phiên âm." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "订阅后，可从转录结果自动生成摘要和TODO。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "訂閱後，可從轉錄結果自動生成摘要和TODO。" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشترك لإنشاء ملخصات ومهام تلقائياً من نتائج النسخ."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সাবস্ক্রাইব করলে ট্রান্সক্রিপশনের ফলাফল থেকে স্বয়ংক্রিয়ভাবে সারাংশ ও TODO তৈরি করা যাবে।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscriu-te per generar automàticament resums i tasques pendents a partir de les transcripcions."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S předplatným můžete z přepisu automaticky vytvářet shrnutí a úkoly."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Med et abonnement kan du automatisk få lavet resuméer og to do-lister ud fra dine transskriptioner."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonnieren Sie, um automatisch Zusammenfassungen und TODOs aus Transkriptionsergebnissen zu erstellen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Με συνδρομή δημιουργείτε αυτόματα σύνοψη και λίστα εργασιών (TODO) από τα αποτελέσματα της απομαγνητοφώνησης."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribe to automatically generate summaries and TODOs from your transcription results."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suscríbete para generar automáticamente resúmenes y TODOs a partir de los resultados de la transcripción."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tilaamalla voit luoda litteroinnista automaattisesti yhteenvedon ja tehtävälistan."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonnez-vous pour générer automatiquement des résumés et des TODOs à partir de vos résultats de transcription."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સબ્સ્ક્રાઇબ કરો અને ટ્રાન્સક્રિપ્શનના પરિણામમાંથી આપમેળે સારાંશ અને TODO બનાવો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "עם מינוי אפשר ליצור אוטומטית סיכומים ומשימות (TODO) מתוצאות התמלול."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ट्रांसक्रिप्शन परिणामों से स्वचालित रूप से सारांश और TODO जनरेट करने के लिए सदस्यता लें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pretplatite se kako biste iz transkripcije automatski izradili sažetke i popise zadataka."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Előfizetéssel az átiratokból automatikusan összefoglaló és teendőlista készül."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berlangganan untuk membuat ringkasan dan TODO secara otomatis dari hasil transkripsi."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbonati per generare automaticamente riepiloghi e TODO dai risultati della trascrizione."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サブスクリプションに登録すると、文字起こし結果から要約とTODOを自動生成できます。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಪ್ರತಿಲೇಖನದಿಂದ ಸಾರಾಂಶ ಮತ್ತು TODO ಗಳನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಚಿಸಲು ಸಬ್‌ಸ್ಕ್ರೈಬ್ ಮಾಡಿ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "구독하면 문자 변환 결과에서 요약과 TODO를 자동 생성할 수 있습니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ട്രാൻസ്ക്രിപ്ഷൻ ഫലങ്ങളിൽ നിന്ന് സംഗ്രഹവും ചെയ്യേണ്ടവയും സ്വയമേവ സൃഷ്ടിക്കാൻ സബ്സ്ക്രൈബ് ചെയ്യുക."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सबस्क्राइब करा आणि ट्रान्सक्रिप्शनच्या निकालांमधून आपोआप सारांश व TODO तयार करा."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Langgan untuk menjana ringkasan dan senarai tugasan secara automatik daripada hasil transkripsi."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonner for å lage sammendrag og gjøremål automatisk fra transkripsjonene dine."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neem een abonnement om automatisch samenvattingen en taken te genereren uit transcriptieresultaten."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ସବସ୍କ୍ରାଇବ୍ କରନ୍ତୁ ଏବଂ ଟ୍ରାନ୍ସକ୍ରିପସନ୍ ଫଳାଫଳରୁ ସ୍ୱୟଂଚାଳିତ ଭାବେ ସାରାଂଶ ଓ TODO ତିଆରି କରନ୍ତୁ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸਬਸਕ੍ਰਾਈਬ ਕਰੋ ਅਤੇ ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਦੇ ਨਤੀਜਿਆਂ ਤੋਂ ਆਪਣੇ-ਆਪ ਸਾਰ ਅਤੇ TODO ਬਣਾਓ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subskrybuj, aby automatycznie generować podsumowania i TODO z wyników transkrypcji."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assine para gerar automaticamente resumos e tarefas (TODO) a partir das suas transcrições."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscreva para gerar automaticamente resumos e TODOs a partir dos resultados da transcrição."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonați-vă pentru a genera automat rezumate și sarcini (TODO) din rezultatele transcrierii."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подпишитесь, чтобы автоматически создавать резюме и задачи из результатов транскрипции."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S predplatným sa z prepisu automaticky vytvorí zhrnutie a zoznam úloh."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Z naročnino lahko iz prepisov samodejno ustvarite povzetke in opravila."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prenumerera för att automatiskt generera sammanfattningar och TODOs från transkriptionsresultat."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "உரையாக்க முடிவுகளிலிருந்து சுருக்கத்தையும் செய்ய வேண்டியவற்றையும் தானாக உருவாக்க சந்தா செலுத்துங்கள்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ట్రాన్స్‌క్రిప్షన్ ఫలితాల నుండి సారాంశం, చేయాల్సిన పనులను ఆటోమేటిక్‌గా రూపొందించడానికి సబ్‌స్క్రైబ్ చేయండి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สมัครสมาชิกเพื่อสร้างสรุปและ TODO จากผลการถอดเสียงโดยอัตโนมัติ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsiyon sonuçlarından otomatik olarak özet ve TODO oluşturmak için abone olun."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оформіть підписку, щоб автоматично створювати підсумки та списки завдань із результатів транскрипції."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ٹرانسکرپشن کے نتائج سے خلاصے اور کرنے کے کام خود بخود بنانے کے لیے سبسکرائب کریں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng ký để tự động tạo tóm tắt và TODO từ kết quả phiên âm."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "订阅后，可从转录结果自动生成摘要和TODO。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "訂閱後，可從轉錄結果自動生成摘要和TODO。"
+          }
+        }
       }
     },
     "前回の議事録" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "محضر الاجتماع السابق" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Vorheriges Protokoll" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Previous Meeting Minutes" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Actas anteriores" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Compte rendu précédent" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पिछली बैठक के मिनट्स" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Risalah Sebelumnya" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Verbale precedente" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "前回の議事録" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이전 회의록" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Vorige notulen" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Poprzedni protokół" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Atas anteriores" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Предыдущий протокол" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Föregående mötesprotokoll" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "บันทึกการประชุมครั้งก่อน" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Önceki Tutanaklar" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Biên bản trước" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "上次会议记录" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "上次會議記錄" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محضر الاجتماع السابق"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আগের মিটিং মিনিটস"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actes anteriors"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Předchozí zápis z porady"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidligere mødereferat"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorheriges Protokoll"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Προηγούμενα πρακτικά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous Meeting Minutes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actas anteriores"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edellinen kokousmuistio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte rendu précédent"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "અગાઉની મીટિંગ મિનિટ્સ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הפרוטוקול הקודם"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पिछली बैठक के मिनट्स"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prethodni zapisnik"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Előző jegyzőkönyv"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Risalah Sebelumnya"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verbale precedente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前回の議事録"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಹಿಂದಿನ ಸಭೆಯ ನಡಾವಳಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이전 회의록"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "മുമ്പത്തെ മീറ്റിംഗ് മിനിറ്റ്സ്"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मागील मीटिंग मिनिट्स"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minit Mesyuarat Sebelumnya"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forrige møtereferat"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorige notulen"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ପୂର୍ବ ମିଟିଂ ମିନିଟ୍ସ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਪਿਛਲੇ ਮੀਟਿੰਗ ਮਿੰਟਸ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poprzedni protokół"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ata anterior"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atas anteriores"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procesul-verbal anterior"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Предыдущий протокол"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Predchádzajúca zápisnica"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prejšnji zapisnik"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Föregående mötesprotokoll"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "முந்தைய கூட்டக் குறிப்புகள்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మునుపటి మీటింగ్ మినిట్స్"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึกการประชุมครั้งก่อน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Önceki Tutanaklar"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попередній протокол"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پچھلے میٹنگ منٹس"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biên bản trước"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次会议记录"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上次會議記錄"
+          }
+        }
       }
     },
     "文字起こし結果から議事録を自動生成します" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "إنشاء محضر الاجتماع تلقائياً من نتائج النسخ" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Sitzungsprotokoll automatisch aus Transkriptionsergebnissen erstellen" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Automatically generate meeting minutes from transcription results" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Generar automáticamente actas de reunión a partir de los resultados de la transcripción" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Générer automatiquement des comptes rendus à partir des résultats de transcription" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "ट्रांसक्रिप्शन परिणामों से बैठक के मिनट्स स्वचालित रूप से जनरेट करें" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Buat risalah rapat secara otomatis dari hasil transkripsi" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Genera automaticamente verbali dalle trascrizioni" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "文字起こし結果から議事録を自動生成します" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "문자 변환 결과에서 회의록을 자동 생성합니다" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Automatisch vergadernotulen genereren uit transcriptieresultaten" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Automatycznie generuj protokoły ze spotkań z wyników transkrypcji" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Gerar automaticamente atas de reunião a partir dos resultados da transcrição" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Автоматически создавать протоколы совещаний из результатов транскрипции" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Generera mötesprotokoll automatiskt från transkriptionsresultat" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "สร้างบันทึกการประชุมโดยอัตโนมัติจากผลการถอดความ" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Transkripsiyon sonuçlarından toplantı tutanakları otomatik oluşturun" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tự động tạo biên bản họp từ kết quả phiên âm" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "从转录结果自动生成会议记录" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "從轉錄結果自動生成會議記錄" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء محضر الاجتماع تلقائياً من نتائج النسخ"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ট্রান্সক্রিপশনের ফলাফল থেকে স্বয়ংক্রিয়ভাবে মিটিং মিনিটস তৈরি করুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genera actes automàticament a partir de les transcripcions"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automaticky vytvoří zápis z porady z přepisu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laver automatisk et mødereferat ud fra transskriptionen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sitzungsprotokoll automatisch aus Transkriptionsergebnissen erstellen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αυτόματη δημιουργία πρακτικών από τα αποτελέσματα της απομαγνητοφώνησης"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatically generate meeting minutes from transcription results"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generar automáticamente actas de reunión a partir de los resultados de la transcripción"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luo kokousmuistio automaattisesti litteroinnista"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Générer automatiquement des comptes rendus à partir des résultats de transcription"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ટ્રાન્સક્રિપ્શનના પરિણામમાંથી આપમેળે મીટિંગ મિનિટ્સ બનાવો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יצירה אוטומטית של פרוטוקול מתוצאות התמלול"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ट्रांसक्रिप्शन परिणामों से बैठक के मिनट्स स्वचालित रूप से जनरेट करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatski izradite zapisnik iz transkripcije"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jegyzőkönyv automatikus készítése az átiratból"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buat risalah rapat secara otomatis dari hasil transkripsi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genera automaticamente verbali dalle trascrizioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字起こし結果から議事録を自動生成します"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಪ್ರತಿಲೇಖನದಿಂದ ಸಭೆಯ ನಡಾವಳಿಯನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಚಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "문자 변환 결과에서 회의록을 자동 생성합니다"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ട്രാൻസ്ക്രിപ്ഷൻ ഫലങ്ങളിൽ നിന്ന് മീറ്റിംഗ് മിനിറ്റ്സ് സ്വയമേവ സൃഷ്ടിക്കുന്നു"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ट्रान्सक्रिप्शनच्या निकालांमधून आपोआप मीटिंग मिनिट्स तयार करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jana minit mesyuarat secara automatik daripada hasil transkripsi"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lag møtereferat automatisk fra transkripsjonen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatisch vergadernotulen genereren uit transcriptieresultaten"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଟ୍ରାନ୍ସକ୍ରିପସନ୍ ଫଳାଫଳରୁ ସ୍ୱୟଂଚାଳିତ ଭାବେ ମିଟିଂ ମିନିଟ୍ସ ତିଆରି କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਦੇ ਨਤੀਜਿਆਂ ਤੋਂ ਆਪਣੇ-ਆਪ ਮੀਟਿੰਗ ਮਿੰਟਸ ਬਣਾਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatycznie generuj protokoły ze spotkań z wyników transkrypcji"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gere atas de reunião automaticamente a partir das transcrições"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerar automaticamente atas de reunião a partir dos resultados da transcrição"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generează automat procesul-verbal din rezultatele transcrierii"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматически создавать протоколы совещаний из результатов транскрипции"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automaticky vytvorí zápisnicu z prepisu"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samodejno ustvari zapisnik iz prepisa"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generera mötesprotokoll automatiskt från transkriptionsresultat"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "உரையாக்க முடிவுகளிலிருந்து கூட்டக் குறிப்புகளைத் தானாக உருவாக்கும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ట్రాన్స్‌క్రిప్షన్ ఫలితాల నుండి మీటింగ్ మినిట్స్‌ను ఆటోమేటిక్‌గా రూపొందిస్తుంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้างบันทึกการประชุมโดยอัตโนมัติจากผลการถอดเสียง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsiyon sonuçlarından toplantı tutanakları otomatik oluşturun"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматичне створення протоколу з результатів транскрипції"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ٹرانسکرپشن کے نتائج سے میٹنگ منٹس خود بخود بنائیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tự động tạo biên bản họp từ kết quả phiên âm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从转录结果自动生成会议记录"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "從轉錄結果自動生成會議記錄"
+          }
+        }
       }
     },
     "議事録を生成" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "إنشاء المحضر" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Protokoll erstellen" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Generate Minutes" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Generar actas" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Générer le compte rendu" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "मिनट्स जनरेट करें" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Buat Risalah" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Genera verbale" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "議事録を生成" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "회의록 생성" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Notulen genereren" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Generuj protokół" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Gerar atas" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Создать протокол" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Generera protokoll" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "สร้างบันทึกการประชุม" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Tutanak Oluştur" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tạo biên bản" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "生成会议记录" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "生成會議記錄" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء المحضر"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মিনিটস তৈরি করুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genera les actes"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvořit zápis"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lav referat"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protokoll erstellen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δημιουργία πρακτικών"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generate Minutes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generar actas"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luo muistio"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Générer le compte rendu"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "મિનિટ્સ બનાવો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יצירת פרוטוקול"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मिनट्स जनरेट करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izradi zapisnik"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jegyzőkönyv készítése"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buat Risalah"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genera verbale"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "議事録を生成"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ನಡಾವಳಿ ರಚಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "회의록 생성"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "മിനിറ്റ്സ് സൃഷ്ടിക്കുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मिनिट्स तयार करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jana Minit"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lag møtereferat"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notulen genereren"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ମିନିଟ୍ସ ତିଆରି କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਮਿੰਟਸ ਬਣਾਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generuj protokół"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerar ata"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerar atas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generați procesul-verbal"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать протокол"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvoriť zápisnicu"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ustvari zapisnik"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generera protokoll"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "குறிப்புகளை உருவாக்கு"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మినిట్స్ రూపొందించు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้างบันทึกการประชุม"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutanak Oluştur"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створити протокол"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منٹس بنائیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo biên bản"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生成会议记录"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生成會議記錄"
+          }
+        }
       }
     },
     "再生成" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "إعادة الإنشاء" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Neu erstellen" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Regenerate" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Volver a generar" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Régénérer" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पुनः जनरेट करें" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Buat Ulang" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Rigenera" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "再生成" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "다시 생성" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Opnieuw genereren" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Wygeneruj ponownie" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Regenerar" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Пересоздать" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Generera om" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "สร้างใหม่" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yeniden Oluştur" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tạo lại" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重新生成" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "重新生成" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة الإنشاء"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আবার তৈরি করুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Torna a generar"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvořit znovu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lav igen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neu erstellen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αναδημιουργία"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regenerate"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volver a generar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luo uudelleen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Régénérer"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ફરી બનાવો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יצירה מחדש"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पुनः जनरेट करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponovno izradi"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Újragenerálás"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buat Ulang"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rigenera"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再生成"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮರುರಚಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다시 생성"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വീണ്ടും സൃഷ്ടിക്കുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पुन्हा तयार करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jana Semula"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lag på nytt"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opnieuw genereren"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ପୁଣି ତିଆରି କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਦੁਬਾਰਾ ਬਣਾਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wygeneruj ponownie"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerar novamente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regenerar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regenerați"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пересоздать"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvoriť znova"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ustvari znova"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generera om"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "மீண்டும் உருவாக்கு"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మళ్లీ రూపొందించు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้างใหม่"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeniden Oluştur"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створити знову"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دوبارہ بنائیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo lại"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新生成"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重新生成"
+          }
+        }
       }
     },
     "Apple Intelligence で議事録を生成中..." : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "جارٍ إنشاء المحضر باستخدام Apple Intelligence..." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Protokoll wird mit Apple Intelligence erstellt..." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Generating minutes with Apple Intelligence..." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Generando actas con Apple Intelligence..." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Génération du compte rendu avec Apple Intelligence..." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence के साथ मिनट्स जनरेट हो रहे हैं..." } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Membuat risalah dengan Apple Intelligence..." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Generazione verbale con Apple Intelligence..." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence で議事録を生成中..." } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence로 회의록 생성 중..." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Notulen genereren met Apple Intelligence..." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Generowanie protokołu za pomocą Apple Intelligence..." } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "A gerar atas com Apple Intelligence..." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Создание протокола с помощью Apple Intelligence..." } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Genererar protokoll med Apple Intelligence..." } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "กำลังสร้างบันทึกการประชุมด้วย Apple Intelligence..." } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Apple Intelligence ile tutanaklar oluşturuluyor..." } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang tạo biên bản với Apple Intelligence..." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在使用 Apple Intelligence 生成会议记录..." } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "正在使用 Apple Intelligence 生成會議記錄..." } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ إنشاء المحضر باستخدام Apple Intelligence..."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence দিয়ে মিনিটস তৈরি হচ্ছে..."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generant les actes amb Apple Intelligence..."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytváření zápisu pomocí Apple Intelligence…"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laver referat med Apple Intelligence…"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protokoll wird mit Apple Intelligence erstellt..."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δημιουργία πρακτικών με το Apple Intelligence..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generating minutes with Apple Intelligence..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generando actas con Apple Intelligence..."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Luodaan muistiota Apple Intelligencellä..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Génération du compte rendu avec Apple Intelligence..."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence વડે મિનિટ્સ બની રહી છે..."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יוצר פרוטוקול באמצעות Apple Intelligence..."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence के साथ मिनट्स जनरेट हो रहे हैं..."
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izrada zapisnika pomoću značajke Apple Intelligence..."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jegyzőkönyv készítése az Apple Intelligence-szel…"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Membuat risalah dengan Apple Intelligence..."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generazione verbale con Apple Intelligence..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence で議事録を生成中..."
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ಮೂಲಕ ನಡಾವಳಿ ರಚಿಸಲಾಗುತ್ತಿದೆ..."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence로 회의록 생성 중..."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ഉപയോഗിച്ച് മിനിറ്റ്സ് സൃഷ്ടിക്കുന്നു..."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ने मिनिट्स तयार होत आहेत..."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menjana minit dengan Apple Intelligence..."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lager møtereferat med Apple Intelligence …"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notulen genereren met Apple Intelligence..."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ଦ୍ୱାରା ମିନିଟ୍ସ ତିଆରି ହେଉଛି..."
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ਨਾਲ ਮਿੰਟਸ ਬਣ ਰਹੇ ਹਨ..."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generowanie protokołu za pomocą Apple Intelligence..."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerando ata com a Apple Intelligence..."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gerar atas com Apple Intelligence..."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se generează procesul-verbal cu Apple Intelligence..."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создание протокола с помощью Apple Intelligence..."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vytvára sa zápisnica pomocou Apple Intelligence..."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ustvarjanje zapisnika z Apple Intelligence ..."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genererar protokoll med Apple Intelligence..."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence மூலம் குறிப்புகள் உருவாக்கப்படுகின்றன..."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligenceతో మినిట్స్ రూపొందుతున్నాయి..."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังสร้างบันทึกการประชุมด้วย Apple Intelligence..."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence ile tutanaklar oluşturuluyor..."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Створення протоколу за допомогою Apple Intelligence..."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence سے منٹس بنائے جا رہے ہیں..."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang tạo biên bản với Apple Intelligence..."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在使用 Apple Intelligence 生成会议记录..."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在使用 Apple Intelligence 生成會議記錄..."
+          }
+        }
       }
     },
     "オンデバイスで処理しています。しばらくお待ちください。" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "جارٍ المعالجة على الجهاز. يرجى الانتظار." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Verarbeitung auf dem Gerät. Bitte warten." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Processing on-device. Please wait." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Procesando en el dispositivo. Por favor, espera." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Traitement sur l'appareil. Veuillez patienter." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "डिवाइस पर प्रोसेस हो रहा है। कृपया प्रतीक्षा करें।" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Memproses di perangkat. Harap tunggu." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Elaborazione sul dispositivo. Attendere." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "オンデバイスで処理しています。しばらくお待ちください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "기기에서 처리 중입니다. 잠시 기다려 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Verwerking op apparaat. Even geduld." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Przetwarzanie na urządzeniu. Proszę czekać." } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "A processar no dispositivo. Aguarde." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Обработка на устройстве. Пожалуйста, подождите." } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Bearbetar på enheten. Vänta." } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "กำลังประมวลผลบนอุปกรณ์ โปรดรอ" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Cihazda işleniyor. Lütfen bekleyin." } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Đang xử lý trên thiết bị. Vui lòng chờ." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在设备上处理，请稍候。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "正在裝置上處理，請稍候。" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ المعالجة على الجهاز. يرجى الانتظار."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ডিভাইসেই প্রসেস করা হচ্ছে। একটু অপেক্ষা করুন।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processant al dispositiu. Espera un moment."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zpracovává se přímo v zařízení. Chvíli strpení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behandles på enheden. Vent et øjeblik."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verarbeitung auf dem Gerät. Bitte warten."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Γίνεται επεξεργασία στη συσκευή. Περιμένετε."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processing on-device. Please wait."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procesando en el dispositivo. Por favor, espera."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Käsitellään laitteella. Odota hetki."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Traitement sur l'appareil. Veuillez patienter."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ડિવાઇસ પર જ પ્રોસેસ થઈ રહ્યું છે. કૃપા કરીને રાહ જુઓ."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "העיבוד מתבצע במכשיר. נא להמתין."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "डिवाइस पर प्रोसेस हो रहा है। कृपया प्रतीक्षा करें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrada na uređaju. Pričekajte."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feldolgozás az eszközön. Kis türelmet."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memproses di perangkat. Harap tunggu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elaborazione sul dispositivo. Attendi."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "オンデバイスで処理しています。しばらくお待ちください。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಸಾಧನದಲ್ಲೇ ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ಕಾಯಿರಿ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기기에서 처리 중입니다. 잠시 기다려 주세요."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഉപകരണത്തിൽ തന്നെ പ്രോസസ്സ് ചെയ്യുന്നു. കാത്തിരിക്കുക."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "डिव्हाइसवरच प्रक्रिया होत आहे. कृपया प्रतीक्षा करा."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diproses pada peranti. Sila tunggu."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Behandles på enheten. Vent litt."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwerking op apparaat. Even geduld."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଡିଭାଇସରେ ହିଁ ପ୍ରୋସେସ୍ ହେଉଛି। ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਡਿਵਾਈਸ ਉੱਤੇ ਹੀ ਪ੍ਰੋਸੈਸ ਹੋ ਰਿਹਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Przetwarzanie na urządzeniu. Proszę czekać."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processando no dispositivo. Aguarde um momento."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A processar no dispositivo. Aguarde."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Procesare pe dispozitiv. Așteptați puțin."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обработка на устройстве. Пожалуйста, подождите."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spracúva sa v zariadení. Počkajte, prosím."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obdelava poteka v napravi. Počakajte."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bearbetar på enheten. Vänta."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "சாதனத்திலேயே செயலாக்கப்படுகிறது. காத்திருக்கவும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "పరికరంలోనే ప్రాసెస్ అవుతోంది. దయచేసి వేచి ఉండండి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังประมวลผลบนอุปกรณ์ โปรดรอ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cihazda işleniyor. Lütfen bekleyin."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обробка на пристрої. Зачекайте."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ڈیوائس پر ہی پروسیسنگ ہو رہی ہے۔ براہ کرم انتظار کریں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang xử lý trên thiết bị. Vui lòng chờ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在设备上处理，请稍候。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在裝置上處理，請稍候。"
+          }
+        }
       }
     },
     "要約" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "ملخص" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Zusammenfassung" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Summary" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Resumen" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Résumé" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "सारांश" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Ringkasan" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Sommario" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "要約" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "요약" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Samenvatting" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Podsumowanie" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Resumo" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Резюме" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Sammanfattning" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "สรุป" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Özet" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tóm tắt" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "摘要" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "摘要" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملخص"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সারাংশ"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resum"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shrnutí"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resumé"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zusammenfassung"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Σύνοψη"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Summary"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resumen"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yhteenveto"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Résumé"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સારાંશ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סיכום"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सारांश"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sažetak"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Összefoglaló"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ringkasan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riepilogo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "要約"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಸಾರಾಂಶ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "요약"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സംഗ്രഹം"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सारांश"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ringkasan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sammendrag"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samenvatting"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ସାରାଂଶ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸਾਰ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podsumowanie"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resumo"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resumo"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rezumat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Резюме"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zhrnutie"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povzetek"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sammanfattning"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "சுருக்கம்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "సారాంశం"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สรุป"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Özet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Підсумок"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خلاصہ"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tóm tắt"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "摘要"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "摘要"
+          }
+        }
       }
     },
     "TODO" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "TODO" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tasques pendents"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úkoly"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tehtävät"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadaci"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teendők"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ചെയ്യേണ്ടവ"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tugasan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gjøremål"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarefas"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sarcini"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Úlohy"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opravila"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "செய்ய வேண்டியவை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "చేయాల్సినవి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завдання"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کرنے کے کام"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TODO"
+          }
+        }
       }
     },
     "保存" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "حفظ" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Speichern" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Guardar" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Enregistrer" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "सहेजें" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Simpan" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Salva" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "保存" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "저장" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Opslaan" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Zapisz" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Guardar" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Сохранить" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Spara" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "บันทึก" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Kaydet" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Lưu" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "保存" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "儲存" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সেভ করুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desa"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložit"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gem"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speichern"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αποθήκευση"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tallenna"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સેવ કરો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שמירה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहेजें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spremi"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mentés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simpan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salva"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಉಳಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "저장"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സംരക്ഷിക്കുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सेव्ह करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simpan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lagre"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opslaan"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ସେଭ୍ କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸੇਵ ਕਰੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapisz"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guardar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvați"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранить"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložiť"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shrani"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spara"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "சேமி"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "సేవ్ చేయి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kaydet"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зберегти"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محفوظ کریں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存"
+          }
+        }
       }
     },
     "議事録の生成に失敗しました" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "فشل إنشاء محضر الاجتماع" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Protokoll konnte nicht erstellt werden" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Failed to Generate Meeting Minutes" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Error al generar las actas" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Échec de la génération du compte rendu" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बैठक के मिनट्स जनरेट करने में विफल" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Gagal membuat risalah rapat" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Generazione verbale fallita" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "議事録の生成に失敗しました" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "회의록 생성에 실패했습니다" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Vergadernotulen genereren mislukt" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Nie udało się wygenerować protokołu ze spotkania" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Falha ao gerar as atas" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Не удалось создать протокол" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Det gick inte att generera mötesprotokoll" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "ไม่สามารถสร้างบันทึกการประชุมได้" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Toplantı tutanakları oluşturulamadı" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Tạo biên bản thất bại" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "生成会议记录失败" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "生成會議記錄失敗" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فشل إنشاء محضر الاجتماع"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মিটিং মিনিটস তৈরি করা যায়নি"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No s'han pogut generar les actes"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zápis z porady se nepodařilo vytvořit"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mødereferatet kunne ikke laves"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protokoll konnte nicht erstellt werden"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η δημιουργία πρακτικών απέτυχε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to Generate Meeting Minutes"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error al generar las actas"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokousmuistion luonti epäonnistui"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échec de la génération du compte rendu"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "મીટિંગ મિનિટ્સ બનાવી શકાઈ નહીં"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יצירת הפרוטוקול נכשלה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बैठक के मिनट्स जनरेट करने में विफल"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Izrada zapisnika nije uspjela"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem sikerült elkészíteni a jegyzőkönyvet"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gagal membuat risalah rapat"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generazione verbale non riuscita"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "議事録の生成に失敗しました"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಸಭೆಯ ನಡಾವಳಿ ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "회의록 생성에 실패했습니다"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "മീറ്റിംഗ് മിനിറ്റ്സ് സൃഷ്ടിക്കാനായില്ല"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मीटिंग मिनिट्स तयार करता आले नाहीत"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gagal Menjana Minit Mesyuarat"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kunne ikke lage møtereferat"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vergadernotulen genereren mislukt"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ମିଟିଂ ମିନିଟ୍ସ ତିଆରି କରିହେଲା ନାହିଁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਮੀਟਿੰਗ ਮਿੰਟਸ ਨਹੀਂ ਬਣ ਸਕੇ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie udało się wygenerować protokołu ze spotkania"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao gerar a ata"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Falha ao gerar as atas"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generarea procesului-verbal nu a reușit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось создать протокол"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zápisnicu sa nepodarilo vytvoriť"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zapisnika ni bilo mogoče ustvariti"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Det gick inte att generera mötesprotokoll"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கூட்டக் குறிப்புகளை உருவாக்க முடியவில்லை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మీటింగ్ మినిట్స్ రూపొందించడం విఫలమైంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่สามารถสร้างบันทึกการประชุมได้"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toplantı tutanakları oluşturulamadı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося створити протокол"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "میٹنگ منٹس نہیں بن سکے"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạo biên bản thất bại"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生成会议记录失败"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生成會議記錄失敗"
+          }
+        }
       }
     },
     "再試行" : {
       "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "إعادة المحاولة" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Erneut versuchen" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Retry" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Reintentar" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Réessayer" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "पुनः प्रयास करें" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Coba lagi" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Riprova" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "再試行" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "다시 시도" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Opnieuw proberen" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Spróbuj ponownie" } },
-        "pt-PT" : { "stringUnit" : { "state" : "translated", "value" : "Tentar novamente" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Повторить" } },
-        "sv" : { "stringUnit" : { "state" : "translated", "value" : "Försök igen" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "ลองอีกครั้ง" } },
-        "tr" : { "stringUnit" : { "state" : "translated", "value" : "Yeniden dene" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Thử lại" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重试" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "重試" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إعادة المحاولة"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আবার চেষ্টা করুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Torna-ho a provar"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zkusit znovu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prøv igen"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneut versuchen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δοκιμή ξανά"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retry"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reintentar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yritä uudelleen"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réessayer"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ફરી પ્રયાસ કરો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ניסיון חוזר"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पुनः प्रयास करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokušaj ponovno"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Újra"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coba lagi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Riprova"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "再試行"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮರುಪ್ರಯತ್ನಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "다시 시도"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "വീണ്ടും ശ്രമിക്കുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पुन्हा प्रयत्न करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuba Lagi"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prøv igjen"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opnieuw proberen"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spróbuj ponownie"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar novamente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar novamente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reîncercați"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторить"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skúsiť znova"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poskusi znova"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Försök igen"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "மீண்டும் முயல்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మళ్లీ ప్రయత్నించు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ลองอีกครั้ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeniden dene"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторити"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دوبارہ کوشش کریں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thử lại"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重试"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重試"
+          }
+        }
       }
     }
   },
