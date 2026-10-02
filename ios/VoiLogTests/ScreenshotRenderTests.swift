@@ -2,205 +2,124 @@ import XCTest
 import SwiftUI
 @testable import VoiLog
 
+/// App Store 用スクリーンショットを ImageRenderer で書き出す。
+///
+/// 出力: /tmp/voilog_screenshots/<code>/ に App Store のファイル名で保存する
+/// （<code> = ios/VoiLog/DebugMode/ScreenshotStrings/<code>.json のある言語すべて）。
+/// - iPhone: `<n>_APP_IPHONE_67_<n>.png`（n = 0...7、0 はヒーロー）1320x2868
+/// - iPad:   `<n>_APP_IPAD_PRO_3GEN_129_<n>.png`（n = 0...6）2048x2732
+/// 出荷しない描画（iPhone の旧1枚目 aiRecording）は /tmp/voilog_screenshots/_extra/ に置く。
+/// fastlane/screenshots への反映は ios/ci/export_screenshots.sh で行う（ja / en-US のヒーローは上書きしない）。
 @MainActor
 final class ScreenshotRenderTests: XCTestCase {
 
     private let outputDir = URL(fileURLWithPath: "/tmp/voilog_screenshots")
 
-    private let languages: [(AppLanguage, String)] = [
-        (.japanese,          "ja"),
-        (.english,           "en"),
-        (.german,            "de"),
-        (.spanish,           "es"),
-        (.french,            "fr"),
-        (.italian,           "it"),
-        (.portuguese,        "pt"),
-        (.russian,           "ru"),
-        (.turkish,           "tr"),
-        (.vietnamese,        "vi"),
-        (.chineseSimplified, "zh_hans"),
-        (.chineseTraditional,"zh_hant"),
-    ]
+    private var languages: [AppLanguage] { AppLanguage.allCases }
 
     override func setUp() {
         super.setUp()
         try? FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
     }
 
-    func testRenderAIRecordingScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .aiRecording),
-                subtitle: language.screenshotSubtitle(for: .aiRecording),
-                screen: .aiRecording,
-                language: language
-            ) {
-                PhoneFrameView { MockAIRecordingView(language: language) }
-            }
-            try renderAndSave(view: view, filename: "\(code)_00_airecording.png")
+    func testStringsAreBundledForExistingLanguages() {
+        let codes = Set(languages.map(\.code))
+        for code in ["en", "ja", "de", "es", "fr", "it", "pt-PT", "ru", "tr", "vi", "zh-Hans", "zh-Hant"] {
+            XCTAssertTrue(codes.contains(code), "\(code).json is not in the app bundle")
         }
     }
 
-    func testRenderPlaybackListScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .playbackList),
-                subtitle: language.screenshotSubtitle(for: .playbackList),
-                screen: .playbackList,
-                language: language
-            ) {
-                PhoneFrameView { MockPlaybackListView(language: language) }
+    func testEveryLanguageHasAllEnglishKeys() {
+        guard let english = ScreenshotStrings.tables["en"] else {
+            return XCTFail("en.json is missing")
+        }
+        for language in languages {
+            let table = ScreenshotStrings.tables[language.code] ?? [:]
+            let missing = Set(english.keys).subtracting(table.keys)
+            // 欠けていても en にフォールバックして描画はできるので、失敗にはせずログだけ出す
+            if !missing.isEmpty {
+                print("[ScreenshotStrings] \(language.code).json is missing: \(missing.sorted())")
             }
-            try renderAndSave(view: view, filename: "\(code)_01_playbacklist.png")
+            for (key, value) in english {
+                if let list = value as? [String], let translated = table[key] as? [String] {
+                    XCTAssertEqual(list.count, translated.count, "\(language.code).\(key) must have \(list.count) items")
+                }
+            }
         }
     }
 
-    func testRenderTimestampedTranscriptionScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .timestampedTranscription),
-                subtitle: language.screenshotSubtitle(for: .timestampedTranscription),
-                screen: .timestampedTranscription,
-                language: language
-            ) {
-                PhoneFrameView { MockTimestampedTranscriptionView(language: language) }
-            }
-            try renderAndSave(view: view, filename: "\(code)_06_transcription.png")
+    // MARK: - iPhone
+
+    func testRenderHeroScreenshots() throws {
+        for language in languages {
+            try renderAndSave(
+                view: HeroRecorderPageView(language: language),
+                to: iPhoneURL(language: language, slot: 0)
+            )
         }
     }
 
-    func testRenderPlaylistScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .playlist),
-                subtitle: language.screenshotSubtitle(for: .playlist),
-                screen: .playlist,
-                language: language
-            ) {
-                PhoneFrameView { MockPlaylistView(language: language) }
+    func testRenderIPhoneScreenshots() throws {
+        for language in languages {
+            for (index, screen) in ScreenshotSlots.iPhone.enumerated() {
+                try renderAndSave(
+                    view: page(screen: screen, language: language) { PhoneFrameView { screen.mockView(language: language) } },
+                    to: iPhoneURL(language: language, slot: index + 1)
+                )
             }
-            try renderAndSave(view: view, filename: "\(code)_05_playlist.png")
+            // 旧1枚目（ヒーローに置き換えたので出荷しない）。比較用に残す
+            try renderAndSave(
+                view: page(screen: .aiRecording, language: language) { PhoneFrameView { MockAIRecordingView(language: language) } },
+                to: outputDir.appendingPathComponent("_extra/\(language.code)_iphone_airecording.png")
+            )
         }
     }
 
-    func testRenderWaveformEditorScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .waveformEditor),
-                subtitle: language.screenshotSubtitle(for: .waveformEditor),
-                screen: .waveformEditor,
-                language: language
-            ) {
-                PhoneFrameView { MockWaveformEditorView(language: language) }
-            }
-            try renderAndSave(view: view, filename: "\(code)_03_waveformeditor.png")
-        }
-    }
-
-    func testRenderBackgroundRecordingScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .backgroundRecording),
-                subtitle: language.screenshotSubtitle(for: .backgroundRecording),
-                screen: .backgroundRecording,
-                language: language
-            ) {
-                PhoneFrameView { MockBackgroundRecordingView(language: language) }
-            }
-            try renderAndSave(view: view, filename: "\(code)_04_backgroundrecording.png")
-        }
-    }
-
-    func testRenderUseCaseScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .useCase),
-                subtitle: language.screenshotSubtitle(for: .useCase),
-                screen: .useCase,
-                language: language
-            ) {
-                PhoneFrameView { MockUseCaseView(language: language) }
-            }
-            try renderAndSave(view: view, filename: "\(code)_02_usecase.png")
-        }
-    }
-
-    func testRenderAITranscriptionScreenshots() throws {
-        for (language, code) in languages {
-            let view = ScreenshotPageView(
-                caption: language.screenshotCaption(for: .aiTranscription),
-                subtitle: language.screenshotSubtitle(for: .aiTranscription),
-                screen: .aiTranscription,
-                language: language
-            ) {
-                PhoneFrameView { MockAITranscriptionView(language: language) }
-            }
-            try renderAndSave(view: view, filename: "\(code)_07_aitranscription.png")
-        }
-    }
-
-    // MARK: - iPad Screenshots
+    // MARK: - iPad
 
     func testRenderIPadScreenshots() throws {
-        let screens: [(ScreenshotScreen, String)] = [
-            (.aiRecording,              "00_airecording"),
-            (.useCase,                  "02_usecase"),
-            (.backgroundRecording,      "04_backgroundrecording"),
-            (.timestampedTranscription, "06_transcription"),
-            (.waveformEditor,           "03_waveformeditor"),
-            (.playlist,                 "05_playlist"),
-            (.playbackList,             "01_playbacklist"),
-        ]
-        for (language, code) in languages {
-            for (screen, index) in screens {
-                try renderIPadScreen(screen: screen, index: index, language: language, code: code)
+        for language in languages {
+            for (index, screen) in ScreenshotSlots.iPad.enumerated() {
+                let url = outputDir.appendingPathComponent("\(language.code)/\(index)_APP_IPAD_PRO_3GEN_129_\(index).png")
+                try renderAndSave(
+                    view: page(screen: screen, language: language) { IPadFrameView { screen.mockView(language: language) } },
+                    to: url,
+                    width: 1024, height: 1366, scale: 2.0
+                )
             }
         }
     }
 
-    private func renderIPadScreen(screen: ScreenshotScreen, index: String, language: AppLanguage, code: String) throws {
-        let filename = "\(code)_ipad_\(index).png"
-        let caption = language.screenshotCaption(for: screen)
-        let subtitle = language.screenshotSubtitle(for: screen)
+    // MARK: - Helpers
 
-        switch screen {
-        case .aiRecording:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockAIRecordingView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        case .useCase:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockUseCaseView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        case .backgroundRecording:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockBackgroundRecordingView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        case .timestampedTranscription:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockTimestampedTranscriptionView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        case .waveformEditor:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockWaveformEditorView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        case .playlist:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockPlaylistView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        case .playbackList:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockPlaybackListView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        default:
-            try renderAndSave(view: ScreenshotPageView(caption: caption, subtitle: subtitle, screen: screen, language: language) { IPadFrameView { MockAIRecordingView(language: language) } }, filename: filename, width: 1024, height: 1366, scale: 2.0)
-        }
+    private func page<Content: View>(screen: ScreenshotScreen, language: AppLanguage, @ViewBuilder content: @escaping () -> Content) -> some View {
+        ScreenshotPageView(
+            caption: language.screenshotCaption(for: screen),
+            subtitle: language.screenshotSubtitle(for: screen),
+            screen: screen,
+            language: language,
+            content: content
+        )
     }
 
-    private func renderAndSave<V: View>(view: V, filename: String, width: CGFloat = 430, height: CGFloat = 932, scale: CGFloat = 3.0) throws {
+    private func iPhoneURL(language: AppLanguage, slot: Int) -> URL {
+        outputDir.appendingPathComponent("\(language.code)/\(slot)_APP_IPHONE_67_\(slot).png")
+    }
+
+    /// iPhone 16 Pro Max / 17 Pro Max: 440x956pt @3x = 1320x2868px
+    private func renderAndSave<V: View>(view: V, to url: URL, width: CGFloat = 440, height: CGFloat = 956, scale: CGFloat = 3.0) throws {
         let renderer = ImageRenderer(content: view.frame(width: width, height: height))
         renderer.proposedSize = ProposedViewSize(width: width, height: height)
         renderer.scale = scale
 
         guard let uiImage = renderer.uiImage,
               let pngData = uiImage.pngData() else {
-            XCTFail("Failed to render \(filename)")
+            XCTFail("Failed to render \(url.lastPathComponent)")
             return
         }
 
-        let fileURL = outputDir.appendingPathComponent(filename)
-        try pngData.write(to: fileURL)
-        print("✓ \(filename): \(uiImage.size.width * scale)x\(uiImage.size.height * scale)px → \(fileURL.path)")
-    }
-
-    private func renderAndSave<V: View>(view: V, filename: String) throws {
-        // iPhone 16 Pro Max: 440x956 logical pts @ 3x = 1320x2868px (APP_IPHONE_69)
-        try renderAndSave(view: view, filename: filename, width: 440, height: 956, scale: 3.0)
+        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try pngData.write(to: url)
+        print("✓ \(url.path): \(uiImage.size.width * scale)x\(uiImage.size.height * scale)px")
     }
 }
