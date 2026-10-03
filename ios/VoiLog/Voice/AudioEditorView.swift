@@ -238,7 +238,7 @@ struct AudioEditorView: View {
                 get: { viewStore.errorMessage != nil },
                 set: { if !$0 { viewStore.send(.errorOccurred("")) } }
             )) {
-                if let message = viewStore.errorMessage, message.starts(with: "分割が完了") {
+                if viewStore.isShowingSplitCompletedMessage, let message = viewStore.errorMessage {
                     // 成功メッセージの場合
                     return Alert(
                         title: Text(String(localized: "処理完了", table: "AudioEditor")),

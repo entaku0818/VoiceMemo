@@ -113,7 +113,8 @@ struct TranscriptionTabView: View {
     // MARK: - Export Helpers
 
     private func exportAsText(_ transcription: TimestampedTranscription) {
-        let content = "【\(memo.title)】\n録音日時: \(formatDetailedDate(memo.date))\n再生時間: \(formatDetailedDuration(memo.duration))\n\n" + transcription.formattedText
+        let content = MemoShareTextFormatter.transcriptHeader(title: memo.title, date: memo.date, duration: memo.duration)
+            + transcription.formattedText
         let fileName = "\(memo.title)_transcript.txt"
         let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
         try? content.write(to: tempURL, atomically: true, encoding: .utf8)
@@ -151,7 +152,7 @@ struct TranscriptionTabView: View {
                 .font: UIFont.systemFont(ofSize: 11),
                 .foregroundColor: UIColor.gray
             ]
-            let meta = "録音日時: \(formatDetailedDate(memo.date))  /  再生時間: \(formatDetailedDuration(memo.duration))" as NSString
+            let meta = MemoShareTextFormatter.pdfMetaLine(date: memo.date, duration: memo.duration) as NSString
             meta.draw(at: CGPoint(x: 40, y: 68), withAttributes: metaAttributes)
 
             // 区切り線
@@ -197,29 +198,6 @@ struct TranscriptionTabView: View {
 
                 yOffset += max(textHeight, 20) + 8
             }
-        }
-    }
-
-    // MARK: - Formatting Helpers
-
-    private func formatDetailedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日 (E) HH:mm:ss"
-        formatter.locale = Locale(identifier: "ja_JP")
-        return formatter.string(from: date)
-    }
-
-    private func formatDetailedDuration(_ duration: TimeInterval) -> String {
-        let hours = Int(duration) / 3600
-        let minutes = Int(duration) % 3600 / 60
-        let seconds = Int(duration) % 60
-
-        if hours > 0 {
-            return String(format: "%d時間 %d分 %d秒", hours, minutes, seconds)
-        } else if minutes > 0 {
-            return String(format: "%d分 %d秒", minutes, seconds)
-        } else {
-            return String(format: "%d秒", seconds)
         }
     }
 }

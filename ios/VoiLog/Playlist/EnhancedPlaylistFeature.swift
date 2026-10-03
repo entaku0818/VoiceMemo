@@ -320,7 +320,7 @@ struct EnhancedPlaylistFeature {
 
             case let .playbackFailed(error):
                 logger.error("Playback failed: \(error.localizedDescription)")
-                state.error = "再生に失敗しました"
+                state.error = String(localized: "再生に失敗しました", table: "Playlist")
                 state.isPlaying = false
                 state.currentPlayingIndex = nil
                 return .none
@@ -645,17 +645,17 @@ extension PlaylistError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notFound:
-            return "プレイリストが見つかりません"
+            return String(localized: "プレイリストが見つかりません", table: "Playlist")
         case .networkError(let message):
-            return "ネットワークエラー: \(message)"
+            return String(localized: "ネットワークエラー: \(message)", table: "Playlist")
         case .databaseError(let message):
-            return "データベースエラー: \(message)"
+            return String(localized: "データベースエラー: \(message)", table: "Playlist")
         case .unknown(let message):
-            return "不明なエラー: \(message)"
+            return String(localized: "不明なエラー: \(message)", table: "Playlist")
         }
     }
 
     var localizedDescription: String {
-        errorDescription ?? "不明なエラーが発生しました"
+        errorDescription ?? String(localized: "不明なエラーが発生しました", table: "Playlist")
     }
 }

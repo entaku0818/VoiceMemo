@@ -116,22 +116,22 @@ enum TutorialStep: String, CaseIterable, Equatable {
   var title: String {
     switch self {
     case .welcome:
-      return "VoiLogへようこそ！"
+      return String(localized: "VoiLogへようこそ！")
     case .tryRecording:
       return String(localized: "録音してみよう")
     case .complete:
-      return "チュートリアル完了"
+      return String(localized: "チュートリアル完了")
     }
   }
 
   var message: String {
     switch self {
     case .welcome:
-      return "会議・講義・アイデアを\nワンタップで録音保存。\n実際に試してみましょう！"
+      return String(localized: "会議・講義・アイデアを\nワンタップで録音保存。\n実際に試してみましょう！")
     case .tryRecording:
       return String(localized: "下の録音ボタンをタップしてください")
     case .complete:
-      return "チュートリアル完了です！\nVoiLogをお楽しみください。"
+      return String(localized: "チュートリアル完了です！\nVoiLogをお楽しみください。")
     }
   }
 

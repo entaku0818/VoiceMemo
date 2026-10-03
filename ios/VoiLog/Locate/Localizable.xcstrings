@@ -39241,6 +39241,1102 @@
           }
         }
       }
+    },
+    "VoiLogへようこそ！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مرحبًا بك في مسجل الصوت!"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সহজ রেকর্ডারে স্বাগতম!"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Et donem la benvinguda a Gravadora!"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vítejte v aplikaci Nahrávač!"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Velkommen til Lydoptager!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Willkommen bei Diktiergerät!"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Καλώς ήρθατε στην Ηχογράφηση!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Voice Recorder!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Te damos la bienvenida a Grabadora!"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tervetuloa Äänittimeen!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenue dans Enregistreur !"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સરળ રેકોર્ડરમાં આપનું સ્વાગત છે!"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ברוכים הבאים להקלטה פשוטה!"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वॉइस रिकॉर्डर में आपका स्वागत है!"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dobro došli u Snimač zvuka!"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Üdvözöl a Hangrögzítő!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selamat datang di Rekam Suara!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Benvenuto in Registratore!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VoiLogへようこそ！"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಸರಳ ರೆಕಾರ್ಡರ್‌ಗೆ ಸ್ವಾಗತ!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "심플 녹음에 오신 것을 환영합니다!"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "റെക്കോർഡറിലേക്ക് സ്വാഗതം!"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सोपा रेकॉर्डरमध्ये आपले स्वागत आहे!"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selamat datang ke Perakam Suara!"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Velkommen til Lydopptaker!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welkom bij Recorder!"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ସରଳ ରେକର୍ଡର୍‌କୁ ସ୍ୱାଗତ!"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸੌਖਾ ਰਿਕਾਰਡਰ ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Witamy w aplikacji Rejestrator!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boas-vindas ao Gravar Voz!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bem-vindo ao Gravar Voz!"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bun venit la Înregistrare!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добро пожаловать в Аудиозапись!"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitajte v aplikácii Nahrávač!"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dobrodošli v Snemalniku!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Välkommen till Diktafon!"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "எளிய பதிவுக்கு வரவேற்கிறோம்!"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "సరళ రికార్డర్‌కు స్వాగతం!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยินดีต้อนรับสู่ อัดเสียง!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Basit Kayıt'a hoş geldiniz!"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вітаємо у Звукозапису!"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سادہ ریکارڈر میں خوش آمدید!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào mừng bạn đến với Máy ghi âm!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "欢迎使用简单录音！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "歡迎使用簡易錄音！"
+          }
+        }
+      }
+    },
+    "チュートリアル完了" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اكتمل البرنامج التعليمي"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "টিউটোরিয়াল সম্পূর্ণ"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial completat"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Výukový průvodce dokončen"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vejledning fuldført"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial abgeschlossen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ο οδηγός ολοκληρώθηκε"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial Complete"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial completado"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opastus suoritettu"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutoriel terminé"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ટ્યુટોરિયલ પૂર્ણ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "המדריך הושלם"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ट्यूटोरियल पूरा हुआ"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vodič je završen"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oktatóanyag kész"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial Selesai"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial completato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "チュートリアル完了"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಟ್ಯುಟೋರಿಯಲ್ ಪೂರ್ಣಗೊಂಡಿದೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "튜토리얼 완료"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ട്യൂട്ടോറിയൽ പൂർത്തിയായി"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ट्युटोरियल पूर्ण"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial Selesai"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veiledning fullført"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial voltooid"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଟ୍ୟୁଟୋରିଆଲ୍ ସମ୍ପୂର୍ଣ୍ଣ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਟਿਊਟੋਰੀਅਲ ਪੂਰਾ ਹੋਇਆ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samouczek ukończony"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial concluído"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial concluído"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutorial finalizat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обучение завершено"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Návod dokončený"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vodič je končan"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guiden är klar"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பயிற்சி முடிந்தது"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ట్యుటోరియల్ పూర్తయింది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บทแนะนำเสร็จสิ้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eğitim tamamlandı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Навчання завершено"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ٹیوٹوریل مکمل"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoàn tất hướng dẫn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教程已完成"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教學已完成"
+          }
+        }
+      }
+    },
+    "会議・講義・アイデアを\nワンタップで録音保存。\n実際に試してみましょう！" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سجّل الاجتماعات والمحاضرات والأفكار\nبنقرة واحدة.\nجرّبه الآن!"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মিটিং, লেকচার আর আইডিয়া\nএক ট্যাপেই রেকর্ড করুন।\nএখনই চেষ্টা করে দেখুন!"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grava reunions, classes i idees\namb un sol toc.\nProva-ho ara!"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nahrávejte schůzky, přednášky i nápady\njediným klepnutím.\nVyzkoušejte to!"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optag møder, forelæsninger og idéer\nmed et enkelt tryk.\nPrøv det nu!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meetings, Vorlesungen und Ideen\nmit nur einem Tippen aufnehmen.\nProbier es gleich aus!"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ηχογραφήστε συσκέψεις, διαλέξεις και ιδέες\nμε ένα μόνο άγγιγμα.\nΔοκιμάστε το!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Record meetings, lectures, and ideas\nwith a single tap.\nGive it a try!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Graba reuniones, clases e ideas\ncon un solo toque.\n¡Pruébalo ahora!"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Äänitä kokoukset, luennot ja ideat\nyhdellä napautuksella.\nKokeile heti!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrez réunions, cours et idées\nd'un simple toucher.\nEssayez dès maintenant !"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "મીટિંગ, લેક્ચર અને આઇડિયા\nએક ટૅપમાં રેકોર્ડ કરો.\nહમણાં જ અજમાવી જુઓ!"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הקלטת פגישות, הרצאות ורעיונות\nבהקשה אחת.\nכדאי לנסות עכשיו!"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मीटिंग, लेक्चर और आइडिया\nएक टैप में रिकॉर्ड करें।\nअभी आज़माएं!"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snimajte sastanke, predavanja i ideje\njednim dodirom.\nIsprobajte odmah!"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rögzíts megbeszéléseket, előadásokat és ötleteket\negyetlen koppintással.\nPróbáld ki most!"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rekam rapat, kuliah, dan ide\ndengan sekali ketuk.\nCoba sekarang!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registra riunioni, lezioni e idee\ncon un solo tocco.\nProvalo subito!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会議・講義・アイデアを\nワンタップで録音保存。\n実際に試してみましょう！"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮೀಟಿಂಗ್, ಉಪನ್ಯಾಸ ಮತ್ತು ಐಡಿಯಾಗಳನ್ನು\nಒಂದೇ ಟ್ಯಾಪ್‌ನಲ್ಲಿ ರೆಕಾರ್ಡ್ ಮಾಡಿ.\nಈಗಲೇ ಪ್ರಯತ್ನಿಸಿ!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "회의, 강의, 아이디어를\n탭 한 번으로 녹음하세요.\n지금 바로 해 보세요!"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "മീറ്റിംഗുകളും ക്ലാസുകളും ആശയങ്ങളും\nഒറ്റ ടാപ്പിൽ റെക്കോർഡ് ചെയ്യൂ.\nഇപ്പോൾ തന്നെ പരീക്ഷിക്കൂ!"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मीटिंग, लेक्चर आणि कल्पना\nएका टॅपमध्ये रेकॉर्ड करा.\nआता वापरून पाहा!"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rakam mesyuarat, kuliah dan idea\ndengan satu ketikan.\nCuba sekarang!"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ta opp møter, forelesninger og ideer\nmed ett trykk.\nPrøv det nå!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neem vergaderingen, colleges en ideeën\nmet één tik op.\nProbeer het nu!"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ମିଟିଂ, ଲେକ୍ଚର ଓ ଆଇଡିଆ\nଗୋଟିଏ ଟ୍ୟାପରେ ରେକର୍ଡ କରନ୍ତୁ।\nଏବେ ହିଁ ଚେଷ୍ଟା କରନ୍ତୁ!"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਮੀਟਿੰਗਾਂ, ਲੈਕਚਰ ਅਤੇ ਵਿਚਾਰ\nਇੱਕ ਟੈਪ ਨਾਲ ਰਿਕਾਰਡ ਕਰੋ।\nਹੁਣੇ ਵਰਤ ਕੇ ਦੇਖੋ!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nagrywaj spotkania, wykłady i pomysły\njednym dotknięciem.\nWypróbuj teraz!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grave reuniões, aulas e ideias\ncom um só toque.\nExperimente agora!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grave reuniões, aulas e ideias\ncom um só toque.\nExperimente já!"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Înregistrați ședințe, cursuri și idei\ncu o singură atingere.\nÎncercați acum!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записывайте встречи, лекции и идеи\nодним касанием.\nПопробуйте прямо сейчас!"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nahrávajte stretnutia, prednášky aj nápady\njediným klepnutím.\nVyskúšajte to!"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snemajte sestanke, predavanja in ideje\nz enim dotikom.\nPreizkusite zdaj!"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spela in möten, föreläsningar och idéer\nmed ett enda tryck.\nProva nu!"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கூட்டங்கள், விரிவுரைகள், யோசனைகளை\nஒரே தட்டலில் பதிவுசெய்யுங்கள்.\nஇப்போதே முயலுங்கள்!"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మీటింగ్‌లు, లెక్చర్‌లు, ఐడియాలను\nఒక్క ట్యాప్‌తో రికార్డ్ చేయండి.\nఇప్పుడే ప్రయత్నించండి!"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึกการประชุม การบรรยาย และไอเดีย\nได้ในแตะเดียว\nลองใช้เลย!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toplantıları, dersleri ve fikirleri\ntek dokunuşla kaydedin.\nHemen deneyin!"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записуйте зустрічі, лекції та ідеї\nодним дотиком.\nСпробуйте зараз!"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "میٹنگز، لیکچرز اور خیالات\nایک ٹیپ سے ریکارڈ کریں۔\nابھی آزمائیں!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghi âm cuộc họp, bài giảng và ý tưởng\nchỉ với một chạm.\nHãy thử ngay!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会议、讲座、灵感\n一键录音保存。\n现在就来试试吧！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "會議、講座、靈感\n一鍵錄音儲存。\n現在就來試試吧！"
+          }
+        }
+      }
+    },
+    "チュートリアル完了です！\nVoiLogをお楽しみください。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لقد أكملت البرنامج التعليمي!\nاستمتع باستخدام مسجل الصوت."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "টিউটোরিয়াল শেষ হয়েছে!\nসহজ রেকর্ডার উপভোগ করুন।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Has completat el tutorial!\nGaudeix de Gravadora."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokončili jste výukového průvodce!\nUžívejte si Nahrávač."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du har gennemført vejledningen!\nGod fornøjelse med Lydoptager."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du hast das Tutorial abgeschlossen!\nViel Spaß mit Diktiergerät."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ολοκληρώσατε τον οδηγό!\nΑπολαύστε την Ηχογράφηση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You've finished the tutorial!\nEnjoy Voice Recorder."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Has completado el tutorial!\nDisfruta de Grabadora."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Olet suorittanut opastuksen!\nNauti Äänittimen käytöstä."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous avez terminé le tutoriel !\nProfitez bien d'Enregistreur."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "તમે ટ્યુટોરિયલ પૂર્ણ કર્યું!\nસરળ રેકોર્ડરનો આનંદ માણો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סיימת את המדריך!\nתהנו מהקלטה פשוטה."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आपने ट्यूटोरियल पूरा कर लिया!\nवॉइस रिकॉर्डर का आनंद लें।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Završili ste vodič!\nUživajte u aplikaciji Snimač zvuka."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Befejezted az oktatóanyagot!\nJó szórakozást a Hangrögzítőhöz."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anda telah menyelesaikan tutorial!\nSelamat menikmati Rekam Suara."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hai completato il tutorial!\nGoditi Registratore."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "チュートリアル完了です！\nVoiLogをお楽しみください。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ನೀವು ಟ್ಯುಟೋರಿಯಲ್ ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ!\nಸರಳ ರೆಕಾರ್ಡರ್ ಆನಂದಿಸಿ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "튜토리얼을 완료했습니다!\n심플 녹음을 즐겨 보세요."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "നിങ്ങൾ ട്യൂട്ടോറിയൽ പൂർത്തിയാക്കി!\nറെക്കോർഡർ ആസ്വദിക്കൂ."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "तुम्ही ट्युटोरियल पूर्ण केले!\nसोपा रेकॉर्डरचा आनंद घ्या."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anda telah menyelesaikan tutorial!\nNikmati Perakam Suara."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du har fullført veiledningen!\nKos deg med Lydopptaker."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je hebt de tutorial voltooid!\nVeel plezier met Recorder."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଆପଣ ଟ୍ୟୁଟୋରିଆଲ୍ ସମ୍ପୂର୍ଣ୍ଣ କଲେ!\nସରଳ ରେକର୍ଡର୍ ଉପଭୋଗ କରନ୍ତୁ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਤੁਸੀਂ ਟਿਊਟੋਰੀਅਲ ਪੂਰਾ ਕਰ ਲਿਆ!\nਸੌਖਾ ਰਿਕਾਰਡਰ ਦਾ ਆਨੰਦ ਮਾਣੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Samouczek ukończony!\nMiłego korzystania z aplikacji Rejestrator."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você concluiu o tutorial!\nAproveite o Gravar Voz."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concluiu o tutorial!\nDesfrute do Gravar Voz."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ați finalizat tutorialul!\nBucurați-vă de Înregistrare."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вы прошли обучение!\nПриятного пользования Аудиозаписью."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokončili ste návod!\nUžívajte si Nahrávač."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dokončali ste vodič!\nUživajte v Snemalniku."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du har slutfört guiden!\nMycket nöje med Diktafon."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பயிற்சியை முடித்துவிட்டீர்கள்!\nஎளிய பதிவை அனுபவியுங்கள்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మీరు ట్యుటోరియల్ పూర్తి చేశారు!\nసరళ రికార్డర్‌ను ఆస్వాదించండి."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คุณทำบทแนะนำเสร็จแล้ว!\nขอให้สนุกกับ อัดเสียง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eğitimi tamamladınız!\nBasit Kayıt'ın keyfini çıkarın."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ви пройшли навчання!\nНасолоджуйтеся Звукозаписом."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آپ نے ٹیوٹوریل مکمل کر لیا!\nسادہ ریکارڈر سے لطف اٹھائیں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bạn đã hoàn tất hướng dẫn!\nChúc bạn dùng Máy ghi âm vui vẻ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教程已完成！\n尽情享受简单录音吧。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教學已完成！\n盡情享受簡易錄音吧。"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"

@@ -202,7 +202,7 @@ extension AudioPlayerClient {
             case .slower:
                 return "0.75x"
             case .normal:
-                return "1x (標準)"
+                return String(localized: "1x (標準)", table: "Playback")
             case .faster:
                 return "1.25x"
             case .fast:

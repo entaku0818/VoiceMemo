@@ -68,7 +68,7 @@ enum AudioExporter {
         case sessionCreationFailed
 
         var errorDescription: String? {
-            "エクスポートセッションの作成に失敗しました"
+            String(localized: "エクスポートセッションの作成に失敗しました", table: "Playback")
         }
     }
 }

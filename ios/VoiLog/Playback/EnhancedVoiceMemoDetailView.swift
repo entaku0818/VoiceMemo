@@ -225,45 +225,14 @@ struct EnhancedVoiceMemoDetailView: View {
     // MARK: - Share Report
 
     private func generateDetailReport() -> String {
-        var report = "【音声メモ詳細レポート】\n\n"
-        report += "タイトル: \(memo.title)\n"
-        report += "録音日時: \(formatDetailedDate(memo.date))\n"
-        report += "再生時間: \(formatDetailedDuration(memo.duration))\n"
-        report += "ファイルサイズ: \(formatDetailedFileSize(memo.fileSize))\n"
-        report += "形式: \(formatFileFormat(memo.fileFormat))\n"
-        report += "サンプリングレート: \(Int(memo.samplingFrequency)) Hz\n"
-        report += "ビット深度: \(memo.quantizationBitDepth) bit\n"
-        report += "チャンネル: \(channelConfiguration())\n"
-
-        if !memo.text.isEmpty {
-            report += "\n音声認識テキスト:\n\(memo.text)\n"
-        }
-
-        return report
+        MemoShareTextFormatter.detailReport(
+            memo: memo,
+            fileSize: formatDetailedFileSize(memo.fileSize),
+            fileFormat: formatFileFormat(memo.fileFormat)
+        )
     }
 
     // MARK: - Formatting Helpers (used only by generateDetailReport)
-
-    private func formatDetailedDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年MM月dd日 (E) HH:mm:ss"
-        formatter.locale = Locale(identifier: "ja_JP")
-        return formatter.string(from: date)
-    }
-
-    private func formatDetailedDuration(_ duration: TimeInterval) -> String {
-        let hours = Int(duration) / 3600
-        let minutes = Int(duration) % 3600 / 60
-        let seconds = Int(duration) % 60
-
-        if hours > 0 {
-            return String(format: "%d時間 %d分 %d秒", hours, minutes, seconds)
-        } else if minutes > 0 {
-            return String(format: "%d分 %d秒", minutes, seconds)
-        } else {
-            return String(format: "%d秒", seconds)
-        }
-    }
 
     private func formatDetailedFileSize(_ bytes: Int64) -> String {
         let formatter = ByteCountFormatter()
@@ -284,14 +253,6 @@ struct EnhancedVoiceMemoDetailView: View {
             return "AAC"
         default:
             return format.uppercased()
-        }
-    }
-
-    private func channelConfiguration() -> String {
-        switch memo.numberOfChannels {
-        case 1: return "モノラル (1ch)"
-        case 2: return "ステレオ (2ch)"
-        default: return "\(memo.numberOfChannels)チャンネル"
         }
     }
 }

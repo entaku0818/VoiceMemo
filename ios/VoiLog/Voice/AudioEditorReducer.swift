@@ -14,18 +14,32 @@ enum EditOperation: Equatable {
     var description: String {
         switch self {
         case let .trim(startTime, endTime):
-            return "トリム: \(String(format: "%.1f", startTime))秒 - \(String(format: "%.1f", endTime))秒"
+            return String(
+                format: String(localized: "トリム: %1$@秒 - %2$@秒", table: "AudioEditor"),
+                Self.oneDecimal(startTime),
+                Self.oneDecimal(endTime)
+            )
         case let .split(atTime):
-            return "分割: \(String(format: "%.1f", atTime))秒"
+            return String(format: String(localized: "分割: %@秒", table: "AudioEditor"), Self.oneDecimal(atTime))
         case .merge:
-            return "結合"
+            return String(localized: "結合", table: "AudioEditor")
         case let .adjustVolume(level, range):
             if let range = range {
-                return "音量調整: \(String(format: "%.1f", level))倍 (\(String(format: "%.1f", range.lowerBound))秒 - \(String(format: "%.1f", range.upperBound))秒)"
+                return String(
+                    format: String(localized: "音量調整: %1$@倍 (%2$@秒 - %3$@秒)", table: "AudioEditor"),
+                    Self.oneDecimal(Double(level)),
+                    Self.oneDecimal(range.lowerBound),
+                    Self.oneDecimal(range.upperBound)
+                )
             } else {
-                return "音量調整: \(String(format: "%.1f", level))倍 (全体)"
+                return String(format: String(localized: "音量調整: %@倍 (全体)", table: "AudioEditor"), Self.oneDecimal(Double(level)))
             }
         }
+    }
+
+    /// 小数1桁・ユーザーのロケールの小数点で整形する（例: ja/en "2.5", de "2,5"）
+    static func oneDecimal(_ value: Double) -> String {
+        value.formatted(.number.precision(.fractionLength(1)).grouping(.never))
     }
 }
 
@@ -45,6 +59,23 @@ struct AudioEditorReducer: Reducer {
         var processingOperation: EditOperation?
         var errorMessage: String?
         var shouldDismiss = false
+
+        /// 分割成功時にアラートで出す文言。View はこれと一致するかで成功/失敗を見分ける
+        static func splitCompletedMessage(originalTitle: String) -> String {
+            String(
+                format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。", table: "AudioEditor"),
+                String(format: String(localized: "%@ (前半)", table: "AudioEditor"), originalTitle)
+            )
+        }
+
+        /// 分割後に保存する新しい録音のタイトル（録音一覧に表示される）
+        static func splitAudioTitle(timestamp: String) -> String {
+            String(format: String(localized: "分割音声 %@", table: "AudioEditor"), timestamp)
+        }
+
+        var isShowingSplitCompletedMessage: Bool {
+            errorMessage == Self.splitCompletedMessage(originalTitle: originalTitle)
+        }
     }
 
     @CasePathable
@@ -186,7 +217,7 @@ struct AudioEditorReducer: Reducer {
                     AppLogger.file.info("Audio split completed. Saved first part: \(newURLs[0].lastPathComponent)")
 
                     // 成功メッセージを表示
-                    state.errorMessage = String(format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。", table: "AudioEditor"), "\(state.originalTitle) (前半)")
+                    state.errorMessage = State.splitCompletedMessage(originalTitle: state.originalTitle)
 
                     // 波形データを再読み込み
                     return self.reduce(into: &state, action: .loadAudio)
@@ -291,7 +322,7 @@ struct AudioEditorReducer: Reducer {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             let timestamp = dateFormatter.string(from: Date())
-            let newTitle = "分割音声 \(timestamp)"
+            let newTitle = State.splitAudioTitle(timestamp: timestamp)
 
             return .run { [url = state.audioURL, memoID = state.memoID, newTitle] send in
                 do {

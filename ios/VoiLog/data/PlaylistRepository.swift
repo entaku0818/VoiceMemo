@@ -50,13 +50,13 @@ enum PlaylistRepositoryError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notFound:
-            return "指定されたプレイリストが見つかりませんでした"
+            return String(localized: "指定されたプレイリストが見つかりませんでした", table: "Playlist")
         case .failedToSave:
-            return "プレイリストの保存に失敗しました"
+            return String(localized: "プレイリストの保存に失敗しました", table: "Playlist")
         case .voiceNotFound:
-            return "指定された音声が見つかりませんでした"
+            return String(localized: "指定された音声が見つかりませんでした", table: "Playlist")
         case .unknown(let error):
-            return "予期せぬエラーが発生しました: \(error.localizedDescription)"
+            return String(localized: "予期せぬエラーが発生しました: \(error.localizedDescription)", table: "Playlist")
         }
     }
 }

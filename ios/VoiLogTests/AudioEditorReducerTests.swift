@@ -171,13 +171,64 @@ final class AudioEditorReducerTests: XCTestCase {
                 $0.editHistory = [.split(atTime: 5.0)]
                 $0.errorMessage = String(
                     format: String(localized: "分割が完了しました。\n分割ポイントまでの「%@」\nとして保存されました。", table: "AudioEditor"),
-                    "テスト録音 (前半)"
+                    String(format: String(localized: "%@ (前半)", table: "AudioEditor"), "テスト録音")
                 )
             }
             await store.receive(\.audioLoaded) {
                 $0.isLoadingWaveform = false
             }
+            // 成功メッセージはロケールに関係なく成功アラートとして判定される（#221）
+            XCTAssertTrue(store.state.isShowingSplitCompletedMessage)
         }
+    }
+
+    /// 失敗メッセージは成功アラート扱いにならない
+    func testSplitFailureMessage_isNotTreatedAsSuccess() {
+        var state = AudioEditorReducer.State(
+            memoID: testID,
+            audioURL: testURL,
+            originalTitle: "テスト録音",
+            duration: 10.0
+        )
+        XCTAssertFalse(state.isShowingSplitCompletedMessage)
+        state.errorMessage = String(format: String(localized: "分割に失敗しました: %@", table: "AudioEditor"), "x")
+        XCTAssertFalse(state.isShowingSplitCompletedMessage)
+        state.errorMessage = AudioEditorReducer.State.splitCompletedMessage(originalTitle: "テスト録音")
+        XCTAssertTrue(state.isShowingSplitCompletedMessage)
+        XCTAssertTrue(state.errorMessage?.contains("テスト録音") == true)
+    }
+
+    // MARK: - 編集履歴の説明・分割後タイトル（#221: 日本語直書きをやめてカタログから引く）
+
+    func testEditOperationDescriptions_comeFromCatalog() {
+        let oneDecimal = EditOperation.oneDecimal
+        let cases: [(EditOperation, String, [String])] = [
+            (.trim(startTime: 1.25, endTime: 3.0), "トリム: %1$@秒 - %2$@秒", [oneDecimal(1.25), oneDecimal(3.0)]),
+            (.split(atTime: 5.0), "分割: %@秒", [oneDecimal(5.0)]),
+            (.adjustVolume(level: 1.5, range: 2.0...8.0), "音量調整: %1$@倍 (%2$@秒 - %3$@秒)", [oneDecimal(1.5), oneDecimal(2.0), oneDecimal(8.0)]),
+            (.adjustVolume(level: 0.5, range: nil), "音量調整: %@倍 (全体)", [oneDecimal(0.5)])
+        ]
+        for (operation, key, args) in cases {
+            let expected = String(format: String(localized: String.LocalizationValue(key), table: "AudioEditor"), arguments: args)
+            XCTAssertEqual(operation.description, expected)
+            XCTAssertFalse(operation.description.contains("%"), "書式指定子が残っている: \(operation.description)")
+            for arg in args {
+                XCTAssertTrue(operation.description.contains(arg), "\(arg) が含まれない: \(operation.description)")
+            }
+        }
+        XCTAssertEqual(EditOperation.merge(withMemoID: UUID()).description, String(localized: "結合", table: "AudioEditor"))
+    }
+
+    func testOneDecimal_usesOneFractionDigit() {
+        XCTAssertEqual(EditOperation.oneDecimal(2.0).count, 3)
+        XCTAssertEqual(EditOperation.oneDecimal(12.34).count, 4)
+    }
+
+    func testSplitAudioTitle_containsTimestamp() {
+        let title = AudioEditorReducer.State.splitAudioTitle(timestamp: "2026-10-03 12:34:56")
+        XCTAssertEqual(title, String(format: String(localized: "分割音声 %@", table: "AudioEditor"), "2026-10-03 12:34:56"))
+        XCTAssertTrue(title.contains("2026-10-03 12:34:56"))
+        XCTAssertFalse(title.contains("%"))
     }
 }
 

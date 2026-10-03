@@ -639,7 +639,7 @@ private struct PremiumBannerView: View {
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.white, .purple)
                 VStack(alignment: .leading) {
-                    Text(String(localized: "1ヶ月無料！", table: "Settings"))
+                    Text(String(localized: "7日間無料！", table: "Settings"))
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.white)

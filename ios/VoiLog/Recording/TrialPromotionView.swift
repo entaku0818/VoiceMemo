@@ -57,7 +57,7 @@ struct TrialPromotionView: View {
             // 無料トライアルボタン
             Button(action: onStartTrial) {
                 VStack(spacing: 4) {
-                    Text(String(localized: "1ヶ月無料で試す", table: "Recording"))
+                    Text(String(localized: "7日間無料で試す", table: "Premium"))
                         .font(.system(size: 18, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                     Text(String(localized: "いつでもキャンセル可能", table: "Recording"))

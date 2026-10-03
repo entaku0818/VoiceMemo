@@ -21,7 +21,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
             do {
                 // VoiceMemoFileManagerを使ってファイルを探す
                 guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
-                    throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
+                    throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "音声ファイルが見つかりません: \(url.path)", table: "AudioEditor")])
                 }
 
                 AppLogger.file.debug("Starting waveform generation: \(actualURL.path)")
@@ -49,7 +49,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
 
                 // バッファを準備
                 guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else {
-                    throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "バッファの作成に失敗しました"])
+                    throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "バッファの作成に失敗しました", table: "AudioEditor")])
                 }
 
                 // 音声ファイルを読み込む
@@ -93,7 +93,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
     func trimAudio(at url: URL, range: ClosedRange<Double>) async throws -> URL {
         // VoiceMemoFileManagerを使ってファイルを探す
         guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "音声ファイルが見つかりません: \(url.path)", table: "AudioEditor")])
         }
 
         let asset = AVAsset(url: actualURL)
@@ -104,12 +104,12 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
             withMediaType: .audio,
             preferredTrackID: kCMPersistentTrackID_Invalid)
         else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "トラックの作成に失敗しました"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "トラックの作成に失敗しました", table: "AudioEditor")])
         }
 
         // 元の音声ファイルからオーディオトラックを取得
         guard let audioTrack = try await asset.loadTracks(withMediaType: .audio).first else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "オーディオトラックが見つかりません"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "オーディオトラックが見つかりません", table: "AudioEditor")])
         }
 
         // 時間範囲を設定
@@ -133,7 +133,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
                 asset: composition,
                 presetName: AVAssetExportPresetAppleM4A
             ) else {
-                continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートセッションの作成に失敗しました"]))
+                continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートセッションの作成に失敗しました", table: "AudioEditor")]))
                 return
             }
 
@@ -148,12 +148,12 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
                     if let error = exportSession.error {
                         continuation.resume(throwing: error)
                     } else {
-                        continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートに失敗しました"]))
+                        continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートに失敗しました", table: "AudioEditor")]))
                     }
                 case .cancelled:
-                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートがキャンセルされました"]))
+                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートがキャンセルされました", table: "AudioEditor")]))
                 default:
-                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "不明なエラーが発生しました"]))
+                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "不明なエラーが発生しました", table: "AudioEditor")]))
                 }
             }
         }
@@ -162,14 +162,14 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
     // 音声の分割
     func splitAudio(at url: URL, atTime: Double) async throws -> [URL] {
         guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "音声ファイルが見つかりません: \(url.path)", table: "AudioEditor")])
         }
 
         let asset = AVAsset(url: actualURL)
         let duration = try await asset.load(.duration).seconds
 
         guard atTime > 0, atTime < duration else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "分割ポイントが無効です（0秒または音声の終端以降）"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "分割ポイントが無効です（0秒または音声の終端以降）", table: "AudioEditor")])
         }
 
         let firstPart = try await trimAudio(at: url, range: 0.0...atTime)
@@ -181,7 +181,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
     // 音声の結合
     func mergeAudio(urls: [URL]) async throws -> URL {
         guard !urls.isEmpty else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "結合する音声ファイルがありません"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "結合する音声ファイルがありません", table: "AudioEditor")])
         }
 
         if urls.count == 1 {
@@ -194,7 +194,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
             withMediaType: .audio,
             preferredTrackID: kCMPersistentTrackID_Invalid)
         else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "トラックの作成に失敗しました"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "トラックの作成に失敗しました", table: "AudioEditor")])
         }
 
         var insertTime = CMTime.zero
@@ -226,7 +226,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
                 asset: composition,
                 presetName: AVAssetExportPresetAppleM4A
             ) else {
-                continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートセッションの作成に失敗しました"]))
+                continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートセッションの作成に失敗しました", table: "AudioEditor")]))
                 return
             }
 
@@ -241,12 +241,12 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
                     if let error = exportSession.error {
                         continuation.resume(throwing: error)
                     } else {
-                        continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートに失敗しました"]))
+                        continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートに失敗しました", table: "AudioEditor")]))
                     }
                 case .cancelled:
-                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートがキャンセルされました"]))
+                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートがキャンセルされました", table: "AudioEditor")]))
                 default:
-                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "不明なエラーが発生しました"]))
+                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "不明なエラーが発生しました", table: "AudioEditor")]))
                 }
             }
         }
@@ -256,7 +256,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
     func adjustVolume(at url: URL, level: Float, range: ClosedRange<Double>?) async throws -> URL {
         // VoiceMemoFileManagerを使ってファイルを探す
         guard let actualURL = VoiceMemoFileManager.findAudioFile(for: url) else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "音声ファイルが見つかりません: \(url.path)"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "音声ファイルが見つかりません: \(url.path)", table: "AudioEditor")])
         }
 
         let asset = AVAsset(url: actualURL)
@@ -267,12 +267,12 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
             withMediaType: .audio,
             preferredTrackID: kCMPersistentTrackID_Invalid)
         else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "トラックの作成に失敗しました"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "トラックの作成に失敗しました", table: "AudioEditor")])
         }
 
         // 元の音声ファイルからオーディオトラックを取得
         guard let audioTrack = try await asset.loadTracks(withMediaType: .audio).first else {
-            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "オーディオトラックが見つかりません"])
+            throw NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "オーディオトラックが見つかりません", table: "AudioEditor")])
         }
 
         let duration = try await asset.load(.duration)
@@ -320,7 +320,7 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
                 asset: composition,
                 presetName: AVAssetExportPresetAppleM4A
             ) else {
-                continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートセッションの作成に失敗しました"]))
+                continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートセッションの作成に失敗しました", table: "AudioEditor")]))
                 return
             }
 
@@ -336,12 +336,12 @@ struct AudioProcessingService: AudioProcessingServiceProtocol {
                     if let error = exportSession.error {
                         continuation.resume(throwing: error)
                     } else {
-                        continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートに失敗しました"]))
+                        continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートに失敗しました", table: "AudioEditor")]))
                     }
                 case .cancelled:
-                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "エクスポートがキャンセルされました"]))
+                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "エクスポートがキャンセルされました", table: "AudioEditor")]))
                 default:
-                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: "不明なエラーが発生しました"]))
+                    continuation.resume(throwing: NSError(domain: "AudioProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey: String(localized: "不明なエラーが発生しました", table: "AudioEditor")]))
                 }
             }
         }
