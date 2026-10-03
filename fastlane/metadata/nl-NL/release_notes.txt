@@ -1,9 +1,9 @@
-Versie 1.15.0
-
-[Nieuw]
-- Nu beschikbaar in 25 extra talen, waaronder Braziliaans-Portugees, Oekraïens, Hebreeuws, Grieks en Indiase talen zoals Tamil, Bengaals en Telugu
-- Toestemmingsmeldingen (zoals voor toegang tot de microfoon) worden nu in je eigen taal weergegeven
+Versie 1.15.1
 
 [Verbeteringen]
-- Teksten voor het jaarabonnement en Siri-opdrachten die alleen in het Japans werden getoond, zijn nu vertaald
-- Vertalingen in alle talen nagekeken en verbeterd
+- Gedeelde transcripties, PDF-exports, bewerkingsgeschiedenis en foutmeldingen worden nu in je eigen taal weergegeven
+- De uitleg bij de eerste keer openen wordt nu in je eigen taal weergegeven
+
+[Opgeloste problemen]
+- Opgelost: de gratis proefperiode werd op sommige plekken als 1 maand weergegeven (het is 7 dagen)
+- Opgelost: het succesvol splitsen van audio werd in sommige talen als fout weergegeven

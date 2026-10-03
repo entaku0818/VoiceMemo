@@ -1,9 +1,9 @@
-Version 1.15.0
-
-[New]
-- Now available in 25 more languages, including Brazilian Portuguese, Ukrainian, Hebrew, Greek, and Indian languages such as Tamil, Bengali and Telugu
-- Permission messages (such as microphone access) now appear in your language
+Version 1.15.1
 
 [Improvements]
-- Text for the annual plan and Siri Shortcuts that previously appeared only in Japanese is now translated
-- Reviewed and improved translations in all languages
+- Shared transcriptions, PDF exports, edit history and error messages now appear in your language
+- The first-launch tutorial is now shown in your language
+
+[Bug Fixes]
+- Fixed the free trial being shown as 1 month in some places (it is 7 days)
+- Fixed a successful audio split being shown as an error in some languages

@@ -1,9 +1,9 @@
-Versi 1.15.0
-
-[Baharu]
-- Kini tersedia dalam 25 bahasa tambahan, termasuk Portugis Brazil, Ukraine, Ibrani, Yunani dan bahasa India seperti Tamil, Bengali dan Telugu
-- Mesej kebenaran (seperti akses mikrofon) kini dipaparkan dalam bahasa anda
+Versi 1.15.1
 
 [Penambahbaikan]
-- Teks pelan tahunan dan Pintasan Siri yang sebelum ini hanya dipaparkan dalam bahasa Jepun kini telah diterjemahkan
-- Terjemahan dalam semua bahasa telah disemak dan diperbaiki
+- Transkripsi yang dikongsi, eksport PDF, sejarah suntingan dan mesej ralat kini dipaparkan dalam bahasa anda
+- Tutorial semasa pelancaran pertama kini dipaparkan dalam bahasa anda
+
+[Pembetulan Pepijat]
+- Membetulkan percubaan percuma yang dipaparkan sebagai 1 bulan di beberapa tempat (sebenarnya 7 hari)
+- Membetulkan pemisahan audio yang berjaya tetapi dipaparkan sebagai ralat dalam sesetengah bahasa

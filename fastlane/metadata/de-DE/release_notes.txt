@@ -1,9 +1,9 @@
-Version 1.15.0
-
-[Neu]
-- Jetzt in 25 weiteren Sprachen verfügbar, darunter brasilianisches Portugiesisch, Ukrainisch, Hebräisch, Griechisch sowie indische Sprachen wie Tamil, Bengalisch und Telugu
-- Berechtigungsabfragen (z. B. für den Mikrofonzugriff) werden jetzt in Ihrer Sprache angezeigt
+Version 1.15.1
 
 [Verbesserungen]
-- Texte zum Jahresabo und zu Siri-Kurzbefehlen, die bisher nur auf Japanisch angezeigt wurden, sind jetzt übersetzt
-- Übersetzungen in allen Sprachen überprüft und verbessert
+- Geteilte Transkriptionen, PDF-Exporte, der Bearbeitungsverlauf und Fehlermeldungen werden jetzt in Ihrer Sprache angezeigt
+- Die Einführung beim ersten Start wird jetzt in Ihrer Sprache angezeigt
+
+[Fehlerbehebungen]
+- Behoben: Der kostenlose Testzeitraum wurde an einigen Stellen als 1 Monat angezeigt (er beträgt 7 Tage)
+- Behoben: Ein erfolgreiches Aufteilen von Audio wurde in einigen Sprachen als Fehler angezeigt

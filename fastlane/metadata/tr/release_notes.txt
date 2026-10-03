@@ -1,9 +1,9 @@
-Sürüm 1.15.0
-
-[Yenilikler]
-- Uygulama artık Brezilya Portekizcesi, Ukraynaca, İbranice, Yunanca ve Tamilce, Bengalce, Teluguca gibi Hint dilleri dahil 25 yeni dilde kullanılabiliyor
-- İzin mesajları (mikrofon erişimi gibi) artık kendi dilinizde gösteriliyor
+Sürüm 1.15.1
 
 [İyileştirmeler]
-- Yalnızca Japonca gösterilen yıllık plan ve Siri Kestirmeleri metinleri artık çevrildi
-- Tüm dillerdeki çeviriler gözden geçirildi ve iyileştirildi
+- Paylaşılan transkripsiyonlar, PDF dışa aktarımları, düzenleme geçmişi ve hata mesajları artık kendi dilinizde gösteriliyor
+- İlk açılıştaki eğitim artık kendi dilinizde gösteriliyor
+
+[Hata Düzeltmeleri]
+- Ücretsiz denemenin bazı yerlerde 1 ay olarak gösterilmesi düzeltildi (doğrusu 7 gün)
+- Bazı dillerde başarılı bir ses bölme işleminin hata olarak gösterilmesi düzeltildi

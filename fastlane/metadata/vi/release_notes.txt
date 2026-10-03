@@ -1,9 +1,9 @@
-Phiên bản 1.15.0
-
-[Mới]
-- Hỗ trợ thêm 25 ngôn ngữ, bao gồm tiếng Bồ Đào Nha (Brazil), tiếng Ukraina, tiếng Do Thái, tiếng Hy Lạp và các ngôn ngữ Ấn Độ như tiếng Tamil, tiếng Bengal và tiếng Telugu
-- Các thông báo xin quyền (như quyền truy cập micrô) giờ hiển thị bằng ngôn ngữ của bạn
+Phiên bản 1.15.1
 
 [Cải thiện]
-- Nội dung về gói theo năm và Phím tắt Siri trước đây chỉ hiển thị bằng tiếng Nhật nay đã được dịch
-- Rà soát và cải thiện bản dịch ở tất cả ngôn ngữ
+- Bản phiên âm khi chia sẻ, tệp PDF xuất ra, lịch sử chỉnh sửa và thông báo lỗi giờ hiển thị bằng ngôn ngữ của bạn
+- Hướng dẫn khi mở ứng dụng lần đầu giờ hiển thị bằng ngôn ngữ của bạn
+
+[Sửa lỗi]
+- Sửa lỗi bản dùng thử miễn phí bị hiển thị là 1 tháng ở một số nơi (thực tế là 7 ngày)
+- Sửa lỗi tách âm thanh thành công nhưng lại hiển thị là lỗi ở một số ngôn ngữ

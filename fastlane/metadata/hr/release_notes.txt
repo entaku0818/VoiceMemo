@@ -1,9 +1,9 @@
-Verzija 1.15.0
-
-[Novo]
-- Sada dostupno na još 25 jezika, uključujući brazilski portugalski, ukrajinski, hebrejski, grčki te indijske jezike poput tamilskog, bengalskog i telugua
-- Poruke o dopuštenjima (npr. za pristup mikrofonu) sada se prikazuju na vašem jeziku
+Verzija 1.15.1
 
 [Poboljšanja]
-- Tekstovi za godišnju pretplatu i Siri prečace koji su se prikazivali samo na japanskom sada su prevedeni
-- Pregledani su i poboljšani prijevodi na svim jezicima
+- Dijeljene transkripcije, PDF izvozi, povijest uređivanja i poruke o pogreškama sada se prikazuju na vašem jeziku
+- Vodič pri prvom pokretanju sada se prikazuje na vašem jeziku
+
+[Ispravci pogrešaka]
+- Ispravljen je prikaz besplatnog probnog razdoblja kao 1 mjesec na nekim mjestima (traje 7 dana)
+- Ispravljen je prikaz uspješnog razdvajanja zvuka kao pogreške na nekim jezicima

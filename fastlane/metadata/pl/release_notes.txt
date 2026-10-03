@@ -1,9 +1,9 @@
-Wersja 1.15.0
-
-[Nowości]
-- Aplikacja jest teraz dostępna w 25 kolejnych językach, m.in. portugalskim (Brazylia), ukraińskim, hebrajskim, greckim oraz językach indyjskich, takich jak tamilski, bengalski i telugu
-- Komunikaty o uprawnieniach (np. dostęp do mikrofonu) wyświetlają się teraz w Twoim języku
+Wersja 1.15.1
 
 [Ulepszenia]
-- Teksty planu rocznego i skrótów Siri, które były wyświetlane tylko po japońsku, zostały przetłumaczone
-- Sprawdziliśmy i poprawiliśmy tłumaczenia we wszystkich językach
+- Udostępniane transkrypcje, eksport do PDF, historia edycji i komunikaty o błędach wyświetlają się teraz w Twoim języku
+- Samouczek przy pierwszym uruchomieniu wyświetla się teraz w Twoim języku
+
+[Poprawki błędów]
+- Naprawiono wyświetlanie bezpłatnego okresu próbnego jako 1 miesiąc w niektórych miejscach (trwa 7 dni)
+- Naprawiono wyświetlanie udanego podziału nagrania jako błędu w niektórych językach

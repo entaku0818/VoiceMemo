@@ -1,9 +1,9 @@
-Versiunea 1.15.0
-
-[Nou]
-- Aplicația este acum disponibilă în încă 25 de limbi, inclusiv portugheză (Brazilia), ucraineană, ebraică, greacă și limbi indiene precum tamilă, bengaleză și telugu
-- Mesajele de permisiune (de exemplu, pentru accesul la microfon) apar acum în limba dumneavoastră
+Versiunea 1.15.1
 
 [Îmbunătățiri]
-- Textele planului anual și ale Scurtăturilor Siri, afișate până acum doar în japoneză, sunt acum traduse
-- Traducerile în toate limbile au fost revizuite și îmbunătățite
+- Transcrierile partajate, exporturile PDF, istoricul editărilor și mesajele de eroare apar acum în limba dumneavoastră
+- Tutorialul de la prima pornire apare acum în limba dumneavoastră
+
+[Remedieri]
+- Am remediat afișarea probei gratuite ca 1 lună în unele locuri (durează 7 zile)
+- Am remediat afișarea unei împărțiri audio reușite ca eroare în unele limbi

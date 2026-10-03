@@ -1,9 +1,9 @@
-Versione 1.15.0
-
-[Novità]
-- Ora disponibile in altre 25 lingue, tra cui portoghese brasiliano, ucraino, ebraico, greco e lingue indiane come tamil, bengalese e telugu
-- I messaggi di autorizzazione (ad esempio per l'accesso al microfono) ora vengono mostrati nella tua lingua
+Versione 1.15.1
 
 [Miglioramenti]
-- I testi del piano annuale e dei Comandi Rapidi di Siri, prima visibili solo in giapponese, ora sono tradotti
-- Traduzioni riviste e migliorate in tutte le lingue
+- Le trascrizioni condivise, le esportazioni in PDF, la cronologia delle modifiche e i messaggi di errore ora vengono mostrati nella tua lingua
+- Il tutorial del primo avvio ora viene mostrato nella tua lingua
+
+[Correzioni di bug]
+- Corretta la prova gratuita indicata come 1 mese in alcuni punti (dura 7 giorni)
+- Corretta la divisione dell'audio riuscita che in alcune lingue veniva segnalata come errore

@@ -1,9 +1,9 @@
-Version 1.15.0
-
-[Nyheter]
-- Nu tillgänglig på 25 nya språk, bland annat brasiliansk portugisiska, ukrainska, hebreiska, grekiska och indiska språk som tamil, bengali och telugu
-- Behörighetsmeddelanden (till exempel för mikrofonåtkomst) visas nu på ditt språk
+Version 1.15.1
 
 [Förbättringar]
-- Texter för årsabonnemanget och Siri-genvägar som bara visades på japanska är nu översatta
-- Översättningarna på alla språk har granskats och förbättrats
+- Delade transkriptioner, PDF-exporter, redigeringshistorik och felmeddelanden visas nu på ditt språk
+- Introduktionen vid första start visas nu på ditt språk
+
+[Buggfixar]
+- Åtgärdat att den kostnadsfria provperioden på vissa ställen visades som 1 månad (den är 7 dagar)
+- Åtgärdat att en lyckad uppdelning av ljud visades som ett fel på vissa språk

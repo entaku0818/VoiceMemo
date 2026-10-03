@@ -1,9 +1,9 @@
-Verze 1.15.0
-
-[Novinky]
-- Aplikace je nyní k dispozici v dalších 25 jazycích, včetně brazilské portugalštiny, ukrajinštiny, hebrejštiny, řečtiny a indických jazyků, jako je tamilština, bengálština a telugština
-- Žádosti o oprávnění (např. přístup k mikrofonu) se nyní zobrazují ve vašem jazyce
+Verze 1.15.1
 
 [Vylepšení]
-- Texty ročního předplatného a Zkratek Siri, které se zobrazovaly jen v japonštině, jsou nyní přeložené
-- Zkontrolovali a vylepšili jsme překlady ve všech jazycích
+- Sdílené přepisy, export do PDF, historie úprav a chybové zprávy se nyní zobrazují ve vašem jazyce
+- Úvodní návod při prvním spuštění se nyní zobrazuje ve vašem jazyce
+
+[Opravy chyb]
+- Opravili jsme zobrazení zkušební verze zdarma jako 1 měsíc na některých místech (ve skutečnosti jde o 7 dní)
+- Opravili jsme, že se úspěšné rozdělení zvuku v některých jazycích zobrazovalo jako chyba

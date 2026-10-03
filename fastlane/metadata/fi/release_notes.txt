@@ -1,9 +1,9 @@
-Versio 1.15.0
-
-[Uutta]
-- Saatavilla nyt 25 uudella kielellä, kuten Brasilian portugaliksi, ukrainaksi, hepreaksi, kreikaksi sekä intialaisilla kielillä, kuten tamiliksi, bengaliksi ja teluguksi
-- Käyttöoikeusviestit (kuten mikrofonin käyttö) näkyvät nyt omalla kielelläsi
+Versio 1.15.1
 
 [Parannukset]
-- Vuositilauksen ja Siri-pikakomentojen tekstit, jotka näkyivät vain japaniksi, on nyt käännetty
-- Kaikkien kielten käännöksiä on tarkistettu ja parannettu
+- Jaetut litteroinnit, PDF-viennit, muokkaushistoria ja virheilmoitukset näkyvät nyt omalla kielelläsi
+- Ensimmäisen käynnistyksen opastus näkyy nyt omalla kielelläsi
+
+[Virhekorjaukset]
+- Korjattu: ilmainen kokeilu näkyi paikoin 1 kuukauden mittaisena (oikea kesto on 7 päivää)
+- Korjattu: onnistunut äänen jakaminen osiin näytettiin joillakin kielillä virheenä

@@ -1,9 +1,9 @@
-Različica 1.15.0
-
-[Novo]
-- Na voljo v 25 dodatnih jezikih, med drugim v brazilski portugalščini, ukrajinščini, hebrejščini, grščini ter indijskih jezikih, kot so tamilščina, bengalščina in telugu
-- Sporočila o dovoljenjih (npr. za dostop do mikrofona) so zdaj prikazana v vašem jeziku
+Različica 1.15.1
 
 [Izboljšave]
-- Besedila za letno naročnino in bližnjice Siri, ki so bila prikazana samo v japonščini, so zdaj prevedena
-- Pregledani in izboljšani prevodi v vseh jezikih
+- Deljeni prepisi, izvozi PDF, zgodovina urejanja in sporočila o napakah so zdaj prikazani v vašem jeziku
+- Vodnik ob prvem zagonu je zdaj prikazan v vašem jeziku
+
+[Popravki napak]
+- Popravljeno: brezplačno preizkusno obdobje je bilo ponekod prikazano kot 1 mesec (traja 7 dni)
+- Popravljeno: uspešna razdelitev zvoka je bila v nekaterih jezikih prikazana kot napaka
