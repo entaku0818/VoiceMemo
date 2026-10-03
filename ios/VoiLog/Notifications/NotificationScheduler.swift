@@ -6,10 +6,22 @@ final class NotificationScheduler {
 
     private init() {}
 
+    /// 通知タイトル。ホーム画面と同じ、その言語のアプリ名（InfoPlist.xcstrings の CFBundleDisplayName）を使う
+    static var appDisplayName: String {
+        displayName(localizedInfo: Bundle.main.localizedInfoDictionary, info: Bundle.main.infoDictionary)
+    }
+
+    static func displayName(localizedInfo: [String: Any]?, info: [String: Any]?) -> String {
+        (localizedInfo?["CFBundleDisplayName"] as? String)
+            ?? (info?["CFBundleDisplayName"] as? String)
+            ?? (info?["CFBundleName"] as? String)
+            ?? "VoiLog"
+    }
+
     // D1: インストール翌日（24時間後）— 未録音の場合のみ有効
     func scheduleD1Notification() {
         let content = UNMutableNotificationContent()
-        content.title = "VoiLog"
+        content.title = Self.appDisplayName
         content.body = NSLocalizedString("今日のひとこと、声で残しませんか？30秒でOK 🎙", comment: "D1 notification body: no recordings yet")
         content.sound = .default
 
@@ -21,7 +33,7 @@ final class NotificationScheduler {
     // D3: インストール3日後 — 長期未起動ユーザー向け
     func scheduleD3Notification() {
         let content = UNMutableNotificationContent()
-        content.title = "VoiLog"
+        content.title = Self.appDisplayName
         content.body = NSLocalizedString("この3日間の気づき、まだ間に合います 🎙", comment: "D3 notification body: long absence")
         content.sound = .default
 
@@ -40,7 +52,7 @@ final class NotificationScheduler {
     // 毎日リマインダー（ユーザー設定時刻）
     func scheduleDailyReminder(hour: Int, minute: Int) {
         let content = UNMutableNotificationContent()
-        content.title = "VoiLog"
+        content.title = Self.appDisplayName
         content.body = NSLocalizedString("今日どんな1日でしたか？声で残す時間です 🎙", comment: "Daily reminder notification body")
         content.sound = .default
 

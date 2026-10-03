@@ -1542,7 +1542,7 @@ struct VoiceMemoRow: View {
           ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
               ForEach(memo.tags, id: \.self) { tag in
-                Text(tag)
+                Text(PresetTag.displayName(for: tag))
                   .font(.caption2.bold())
                   .foregroundColor(tagColor(tag))
                   .padding(.horizontal, 7)
@@ -1710,7 +1710,7 @@ struct TagPickerView: View {
   let onToggle: (String) -> Void
   let onDone: () -> Void
 
-  private let presetTags = ["会議", "講義", "インタビュー", "アイデア", "日記", "練習", "議事録", "メモ"]
+  private let presetTags = PresetTag.storedValues
 
   private let palette: [Color] = [.blue, .orange, .green, .purple, .red, .teal, .indigo, .pink]
   private func color(for tag: String) -> Color {
@@ -1731,7 +1731,7 @@ struct TagPickerView: View {
             Button {
               onToggle(tag)
             } label: {
-              Text(tag)
+              Text(PresetTag.displayName(for: tag))
                 .font(.subheadline.bold())
                 .foregroundColor(selected ? .white : color(for: tag))
                 .padding(.horizontal, 14)
