@@ -70,6 +70,9 @@ actor LongRecordingAudioRecorder: NSObject {
             startTime = Date()
             state = .recording(startTime: Date())
             logger.info("録音開始成功")
+            #if DEBUG
+            await AllDayRecordingProbe.shared.start(recordingURL: url)
+            #endif
             return true
 
         } catch {
@@ -84,6 +87,9 @@ actor LongRecordingAudioRecorder: NSObject {
         logger.info("録音停止開始")
         let finalDuration = getCurrentTime()
         audioRecorder?.stop()
+        #if DEBUG
+        await AllDayRecordingProbe.shared.stop()
+        #endif
 
         state = .completed(duration: finalDuration)
         logger.info("録音停止完了 - 録音時間: \(String(format: "%.2f", finalDuration))秒")
