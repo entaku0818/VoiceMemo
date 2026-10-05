@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-"""Google Play 用タブレットスクリーンショット合成スクリプト（en-US）。
+"""Google Play 用タブレットスクリーンショット合成スクリプト（ja-JP / en-US）。
 
 スマホ用 (compose.py) と同じ実画面キャプチャ・配色・文言を使い、
 16:9 横長レイアウト（左にキャッチコピー、右に端末フレーム）で書き出す。
 
 - tenInchScreenshots:   2560x1440（10インチ。各辺 1080px 以上が必要）
 - sevenInchScreenshots: 1920x1080（10インチ版を縮小）
-
-ja-JP は Play 上にタブレット用スクショが無いので対象外（LOCALES に足せば生成できる）。
 
 使い方: python3 fastlane/play_screenshots/compose_tablet.py
 """
@@ -23,7 +21,7 @@ METADATA = HERE.parent / "metadata" / "android"
 
 W, H = 2560, 1440
 SEVEN_INCH = (1920, 1080)
-TARGET_LOCALES = ("en-US",)
+TARGET_LOCALES = ("ja-JP", "en-US")
 
 # 左側のコピー領域と右側の端末の中心
 TEXT_X0, TEXT_X1 = 140, 1280
