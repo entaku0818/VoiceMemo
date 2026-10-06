@@ -1,27 +1,76 @@
 {
   "display_name": "ES",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Grabar nunca\nfue tan fácil",
-  "subtitle_aiRecording": "Graba reuniones, clases y tu día a día",
-  "caption_useCase": "Para reuniones,\nclases y entrevistas",
-  "subtitle_useCase": "Para reuniones, clases y entrevistas",
-  "caption_playbackList": "Reproduce tus\ngrabaciones",
-  "subtitle_playbackList": "Escucha tus grabaciones al instante",
-  "caption_backgroundRecording": "Graba incluso en\nsegundo plano",
-  "subtitle_backgroundRecording": "Sigue grabando con la pantalla apagada",
-  "caption_timestampedTranscription": "Revisa tus grabaciones en texto",
-  "subtitle_timestampedTranscription": "Transcripción automática con IA",
-  "caption_waveformEditor": "Recorta y edita\naudio fácilmente",
-  "subtitle_waveformEditor": "Elimina fácilmente lo que sobra",
-  "caption_playlist": "Organiza en\nlistas",
-  "subtitle_playlist": "Ordena y gestiona por temas",
-  "caption_shareSheet": "Comparte\ngrabaciones fácilmente",
-  "subtitle_shareSheet": "Envía por correo o a Notas",
-  "caption_premium": "Más libertad\ncon Premium",
-  "subtitle_premium": "Sin anuncios y con todas las funciones",
-  "caption_aiTranscription": "Graba y transcribe al instante",
-  "subtitle_aiTranscription": "Con hablantes, resumen y marcas de tiempo",
+  "promo_aiRecording_line1": "Un toque",
+  "promo_aiRecording_line2": "y ya estás grabando",
+  "promo_aiRecording_chips": [
+    "Graba con un toque",
+    "Nivel de audio",
+    "Pausa y reanuda"
+  ],
+  "promo_playbackList_line1": "Escucha de nuevo",
+  "promo_playbackList_line2": "a tu ritmo",
+  "promo_playbackList_chips": [
+    "Velocidad",
+    "Repetición A-B",
+    "Bucle"
+  ],
+  "promo_useCase_line1": "Para reuniones,",
+  "promo_useCase_line2": "clases y entrevistas",
+  "promo_useCase_chips": [
+    "Reuniones",
+    "Clases",
+    "Entrevistas"
+  ],
+  "promo_waveformEditor_line1": "Recorta grabaciones",
+  "promo_waveformEditor_line2": "sobre la onda",
+  "promo_waveformEditor_chips": [
+    "Recortar",
+    "Dividir",
+    "Selección en onda"
+  ],
+  "promo_backgroundRecording_line1": "Sigue grabando",
+  "promo_backgroundRecording_line2": "con pantalla bloqueada",
+  "promo_backgroundRecording_chips": [
+    "Graba bloqueado",
+    "Actividad en vivo",
+    "Grabaciones largas"
+  ],
+  "promo_playlist_line1": "Organiza tus audios",
+  "promo_playlist_line2": "en listas",
+  "promo_playlist_chips": [
+    "Crear listas",
+    "Ordenar por tema",
+    "Sync con iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Convierte tu audio",
+  "promo_timestampedTranscription_line2": "en texto",
+  "promo_timestampedTranscription_chips": [
+    "Transcripción",
+    "Marcas de tiempo",
+    "Compartir texto"
+  ],
+  "promo_aiTranscription_line1": "Resúmenes con IA",
+  "promo_aiTranscription_line2": "y por hablante",
+  "promo_aiTranscription_chips": [
+    "Resumen con IA",
+    "Hablantes",
+    "Marcas de tiempo"
+  ],
+  "promo_shareSheet_line1": "Comparte audios",
+  "promo_shareSheet_line2": "con un toque",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Mensajes",
+    "En Archivos"
+  ],
+  "promo_premium_line1": "Hazte Premium",
+  "promo_premium_line2": "y graba sin límites",
+  "promo_premium_chips": [
+    "Sin anuncios",
+    "Sin límites",
+    "Sync con iCloud"
+  ],
   "hero_pill": "Grabación Simple",
   "hero_line1": "Graba con claridad,",
   "hero_line2": "sin complicaciones.",

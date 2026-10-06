@@ -1,27 +1,76 @@
 {
   "display_name": "ગુજ",
   "layout_rtl": false,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "એક ટૅપમાં\nસરળ રેકોર્ડિંગ",
-  "subtitle_aiRecording": "મીટિંગ, લેક્ચર અને રોજની પળો રેકોર્ડ કરો",
-  "caption_useCase": "મીટિંગ, લેક્ચર\nઅને ઇન્ટરવ્યૂ માટે",
-  "subtitle_useCase": "મીટિંગ, ક્લાસ અને ઇન્ટરવ્યૂ માટે ઉપયોગી",
-  "caption_playbackList": "તમારાં રેકોર્ડિંગ\nસાંભળો",
-  "subtitle_playbackList": "રેકોર્ડિંગ તરત જ સાંભળો",
-  "caption_backgroundRecording": "બૅકગ્રાઉન્ડમાં પણ\nરેકોર્ડિંગ ચાલુ",
-  "subtitle_backgroundRecording": "સ્ક્રીન બંધ હોય તોય રેકોર્ડિંગ ચાલુ રહે",
-  "caption_timestampedTranscription": "રેકોર્ડિંગ વાંચો\nટેક્સ્ટ તરીકે",
-  "subtitle_timestampedTranscription": "AI વડે ઑટોમેટિક ટ્રાન્સક્રિપ્શન",
-  "caption_waveformEditor": "ઑડિયો સરળતાથી\nટ્રિમ અને એડિટ",
-  "subtitle_waveformEditor": "બિનજરૂરી ભાગ સરળતાથી કાપો",
-  "caption_playlist": "પ્લેલિસ્ટમાં\nગોઠવો",
-  "subtitle_playlist": "વિષય પ્રમાણે ગોઠવો અને સંભાળો",
-  "caption_shareSheet": "રેકોર્ડિંગ સરળતાથી\nશેર કરો",
-  "subtitle_shareSheet": "ઇમેઇલ કે નોટ્સ ઍપમાં મોકલો",
-  "caption_premium": "પ્રીમિયમ સાથે\nવધુ સ્વતંત્રતા",
-  "subtitle_premium": "જાહેરાત નહીં, બધાં ફીચર અનલૉક",
-  "caption_aiTranscription": "રેકોર્ડ કરો,\nતરત ટેક્સ્ટ મેળવો",
-  "subtitle_aiTranscription": "વક્તા, સારાંશ અને ટાઇમસ્ટેમ્પ સાથે",
+  "promo_aiRecording_line1": "એક ટેપમાં",
+  "promo_aiRecording_line2": "રેકોર્ડિંગ શરૂ",
+  "promo_aiRecording_chips": [
+    "એક ટેપ રેકોર્ડ",
+    "લેવલ મીટર",
+    "થોભો અને ચાલુ"
+  ],
+  "promo_playbackList_line1": "તમારી ઝડપે",
+  "promo_playbackList_line2": "ફરી સાંભળો",
+  "promo_playbackList_chips": [
+    "પ્લેબેક સ્પીડ",
+    "A-B રિપીટ",
+    "લૂપ પ્લેબેક"
+  ],
+  "promo_useCase_line1": "મીટિંગ, લેક્ચર,",
+  "promo_useCase_line2": "ઇન્ટરવ્યૂ માટે",
+  "promo_useCase_chips": [
+    "મીટિંગ",
+    "લેક્ચર",
+    "ઇન્ટરવ્યૂ"
+  ],
+  "promo_waveformEditor_line1": "વેવફોર્મ જોઈને",
+  "promo_waveformEditor_line2": "સરળતાથી ટ્રિમ",
+  "promo_waveformEditor_chips": [
+    "ટ્રિમ",
+    "વિભાજિત કરો",
+    "વેવફોર્મ પર પસંદ"
+  ],
+  "promo_backgroundRecording_line1": "સ્ક્રીન લૉક હોય તોય",
+  "promo_backgroundRecording_line2": "રેકોર્ડિંગ ચાલુ",
+  "promo_backgroundRecording_chips": [
+    "લૉકમાં પણ રેકોર્ડ",
+    "Live Activity",
+    "લાંબું રેકોર્ડિંગ"
+  ],
+  "promo_playlist_line1": "રેકોર્ડિંગ ગોઠવો",
+  "promo_playlist_line2": "પ્લેલિસ્ટમાં",
+  "promo_playlist_chips": [
+    "પ્લેલિસ્ટ બનાવો",
+    "વિષય પ્રમાણે",
+    "iCloud સિંક"
+  ],
+  "promo_timestampedTranscription_line1": "રેકોર્ડિંગને",
+  "promo_timestampedTranscription_line2": "ટેક્સ્ટમાં ફેરવો",
+  "promo_timestampedTranscription_chips": [
+    "ટ્રાન્સક્રિપ્શન",
+    "ટાઇમસ્ટેમ્પ",
+    "ટેક્સ્ટ શેર કરો"
+  ],
+  "promo_aiTranscription_line1": "AI સારાંશ",
+  "promo_aiTranscription_line2": "વક્તા લેબલ સાથે",
+  "promo_aiTranscription_chips": [
+    "AI સારાંશ",
+    "વક્તા લેબલ",
+    "ટાઇમસ્ટેમ્પ"
+  ],
+  "promo_shareSheet_line1": "એક ટેપમાં",
+  "promo_shareSheet_line2": "રેકોર્ડિંગ શેર કરો",
+  "promo_shareSheet_chips": [
+    "મેઇલ",
+    "સંદેશા",
+    "ફાઇલમાં સેવ"
+  ],
+  "promo_premium_line1": "પ્રીમિયમ સાથે",
+  "promo_premium_line2": "વધુ આઝાદી",
+  "promo_premium_chips": [
+    "જાહેરાત નહીં",
+    "અમર્યાદિત રેકોર્ડિંગ",
+    "iCloud સિંક"
+  ],
   "hero_pill": "સરળ વૉઇસ રેકોર્ડર",
   "hero_line1": "સ્પષ્ટ રેકોર્ડિંગ,",
   "hero_line2": "એકદમ સરળ.",

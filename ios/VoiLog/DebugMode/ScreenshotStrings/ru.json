@@ -1,27 +1,76 @@
 {
   "display_name": "RU",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Простая\nзапись голоса",
-  "subtitle_aiRecording": "Записывайте встречи, лекции и не только",
-  "caption_useCase": "Для встреч,\nлекций и интервью",
-  "subtitle_useCase": "Для встреч, занятий и интервью",
-  "caption_playbackList": "Слушайте\nсвои записи",
-  "subtitle_playbackList": "Мгновенный доступ к записям",
-  "caption_backgroundRecording": "Запись даже\nв фоне",
-  "subtitle_backgroundRecording": "Запись не прерывается при выключенном экране",
-  "caption_timestampedTranscription": "Читайте записи в виде текста",
-  "subtitle_timestampedTranscription": "Автоматическая ИИ-транскрипция",
-  "caption_waveformEditor": "Легко обрезайте\nи редактируйте",
-  "subtitle_waveformEditor": "Удаляйте лишнее в пару касаний",
-  "caption_playlist": "Собирайте\nплейлисты",
-  "subtitle_playlist": "Сортируйте записи по темам",
-  "caption_shareSheet": "Легко делитесь\nзаписями",
-  "subtitle_shareSheet": "Отправляйте по почте или в Заметки",
-  "caption_premium": "Больше свободы\nс Premium",
-  "subtitle_premium": "Без рекламы, все функции доступны",
-  "caption_aiTranscription": "Мгновенная\nтранскрипция",
-  "subtitle_aiTranscription": "Спикеры, резюме и метки времени",
+  "promo_aiRecording_line1": "Одно касание —",
+  "promo_aiRecording_line2": "и запись пошла",
+  "promo_aiRecording_chips": [
+    "Запись в 1 касание",
+    "Индикатор уровня",
+    "Пауза/продолжение"
+  ],
+  "promo_playbackList_line1": "Слушайте",
+  "promo_playbackList_line2": "в удобном темпе",
+  "promo_playbackList_chips": [
+    "Скорость",
+    "Повтор A-B",
+    "Зацикливание"
+  ],
+  "promo_useCase_line1": "Для встреч,",
+  "promo_useCase_line2": "лекций и интервью",
+  "promo_useCase_chips": [
+    "Встречи",
+    "Лекции",
+    "Интервью"
+  ],
+  "promo_waveformEditor_line1": "Обрезайте записи",
+  "promo_waveformEditor_line2": "прямо по волне",
+  "promo_waveformEditor_chips": [
+    "Обрезка",
+    "Разделить",
+    "Выбор по волне"
+  ],
+  "promo_backgroundRecording_line1": "Запись не прервётся",
+  "promo_backgroundRecording_line2": "при блокировке экрана",
+  "promo_backgroundRecording_chips": [
+    "При блокировке",
+    "Live Activity",
+    "Долгие записи"
+  ],
+  "promo_playlist_line1": "Упорядочьте записи",
+  "promo_playlist_line2": "в плейлистах",
+  "promo_playlist_chips": [
+    "Свои плейлисты",
+    "По темам",
+    "Копия в iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Превратите запись",
+  "promo_timestampedTranscription_line2": "в текст",
+  "promo_timestampedTranscription_chips": [
+    "Транскрипция",
+    "Метки времени",
+    "Поделиться текстом"
+  ],
+  "promo_aiTranscription_line1": "ИИ-резюме",
+  "promo_aiTranscription_line2": "с разметкой спикеров",
+  "promo_aiTranscription_chips": [
+    "ИИ-резюме",
+    "Спикеры",
+    "Метки времени"
+  ],
+  "promo_shareSheet_line1": "Делитесь записями",
+  "promo_shareSheet_line2": "в одно касание",
+  "promo_shareSheet_chips": [
+    "Почта",
+    "Сообщения",
+    "Сохранить в Файлы"
+  ],
+  "promo_premium_line1": "Premium —",
+  "promo_premium_line2": "больше свободы",
+  "promo_premium_chips": [
+    "Без рекламы",
+    "Без лимитов",
+    "Копия в iCloud"
+  ],
   "hero_pill": "Простой диктофон",
   "hero_line1": "Чистый звук —",
   "hero_line2": "просто и быстро.",

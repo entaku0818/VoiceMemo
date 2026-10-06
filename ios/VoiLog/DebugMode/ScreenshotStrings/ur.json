@@ -1,27 +1,76 @@
 {
   "display_name": "UR",
   "layout_rtl": true,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "ایک ٹیپ میں\nآسان ریکارڈنگ",
-  "subtitle_aiRecording": "میٹنگز، لیکچرز اور روزمرہ لمحات ریکارڈ کریں",
-  "caption_useCase": "میٹنگ، لیکچر\nاور انٹرویو کے لیے",
-  "subtitle_useCase": "میٹنگز، کلاسز اور انٹرویوز کے لیے",
-  "caption_playbackList": "اپنی ریکارڈنگز\nسنیں",
-  "subtitle_playbackList": "ریکارڈنگز فوراً دوبارہ سنیں",
-  "caption_backgroundRecording": "بیک گراؤنڈ میں\nبھی ریکارڈنگ",
-  "subtitle_backgroundRecording": "اسکرین بند ہونے پر بھی ریکارڈنگ جاری",
-  "caption_timestampedTranscription": "ریکارڈنگ کو\nتحریر میں دیکھیں",
-  "subtitle_timestampedTranscription": "AI سے خودکار ٹرانسکرپشن",
-  "caption_waveformEditor": "آڈیو آسانی سے\nٹرم اور ایڈٹ کریں",
-  "subtitle_waveformEditor": "غیر ضروری حصے آسانی سے کاٹیں",
-  "caption_playlist": "پلے لسٹس میں\nترتیب دیں",
-  "subtitle_playlist": "موضوع کے لحاظ سے ترتیب اور انتظام",
-  "caption_shareSheet": "ریکارڈنگز آسانی\nسے شیئر کریں",
-  "subtitle_shareSheet": "ای میل یا نوٹس ایپ کے ذریعے بھیجیں",
-  "caption_premium": "پریمیم کے ساتھ\nمزید آزادی",
-  "subtitle_premium": "اشتہارات کے بغیر، تمام فیچرز ان لاک",
-  "caption_aiTranscription": "ریکارڈ کریں، فوراً\nٹرانسکرائب کریں",
-  "subtitle_aiTranscription": "اسپیکر، خلاصہ اور ٹائم اسٹیمپس",
+  "promo_aiRecording_line1": "ایک ٹیپ سے",
+  "promo_aiRecording_line2": "فوراً ریکارڈنگ شروع",
+  "promo_aiRecording_chips": [
+    "ایک ٹیپ ریکارڈنگ",
+    "لیول میٹر",
+    "روکیں اور جاری"
+  ],
+  "promo_playbackList_line1": "دوبارہ سنیں",
+  "promo_playbackList_line2": "اپنی رفتار سے",
+  "promo_playbackList_chips": [
+    "پلے بیک رفتار",
+    "A-B ریپیٹ",
+    "لوپ پلے بیک"
+  ],
+  "promo_useCase_line1": "میٹنگز، لیکچرز",
+  "promo_useCase_line2": "اور انٹرویوز کے لیے",
+  "promo_useCase_chips": [
+    "میٹنگز",
+    "لیکچرز",
+    "انٹرویوز"
+  ],
+  "promo_waveformEditor_line1": "ریکارڈنگ کاٹیں",
+  "promo_waveformEditor_line2": "سیدھا ویوفارم پر",
+  "promo_waveformEditor_chips": [
+    "ٹرم",
+    "تقسیم",
+    "ویوفارم پر انتخاب"
+  ],
+  "promo_backgroundRecording_line1": "ریکارڈنگ جاری",
+  "promo_backgroundRecording_line2": "اسکرین لاک ہو تب بھی",
+  "promo_backgroundRecording_chips": [
+    "لاک میں ریکارڈنگ",
+    "لائیو ایکٹیویٹی",
+    "طویل ریکارڈنگ"
+  ],
+  "promo_playlist_line1": "ریکارڈنگز کو",
+  "promo_playlist_line2": "پلے لسٹ میں ترتیب دیں",
+  "promo_playlist_chips": [
+    "پلے لسٹ بنائیں",
+    "موضوع کے لحاظ سے",
+    "iCloud سنک"
+  ],
+  "promo_timestampedTranscription_line1": "ریکارڈنگ کو",
+  "promo_timestampedTranscription_line2": "متن میں بدلیں",
+  "promo_timestampedTranscription_chips": [
+    "ٹرانسکرپشن",
+    "ٹائم اسٹیمپ",
+    "متن کے طور پر شیئر"
+  ],
+  "promo_aiTranscription_line1": "AI خلاصہ",
+  "promo_aiTranscription_line2": "اسپیکر لیبلز کے ساتھ",
+  "promo_aiTranscription_chips": [
+    "AI خلاصہ",
+    "اسپیکر لیبلز",
+    "ٹائم اسٹیمپ"
+  ],
+  "promo_shareSheet_line1": "ریکارڈنگ شیئر کریں",
+  "promo_shareSheet_line2": "ایک ٹیپ میں",
+  "promo_shareSheet_chips": [
+    "میل",
+    "پیغامات",
+    "فائلز میں محفوظ"
+  ],
+  "promo_premium_line1": "پریمیم لیں",
+  "promo_premium_line2": "مزید آزادی کے لیے",
+  "promo_premium_chips": [
+    "کوئی اشتہار نہیں",
+    "لامحدود ریکارڈنگ",
+    "iCloud سنک"
+  ],
   "hero_pill": "سادہ وائس ریکارڈر",
   "hero_line1": "صاف ریکارڈنگ،",
   "hero_line2": "بالکل آسان۔",

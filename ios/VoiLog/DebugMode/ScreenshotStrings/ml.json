@@ -1,27 +1,76 @@
 {
   "display_name": "ML",
   "layout_rtl": false,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "എളുപ്പത്തിൽ\nറെക്കോർഡ് ചെയ്യൂ",
-  "subtitle_aiRecording": "മീറ്റിംഗ്, ക്ലാസ്, ദൈനംദിന നിമിഷങ്ങൾ",
-  "caption_useCase": "മീറ്റിംഗ്, ക്ലാസ്,\nഅഭിമുഖം",
-  "subtitle_useCase": "മീറ്റിംഗ്, പഠനം, അഭിമുഖം എന്നിവയ്ക്ക്",
-  "caption_playbackList": "റെക്കോർഡിംഗുകൾ\nപ്ലേ ചെയ്യൂ",
-  "subtitle_playbackList": "റെക്കോർഡിംഗുകൾ ഉടൻ കേൾക്കൂ",
-  "caption_backgroundRecording": "ബാക്ക്ഗ്രൗണ്ടിലും\nറെക്കോർഡിംഗ്",
-  "subtitle_backgroundRecording": "സ്ക്രീൻ ഓഫായാലും റെക്കോർഡിംഗ് തുടരും",
-  "caption_timestampedTranscription": "റെക്കോർഡിംഗ്\nടെക്സ്റ്റായി കാണൂ",
-  "subtitle_timestampedTranscription": "AI ഓട്ടോ ട്രാൻസ്ക്രിപ്ഷൻ",
-  "caption_waveformEditor": "ഓഡിയോ എളുപ്പം\nട്രിം ചെയ്യൂ",
-  "subtitle_waveformEditor": "വേണ്ടാത്ത ഭാഗങ്ങൾ എളുപ്പം മുറിക്കൂ",
-  "caption_playlist": "പ്ലേലിസ്റ്റുകളിൽ\nക്രമീകരിക്കൂ",
-  "subtitle_playlist": "വിഷയമനുസരിച്ച് ക്രമീകരിക്കൂ",
-  "caption_shareSheet": "റെക്കോർഡിംഗ്\nഎളുപ്പം പങ്കിടൂ",
-  "subtitle_shareSheet": "ഇമെയിൽ, നോട്ട്സ് ആപ്പ് വഴി പങ്കിടൂ",
-  "caption_premium": "പ്രീമിയത്തിൽ\nകൂടുതൽ സ്വാതന്ത്ര്യം",
-  "subtitle_premium": "പരസ്യമില്ല, എല്ലാ ഫീച്ചറുകളും",
-  "caption_aiTranscription": "റെക്കോർഡ് ചെയ്യൂ,\nഉടൻ ട്രാൻസ്ക്രൈബ്",
-  "subtitle_aiTranscription": "സ്പീക്കർ, സംഗ്രഹം, ടൈംസ്റ്റാമ്പ്",
+  "promo_aiRecording_line1": "ഒറ്റ ടാപ്പിൽ",
+  "promo_aiRecording_line2": "റെക്കോർഡിംഗ് തുടങ്ങാം",
+  "promo_aiRecording_chips": [
+    "ഒറ്റ ടാപ്പ് റെക്കോർഡ്",
+    "ലെവൽ മീറ്റർ",
+    "പോസ് & റെസ്യൂം"
+  ],
+  "promo_playbackList_line1": "നിങ്ങളുടെ വേഗത്തിൽ",
+  "promo_playbackList_line2": "വീണ്ടും കേൾക്കാം",
+  "promo_playbackList_chips": [
+    "പ്ലേബാക്ക് വേഗം",
+    "A-B റിപ്പീറ്റ്",
+    "ലൂപ്പ് പ്ലേ"
+  ],
+  "promo_useCase_line1": "മീറ്റിംഗ്, ക്ലാസ്,",
+  "promo_useCase_line2": "ഇന്റർവ്യൂ എല്ലാം",
+  "promo_useCase_chips": [
+    "മീറ്റിംഗ്",
+    "ക്ലാസ്",
+    "ഇന്റർവ്യൂ"
+  ],
+  "promo_waveformEditor_line1": "വേവ്‌ഫോം നോക്കി",
+  "promo_waveformEditor_line2": "എളുപ്പം ട്രിം ചെയ്യാം",
+  "promo_waveformEditor_chips": [
+    "ട്രിം",
+    "വിഭജിക്കുക",
+    "വേവ്‌ഫോമിൽ സെലക്ട്"
+  ],
+  "promo_backgroundRecording_line1": "സ്ക്രീൻ ലോക്കായാലും",
+  "promo_backgroundRecording_line2": "റെക്കോർഡിംഗ് തുടരും",
+  "promo_backgroundRecording_chips": [
+    "ലോക്കിലും റെക്കോർഡ്",
+    "Live Activity",
+    "ദീർഘ റെക്കോർഡിംഗ്"
+  ],
+  "promo_playlist_line1": "റെക്കോർഡിംഗുകൾ",
+  "promo_playlist_line2": "പ്ലേലിസ്റ്റിൽ ഒരുക്കാം",
+  "promo_playlist_chips": [
+    "പ്ലേലിസ്റ്റ് ഉണ്ടാക്കൂ",
+    "വിഷയം തിരിച്ച്",
+    "iCloud സിങ്ക്"
+  ],
+  "promo_timestampedTranscription_line1": "റെക്കോർഡിംഗ്",
+  "promo_timestampedTranscription_line2": "ടെക്സ്റ്റാക്കി മാറ്റാം",
+  "promo_timestampedTranscription_chips": [
+    "ട്രാൻസ്ക്രിപ്ഷൻ",
+    "ടൈംസ്റ്റാമ്പ്",
+    "ടെക്സ്റ്റായി ഷെയർ"
+  ],
+  "promo_aiTranscription_line1": "AI സംഗ്രഹം",
+  "promo_aiTranscription_line2": "സ്പീക്കർ ലേബലോടെ",
+  "promo_aiTranscription_chips": [
+    "AI സംഗ്രഹം",
+    "സ്പീക്കർ ലേബൽ",
+    "ടൈംസ്റ്റാമ്പ്"
+  ],
+  "promo_shareSheet_line1": "ഒറ്റ ടാപ്പിൽ",
+  "promo_shareSheet_line2": "റെക്കോർഡിംഗ് ഷെയർ",
+  "promo_shareSheet_chips": [
+    "മെയിൽ",
+    "സന്ദേശങ്ങൾ",
+    "ഫയലിൽ സേവ്"
+  ],
+  "promo_premium_line1": "പ്രീമിയത്തിൽ",
+  "promo_premium_line2": "കൂടുതൽ സ്വാതന്ത്ര്യം",
+  "promo_premium_chips": [
+    "പരസ്യമില്ല",
+    "പരിധിയില്ലാ റെക്കോർഡ്",
+    "iCloud സിങ്ക്"
+  ],
   "hero_pill": "ലളിതമായ വോയ്സ് റെക്കോർഡർ",
   "hero_line1": "വ്യക്തമായി, ലളിതമായി",
   "hero_line2": "റെക്കോർഡ് ചെയ്യൂ.",

@@ -1,27 +1,76 @@
 {
   "display_name": "SV",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Enkel\ninspelning",
-  "subtitle_aiRecording": "Spela in möten, föreläsningar och vardag",
-  "caption_useCase": "För möten,\nföreläsningar & intervjuer",
-  "subtitle_useCase": "För möten, lektioner och intervjuer",
-  "caption_playbackList": "Spela upp dina\ninspelningar",
-  "subtitle_playbackList": "Lyssna på inspelningar direkt",
-  "caption_backgroundRecording": "Spela in även\ni bakgrunden",
-  "subtitle_backgroundRecording": "Fortsätter spela in med skärmen av",
-  "caption_timestampedTranscription": "Se dina inspelningar som text",
-  "subtitle_timestampedTranscription": "Automatisk AI-transkription",
-  "caption_waveformEditor": "Klipp & redigera\nljud enkelt",
-  "subtitle_waveformEditor": "Ta bort onödiga delar enkelt",
-  "caption_playlist": "Ordna i\nspellistor",
-  "subtitle_playlist": "Sortera och hantera efter tema",
-  "caption_shareSheet": "Dela inspelningar\nenkelt",
-  "subtitle_shareSheet": "Via mejl eller Anteckningar",
-  "caption_premium": "Mer frihet\nmed Premium",
-  "subtitle_premium": "Ingen reklam, alla funktioner",
-  "caption_aiTranscription": "Spela in & transkribera direkt",
-  "subtitle_aiTranscription": "Talare, sammanfattning & tidsstämplar",
+  "promo_aiRecording_line1": "Ett tryck",
+  "promo_aiRecording_line2": "så spelar du in",
+  "promo_aiRecording_chips": [
+    "Starta direkt",
+    "Nivåmätare",
+    "Pausa & fortsätt"
+  ],
+  "promo_playbackList_line1": "Lyssna igen",
+  "promo_playbackList_line2": "i din egen takt",
+  "promo_playbackList_chips": [
+    "Hastighet",
+    "A–B-repetition",
+    "Loopa"
+  ],
+  "promo_useCase_line1": "För möten,",
+  "promo_useCase_line2": "kurser & intervjuer",
+  "promo_useCase_chips": [
+    "Möten",
+    "Kurser",
+    "Intervjuer"
+  ],
+  "promo_waveformEditor_line1": "Klipp inspelningar",
+  "promo_waveformEditor_line2": "direkt i vågformen",
+  "promo_waveformEditor_chips": [
+    "Beskär",
+    "Dela upp",
+    "Välj i vågformen"
+  ],
+  "promo_backgroundRecording_line1": "Spelar in",
+  "promo_backgroundRecording_line2": "även med låst skärm",
+  "promo_backgroundRecording_chips": [
+    "Även när låst",
+    "Liveaktivitet",
+    "Långa inspelningar"
+  ],
+  "promo_playlist_line1": "Ordna inspelningar",
+  "promo_playlist_line2": "i spellistor",
+  "promo_playlist_chips": [
+    "Skapa spellistor",
+    "Sortera per ämne",
+    "iCloud-synk"
+  ],
+  "promo_timestampedTranscription_line1": "Gör inspelningar",
+  "promo_timestampedTranscription_line2": "till text",
+  "promo_timestampedTranscription_chips": [
+    "Transkription",
+    "Tidsstämplar",
+    "Dela som text"
+  ],
+  "promo_aiTranscription_line1": "AI-sammanfattning",
+  "promo_aiTranscription_line2": "med talare",
+  "promo_aiTranscription_chips": [
+    "AI-sammanfattning",
+    "Talaretiketter",
+    "Tidsstämplar"
+  ],
+  "promo_shareSheet_line1": "Dela inspelningar",
+  "promo_shareSheet_line2": "med ett tryck",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Meddelanden",
+    "Spara i Filer"
+  ],
+  "promo_premium_line1": "Skaffa Premium",
+  "promo_premium_line2": "för mer frihet",
+  "promo_premium_chips": [
+    "Ingen reklam",
+    "Obegränsat",
+    "iCloud-synk"
+  ],
   "hero_pill": "Enkel röstinspelning",
   "hero_line1": "Spela in tydligt,",
   "hero_line2": "helt enkelt.",

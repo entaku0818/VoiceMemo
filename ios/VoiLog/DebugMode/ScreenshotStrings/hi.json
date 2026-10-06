@@ -1,27 +1,76 @@
 {
   "display_name": "HI",
   "layout_rtl": false,
-  "layout_caption_top_padding": 48,
-  "caption_aiRecording": "एक टैप में\nआसान रिकॉर्डिंग",
-  "subtitle_aiRecording": "मीटिंग, लेक्चर और रोज़ के पल रिकॉर्ड करें",
-  "caption_useCase": "मीटिंग, लेक्चर\nऔर इंटरव्यू के लिए",
-  "subtitle_useCase": "मीटिंग, क्लास और इंटरव्यू के लिए",
-  "caption_playbackList": "अपनी रिकॉर्डिंग\nसुनें",
-  "subtitle_playbackList": "रिकॉर्डिंग तुरंत दोबारा सुनें",
-  "caption_backgroundRecording": "बैकग्राउंड में भी\nरिकॉर्डिंग",
-  "subtitle_backgroundRecording": "स्क्रीन बंद होने पर भी रिकॉर्डिंग जारी",
-  "caption_timestampedTranscription": "रिकॉर्डिंग को\nटेक्स्ट में देखें",
-  "subtitle_timestampedTranscription": "AI से अपने-आप ट्रांसक्रिप्शन",
-  "caption_waveformEditor": "ऑडियो आसानी से\nट्रिम और एडिट करें",
-  "subtitle_waveformEditor": "बेकार हिस्से आसानी से काटें",
-  "caption_playlist": "प्लेलिस्ट में\nव्यवस्थित करें",
-  "subtitle_playlist": "विषय के हिसाब से सँभालें",
-  "caption_shareSheet": "रिकॉर्डिंग आसानी\nसे शेयर करें",
-  "subtitle_shareSheet": "ईमेल या नोट्स ऐप से भेजें",
-  "caption_premium": "Premium के साथ\nज़्यादा आज़ादी",
-  "subtitle_premium": "कोई विज्ञापन नहीं, सभी सुविधाएं अनलॉक",
-  "caption_aiTranscription": "रिकॉर्ड करें, तुरंत\nट्रांसक्राइब करें",
-  "subtitle_aiTranscription": "स्पीकर, सारांश और टाइमस्टैम्प",
+  "promo_aiRecording_line1": "एक टैप में",
+  "promo_aiRecording_line2": "रिकॉर्डिंग शुरू",
+  "promo_aiRecording_chips": [
+    "वन-टैप रिकॉर्डिंग",
+    "लेवल मीटर",
+    "पॉज़ और रिज़्यूम"
+  ],
+  "promo_playbackList_line1": "अपनी रफ़्तार से",
+  "promo_playbackList_line2": "दोबारा सुनें",
+  "promo_playbackList_chips": [
+    "प्लेबैक स्पीड",
+    "A-B रिपीट",
+    "लूप प्लेबैक"
+  ],
+  "promo_useCase_line1": "मीटिंग, लेक्चर,",
+  "promo_useCase_line2": "इंटरव्यू के लिए",
+  "promo_useCase_chips": [
+    "मीटिंग",
+    "लेक्चर",
+    "इंटरव्यू"
+  ],
+  "promo_waveformEditor_line1": "वेवफ़ॉर्म देखकर",
+  "promo_waveformEditor_line2": "आसानी से ट्रिम करें",
+  "promo_waveformEditor_chips": [
+    "ट्रिम",
+    "विभाजित करें",
+    "वेवफ़ॉर्म पर चुनें"
+  ],
+  "promo_backgroundRecording_line1": "स्क्रीन लॉक हो,",
+  "promo_backgroundRecording_line2": "रिकॉर्डिंग चलती रहे",
+  "promo_backgroundRecording_chips": [
+    "लॉक में भी रिकॉर्ड",
+    "Live Activity",
+    "लंबी रिकॉर्डिंग"
+  ],
+  "promo_playlist_line1": "रिकॉर्डिंग को",
+  "promo_playlist_line2": "प्लेलिस्ट में सजाएं",
+  "promo_playlist_chips": [
+    "प्लेलिस्ट बनाएं",
+    "विषय के अनुसार",
+    "iCloud सिंक"
+  ],
+  "promo_timestampedTranscription_line1": "रिकॉर्डिंग को",
+  "promo_timestampedTranscription_line2": "टेक्स्ट में बदलें",
+  "promo_timestampedTranscription_chips": [
+    "ट्रांसक्रिप्शन",
+    "टाइमस्टैम्प",
+    "टेक्स्ट शेयर करें"
+  ],
+  "promo_aiTranscription_line1": "AI सारांश",
+  "promo_aiTranscription_line2": "स्पीकर लेबल के साथ",
+  "promo_aiTranscription_chips": [
+    "AI सारांश",
+    "स्पीकर लेबल",
+    "टाइमस्टैम्प"
+  ],
+  "promo_shareSheet_line1": "एक टैप में",
+  "promo_shareSheet_line2": "रिकॉर्डिंग शेयर करें",
+  "promo_shareSheet_chips": [
+    "मेल",
+    "संदेश",
+    "फ़ाइलों में सेव"
+  ],
+  "promo_premium_line1": "Premium के साथ",
+  "promo_premium_line2": "पूरी आज़ादी",
+  "promo_premium_chips": [
+    "विज्ञापन-मुक्त",
+    "असीमित रिकॉर्डिंग",
+    "iCloud सिंक"
+  ],
   "hero_pill": "सरल वॉइस रिकॉर्डर",
   "hero_line1": "साफ़ रिकॉर्डिंग,",
   "hero_line2": "बिल्कुल आसान।",

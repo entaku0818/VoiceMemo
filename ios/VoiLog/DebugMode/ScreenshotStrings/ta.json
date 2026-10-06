@@ -1,27 +1,76 @@
 {
   "display_name": "TA",
   "layout_rtl": false,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "எளிதான\nகுரல் பதிவு",
-  "subtitle_aiRecording": "கூட்டம், வகுப்பு, அன்றாடத் தருணங்களைப் பதிவுசெய்யுங்கள்",
-  "caption_useCase": "கூட்டம், வகுப்பு,\nநேர்காணலுக்கு",
-  "subtitle_useCase": "கூட்டம், படிப்பு, நேர்காணலுக்கு ஏற்றது",
-  "caption_playbackList": "பதிவுகளை\nஇயக்குங்கள்",
-  "subtitle_playbackList": "பதிவுகளை உடனே கேளுங்கள்",
-  "caption_backgroundRecording": "பின்னணியிலும்\nபதிவுசெய்யும்",
-  "subtitle_backgroundRecording": "திரை அணைந்தாலும் பதிவு தொடரும்",
-  "caption_timestampedTranscription": "பதிவுகளை\nஉரையாகப் பாருங்கள்",
-  "subtitle_timestampedTranscription": "AI தானியங்கி உரையாக்கம்",
-  "caption_waveformEditor": "ஆடியோவை எளிதாக\nட்ரிம் செய்யுங்கள்",
-  "subtitle_waveformEditor": "தேவையற்ற பகுதிகளை எளிதாக வெட்டுங்கள்",
-  "caption_playlist": "பிளேலிஸ்ட்களில்\nஒழுங்குபடுத்துங்கள்",
-  "subtitle_playlist": "தலைப்பு வாரியாக நிர்வகியுங்கள்",
-  "caption_shareSheet": "பதிவுகளை எளிதாகப்\nபகிருங்கள்",
-  "subtitle_shareSheet": "மின்னஞ்சல் அல்லது குறிப்புகள் ஆப் வழியாக",
-  "caption_premium": "பிரீமியத்தில்\nகூடுதல் சுதந்திரம்",
-  "subtitle_premium": "விளம்பரமில்லை, அனைத்து அம்சங்களும்",
-  "caption_aiTranscription": "பதிவுசெய்து\nஉடனே உரையாக்கம்",
-  "subtitle_aiTranscription": "பேச்சாளர், சுருக்கம், நேரக்குறி",
+  "promo_aiRecording_line1": "ஒரே தட்டலில்",
+  "promo_aiRecording_line2": "பதிவு தொடங்கும்",
+  "promo_aiRecording_chips": [
+    "ஒரே தட்டல் பதிவு",
+    "ஒலி அளவு மீட்டர்",
+    "இடைநிறுத்து/தொடர்"
+  ],
+  "promo_playbackList_line1": "உங்கள் வேகத்தில்",
+  "promo_playbackList_line2": "மீண்டும் கேளுங்கள்",
+  "promo_playbackList_chips": [
+    "இயக்க வேகம்",
+    "A-B ரிப்பீட்",
+    "லூப் இயக்கம்"
+  ],
+  "promo_useCase_line1": "கூட்டம், வகுப்பு,",
+  "promo_useCase_line2": "நேர்காணலுக்கு",
+  "promo_useCase_chips": [
+    "கூட்டங்கள்",
+    "வகுப்புகள்",
+    "நேர்காணல்"
+  ],
+  "promo_waveformEditor_line1": "அலைவடிவைப் பார்த்து",
+  "promo_waveformEditor_line2": "எளிதாக வெட்டுங்கள்",
+  "promo_waveformEditor_chips": [
+    "டிரிம்",
+    "பிரி",
+    "அலைவடிவில் தேர்வு"
+  ],
+  "promo_backgroundRecording_line1": "திரை பூட்டினாலும்",
+  "promo_backgroundRecording_line2": "பதிவு தொடரும்",
+  "promo_backgroundRecording_chips": [
+    "பூட்டிலும் பதிவு",
+    "Live Activity",
+    "நீண்ட பதிவு"
+  ],
+  "promo_playlist_line1": "பதிவுகளை",
+  "promo_playlist_line2": "பிளேலிஸ்ட்டில் சேமி",
+  "promo_playlist_chips": [
+    "பிளேலிஸ்ட் உருவாக்கு",
+    "தலைப்பு வாரியாக",
+    "iCloud ஒத்திசைவு"
+  ],
+  "promo_timestampedTranscription_line1": "பதிவுகளை",
+  "promo_timestampedTranscription_line2": "உரையாக மாற்றுங்கள்",
+  "promo_timestampedTranscription_chips": [
+    "உரையாக்கம்",
+    "நேரமுத்திரை",
+    "உரையாகப் பகிர்"
+  ],
+  "promo_aiTranscription_line1": "AI சுருக்கம்",
+  "promo_aiTranscription_line2": "பேச்சாளர் லேபிளுடன்",
+  "promo_aiTranscription_chips": [
+    "AI சுருக்கம்",
+    "பேச்சாளர் லேபிள்",
+    "நேரமுத்திரை"
+  ],
+  "promo_shareSheet_line1": "ஒரே தட்டலில்",
+  "promo_shareSheet_line2": "பதிவைப் பகிருங்கள்",
+  "promo_shareSheet_chips": [
+    "அஞ்சல்",
+    "செய்திகள்",
+    "கோப்பில் சேமி"
+  ],
+  "promo_premium_line1": "பிரீமியத்தில்",
+  "promo_premium_line2": "இன்னும் சுதந்திரம்",
+  "promo_premium_chips": [
+    "விளம்பரமில்லை",
+    "வரம்பற்ற பதிவு",
+    "iCloud ஒத்திசைவு"
+  ],
   "hero_pill": "எளிய குரல் ரெக்கார்டர்",
   "hero_line1": "தெளிவாக, எளிதாக",
   "hero_line2": "பதிவுசெய்யுங்கள்.",

@@ -1,27 +1,76 @@
 {
   "display_name": "JA",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "ワンタップで\nかんたん録音",
-  "subtitle_aiRecording": "会議・講義・日常をすぐ記録",
-  "caption_useCase": "会議・講義・\nインタビューに",
-  "subtitle_useCase": "会議・授業・インタビューに",
-  "caption_playbackList": "録音を再生",
-  "subtitle_playbackList": "録音をすぐに確認",
-  "caption_backgroundRecording": "バックグラウンド\nでも録音できる",
-  "subtitle_backgroundRecording": "画面を閉じても録音継続",
-  "caption_timestampedTranscription": "録音内容をテキストで確認",
-  "subtitle_timestampedTranscription": "AIが自動で文字起こし",
-  "caption_waveformEditor": "音声をかんたんに\nトリミング＆編集",
-  "subtitle_waveformEditor": "不要な部分を簡単にカット",
-  "caption_playlist": "録音を\nプレイリストに",
-  "subtitle_playlist": "テーマ別に整理・管理",
-  "caption_shareSheet": "録音を\n簡単に共有",
-  "subtitle_shareSheet": "メールやメモアプリに転送",
-  "caption_premium": "プレミアムで\nもっと自由に",
-  "subtitle_premium": "広告なし・全機能アンロック",
-  "caption_aiTranscription": "録音してすぐAI文字起こし",
-  "subtitle_aiTranscription": "話者・要約・タイムスタンプ付き",
+  "promo_aiRecording_line1": "ワンタップで",
+  "promo_aiRecording_line2": "すぐに録音スタート",
+  "promo_aiRecording_chips": [
+    "ワンタップ録音",
+    "録音レベル表示",
+    "一時停止・再開"
+  ],
+  "promo_playbackList_line1": "倍速・リピートで",
+  "promo_playbackList_line2": "聞き返しもスムーズ",
+  "promo_playbackList_chips": [
+    "再生速度の変更",
+    "A-Bリピート",
+    "ループ再生"
+  ],
+  "promo_useCase_line1": "会議・講義・取材を",
+  "promo_useCase_line2": "まるごと記録",
+  "promo_useCase_chips": [
+    "会議の記録",
+    "講義の復習",
+    "インタビュー"
+  ],
+  "promo_waveformEditor_line1": "いらない部分は",
+  "promo_waveformEditor_line2": "波形を見てカット",
+  "promo_waveformEditor_chips": [
+    "トリミング",
+    "分割",
+    "波形で範囲選択"
+  ],
+  "promo_backgroundRecording_line1": "画面を閉じても",
+  "promo_backgroundRecording_line2": "録音はそのまま",
+  "promo_backgroundRecording_chips": [
+    "ロック中も録音",
+    "ライブアクティビティ",
+    "長時間録音"
+  ],
+  "promo_playlist_line1": "たまった録音は",
+  "promo_playlist_line2": "プレイリストで整理",
+  "promo_playlist_chips": [
+    "プレイリスト作成",
+    "テーマ別に整理",
+    "iCloud同期"
+  ],
+  "promo_timestampedTranscription_line1": "話した内容を",
+  "promo_timestampedTranscription_line2": "テキストで確認",
+  "promo_timestampedTranscription_chips": [
+    "文字起こし",
+    "タイムスタンプ付き",
+    "テキストで共有"
+  ],
+  "promo_aiTranscription_line1": "録音したらすぐ",
+  "promo_aiTranscription_line2": "AIが要約・話者分け",
+  "promo_aiTranscription_chips": [
+    "AI要約",
+    "話者ラベル",
+    "タイムスタンプ"
+  ],
+  "promo_shareSheet_line1": "録音はすぐに",
+  "promo_shareSheet_line2": "メールやアプリで共有",
+  "promo_shareSheet_chips": [
+    "メール",
+    "メッセージ",
+    "ファイルに保存"
+  ],
+  "promo_premium_line1": "プレミアムで",
+  "promo_premium_line2": "もっと自由に",
+  "promo_premium_chips": [
+    "広告なし",
+    "無制限で録音",
+    "iCloud同期"
+  ],
   "hero_pill": "シンプル録音",
   "hero_line1": "かんたん・きれいに",
   "hero_line2": "録れるボイスレコーダー",

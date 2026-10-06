@@ -93,14 +93,7 @@ struct FullscreenScreenshotView: View {
     @ViewBuilder
     private func screenPreview(for screen: ScreenshotScreen?) -> some View {
         if let screen {
-            ScreenshotPageView(
-                caption: language.screenshotCaption(for: screen),
-                subtitle: language.screenshotSubtitle(for: screen),
-                screen: screen,
-                language: language
-            ) {
-                PhoneFrameView { screen.mockView(language: language) }
-            }
+            PromoScreenshotPageView(screen: screen, language: language)
         } else {
             HeroRecorderPageView(language: language)
         }
@@ -120,7 +113,7 @@ enum ScreenshotScreen: String, CaseIterable {
     case premium
     case aiTranscription
 
-    /// 各画面の中身（端末フレームの内側）
+    /// 各画面の中身（端末フレームの内側。iPhone は 390x844pt、iPad は 820x1180pt で描かれる）
     @ViewBuilder
     func mockView(language: AppLanguage) -> some View {
         switch self {
@@ -149,185 +142,6 @@ enum ScreenshotSlots {
         .aiRecording, .playbackList, .useCase, .waveformEditor, .backgroundRecording, .playlist,
         .timestampedTranscription
     ]
-}
-
-// MARK: - Screenshot Page View (Caption + Content)
-struct ScreenshotPageView<Content: View>: View {
-    let caption: String
-    let subtitle: String
-    let screen: ScreenshotScreen
-    let language: AppLanguage
-    @ViewBuilder let content: () -> Content
-
-    var body: some View {
-        GeometryReader { _ in
-            ZStack {
-                Color.white.ignoresSafeArea()
-
-                VStack(spacing: 0) {
-                    // 長い言語（ドイツ語・フィンランド語・マラヤーラム語など）でも切れないよう
-                    // 3行まで折り返し、それでも入らなければ縮小する
-                    Text(caption)
-                        .font(.system(size: 36, weight: .bold))
-                        .foregroundColor(.black)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(3)
-                        .minimumScaleFactor(0.5)
-                        .padding(.horizontal, 36)
-                        .padding(.top, language.captionTopPadding)
-                        .padding(.bottom, 4)
-                        .frame(maxWidth: .infinity)
-
-                    Text(subtitle)
-                        .font(.system(size: 17, weight: .regular))
-                        .foregroundColor(Color(white: 0.3))
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
-                        .minimumScaleFactor(0.6)
-                        .padding(.horizontal, 36)
-                        .padding(.bottom, 10)
-                        .frame(maxWidth: .infinity)
-
-                    content()
-                        .padding(.horizontal, 4)
-
-                    Spacer(minLength: 0)
-                }
-            }
-        }
-        .screenshotLanguage(language)
-    }
-}
-
-// MARK: - Phone Frame View (iPhone mockup wrapper)
-struct PhoneFrameView<Content: View>: View {
-    @ViewBuilder let content: () -> Content
-
-    private let designWidth: CGFloat = 390
-    private let designHeight: CGFloat = 844
-
-    var body: some View {
-        GeometryReader { geo in
-            let scale = geo.size.width / designWidth
-            let frameH = designHeight * scale
-
-            ZStack(alignment: .topLeading) {
-                // Phone body background + shadow
-                RoundedRectangle(cornerRadius: 44 * scale)
-                    .fill(Color.white)
-                    .shadow(color: .black.opacity(0.12), radius: 12 * scale, y: 4 * scale)
-                    .frame(width: geo.size.width, height: frameH)
-
-                // Scaled app content clipped to phone shape
-                ZStack(alignment: .topLeading) {
-                    Color.white
-                    content()
-                        .preferredColorScheme(.light)
-                        .frame(width: designWidth, height: designHeight)
-                        .scaleEffect(scale, anchor: .topLeading)
-                }
-                .frame(width: geo.size.width, height: frameH, alignment: .topLeading)
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 44 * scale))
-
-                // Phone border on top
-                RoundedRectangle(cornerRadius: 44 * scale)
-                    .stroke(Color(white: 0.75), lineWidth: 2)
-                    .frame(width: geo.size.width, height: frameH)
-
-                // Status bar + Dynamic Island overlay
-                VStack(spacing: 0) {
-                    HStack {
-                        Text("20:53")
-                            .font(.system(size: 14 * scale, weight: .semibold))
-                        Spacer()
-                        HStack(spacing: 4 * scale) {
-                            Image(systemName: "cellularbars")
-                                .font(.system(size: 11 * scale))
-                            Image(systemName: "wifi")
-                                .font(.system(size: 11 * scale))
-                            Image(systemName: "battery.100")
-                                .font(.system(size: 11 * scale))
-                        }
-                    }
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 22 * scale)
-                    .padding(.top, 12 * scale)
-
-                    // Dynamic Island
-                    Capsule()
-                        .fill(Color.black)
-                        .frame(width: 120 * scale, height: 32 * scale)
-                        .padding(.top, 4 * scale)
-                }
-                .frame(width: geo.size.width)
-            }
-            .frame(width: geo.size.width, height: frameH)
-        }
-        .aspectRatio(designWidth / designHeight, contentMode: .fit)
-    }
-}
-
-// MARK: - iPad Frame View
-struct IPadFrameView<Content: View>: View {
-    @ViewBuilder let content: () -> Content
-
-    private let designWidth: CGFloat = 820
-    private let designHeight: CGFloat = 1180
-
-    var body: some View {
-        GeometryReader { geo in
-            let scale = geo.size.width / designWidth
-            let frameH = designHeight * scale
-
-            ZStack(alignment: .topLeading) {
-                RoundedRectangle(cornerRadius: 20 * scale)
-                    .fill(Color.white)
-                    .shadow(color: .black.opacity(0.12), radius: 12 * scale, y: 4 * scale)
-                    .frame(width: geo.size.width, height: frameH)
-
-                ZStack(alignment: .topLeading) {
-                    Color.white
-                    content()
-                        .preferredColorScheme(.light)
-                        .frame(width: designWidth, height: designHeight)
-                        .scaleEffect(scale, anchor: .topLeading)
-                }
-                .frame(width: geo.size.width, height: frameH, alignment: .topLeading)
-                .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 20 * scale))
-
-                RoundedRectangle(cornerRadius: 20 * scale)
-                    .stroke(Color(white: 0.75), lineWidth: 2)
-                    .frame(width: geo.size.width, height: frameH)
-
-                // Status bar
-                HStack {
-                    Text("20:53")
-                        .font(.system(size: 13 * scale, weight: .semibold))
-                    Spacer()
-                    HStack(spacing: 4 * scale) {
-                        Image(systemName: "wifi")
-                            .font(.system(size: 11 * scale))
-                        Image(systemName: "battery.100")
-                            .font(.system(size: 11 * scale))
-                    }
-                }
-                .foregroundColor(.white)
-                .padding(.horizontal, 20 * scale)
-                .padding(.top, 10 * scale)
-                .frame(width: geo.size.width)
-
-                // Camera dot (top center)
-                Circle()
-                    .fill(Color.black)
-                    .frame(width: 10 * scale, height: 10 * scale)
-                    .offset(x: geo.size.width / 2 - 5 * scale, y: 8 * scale)
-            }
-            .frame(width: geo.size.width, height: frameH)
-        }
-        .aspectRatio(designWidth / designHeight, contentMode: .fit)
-    }
 }
 
 // MARK: - Mock Playback List View
@@ -1212,8 +1026,15 @@ struct MockTimestampedTranscriptionView: View {
                     .padding(.horizontal)
 
                     VStack(spacing: 4) {
-                        ProgressView(value: 0.38)
-                            .progressViewStyle(LinearProgressViewStyle(tint: .blue))
+                        // ProgressView は ImageRenderer で tint が効かず黄色になるためカスタム描画
+                        GeometryReader { g in
+                            ZStack(alignment: .leading) {
+                                Capsule().fill(Color.secondary.opacity(0.2)).frame(height: 4)
+                                Capsule().fill(Color.blue).frame(width: g.size.width * 0.38, height: 4)
+                            }
+                            .frame(maxHeight: .infinity)
+                        }
+                        .frame(height: 4)
                         HStack {
                             Text("00:18")
                                 .font(.caption)

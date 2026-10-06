@@ -1,27 +1,76 @@
 {
   "display_name": "FR",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Enregistrer,\ntout simplement",
-  "subtitle_aiRecording": "Enregistrez réunions, cours et quotidien",
-  "caption_useCase": "Pour vos réunions,\ncours et interviews",
-  "subtitle_useCase": "Réunions, cours et entretiens",
-  "caption_playbackList": "Réécoutez vos\nenregistrements",
-  "subtitle_playbackList": "Retrouvez vos enregistrements en un instant",
-  "caption_backgroundRecording": "Enregistrez même\nen arrière-plan",
-  "subtitle_backgroundRecording": "L'enregistrement continue écran éteint",
-  "caption_timestampedTranscription": "Vos enregistrements\nen texte",
-  "subtitle_timestampedTranscription": "Transcription automatique par IA",
-  "caption_waveformEditor": "Rognez et modifiez\nl'audio facilement",
-  "subtitle_waveformEditor": "Supprimez facilement les passages inutiles",
-  "caption_playlist": "Organisez en\nlistes de lecture",
-  "subtitle_playlist": "Classez et gérez par thème",
-  "caption_shareSheet": "Partagez vos\nenregistrements",
-  "subtitle_shareSheet": "Par e-mail ou vers Notes",
-  "caption_premium": "Plus de liberté\navec Premium",
-  "subtitle_premium": "Sans pub, toutes les fonctions débloquées",
-  "caption_aiTranscription": "Enregistrez,\ntranscrivez aussitôt",
-  "subtitle_aiTranscription": "Locuteurs, résumé et horodatage",
+  "promo_aiRecording_line1": "Un toucher",
+  "promo_aiRecording_line2": "et c'est parti",
+  "promo_aiRecording_chips": [
+    "Lancement immédiat",
+    "Niveau sonore",
+    "Pause et reprise"
+  ],
+  "promo_playbackList_line1": "Réécoutez",
+  "promo_playbackList_line2": "à votre rythme",
+  "promo_playbackList_chips": [
+    "Vitesse",
+    "Répétition A-B",
+    "Lecture en boucle"
+  ],
+  "promo_useCase_line1": "Pour réunions,",
+  "promo_useCase_line2": "cours et interviews",
+  "promo_useCase_chips": [
+    "Réunions",
+    "Cours",
+    "Interviews"
+  ],
+  "promo_waveformEditor_line1": "Coupez vos audios",
+  "promo_waveformEditor_line2": "sur la forme d'onde",
+  "promo_waveformEditor_chips": [
+    "Rogner",
+    "Diviser",
+    "Sélection visuelle"
+  ],
+  "promo_backgroundRecording_line1": "Enregistre même",
+  "promo_backgroundRecording_line2": "écran verrouillé",
+  "promo_backgroundRecording_chips": [
+    "Écran verrouillé",
+    "Activité en direct",
+    "Longues sessions"
+  ],
+  "promo_playlist_line1": "Classez vos audios",
+  "promo_playlist_line2": "en listes",
+  "promo_playlist_chips": [
+    "Créer des listes",
+    "Trier par thème",
+    "Sync iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Transformez l'audio",
+  "promo_timestampedTranscription_line2": "en texte",
+  "promo_timestampedTranscription_chips": [
+    "Transcription",
+    "Horodatage",
+    "Partage en texte"
+  ],
+  "promo_aiTranscription_line1": "Résumés par l'IA",
+  "promo_aiTranscription_line2": "avec intervenants",
+  "promo_aiTranscription_chips": [
+    "Résumé IA",
+    "Intervenants",
+    "Horodatage"
+  ],
+  "promo_shareSheet_line1": "Partagez vos audios",
+  "promo_shareSheet_line2": "en un toucher",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Messages",
+    "Dans Fichiers"
+  ],
+  "promo_premium_line1": "Passez à Premium",
+  "promo_premium_line2": "pour plus de liberté",
+  "promo_premium_chips": [
+    "Sans pub",
+    "Sans limite",
+    "Sync iCloud"
+  ],
   "hero_pill": "Enregistrement simple",
   "hero_line1": "Un son clair,",
   "hero_line2": "en toute simplicité.",

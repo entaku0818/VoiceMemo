@@ -1,27 +1,76 @@
 {
   "display_name": "MS",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Rakaman Suara\nyang Ringkas",
-  "subtitle_aiRecording": "Rakam mesyuarat, kuliah & detik harian",
-  "caption_useCase": "Untuk Mesyuarat,\nKuliah & Temu Bual",
-  "subtitle_useCase": "Untuk mesyuarat, kelas & temu bual",
-  "caption_playbackList": "Main Semula\nRakaman Anda",
-  "subtitle_playbackList": "Semak rakaman dengan segera",
-  "caption_backgroundRecording": "Rakam Walaupun\ndi Latar Belakang",
-  "subtitle_backgroundRecording": "Terus merakam walaupun skrin mati",
-  "caption_timestampedTranscription": "Semak rakaman anda sebagai teks",
-  "subtitle_timestampedTranscription": "Transkripsi automatik dengan AI",
-  "caption_waveformEditor": "Potong & Edit\nAudio dengan Mudah",
-  "subtitle_waveformEditor": "Buang bahagian yang tidak perlu",
-  "caption_playlist": "Susun dalam\nSenarai Main",
-  "subtitle_playlist": "Urus mengikut tema",
-  "caption_shareSheet": "Kongsi Rakaman\ndengan Mudah",
-  "subtitle_shareSheet": "Hantar melalui e-mel atau Nota",
-  "caption_premium": "Lebih Bebas\ndengan Premium",
-  "subtitle_premium": "Tanpa iklan, semua ciri dibuka",
-  "caption_aiTranscription": "Rakam & Transkripsi Serta-merta",
-  "subtitle_aiTranscription": "Penutur, ringkasan & cap masa",
+  "promo_aiRecording_line1": "Satu ketikan,",
+  "promo_aiRecording_line2": "terus merakam",
+  "promo_aiRecording_chips": [
+    "Rakam satu ketik",
+    "Meter aras",
+    "Jeda & sambung"
+  ],
+  "promo_playbackList_line1": "Dengar semula",
+  "promo_playbackList_line2": "ikut rentak anda",
+  "promo_playbackList_chips": [
+    "Kelajuan main",
+    "Ulang A-B",
+    "Main berulang"
+  ],
+  "promo_useCase_line1": "Untuk mesyuarat,",
+  "promo_useCase_line2": "kuliah & temu bual",
+  "promo_useCase_chips": [
+    "Mesyuarat",
+    "Kuliah",
+    "Temu bual"
+  ],
+  "promo_waveformEditor_line1": "Potong rakaman",
+  "promo_waveformEditor_line2": "terus pada gelombang",
+  "promo_waveformEditor_chips": [
+    "Pangkas",
+    "Pisah",
+    "Pilih di gelombang"
+  ],
+  "promo_backgroundRecording_line1": "Terus merakam",
+  "promo_backgroundRecording_line2": "walaupun skrin dikunci",
+  "promo_backgroundRecording_chips": [
+    "Rakam ketika kunci",
+    "Aktiviti Langsung",
+    "Rakaman panjang"
+  ],
+  "promo_playlist_line1": "Susun rakaman",
+  "promo_playlist_line2": "dalam senarai main",
+  "promo_playlist_chips": [
+    "Cipta senarai main",
+    "Ikut topik",
+    "Segerak iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Tukar rakaman",
+  "promo_timestampedTranscription_line2": "kepada teks",
+  "promo_timestampedTranscription_chips": [
+    "Transkripsi",
+    "Cap masa",
+    "Kongsi sebagai teks"
+  ],
+  "promo_aiTranscription_line1": "Ringkasan AI",
+  "promo_aiTranscription_line2": "dengan label penutur",
+  "promo_aiTranscription_chips": [
+    "Ringkasan AI",
+    "Label penutur",
+    "Cap masa"
+  ],
+  "promo_shareSheet_line1": "Kongsi rakaman",
+  "promo_shareSheet_line2": "dengan satu ketikan",
+  "promo_shareSheet_chips": [
+    "Mel",
+    "Mesej",
+    "Simpan ke Fail"
+  ],
+  "promo_premium_line1": "Naik taraf Premium",
+  "promo_premium_line2": "lebih bebas",
+  "promo_premium_chips": [
+    "Tiada iklan",
+    "Rakam tanpa had",
+    "Segerak iCloud"
+  ],
   "hero_pill": "Perakam Suara Ringkas",
   "hero_line1": "Rakam dengan jelas,",
   "hero_line2": "dengan mudah.",

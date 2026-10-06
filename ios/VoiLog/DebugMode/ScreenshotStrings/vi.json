@@ -1,27 +1,76 @@
 {
   "display_name": "VI",
   "layout_rtl": false,
-  "layout_caption_top_padding": 52,
-  "caption_aiRecording": "Ghi âm\nchỉ một chạm",
-  "subtitle_aiRecording": "Ghi lại cuộc họp, bài giảng và đời thường",
-  "caption_useCase": "Cho cuộc họp,\nbài giảng, phỏng vấn",
-  "subtitle_useCase": "Dành cho họp, lớp học và phỏng vấn",
-  "caption_playbackList": "Nghe lại\nbản ghi của bạn",
-  "subtitle_playbackList": "Xem lại bản ghi ngay lập tức",
-  "caption_backgroundRecording": "Ghi âm cả khi\nchạy nền",
-  "subtitle_backgroundRecording": "Vẫn ghi khi tắt màn hình",
-  "caption_timestampedTranscription": "Xem lại bản ghi dưới dạng văn bản",
-  "subtitle_timestampedTranscription": "Phiên âm tự động bằng AI",
-  "caption_waveformEditor": "Cắt và chỉnh sửa\nâm thanh dễ dàng",
-  "subtitle_waveformEditor": "Dễ dàng cắt bỏ phần thừa",
-  "caption_playlist": "Sắp xếp vào\ndanh sách phát",
-  "subtitle_playlist": "Sắp xếp và quản lý theo chủ đề",
-  "caption_shareSheet": "Chia sẻ\nbản ghi dễ dàng",
-  "subtitle_shareSheet": "Gửi qua email hoặc ứng dụng Ghi chú",
-  "caption_premium": "Tự do hơn\nvới Premium",
-  "subtitle_premium": "Không quảng cáo, mở khóa mọi tính năng",
-  "caption_aiTranscription": "Ghi âm và phiên âm AI tức thì",
-  "subtitle_aiTranscription": "Người nói, tóm tắt và mốc thời gian",
+  "promo_aiRecording_line1": "Chạm một lần",
+  "promo_aiRecording_line2": "là ghi âm ngay",
+  "promo_aiRecording_chips": [
+    "Ghi âm 1 chạm",
+    "Mức âm lượng",
+    "Tạm dừng/tiếp"
+  ],
+  "promo_playbackList_line1": "Nghe lại",
+  "promo_playbackList_line2": "theo nhịp của bạn",
+  "promo_playbackList_chips": [
+    "Tốc độ phát",
+    "Lặp A-B",
+    "Phát lặp lại"
+  ],
+  "promo_useCase_line1": "Cho cuộc họp,",
+  "promo_useCase_line2": "bài giảng, phỏng vấn",
+  "promo_useCase_chips": [
+    "Cuộc họp",
+    "Bài giảng",
+    "Phỏng vấn"
+  ],
+  "promo_waveformEditor_line1": "Cắt bỏ đoạn thừa",
+  "promo_waveformEditor_line2": "ngay trên dạng sóng",
+  "promo_waveformEditor_chips": [
+    "Cắt gọn",
+    "Tách",
+    "Chọn trên sóng"
+  ],
+  "promo_backgroundRecording_line1": "Vẫn ghi âm",
+  "promo_backgroundRecording_line2": "khi đã khóa màn hình",
+  "promo_backgroundRecording_chips": [
+    "Ghi khi khóa",
+    "Hoạt động trực tiếp",
+    "Ghi âm dài"
+  ],
+  "promo_playlist_line1": "Sắp xếp ghi âm",
+  "promo_playlist_line2": "vào danh sách phát",
+  "promo_playlist_chips": [
+    "Tạo danh sách",
+    "Theo chủ đề",
+    "Đồng bộ iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Chuyển ghi âm",
+  "promo_timestampedTranscription_line2": "thành văn bản",
+  "promo_timestampedTranscription_chips": [
+    "Phiên âm",
+    "Mốc thời gian",
+    "Chia sẻ văn bản"
+  ],
+  "promo_aiTranscription_line1": "AI tóm tắt",
+  "promo_aiTranscription_line2": "và phân người nói",
+  "promo_aiTranscription_chips": [
+    "Tóm tắt AI",
+    "Nhãn người nói",
+    "Mốc thời gian"
+  ],
+  "promo_shareSheet_line1": "Chia sẻ ghi âm",
+  "promo_shareSheet_line2": "chỉ với một chạm",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Tin nhắn",
+    "Lưu vào Tệp"
+  ],
+  "promo_premium_line1": "Nâng cấp Premium",
+  "promo_premium_line2": "tự do hơn",
+  "promo_premium_chips": [
+    "Không quảng cáo",
+    "Ghi không giới hạn",
+    "Đồng bộ iCloud"
+  ],
   "hero_pill": "Máy ghi âm đơn giản",
   "hero_line1": "Ghi âm rõ nét,",
   "hero_line2": "thật đơn giản.",

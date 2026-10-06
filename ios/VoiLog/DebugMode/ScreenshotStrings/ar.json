@@ -1,27 +1,76 @@
 {
   "display_name": "AR",
   "layout_rtl": true,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "سجّل بلمسة\nواحدة",
-  "subtitle_aiRecording": "سجّل الاجتماعات والمحاضرات ولحظاتك اليومية",
-  "caption_useCase": "للاجتماعات\nوالمحاضرات والمقابلات",
-  "subtitle_useCase": "للاجتماعات والدروس والمقابلات",
-  "caption_playbackList": "استمع إلى\nتسجيلاتك",
-  "subtitle_playbackList": "راجع تسجيلاتك فورًا",
-  "caption_backgroundRecording": "التسجيل مستمر\nفي الخلفية",
-  "subtitle_backgroundRecording": "يستمر التسجيل حتى مع إطفاء الشاشة",
-  "caption_timestampedTranscription": "راجع تسجيلاتك\nكنص مكتوب",
-  "subtitle_timestampedTranscription": "نسخ تلقائي بالذكاء الاصطناعي",
-  "caption_waveformEditor": "قصّ الصوت\nوحرّره بسهولة",
-  "subtitle_waveformEditor": "احذف الأجزاء غير المرغوبة بسهولة",
-  "caption_playlist": "نظّم تسجيلاتك\nفي قوائم تشغيل",
-  "subtitle_playlist": "رتّبها وأدِرها حسب الموضوع",
-  "caption_shareSheet": "شارك تسجيلاتك\nبسهولة",
-  "subtitle_shareSheet": "أرسلها عبر البريد أو تطبيق الملاحظات",
-  "caption_premium": "حرية أكبر\nمع Premium",
-  "subtitle_premium": "بلا إعلانات، وكل الميزات مفتوحة",
-  "caption_aiTranscription": "سجّل وحوّل الصوت\nإلى نص فورًا",
-  "subtitle_aiTranscription": "المتحدثون والملخص والطوابع الزمنية",
+  "promo_aiRecording_line1": "بلمسة واحدة",
+  "promo_aiRecording_line2": "يبدأ التسجيل فورًا",
+  "promo_aiRecording_chips": [
+    "تسجيل بلمسة",
+    "مؤشر المستوى",
+    "إيقاف واستئناف"
+  ],
+  "promo_playbackList_line1": "استمع مجددًا",
+  "promo_playbackList_line2": "بالسرعة التي تناسبك",
+  "promo_playbackList_chips": [
+    "سرعة التشغيل",
+    "تكرار A-B",
+    "تشغيل متكرر"
+  ],
+  "promo_useCase_line1": "للاجتماعات",
+  "promo_useCase_line2": "والمحاضرات والمقابلات",
+  "promo_useCase_chips": [
+    "اجتماعات",
+    "محاضرات",
+    "مقابلات"
+  ],
+  "promo_waveformEditor_line1": "قصّ التسجيلات",
+  "promo_waveformEditor_line2": "مباشرةً على الموجة",
+  "promo_waveformEditor_chips": [
+    "قص",
+    "تقسيم",
+    "تحديد على الموجة"
+  ],
+  "promo_backgroundRecording_line1": "يستمر التسجيل",
+  "promo_backgroundRecording_line2": "والشاشة مقفلة",
+  "promo_backgroundRecording_chips": [
+    "تسجيل عند القفل",
+    "نشاط مباشر",
+    "تسجيلات طويلة"
+  ],
+  "promo_playlist_line1": "نظّم تسجيلاتك",
+  "promo_playlist_line2": "في قوائم التشغيل",
+  "promo_playlist_chips": [
+    "إنشاء قوائم",
+    "حسب الموضوع",
+    "مزامنة iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "حوّل تسجيلاتك",
+  "promo_timestampedTranscription_line2": "إلى نص",
+  "promo_timestampedTranscription_chips": [
+    "النسخ",
+    "طوابع زمنية",
+    "مشاركة كنص"
+  ],
+  "promo_aiTranscription_line1": "ملخصات بالـ AI",
+  "promo_aiTranscription_line2": "مع تمييز المتحدثين",
+  "promo_aiTranscription_chips": [
+    "ملخص AI",
+    "تسمية المتحدثين",
+    "طوابع زمنية"
+  ],
+  "promo_shareSheet_line1": "شارك تسجيلاتك",
+  "promo_shareSheet_line2": "بلمسة واحدة",
+  "promo_shareSheet_chips": [
+    "البريد",
+    "الرسائل",
+    "حفظ في الملفات"
+  ],
+  "promo_premium_line1": "اشترك في Premium",
+  "promo_premium_line2": "لحرية أكبر",
+  "promo_premium_chips": [
+    "بلا إعلانات",
+    "تسجيل غير محدود",
+    "مزامنة iCloud"
+  ],
   "hero_pill": "مسجل الصوت البسيط",
   "hero_line1": "تسجيل واضح",
   "hero_line2": "وبكل بساطة.",

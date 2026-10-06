@@ -1,27 +1,76 @@
 {
   "display_name": "EL",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Απλή\nηχογράφηση φωνής",
-  "subtitle_aiRecording": "Συσκέψεις, διαλέξεις, στιγμές της μέρας",
-  "caption_useCase": "Για συσκέψεις\nκαι διαλέξεις",
-  "subtitle_useCase": "Για συσκέψεις, μαθήματα & συνεντεύξεις",
-  "caption_playbackList": "Ακούστε τις\nηχογραφήσεις σας",
-  "subtitle_playbackList": "Άμεση πρόσβαση στις ηχογραφήσεις",
-  "caption_backgroundRecording": "Ηχογράφηση και\nστο παρασκήνιο",
-  "subtitle_backgroundRecording": "Συνεχίζει και με κλειστή οθόνη",
-  "caption_timestampedTranscription": "Οι ηχογραφήσεις\nως κείμενο",
-  "subtitle_timestampedTranscription": "Αυτόματη απομαγνητοφώνηση με AI",
-  "caption_waveformEditor": "Εύκολη περικοπή\nκαι επεξεργασία",
-  "subtitle_waveformEditor": "Κόψτε εύκολα τα περιττά σημεία",
-  "caption_playlist": "Οργανώστε σε\nλίστες",
-  "subtitle_playlist": "Ταξινόμηση ανά θέμα",
-  "caption_shareSheet": "Κοινοποιήστε\nεύκολα",
-  "subtitle_shareSheet": "Μέσω email ή στις Σημειώσεις",
-  "caption_premium": "Περισσότερη ελευθερία\nμε το Premium",
-  "subtitle_premium": "Χωρίς διαφημίσεις, όλες οι λειτουργίες",
-  "caption_aiTranscription": "Ηχογράφηση &\nάμεση μεταγραφή",
-  "subtitle_aiTranscription": "Ομιλητές, σύνοψη, χρονοσήμανση",
+  "promo_aiRecording_line1": "Ένα άγγιγμα",
+  "promo_aiRecording_line2": "και ηχογραφείτε",
+  "promo_aiRecording_chips": [
+    "Με ένα άγγιγμα",
+    "Ένδειξη στάθμης",
+    "Παύση & συνέχεια"
+  ],
+  "promo_playbackList_line1": "Ακούστε ξανά",
+  "promo_playbackList_line2": "με τον δικό σας ρυθμό",
+  "promo_playbackList_chips": [
+    "Ταχύτητα",
+    "Επανάληψη A-B",
+    "Συνεχής επανάληψη"
+  ],
+  "promo_useCase_line1": "Για συσκέψεις,",
+  "promo_useCase_line2": "μαθήματα, συνεντεύξεις",
+  "promo_useCase_chips": [
+    "Συσκέψεις",
+    "Μαθήματα",
+    "Συνεντεύξεις"
+  ],
+  "promo_waveformEditor_line1": "Περικοπή",
+  "promo_waveformEditor_line2": "πάνω στην κυματομορφή",
+  "promo_waveformEditor_chips": [
+    "Περικοπή",
+    "Διαίρεση",
+    "Επιλογή στο κύμα"
+  ],
+  "promo_backgroundRecording_line1": "Ηχογραφεί",
+  "promo_backgroundRecording_line2": "και με οθόνη κλειστή",
+  "promo_backgroundRecording_chips": [
+    "Και κλειδωμένο",
+    "Live Activity",
+    "Μεγάλη διάρκεια"
+  ],
+  "promo_playlist_line1": "Οργανώστε τα όλα",
+  "promo_playlist_line2": "σε λίστες",
+  "promo_playlist_chips": [
+    "Δημιουργία λιστών",
+    "Ανά θέμα",
+    "Αντίγραφα iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Από ηχογράφηση",
+  "promo_timestampedTranscription_line2": "σε κείμενο",
+  "promo_timestampedTranscription_chips": [
+    "Απομαγνητοφώνηση",
+    "Χρονοσημάνσεις",
+    "Κοινή χρήση"
+  ],
+  "promo_aiTranscription_line1": "Περιλήψεις AI",
+  "promo_aiTranscription_line2": "με ομιλητές",
+  "promo_aiTranscription_chips": [
+    "Περίληψη AI",
+    "Ομιλητές",
+    "Χρονοσημάνσεις"
+  ],
+  "promo_shareSheet_line1": "Κοινοποιήστε",
+  "promo_shareSheet_line2": "με ένα άγγιγμα",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Μηνύματα",
+    "Στα Αρχεία"
+  ],
+  "promo_premium_line1": "Με το Premium,",
+  "promo_premium_line2": "περισσότερη ελευθερία",
+  "promo_premium_chips": [
+    "Χωρίς διαφημίσεις",
+    "Χωρίς όρια",
+    "Αντίγραφα iCloud"
+  ],
   "hero_pill": "Απλή Ηχογράφηση",
   "hero_line1": "Καθαρή ηχογράφηση,",
   "hero_line2": "απλά.",

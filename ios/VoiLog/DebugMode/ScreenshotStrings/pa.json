@@ -1,27 +1,76 @@
 {
   "display_name": "ਪੰਜ",
   "layout_rtl": false,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "ਇੱਕ ਟੈਪ ਨਾਲ\nਸੌਖੀ ਰਿਕਾਰਡਿੰਗ",
-  "subtitle_aiRecording": "ਮੀਟਿੰਗਾਂ, ਲੈਕਚਰ ਅਤੇ ਰੋਜ਼ ਦੇ ਪਲ ਰਿਕਾਰਡ ਕਰੋ",
-  "caption_useCase": "ਮੀਟਿੰਗ, ਲੈਕਚਰ\nਅਤੇ ਇੰਟਰਵਿਊ ਲਈ",
-  "subtitle_useCase": "ਮੀਟਿੰਗ, ਕਲਾਸ ਅਤੇ ਇੰਟਰਵਿਊ ਲਈ ਕੰਮ ਦੀ",
-  "caption_playbackList": "ਆਪਣੀਆਂ ਰਿਕਾਰਡਿੰਗਾਂ\nਸੁਣੋ",
-  "subtitle_playbackList": "ਰਿਕਾਰਡਿੰਗ ਤੁਰੰਤ ਸੁਣੋ",
-  "caption_backgroundRecording": "ਬੈਕਗ੍ਰਾਊਂਡ ਵਿੱਚ ਵੀ\nਰਿਕਾਰਡਿੰਗ ਜਾਰੀ",
-  "subtitle_backgroundRecording": "ਸਕ੍ਰੀਨ ਬੰਦ ਹੋਣ 'ਤੇ ਵੀ ਰਿਕਾਰਡਿੰਗ ਚੱਲਦੀ ਰਹੇ",
-  "caption_timestampedTranscription": "ਰਿਕਾਰਡਿੰਗ ਪੜ੍ਹੋ\nਟੈਕਸਟ ਵਜੋਂ",
-  "subtitle_timestampedTranscription": "AI ਨਾਲ ਆਪਣੇ-ਆਪ ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ",
-  "caption_waveformEditor": "ਆਡੀਓ ਸੌਖੇ ਢੰਗ ਨਾਲ\nਟ੍ਰਿਮ ਅਤੇ ਐਡਿਟ",
-  "subtitle_waveformEditor": "ਬੇਲੋੜਾ ਹਿੱਸਾ ਸੌਖਿਆਂ ਕੱਟੋ",
-  "caption_playlist": "ਪਲੇਲਿਸਟਾਂ ਵਿੱਚ\nਤਰਤੀਬ ਦਿਓ",
-  "subtitle_playlist": "ਵਿਸ਼ੇ ਮੁਤਾਬਕ ਸੰਭਾਲੋ ਅਤੇ ਪ੍ਰਬੰਧ ਕਰੋ",
-  "caption_shareSheet": "ਰਿਕਾਰਡਿੰਗ ਸੌਖਿਆਂ\nਸ਼ੇਅਰ ਕਰੋ",
-  "subtitle_shareSheet": "ਈਮੇਲ ਜਾਂ ਨੋਟਸ ਐਪ ਵਿੱਚ ਭੇਜੋ",
-  "caption_premium": "ਪ੍ਰੀਮੀਅਮ ਨਾਲ\nਹੋਰ ਆਜ਼ਾਦੀ",
-  "subtitle_premium": "ਕੋਈ ਇਸ਼ਤਿਹਾਰ ਨਹੀਂ, ਸਾਰੇ ਫ਼ੀਚਰ ਅਨਲੌਕ",
-  "caption_aiTranscription": "ਰਿਕਾਰਡ ਕਰੋ,\nਤੁਰੰਤ ਟੈਕਸਟ ਪਾਓ",
-  "subtitle_aiTranscription": "ਬੁਲਾਰਾ, ਸਾਰ ਅਤੇ ਟਾਈਮਸਟੈਂਪ ਸਮੇਤ",
+  "promo_aiRecording_line1": "ਇੱਕ ਟੈਪ ਨਾਲ",
+  "promo_aiRecording_line2": "ਰਿਕਾਰਡਿੰਗ ਸ਼ੁਰੂ",
+  "promo_aiRecording_chips": [
+    "ਇੱਕ ਟੈਪ ਰਿਕਾਰਡ",
+    "ਲੈਵਲ ਮੀਟਰ",
+    "ਰੋਕੋ ਤੇ ਜਾਰੀ ਰੱਖੋ"
+  ],
+  "promo_playbackList_line1": "ਆਪਣੀ ਰਫ਼ਤਾਰ ਨਾਲ",
+  "promo_playbackList_line2": "ਦੁਬਾਰਾ ਸੁਣੋ",
+  "promo_playbackList_chips": [
+    "ਪਲੇਬੈਕ ਸਪੀਡ",
+    "A-B ਰਿਪੀਟ",
+    "ਲੂਪ ਪਲੇਬੈਕ"
+  ],
+  "promo_useCase_line1": "ਮੀਟਿੰਗ, ਲੈਕਚਰ,",
+  "promo_useCase_line2": "ਇੰਟਰਵਿਊ ਲਈ",
+  "promo_useCase_chips": [
+    "ਮੀਟਿੰਗ",
+    "ਲੈਕਚਰ",
+    "ਇੰਟਰਵਿਊ"
+  ],
+  "promo_waveformEditor_line1": "ਵੇਵਫ਼ਾਰਮ ਦੇਖ ਕੇ",
+  "promo_waveformEditor_line2": "ਆਸਾਨੀ ਨਾਲ ਟ੍ਰਿਮ",
+  "promo_waveformEditor_chips": [
+    "ਟ੍ਰਿਮ",
+    "ਵੰਡੋ",
+    "ਵੇਵਫ਼ਾਰਮ 'ਤੇ ਚੁਣੋ"
+  ],
+  "promo_backgroundRecording_line1": "ਸਕ੍ਰੀਨ ਲੌਕ ਹੋਣ 'ਤੇ ਵੀ",
+  "promo_backgroundRecording_line2": "ਰਿਕਾਰਡਿੰਗ ਜਾਰੀ",
+  "promo_backgroundRecording_chips": [
+    "ਲੌਕ 'ਚ ਵੀ ਰਿਕਾਰਡ",
+    "Live Activity",
+    "ਲੰਬੀ ਰਿਕਾਰਡਿੰਗ"
+  ],
+  "promo_playlist_line1": "ਰਿਕਾਰਡਿੰਗਾਂ ਸਜਾਓ",
+  "promo_playlist_line2": "ਪਲੇਲਿਸਟ ਵਿੱਚ",
+  "promo_playlist_chips": [
+    "ਪਲੇਲਿਸਟ ਬਣਾਓ",
+    "ਵਿਸ਼ੇ ਅਨੁਸਾਰ",
+    "iCloud ਸਿੰਕ"
+  ],
+  "promo_timestampedTranscription_line1": "ਰਿਕਾਰਡਿੰਗ ਨੂੰ",
+  "promo_timestampedTranscription_line2": "ਟੈਕਸਟ ਵਿੱਚ ਬਦਲੋ",
+  "promo_timestampedTranscription_chips": [
+    "ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ",
+    "ਟਾਈਮਸਟੈਂਪ",
+    "ਟੈਕਸਟ ਸਾਂਝਾ ਕਰੋ"
+  ],
+  "promo_aiTranscription_line1": "AI ਸਾਰ",
+  "promo_aiTranscription_line2": "ਸਪੀਕਰ ਲੇਬਲਾਂ ਨਾਲ",
+  "promo_aiTranscription_chips": [
+    "AI ਸਾਰ",
+    "ਸਪੀਕਰ ਲੇਬਲ",
+    "ਟਾਈਮਸਟੈਂਪ"
+  ],
+  "promo_shareSheet_line1": "ਇੱਕ ਟੈਪ ਨਾਲ",
+  "promo_shareSheet_line2": "ਰਿਕਾਰਡਿੰਗ ਸਾਂਝੀ ਕਰੋ",
+  "promo_shareSheet_chips": [
+    "ਮੇਲ",
+    "ਸੁਨੇਹੇ",
+    "ਫ਼ਾਈਲਾਂ 'ਚ ਸੇਵ"
+  ],
+  "promo_premium_line1": "ਪ੍ਰੀਮੀਅਮ ਨਾਲ",
+  "promo_premium_line2": "ਹੋਰ ਆਜ਼ਾਦੀ",
+  "promo_premium_chips": [
+    "ਕੋਈ ਇਸ਼ਤਿਹਾਰ ਨਹੀਂ",
+    "ਅਸੀਮਤ ਰਿਕਾਰਡਿੰਗ",
+    "iCloud ਸਿੰਕ"
+  ],
   "hero_pill": "ਸੌਖਾ ਵੌਇਸ ਰਿਕਾਰਡਰ",
   "hero_line1": "ਸਾਫ਼ ਰਿਕਾਰਡਿੰਗ,",
   "hero_line2": "ਬਿਲਕੁਲ ਸੌਖੀ।",

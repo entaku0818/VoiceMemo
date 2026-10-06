@@ -1,27 +1,76 @@
 {
   "display_name": "NL",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Simpel\nopnemen",
-  "subtitle_aiRecording": "Neem vergaderingen, colleges en meer op",
-  "caption_useCase": "Voor vergaderingen,\ncolleges & interviews",
-  "subtitle_useCase": "Voor vergaderingen, lessen en interviews",
-  "caption_playbackList": "Speel je\nopnamen af",
-  "subtitle_playbackList": "Luister opnamen direct terug",
-  "caption_backgroundRecording": "Neem ook op\nop de achtergrond",
-  "subtitle_backgroundRecording": "Blijft opnemen met het scherm uit",
-  "caption_timestampedTranscription": "Lees je opnamen als tekst",
-  "subtitle_timestampedTranscription": "Automatische AI-transcriptie",
-  "caption_waveformEditor": "Audio eenvoudig\nbijsnijden & bewerken",
-  "subtitle_waveformEditor": "Knip ongewenste stukken eruit",
-  "caption_playlist": "Orden in\nafspeellijsten",
-  "subtitle_playlist": "Ordenen en beheren per thema",
-  "caption_shareSheet": "Deel opnamen\nmoeiteloos",
-  "subtitle_shareSheet": "Via e-mail of de Notities-app",
-  "caption_premium": "Meer vrijheid\nmet Premium",
-  "subtitle_premium": "Geen advertenties, alle functies",
-  "caption_aiTranscription": "Opnemen & meteen transcriberen",
-  "subtitle_aiTranscription": "Sprekers, samenvatting & tijdstempels",
+  "promo_aiRecording_line1": "Eén tik",
+  "promo_aiRecording_line2": "en je neemt op",
+  "promo_aiRecording_chips": [
+    "Eén tik opnemen",
+    "Niveaumeter",
+    "Pauzeren & verder"
+  ],
+  "promo_playbackList_line1": "Luister terug",
+  "promo_playbackList_line2": "in je eigen tempo",
+  "promo_playbackList_chips": [
+    "Afspeelsnelheid",
+    "A-B-herhaling",
+    "Herhaald afspelen"
+  ],
+  "promo_useCase_line1": "Voor vergaderingen,",
+  "promo_useCase_line2": "colleges & interviews",
+  "promo_useCase_chips": [
+    "Vergaderingen",
+    "Colleges",
+    "Interviews"
+  ],
+  "promo_waveformEditor_line1": "Knip opnames",
+  "promo_waveformEditor_line2": "op de golfvorm",
+  "promo_waveformEditor_chips": [
+    "Inkorten",
+    "Splitsen",
+    "Kies op golfvorm"
+  ],
+  "promo_backgroundRecording_line1": "Blijft opnemen",
+  "promo_backgroundRecording_line2": "met vergrendeld scherm",
+  "promo_backgroundRecording_chips": [
+    "Ook vergrendeld",
+    "Live Activity",
+    "Lange opnames"
+  ],
+  "promo_playlist_line1": "Orden opnames",
+  "promo_playlist_line2": "in afspeellijsten",
+  "promo_playlist_chips": [
+    "Lijsten maken",
+    "Per onderwerp",
+    "iCloud-sync"
+  ],
+  "promo_timestampedTranscription_line1": "Zet opnames",
+  "promo_timestampedTranscription_line2": "om in tekst",
+  "promo_timestampedTranscription_chips": [
+    "Transcriptie",
+    "Tijdstempels",
+    "Deel als tekst"
+  ],
+  "promo_aiTranscription_line1": "AI-samenvattingen",
+  "promo_aiTranscription_line2": "met sprekerlabels",
+  "promo_aiTranscription_chips": [
+    "AI-samenvatting",
+    "Sprekerlabels",
+    "Tijdstempels"
+  ],
+  "promo_shareSheet_line1": "Deel opnames",
+  "promo_shareSheet_line2": "met één tik",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Berichten",
+    "Naar Bestanden"
+  ],
+  "promo_premium_line1": "Kies Premium",
+  "promo_premium_line2": "voor meer vrijheid",
+  "promo_premium_chips": [
+    "Geen advertenties",
+    "Onbeperkt opnemen",
+    "iCloud-sync"
+  ],
   "hero_pill": "Eenvoudige spraakrecorder",
   "hero_line1": "Helder opnemen,",
   "hero_line2": "heel eenvoudig.",

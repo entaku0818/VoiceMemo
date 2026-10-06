@@ -1,27 +1,76 @@
 {
   "display_name": "EN",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Simple Voice\nRecording",
-  "subtitle_aiRecording": "Record meetings, lectures & daily moments",
-  "caption_useCase": "For Meetings,\nLectures & Interviews",
-  "subtitle_useCase": "For Meetings, Classes & Interviews",
-  "caption_playbackList": "Play Your\nRecordings",
-  "subtitle_playbackList": "Review Recordings Instantly",
-  "caption_backgroundRecording": "Record Even in\nBackground",
-  "subtitle_backgroundRecording": "Continues Recording with Screen Off",
-  "caption_timestampedTranscription": "Review your recordings as text",
-  "subtitle_timestampedTranscription": "AI Auto-Transcription",
-  "caption_waveformEditor": "Easy Audio\nTrimming & Editing",
-  "subtitle_waveformEditor": "Easily Trim Unwanted Parts",
-  "caption_playlist": "Organize into\nPlaylists",
-  "subtitle_playlist": "Organize & Manage by Theme",
-  "caption_shareSheet": "Share Recordings\nEasily",
-  "subtitle_shareSheet": "Share via Email or Notes App",
-  "caption_premium": "Go Premium\nfor More Freedom",
-  "subtitle_premium": "No Ads, All Features Unlocked",
-  "caption_aiTranscription": "Record & Transcribe Instantly",
-  "subtitle_aiTranscription": "Speaker, Summary & Timestamps",
+  "promo_aiRecording_line1": "One tap",
+  "promo_aiRecording_line2": "and you're recording",
+  "promo_aiRecording_chips": [
+    "One-tap recording",
+    "Level meter",
+    "Pause & resume"
+  ],
+  "promo_playbackList_line1": "Listen back",
+  "promo_playbackList_line2": "at your own pace",
+  "promo_playbackList_chips": [
+    "Playback speed",
+    "A-B repeat",
+    "Loop playback"
+  ],
+  "promo_useCase_line1": "Made for meetings,",
+  "promo_useCase_line2": "lectures & interviews",
+  "promo_useCase_chips": [
+    "Meetings",
+    "Lectures",
+    "Interviews"
+  ],
+  "promo_waveformEditor_line1": "Trim recordings",
+  "promo_waveformEditor_line2": "right on the waveform",
+  "promo_waveformEditor_chips": [
+    "Trim",
+    "Split",
+    "Select on waveform"
+  ],
+  "promo_backgroundRecording_line1": "Keeps recording",
+  "promo_backgroundRecording_line2": "with the screen locked",
+  "promo_backgroundRecording_chips": [
+    "Records when locked",
+    "Live Activity",
+    "Long recordings"
+  ],
+  "promo_playlist_line1": "Organize recordings",
+  "promo_playlist_line2": "into playlists",
+  "promo_playlist_chips": [
+    "Create playlists",
+    "Sort by topic",
+    "iCloud sync"
+  ],
+  "promo_timestampedTranscription_line1": "Turn recordings",
+  "promo_timestampedTranscription_line2": "into text",
+  "promo_timestampedTranscription_chips": [
+    "Transcription",
+    "Timestamps",
+    "Share as text"
+  ],
+  "promo_aiTranscription_line1": "Get AI summaries",
+  "promo_aiTranscription_line2": "with speaker labels",
+  "promo_aiTranscription_chips": [
+    "AI summary",
+    "Speaker labels",
+    "Timestamps"
+  ],
+  "promo_shareSheet_line1": "Share recordings",
+  "promo_shareSheet_line2": "in a tap",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Messages",
+    "Save to Files"
+  ],
+  "promo_premium_line1": "Go Premium",
+  "promo_premium_line2": "for more freedom",
+  "promo_premium_chips": [
+    "No ads",
+    "Unlimited recording",
+    "iCloud sync"
+  ],
   "hero_pill": "Simple Voice Recorder",
   "hero_line1": "Record clearly,",
   "hero_line2": "simply.",

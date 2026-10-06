@@ -1,27 +1,76 @@
 {
   "display_name": "मरा",
   "layout_rtl": false,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "एका टॅपमध्ये\nसोपे रेकॉर्डिंग",
-  "subtitle_aiRecording": "मीटिंग, लेक्चर आणि रोजचे क्षण रेकॉर्ड करा",
-  "caption_useCase": "मीटिंग, लेक्चर\nआणि मुलाखतींसाठी",
-  "subtitle_useCase": "मीटिंग, क्लास आणि मुलाखतींसाठी उपयुक्त",
-  "caption_playbackList": "तुमची रेकॉर्डिंग\nऐका",
-  "subtitle_playbackList": "रेकॉर्डिंग लगेच ऐका",
-  "caption_backgroundRecording": "बॅकग्राउंडमध्येही\nरेकॉर्डिंग सुरू",
-  "subtitle_backgroundRecording": "स्क्रीन बंद असतानाही रेकॉर्डिंग सुरू राहते",
-  "caption_timestampedTranscription": "रेकॉर्डिंग वाचा\nमजकुराच्या रूपात",
-  "subtitle_timestampedTranscription": "AI द्वारे आपोआप ट्रान्सक्रिप्शन",
-  "caption_waveformEditor": "ऑडिओ सहज\nट्रिम आणि एडिट करा",
-  "subtitle_waveformEditor": "नको असलेला भाग सहज कापा",
-  "caption_playlist": "प्लेलिस्टमध्ये\nव्यवस्थित ठेवा",
-  "subtitle_playlist": "विषयानुसार मांडणी आणि व्यवस्थापन",
-  "caption_shareSheet": "रेकॉर्डिंग सहज\nशेअर करा",
-  "subtitle_shareSheet": "ईमेल किंवा नोट्स ॲपमध्ये पाठवा",
-  "caption_premium": "प्रीमियमसह\nअधिक स्वातंत्र्य",
-  "subtitle_premium": "जाहिराती नाहीत, सर्व फीचर्स अनलॉक",
-  "caption_aiTranscription": "रेकॉर्ड करा,\nलगेच मजकूर मिळवा",
-  "subtitle_aiTranscription": "वक्ता, सारांश आणि टाइमस्टॅम्पसह",
+  "promo_aiRecording_line1": "एका टॅपमध्ये",
+  "promo_aiRecording_line2": "रेकॉर्डिंग सुरू",
+  "promo_aiRecording_chips": [
+    "एक टॅप रेकॉर्डिंग",
+    "लेव्हल मीटर",
+    "पॉज व रिझ्यूम"
+  ],
+  "promo_playbackList_line1": "तुमच्या वेगाने",
+  "promo_playbackList_line2": "पुन्हा ऐका",
+  "promo_playbackList_chips": [
+    "प्लेबॅक स्पीड",
+    "A-B रिपीट",
+    "लूप प्लेबॅक"
+  ],
+  "promo_useCase_line1": "मीटिंग, लेक्चर,",
+  "promo_useCase_line2": "मुलाखतींसाठी",
+  "promo_useCase_chips": [
+    "मीटिंग",
+    "लेक्चर",
+    "मुलाखत"
+  ],
+  "promo_waveformEditor_line1": "वेव्हफॉर्म पाहून",
+  "promo_waveformEditor_line2": "सहज ट्रिम करा",
+  "promo_waveformEditor_chips": [
+    "ट्रिम",
+    "विभाजित करा",
+    "वेव्हफॉर्मवर निवडा"
+  ],
+  "promo_backgroundRecording_line1": "स्क्रीन लॉक असली तरी",
+  "promo_backgroundRecording_line2": "रेकॉर्डिंग सुरूच",
+  "promo_backgroundRecording_chips": [
+    "लॉकमध्येही रेकॉर्ड",
+    "Live Activity",
+    "दीर्घ रेकॉर्डिंग"
+  ],
+  "promo_playlist_line1": "रेकॉर्डिंग्ज मांडा",
+  "promo_playlist_line2": "प्लेलिस्टमध्ये",
+  "promo_playlist_chips": [
+    "प्लेलिस्ट तयार करा",
+    "विषयानुसार",
+    "iCloud सिंक"
+  ],
+  "promo_timestampedTranscription_line1": "रेकॉर्डिंगचे",
+  "promo_timestampedTranscription_line2": "मजकुरात रूपांतर",
+  "promo_timestampedTranscription_chips": [
+    "ट्रान्सक्रिप्शन",
+    "टाइमस्टॅम्प",
+    "मजकूर शेअर करा"
+  ],
+  "promo_aiTranscription_line1": "AI सारांश",
+  "promo_aiTranscription_line2": "वक्त्यांच्या लेबलसह",
+  "promo_aiTranscription_chips": [
+    "AI सारांश",
+    "वक्ता लेबल",
+    "टाइमस्टॅम्प"
+  ],
+  "promo_shareSheet_line1": "एका टॅपमध्ये",
+  "promo_shareSheet_line2": "रेकॉर्डिंग शेअर करा",
+  "promo_shareSheet_chips": [
+    "मेल",
+    "संदेश",
+    "फाइल्समध्ये सेव्ह"
+  ],
+  "promo_premium_line1": "प्रीमियमसह",
+  "promo_premium_line2": "अधिक स्वातंत्र्य",
+  "promo_premium_chips": [
+    "जाहिराती नाहीत",
+    "अमर्यादित रेकॉर्डिंग",
+    "iCloud सिंक"
+  ],
   "hero_pill": "सोपा व्हॉइस रेकॉर्डर",
   "hero_line1": "स्पष्ट रेकॉर्डिंग,",
   "hero_line2": "अगदी सोपे.",

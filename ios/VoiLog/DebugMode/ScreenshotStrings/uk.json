@@ -1,27 +1,76 @@
 {
   "display_name": "UK",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Простий\nзапис голосу",
-  "subtitle_aiRecording": "Записуйте наради, лекції й моменти",
-  "caption_useCase": "Для нарад,\nлекцій та інтерв’ю",
-  "subtitle_useCase": "Для нарад, занять та інтерв’ю",
-  "caption_playbackList": "Слухайте\nсвої записи",
-  "subtitle_playbackList": "Миттєвий доступ до записів",
-  "caption_backgroundRecording": "Запис навіть\nу фоновому режимі",
-  "subtitle_backgroundRecording": "Записує навіть із вимкненим екраном",
-  "caption_timestampedTranscription": "Переглядайте записи як текст",
-  "subtitle_timestampedTranscription": "Автоматична ШІ-транскрипція",
-  "caption_waveformEditor": "Легке обрізання\nй редагування",
-  "subtitle_waveformEditor": "Легко вирізайте зайве",
-  "caption_playlist": "Упорядковуйте\nу плейлисти",
-  "subtitle_playlist": "Сортуйте записи за темами",
-  "caption_shareSheet": "Легко поширюйте\nзаписи",
-  "subtitle_shareSheet": "Надсилайте поштою чи в Нотатки",
-  "caption_premium": "Більше свободи\nз Преміум",
-  "subtitle_premium": "Без реклами, усі функції відкрито",
-  "caption_aiTranscription": "Записуйте й одразу транскрибуйте",
-  "subtitle_aiTranscription": "Мовці, підсумок і мітки часу",
+  "promo_aiRecording_line1": "Один дотик —",
+  "promo_aiRecording_line2": "і запис почався",
+  "promo_aiRecording_chips": [
+    "Один дотик",
+    "Індикатор рівня",
+    "Пауза/продовження"
+  ],
+  "promo_playbackList_line1": "Слухайте",
+  "promo_playbackList_line2": "у своєму темпі",
+  "promo_playbackList_chips": [
+    "Швидкість",
+    "Повтор A-B",
+    "Зациклення"
+  ],
+  "promo_useCase_line1": "Для зустрічей,",
+  "promo_useCase_line2": "лекцій та інтерв'ю",
+  "promo_useCase_chips": [
+    "Зустрічі",
+    "Лекції",
+    "Інтерв'ю"
+  ],
+  "promo_waveformEditor_line1": "Обрізайте записи",
+  "promo_waveformEditor_line2": "просто по хвилі",
+  "promo_waveformEditor_chips": [
+    "Обрізання",
+    "Розділити",
+    "Вибір по хвилі"
+  ],
+  "promo_backgroundRecording_line1": "Запис не перерветься",
+  "promo_backgroundRecording_line2": "при блокуванні екрана",
+  "promo_backgroundRecording_chips": [
+    "При блокуванні",
+    "Live Activity",
+    "Довгі записи"
+  ],
+  "promo_playlist_line1": "Упорядкуйте записи",
+  "promo_playlist_line2": "у плейлистах",
+  "promo_playlist_chips": [
+    "Свої плейлисти",
+    "За темами",
+    "Копії в iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Перетворіть запис",
+  "promo_timestampedTranscription_line2": "на текст",
+  "promo_timestampedTranscription_chips": [
+    "Транскрипція",
+    "Мітки часу",
+    "Поділитися текстом"
+  ],
+  "promo_aiTranscription_line1": "ШІ-підсумки",
+  "promo_aiTranscription_line2": "з розміткою мовців",
+  "promo_aiTranscription_chips": [
+    "ШІ-підсумок",
+    "Мовці",
+    "Мітки часу"
+  ],
+  "promo_shareSheet_line1": "Діліться записами",
+  "promo_shareSheet_line2": "одним дотиком",
+  "promo_shareSheet_chips": [
+    "Пошта",
+    "Повідомлення",
+    "Зберегти у Файли"
+  ],
+  "promo_premium_line1": "Premium —",
+  "promo_premium_line2": "більше свободи",
+  "promo_premium_chips": [
+    "Без реклами",
+    "Без обмежень",
+    "Копії в iCloud"
+  ],
   "hero_pill": "Простий диктофон",
   "hero_line1": "Записуйте чітко",
   "hero_line2": "і просто.",

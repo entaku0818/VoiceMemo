@@ -1,27 +1,76 @@
 {
   "display_name": "RO",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Înregistrați\ncu o atingere",
-  "subtitle_aiRecording": "Ședințe, cursuri și momente zilnice",
-  "caption_useCase": "Pentru ședințe,\ncursuri și interviuri",
-  "subtitle_useCase": "Ședințe, cursuri și interviuri",
-  "caption_playbackList": "Ascultați-vă\nînregistrările",
-  "subtitle_playbackList": "Verificați-le imediat",
-  "caption_backgroundRecording": "Înregistrați și\nîn fundal",
-  "subtitle_backgroundRecording": "Continuă cu ecranul stins",
-  "caption_timestampedTranscription": "Înregistrările,\nca text",
-  "subtitle_timestampedTranscription": "Transcriere automată cu AI",
-  "caption_waveformEditor": "Tăiați și editați\nsunetul ușor",
-  "subtitle_waveformEditor": "Eliminați părțile inutile",
-  "caption_playlist": "Organizați în\nliste de redare",
-  "subtitle_playlist": "Grupați pe teme",
-  "caption_shareSheet": "Partajați\nînregistrările",
-  "subtitle_shareSheet": "Prin e-mail sau în Notițe",
-  "caption_premium": "Mai multă libertate\ncu Premium",
-  "subtitle_premium": "Fără reclame, totul deblocat",
-  "caption_aiTranscription": "Înregistrați și\ntranscrieți pe loc",
-  "subtitle_aiTranscription": "Vorbitori, rezumat și marcaje de timp",
+  "promo_aiRecording_line1": "O singură atingere",
+  "promo_aiRecording_line2": "și înregistrezi",
+  "promo_aiRecording_chips": [
+    "O singură atingere",
+    "Indicator de nivel",
+    "Pauză și reluare"
+  ],
+  "promo_playbackList_line1": "Ascultă din nou",
+  "promo_playbackList_line2": "în ritmul tău",
+  "promo_playbackList_chips": [
+    "Viteză de redare",
+    "Repetare A-B",
+    "Redare în buclă"
+  ],
+  "promo_useCase_line1": "Pentru ședințe,",
+  "promo_useCase_line2": "cursuri și interviuri",
+  "promo_useCase_chips": [
+    "Ședințe",
+    "Cursuri",
+    "Interviuri"
+  ],
+  "promo_waveformEditor_line1": "Taie înregistrările",
+  "promo_waveformEditor_line2": "direct pe undă",
+  "promo_waveformEditor_chips": [
+    "Decupare",
+    "Împărțire",
+    "Selecție pe undă"
+  ],
+  "promo_backgroundRecording_line1": "Înregistrează",
+  "promo_backgroundRecording_line2": "și cu ecranul blocat",
+  "promo_backgroundRecording_chips": [
+    "Și cu ecran blocat",
+    "Activități live",
+    "Înregistrări lungi"
+  ],
+  "promo_playlist_line1": "Organizează totul",
+  "promo_playlist_line2": "în liste de redare",
+  "promo_playlist_chips": [
+    "Creează liste",
+    "Pe teme",
+    "Backup pe iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Transformă vocea",
+  "promo_timestampedTranscription_line2": "în text",
+  "promo_timestampedTranscription_chips": [
+    "Transcriere",
+    "Marcaje de timp",
+    "Partajare ca text"
+  ],
+  "promo_aiTranscription_line1": "Rezumate AI",
+  "promo_aiTranscription_line2": "și vorbitori marcați",
+  "promo_aiTranscription_chips": [
+    "Rezumat AI",
+    "Vorbitori",
+    "Marcaje de timp"
+  ],
+  "promo_shareSheet_line1": "Partajează rapid",
+  "promo_shareSheet_line2": "cu o singură atingere",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Mesaje",
+    "În Fișiere"
+  ],
+  "promo_premium_line1": "Cu Premium,",
+  "promo_premium_line2": "mai multă libertate",
+  "promo_premium_chips": [
+    "Fără reclame",
+    "Fără limită",
+    "Backup pe iCloud"
+  ],
   "hero_pill": "Reportofon simplu",
   "hero_line1": "Înregistrări clare,",
   "hero_line2": "fără bătăi de cap.",

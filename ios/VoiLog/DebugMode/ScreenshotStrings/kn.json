@@ -1,27 +1,76 @@
 {
   "display_name": "KN",
   "layout_rtl": false,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "ಸರಳ ಧ್ವನಿ\nರೆಕಾರ್ಡಿಂಗ್",
-  "subtitle_aiRecording": "ಸಭೆ, ಉಪನ್ಯಾಸ, ದೈನಂದಿನ ಕ್ಷಣಗಳನ್ನು ರೆಕಾರ್ಡ್ ಮಾಡಿ",
-  "caption_useCase": "ಸಭೆ, ಉಪನ್ಯಾಸ,\nಸಂದರ್ಶನಗಳಿಗೆ",
-  "subtitle_useCase": "ಸಭೆ, ತರಗತಿ ಮತ್ತು ಸಂದರ್ಶನಗಳಿಗೆ",
-  "caption_playbackList": "ರೆಕಾರ್ಡಿಂಗ್‌ಗಳನ್ನು\nಪ್ಲೇ ಮಾಡಿ",
-  "subtitle_playbackList": "ರೆಕಾರ್ಡಿಂಗ್‌ಗಳನ್ನು ತಕ್ಷಣ ಕೇಳಿ",
-  "caption_backgroundRecording": "ಹಿನ್ನೆಲೆಯಲ್ಲೂ\nರೆಕಾರ್ಡಿಂಗ್",
-  "subtitle_backgroundRecording": "ಸ್ಕ್ರೀನ್ ಆಫ್ ಆದರೂ ರೆಕಾರ್ಡಿಂಗ್ ಮುಂದುವರಿಯುತ್ತದೆ",
-  "caption_timestampedTranscription": "ರೆಕಾರ್ಡಿಂಗ್ ಅನ್ನು\nಪಠ್ಯವಾಗಿ ನೋಡಿ",
-  "subtitle_timestampedTranscription": "AI ಸ್ವಯಂ ಪ್ರತಿಲೇಖನ",
-  "caption_waveformEditor": "ಸುಲಭ ಆಡಿಯೋ\nಟ್ರಿಮ್ ಮತ್ತು ಎಡಿಟ್",
-  "subtitle_waveformEditor": "ಬೇಡದ ಭಾಗಗಳನ್ನು ಸುಲಭವಾಗಿ ಕತ್ತರಿಸಿ",
-  "caption_playlist": "ಪ್ಲೇಲಿಸ್ಟ್‌ಗಳಲ್ಲಿ\nಆಯೋಜಿಸಿ",
-  "subtitle_playlist": "ವಿಷಯವಾರು ಆಯೋಜಿಸಿ, ನಿರ್ವಹಿಸಿ",
-  "caption_shareSheet": "ರೆಕಾರ್ಡಿಂಗ್ ಅನ್ನು\nಸುಲಭವಾಗಿ ಹಂಚಿಕೊಳ್ಳಿ",
-  "subtitle_shareSheet": "ಇಮೇಲ್ ಅಥವಾ ನೋಟ್ಸ್ ಆ್ಯಪ್ ಮೂಲಕ ಹಂಚಿಕೊಳ್ಳಿ",
-  "caption_premium": "ಪ್ರೀಮಿಯಂನೊಂದಿಗೆ\nಹೆಚ್ಚು ಸ್ವಾತಂತ್ರ್ಯ",
-  "subtitle_premium": "ಜಾಹೀರಾತು ಇಲ್ಲ, ಎಲ್ಲಾ ವೈಶಿಷ್ಟ್ಯಗಳು ಅನ್‌ಲಾಕ್",
-  "caption_aiTranscription": "ರೆಕಾರ್ಡ್ ಮಾಡಿ,\nತಕ್ಷಣ AI ಪ್ರತಿಲೇಖನ",
-  "subtitle_aiTranscription": "ಸ್ಪೀಕರ್, ಸಾರಾಂಶ, ಟೈಮ್‌ಸ್ಟ್ಯಾಂಪ್",
+  "promo_aiRecording_line1": "ಒಂದೇ ಟ್ಯಾಪ್‌ನಲ್ಲಿ",
+  "promo_aiRecording_line2": "ರೆಕಾರ್ಡಿಂಗ್ ಶುರು",
+  "promo_aiRecording_chips": [
+    "ಒಂದು ಟ್ಯಾಪ್ ರೆಕಾರ್ಡ್",
+    "ಲೆವೆಲ್ ಮೀಟರ್",
+    "ವಿರಾಮ, ಮುಂದುವರಿಕೆ"
+  ],
+  "promo_playbackList_line1": "ನಿಮ್ಮ ವೇಗದಲ್ಲಿ",
+  "promo_playbackList_line2": "ಮತ್ತೆ ಕೇಳಿ",
+  "promo_playbackList_chips": [
+    "ಪ್ಲೇಬ್ಯಾಕ್ ವೇಗ",
+    "A-B ರಿಪೀಟ್",
+    "ಲೂಪ್ ಪ್ಲೇಬ್ಯಾಕ್"
+  ],
+  "promo_useCase_line1": "ಮೀಟಿಂಗ್, ಉಪನ್ಯಾಸ,",
+  "promo_useCase_line2": "ಸಂದರ್ಶನಕ್ಕೆ ಸೂಕ್ತ",
+  "promo_useCase_chips": [
+    "ಮೀಟಿಂಗ್",
+    "ಉಪನ್ಯಾಸ",
+    "ಸಂದರ್ಶನ"
+  ],
+  "promo_waveformEditor_line1": "ವೇವ್‌ಫಾರ್ಮ್ ನೋಡಿ",
+  "promo_waveformEditor_line2": "ಸುಲಭವಾಗಿ ಟ್ರಿಮ್",
+  "promo_waveformEditor_chips": [
+    "ಟ್ರಿಮ್",
+    "ವಿಭಜಿಸಿ",
+    "ವೇವ್‌ಫಾರ್ಮ್ ಆಯ್ಕೆ"
+  ],
+  "promo_backgroundRecording_line1": "ಸ್ಕ್ರೀನ್ ಲಾಕ್ ಆದರೂ",
+  "promo_backgroundRecording_line2": "ರೆಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲದು",
+  "promo_backgroundRecording_chips": [
+    "ಲಾಕ್‌ನಲ್ಲೂ ರೆಕಾರ್ಡ್",
+    "Live Activity",
+    "ದೀರ್ಘ ರೆಕಾರ್ಡಿಂಗ್"
+  ],
+  "promo_playlist_line1": "ರೆಕಾರ್ಡಿಂಗ್ ಜೋಡಿಸಿ",
+  "promo_playlist_line2": "ಪ್ಲೇಲಿಸ್ಟ್‌ನಲ್ಲಿ",
+  "promo_playlist_chips": [
+    "ಪ್ಲೇಲಿಸ್ಟ್ ರಚಿಸಿ",
+    "ವಿಷಯವಾರು",
+    "iCloud ಸಿಂಕ್"
+  ],
+  "promo_timestampedTranscription_line1": "ರೆಕಾರ್ಡಿಂಗ್ ಅನ್ನು",
+  "promo_timestampedTranscription_line2": "ಪಠ್ಯವಾಗಿ ಪಡೆಯಿರಿ",
+  "promo_timestampedTranscription_chips": [
+    "ಪ್ರತಿಲೇಖನ",
+    "ಟೈಮ್‌ಸ್ಟ್ಯಾಂಪ್",
+    "ಪಠ್ಯವಾಗಿ ಹಂಚಿ"
+  ],
+  "promo_aiTranscription_line1": "AI ಸಾರಾಂಶ",
+  "promo_aiTranscription_line2": "ಸ್ಪೀಕರ್ ಲೇಬಲ್ ಸಹಿತ",
+  "promo_aiTranscription_chips": [
+    "AI ಸಾರಾಂಶ",
+    "ಸ್ಪೀಕರ್ ಲೇಬಲ್",
+    "ಟೈಮ್‌ಸ್ಟ್ಯಾಂಪ್"
+  ],
+  "promo_shareSheet_line1": "ಒಂದೇ ಟ್ಯಾಪ್‌ನಲ್ಲಿ",
+  "promo_shareSheet_line2": "ರೆಕಾರ್ಡಿಂಗ್ ಹಂಚಿ",
+  "promo_shareSheet_chips": [
+    "ಮೇಲ್",
+    "ಸಂದೇಶಗಳು",
+    "ಫೈಲ್‌ಗೆ ಉಳಿಸಿ"
+  ],
+  "promo_premium_line1": "ಪ್ರೀಮಿಯಂನೊಂದಿಗೆ",
+  "promo_premium_line2": "ಇನ್ನಷ್ಟು ಸ್ವಾತಂತ್ರ್ಯ",
+  "promo_premium_chips": [
+    "ಜಾಹೀರಾತು ಇಲ್ಲ",
+    "ಅನಿಯಮಿತ ರೆಕಾರ್ಡಿಂಗ್",
+    "iCloud ಸಿಂಕ್"
+  ],
   "hero_pill": "ಸರಳ ವಾಯ್ಸ್ ರೆಕಾರ್ಡರ್",
   "hero_line1": "ಸ್ಪಷ್ಟವಾಗಿ, ಸರಳವಾಗಿ",
   "hero_line2": "ರೆಕಾರ್ಡ್ ಮಾಡಿ.",
