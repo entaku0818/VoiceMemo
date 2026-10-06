@@ -1,27 +1,76 @@
 {
   "display_name": "简",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "一键录音\n简单好用",
-  "subtitle_aiRecording": "会议、课堂、日常，随时记录",
-  "caption_useCase": "会议、讲座、\n采访都适用",
-  "subtitle_useCase": "适合会议、上课与采访",
-  "caption_playbackList": "随时回放\n你的录音",
-  "subtitle_playbackList": "录完马上就能听",
-  "caption_backgroundRecording": "后台也能\n持续录音",
-  "subtitle_backgroundRecording": "锁屏后录音不中断",
-  "caption_timestampedTranscription": "用文字回顾录音内容",
-  "subtitle_timestampedTranscription": "AI自动转录",
-  "caption_waveformEditor": "音频剪辑\n轻松搞定",
-  "subtitle_waveformEditor": "轻松剪掉多余部分",
-  "caption_playlist": "用播放列表\n整理录音",
-  "subtitle_playlist": "按主题分类管理",
-  "caption_shareSheet": "轻松分享\n录音",
-  "subtitle_shareSheet": "通过邮件或备忘录分享",
-  "caption_premium": "升级高级版\n畅享更多",
-  "subtitle_premium": "无广告·解锁全部功能",
-  "caption_aiTranscription": "录完即刻AI转录",
-  "subtitle_aiTranscription": "发言人·摘要·时间戳",
+  "promo_aiRecording_line1": "轻点一下",
+  "promo_aiRecording_line2": "立即开始录音",
+  "promo_aiRecording_chips": [
+    "一键录音",
+    "音量显示",
+    "暂停与继续"
+  ],
+  "promo_playbackList_line1": "倍速与重复",
+  "promo_playbackList_line2": "回听更轻松",
+  "promo_playbackList_chips": [
+    "变速播放",
+    "A-B 重复",
+    "循环播放"
+  ],
+  "promo_useCase_line1": "会议·讲座·采访",
+  "promo_useCase_line2": "完整记录",
+  "promo_useCase_chips": [
+    "会议记录",
+    "课堂复习",
+    "采访"
+  ],
+  "promo_waveformEditor_line1": "多余的部分",
+  "promo_waveformEditor_line2": "看着波形剪掉",
+  "promo_waveformEditor_chips": [
+    "裁剪",
+    "分割",
+    "波形选区"
+  ],
+  "promo_backgroundRecording_line1": "锁屏之后",
+  "promo_backgroundRecording_line2": "录音照常进行",
+  "promo_backgroundRecording_chips": [
+    "锁屏也能录",
+    "实时活动",
+    "长时间录音"
+  ],
+  "promo_playlist_line1": "录音越来越多",
+  "promo_playlist_line2": "用播放列表整理",
+  "promo_playlist_chips": [
+    "创建播放列表",
+    "按主题整理",
+    "iCloud 同步"
+  ],
+  "promo_timestampedTranscription_line1": "说过的内容",
+  "promo_timestampedTranscription_line2": "转成文字查看",
+  "promo_timestampedTranscription_chips": [
+    "转录",
+    "带时间戳",
+    "以文本分享"
+  ],
+  "promo_aiTranscription_line1": "录完即可",
+  "promo_aiTranscription_line2": "AI 摘要与分说话人",
+  "promo_aiTranscription_chips": [
+    "AI 摘要",
+    "说话人标签",
+    "时间戳"
+  ],
+  "promo_shareSheet_line1": "录音一键",
+  "promo_shareSheet_line2": "分享到邮件和应用",
+  "promo_shareSheet_chips": [
+    "邮件",
+    "信息",
+    "存储到文件"
+  ],
+  "promo_premium_line1": "升级高级版",
+  "promo_premium_line2": "录得更自由",
+  "promo_premium_chips": [
+    "无广告",
+    "无限录音",
+    "iCloud 同步"
+  ],
   "hero_pill": "简易语音录音机",
   "hero_line1": "录得清晰，",
   "hero_line2": "用得简单。",

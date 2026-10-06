@@ -1,27 +1,76 @@
 {
   "display_name": "HR",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Snimanje\njednim dodirom",
-  "subtitle_aiRecording": "Sastanci, predavanja i svakodnevica",
-  "caption_useCase": "Za sastanke,\npredavanja i intervjue",
-  "subtitle_useCase": "Sastanci, predavanja i intervjui",
-  "caption_playbackList": "Reproducirajte\nsvoje snimke",
-  "subtitle_playbackList": "Odmah ih preslušajte",
-  "caption_backgroundRecording": "Snima\ni u pozadini",
-  "subtitle_backgroundRecording": "Snima i kad je zaslon ugašen",
-  "caption_timestampedTranscription": "Snimke\nkao tekst",
-  "subtitle_timestampedTranscription": "Automatska AI transkripcija",
-  "caption_waveformEditor": "Lako rezanje\ni uređivanje zvuka",
-  "subtitle_waveformEditor": "Uklonite nepotrebne dijelove",
-  "caption_playlist": "Složite snimke\nu playliste",
-  "subtitle_playlist": "Razvrstajte ih po temama",
-  "caption_shareSheet": "Jednostavno\ndijeljenje snimki",
-  "subtitle_shareSheet": "E-poštom ili u Bilješke",
-  "caption_premium": "Više slobode\nuz Premium",
-  "subtitle_premium": "Bez oglasa, sve otključano",
-  "caption_aiTranscription": "Snimite i odmah\nimate transkripciju",
-  "subtitle_aiTranscription": "Govornici, sažetak i vremenske oznake",
+  "promo_aiRecording_line1": "Jedan dodir",
+  "promo_aiRecording_line2": "i već snimate",
+  "promo_aiRecording_chips": [
+    "Snimanje dodirom",
+    "Mjerač razine",
+    "Pauza i nastavak"
+  ],
+  "promo_playbackList_line1": "Preslušajte",
+  "promo_playbackList_line2": "svojim tempom",
+  "promo_playbackList_chips": [
+    "Promjena brzine",
+    "A-B ponavljanje",
+    "Petlja"
+  ],
+  "promo_useCase_line1": "Za sastanke,",
+  "promo_useCase_line2": "predavanja i intervjue",
+  "promo_useCase_chips": [
+    "Sastanci",
+    "Predavanja",
+    "Intervjui"
+  ],
+  "promo_waveformEditor_line1": "Skratite snimke",
+  "promo_waveformEditor_line2": "izravno na valu",
+  "promo_waveformEditor_chips": [
+    "Skraćivanje",
+    "Razdvoji",
+    "Odabir na valu"
+  ],
+  "promo_backgroundRecording_line1": "Snimanje traje",
+  "promo_backgroundRecording_line2": "i uz zaključan zaslon",
+  "promo_backgroundRecording_chips": [
+    "Snima i zaključan",
+    "Aktivnosti uživo",
+    "Dugo snimanje"
+  ],
+  "promo_playlist_line1": "Organizirajte snimke",
+  "promo_playlist_line2": "u playliste",
+  "promo_playlist_chips": [
+    "Izrada playlista",
+    "Po temama",
+    "Pohrana na iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Pretvorite snimke",
+  "promo_timestampedTranscription_line2": "u tekst",
+  "promo_timestampedTranscription_chips": [
+    "Transkripcija",
+    "Vremenske oznake",
+    "Dijeli kao tekst"
+  ],
+  "promo_aiTranscription_line1": "AI sažeci",
+  "promo_aiTranscription_line2": "s oznakama govornika",
+  "promo_aiTranscription_chips": [
+    "AI sažetak",
+    "Govornici",
+    "Vremenske oznake"
+  ],
+  "promo_shareSheet_line1": "Dijelite snimke",
+  "promo_shareSheet_line2": "jednim dodirom",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Poruke",
+    "Spremi u Datoteke"
+  ],
+  "promo_premium_line1": "Prijeđite na Premium",
+  "promo_premium_line2": "za više slobode",
+  "promo_premium_chips": [
+    "Bez oglasa",
+    "Bez ograničenja",
+    "Pohrana na iCloud"
+  ],
   "hero_pill": "Jednostavni snimač",
   "hero_line1": "Snimajte jasno",
   "hero_line2": "i jednostavno.",

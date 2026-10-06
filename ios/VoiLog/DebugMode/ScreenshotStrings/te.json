@@ -1,27 +1,76 @@
 {
   "display_name": "TE",
   "layout_rtl": false,
-  "layout_caption_top_padding": 44,
-  "caption_aiRecording": "సింపుల్\nవాయిస్ రికార్డింగ్",
-  "subtitle_aiRecording": "మీటింగ్‌లు, లెక్చర్‌లు, రోజువారీ క్షణాలు రికార్డ్ చేయండి",
-  "caption_useCase": "మీటింగ్, లెక్చర్,\nఇంటర్వ్యూలకు",
-  "subtitle_useCase": "మీటింగ్‌లు, క్లాసులు, ఇంటర్వ్యూలకు",
-  "caption_playbackList": "మీ రికార్డింగ్‌లు\nప్లే చేయండి",
-  "subtitle_playbackList": "రికార్డింగ్‌లను వెంటనే వినండి",
-  "caption_backgroundRecording": "బ్యాక్‌గ్రౌండ్‌లోనూ\nరికార్డింగ్",
-  "subtitle_backgroundRecording": "స్క్రీన్ ఆఫ్ అయినా రికార్డింగ్ కొనసాగుతుంది",
-  "caption_timestampedTranscription": "రికార్డింగ్‌ను\nటెక్స్ట్‌గా చూడండి",
-  "subtitle_timestampedTranscription": "AI ఆటో ట్రాన్స్‌క్రిప్షన్",
-  "caption_waveformEditor": "సులభంగా ఆడియో\nట్రిమ్ & ఎడిట్",
-  "subtitle_waveformEditor": "అవసరం లేని భాగాలను సులభంగా కత్తిరించండి",
-  "caption_playlist": "ప్లేలిస్ట్‌లుగా\nనిర్వహించండి",
-  "subtitle_playlist": "థీమ్ వారీగా ఆర్గనైజ్ చేయండి",
-  "caption_shareSheet": "రికార్డింగ్‌లను\nసులభంగా షేర్ చేయండి",
-  "subtitle_shareSheet": "ఈమెయిల్ లేదా నోట్స్ యాప్‌కు పంపండి",
-  "caption_premium": "ప్రీమియంతో\nమరింత స్వేచ్ఛ",
-  "subtitle_premium": "యాడ్‌లు లేవు, అన్ని ఫీచర్‌లు అన్‌లాక్",
-  "caption_aiTranscription": "రికార్డ్ చేసి\nవెంటనే ట్రాన్స్‌క్రైబ్",
-  "subtitle_aiTranscription": "స్పీకర్, సారాంశం, టైమ్‌స్టాంప్‌లు",
+  "promo_aiRecording_line1": "ఒక్క ట్యాప్‌తో",
+  "promo_aiRecording_line2": "రికార్డింగ్ మొదలు",
+  "promo_aiRecording_chips": [
+    "ఒక్క ట్యాప్ రికార్డ్",
+    "లెవెల్ మీటర్",
+    "పాజ్ & రెజ్యూమ్"
+  ],
+  "promo_playbackList_line1": "మీ వేగంలో",
+  "promo_playbackList_line2": "మళ్లీ వినండి",
+  "promo_playbackList_chips": [
+    "ప్లేబ్యాక్ వేగం",
+    "A-B రిపీట్",
+    "లూప్ ప్లేబ్యాక్"
+  ],
+  "promo_useCase_line1": "మీటింగ్, క్లాస్,",
+  "promo_useCase_line2": "ఇంటర్వ్యూలకు",
+  "promo_useCase_chips": [
+    "మీటింగ్‌లు",
+    "క్లాస్‌లు",
+    "ఇంటర్వ్యూలు"
+  ],
+  "promo_waveformEditor_line1": "వేవ్‌ఫార్మ్ చూసి",
+  "promo_waveformEditor_line2": "సులభంగా ట్రిమ్",
+  "promo_waveformEditor_chips": [
+    "ట్రిమ్",
+    "విభజించు",
+    "వేవ్‌ఫార్మ్‌పై ఎంపిక"
+  ],
+  "promo_backgroundRecording_line1": "స్క్రీన్ లాక్ అయినా",
+  "promo_backgroundRecording_line2": "రికార్డింగ్ ఆగదు",
+  "promo_backgroundRecording_chips": [
+    "లాక్‌లోనూ రికార్డ్",
+    "Live Activity",
+    "సుదీర్ఘ రికార్డింగ్"
+  ],
+  "promo_playlist_line1": "రికార్డింగ్‌లను",
+  "promo_playlist_line2": "ప్లేలిస్ట్‌లో సర్దండి",
+  "promo_playlist_chips": [
+    "ప్లేలిస్ట్ సృష్టించు",
+    "అంశాల వారీగా",
+    "iCloud సింక్"
+  ],
+  "promo_timestampedTranscription_line1": "రికార్డింగ్‌ను",
+  "promo_timestampedTranscription_line2": "టెక్స్ట్‌గా మార్చండి",
+  "promo_timestampedTranscription_chips": [
+    "ట్రాన్స్‌క్రిప్షన్",
+    "టైమ్‌స్టాంప్",
+    "టెక్స్ట్‌గా షేర్"
+  ],
+  "promo_aiTranscription_line1": "AI సారాంశం",
+  "promo_aiTranscription_line2": "స్పీకర్ లేబుల్స్‌తో",
+  "promo_aiTranscription_chips": [
+    "AI సారాంశం",
+    "స్పీకర్ లేబుల్స్",
+    "టైమ్‌స్టాంప్"
+  ],
+  "promo_shareSheet_line1": "ఒక్క ట్యాప్‌తో",
+  "promo_shareSheet_line2": "రికార్డింగ్ షేర్",
+  "promo_shareSheet_chips": [
+    "మెయిల్",
+    "సందేశాలు",
+    "ఫైల్స్‌లో సేవ్"
+  ],
+  "promo_premium_line1": "ప్రీమియంతో",
+  "promo_premium_line2": "మరింత స్వేచ్ఛ",
+  "promo_premium_chips": [
+    "యాడ్‌లు లేవు",
+    "అపరిమిత రికార్డింగ్",
+    "iCloud సింక్"
+  ],
   "hero_pill": "సింపుల్ వాయిస్ రికార్డర్",
   "hero_line1": "స్పష్టంగా, సులభంగా",
   "hero_line2": "రికార్డ్ చేయండి.",

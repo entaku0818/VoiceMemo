@@ -1,27 +1,76 @@
 {
   "display_name": "TR",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Tek dokunuşla\nkolay kayıt",
-  "subtitle_aiRecording": "Toplantıları, dersleri ve anları kaydedin",
-  "caption_useCase": "Toplantılar, Dersler\nve Röportajlar için",
-  "subtitle_useCase": "Toplantılar, dersler ve röportajlar için",
-  "caption_playbackList": "Kayıtlarınızı\ndinleyin",
-  "subtitle_playbackList": "Kayıtlarınıza anında ulaşın",
-  "caption_backgroundRecording": "Arka planda da\nkayıt yapın",
-  "subtitle_backgroundRecording": "Ekran kapalıyken de kayıt sürer",
-  "caption_timestampedTranscription": "Kayıtlarınızı metin olarak okuyun",
-  "subtitle_timestampedTranscription": "AI ile otomatik transkripsiyon",
-  "caption_waveformEditor": "Sesi kolayca\nkırpın ve düzenleyin",
-  "subtitle_waveformEditor": "Gereksiz kısımları kolayca kırpın",
-  "caption_playlist": "Çalma listeleriyle\ndüzenleyin",
-  "subtitle_playlist": "Konuya göre düzenleyin ve yönetin",
-  "caption_shareSheet": "Kayıtları\nkolayca paylaşın",
-  "subtitle_shareSheet": "E-posta veya Notlar ile paylaşın",
-  "caption_premium": "Premium ile\ndaha fazla özgürlük",
-  "subtitle_premium": "Reklamsız, tüm özellikler açık",
-  "caption_aiTranscription": "Kaydedin, anında yazıya dökün",
-  "subtitle_aiTranscription": "Konuşmacı, özet ve zaman damgası",
+  "promo_aiRecording_line1": "Tek dokunuşla",
+  "promo_aiRecording_line2": "kayıt başlasın",
+  "promo_aiRecording_chips": [
+    "Tek dokunuş",
+    "Seviye göstergesi",
+    "Duraklat ve sürdür"
+  ],
+  "promo_playbackList_line1": "Kendi hızınızda",
+  "promo_playbackList_line2": "tekrar dinleyin",
+  "promo_playbackList_chips": [
+    "Oynatma hızı",
+    "A-B tekrarı",
+    "Döngüde oynat"
+  ],
+  "promo_useCase_line1": "Toplantı, ders",
+  "promo_useCase_line2": "ve röportajlar için",
+  "promo_useCase_chips": [
+    "Toplantılar",
+    "Dersler",
+    "Röportajlar"
+  ],
+  "promo_waveformEditor_line1": "Kayıtları",
+  "promo_waveformEditor_line2": "dalga formunda kırpın",
+  "promo_waveformEditor_chips": [
+    "Kırpma",
+    "Böl",
+    "Dalgada seçim"
+  ],
+  "promo_backgroundRecording_line1": "Ekran kilitliyken",
+  "promo_backgroundRecording_line2": "kayıt devam eder",
+  "promo_backgroundRecording_chips": [
+    "Kilitliyken kayıt",
+    "Canlı Etkinlik",
+    "Uzun kayıtlar"
+  ],
+  "promo_playlist_line1": "Kayıtlarınızı",
+  "promo_playlist_line2": "listelerle düzenleyin",
+  "promo_playlist_chips": [
+    "Liste oluştur",
+    "Konuya göre",
+    "iCloud eşzamanlama"
+  ],
+  "promo_timestampedTranscription_line1": "Kayıtları",
+  "promo_timestampedTranscription_line2": "metne dönüştürün",
+  "promo_timestampedTranscription_chips": [
+    "Transkripsiyon",
+    "Zaman damgaları",
+    "Metni paylaş"
+  ],
+  "promo_aiTranscription_line1": "AI özetler,",
+  "promo_aiTranscription_line2": "konuşmacıları ayırır",
+  "promo_aiTranscription_chips": [
+    "AI özeti",
+    "Konuşmacılar",
+    "Zaman damgaları"
+  ],
+  "promo_shareSheet_line1": "Kayıtları tek",
+  "promo_shareSheet_line2": "dokunuşla paylaşın",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Mesajlar",
+    "Dosyalar'a kaydet"
+  ],
+  "promo_premium_line1": "Premium ile",
+  "promo_premium_line2": "daha fazla özgürlük",
+  "promo_premium_chips": [
+    "Reklamsız",
+    "Sınırsız kayıt",
+    "iCloud eşzamanlama"
+  ],
   "hero_pill": "Basit Ses Kaydedici",
   "hero_line1": "Net kayıt,",
   "hero_line2": "zahmetsizce.",

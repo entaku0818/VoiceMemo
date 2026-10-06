@@ -1,27 +1,76 @@
 {
   "display_name": "NB",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Enkelt\nopptak",
-  "subtitle_aiRecording": "Ta opp møter, forelesninger og hverdag",
-  "caption_useCase": "Til møter og\nforelesninger",
-  "subtitle_useCase": "For møter, undervisning og intervjuer",
-  "caption_playbackList": "Spill av\nopptakene dine",
-  "subtitle_playbackList": "Lytt til opptak med en gang",
-  "caption_backgroundRecording": "Ta opp også\ni bakgrunnen",
-  "subtitle_backgroundRecording": "Fortsetter å ta opp med skjermen av",
-  "caption_timestampedTranscription": "Se opptakene dine som tekst",
-  "subtitle_timestampedTranscription": "Automatisk KI-transkripsjon",
-  "caption_waveformEditor": "Klipp & rediger\nlyd enkelt",
-  "subtitle_waveformEditor": "Fjern unødvendige deler enkelt",
-  "caption_playlist": "Organiser i\nspillelister",
-  "subtitle_playlist": "Sorter og administrer etter tema",
-  "caption_shareSheet": "Del opptak\nenkelt",
-  "subtitle_shareSheet": "Via e-post eller Notater",
-  "caption_premium": "Mer frihet\nmed Premium",
-  "subtitle_premium": "Ingen reklame, alle funksjoner",
-  "caption_aiTranscription": "Ta opp og transkriber straks",
-  "subtitle_aiTranscription": "Talere, sammendrag & tidsstempler",
+  "promo_aiRecording_line1": "Ett trykk",
+  "promo_aiRecording_line2": "og du tar opp",
+  "promo_aiRecording_chips": [
+    "Start direkte",
+    "Nivåmåler",
+    "Pause og fortsett"
+  ],
+  "promo_playbackList_line1": "Lytt igjen",
+  "promo_playbackList_line2": "i ditt eget tempo",
+  "promo_playbackList_chips": [
+    "Hastighet",
+    "A–B-repetisjon",
+    "Spill av i loop"
+  ],
+  "promo_useCase_line1": "For møter,",
+  "promo_useCase_line2": "foredrag og intervjuer",
+  "promo_useCase_chips": [
+    "Møter",
+    "Foredrag",
+    "Intervjuer"
+  ],
+  "promo_waveformEditor_line1": "Klipp opptak",
+  "promo_waveformEditor_line2": "rett i bølgeformen",
+  "promo_waveformEditor_chips": [
+    "Trim",
+    "Del opp",
+    "Velg i bølgeformen"
+  ],
+  "promo_backgroundRecording_line1": "Tar opp videre",
+  "promo_backgroundRecording_line2": "med låst skjerm",
+  "promo_backgroundRecording_chips": [
+    "Også når låst",
+    "Direkteaktivitet",
+    "Lange opptak"
+  ],
+  "promo_playlist_line1": "Organiser opptak",
+  "promo_playlist_line2": "i spillelister",
+  "promo_playlist_chips": [
+    "Lag spillelister",
+    "Sorter etter tema",
+    "iCloud-synk"
+  ],
+  "promo_timestampedTranscription_line1": "Gjør opptak",
+  "promo_timestampedTranscription_line2": "om til tekst",
+  "promo_timestampedTranscription_chips": [
+    "Transkripsjon",
+    "Tidsstempler",
+    "Del som tekst"
+  ],
+  "promo_aiTranscription_line1": "AI-sammendrag",
+  "promo_aiTranscription_line2": "med talere",
+  "promo_aiTranscription_chips": [
+    "AI-sammendrag",
+    "Talermerker",
+    "Tidsstempler"
+  ],
+  "promo_shareSheet_line1": "Del opptak",
+  "promo_shareSheet_line2": "med ett trykk",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Meldinger",
+    "Arkiver i Filer"
+  ],
+  "promo_premium_line1": "Velg Premium",
+  "promo_premium_line2": "for mer frihet",
+  "promo_premium_chips": [
+    "Ingen reklame",
+    "Ubegrenset opptak",
+    "iCloud-synk"
+  ],
   "hero_pill": "Enkel lydopptaker",
   "hero_line1": "Ta opp klart,",
   "hero_line2": "helt enkelt.",

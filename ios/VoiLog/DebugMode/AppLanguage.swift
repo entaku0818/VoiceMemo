@@ -127,16 +127,9 @@ struct AppLanguage: Identifiable, Hashable {
         (ScreenshotStrings.value(key, code: code) as? Bool) ?? false
     }
 
-    private func number(_ key: String, default defaultValue: CGFloat) -> CGFloat {
-        guard let value = ScreenshotStrings.value(key, code: code) as? NSNumber else { return defaultValue }
-        return CGFloat(value.doubleValue)
-    }
-
     // MARK: Layout flags
 
     var isRightToLeft: Bool { bool("layout_rtl") }
-    /// ベトナム語・タイ語・インド系文字など、上に長い声調記号が付く言語はキャプション上の余白を広げる
-    var captionTopPadding: CGFloat { number("layout_caption_top_padding", default: 36) }
     var locale: Locale { Locale(identifier: code) }
     /// ハングル・タイ文字のシステムフォントには .black がなく細い字形に落ちるため、出せる最も太いウェイトを使う
     var heroHeadlineWeight: Font.Weight { ["ko", "th"].contains(code) ? .bold : .black }
@@ -144,8 +137,6 @@ struct AppLanguage: Identifiable, Hashable {
     // MARK: Page
 
     var displayName: String { string("display_name") }
-    func screenshotCaption(for screen: ScreenshotScreen) -> String { string("caption_\(screen.rawValue)") }
-    func screenshotSubtitle(for screen: ScreenshotScreen) -> String { string("subtitle_\(screen.rawValue)") }
 
     // MARK: Common mock strings
 

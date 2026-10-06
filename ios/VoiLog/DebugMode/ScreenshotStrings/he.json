@@ -1,27 +1,76 @@
 {
   "display_name": "HE",
   "layout_rtl": true,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "הקלטה פשוטה\nבנגיעה אחת",
-  "subtitle_aiRecording": "מקליטים פגישות, הרצאות ורגעים מהיומיום",
-  "caption_useCase": "לפגישות,\nהרצאות וראיונות",
-  "subtitle_useCase": "לפגישות, שיעורים וראיונות",
-  "caption_playbackList": "ניגון\nההקלטות שלך",
-  "subtitle_playbackList": "שומעים את ההקלטות מיד",
-  "caption_backgroundRecording": "מקליטים\nגם ברקע",
-  "subtitle_backgroundRecording": "ההקלטה נמשכת גם כשהמסך כבוי",
-  "caption_timestampedTranscription": "ההקלטות שלך\nכטקסט",
-  "subtitle_timestampedTranscription": "תמלול אוטומטי עם AI",
-  "caption_waveformEditor": "חיתוך ועריכת\nשמע בקלות",
-  "subtitle_waveformEditor": "חותכים קטעים מיותרים בקלות",
-  "caption_playlist": "מסדרים\nבפלייליסטים",
-  "subtitle_playlist": "סידור וניהול לפי נושא",
-  "caption_shareSheet": "שיתוף הקלטות\nבקלות",
-  "subtitle_shareSheet": "שליחה בדואר או לאפליקציית הפתקים",
-  "caption_premium": "יותר חופש\nעם פרימיום",
-  "subtitle_premium": "בלי פרסומות, כל התכונות פתוחות",
-  "caption_aiTranscription": "מקליטים ומתמללים\nמיד",
-  "subtitle_aiTranscription": "דוברים, סיכום וחותמות זמן",
+  "promo_aiRecording_line1": "נגיעה אחת",
+  "promo_aiRecording_line2": "וההקלטה מתחילה",
+  "promo_aiRecording_chips": [
+    "הקלטה בנגיעה",
+    "מד עוצמה",
+    "השהיה והמשך"
+  ],
+  "promo_playbackList_line1": "האזנה חוזרת",
+  "promo_playbackList_line2": "בקצב שלך",
+  "promo_playbackList_chips": [
+    "מהירות ניגון",
+    "חזרה A-B",
+    "ניגון בלולאה"
+  ],
+  "promo_useCase_line1": "לפגישות,",
+  "promo_useCase_line2": "הרצאות וראיונות",
+  "promo_useCase_chips": [
+    "פגישות",
+    "הרצאות",
+    "ראיונות"
+  ],
+  "promo_waveformEditor_line1": "קיצוץ הקלטות",
+  "promo_waveformEditor_line2": "ישירות על גל הקול",
+  "promo_waveformEditor_chips": [
+    "קיצוץ",
+    "פיצול",
+    "בחירה על הגל"
+  ],
+  "promo_backgroundRecording_line1": "ממשיך להקליט",
+  "promo_backgroundRecording_line2": "גם כשהמסך נעול",
+  "promo_backgroundRecording_chips": [
+    "הקלטה במסך נעול",
+    "פעילות בזמן אמת",
+    "הקלטות ארוכות"
+  ],
+  "promo_playlist_line1": "ארגון הקלטות",
+  "promo_playlist_line2": "בפלייליסטים",
+  "promo_playlist_chips": [
+    "יצירת פלייליסט",
+    "לפי נושא",
+    "סנכרון iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "הפכו הקלטות",
+  "promo_timestampedTranscription_line2": "לטקסט",
+  "promo_timestampedTranscription_chips": [
+    "תמלול",
+    "חותמות זמן",
+    "שיתוף כטקסט"
+  ],
+  "promo_aiTranscription_line1": "סיכומי AI",
+  "promo_aiTranscription_line2": "עם זיהוי דוברים",
+  "promo_aiTranscription_chips": [
+    "סיכום AI",
+    "תוויות דוברים",
+    "חותמות זמן"
+  ],
+  "promo_shareSheet_line1": "שיתוף הקלטות",
+  "promo_shareSheet_line2": "בנגיעה אחת",
+  "promo_shareSheet_chips": [
+    "דואר",
+    "הודעות",
+    "שמירה בקבצים"
+  ],
+  "promo_premium_line1": "שדרגו לפרימיום",
+  "promo_premium_line2": "ליותר חופש",
+  "promo_premium_chips": [
+    "ללא פרסומות",
+    "הקלטה ללא הגבלה",
+    "סנכרון iCloud"
+  ],
   "hero_pill": "הקלטה פשוטה",
   "hero_line1": "הקלטה ברורה,",
   "hero_line2": "פשוט וקל.",

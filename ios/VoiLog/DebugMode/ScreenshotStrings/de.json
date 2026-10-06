@@ -1,27 +1,76 @@
 {
   "display_name": "DE",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Ganz einfach\naufnehmen",
-  "subtitle_aiRecording": "Meetings, Vorlesungen & Alltag festhalten",
-  "caption_useCase": "Für Meetings,\nUni & Interviews",
-  "subtitle_useCase": "Für Meetings, Kurse und Interviews",
-  "caption_playbackList": "Aufnahmen\nabspielen",
-  "subtitle_playbackList": "Aufnahmen sofort anhören",
-  "caption_backgroundRecording": "Aufnahme auch\nim Hintergrund",
-  "subtitle_backgroundRecording": "Läuft auch bei gesperrtem Display weiter",
-  "caption_timestampedTranscription": "Aufnahmen als Text lesen",
-  "subtitle_timestampedTranscription": "Automatische KI-Transkription",
-  "caption_waveformEditor": "Audio einfach\nschneiden",
-  "subtitle_waveformEditor": "Unnötige Stellen einfach entfernen",
-  "caption_playlist": "In Playlists\nordnen",
-  "subtitle_playlist": "Nach Themen ordnen und verwalten",
-  "caption_shareSheet": "Aufnahmen\neinfach teilen",
-  "subtitle_shareSheet": "Per Mail oder an Notizen senden",
-  "caption_premium": "Mehr Freiheit\nmit Premium",
-  "subtitle_premium": "Ohne Werbung, alle Funktionen",
-  "caption_aiTranscription": "Aufnehmen & sofort transkribieren",
-  "subtitle_aiTranscription": "Sprecher, Zusammenfassung, Zeit",
+  "promo_aiRecording_line1": "Ein Tipp –",
+  "promo_aiRecording_line2": "und die Aufnahme läuft",
+  "promo_aiRecording_chips": [
+    "Aufnahme per Tipp",
+    "Pegelanzeige",
+    "Pause & weiter"
+  ],
+  "promo_playbackList_line1": "Anhören,",
+  "promo_playbackList_line2": "in deinem Tempo",
+  "promo_playbackList_chips": [
+    "Tempo anpassen",
+    "A-B-Wiederholung",
+    "Endlosschleife"
+  ],
+  "promo_useCase_line1": "Für Meetings,",
+  "promo_useCase_line2": "Vorträge & Interviews",
+  "promo_useCase_chips": [
+    "Meetings",
+    "Vorträge",
+    "Interviews"
+  ],
+  "promo_waveformEditor_line1": "Aufnahmen kürzen",
+  "promo_waveformEditor_line2": "in der Wellenform",
+  "promo_waveformEditor_chips": [
+    "Kürzen",
+    "Aufteilen",
+    "Bereich wählen"
+  ],
+  "promo_backgroundRecording_line1": "Nimmt weiter auf,",
+  "promo_backgroundRecording_line2": "auch wenn gesperrt",
+  "promo_backgroundRecording_chips": [
+    "Auch gesperrt",
+    "Live-Aktivität",
+    "Lange Aufnahmen"
+  ],
+  "promo_playlist_line1": "Aufnahmen ordnen",
+  "promo_playlist_line2": "in Playlists",
+  "promo_playlist_chips": [
+    "Playlists anlegen",
+    "Nach Thema",
+    "iCloud-Sync"
+  ],
+  "promo_timestampedTranscription_line1": "Aufnahmen",
+  "promo_timestampedTranscription_line2": "als Text lesen",
+  "promo_timestampedTranscription_chips": [
+    "Transkription",
+    "Zeitstempel",
+    "Als Text teilen"
+  ],
+  "promo_aiTranscription_line1": "KI fasst zusammen",
+  "promo_aiTranscription_line2": "und erkennt Sprecher",
+  "promo_aiTranscription_chips": [
+    "KI-Zusammenfassung",
+    "Sprecher-Labels",
+    "Zeitstempel"
+  ],
+  "promo_shareSheet_line1": "Aufnahmen teilen",
+  "promo_shareSheet_line2": "mit einem Tipp",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Nachrichten",
+    "In Dateien sichern"
+  ],
+  "promo_premium_line1": "Mit Premium",
+  "promo_premium_line2": "mehr Freiheit",
+  "promo_premium_chips": [
+    "Keine Werbung",
+    "Unbegrenzt",
+    "iCloud-Sync"
+  ],
   "hero_pill": "Einfacher Sprachrekorder",
   "hero_line1": "Glasklar aufnehmen,",
   "hero_line2": "ganz einfach.",

@@ -16,8 +16,9 @@ the JSON files in this folder — **translators only need to edit JSON**.
   `[ScreenshotStrings] missing key ...` in DEBUG), so a partial file still renders.
 - Arrays must keep the same number of items as in `en.json` (the test checks this).
 - `%d` is replaced by a number and `%@` by text. Keep them in the translation; you may move them.
-- `\n` is a forced line break. Captions may wrap to at most 3 lines and shrink to fit;
-  subtitles to 2 lines.
+- Headlines (`hero_line*`, `promo_*_line*`) are drawn on ONE line each and shrink to fit,
+  so keep them short (Latin ~20 characters, CJK ~10). Chips go on one row, or two rows if
+  they do not fit.
 - The folder is bundled as a folder (`explicitFolders` in `project.pbxproj`), so the app
   reads `ScreenshotStrings/<code>.json` from the app bundle.
 
@@ -59,14 +60,23 @@ but their strings are still translatable.
 |---|---|---|
 | `display_name` | string | Short label in the DebugMode language picker (e.g. `DE`, `简`). Required. |
 | `layout_rtl` | bool | `true` for right-to-left scripts (`ar`, `he`, `ur`): the page is laid out right-to-left and uses this language's `Locale`. |
-| `layout_caption_top_padding` | number | Space (pt) above the caption. Default `36`. Use ~`48–52` for scripts with tall marks above the line (Vietnamese uses `52`; Thai and Indic scripts ~`48`). |
 
-### Page caption / subtitle (big text above the phone)
+### Page headline / chips (every page except the hero)
 
-`caption_<screen>` = bold headline (36pt, up to 3 lines), `subtitle_<screen>` = grey line below it.
+Every page uses the approved hero design (`PromoScreenshotPageView.swift`): purple pill (`hero_pill`),
+a two-line headline and three white chips above a black device frame, with the key part of
+the screen zoomed into a purple-bordered card.
+
+| Key | Shown as |
+|---|---|
+| `promo_<screen>_line1` | Headline line 1, dark ink. |
+| `promo_<screen>_line2` | Headline line 2, purple accent (line 1 + line 2 read as one sentence). |
+| `promo_<screen>_chips` [3] | 3 white chips under the headline (short feature labels). |
+
 `<screen>` is one of `aiRecording`, `useCase`, `playbackList`, `backgroundRecording`,
 `timestampedTranscription`, `waveformEditor`, `playlist`, `shareSheet`, `premium`, `aiTranscription`
 (what each screen shows: see the table above / the mock screen keys below).
+The test `testEveryLanguageHasPromoTextsForShippedPages` fails if a shipped page lacks them.
 
 ### Hero (iPhone slot 0)
 

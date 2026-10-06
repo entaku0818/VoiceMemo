@@ -1,27 +1,76 @@
 {
   "display_name": "HU",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Egyszerű\nhangfelvétel",
-  "subtitle_aiRecording": "Megbeszélések, előadások, mindennapok",
-  "caption_useCase": "Megbeszélésre,\nelőadásra, interjúra",
-  "subtitle_useCase": "Megbeszélés, óra, interjú",
-  "caption_playbackList": "Hallgasd vissza\na felvételeidet",
-  "subtitle_playbackList": "Minden felvétel azonnal kéznél",
-  "caption_backgroundRecording": "Felvétel a\nháttérben is",
-  "subtitle_backgroundRecording": "Kikapcsolt képernyővel is rögzít",
-  "caption_timestampedTranscription": "Olvasd el, amit felvettél",
-  "subtitle_timestampedTranscription": "Automatikus MI-átírás",
-  "caption_waveformEditor": "Egyszerű vágás\nés szerkesztés",
-  "subtitle_waveformEditor": "Vágd ki a felesleges részeket",
-  "caption_playlist": "Rendezd\nlejátszási listákba",
-  "subtitle_playlist": "Témák szerint rendezve",
-  "caption_shareSheet": "Oszd meg\nkönnyedén",
-  "subtitle_shareSheet": "E-mailben vagy a Jegyzetekben",
-  "caption_premium": "Több szabadság\na Prémiummal",
-  "subtitle_premium": "Reklámmentesen, minden funkcióval",
-  "caption_aiTranscription": "Felvétel és azonnali átírás",
-  "subtitle_aiTranscription": "Beszélők, összefoglaló, időbélyegek",
+  "promo_aiRecording_line1": "Egy koppintás,",
+  "promo_aiRecording_line2": "és már rögzít is",
+  "promo_aiRecording_chips": [
+    "Egy koppintás",
+    "Szintjelző",
+    "Szünet, folytatás"
+  ],
+  "promo_playbackList_line1": "Hallgassa vissza",
+  "promo_playbackList_line2": "a saját tempójában",
+  "promo_playbackList_chips": [
+    "Tempóállítás",
+    "A-B ismétlés",
+    "Ismétlés"
+  ],
+  "promo_useCase_line1": "Megbeszélésekre,",
+  "promo_useCase_line2": "előadásokra, interjúkra",
+  "promo_useCase_chips": [
+    "Megbeszélések",
+    "Előadások",
+    "Interjúk"
+  ],
+  "promo_waveformEditor_line1": "Vágja meg a felvételt",
+  "promo_waveformEditor_line2": "a hullámformán",
+  "promo_waveformEditor_chips": [
+    "Vágás",
+    "Felosztás",
+    "Kijelölés hullámon"
+  ],
+  "promo_backgroundRecording_line1": "Zárolt képernyővel",
+  "promo_backgroundRecording_line2": "is rögzít tovább",
+  "promo_backgroundRecording_chips": [
+    "Zárolva is rögzít",
+    "Élő tevékenység",
+    "Hosszú felvételek"
+  ],
+  "promo_playlist_line1": "Felvételeit",
+  "promo_playlist_line2": "listákba rendezheti",
+  "promo_playlist_chips": [
+    "Listák létrehozása",
+    "Témák szerint",
+    "iCloud-szinkron"
+  ],
+  "promo_timestampedTranscription_line1": "A felvételből",
+  "promo_timestampedTranscription_line2": "szöveg lesz",
+  "promo_timestampedTranscription_chips": [
+    "Átirat",
+    "Időbélyegek",
+    "Szöveg megosztása"
+  ],
+  "promo_aiTranscription_line1": "MI-összefoglaló",
+  "promo_aiTranscription_line2": "beszélőcímkékkel",
+  "promo_aiTranscription_chips": [
+    "MI-összefoglaló",
+    "Beszélők",
+    "Időbélyegek"
+  ],
+  "promo_shareSheet_line1": "Ossza meg felvételeit",
+  "promo_shareSheet_line2": "egy koppintással",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Üzenetek",
+    "Mentés a Fájlokba"
+  ],
+  "promo_premium_line1": "Prémiummal",
+  "promo_premium_line2": "még több szabadság",
+  "promo_premium_chips": [
+    "Reklámmentes",
+    "Korlátlan felvétel",
+    "iCloud-szinkron"
+  ],
   "hero_pill": "Egyszerű hangrögzítő",
   "hero_line1": "Tiszta hangfelvétel,",
   "hero_line2": "egyszerűen.",

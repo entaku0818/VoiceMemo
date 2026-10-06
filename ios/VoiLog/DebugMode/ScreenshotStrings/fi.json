@@ -1,27 +1,76 @@
 {
   "display_name": "FI",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Helppoa\näänitystä",
-  "subtitle_aiRecording": "Äänitä kokoukset, luennot ja arki",
-  "caption_useCase": "Kokouksiin ja\nluennoille",
-  "subtitle_useCase": "Kokouksiin, tunneille ja haastatteluihin",
-  "caption_playbackList": "Kuuntele\näänitteitäsi",
-  "subtitle_playbackList": "Tarkista äänitteet heti",
-  "caption_backgroundRecording": "Äänitä myös\ntaustalla",
-  "subtitle_backgroundRecording": "Jatkuu, vaikka näyttö sammuu",
-  "caption_timestampedTranscription": "Katso äänitteet tekstinä",
-  "subtitle_timestampedTranscription": "Automaattinen tekoälylitterointi",
-  "caption_waveformEditor": "Rajaa ja muokkaa\nääntä helposti",
-  "subtitle_waveformEditor": "Leikkaa turhat kohdat pois",
-  "caption_playlist": "Järjestä\nsoittolistoihin",
-  "subtitle_playlist": "Järjestä ja hallitse aiheittain",
-  "caption_shareSheet": "Jaa äänitteet\nhelposti",
-  "subtitle_shareSheet": "Sähköpostilla tai Muistiinpanoihin",
-  "caption_premium": "Enemmän vapautta\nPremiumilla",
-  "subtitle_premium": "Ei mainoksia, kaikki ominaisuudet",
-  "caption_aiTranscription": "Äänitä ja litteroi heti",
-  "subtitle_aiTranscription": "Puhujat, yhteenveto ja aikaleimat",
+  "promo_aiRecording_line1": "Yksi napautus",
+  "promo_aiRecording_line2": "ja äänitys alkaa",
+  "promo_aiRecording_chips": [
+    "Nopea äänitys",
+    "Tasomittari",
+    "Tauko ja jatko"
+  ],
+  "promo_playbackList_line1": "Kuuntele uudelleen",
+  "promo_playbackList_line2": "omaan tahtiin",
+  "promo_playbackList_chips": [
+    "Toistonopeus",
+    "A-B-toisto",
+    "Silmukkatoisto"
+  ],
+  "promo_useCase_line1": "Kokoukset, luennot",
+  "promo_useCase_line2": "ja haastattelut",
+  "promo_useCase_chips": [
+    "Kokoukset",
+    "Luennot",
+    "Haastattelut"
+  ],
+  "promo_waveformEditor_line1": "Leikkaa turhat osat",
+  "promo_waveformEditor_line2": "suoraan aaltomuodosta",
+  "promo_waveformEditor_chips": [
+    "Rajaus",
+    "Jaa osiin",
+    "Valinta aallosta"
+  ],
+  "promo_backgroundRecording_line1": "Äänitys jatkuu",
+  "promo_backgroundRecording_line2": "näytön lukittuna",
+  "promo_backgroundRecording_chips": [
+    "Toimii lukittuna",
+    "Live Activity",
+    "Pitkät äänitykset"
+  ],
+  "promo_playlist_line1": "Järjestä äänitykset",
+  "promo_playlist_line2": "soittolistoihin",
+  "promo_playlist_chips": [
+    "Luo soittolistoja",
+    "Aiheittain",
+    "iCloud-varmistus"
+  ],
+  "promo_timestampedTranscription_line1": "Puhe tekstiksi",
+  "promo_timestampedTranscription_line2": "vaivatta",
+  "promo_timestampedTranscription_chips": [
+    "Litterointi",
+    "Aikaleimat",
+    "Jaa tekstinä"
+  ],
+  "promo_aiTranscription_line1": "Tekoäly tiivistää",
+  "promo_aiTranscription_line2": "ja tunnistaa puhujat",
+  "promo_aiTranscription_chips": [
+    "Tiivistelmä",
+    "Puhujat",
+    "Aikaleimat"
+  ],
+  "promo_shareSheet_line1": "Jaa äänitykset",
+  "promo_shareSheet_line2": "yhdellä napautuksella",
+  "promo_shareSheet_chips": [
+    "Sähköposti",
+    "Viestit",
+    "Tiedostoihin"
+  ],
+  "promo_premium_line1": "Premiumilla",
+  "promo_premium_line2": "enemmän vapautta",
+  "promo_premium_chips": [
+    "Ei mainoksia",
+    "Rajaton äänitys",
+    "iCloud-varmistus"
+  ],
   "hero_pill": "Helppo äänitin",
   "hero_line1": "Äänitä selkeästi,",
   "hero_line2": "helposti.",

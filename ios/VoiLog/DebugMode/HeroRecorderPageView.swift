@@ -5,39 +5,32 @@ import SwiftUI
 //
 // fastlane/hero_screenshot/compose.py の v5（白版）を SwiftUI で再現したもの。
 // compose.py は 1320x2868px の実機キャプチャを合成しているので、ここでは 440x956pt（@3x）に換算して同じ位置に置く。
-// - 薄いラベンダーのグラデーション (250,248,255) → (232,226,255)
-// - 紫のピル（アプリ名）、2行の見出し（墨 + 紫アクセント）、3つのチップ
-// - 録音中画面の端末モックと、その「録音中・タイマー・目盛り・波形」部分を拡大して紫枠で囲んだカード
+// 背景・ピル・見出し・チップ・端末フレーム・拡大カードは PromoScreenshotPageView.swift の共通部品を使う
+// （2枚目以降の PromoScreenshotPageView も同じ部品で描くので、全ページのデザインが揃う）。
 // ja / en-US の出荷用ヒーローは実機キャプチャ版（承認済み）を使い、それ以外の言語でこのビューを使う。
 struct HeroRecorderPageView: View {
     let language: AppLanguage
 
-    static let canvasSize = CGSize(width: 440, height: 956)
+    private let metrics = PromoMetrics.iPhone
+    static let canvasSize = PromoMetrics.iPhone.canvasSize
 
-    // compose.py の色
-    static let ink = Color(red: 20 / 255, green: 18 / 255, blue: 40 / 255)
-    static let purple = Color(red: 92 / 255, green: 60 / 255, blue: 230 / 255)
-    private let gradientTop = Color(red: 250 / 255, green: 248 / 255, blue: 1)
-    private let gradientBottom = Color(red: 232 / 255, green: 226 / 255, blue: 1)
-
-    // compose.py の座標（px）を pt に換算した値
-    private let phoneX: CGFloat = 184 / 3
-    private let phoneY: CGFloat = 760 / 3
-    private let screenWidth: CGFloat = 900 / 3
-    private let bezel: CGFloat = 26 / 3
-    private let phoneRadius: CGFloat = 120 / 3
     /// 拡大カードに切り出す録音画面の範囲（WAVE_BOX = (0, 480, 1320, 1590) px）
     private let cropTop: CGFloat = 480 / 3
     private let cropHeight: CGFloat = 1110 / 3
-    private let cardX: CGFloat = 50 / 3
     private let cardY: CGFloat = 1110 / 3
-    private let cardRadius: CGFloat = 48 / 3
 
     var body: some View {
         ZStack(alignment: .topLeading) {
-            LinearGradient(colors: [gradientTop, gradientBottom], startPoint: .top, endPoint: .bottom)
+            PromoBackground()
 
-            header
+            PromoHeaderView(
+                language: language,
+                pill: language.string("hero_pill"),
+                line1: language.string("hero_line1"),
+                line2: language.string("hero_line2"),
+                chips: language.strings("hero_chips"),
+                metrics: metrics
+            )
             phone
             zoomCard
         }
@@ -47,77 +40,29 @@ struct HeroRecorderPageView: View {
         .environment(\.layoutDirection, .leftToRight)
     }
 
-    // MARK: Header (pill / headline / chips)
-
-    private var header: some View {
-        // 中心位置は compose.py の描画結果から換算（ピル 55.7pt / 見出し1 110.6pt / 見出し2 157pt / チップ 211.7pt）
-        ZStack {
-            Text(language.string("hero_pill"))
-                .font(.system(size: 50 / 3, weight: .semibold))
-                .foregroundColor(.white)
-                .lineLimit(1)
-                .minimumScaleFactor(0.6)
-                .padding(.horizontal, 45 / 3)
-                .frame(height: 94 / 3)
-                .background(Capsule().fill(Self.purple))
-                .frame(maxWidth: Self.canvasSize.width - 60)
-                .position(x: Self.canvasSize.width / 2, y: 55.7)
-
-            headline(language.string("hero_line1"), size: 40, maxWidth: 1180 / 3, color: Self.ink)
-                .position(x: Self.canvasSize.width / 2, y: 110.6)
-
-            headline(language.string("hero_line2"), size: 124 / 3, maxWidth: 1220 / 3, color: Self.purple)
-                .position(x: Self.canvasSize.width / 2, y: 157)
-
-            HeroChipsView(labels: language.strings("hero_chips"))
-                .frame(maxWidth: Self.canvasSize.width - 140 / 3)
-                .position(x: Self.canvasSize.width / 2, y: 211.7)
-        }
-        .frame(width: Self.canvasSize.width, height: Self.canvasSize.height)
-        .screenshotLanguage(language)
-    }
-
-    private func headline(_ text: String, size: CGFloat, maxWidth: CGFloat, color: Color) -> some View {
-        Text(text)
-            .font(.system(size: size, weight: language.heroHeadlineWeight))
-            .foregroundColor(color)
-            .lineLimit(1)
-            // 長い言語（フィンランド語・マラヤーラム語など）は1行に収まるまで縮小する
-            .minimumScaleFactor(0.4)
-            .frame(maxWidth: maxWidth)
-    }
-
     // MARK: Phone mock
 
-    private var screenScale: CGFloat { screenWidth / Self.canvasSize.width }
+    private var screenScale: CGFloat { metrics.screenWidth / Self.canvasSize.width }
     private var screenHeight: CGFloat { Self.canvasSize.height * screenScale }
 
     private var phone: some View {
-        let phoneWidth = screenWidth + bezel * 2
-        let phoneHeight = screenHeight + bezel * 2
-        return ZStack(alignment: .topLeading) {
-            RoundedRectangle(cornerRadius: phoneRadius)
-                .fill(Color(red: 18 / 255, green: 18 / 255, blue: 22 / 255))
-                .shadow(color: Color(red: 8 / 255, green: 4 / 255, blue: 30 / 255).opacity(120 / 255 * 0.9), radius: 50 / 3 / 1.6, y: 10)
-            RoundedRectangle(cornerRadius: phoneRadius)
-                .strokeBorder(Color(red: 70 / 255, green: 70 / 255, blue: 80 / 255), lineWidth: 4 / 3)
-
+        PromoDeviceFrame(
+            screenSize: CGSize(width: metrics.screenWidth, height: screenHeight),
+            bezel: metrics.bezel,
+            radius: metrics.deviceRadius,
+            screenRadius: metrics.screenRadius
+        ) {
             HeroRecordingScreenMock(language: language)
                 .screenshotLanguage(language)
                 .frame(width: Self.canvasSize.width, height: Self.canvasSize.height)
                 .scaleEffect(screenScale, anchor: .topLeading)
-                .frame(width: screenWidth, height: screenHeight, alignment: .topLeading)
-                .clipShape(RoundedRectangle(cornerRadius: phoneRadius - bezel))
-                .offset(x: bezel, y: bezel)
         }
-        .frame(width: phoneWidth, height: phoneHeight)
-        .offset(x: phoneX, y: phoneY)
+        .offset(x: metrics.deviceOrigin.x, y: metrics.deviceOrigin.y)
     }
 
     // MARK: Zoomed card
 
-    private var cardWidth: CGFloat { Self.canvasSize.width - cardX * 2 }
-    private var cardScale: CGFloat { cardWidth / Self.canvasSize.width }
+    private var cardScale: CGFloat { metrics.cardWidth / Self.canvasSize.width }
 
     private var zoomCard: some View {
         let cardHeight = cropHeight * cardScale
@@ -128,57 +73,9 @@ struct HeroRecorderPageView: View {
             .frame(width: Self.canvasSize.width, height: cropHeight, alignment: .topLeading)
             .clipped()
             .scaleEffect(cardScale, anchor: .topLeading)
-            .frame(width: cardWidth, height: cardHeight, alignment: .topLeading)
-            .clipShape(RoundedRectangle(cornerRadius: cardRadius))
-            .overlay(
-                RoundedRectangle(cornerRadius: cardRadius)
-                    .strokeBorder(Self.purple, lineWidth: 8 / 3)
-            )
-            .background(
-                RoundedRectangle(cornerRadius: cardRadius)
-                    .fill(Color.white)
-                    .shadow(color: Color(red: 8 / 255, green: 4 / 255, blue: 30 / 255).opacity(150 / 255 * 0.9), radius: 44 / 3 / 1.6, y: 8)
-            )
-            .offset(x: cardX, y: cardY)
-    }
-}
-
-// MARK: - Chips
-/// 3つのチップを1行に並べる。入らなければ少し縮小し、それでも入らなければ2段にする
-struct HeroChipsView: View {
-    let labels: [String]
-
-    var body: some View {
-        ViewThatFits(in: .horizontal) {
-            row(labels, size: 40 / 3)
-            row(labels, size: 34 / 3)
-            twoRows(size: 40 / 3)
-            twoRows(size: 34 / 3)
-            twoRows(size: 30 / 3)
-        }
-    }
-
-    private func twoRows(size: CGFloat) -> some View {
-        VStack(spacing: 6) {
-            row(Array(labels.prefix(2)), size: size)
-            row(Array(labels.dropFirst(2)), size: size)
-        }
-    }
-
-    private func row(_ items: [String], size: CGFloat) -> some View {
-        HStack(spacing: 20 / 3) {
-            ForEach(Array(items.enumerated()), id: \.offset) { _, label in
-                Text(label)
-                    .font(.system(size: size, weight: .semibold))
-                    .foregroundColor(HeroRecorderPageView.purple)
-                    .lineLimit(1)
-                    .fixedSize()
-                    .padding(.horizontal, 28 / 3)
-                    .frame(height: size + 12)
-                    .background(Capsule().fill(Color.white))
-            }
-        }
-        .fixedSize()
+            .frame(width: metrics.cardWidth, height: cardHeight, alignment: .topLeading)
+            .promoFocusCard(radius: metrics.cardRadius, border: metrics.cardBorder)
+            .offset(x: metrics.cardInset, y: cardY)
     }
 }
 

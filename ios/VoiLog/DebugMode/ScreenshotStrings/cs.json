@@ -1,27 +1,76 @@
 {
   "display_name": "CS",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Nahrávání\njedním klepnutím",
-  "subtitle_aiRecording": "Porady, přednášky i běžné chvíle",
-  "caption_useCase": "Na porady\na přednášky",
-  "subtitle_useCase": "Porady, přednášky a rozhovory",
-  "caption_playbackList": "Přehrávejte\nsvé nahrávky",
-  "subtitle_playbackList": "Poslechněte si je hned",
-  "caption_backgroundRecording": "Nahrává\ni na pozadí",
-  "subtitle_backgroundRecording": "Pokračuje i se zhasnutým displejem",
-  "caption_timestampedTranscription": "Nahrávky\njako text",
-  "subtitle_timestampedTranscription": "Automatický AI přepis",
-  "caption_waveformEditor": "Snadné stříhání\na úpravy zvuku",
-  "subtitle_waveformEditor": "Odstraňte nepotřebné části",
-  "caption_playlist": "Uspořádejte\ndo playlistů",
-  "subtitle_playlist": "Třiďte nahrávky podle témat",
-  "caption_shareSheet": "Snadné sdílení\nnahrávek",
-  "subtitle_shareSheet": "E-mailem nebo do Poznámek",
-  "caption_premium": "Víc svobody\ns Premium",
-  "subtitle_premium": "Bez reklam, vše odemčeno",
-  "caption_aiTranscription": "Nahrajte a hned\nmáte přepis",
-  "subtitle_aiTranscription": "Mluvčí, shrnutí a časové značky",
+  "promo_aiRecording_line1": "Jedno klepnutí",
+  "promo_aiRecording_line2": "a už nahráváte",
+  "promo_aiRecording_chips": [
+    "Nahrání klepnutím",
+    "Ukazatel úrovně",
+    "Pauza a obnovení"
+  ],
+  "promo_playbackList_line1": "Poslouchejte",
+  "promo_playbackList_line2": "vlastním tempem",
+  "promo_playbackList_chips": [
+    "Změna rychlosti",
+    "Opakování A-B",
+    "Smyčka"
+  ],
+  "promo_useCase_line1": "Pro porady,",
+  "promo_useCase_line2": "přednášky i rozhovory",
+  "promo_useCase_chips": [
+    "Porady",
+    "Přednášky",
+    "Rozhovory"
+  ],
+  "promo_waveformEditor_line1": "Ořízněte nahrávky",
+  "promo_waveformEditor_line2": "přímo na vlně",
+  "promo_waveformEditor_chips": [
+    "Oříznutí",
+    "Rozdělit",
+    "Výběr na vlně"
+  ],
+  "promo_backgroundRecording_line1": "Nahrává dál",
+  "promo_backgroundRecording_line2": "i po zamčení",
+  "promo_backgroundRecording_chips": [
+    "Nahrává při zámku",
+    "Živé aktivity",
+    "Dlouhé nahrávky"
+  ],
+  "promo_playlist_line1": "Uspořádejte nahrávky",
+  "promo_playlist_line2": "do playlistů",
+  "promo_playlist_chips": [
+    "Tvorba playlistů",
+    "Podle témat",
+    "Záloha na iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Převeďte nahrávky",
+  "promo_timestampedTranscription_line2": "na text",
+  "promo_timestampedTranscription_chips": [
+    "Přepis",
+    "Časové značky",
+    "Sdílet jako text"
+  ],
+  "promo_aiTranscription_line1": "AI shrnutí",
+  "promo_aiTranscription_line2": "s rozlišením mluvčích",
+  "promo_aiTranscription_chips": [
+    "AI shrnutí",
+    "Mluvčí",
+    "Časové značky"
+  ],
+  "promo_shareSheet_line1": "Sdílejte nahrávky",
+  "promo_shareSheet_line2": "jedním klepnutím",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Zprávy",
+    "Uložit do Souborů"
+  ],
+  "promo_premium_line1": "Přejděte na Premium",
+  "promo_premium_line2": "pro větší volnost",
+  "promo_premium_chips": [
+    "Bez reklam",
+    "Bez limitu",
+    "Záloha na iCloud"
+  ],
   "hero_pill": "Jednoduchý diktafon",
   "hero_line1": "Nahrávejte čistě",
   "hero_line2": "a jednoduše.",

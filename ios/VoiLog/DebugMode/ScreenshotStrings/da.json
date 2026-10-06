@@ -1,27 +1,76 @@
 {
   "display_name": "DA",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Enkel\noptagelse",
-  "subtitle_aiRecording": "Optag møder, forelæsninger og hverdag",
-  "caption_useCase": "Til møder og\nforelæsninger",
-  "subtitle_useCase": "Til møder, undervisning og interviews",
-  "caption_playbackList": "Afspil dine\noptagelser",
-  "subtitle_playbackList": "Lyt til optagelser med det samme",
-  "caption_backgroundRecording": "Optag også\ni baggrunden",
-  "subtitle_backgroundRecording": "Optager videre med skærmen slukket",
-  "caption_timestampedTranscription": "Se dine optagelser som tekst",
-  "subtitle_timestampedTranscription": "Automatisk AI-transskription",
-  "caption_waveformEditor": "Beskær & rediger\nlyd nemt",
-  "subtitle_waveformEditor": "Klip unødvendige dele væk",
-  "caption_playlist": "Organisér i\nafspilningslister",
-  "subtitle_playlist": "Sortér og administrer efter emne",
-  "caption_shareSheet": "Del optagelser\nnemt",
-  "subtitle_shareSheet": "Via mail eller Noter",
-  "caption_premium": "Mere frihed\nmed Premium",
-  "subtitle_premium": "Ingen reklamer, alle funktioner",
-  "caption_aiTranscription": "Optag & transskribér straks",
-  "subtitle_aiTranscription": "Talere, resumé & tidsstempler",
+  "promo_aiRecording_line1": "Ét tryk",
+  "promo_aiRecording_line2": "og du optager",
+  "promo_aiRecording_chips": [
+    "Optag med ét tryk",
+    "Niveaumåler",
+    "Pause og fortsæt"
+  ],
+  "promo_playbackList_line1": "Lyt igen",
+  "promo_playbackList_line2": "i dit eget tempo",
+  "promo_playbackList_chips": [
+    "Hastighed",
+    "A-B-gentagelse",
+    "Afspil i loop"
+  ],
+  "promo_useCase_line1": "Til møder,",
+  "promo_useCase_line2": "foredrag & interviews",
+  "promo_useCase_chips": [
+    "Møder",
+    "Foredrag",
+    "Interviews"
+  ],
+  "promo_waveformEditor_line1": "Klip optagelser",
+  "promo_waveformEditor_line2": "direkte på bølgeformen",
+  "promo_waveformEditor_chips": [
+    "Beskær",
+    "Opdel",
+    "Vælg på bølgeform"
+  ],
+  "promo_backgroundRecording_line1": "Optager videre",
+  "promo_backgroundRecording_line2": "med låst skærm",
+  "promo_backgroundRecording_chips": [
+    "Også når låst",
+    "Liveaktivitet",
+    "Lange optagelser"
+  ],
+  "promo_playlist_line1": "Organiser optagelser",
+  "promo_playlist_line2": "i afspilningslister",
+  "promo_playlist_chips": [
+    "Opret lister",
+    "Sortér efter emne",
+    "iCloud-synk"
+  ],
+  "promo_timestampedTranscription_line1": "Gør optagelser",
+  "promo_timestampedTranscription_line2": "til tekst",
+  "promo_timestampedTranscription_chips": [
+    "Transskription",
+    "Tidsstempler",
+    "Del som tekst"
+  ],
+  "promo_aiTranscription_line1": "AI-resuméer",
+  "promo_aiTranscription_line2": "med talere",
+  "promo_aiTranscription_chips": [
+    "AI-resumé",
+    "Talermærker",
+    "Tidsstempler"
+  ],
+  "promo_shareSheet_line1": "Del optagelser",
+  "promo_shareSheet_line2": "med ét tryk",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Beskeder",
+    "Gem i Filer"
+  ],
+  "promo_premium_line1": "Vælg Premium",
+  "promo_premium_line2": "for mere frihed",
+  "promo_premium_chips": [
+    "Ingen reklamer",
+    "Ubegrænset",
+    "iCloud-synk"
+  ],
   "hero_pill": "Enkel optager",
   "hero_line1": "Optag klart,",
   "hero_line2": "helt enkelt.",

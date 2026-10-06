@@ -1,27 +1,76 @@
 {
   "display_name": "IT",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Registrare\nè semplice",
-  "subtitle_aiRecording": "Registra riunioni, lezioni e momenti di ogni giorno",
-  "caption_useCase": "Per riunioni,\nlezioni e interviste",
-  "subtitle_useCase": "Per riunioni, corsi e interviste",
-  "caption_playbackList": "Riascolta le tue\nregistrazioni",
-  "subtitle_playbackList": "Ritrova subito le registrazioni",
-  "caption_backgroundRecording": "Registra anche in\nbackground",
-  "subtitle_backgroundRecording": "Continua a registrare a schermo spento",
-  "caption_timestampedTranscription": "Rileggi le registrazioni come testo",
-  "subtitle_timestampedTranscription": "Trascrizione automatica con IA",
-  "caption_waveformEditor": "Taglia e modifica\nl'audio facilmente",
-  "subtitle_waveformEditor": "Elimina facilmente le parti inutili",
-  "caption_playlist": "Organizza in\nplaylist",
-  "subtitle_playlist": "Organizza e gestisci per argomento",
-  "caption_shareSheet": "Condividi le\nregistrazioni",
-  "subtitle_shareSheet": "Via email o nell'app Note",
-  "caption_premium": "Più libertà\ncon Premium",
-  "subtitle_premium": "Senza pubblicità, tutto sbloccato",
-  "caption_aiTranscription": "Registra e trascrivi all'istante",
-  "subtitle_aiTranscription": "Interlocutori, riepilogo e timestamp",
+  "promo_aiRecording_line1": "Un tocco",
+  "promo_aiRecording_line2": "e stai già registrando",
+  "promo_aiRecording_chips": [
+    "Avvio con un tocco",
+    "Livello audio",
+    "Pausa e riprendi"
+  ],
+  "promo_playbackList_line1": "Riascolta",
+  "promo_playbackList_line2": "al tuo ritmo",
+  "promo_playbackList_chips": [
+    "Velocità",
+    "Ripetizione A-B",
+    "Riproduzione loop"
+  ],
+  "promo_useCase_line1": "Per riunioni,",
+  "promo_useCase_line2": "lezioni e interviste",
+  "promo_useCase_chips": [
+    "Riunioni",
+    "Lezioni",
+    "Interviste"
+  ],
+  "promo_waveformEditor_line1": "Taglia l'audio",
+  "promo_waveformEditor_line2": "sulla forma d'onda",
+  "promo_waveformEditor_chips": [
+    "Ritaglia",
+    "Dividi",
+    "Scegli sull'onda"
+  ],
+  "promo_backgroundRecording_line1": "Registra anche",
+  "promo_backgroundRecording_line2": "a schermo bloccato",
+  "promo_backgroundRecording_chips": [
+    "Anche se bloccato",
+    "Attività live",
+    "Sessioni lunghe"
+  ],
+  "promo_playlist_line1": "Organizza l'audio",
+  "promo_playlist_line2": "in playlist",
+  "promo_playlist_chips": [
+    "Crea playlist",
+    "Ordina per tema",
+    "Sync iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Trasforma l'audio",
+  "promo_timestampedTranscription_line2": "in testo",
+  "promo_timestampedTranscription_chips": [
+    "Trascrizione",
+    "Timestamp",
+    "Condividi testo"
+  ],
+  "promo_aiTranscription_line1": "Riassunti con AI",
+  "promo_aiTranscription_line2": "e chi parla",
+  "promo_aiTranscription_chips": [
+    "Riassunto AI",
+    "Chi parla",
+    "Timestamp"
+  ],
+  "promo_shareSheet_line1": "Condividi l'audio",
+  "promo_shareSheet_line2": "con un tocco",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Messaggi",
+    "Salva su File"
+  ],
+  "promo_premium_line1": "Passa a Premium",
+  "promo_premium_line2": "per più libertà",
+  "promo_premium_chips": [
+    "Senza pubblicità",
+    "Senza limiti",
+    "Sync iCloud"
+  ],
   "hero_pill": "Registratore Vocale Semplice",
   "hero_line1": "Registrazioni nitide,",
   "hero_line2": "senza complicazioni.",

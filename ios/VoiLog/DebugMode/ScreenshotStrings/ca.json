@@ -1,27 +1,76 @@
 {
   "display_name": "CA",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Grava amb\nun sol toc",
-  "subtitle_aiRecording": "Reunions, classes i el dia a dia",
-  "caption_useCase": "Per a reunions,\nclasses i entrevistes",
-  "subtitle_useCase": "Reunions, classes i entrevistes",
-  "caption_playbackList": "Escolta les\nteves gravacions",
-  "subtitle_playbackList": "Revisa-les a l'instant",
-  "caption_backgroundRecording": "Grava fins i tot\nen segon pla",
-  "subtitle_backgroundRecording": "Continua gravant amb la pantalla apagada",
-  "caption_timestampedTranscription": "Llegeix les\nteves gravacions",
-  "subtitle_timestampedTranscription": "Transcripció automàtica amb IA",
-  "caption_waveformEditor": "Retalla i edita\nàudio fàcilment",
-  "subtitle_waveformEditor": "Elimina les parts que sobren",
-  "caption_playlist": "Organitza-ho\nen llistes",
-  "subtitle_playlist": "Ordena-ho per temes",
-  "caption_shareSheet": "Comparteix\nles gravacions",
-  "subtitle_shareSheet": "Envia-les per correu o a Notes",
-  "caption_premium": "Més llibertat\namb Premium",
-  "subtitle_premium": "Sense anuncis, tot desbloquejat",
-  "caption_aiTranscription": "Grava i transcriu\nal moment",
-  "subtitle_aiTranscription": "Parlants, resum i marques de temps",
+  "promo_aiRecording_line1": "Un toc",
+  "promo_aiRecording_line2": "i ja estàs gravant",
+  "promo_aiRecording_chips": [
+    "Grava amb un toc",
+    "Nivell d'àudio",
+    "Pausa i continua"
+  ],
+  "promo_playbackList_line1": "Torna a escoltar",
+  "promo_playbackList_line2": "al teu ritme",
+  "promo_playbackList_chips": [
+    "Velocitat",
+    "Repetició A-B",
+    "En bucle"
+  ],
+  "promo_useCase_line1": "Per a reunions,",
+  "promo_useCase_line2": "classes i entrevistes",
+  "promo_useCase_chips": [
+    "Reunions",
+    "Classes",
+    "Entrevistes"
+  ],
+  "promo_waveformEditor_line1": "Retalla gravacions",
+  "promo_waveformEditor_line2": "sobre l'ona",
+  "promo_waveformEditor_chips": [
+    "Retalla",
+    "Divideix",
+    "Selecció a l'ona"
+  ],
+  "promo_backgroundRecording_line1": "Segueix gravant",
+  "promo_backgroundRecording_line2": "amb pantalla bloquejada",
+  "promo_backgroundRecording_chips": [
+    "Grava bloquejat",
+    "Activitat en directe",
+    "Sessions llargues"
+  ],
+  "promo_playlist_line1": "Organitza l'àudio",
+  "promo_playlist_line2": "en llistes",
+  "promo_playlist_chips": [
+    "Crea llistes",
+    "Ordena per tema",
+    "Sincronia iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Converteix l'àudio",
+  "promo_timestampedTranscription_line2": "en text",
+  "promo_timestampedTranscription_chips": [
+    "Transcripció",
+    "Marques de temps",
+    "Comparteix text"
+  ],
+  "promo_aiTranscription_line1": "Resums amb IA",
+  "promo_aiTranscription_line2": "i qui parla",
+  "promo_aiTranscription_chips": [
+    "Resum amb IA",
+    "Qui parla",
+    "Marques de temps"
+  ],
+  "promo_shareSheet_line1": "Comparteix àudios",
+  "promo_shareSheet_line2": "amb un toc",
+  "promo_shareSheet_chips": [
+    "Mail",
+    "Missatges",
+    "Desa a Arxius"
+  ],
+  "promo_premium_line1": "Passa't a Premium",
+  "promo_premium_line2": "per a més llibertat",
+  "promo_premium_chips": [
+    "Sense anuncis",
+    "Sense límits",
+    "Sincronia iCloud"
+  ],
   "hero_pill": "Gravadora de veu simple",
   "hero_line1": "Grava amb claredat,",
   "hero_line2": "sense complicacions.",

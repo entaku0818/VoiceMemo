@@ -1,27 +1,76 @@
 {
   "display_name": "PL",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "Proste\nnagrywanie",
-  "subtitle_aiRecording": "Nagrywaj spotkania, wykłady i codzienność",
-  "caption_useCase": "Na spotkania,\nwykłady i wywiady",
-  "subtitle_useCase": "Na spotkania, zajęcia i wywiady",
-  "caption_playbackList": "Odtwarzaj\nnagrania",
-  "subtitle_playbackList": "Odsłuchaj nagrania od razu",
-  "caption_backgroundRecording": "Nagrywaj\nw tle",
-  "subtitle_backgroundRecording": "Nagrywa nawet przy wygaszonym ekranie",
-  "caption_timestampedTranscription": "Przeglądaj nagrania jako tekst",
-  "subtitle_timestampedTranscription": "Automatyczna transkrypcja AI",
-  "caption_waveformEditor": "Łatwe przycinanie\ni edycja audio",
-  "subtitle_waveformEditor": "Wytnij niepotrzebne fragmenty",
-  "caption_playlist": "Porządkuj\nw listach",
-  "subtitle_playlist": "Porządkuj nagrania według tematu",
-  "caption_shareSheet": "Łatwo udostępniaj\nnagrania",
-  "subtitle_shareSheet": "Przez e-mail lub Notatki",
-  "caption_premium": "Więcej swobody\nz Premium",
-  "subtitle_premium": "Bez reklam, wszystkie funkcje",
-  "caption_aiTranscription": "Nagraj i od razu transkrybuj",
-  "subtitle_aiTranscription": "Mówcy, podsumowanie i znaczniki czasu",
+  "promo_aiRecording_line1": "Jedno dotknięcie",
+  "promo_aiRecording_line2": "i już nagrywasz",
+  "promo_aiRecording_chips": [
+    "Jedno dotknięcie",
+    "Miernik poziomu",
+    "Pauza i wznowienie"
+  ],
+  "promo_playbackList_line1": "Odsłuchuj",
+  "promo_playbackList_line2": "we własnym tempie",
+  "promo_playbackList_chips": [
+    "Prędkość",
+    "Powtórka A-B",
+    "Zapętlenie"
+  ],
+  "promo_useCase_line1": "Na spotkania,",
+  "promo_useCase_line2": "wykłady i wywiady",
+  "promo_useCase_chips": [
+    "Spotkania",
+    "Wykłady",
+    "Wywiady"
+  ],
+  "promo_waveformEditor_line1": "Przycinaj nagrania",
+  "promo_waveformEditor_line2": "prosto na fali",
+  "promo_waveformEditor_chips": [
+    "Przycinanie",
+    "Podziel",
+    "Zaznacz na fali"
+  ],
+  "promo_backgroundRecording_line1": "Nagrywa dalej",
+  "promo_backgroundRecording_line2": "po zablokowaniu",
+  "promo_backgroundRecording_chips": [
+    "Przy blokadzie",
+    "Aktywność na żywo",
+    "Długie nagrania"
+  ],
+  "promo_playlist_line1": "Porządkuj nagrania",
+  "promo_playlist_line2": "w listach odtwarzania",
+  "promo_playlist_chips": [
+    "Twórz listy",
+    "Według tematu",
+    "Sync z iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "Zamień nagrania",
+  "promo_timestampedTranscription_line2": "w tekst",
+  "promo_timestampedTranscription_chips": [
+    "Transkrypcja",
+    "Znaczniki czasu",
+    "Udostępnij tekst"
+  ],
+  "promo_aiTranscription_line1": "Podsumowania AI",
+  "promo_aiTranscription_line2": "z podziałem na mówców",
+  "promo_aiTranscription_chips": [
+    "Podsumowanie AI",
+    "Mówcy",
+    "Znaczniki czasu"
+  ],
+  "promo_shareSheet_line1": "Udostępniaj nagrania",
+  "promo_shareSheet_line2": "jednym dotknięciem",
+  "promo_shareSheet_chips": [
+    "Poczta",
+    "Wiadomości",
+    "Zapisz w Plikach"
+  ],
+  "promo_premium_line1": "Przejdź na Premium",
+  "promo_premium_line2": "i zyskaj swobodę",
+  "promo_premium_chips": [
+    "Bez reklam",
+    "Bez limitu nagrań",
+    "Sync z iCloud"
+  ],
   "hero_pill": "Prosty dyktafon",
   "hero_line1": "Nagrywaj wyraźnie,",
   "hero_line2": "po prostu.",

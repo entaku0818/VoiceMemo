@@ -1,27 +1,76 @@
 {
   "display_name": "繁",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "一鍵錄音\n簡單好用",
-  "subtitle_aiRecording": "會議、上課、日常，隨時記錄",
-  "caption_useCase": "會議、講座、\n訪談都適用",
-  "subtitle_useCase": "適合會議、上課與訪談",
-  "caption_playbackList": "隨時播放\n你的錄音",
-  "subtitle_playbackList": "錄完馬上就能聽",
-  "caption_backgroundRecording": "背景也能\n持續錄音",
-  "subtitle_backgroundRecording": "鎖定螢幕後錄音不中斷",
-  "caption_timestampedTranscription": "用文字回顧錄音內容",
-  "subtitle_timestampedTranscription": "AI自動轉錄",
-  "caption_waveformEditor": "音訊剪輯\n輕鬆搞定",
-  "subtitle_waveformEditor": "輕鬆剪掉多餘片段",
-  "caption_playlist": "用播放清單\n整理錄音",
-  "subtitle_playlist": "依主題分類管理",
-  "caption_shareSheet": "輕鬆分享\n錄音",
-  "subtitle_shareSheet": "透過郵件或備忘錄分享",
-  "caption_premium": "升級進階版\n享受更多",
-  "subtitle_premium": "無廣告·解鎖全部功能",
-  "caption_aiTranscription": "錄完立即AI轉錄",
-  "subtitle_aiTranscription": "發言者·摘要·時間戳記",
+  "promo_aiRecording_line1": "輕點一下",
+  "promo_aiRecording_line2": "立即開始錄音",
+  "promo_aiRecording_chips": [
+    "一鍵錄音",
+    "音量顯示",
+    "暫停與繼續"
+  ],
+  "promo_playbackList_line1": "倍速與重複",
+  "promo_playbackList_line2": "回聽更輕鬆",
+  "promo_playbackList_chips": [
+    "變速播放",
+    "A-B 重複",
+    "循環播放"
+  ],
+  "promo_useCase_line1": "會議·講座·採訪",
+  "promo_useCase_line2": "完整記錄",
+  "promo_useCase_chips": [
+    "會議記錄",
+    "課堂複習",
+    "採訪"
+  ],
+  "promo_waveformEditor_line1": "多餘的部分",
+  "promo_waveformEditor_line2": "看著波形剪掉",
+  "promo_waveformEditor_chips": [
+    "修剪",
+    "分割",
+    "波形選取"
+  ],
+  "promo_backgroundRecording_line1": "鎖定畫面後",
+  "promo_backgroundRecording_line2": "錄音照常進行",
+  "promo_backgroundRecording_chips": [
+    "鎖定也能錄",
+    "即時動態",
+    "長時間錄音"
+  ],
+  "promo_playlist_line1": "錄音越來越多",
+  "promo_playlist_line2": "用播放清單整理",
+  "promo_playlist_chips": [
+    "建立播放清單",
+    "依主題整理",
+    "iCloud 同步"
+  ],
+  "promo_timestampedTranscription_line1": "說過的內容",
+  "promo_timestampedTranscription_line2": "轉成文字查看",
+  "promo_timestampedTranscription_chips": [
+    "轉錄",
+    "附時間戳記",
+    "以文字分享"
+  ],
+  "promo_aiTranscription_line1": "錄完馬上",
+  "promo_aiTranscription_line2": "AI 摘要與分講者",
+  "promo_aiTranscription_chips": [
+    "AI 摘要",
+    "講者標籤",
+    "時間戳記"
+  ],
+  "promo_shareSheet_line1": "錄音一鍵",
+  "promo_shareSheet_line2": "分享到郵件和 App",
+  "promo_shareSheet_chips": [
+    "郵件",
+    "訊息",
+    "儲存到檔案"
+  ],
+  "promo_premium_line1": "升級進階版",
+  "promo_premium_line2": "錄得更自由",
+  "promo_premium_chips": [
+    "無廣告",
+    "無限錄音",
+    "iCloud 同步"
+  ],
   "hero_pill": "簡易錄音",
   "hero_line1": "錄得清晰，",
   "hero_line2": "用得簡單。",

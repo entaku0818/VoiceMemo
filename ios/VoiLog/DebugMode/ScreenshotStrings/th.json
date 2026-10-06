@@ -1,27 +1,76 @@
 {
   "display_name": "TH",
   "layout_rtl": false,
-  "layout_caption_top_padding": 52,
-  "caption_aiRecording": "บันทึกเสียงง่ายๆ\nในแตะเดียว",
-  "subtitle_aiRecording": "บันทึกการประชุม การเรียน และทุกช่วงเวลา",
-  "caption_useCase": "สำหรับประชุม\nเรียน และสัมภาษณ์",
-  "subtitle_useCase": "เหมาะกับการประชุม คลาสเรียน และสัมภาษณ์",
-  "caption_playbackList": "เล่นเสียง\nที่บันทึกไว้",
-  "subtitle_playbackList": "ฟังย้อนหลังได้ทันที",
-  "caption_backgroundRecording": "บันทึกต่อได้\nแม้อยู่เบื้องหลัง",
-  "subtitle_backgroundRecording": "ปิดหน้าจอก็ยังบันทึกต่อ",
-  "caption_timestampedTranscription": "ดูเสียงที่บันทึก\nเป็นข้อความ",
-  "subtitle_timestampedTranscription": "AI ถอดเสียงให้อัตโนมัติ",
-  "caption_waveformEditor": "ตัดต่อเสียง\nได้ง่ายๆ",
-  "subtitle_waveformEditor": "ตัดส่วนที่ไม่ต้องการออกได้ง่าย",
-  "caption_playlist": "จัดเสียงบันทึก\nเป็นเพลย์ลิสต์",
-  "subtitle_playlist": "จัดระเบียบตามหัวข้อ",
-  "caption_shareSheet": "แชร์เสียงบันทึก\nได้ง่ายๆ",
-  "subtitle_shareSheet": "ส่งทางอีเมลหรือแอปโน้ต",
-  "caption_premium": "อิสระยิ่งขึ้น\nด้วย Premium",
-  "subtitle_premium": "ไม่มีโฆษณา ปลดล็อกทุกฟีเจอร์",
-  "caption_aiTranscription": "บันทึกแล้วถอดเสียง\nได้ทันที",
-  "subtitle_aiTranscription": "แยกผู้พูด สรุป และเวลากำกับ",
+  "promo_aiRecording_line1": "แตะครั้งเดียว",
+  "promo_aiRecording_line2": "เริ่มบันทึกทันที",
+  "promo_aiRecording_chips": [
+    "บันทึกแตะเดียว",
+    "แสดงระดับเสียง",
+    "หยุด/เล่นต่อ"
+  ],
+  "promo_playbackList_line1": "ปรับความเร็ว-วนซ้ำ",
+  "promo_playbackList_line2": "ฟังย้อนได้สบาย",
+  "promo_playbackList_chips": [
+    "ความเร็วเล่น",
+    "เล่นซ้ำ A-B",
+    "เล่นวนซ้ำ"
+  ],
+  "promo_useCase_line1": "ประชุม เลกเชอร์",
+  "promo_useCase_line2": "สัมภาษณ์ บันทึกครบ",
+  "promo_useCase_chips": [
+    "ประชุม",
+    "เลกเชอร์",
+    "สัมภาษณ์"
+  ],
+  "promo_waveformEditor_line1": "ส่วนที่ไม่ต้องการ",
+  "promo_waveformEditor_line2": "ตัดออกดูจากคลื่นเสียง",
+  "promo_waveformEditor_chips": [
+    "ตัดแต่ง",
+    "แบ่ง",
+    "เลือกบนคลื่น"
+  ],
+  "promo_backgroundRecording_line1": "ล็อกหน้าจอแล้ว",
+  "promo_backgroundRecording_line2": "ก็ยังบันทึกต่อ",
+  "promo_backgroundRecording_chips": [
+    "บันทึกขณะล็อก",
+    "กิจกรรมสด",
+    "บันทึกนาน"
+  ],
+  "promo_playlist_line1": "ไฟล์เสียงเยอะ",
+  "promo_playlist_line2": "จัดด้วยเพลย์ลิสต์",
+  "promo_playlist_chips": [
+    "สร้างเพลย์ลิสต์",
+    "จัดตามหัวข้อ",
+    "ซิงค์ iCloud"
+  ],
+  "promo_timestampedTranscription_line1": "สิ่งที่พูดไว้",
+  "promo_timestampedTranscription_line2": "ดูเป็นข้อความได้",
+  "promo_timestampedTranscription_chips": [
+    "ถอดเสียง",
+    "มีเวลากำกับ",
+    "แชร์ข้อความ"
+  ],
+  "promo_aiTranscription_line1": "บันทึกเสร็จปุ๊บ",
+  "promo_aiTranscription_line2": "AI สรุป-แยกผู้พูด",
+  "promo_aiTranscription_chips": [
+    "สรุปด้วย AI",
+    "ป้ายผู้พูด",
+    "เวลากำกับ"
+  ],
+  "promo_shareSheet_line1": "แชร์ไฟล์เสียง",
+  "promo_shareSheet_line2": "ได้ในแตะเดียว",
+  "promo_shareSheet_chips": [
+    "เมล",
+    "ข้อความ",
+    "บันทึกลงไฟล์"
+  ],
+  "promo_premium_line1": "อัปเกรดพรีเมียม",
+  "promo_premium_line2": "ใช้งานอิสระยิ่งขึ้น",
+  "promo_premium_chips": [
+    "ไม่มีโฆษณา",
+    "บันทึกไม่จำกัด",
+    "ซิงค์ iCloud"
+  ],
   "hero_pill": "บันทึกเสียงอย่างง่าย",
   "hero_line1": "บันทึกเสียงคมชัด",
   "hero_line2": "ง่ายนิดเดียว",

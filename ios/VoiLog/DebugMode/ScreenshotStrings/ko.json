@@ -1,27 +1,76 @@
 {
   "display_name": "KO",
   "layout_rtl": false,
-  "layout_caption_top_padding": 36,
-  "caption_aiRecording": "원터치로\n간편하게 녹음",
-  "subtitle_aiRecording": "회의·강의·일상을 바로 기록",
-  "caption_useCase": "회의·강의·\n인터뷰에 딱",
-  "subtitle_useCase": "회의, 수업, 인터뷰에",
-  "caption_playbackList": "녹음을\n바로 재생",
-  "subtitle_playbackList": "녹음을 즉시 확인",
-  "caption_backgroundRecording": "백그라운드에서도\n녹음 가능",
-  "subtitle_backgroundRecording": "화면을 꺼도 계속 녹음",
-  "caption_timestampedTranscription": "녹음 내용을 텍스트로 확인",
-  "subtitle_timestampedTranscription": "AI가 자동으로 문자 변환",
-  "caption_waveformEditor": "오디오를 간편하게\n다듬고 편집",
-  "subtitle_waveformEditor": "불필요한 부분을 쉽게 잘라내기",
-  "caption_playlist": "녹음을\n플레이리스트로",
-  "subtitle_playlist": "주제별로 정리·관리",
-  "caption_shareSheet": "녹음을\n간편하게 공유",
-  "subtitle_shareSheet": "메일이나 메모 앱으로 전송",
-  "caption_premium": "프리미엄으로\n더 자유롭게",
-  "subtitle_premium": "광고 없이 모든 기능 잠금 해제",
-  "caption_aiTranscription": "녹음하고 바로 AI 문자 변환",
-  "subtitle_aiTranscription": "화자·요약·타임스탬프 포함",
+  "promo_aiRecording_line1": "탭 한 번으로",
+  "promo_aiRecording_line2": "바로 녹음 시작",
+  "promo_aiRecording_chips": [
+    "원탭 녹음",
+    "레벨 미터",
+    "일시정지·재개"
+  ],
+  "promo_playbackList_line1": "배속·반복으로",
+  "promo_playbackList_line2": "편하게 다시 듣기",
+  "promo_playbackList_chips": [
+    "재생 속도",
+    "A-B 반복",
+    "반복 재생"
+  ],
+  "promo_useCase_line1": "회의·강의·인터뷰",
+  "promo_useCase_line2": "빠짐없이 기록",
+  "promo_useCase_chips": [
+    "회의 기록",
+    "강의 복습",
+    "인터뷰"
+  ],
+  "promo_waveformEditor_line1": "필요 없는 부분은",
+  "promo_waveformEditor_line2": "파형 보며 잘라내기",
+  "promo_waveformEditor_chips": [
+    "트리밍",
+    "분할",
+    "파형 구간 선택"
+  ],
+  "promo_backgroundRecording_line1": "화면을 잠가도",
+  "promo_backgroundRecording_line2": "녹음은 계속",
+  "promo_backgroundRecording_chips": [
+    "잠금 중 녹음",
+    "실시간 현황",
+    "장시간 녹음"
+  ],
+  "promo_playlist_line1": "쌓인 녹음은",
+  "promo_playlist_line2": "플레이리스트로 정리",
+  "promo_playlist_chips": [
+    "플레이리스트",
+    "주제별 정리",
+    "iCloud 동기화"
+  ],
+  "promo_timestampedTranscription_line1": "말한 내용을",
+  "promo_timestampedTranscription_line2": "텍스트로 확인",
+  "promo_timestampedTranscription_chips": [
+    "문자 변환",
+    "타임스탬프",
+    "텍스트 공유"
+  ],
+  "promo_aiTranscription_line1": "녹음 후 바로",
+  "promo_aiTranscription_line2": "AI 요약·화자 구분",
+  "promo_aiTranscription_chips": [
+    "AI 요약",
+    "화자 라벨",
+    "타임스탬프"
+  ],
+  "promo_shareSheet_line1": "녹음 파일을",
+  "promo_shareSheet_line2": "메일·앱으로 공유",
+  "promo_shareSheet_chips": [
+    "메일",
+    "메시지",
+    "파일에 저장"
+  ],
+  "promo_premium_line1": "프리미엄으로",
+  "promo_premium_line2": "더 자유롭게",
+  "promo_premium_chips": [
+    "광고 없음",
+    "무제한 녹음",
+    "iCloud 동기화"
+  ],
   "hero_pill": "심플 녹음",
   "hero_line1": "간편하고 선명한",
   "hero_line2": "보이스 레코더",
