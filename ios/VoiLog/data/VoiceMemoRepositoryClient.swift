@@ -60,6 +60,10 @@ struct VoiceMemoRepositoryClient {
     /// - Returns: 復元した件数
     var restoreOrphanedRecordings: @MainActor () async -> Int
 
+    /// 強制終了などで保存されなかった録音のうち、指定した ID のものだけを一覧へ戻す（#223）
+    /// - Returns: 復元した件数
+    var restoreInterruptedRecordings: @MainActor (Set<UUID>) async -> Int = { _ in 0 }
+
     /// iCloud(CloudKit) 上にあってCore Dataに行が無い録音を、実体ごと引き戻す。
     /// 端末からファイルが消えている場合や機種変更後は、こちらでしか戻せない。
     var restoreFromCloud: @MainActor () async -> CloudRestoreResult = { CloudRestoreResult() }
@@ -79,6 +83,61 @@ struct VoiceMemoRepositoryClient {
 
 // MARK: - Dependency Key
 private enum VoiceMemoRepositoryClientKey: DependencyKey {
+
+    /// Core Data に行が無い音声ファイルを一覧へ戻す。`onlyIDs` を渡すとその録音だけを対象にする
+    /// （強制終了した録音の自動復旧用。削除に失敗して残ったファイルまで勝手に戻さないため）
+    @MainActor
+    static func restoreOrphans(
+        context: NSManagedObjectContext,
+        entity: NSEntityDescription?,
+        onlyIDs: Set<UUID>?
+    ) async -> Int {
+        // Core Data に登録済みの ID を集める
+        let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
+        let existing = (try? context.fetch(fetchRequest)) ?? []
+        let knownIDs = Set(existing.compactMap(\.id))
+
+        let orphans = RecordingRecoveryService.findOrphanedRecordings(
+            in: RecordingRecoveryService.defaultSearchDirectories(),
+            knownIDs: knownIDs
+        ).filter { onlyIDs?.contains($0.id) ?? true }
+        guard !orphans.isEmpty else { return 0 }
+
+        @Dependency(\.userDefaults) var userDefaults
+        var restoredCount = 0
+
+        for orphan in orphans {
+            let duration = await RecordingRecoveryService.duration(of: orphan.url)
+            guard let voiceEntity = NSManagedObject(
+                entity: entity!, insertInto: context
+            ) as? VoiLog.Voice else { continue }
+
+            voiceEntity.id = orphan.id
+            voiceEntity.url = orphan.url
+            voiceEntity.title = RecordingRecoveryService.recoveredTitle(for: orphan.createdAt)
+            voiceEntity.text = ""
+            voiceEntity.createdAt = orphan.createdAt
+            voiceEntity.updatedAt = Date()
+            voiceEntity.duration = duration
+            voiceEntity.fileFormat = orphan.url.pathExtension.uppercased()
+            voiceEntity.samplingFrequency = userDefaults.samplingFrequency()
+            voiceEntity.quantizationBitDepth = Int16(userDefaults.quantizationBitDepth())
+            voiceEntity.numberOfChannels = Int16(userDefaults.numberOfChannels())
+            voiceEntity.isCloud = false
+            restoredCount += 1
+        }
+
+        do {
+            try context.saveIfStoreLoaded()
+            AppLogger.data.info("Restored \(restoredCount) orphaned recording(s)")
+            return restoredCount
+        } catch {
+            context.rollback()
+            AppLogger.data.error("Failed to restore orphaned recordings: \(error.localizedDescription)")
+            return 0
+        }
+    }
+
     @MainActor
     static let liveValue: VoiceMemoRepositoryClient = {
         // Use shared CoreData stack to prevent multiple container instances
@@ -501,50 +560,10 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
                 }
             },
             restoreOrphanedRecordings: {
-                // Core Data に登録済みの ID を集める
-                let fetchRequest: NSFetchRequest<VoiLog.Voice> = VoiLog.Voice.fetchRequest()
-                let existing = (try? managedContext.fetch(fetchRequest)) ?? []
-                let knownIDs = Set(existing.compactMap(\.id))
-
-                let orphans = RecordingRecoveryService.findOrphanedRecordings(
-                    in: RecordingRecoveryService.defaultSearchDirectories(),
-                    knownIDs: knownIDs
-                )
-                guard !orphans.isEmpty else { return 0 }
-
-                @Dependency(\.userDefaults) var userDefaults
-                var restoredCount = 0
-
-                for orphan in orphans {
-                    let duration = await RecordingRecoveryService.duration(of: orphan.url)
-                    guard let voiceEntity = NSManagedObject(
-                        entity: entity!, insertInto: managedContext
-                    ) as? VoiLog.Voice else { continue }
-
-                    voiceEntity.id = orphan.id
-                    voiceEntity.url = orphan.url
-                    voiceEntity.title = RecordingRecoveryService.recoveredTitle(for: orphan.createdAt)
-                    voiceEntity.text = ""
-                    voiceEntity.createdAt = orphan.createdAt
-                    voiceEntity.updatedAt = Date()
-                    voiceEntity.duration = duration
-                    voiceEntity.fileFormat = orphan.url.pathExtension.uppercased()
-                    voiceEntity.samplingFrequency = userDefaults.samplingFrequency()
-                    voiceEntity.quantizationBitDepth = Int16(userDefaults.quantizationBitDepth())
-                    voiceEntity.numberOfChannels = Int16(userDefaults.numberOfChannels())
-                    voiceEntity.isCloud = false
-                    restoredCount += 1
-                }
-
-                do {
-                    try managedContext.saveIfStoreLoaded()
-                    AppLogger.data.info("Restored \(restoredCount) orphaned recording(s)")
-                    return restoredCount
-                } catch {
-                    managedContext.rollback()
-                    AppLogger.data.error("Failed to restore orphaned recordings: \(error.localizedDescription)")
-                    return 0
-                }
+                await VoiceMemoRepositoryClientKey.restoreOrphans(context: managedContext, entity: entity, onlyIDs: nil)
+            },
+            restoreInterruptedRecordings: { ids in
+                await VoiceMemoRepositoryClientKey.restoreOrphans(context: managedContext, entity: entity, onlyIDs: ids)
             },
             restoreFromCloud: {
                 let isAvailable = await isCloudAccountAvailable(container: cloudContainer)

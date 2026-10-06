@@ -11,6 +11,8 @@ struct LongRecordingAudioClient {
     var audioLevel: @Sendable () async -> Float
     var recordingState: @Sendable () async -> RecordingState
     var recognizeAudio: @Sendable (URL) async -> (String, [TimestampedSegment])?
+    /// 一覧へ保存し終えたら呼ぶ。強制終了に備えた「録音中」の記録を消す（#223）
+    var markRecordingSaved: @Sendable (URL) async -> Void = { _ in }
 }
 
 extension LongRecordingAudioClient: TestDependencyKey {
@@ -101,7 +103,8 @@ extension LongRecordingAudioClient: DependencyKey {
             resumeRecording: { await audioRecorder.resumeRecording() },
             audioLevel: { await audioRecorder.getAudioLevel() },
             recordingState: { await audioRecorder.getCurrentState() },
-            recognizeAudio: { url in await SpeechRecognizer.recognize(url: url) }
+            recognizeAudio: { url in await SpeechRecognizer.recognize(url: url) },
+            markRecordingSaved: { url in await audioRecorder.markRecordingSaved(url: url) }
         )
     }
 }

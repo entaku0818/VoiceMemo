@@ -2,19 +2,50 @@ import Foundation
 import AVFoundation
 import UIKit
 import os.log
-import Dependencies
 
 actor LongRecordingAudioRecorder: NSObject {
-    @Dependency(\.userDefaults) var userDefaults
-
+    /// いま書いている区切りのレコーダー。メディアリセットや予期しない停止のあとは nil（再開時に次の区切りを作る）
     private var audioRecorder: AVAudioRecorder?
     private var startTime: Date?
-    private var pausedDuration: TimeInterval = 0
     private var state: RecordingState = .idle
     private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
 
+    // 区切り録音（#224）
+    /// 停止時に区切りをつないで書き出す先（従来どおり `Documents/<UUID>.<ext>`）
+    private var finalURL: URL?
+    private var segmentDirectory: URL?
+    private var segmentURLs: [URL] = []
+    /// 書き終えた区切りの合計の長さ
+    private var finishedSegmentsDuration: TimeInterval = 0
+    /// 現在の区切りで最後に確認できた長さ。レコーダーが勝手に止まると currentTime が 0 に戻るので覚えておく
+    private var lastObservedSegmentTime: TimeInterval = 0
+    private var rotationTask: Task<Void, Never>?
+    private let journal: RecordingJournal
+    private let segmentDuration: TimeInterval
+    private let rotationCheckInterval: Duration
+
+    // 割り込み（#226）
+    /// NotificationCenter のブロック版 addObserver が返すトークン。`removeObserver(self)` では外れないので保持して外す
+    private var observerTokens: [NSObjectProtocol] = []
+    /// 割り込みで止めたか（ユーザーが自分で一時停止した場合は、割り込みが終わっても再開しない）
+    private var pausedByInterruption = false
+
     // ログカテゴリ
     private let logger = Logger(subsystem: "com.voilog.recording", category: "LongRecordingAudioRecorder")
+
+    /// - Parameters:
+    ///   - segmentDuration: 1つの区切りの長さ（テストでは短くする）
+    ///   - rotationCheckInterval: 区切りを切り替えるか確かめる間隔
+    init(
+        segmentDuration: TimeInterval = RecordingSegments.segmentDuration,
+        rotationCheckInterval: Duration = .seconds(10),
+        journal: RecordingJournal = RecordingJournal()
+    ) {
+        self.segmentDuration = segmentDuration
+        self.rotationCheckInterval = rotationCheckInterval
+        self.journal = journal
+        super.init()
+    }
 
     // MARK: - Public Interface
 
@@ -37,58 +68,68 @@ actor LongRecordingAudioRecorder: NSObject {
 
         // 前回の状態をリセット
         resetState()
-        logger.debug("録音状態をリセット完了")
 
-        // オーディオセッションの設定
         do {
-            try await setupAudioSession()
-            logger.debug("オーディオセッション設定完了")
+            try configureAudioSession()
+            registerObservers()
         } catch {
             logger.error("オーディオセッション設定失敗: \(error.localizedDescription)")
+            state = .error(.audioSessionFailed)
             throw error
         }
 
-        // バックグラウンドタスクの開始
         beginBackgroundTask()
-        logger.debug("バックグラウンドタスク開始")
 
-        // AVAudioRecorderの作成と設定
+        let directory = RecordingSegments.directory(for: url)
         do {
-            audioRecorder = try AVAudioRecorder(url: url, settings: configuration.recordingSettings)
-            audioRecorder?.delegate = self
-            audioRecorder?.isMeteringEnabled = true
-            logger.debug("AVAudioRecorder作成完了")
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        } catch {
+            logger.error("区切り用ディレクトリの作成に失敗: \(error.localizedDescription)")
+            state = .error(.fileCreationFailed)
+            endBackgroundTask()
+            throw error
+        }
+        finalURL = url
+        segmentDirectory = directory
 
-            // 録音開始
-            guard audioRecorder?.record() == true else {
+        do {
+            guard try startNewSegment() else {
                 logger.error("録音開始に失敗")
                 state = .error(.recordingFailed("Failed to start recording"))
                 endBackgroundTask()
                 return false
             }
-
-            startTime = Date()
-            state = .recording(startTime: Date())
-            logger.info("録音開始成功")
-            return true
-
         } catch {
             logger.error("AVAudioRecorder作成失敗: \(error.localizedDescription)")
             state = .error(.fileCreationFailed)
             endBackgroundTask()
             throw error
         }
+
+        // 強制終了したら次の起動で取り込めるよう、録音中であることを記録する（#223）
+        journal.add(finalURL: url)
+
+        startTime = Date()
+        state = .recording(startTime: Date())
+        startRotationTask()
+        logger.info("録音開始成功")
+        return true
     }
 
     func stopRecording() async {
         logger.info("録音停止開始")
         let finalDuration = getCurrentTime()
-        audioRecorder?.stop()
+        rotationTask?.cancel()
+        rotationTask = nil
+        let recorder = audioRecorder
+        // 先に外しておくと、stop() 後に届く delegate の完了通知を「予期しない停止」と取り違えない
+        audioRecorder = nil
+        recorder?.stop()
 
         state = .completed(duration: finalDuration)
         logger.info("録音停止完了 - 録音時間: \(String(format: "%.2f", finalDuration))秒")
 
-        // リソースクリーンアップ
+        await finalizeSegments()
         await cleanupResources()
     }
 
@@ -102,128 +143,198 @@ actor LongRecordingAudioRecorder: NSObject {
         let currentDuration = getCurrentTime()
         audioRecorder?.pause()
 
-        let pauseTime = Date()
-        state = .paused(startTime: startTime, pausedTime: pauseTime, duration: currentDuration)
+        state = .paused(startTime: startTime, pausedTime: Date(), duration: currentDuration)
         logger.info("録音一時停止完了 - 現在の録音時間: \(String(format: "%.2f", currentDuration))秒")
     }
 
     func resumeRecording() async {
-        guard case .paused(let startTime, _, let duration) = state else {
-            logger.warning("録音再開要求されたが、一時停止中ではない状態: \(String(describing: self.state))")
-            return
-        }
-
-        logger.info("録音再開開始")
-        // 他アプリの録音などで割り込まれた後はセッションが非アクティブになっているので、再開前にアクティブにし直す
-        do {
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            logger.error("録音再開時のオーディオセッション有効化に失敗: \(error.localizedDescription)")
-        }
-        // pausedDurationの加算を削除（recorder.currentTimeが既に正しい値を持っている）
-        guard audioRecorder?.record() == true else {
-            // 他アプリがマイクを使用中などで再開できない。一時停止のまま残す
-            logger.error("録音再開に失敗 - 一時停止のまま")
-            return
-        }
-
-        state = .recording(startTime: startTime)
-        logger.info("録音再開完了")
+        _ = resume()
     }
 
     func getCurrentTime() -> TimeInterval {
-        guard let recorder = audioRecorder else { return 0 }
-        // pausedDurationを加算しない（recorder.currentTimeが実際の録音時間）
-        return recorder.currentTime
+        let segmentTime = audioRecorder?.currentTime ?? 0
+        if segmentTime > 0 {
+            lastObservedSegmentTime = segmentTime
+        }
+        return finishedSegmentsDuration + segmentTime
     }
 
     func getAudioLevel() -> Float {
-        // 録音状態をチェック
-        switch state {
-        case .recording:
-            guard let recorder = audioRecorder else {
-                logger.debug("AudioLevel: レコーダーがnil、-60.0を返す")
-                return -60.0
-            }
-            recorder.updateMeters()
-            // デシベル値を取得（-160から0の範囲）
-            let power = recorder.averagePower(forChannel: 0)
-            // -60から0の範囲にクリップ
-            let clippedPower = max(-60.0, min(0.0, power))
-
-            // デバッグログ
-            logger.debug("AudioLevel: Raw power: \(String(format: "%.2f", power)) dB, Clipped: \(String(format: "%.2f", clippedPower)) dB")
-            userDefaults.logError(String(format: "LongRecordingAudioRecorder - Power: %.2f dB, Clipped: %.2f dB", power, clippedPower))
-
-            return clippedPower
-        default:
-            // 録音中でない場合は-60.0を返す
-            return -60.0
-        }
+        guard case .recording = state, let recorder = audioRecorder else { return -60.0 }
+        recorder.updateMeters()
+        // デシベル値（-160〜0）を -60〜0 にクリップする。
+        // 以前はここで毎回 UserDefaults にログを書いていた（100ms ごと = 16時間で約57万回）ので削除した（#225）
+        return max(-60.0, min(0.0, recorder.averagePower(forChannel: 0)))
     }
 
     func getCurrentState() -> RecordingState {
         state
     }
 
+    /// 一覧へ保存し終えたら呼ぶ。次の起動で同じ録音を復旧し直さないよう記録を消す（#223）
+    func markRecordingSaved(url: URL) {
+        journal.remove(finalURL: url)
+    }
+
     // MARK: - Private Methods
 
     private func resetState() {
-        pausedDuration = 0
         startTime = nil
         state = .preparing
+        audioRecorder = nil
+        finalURL = nil
+        segmentDirectory = nil
+        segmentURLs = []
+        finishedSegmentsDuration = 0
+        lastObservedSegmentTime = 0
+        pausedByInterruption = false
+        rotationTask?.cancel()
+        rotationTask = nil
     }
 
-    private func updateState(_ newState: RecordingState) {
-        state = newState
-    }
-
-    private func setupAudioSession() async throws {
-        logger.debug("オーディオセッション設定開始")
+    private func configureAudioSession() throws {
         let session = AVAudioSession.sharedInstance()
+        // ノイズキャンセリング or AGC が有効な場合は .voiceChat モードを使用
+        let useVoiceProcessing = recordingConfiguration.noiseCancellationEnabled
+            || recordingConfiguration.autoGainControlEnabled
+        let mode: AVAudioSession.Mode = useVoiceProcessing ? .voiceChat : .default
 
-        do {
-            // ノイズキャンセリング or AGC が有効な場合は .voiceChat モードを使用
-            let useVoiceProcessing = recordingConfiguration.noiseCancellationEnabled
-                || recordingConfiguration.autoGainControlEnabled
-            let mode: AVAudioSession.Mode = useVoiceProcessing ? .voiceChat : .default
-            logger.debug("オーディオモード: \(useVoiceProcessing ? "voiceChat（ノイズキャンセリング/AGC有効）" : "default")")
+        try session.setCategory(
+            .playAndRecord,
+            mode: mode,
+            options: [
+                .defaultToSpeaker,
+                .allowBluetooth,
+                .allowBluetoothA2DP,
+                .mixWithOthers,
+                .duckOthers  // 他の音声を小さくして録音を継続
+            ]
+        )
+        // IO バッファは指定しない（以前は 5ms 固定）。ファイルへ書くだけなら低遅延は要らず、
+        // 短いほど CPU の起床が増えて電池を使う（#225）
+        try session.setActive(true, options: .notifyOthersOnDeactivation)
+    }
 
-            try session.setCategory(
-                .playAndRecord,
-                mode: mode,
-                options: [
-                    .defaultToSpeaker,
-                    .allowBluetooth,
-                    .allowBluetoothA2DP,
-                    .mixWithOthers,
-                    .duckOthers  // 他の音声を小さくして録音を継続
-                ]
-            )
-            logger.debug("オーディオセッションカテゴリ設定完了")
+    /// 次の区切りの録音を始め、それまでのレコーダーを止める。
+    /// 新しい方を先に動かしてから古い方を止めるので、切り替えで音が欠けない（ごく短く重なる）。
+    private func startNewSegment() throws -> Bool {
+        guard let directory = segmentDirectory, let finalURL else { return false }
+        let url = RecordingSegments.segmentURL(
+            index: segmentURLs.count,
+            in: directory,
+            fileExtension: finalURL.pathExtension
+        )
+        let recorder = try AVAudioRecorder(url: url, settings: recordingConfiguration.recordingSettings)
+        recorder.delegate = self
+        recorder.isMeteringEnabled = true
+        guard recorder.record() else { return false }
 
-            // 長時間録音に最適化された設定
-            try session.setPreferredIOBufferDuration(0.005) // 5ms バッファ
-            logger.debug("IOバッファ設定完了: 5ms")
-
-            try session.setActive(true, options: .notifyOthersOnDeactivation)
-            logger.debug("オーディオセッションアクティブ化完了")
-
-            // 割り込み通知の登録
-            NotificationCenter.default.addObserver(
-                forName: AVAudioSession.interruptionNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] notification in
-                Task { await self?.handleInterruption(notification) }
-            }
-            logger.debug("割り込み通知監視開始")
-
-        } catch {
-            logger.error("オーディオセッション設定エラー: \(error.localizedDescription)")
-            state = .error(.audioSessionFailed)
-            throw error
+        let previous = audioRecorder
+        if let previous {
+            finishedSegmentsDuration += previous.currentTime
         }
+        audioRecorder = recorder
+        lastObservedSegmentTime = 0
+        segmentURLs.append(url)
+        previous?.stop()
+        logger.info("区切り \(self.segmentURLs.count) を開始: \(url.lastPathComponent)")
+        return true
+    }
+
+    private func startRotationTask() {
+        rotationTask?.cancel()
+        rotationTask = Task { [weak self] in
+            while !Task.isCancelled {
+                guard let interval = await self?.rotationCheckInterval else { return }
+                try? await Task.sleep(for: interval)
+                await self?.rotateSegmentIfNeeded()
+            }
+        }
+    }
+
+    private func rotateSegmentIfNeeded() {
+        guard case .recording = state,
+              let recorder = audioRecorder,
+              recorder.isRecording,
+              recorder.currentTime >= segmentDuration else { return }
+        do {
+            if try !startNewSegment() {
+                // 次の区切りを始められなかったら、今の区切りに書き続ける（次の確認でまた試す）
+                logger.error("次の区切りを開始できなかった")
+            }
+        } catch {
+            logger.error("次の区切りの作成に失敗: \(error.localizedDescription)")
+        }
+    }
+
+    /// 区切りを1ファイルにつなぐ。つなげなかったら区切りを残し、次の起動の復旧に任せる
+    private func finalizeSegments() async {
+        guard let finalURL, let directory = segmentDirectory else { return }
+        // 予期しない停止で閉じられなかった WAV はヘッダを直し、読めない区切り（書きかけの m4a）は除く
+        let readable = RecordingSegments.segmentFiles(in: directory)
+            .filter(InterruptedRecordingRecovery.isReadableAfterRepair)
+        guard !readable.isEmpty else {
+            logger.error("つなげる区切りがない")
+            return
+        }
+        do {
+            try await RecordingSegments.merge(readable, into: finalURL)
+            try? FileManager.default.removeItem(at: directory)
+            logger.info("\(readable.count) 個の区切りを \(finalURL.lastPathComponent) につないだ")
+        } catch {
+            logger.error("区切りの結合に失敗（次の起動で再試行）: \(error.localizedDescription)")
+        }
+    }
+
+    /// - Returns: 録音を再開できたら true
+    private func resume() -> Bool {
+        guard case .paused(let startTime, _, _) = state else {
+            logger.warning("録音再開要求されたが、一時停止中ではない状態: \(String(describing: self.state))")
+            return false
+        }
+
+        logger.info("録音再開開始")
+        // 割り込みやメディアリセットの後はセッションが非アクティブ・設定なしになっているので、設定し直す
+        do {
+            try configureAudioSession()
+        } catch {
+            logger.error("録音再開時のオーディオセッション設定に失敗: \(error.localizedDescription)")
+        }
+
+        let resumed: Bool
+        if let recorder = audioRecorder {
+            resumed = recorder.record()
+        } else {
+            // レコーダーが使えなくなった後（メディアリセット・予期しない停止）は次の区切りから録り直す
+            resumed = (try? startNewSegment()) ?? false
+        }
+        guard resumed else {
+            // 他アプリがマイクを使用中などで再開できない。一時停止のまま残す
+            logger.error("録音再開に失敗 - 一時停止のまま")
+            return false
+        }
+
+        pausedByInterruption = false
+        state = .recording(startTime: startTime)
+        logger.info("録音再開完了")
+        return true
+    }
+
+    /// 録音中にレコーダーが使えなくなったとき（メディアリセット・書き込みエラー・システムによる停止）。
+    /// それまでの区切りは残し、一時停止にして知らせる。再開すると次の区切りから録る
+    private func handleRecorderLost(reason: String) {
+        let startTime: Date
+        switch state {
+        case .recording(let start): startTime = start
+        case .paused(let start, _, _): startTime = start
+        default: return
+        }
+        logger.error("レコーダーが使えなくなった: \(reason)")
+        finishedSegmentsDuration += lastObservedSegmentTime
+        lastObservedSegmentTime = 0
+        audioRecorder = nil
+        state = .paused(startTime: startTime, pausedTime: Date(), duration: finishedSegmentsDuration)
+        RecordingAlertNotifier.notifyRecordingPaused()
     }
 
     private func beginBackgroundTask() {
@@ -253,14 +364,10 @@ actor LongRecordingAudioRecorder: NSObject {
 
     private func cleanupResources() async {
         audioRecorder = nil
+        rotationTask?.cancel()
+        rotationTask = nil
         endBackgroundTask()
-
-        // 割り込み通知の削除
-        NotificationCenter.default.removeObserver(
-            self,
-            name: AVAudioSession.interruptionNotification,
-            object: nil
-        )
+        removeObservers()
 
         // オーディオセッションの非アクティブ化
         do {
@@ -270,51 +377,90 @@ actor LongRecordingAudioRecorder: NSObject {
         }
     }
 
-    // MARK: - Interruption Handling
+    // MARK: - Notifications
 
-    private func handleInterruption(_ notification: Notification) {
-        guard let userInfo = notification.userInfo,
-              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
-              let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-            logger.warning("割り込み通知の解析に失敗")
-            return
+    private func registerObservers() {
+        removeObservers()
+        let center = NotificationCenter.default
+        observerTokens = [
+            center.addObserver(forName: AVAudioSession.interruptionNotification, object: nil, queue: .main) { [weak self] notification in
+                let info = InterruptionInfo(notification)
+                Task { await self?.handleInterruption(info) }
+            },
+            center.addObserver(forName: AVAudioSession.routeChangeNotification, object: nil, queue: .main) { [weak self] notification in
+                let reason = (notification.userInfo?[AVAudioSessionRouteChangeReasonKey] as? UInt)
+                    .flatMap(AVAudioSession.RouteChangeReason.init(rawValue:))
+                Task { await self?.handleRouteChange(reason) }
+            },
+            center.addObserver(forName: AVAudioSession.mediaServicesWereResetNotification, object: nil, queue: .main) { [weak self] _ in
+                Task { await self?.handleMediaServicesReset() }
+            }
+        ]
+    }
+
+    private func removeObservers() {
+        observerTokens.forEach(NotificationCenter.default.removeObserver)
+        observerTokens = []
+    }
+
+    /// Notification は Sendable ではないので、actor に渡す前に必要な値だけ取り出す
+    struct InterruptionInfo: Sendable {
+        var type: AVAudioSession.InterruptionType?
+        var shouldResume: Bool
+
+        init(_ notification: Notification) {
+            let info = notification.userInfo
+            type = (info?[AVAudioSessionInterruptionTypeKey] as? UInt).flatMap(AVAudioSession.InterruptionType.init(rawValue:))
+            let options = (info?[AVAudioSessionInterruptionOptionKey] as? UInt).map(AVAudioSession.InterruptionOptions.init(rawValue:))
+            shouldResume = options?.contains(.shouldResume) ?? false
         }
+    }
 
-        switch type {
+    private func handleInterruption(_ info: InterruptionInfo) async {
+        switch info.type {
         case .began:
-            // 割り込み開始 - 一時停止
             logger.info("オーディオ割り込み開始 - 録音を一時停止")
-            Task { await pauseRecording() }
+            guard case .recording = state else { return }
+            await pauseRecording()
+            pausedByInterruption = true
 
         case .ended:
-            // 割り込み終了
-            logger.info("オーディオ割り込み終了")
-            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else {
-                logger.warning("割り込み終了オプションの取得に失敗")
-                return
-            }
-            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
-
-            if options.contains(.shouldResume) {
-                // 録音を再開
-                logger.info("録音再開が推奨されています")
-                Task {
-                    do {
-                        try AVAudioSession.sharedInstance().setActive(true)
-                        await resumeRecording()
-                    } catch {
-                        logger.error("割り込み後のオーディオセッション再開に失敗: \(error.localizedDescription)")
-                        state = .error(.audioSessionFailed)
-                    }
-                }
-            } else {
-                logger.info("録音再開は推奨されていません")
+            logger.info("オーディオ割り込み終了 (shouldResume: \(info.shouldResume))")
+            guard pausedByInterruption else { return }
+            // 再生アプリと違い、録音アプリは shouldResume が無くても再開を試す。
+            // 電話のあとなどに付かないことがあり、その場合に何時間も止まったままになるのを防ぐ（#226）
+            if !resume() {
+                RecordingAlertNotifier.notifyRecordingPaused()
             }
 
+        case .none:
+            logger.warning("割り込み通知の解析に失敗")
         @unknown default:
-            logger.warning("不明な割り込みタイプ: \(type.rawValue)")
-            break
+            logger.warning("不明な割り込みタイプ")
         }
+    }
+
+    /// イヤホンの抜き差し・Bluetooth の切り替えで録音が止まっていたら再開する
+    private func handleRouteChange(_ reason: AVAudioSession.RouteChangeReason?) {
+        guard case .recording = state, let recorder = audioRecorder else { return }
+        logger.info("ルート変更: \(reason.map { String($0.rawValue) } ?? "unknown")")
+        guard !recorder.isRecording else { return }
+        if !recorder.record() {
+            handleRecorderLost(reason: "route change")
+        }
+    }
+
+    /// メディアサービスが再起動するとレコーダーは使えなくなる。
+    /// Apple の指針どおり、録音の再開はユーザーの操作（再開ボタン）を待つ
+    private func handleMediaServicesReset() {
+        logger.error("メディアサービスがリセットされた")
+        handleRecorderLost(reason: "media services were reset")
+    }
+
+    func recorderDidFinish(_ recorderID: ObjectIdentifier, successfully: Bool) {
+        // 区切りの切り替えや停止で止めたレコーダーの通知は無視する
+        guard let current = audioRecorder, ObjectIdentifier(current) == recorderID else { return }
+        handleRecorderLost(reason: successfully ? "finished unexpectedly" : "finished unsuccessfully")
     }
 }
 
@@ -322,22 +468,12 @@ actor LongRecordingAudioRecorder: NSObject {
 
 extension LongRecordingAudioRecorder: AVAudioRecorderDelegate {
     nonisolated func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        Task {
-            if flag {
-                let finalTime = await getCurrentTime()
-                await updateState(.completed(duration: finalTime))
-            } else {
-                await updateState(.error(.recordingFailed("Recording finished unsuccessfully")))
-            }
-            await cleanupResources()
-        }
+        let id = ObjectIdentifier(recorder)
+        Task { await recorderDidFinish(id, successfully: flag) }
     }
 
     nonisolated func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-        Task {
-            let errorMessage = error?.localizedDescription ?? "Unknown encoding error"
-            await updateState(.error(.recordingFailed(errorMessage)))
-            await cleanupResources()
-        }
+        let id = ObjectIdentifier(recorder)
+        Task { await recorderDidFinish(id, successfully: false) }
     }
 }

@@ -92,6 +92,7 @@ struct RecordingFeature {
   @Dependency(\.uuid) var uuid
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
   @Dependency(\.liveActivityClient) var liveActivityClient
+  @Dependency(\.appForeground) var appForeground
   @Dependency(\.userDefaults) var userDefaults
 
   var body: some Reducer<State, Action> {
@@ -112,7 +113,10 @@ struct RecordingFeature {
         case .stopButtonTapped:
           state.recordingState = .encoding
           state.showTitleDialog = true
-          return .run { _ in
+          return .run { send in
+            // バックグラウンドでは時間を画面に送っていないので、保存する長さは止める直前に取り直す
+            let finalTime = await longRecordingAudioClient.currentTime()
+            await send(.timerUpdated(finalTime))
             await longRecordingAudioClient.stopRecording()
             await liveActivityClient.endActivity()
           }
@@ -163,6 +167,7 @@ struct RecordingFeature {
           state = State() // Reset state
           return .merge(
             .send(.delegate(.recordingCompleted(result))),
+            .run { _ in await longRecordingAudioClient.markRecordingSaved(recordingUrl) },
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
               guard userDefaults.isTranscriptionEnabled() else { return }
@@ -218,6 +223,7 @@ struct RecordingFeature {
           state = State() // Reset state
           return .merge(
             .send(.delegate(.recordingCompleted(result))),
+            .run { _ in await longRecordingAudioClient.markRecordingSaved(recordingUrl) },
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
               guard userDefaults.isTranscriptionEnabled() else { return }
@@ -313,15 +319,10 @@ struct RecordingFeature {
         return .run { _ in await liveActivityClient.endActivity() }
 
       case let .timerUpdated(time):
-        let previousSecond = Int(state.duration)
+        // Live Activity の時間表示はウィジェット側が開始時刻から数えるので、ここで毎秒更新しない。
+        // 更新するのは開始・一時停止・再開のときだけ（#225）
         state.duration = time
-        let currentSecond = Int(time)
-        // Only update Live Activity once per second to avoid excessive updates
-        guard currentSecond != previousSecond else { return .none }
-        let isPaused = state.recordingState == .paused
-        return .run { _ in
-          await liveActivityClient.updateActivity(time, isPaused)
-        }
+        return .none
 
       case let .recorderPauseStateChanged(isPaused):
         // ボタン操作による一時停止/再開では既に同じ状態になっているので何もしない
@@ -417,8 +418,13 @@ struct RecordingFeature {
       async let timerUpdates: Void = {
         // 他アプリの録音や電話の割り込みでは、レコーダーが自分で一時停止/再開する。
         // その変化を画面に伝えないと「録音中」の表示のまま時間と波形だけが止まって見えるので、変化したときだけ通知する。
+        // バックグラウンドでは画面に出す時間・音量・波形の更新が要らない。
+        // 1秒ごとに一時停止の変化だけを見て、CPU の起床を減らす（#225）
         var wasRecording = true
-        for await _ in clock.timer(interval: .milliseconds(100)) {
+        while !Task.isCancelled {
+          let isForeground = await appForeground.isForeground()
+          try? await clock.sleep(for: isForeground ? .milliseconds(100) : .seconds(1))
+          guard !Task.isCancelled else { break }
           let state = await longRecordingAudioClient.recordingState()
           let isRecording: Bool
           switch state {
@@ -428,9 +434,11 @@ struct RecordingFeature {
           }
           if isRecording != wasRecording {
             wasRecording = isRecording
+            // Live Activity はこの時間から数え直すので、バックグラウンドでも最新の時間にしてから伝える
+            await send(.timerUpdated(await longRecordingAudioClient.currentTime()))
             await send(.recorderPauseStateChanged(isPaused: !isRecording))
           }
-          guard isRecording else { continue }
+          guard isRecording, isForeground else { continue }
           let currentTime = await longRecordingAudioClient.currentTime()
           let volume = await longRecordingAudioClient.audioLevel()
           await send(.timerUpdated(currentTime))

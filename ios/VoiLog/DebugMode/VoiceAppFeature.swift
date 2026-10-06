@@ -83,6 +83,7 @@ struct VoiceAppFeature {
   @Dependency(\.userDefaults) var userDefaultsClient
   @Dependency(\.voiceMemoCoredataAccessor) var coreDataAccessor
   @Dependency(\.appTracking) var appTracking
+  @Dependency(\.interruptedRecordingRecovery) var interruptedRecordingRecovery
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -149,17 +150,29 @@ struct VoiceAppFeature {
             }
           }
 
+          // 前回、録音中にアプリが終了していたら、その録音を一覧へ戻す（#223）
+          let recoveryEffect: Effect<Action> = .run { send in
+            let ids = await interruptedRecordingRecovery.recover()
+            guard !ids.isEmpty else { return }
+            let restored = await voiceMemoRepository.restoreInterruptedRecordings(Set(ids))
+            if restored > 0 {
+              await send(.playbackFeature(.view(.reloadData)))
+            }
+          }
+
           if isFirstLaunch && !tutorialCompleted {
             state.shouldShowTutorial = true
             // ATTプロンプトはチュートリアル完了後まで遅らせる（ダイアログを重ねない）
             return .merge(
               cleanupEffect,
+              recoveryEffect,
               .send(.tutorialFeature(.view(.start)))
             )
           }
 
           return .merge(
             cleanupEffect,
+            recoveryEffect,
             requestAppTrackingAuthorizationEffect()
           )
 

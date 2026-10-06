@@ -50,7 +50,8 @@ private actor LiveActivityManager {
         let contentState = RecordActivityAttributes.ContentState(
             emoji: "🔴",
             recordingTime: 0,
-            isPaused: false
+            isPaused: false,
+            timerStartDate: Date()
         )
         // staleDate を8時間後に設定（クラッシュ時の自動消去用）
         let staleDate = Date().addingTimeInterval(8 * 60 * 60)
@@ -73,7 +74,8 @@ private actor LiveActivityManager {
         let contentState = RecordActivityAttributes.ContentState(
             emoji: emoji,
             recordingTime: recordingTime,
-            isPaused: isPaused
+            isPaused: isPaused,
+            timerStartDate: isPaused ? nil : Date().addingTimeInterval(-recordingTime)
         )
         let activityContent = ActivityContent(state: contentState, staleDate: nil)
         await activity.update(activityContent)

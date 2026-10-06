@@ -19,11 +19,15 @@ struct RecordActivityAttributes: ActivityAttributes {
         var emoji: String
         var recordingTime: TimeInterval
         var isPaused: Bool
+        /// 録音中なら「経過時間が 0 だった時刻」。ウィジェットはここから時間を数えるので、
+        /// アプリが毎秒更新しなくても表示が進む（#225）。一時停止中や旧バージョンからの状態では nil
+        var timerStartDate: Date?
 
-        init(emoji: String = "🔴", recordingTime: TimeInterval = 0, isPaused: Bool = false) {
+        init(emoji: String = "🔴", recordingTime: TimeInterval = 0, isPaused: Bool = false, timerStartDate: Date? = nil) {
             self.emoji = emoji
             self.recordingTime = recordingTime
             self.isPaused = isPaused
+            self.timerStartDate = timerStartDate
         }
     }
 

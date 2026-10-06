@@ -31,7 +31,7 @@ struct RecordActivityLiveActivity: Widget {
                         Text(context.state.isPaused ? String(localized: "一時停止中") : String(localized: "録音中"))
                             .font(.caption)
                             .foregroundColor(.secondary)
-                        Text(formatTimeInterval(context.state.recordingTime))
+                        elapsedText(context.state)
                             .font(.title2.monospacedDigit().bold())
                             .foregroundColor(.primary)
                     }
@@ -68,7 +68,7 @@ struct RecordActivityLiveActivity: Widget {
                     }
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text(formatTimeInterval(context.state.recordingTime))
+                    elapsedText(context.state)
                         .font(.title3.monospacedDigit().bold())
                         .foregroundColor(context.state.isPaused ? .orange : .red)
                 }
@@ -85,7 +85,7 @@ struct RecordActivityLiveActivity: Widget {
                         .foregroundColor(context.state.isPaused ? .orange : .red)
                 }
             } compactTrailing: {
-                Text(formatTimeInterval(context.state.recordingTime))
+                elapsedText(context.state)
                     .font(.caption.monospacedDigit())
                     .foregroundColor(context.state.isPaused ? .orange : .red)
             } minimal: {
@@ -93,6 +93,17 @@ struct RecordActivityLiveActivity: Widget {
                     .foregroundColor(context.state.isPaused ? .orange : .red)
             }
             .keylineTint(Color.red)
+        }
+    }
+
+    /// 録音中はウィジェット側で時間を数える（アプリからの毎秒の更新なしで進む）。一時停止中は止まった時間を出す
+    @ViewBuilder
+    private func elapsedText(_ state: RecordActivityAttributes.ContentState) -> some View {
+        if let start = state.timerStartDate, !state.isPaused {
+            Text(timerInterval: start...Date.distantFuture, countsDown: false)
+                .multilineTextAlignment(.trailing)
+        } else {
+            Text(formatTimeInterval(state.recordingTime))
         }
     }
 
