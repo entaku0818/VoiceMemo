@@ -1,9 +1,10 @@
-Version 1.15.1
+Version 1.16.0
 
 [Improvements]
-- Shared transcriptions, PDF exports, edit history and error messages now appear in your language
-- The first-launch tutorial is now shown in your language
+- Long recordings are now more reliable. If the app closes while recording, the recording is back in your list the next time you open it
+- Recording now resumes automatically after interruptions such as phone calls. If it can't resume, you'll get a notification
+- Reduced battery use while recording in the background
+- Notification titles and preset tags now appear in your language
 
 [Bug Fixes]
-- Fixed the free trial being shown as 1 month in some places (it is 7 days)
-- Fixed a successful audio split being shown as an error in some languages
+- Fixed recording sometimes staying stopped after connecting or disconnecting earphones or Bluetooth devices

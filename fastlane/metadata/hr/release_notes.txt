@@ -1,9 +1,10 @@
-Verzija 1.15.1
+Verzija 1.16.0
 
 [Poboljšanja]
-- Dijeljene transkripcije, PDF izvozi, povijest uređivanja i poruke o pogreškama sada se prikazuju na vašem jeziku
-- Vodič pri prvom pokretanju sada se prikazuje na vašem jeziku
+- Duge snimke sada su pouzdanije. Ako se aplikacija zatvori tijekom snimanja, snimka se vraća na popis kad je sljedeći put otvorite
+- Snimanje se sada automatski nastavlja nakon prekida poput poziva. Ako se ne može nastaviti, dobit ćete obavijest
+- Manja potrošnja baterije pri snimanju u pozadini
+- Naslovi obavijesti i unaprijed postavljene oznake sada se prikazuju na vašem jeziku
 
 [Ispravci pogrešaka]
-- Ispravljen je prikaz besplatnog probnog razdoblja kao 1 mjesec na nekim mjestima (traje 7 dana)
-- Ispravljen je prikaz uspješnog razdvajanja zvuka kao pogreške na nekim jezicima
+- Ispravljeno: snimanje je ponekad ostalo zaustavljeno nakon spajanja ili odspajanja slušalica ili Bluetooth uređaja

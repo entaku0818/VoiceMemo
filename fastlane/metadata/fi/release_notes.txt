@@ -1,9 +1,10 @@
-Versio 1.15.1
+Versio 1.16.0
 
 [Parannukset]
-- Jaetut litteroinnit, PDF-viennit, muokkaushistoria ja virheilmoitukset näkyvät nyt omalla kielelläsi
-- Ensimmäisen käynnistyksen opastus näkyy nyt omalla kielelläsi
+- Pitkät tallenteet ovat nyt luotettavampia. Jos sovellus sulkeutuu tallennuksen aikana, tallenne palaa luetteloon, kun avaat sovelluksen seuraavan kerran
+- Tallennus jatkuu nyt automaattisesti keskeytysten, kuten puheluiden, jälkeen. Jos jatkaminen ei onnistu, saat ilmoituksen
+- Pienempi akunkulutus taustalla tallennettaessa
+- Ilmoitusten otsikot ja valmiit tunnisteet näkyvät nyt omalla kielelläsi
 
 [Virhekorjaukset]
-- Korjattu: ilmainen kokeilu näkyi paikoin 1 kuukauden mittaisena (oikea kesto on 7 päivää)
-- Korjattu: onnistunut äänen jakaminen osiin näytettiin joillakin kielillä virheenä
+- Korjattu: tallennus jäi joskus pysähdyksiin kuulokkeiden tai Bluetooth-laitteiden liittämisen tai irrottamisen jälkeen

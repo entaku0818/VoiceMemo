@@ -1,9 +1,10 @@
-Versión 1.15.1
+Versión 1.16.0
 
 [Mejoras]
-- Las transcripciones compartidas, las exportaciones a PDF, el historial de edición y los mensajes de error ahora aparecen en tu idioma
-- El tutorial del primer inicio ahora se muestra en tu idioma
+- Las grabaciones largas ahora son más fiables. Si la app se cierra mientras grabas, la grabación vuelve a tu lista la próxima vez que la abras
+- La grabación se reanuda automáticamente tras interrupciones como las llamadas. Si no puede reanudarse, recibirás una notificación
+- Menor consumo de batería al grabar en segundo plano
+- Los títulos de las notificaciones y las etiquetas predefinidas ahora aparecen en tu idioma
 
 [Correcciones]
-- Se corrigió que la prueba gratuita apareciera como 1 mes en algunos lugares (son 7 días)
-- Se corrigió que una división de audio correcta se mostrara como error en algunos idiomas
+- Se corrigió que la grabación a veces quedara detenida al conectar o desconectar auriculares o dispositivos Bluetooth

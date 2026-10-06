@@ -1,9 +1,10 @@
-Phiên bản 1.15.1
+Phiên bản 1.16.0
 
 [Cải thiện]
-- Bản phiên âm khi chia sẻ, tệp PDF xuất ra, lịch sử chỉnh sửa và thông báo lỗi giờ hiển thị bằng ngôn ngữ của bạn
-- Hướng dẫn khi mở ứng dụng lần đầu giờ hiển thị bằng ngôn ngữ của bạn
+- Ghi âm dài giờ ổn định hơn. Nếu ứng dụng bị đóng trong lúc ghi, bản ghi sẽ trở lại danh sách ở lần mở tiếp theo
+- Ghi âm giờ tự động tiếp tục sau khi bị gián đoạn như cuộc gọi. Nếu không thể tiếp tục, bạn sẽ nhận được thông báo
+- Giảm mức dùng pin khi ghi âm trong nền
+- Tiêu đề thông báo và thẻ có sẵn giờ hiển thị bằng ngôn ngữ của bạn
 
 [Sửa lỗi]
-- Sửa lỗi bản dùng thử miễn phí bị hiển thị là 1 tháng ở một số nơi (thực tế là 7 ngày)
-- Sửa lỗi tách âm thanh thành công nhưng lại hiển thị là lỗi ở một số ngôn ngữ
+- Sửa lỗi đôi khi ghi âm bị dừng hẳn sau khi cắm hoặc rút tai nghe hay thiết bị Bluetooth

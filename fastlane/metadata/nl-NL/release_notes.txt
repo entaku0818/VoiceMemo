@@ -1,9 +1,10 @@
-Versie 1.15.1
+Versie 1.16.0
 
 [Verbeteringen]
-- Gedeelde transcripties, PDF-exports, bewerkingsgeschiedenis en foutmeldingen worden nu in je eigen taal weergegeven
-- De uitleg bij de eerste keer openen wordt nu in je eigen taal weergegeven
+- Lange opnamen zijn nu betrouwbaarder. Als de app tijdens het opnemen sluit, staat de opname de volgende keer dat je de app opent weer in je lijst
+- De opname wordt nu automatisch hervat na onderbrekingen zoals telefoongesprekken. Lukt dat niet, dan krijg je een melding
+- Minder batterijverbruik bij opnemen op de achtergrond
+- Titels van meldingen en vooraf ingestelde tags worden nu in je eigen taal weergegeven
 
 [Opgeloste problemen]
-- Opgelost: de gratis proefperiode werd op sommige plekken als 1 maand weergegeven (het is 7 dagen)
-- Opgelost: het succesvol splitsen van audio werd in sommige talen als fout weergegeven
+- Opgelost: de opname bleef soms gestopt na het aansluiten of loskoppelen van oordopjes of Bluetooth-apparaten

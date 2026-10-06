@@ -1,9 +1,10 @@
-Version 1.15.1
+Version 1.16.0
 
 [Förbättringar]
-- Delade transkriptioner, PDF-exporter, redigeringshistorik och felmeddelanden visas nu på ditt språk
-- Introduktionen vid första start visas nu på ditt språk
+- Långa inspelningar är nu stabilare. Om appen stängs under en inspelning finns inspelningen kvar i listan nästa gång du öppnar den
+- Inspelningen återupptas nu automatiskt efter avbrott som telefonsamtal. Om det inte går får du en notis
+- Lägre batteriförbrukning vid inspelning i bakgrunden
+- Notisrubriker och förinställda taggar visas nu på ditt språk
 
 [Buggfixar]
-- Åtgärdat att den kostnadsfria provperioden på vissa ställen visades som 1 månad (den är 7 dagar)
-- Åtgärdat att en lyckad uppdelning av ljud visades som ett fel på vissa språk
+- Åtgärdat: inspelningen förblev ibland stoppad efter att hörlurar eller Bluetooth-enheter anslutits eller kopplats från

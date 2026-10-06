@@ -1,9 +1,10 @@
-Versió 1.15.1
+Versió 1.16.0
 
 [Millores]
-- Les transcripcions compartides, les exportacions a PDF, l'historial d'edició i els missatges d'error ara apareixen en el teu idioma
-- El tutorial del primer inici ara es mostra en el teu idioma
+- Les gravacions llargues són més fiables. Si l'app es tanca mentre graves, la gravació torna a la llista la propera vegada que l'obres
+- La gravació es reprèn automàticament després d'interrupcions com les trucades. Si no es pot reprendre, rebràs una notificació
+- S'ha reduït el consum de bateria en gravar en segon pla
+- Els títols de les notificacions i les etiquetes predefinides ara es mostren en el teu idioma
 
 [Correccions d'errors]
-- S'ha corregit que la prova gratuïta es mostrés com a 1 mes en alguns llocs (són 7 dies)
-- S'ha corregit que una divisió d'àudio correcta es mostrés com a error en alguns idiomes
+- S'ha corregit que la gravació de vegades quedés aturada després de connectar o desconnectar auriculars o dispositius Bluetooth

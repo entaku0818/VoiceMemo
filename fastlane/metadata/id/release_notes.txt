@@ -1,9 +1,10 @@
-Versi 1.15.1
+Versi 1.16.0
 
 [Peningkatan]
-- Transkripsi yang dibagikan, ekspor PDF, riwayat edit, dan pesan kesalahan kini ditampilkan dalam bahasa Anda
-- Tutorial saat aplikasi pertama kali dibuka kini ditampilkan dalam bahasa Anda
+- Rekaman panjang kini lebih andal. Jika aplikasi tertutup saat merekam, rekaman akan kembali ke daftar saat Anda membukanya lagi
+- Perekaman kini otomatis berlanjut setelah gangguan seperti panggilan telepon. Jika tidak bisa berlanjut, Anda akan menerima notifikasi
+- Penggunaan baterai saat merekam di latar belakang dikurangi
+- Judul notifikasi dan tag preset kini ditampilkan dalam bahasa Anda
 
 [Perbaikan Bug]
-- Memperbaiki uji coba gratis yang di beberapa tempat ditampilkan 1 bulan (seharusnya 7 hari)
-- Memperbaiki pemisahan audio yang berhasil tetapi ditampilkan sebagai kesalahan dalam beberapa bahasa
+- Memperbaiki perekaman yang terkadang tetap berhenti setelah earphone atau perangkat Bluetooth dipasang atau dilepas

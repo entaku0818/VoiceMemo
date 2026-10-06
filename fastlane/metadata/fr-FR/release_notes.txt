@@ -1,9 +1,10 @@
-Version 1.15.1
+Version 1.16.0
 
 [Améliorations]
-- Les transcriptions partagées, les exports PDF, l'historique des modifications et les messages d'erreur s'affichent désormais dans votre langue
-- Le tutoriel du premier lancement s'affiche désormais dans votre langue
+- Les longs enregistrements sont plus fiables. Si l'app se ferme pendant l'enregistrement, celui-ci revient dans votre liste à la prochaine ouverture
+- L'enregistrement reprend désormais automatiquement après une interruption comme un appel. S'il ne peut pas reprendre, vous recevez une notification
+- Consommation de batterie réduite lors de l'enregistrement en arrière-plan
+- Les titres des notifications et les tags prédéfinis s'affichent désormais dans votre langue
 
 [Corrections de bugs]
-- Correction de l'essai gratuit affiché comme durant 1 mois à certains endroits (il dure 7 jours)
-- Correction d'une division audio réussie affichée comme une erreur dans certaines langues
+- Correction de l'enregistrement qui restait parfois arrêté après la connexion ou la déconnexion d'écouteurs ou d'appareils Bluetooth

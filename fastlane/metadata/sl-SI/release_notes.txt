@@ -1,9 +1,10 @@
-Različica 1.15.1
+Različica 1.16.0
 
 [Izboljšave]
-- Deljeni prepisi, izvozi PDF, zgodovina urejanja in sporočila o napakah so zdaj prikazani v vašem jeziku
-- Vodnik ob prvem zagonu je zdaj prikazan v vašem jeziku
+- Dolgi posnetki so zdaj zanesljivejši. Če se aplikacija med snemanjem zapre, se posnetek ob naslednjem odprtju vrne na seznam
+- Snemanje se po prekinitvah, kot so klici, zdaj samodejno nadaljuje. Če to ni mogoče, prejmete obvestilo
+- Manjša poraba baterije pri snemanju v ozadju
+- Naslovi obvestil in prednastavljene oznake so zdaj prikazani v vašem jeziku
 
 [Popravki napak]
-- Popravljeno: brezplačno preizkusno obdobje je bilo ponekod prikazano kot 1 mesec (traja 7 dni)
-- Popravljeno: uspešna razdelitev zvoka je bila v nekaterih jezikih prikazana kot napaka
+- Odpravljeno: snemanje je po priklopu ali odklopu slušalk ali naprav Bluetooth včasih ostalo ustavljeno

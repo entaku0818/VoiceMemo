@@ -1,9 +1,10 @@
-Sürüm 1.15.1
+Sürüm 1.16.0
 
 [İyileştirmeler]
-- Paylaşılan transkripsiyonlar, PDF dışa aktarımları, düzenleme geçmişi ve hata mesajları artık kendi dilinizde gösteriliyor
-- İlk açılıştaki eğitim artık kendi dilinizde gösteriliyor
+- Uzun kayıtlar artık daha güvenilir. Uygulama kayıt sırasında kapanırsa, kayıt bir sonraki açılışta listenize geri gelir
+- Kayıt artık telefon araması gibi kesintilerden sonra otomatik olarak devam eder. Devam edemezse bildirim alırsınız
+- Arka planda kayıt yaparken pil kullanımı azaltıldı
+- Bildirim başlıkları ve hazır etiketler artık kendi dilinizde görünür
 
 [Hata Düzeltmeleri]
-- Ücretsiz denemenin bazı yerlerde 1 ay olarak gösterilmesi düzeltildi (doğrusu 7 gün)
-- Bazı dillerde başarılı bir ses bölme işleminin hata olarak gösterilmesi düzeltildi
+- Kulaklık veya Bluetooth cihazı takıldıktan ya da çıkarıldıktan sonra kaydın bazen durmuş halde kalması düzeltildi

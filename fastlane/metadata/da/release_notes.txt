@@ -1,9 +1,10 @@
-Version 1.15.1
+Version 1.16.0
 
 [Forbedringer]
-- Delte transskriptioner, PDF-eksporter, redigeringshistorik og fejlmeddelelser vises nu på dit sprog
-- Introduktionen ved første opstart vises nu på dit sprog
+- Lange optagelser er nu mere stabile. Hvis appen lukker under en optagelse, er optagelsen tilbage på listen, næste gang du åbner den
+- Optagelsen genoptages nu automatisk efter afbrydelser som telefonopkald. Hvis det ikke kan lade sig gøre, får du en notifikation
+- Lavere batteriforbrug ved optagelse i baggrunden
+- Notifikationstitler og forudindstillede tags vises nu på dit sprog
 
 [Fejlrettelser]
-- Rettet, at den gratis prøveperiode nogle steder blev vist som 1 måned (den er 7 dage)
-- Rettet, at en vellykket opdeling af lyd blev vist som en fejl på nogle sprog
+- Rettet: Optagelsen forblev nogle gange stoppet efter til- eller frakobling af høretelefoner eller Bluetooth-enheder

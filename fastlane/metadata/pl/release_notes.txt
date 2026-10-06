@@ -1,9 +1,10 @@
-Wersja 1.15.1
+Wersja 1.16.0
 
 [Ulepszenia]
-- Udostępniane transkrypcje, eksport do PDF, historia edycji i komunikaty o błędach wyświetlają się teraz w Twoim języku
-- Samouczek przy pierwszym uruchomieniu wyświetla się teraz w Twoim języku
+- Długie nagrania są teraz bardziej niezawodne. Jeśli aplikacja zamknie się podczas nagrywania, nagranie wróci na listę przy następnym otwarciu
+- Nagrywanie automatycznie wznawia się po przerwach, np. połączeniach telefonicznych. Jeśli to niemożliwe, otrzymasz powiadomienie
+- Mniejsze zużycie baterii podczas nagrywania w tle
+- Tytuły powiadomień i gotowe tagi są teraz wyświetlane w Twoim języku
 
 [Poprawki błędów]
-- Naprawiono wyświetlanie bezpłatnego okresu próbnego jako 1 miesiąc w niektórych miejscach (trwa 7 dni)
-- Naprawiono wyświetlanie udanego podziału nagrania jako błędu w niektórych językach
+- Naprawiono sytuację, w której nagrywanie czasem pozostawało zatrzymane po podłączeniu lub odłączeniu słuchawek albo urządzeń Bluetooth

@@ -1,9 +1,10 @@
-Versi 1.15.1
+Versi 1.16.0
 
 [Penambahbaikan]
-- Transkripsi yang dikongsi, eksport PDF, sejarah suntingan dan mesej ralat kini dipaparkan dalam bahasa anda
-- Tutorial semasa pelancaran pertama kini dipaparkan dalam bahasa anda
+- Rakaman panjang kini lebih stabil. Jika apl tertutup semasa merakam, rakaman akan kembali ke senarai apabila anda membukanya semula
+- Rakaman kini bersambung secara automatik selepas gangguan seperti panggilan telefon. Jika tidak dapat bersambung, anda akan menerima pemberitahuan
+- Penggunaan bateri semasa merakam di latar belakang dikurangkan
+- Tajuk pemberitahuan dan tag pratetap kini dipaparkan dalam bahasa anda
 
 [Pembetulan Pepijat]
-- Membetulkan percubaan percuma yang dipaparkan sebagai 1 bulan di beberapa tempat (sebenarnya 7 hari)
-- Membetulkan pemisahan audio yang berjaya tetapi dipaparkan sebagai ralat dalam sesetengah bahasa
+- Membetulkan rakaman yang kadangkala kekal terhenti selepas menyambung atau memutuskan fon telinga atau peranti Bluetooth

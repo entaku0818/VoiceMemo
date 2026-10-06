@@ -1,9 +1,10 @@
-1.15.1-es verzió
+1.16.0-es verzió
 
 [Fejlesztések]
-- A megosztott átiratok, a PDF-exportok, a szerkesztési előzmények és a hibaüzenetek mostantól a te nyelveden jelennek meg
-- Az első indításkor megjelenő bemutató mostantól a te nyelveden jelenik meg
+- A hosszú felvételek megbízhatóbbak lettek. Ha az app felvétel közben bezárul, a felvétel a következő megnyitáskor visszakerül a listába
+- A felvétel mostantól automatikusan folytatódik a megszakítások, például hívások után. Ha nem sikerül, értesítést kapsz
+- Kisebb akkumulátorhasználat háttérben történő felvételkor
+- Az értesítések címe és az előre beállított címkék mostantól a saját nyelveden jelennek meg
 
 [Hibajavítások]
-- Javítottuk, hogy az ingyenes próbaidőszak néhány helyen 1 hónapként jelent meg (valójában 7 nap)
-- Javítottuk, hogy a sikeres hangfelosztás néhány nyelven hibaként jelent meg
+- Javítva: a felvétel néha leállva maradt fülhallgató vagy Bluetooth-eszköz csatlakoztatása vagy leválasztása után

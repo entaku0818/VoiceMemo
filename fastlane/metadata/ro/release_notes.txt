@@ -1,9 +1,10 @@
-Versiunea 1.15.1
+Versiunea 1.16.0
 
 [Îmbunătățiri]
-- Transcrierile partajate, exporturile PDF, istoricul editărilor și mesajele de eroare apar acum în limba dumneavoastră
-- Tutorialul de la prima pornire apare acum în limba dumneavoastră
+- Înregistrările lungi sunt acum mai fiabile. Dacă aplicația se închide în timpul înregistrării, înregistrarea revine în listă la următoarea deschidere
+- Înregistrarea se reia acum automat după întreruperi precum apelurile. Dacă nu se poate relua, primești o notificare
+- Consum redus de baterie la înregistrarea în fundal
+- Titlurile notificărilor și etichetele predefinite apar acum în limba ta
 
 [Remedieri]
-- Am remediat afișarea probei gratuite ca 1 lună în unele locuri (durează 7 zile)
-- Am remediat afișarea unei împărțiri audio reușite ca eroare în unele limbi
+- Remediat: înregistrarea rămânea uneori oprită după conectarea sau deconectarea căștilor ori a dispozitivelor Bluetooth

@@ -1,9 +1,10 @@
-Verze 1.15.1
+Verze 1.16.0
 
 [Vylepšení]
-- Sdílené přepisy, export do PDF, historie úprav a chybové zprávy se nyní zobrazují ve vašem jazyce
-- Úvodní návod při prvním spuštění se nyní zobrazuje ve vašem jazyce
+- Dlouhé nahrávky jsou spolehlivější. Pokud se aplikace během nahrávání ukončí, nahrávka se při dalším otevření vrátí do seznamu
+- Nahrávání se po přerušení, například telefonním hovoru, automaticky obnoví. Pokud to nejde, dostanete oznámení
+- Nižší spotřeba baterie při nahrávání na pozadí
+- Názvy oznámení a přednastavené štítky se nyní zobrazují ve vašem jazyce
 
 [Opravy chyb]
-- Opravili jsme zobrazení zkušební verze zdarma jako 1 měsíc na některých místech (ve skutečnosti jde o 7 dní)
-- Opravili jsme, že se úspěšné rozdělení zvuku v některých jazycích zobrazovalo jako chyba
+- Opraveno: nahrávání po připojení nebo odpojení sluchátek či zařízení Bluetooth někdy zůstalo zastavené
