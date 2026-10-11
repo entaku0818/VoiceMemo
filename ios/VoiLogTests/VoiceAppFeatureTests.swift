@@ -77,6 +77,8 @@ final class VoiceAppFeatureTests: XCTestCase {
             ) {
                 VoiceAppFeature()
             } withDependencies: {
+                // 録音回数（UserDefaults.standard）が10回目に当たるとトライアル訴求の日時を記録するため時計を固定する（issue #228）
+                $0.date = .constant(Date(timeIntervalSince1970: 0))
                 $0.audioPlayer = AudioPlayerClient(
                     play: { _, _, _, _, _ in true },
                     stop: { true },
