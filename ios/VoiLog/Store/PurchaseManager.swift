@@ -29,6 +29,20 @@ class PurchaseManager: PurchaseManagerProtocol {
         case productNotFound
         case purchaseFailed
         case noEntitlements
+        /// ユーザーが購入シートでキャンセルした（失敗として扱わない）
+        case cancelled
+    }
+
+    /// ユーザーのキャンセルによるエラーか。
+    /// RevenueCat はキャンセル時に `ErrorCode.purchaseCancelledError` を投げる。
+    /// 以前はこれも `purchaseFailed` に包み直していたため、キャンセルしただけで
+    /// 「購入に失敗しました」と表示されていた（issue #230）
+    static func isCancellation(_ error: Error) -> Bool {
+        if case PurchaseError.cancelled? = error as? PurchaseError { return true }
+        if let code = error as? ErrorCode { return code == .purchaseCancelledError }
+        let nsError = error as NSError
+        return nsError.domain == ErrorCode.errorDomain
+            && nsError.code == ErrorCode.purchaseCancelledError.rawValue
     }
 
     func fetchProPlan() async throws -> (name: String, price: String) {
@@ -80,7 +94,8 @@ class PurchaseManager: PurchaseManagerProtocol {
 
         do {
             os_log("Starting pro purchase for package: %{public}@", log: logger, type: .debug, package.identifier)
-            let (_, customerInfo, _) = try await Purchases.shared.purchase(package: package)
+            let (_, customerInfo, userCancelled) = try await Purchases.shared.purchase(package: package)
+            if userCancelled { throw PurchaseError.cancelled }
 
             if customerInfo.entitlements["premium"]?.isActive == true {
                 await MainActor.run {
@@ -92,6 +107,7 @@ class PurchaseManager: PurchaseManagerProtocol {
                 throw PurchaseError.purchaseFailed
             }
         } catch {
+            if Self.isCancellation(error) { throw PurchaseError.cancelled }
             os_log("Pro purchase failed: %{public}@", log: logger, type: .error, error.localizedDescription)
             throw PurchaseError.purchaseFailed
         }
@@ -106,7 +122,8 @@ class PurchaseManager: PurchaseManagerProtocol {
             throw PurchaseError.productNotFound
         }
         do {
-            let (_, customerInfo, _) = try await Purchases.shared.purchase(package: package)
+            let (_, customerInfo, userCancelled) = try await Purchases.shared.purchase(package: package)
+            if userCancelled { throw PurchaseError.cancelled }
             if customerInfo.entitlements["premium"]?.isActive == true {
                 await MainActor.run {
                     userDefaults.setHasPurchasedProduct(true)
@@ -115,6 +132,7 @@ class PurchaseManager: PurchaseManagerProtocol {
                 throw PurchaseError.purchaseFailed
             }
         } catch {
+            if Self.isCancellation(error) { throw PurchaseError.cancelled }
             throw PurchaseError.purchaseFailed
         }
         os_log("=== Purchase Annual End ===", log: logger, type: .debug)

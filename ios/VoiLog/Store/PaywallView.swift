@@ -369,7 +369,7 @@ struct PaywallView: View {
                 presentationMode.wrappedValue.dismiss()
             }
         } catch {
-            let isCancelled = (error as? ErrorCode) == .purchaseCancelledError
+            let isCancelled = PurchaseManager.isCancellation(error)
             await MainActor.run {
                 if isCancelled {
                     analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCancelled, [

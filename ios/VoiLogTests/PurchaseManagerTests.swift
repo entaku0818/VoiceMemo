@@ -1,5 +1,6 @@
 import XCTest
 import Dependencies
+import RevenueCat
 @testable import VoiLog
 
 final class PurchaseManagerTests: XCTestCase {
@@ -108,5 +109,29 @@ final class PurchaseManagerTests: XCTestCase {
         } catch {
             XCTAssertNotNil(error)
         }
+    }
+
+    // MARK: - isCancellation（issue #230: キャンセルを「購入失敗」と表示していた）
+
+    func testIsCancellation_trueForRevenueCatCancelledError() {
+        XCTAssertTrue(PurchaseManager.isCancellation(ErrorCode.purchaseCancelledError))
+    }
+
+    func testIsCancellation_trueForBridgedNSError() {
+        // SDK は ErrorCode.errorDomain の NSError として投げてくる
+        let error = NSError(domain: ErrorCode.errorDomain, code: ErrorCode.purchaseCancelledError.rawValue)
+        XCTAssertTrue(PurchaseManager.isCancellation(error))
+    }
+
+    func testIsCancellation_trueForOwnCancelledError() {
+        XCTAssertTrue(PurchaseManager.isCancellation(PurchaseManager.PurchaseError.cancelled))
+    }
+
+    func testIsCancellation_falseForOtherErrors() {
+        XCTAssertFalse(PurchaseManager.isCancellation(ErrorCode.networkError))
+        XCTAssertFalse(PurchaseManager.isCancellation(PurchaseManager.PurchaseError.purchaseFailed))
+        XCTAssertFalse(PurchaseManager.isCancellation(
+            NSError(domain: "OtherDomain", code: ErrorCode.purchaseCancelledError.rawValue)
+        ))
     }
 }
