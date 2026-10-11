@@ -13,6 +13,12 @@ struct PaywallView: View {
     @State private var alertMessage: String = ""
     @State private var offering: Offering?
     @State private var purchaseCompleted = false
+    /// StoreKit の introductory offer と適格判定から決めた無料トライアル（issue #232）
+    @State private var monthlyTrial: IntroTrial?
+    @State private var annualTrial: IntroTrial?
+
+    private var selectedTrial: IntroTrial? { isAnnualSelected ? annualTrial : monthlyTrial }
+    private var selectedPrice: String { isAnnualSelected ? annualPrice : productPrice }
 
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) var presentationMode
@@ -61,17 +67,10 @@ struct PaywallView: View {
                             .minimumScaleFactor(0.6)
                             .padding(.bottom, 4)
 
-                        if isAnnualSelected {
-                            Text(annualPrice.isEmpty ? "" : "\(annualPrice)/年")
-                                .font(.system(size: 18, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.9))
-                                .multilineTextAlignment(.center)
-                        } else {
-                            Text(String(localized: "7日間無料体験 → その後\(productPrice.isEmpty ? "" : " \(productPrice)")/月", table: "Premium"))
-                                .font(.system(size: 18, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.9))
-                                .multilineTextAlignment(.center)
-                        }
+                        Text(headerPriceLine)
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
                     }
                     .padding(.vertical, 30)
                     // 文字がグラデーションのカードからはみ出さないよう、カードの内側に収める
@@ -103,7 +102,7 @@ struct PaywallView: View {
                         planButton(
                             title: String(localized: "年額", table: "Premium"),
                             price: annualPrice.isEmpty ? "-" : annualPrice,
-                            unit: String(localized: "/ 年", table: "Premium"),
+                            unit: planUnit(String(localized: "/ 年", table: "Premium"), trial: annualTrial),
                             badge: String(localized: "お得", table: "Premium"),
                             isSelected: isAnnualSelected
                         ) {
@@ -113,7 +112,7 @@ struct PaywallView: View {
                     planButton(
                         title: String(localized: "月額", table: "Premium"),
                         price: productPrice.isEmpty ? "-" : productPrice,
-                        unit: String(localized: "/ 月", table: "Premium"),
+                        unit: planUnit(String(localized: "/ 月", table: "Premium"), trial: monthlyTrial),
                         badge: nil,
                         isSelected: !isAnnualSelected
                     ) {
@@ -185,21 +184,12 @@ struct PaywallView: View {
                     }
                 }) {
                     VStack(spacing: 4) {
-                        if isAnnualSelected {
-                            Text(String(localized: "年額プランを始める", table: "Premium"))
-                                .font(.system(size: 20, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-                            Text("\(annualPrice)\(String(localized: "年（自動更新）", table: "Premium"))")
-                                .font(.system(size: 15, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.9))
-                        } else {
-                            Text(String(localized: "7日間無料で試す", table: "Premium"))
-                                .font(.system(size: 20, weight: .bold, design: .rounded))
-                                .foregroundColor(.white)
-                            Text(String(localized: "その後 \(productPrice)", table: "Premium") + String(localized: "月（自動更新）", table: "Premium"))
-                                .font(.system(size: 15, weight: .medium, design: .rounded))
-                                .foregroundColor(.white.opacity(0.9))
-                        }
+                        Text(PaywallCopy.ctaTitle(isAnnual: isAnnualSelected, trial: selectedTrial))
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                        Text(ctaSubtitle)
+                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                            .foregroundColor(.white.opacity(0.9))
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
@@ -217,9 +207,7 @@ struct PaywallView: View {
                 .padding(.top, 10)
 
                 // サブスクリプション条件の説明（Guideline 3.1.2 対応）
-                Text(isAnnualSelected
-                     ? String(localized: "\(annualPrice.isEmpty ? String(localized: "サブスクリプション料金", table: "Premium") : annualPrice)/年で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。", table: "Premium")
-                     : String(localized: "7日間の無料トライアル終了後、\(productPrice.isEmpty ? String(localized: "サブスクリプション料金", table: "Premium") : productPrice)/月で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。", table: "Premium"))
+                Text(PaywallCopy.disclosure(price: selectedPrice, isAnnual: isAnnualSelected, trial: selectedTrial))
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -302,10 +290,40 @@ struct PaywallView: View {
         }
     }
 
+    /// ヘッダーの価格行。トライアルがあれば「7日間無料 → その後 ¥9,000/ 年」
+    private var headerPriceLine: String {
+        guard !selectedPrice.isEmpty else { return "" }
+        let perPeriod = PaywallCopy.pricePerPeriod(price: selectedPrice, isAnnual: isAnnualSelected)
+        guard let badge = PaywallCopy.trialBadge(selectedTrial) else { return perPeriod }
+        return badge + " → " + String(localized: "その後 \(perPeriod)", table: "Premium")
+    }
+
+    /// 購入ボタンの2行目
+    private var ctaSubtitle: String {
+        let autoRenew = isAnnualSelected
+            ? String(localized: "年（自動更新）", table: "Premium")
+            : String(localized: "月（自動更新）", table: "Premium")
+        guard selectedTrial != nil else { return selectedPrice + autoRenew }
+        return String(localized: "その後 \(selectedPrice)", table: "Premium") + autoRenew
+    }
+
+    /// プランカードの単位行。トライアルがあれば2行目に「7日間無料」を足す
+    private func planUnit(_ unit: String, trial: IntroTrial?) -> String {
+        guard let badge = PaywallCopy.trialBadge(trial) else { return unit }
+        return unit + "\n" + badge
+    }
+
     // RevenueCat用の商品情報取得処理
     func fetchProductInfo() async {
+        async let monthlyTrialResult = purchaseManager.fetchIntroTrial(isAnnual: false)
+        async let annualTrialResult = purchaseManager.fetchIntroTrial(isAnnual: true)
         async let monthly = purchaseManager.fetchProPlan()
         async let annual = purchaseManager.fetchAnnualPlan()
+        let (fetchedMonthlyTrial, fetchedAnnualTrial) = await (monthlyTrialResult, annualTrialResult)
+        await MainActor.run {
+            monthlyTrial = fetchedMonthlyTrial
+            annualTrial = fetchedAnnualTrial
+        }
         do {
             let (name, price) = try await monthly
             await MainActor.run {
@@ -337,13 +355,16 @@ struct PaywallView: View {
 
     // RevenueCat用の購入処理
     func purchaseProduct() async {
-        let name = productName
+        // 以前は常に月額の商品名（多くは空）を送っていて、年額/月額の比率が見えなかった（issue #232）
+        let name = isAnnualSelected ? "annual" : "pro"
+        let hasTrial = selectedTrial != nil
         let price = isAnnualSelected ? annualPrice : productPrice
 
         await MainActor.run {
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseAttempted, [
                 "product_name": name,
                 "product_price": price,
+                "has_trial": hasTrial,
                 "source": source,
                 "timestamp": Date().timeIntervalSince1970
             ])
@@ -360,6 +381,7 @@ struct PaywallView: View {
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCompleted, [
                     "product_name": name,
                     "product_price": price,
+                    "has_trial": hasTrial,
                     "source": source,
                     "timestamp": Date().timeIntervalSince1970
                 ])
@@ -375,6 +397,7 @@ struct PaywallView: View {
                     analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCancelled, [
                         "product_name": name,
                         "product_price": price,
+                        "has_trial": hasTrial,
                         "source": source,
                         "timestamp": Date().timeIntervalSince1970
                     ])
@@ -382,6 +405,7 @@ struct PaywallView: View {
                     analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseFailed, [
                         "product_name": name,
                         "product_price": price,
+                        "has_trial": hasTrial,
                         "source": source,
                         "error": error.localizedDescription,
                         "timestamp": Date().timeIntervalSince1970
@@ -449,6 +473,7 @@ struct PaywallView: View {
                     .foregroundColor(isSelected ? .white : (colorScheme == .dark ? .white : .black))
                 Text(unit)
                     .font(.system(size: 12, weight: .regular))
+                    .multilineTextAlignment(.center)
                     .foregroundColor(isSelected ? .white.opacity(0.8) : .secondary)
             }
             .frame(maxWidth: .infinity)
