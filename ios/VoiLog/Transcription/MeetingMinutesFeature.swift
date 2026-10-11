@@ -152,6 +152,10 @@ struct MeetingMinutesFeature {
         var transcriptionText: String
         var savedMinutes: MeetingMinutesResult?
         var status: Status = .idle
+        /// 非課金ユーザーがロック画面から開いたペイウォール（issue #231）
+        var showPaywall = false
+        /// ロック画面のペイウォールで購入した。親から渡る課金状態は開き直すまで古いままなので、こちらで解除する
+        var unlockedByPurchase = false
 
         enum Status: Equatable {
             case idle
@@ -172,6 +176,8 @@ struct MeetingMinutesFeature {
         enum View {
             case generateTapped
             case saveTapped
+            case upgradeTapped
+            case paywallDismissed
         }
 
         @CasePathable
@@ -181,6 +187,7 @@ struct MeetingMinutesFeature {
     }
 
     @Dependency(\.meetingMinutesClient) var meetingMinutesClient
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -204,6 +211,17 @@ struct MeetingMinutesFeature {
                 state.savedMinutes = result
                 let combined = formatForStorage(result)
                 return .send(.delegate(.saved(combined)))
+
+            case .view(.upgradeTapped):
+                state.showPaywall = true
+                return .none
+
+            case .view(.paywallDismissed):
+                state.showPaywall = false
+                if userDefaults.hasPurchasedProduct() {
+                    state.unlockedByPurchase = true
+                }
+                return .none
 
             case let ._generationCompleted(result):
                 state.status = .done(result)

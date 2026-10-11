@@ -134,4 +134,28 @@ final class MeetingMinutesFeatureTests: XCTestCase {
         await store.send(.view(.generateTapped)) { $0.status = .generating }
         await store.receive(\._generationCompleted) { $0.status = .done(second) }
     }
+
+    // MARK: - ロック画面からの購入（issue #231）
+
+    func testUpgradeTapped_showsPaywall() async {
+        let store = makeStore()
+        await store.send(.view(.upgradeTapped)) { $0.showPaywall = true }
+    }
+
+    func testPaywallDismissed_afterPurchase_unlocksMinutes() async {
+        let store = makeStore()
+        store.dependencies.userDefaults.hasPurchasedProduct = { true }
+        await store.send(.view(.upgradeTapped)) { $0.showPaywall = true }
+        await store.send(.view(.paywallDismissed)) {
+            $0.showPaywall = false
+            $0.unlockedByPurchase = true
+        }
+    }
+
+    func testPaywallDismissed_withoutPurchase_staysLocked() async {
+        let store = makeStore()
+        store.dependencies.userDefaults.hasPurchasedProduct = { false }
+        await store.send(.view(.upgradeTapped)) { $0.showPaywall = true }
+        await store.send(.view(.paywallDismissed)) { $0.showPaywall = false }
+    }
 }

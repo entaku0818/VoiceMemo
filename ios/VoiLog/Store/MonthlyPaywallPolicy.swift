@@ -53,4 +53,6 @@ enum PaywallSource: String, Equatable {
   case settings
   case appIcon = "app_icon"
   case playlistLimit = "playlist_limit"
+  /// AI議事録のロック画面（issue #231）
+  case minutesLock = "minutes_lock"
 }

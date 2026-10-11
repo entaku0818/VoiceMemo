@@ -10,7 +10,7 @@ struct MeetingMinutesView: View {
 
     var body: some View {
         WithPerceptionTracking {
-            if !hasPurchasedPremium {
+            if !hasPurchasedPremium && !store.unlockedByPurchase {
                 premiumPromptView
             } else {
                 switch store.status {
@@ -43,7 +43,25 @@ struct MeetingMinutesView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
+            // 以前はここで行き止まりだった（購入画面へ進む手段が無かった）。issue #231
+            Button(String(localized: "7日間無料で試す", table: "Premium")) {
+                store.send(.view(.upgradeTapped))
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.purple)
             Spacer()
+        }
+        .fullScreenCover(isPresented: Binding(
+            get: { store.showPaywall },
+            set: { isPresented in
+                if !isPresented { store.send(.view(.paywallDismissed)) }
+            }
+        )) {
+            PaywallView(
+                purchaseManager: PurchaseManager.shared,
+                showsCloseButton: true,
+                source: PaywallSource.minutesLock.rawValue
+            )
         }
     }
 
