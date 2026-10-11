@@ -36,7 +36,7 @@ struct AppIconSettingView: View {
 
             if !store.hasPurchasedPremium {
                 Section {
-                    NavigationLink(destination: PaywallView(purchaseManager: purchaseManager)) {
+                    NavigationLink(destination: PaywallView(purchaseManager: purchaseManager, source: PaywallSource.appIcon.rawValue)) {
                         HStack(spacing: 12) {
                             Image(systemName: "crown.fill")
                                 .foregroundStyle(.yellow)

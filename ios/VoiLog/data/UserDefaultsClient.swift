@@ -40,6 +40,8 @@ struct UserDefaultsClient {
     var setAdBasedTranscriptionUnlockCount: @Sendable (Int) -> Void
     var bool: @Sendable (String) -> Bool
     var set: @Sendable (Bool, String) -> Void
+    var date: @Sendable (String) -> Date?
+    var setDate: @Sendable (Date?, String) -> Void
 
     // 広告視聴による文字起こし無料アンロック回数の上限（lifetime）。issue #207
     static let freeAdBasedTranscriptionLimit = 3
@@ -177,6 +179,12 @@ extension UserDefaultsClient: DependencyKey {
         },
         set: { value, key in
             UserDefaults.standard.set(value, forKey: key)
+        },
+        date: { key in
+            UserDefaults.standard.object(forKey: key) as? Date
+        },
+        setDate: { value, key in
+            UserDefaults.standard.set(value, forKey: key)
         }
     )
 
@@ -218,7 +226,9 @@ extension UserDefaultsClient: DependencyKey {
         adBasedTranscriptionUnlockCount: { 0 },
         setAdBasedTranscriptionUnlockCount: { _ in },
         bool: { _ in false },
-        set: { _, _ in }
+        set: { _, _ in },
+        date: { _ in nil },
+        setDate: { _, _ in }
     )
 }
 

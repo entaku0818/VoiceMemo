@@ -47,6 +47,8 @@ final class VoiceAppFeatureAppTrackingTests: XCTestCase {
         let store = TestStore(initialState: VoiceAppFeature.State()) {
             VoiceAppFeature()
         } withDependencies: {
+            // onAppear で月1課金案内の起点日時を記録するため時計を固定する（issue #228）
+            $0.date = .constant(Date(timeIntervalSince1970: 0))
             $0.appTracking = AppTrackingClient(
                 authorizationStatus: { .notDetermined },
                 requestAuthorization: {
@@ -76,6 +78,8 @@ final class VoiceAppFeatureAppTrackingTests: XCTestCase {
         let store = TestStore(initialState: VoiceAppFeature.State()) {
             VoiceAppFeature()
         } withDependencies: {
+            // onAppear で月1課金案内の起点日時を記録するため時計を固定する（issue #228）
+            $0.date = .constant(Date(timeIntervalSince1970: 0))
             $0.appTracking = AppTrackingClient(
                 authorizationStatus: { .notDetermined },
                 requestAuthorization: {

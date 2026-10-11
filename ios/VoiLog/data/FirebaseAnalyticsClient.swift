@@ -59,6 +59,8 @@ extension FirebaseAnalyticsClient {
         static let paywallRestoreCompleted = "paywall_restore_completed"
         static let paywallRestoreFailed = "paywall_restore_failed"
         static let paywallDismissed = "paywall_dismissed"
+        /// 月1回の自動課金案内を出した（parameter: trigger = launch / after_recording）。issue #228
+        static let monthlyPaywallShown = "monthly_paywall_shown"
     }
 
     // Recording関連のイベント

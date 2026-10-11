@@ -630,7 +630,7 @@ private struct PremiumBannerView: View {
     let colorScheme: ColorScheme
 
     var body: some View {
-        NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared)) {
+        NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared, source: PaywallSource.settings.rawValue)) {
             HStack {
                 Image(systemName: "music.mic.circle.fill")
                     .resizable()

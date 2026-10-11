@@ -24,7 +24,9 @@ final class AppOpenAdManager: NSObject {
     /// SplashView側も必ずこの値を参照すること（別々の値を持つと二重ゲートで表示が握りつぶされる）
     /// 2026-09: eCPMの高いapp_open枠の収益増を狙い 5→3 に短縮（issue #216）。
     /// 毎起動・2回に1回はレビュー/リテンションへのリスクが大きいため採らない。まず3で2週間KPIを観測する。
-    let displayInterval = 3
+    /// 起動何回に1回広告を出すか。月1課金案内（MonthlyPaywallPolicy）もこの値で広告の出る起動回を避ける
+    static let defaultDisplayInterval = 3
+    let displayInterval = AppOpenAdManager.defaultDisplayInterval
 
     /// 広告の有効期限（4時間）
     private let adExpirationHours: TimeInterval = 4

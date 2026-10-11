@@ -41,6 +41,8 @@ struct VoiceAppFeature {
 
     // Paywall state
     var showPaywall = false
+    /// ペイウォールを開いたきっかけ。paywall_* イベントの source パラメータになる
+    var paywallSource = PaywallSource.featureGate
 
     // Recording lock alert
     var showRecordingLockAlert = false
@@ -84,6 +86,8 @@ struct VoiceAppFeature {
   @Dependency(\.voiceMemoCoredataAccessor) var coreDataAccessor
   @Dependency(\.appTracking) var appTracking
   @Dependency(\.interruptedRecordingRecovery) var interruptedRecordingRecovery
+  @Dependency(\.date.now) var now
+  @Dependency(\.firebaseAnalytics) var analytics
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -139,6 +143,20 @@ struct VoiceAppFeature {
           if isFirstLaunch {
             userDefaultsClient.set(true, UserDefaultsKeys.firstLaunch)
           }
+
+          // 月1課金案内（issue #228）。初回起動と、App Open 広告が出る起動回には出さない
+          if userDefaultsClient.date(UserDefaultsKeys.monthlyPaywallFirstSeenAt) == nil {
+            userDefaultsClient.setDate(now, UserDefaultsKeys.monthlyPaywallFirstSeenAt)
+          }
+          let isAppOpenAdLaunch = MonthlyPaywallPolicy.isAppOpenAdLaunch(
+            appUsageCount: UserDefaults.standard.integer(forKey: "appUsageCount"),
+            displayInterval: AppOpenAdManager.defaultDisplayInterval
+          )
+          presentMonthlyPaywallIfNeeded(
+            state: &state,
+            trigger: .launch,
+            hasCompetingPrompt: isFirstLaunch || isAppOpenAdLaunch
+          )
 
           // 重複データを削除（バックグラウンドで実行）
           let cleanupEffect: Effect<Action> = .run { _ in
@@ -225,6 +243,7 @@ struct VoiceAppFeature {
 
         case .dismissPaywall:
           state.showPaywall = false
+          state.paywallSource = .featureGate
           // 購入状態を更新
           state.settingFeature.hasPurchasedPremium = userDefaultsClient.hasPurchasedProduct()
           state.playbackFeature.hasPurchasedPremium = userDefaultsClient.hasPurchasedProduct()
@@ -240,6 +259,7 @@ struct VoiceAppFeature {
 
         case .startTrialFromPromotion:
           state.showTrialPromotion = false
+          state.paywallSource = .trialPromotion
           state.showPaywall = true
           return .none
         }
@@ -285,7 +305,25 @@ struct VoiceAppFeature {
         let recordingCount = UserDefaults.standard.integer(forKey: UserDefaultsKeys.recordingCompletedCount) + 1
         UserDefaults.standard.set(recordingCount, forKey: UserDefaultsKeys.recordingCompletedCount)
 
-        let reviewEffect: Effect<Action> = recordingCount >= 2 ? .run { _ in
+        // 10回録音達成トライアル訴求（非プレミアム・未表示のみ）
+        if recordingCount == 10
+            && !state.settingFeature.hasPurchasedPremium
+            && !userDefaultsClient.bool(UserDefaultsKeys.trialPromotionShown) {
+          userDefaultsClient.set(true, UserDefaultsKeys.trialPromotionShown)
+          state.showTrialPromotion = true
+          // 自動の課金案内として数え、直後に月1案内を重ねない
+          userDefaultsClient.setDate(now, UserDefaultsKeys.autoPaywallLastShownAt)
+        }
+
+        // 月1課金案内（issue #228）。お祝い・トライアル訴求と同時には出さない
+        let didShowMonthlyPaywall = presentMonthlyPaywallIfNeeded(
+          state: &state,
+          trigger: .afterRecording,
+          hasCompetingPrompt: isFirstRecording || state.showTrialPromotion
+        )
+
+        // ペイウォールを出した回はレビュー依頼を重ねない
+        let reviewEffect: Effect<Action> = recordingCount >= 2 && !didShowMonthlyPaywall ? .run { _ in
           try? await Task.sleep(nanoseconds: 2_000_000_000)
           await MainActor.run {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
@@ -293,14 +331,6 @@ struct VoiceAppFeature {
             }
           }
         } : .none
-
-        // 10回録音達成トライアル訴求（非プレミアム・未表示のみ）
-        if recordingCount == 10
-            && !state.settingFeature.hasPurchasedPremium
-            && !userDefaultsClient.bool(UserDefaultsKeys.trialPromotionShown) {
-          userDefaultsClient.set(true, UserDefaultsKeys.trialPromotionShown)
-          state.showTrialPromotion = true
-        }
 
         return .merge(
           .send(.playbackFeature(.view(.reloadData))),
@@ -394,6 +424,43 @@ struct VoiceAppFeature {
         return .none
       }
     }
+  }
+
+  /// 月1課金案内（issue #228）を出す条件を満たしていれば、ペイウォールを出す。出したら true。
+  @discardableResult
+  private func presentMonthlyPaywallIfNeeded(
+    state: inout State,
+    trigger: MonthlyPaywallPolicy.Trigger,
+    hasCompetingPrompt: Bool
+  ) -> Bool {
+    let isBusy = state.recordingFeature.recordingState != .idle
+      || state.playbackFeature.playbackState == .playing
+    // 出さないことが確定している場合は時計を読まない（date 依存を持たない既存テストを壊さないため）
+    guard !state.showPaywall,
+          !state.settingFeature.hasPurchasedPremium,
+          !isBusy,
+          !hasCompetingPrompt,
+          let firstSeenAt = userDefaultsClient.date(UserDefaultsKeys.monthlyPaywallFirstSeenAt) else {
+      return false
+    }
+    let now = self.now
+    guard MonthlyPaywallPolicy.shouldShow(
+            now: now,
+            isPremium: false,
+            firstSeenAt: firstSeenAt,
+            lastShownAt: userDefaultsClient.date(UserDefaultsKeys.autoPaywallLastShownAt),
+            isBusy: false,
+            hasCompetingPrompt: false
+          ) else {
+      return false
+    }
+    userDefaultsClient.setDate(now, UserDefaultsKeys.autoPaywallLastShownAt)
+    state.paywallSource = trigger == .launch ? .monthlyLaunch : .monthlyAfterRecording
+    state.showPaywall = true
+    analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.monthlyPaywallShown, [
+      "trigger": trigger.rawValue
+    ])
+    return true
   }
 
   /// ATTの許諾プロンプトを表示する effect。
@@ -516,7 +583,11 @@ struct VoiceAppView: View {
       }
     }
     .fullScreenCover(isPresented: $store.showPaywall) {
-      PaywallView(purchaseManager: PurchaseManager.shared, showsCloseButton: true)
+      PaywallView(
+        purchaseManager: PurchaseManager.shared,
+        showsCloseButton: true,
+        source: store.paywallSource.rawValue
+      )
         .onDisappear {
           store.send(.view(.dismissPaywall))
         }

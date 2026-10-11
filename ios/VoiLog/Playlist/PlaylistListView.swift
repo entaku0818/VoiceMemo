@@ -78,7 +78,7 @@ struct PlaylistListView: View {
                get: \.isShowingPaywall,
                send: PlaylistListFeature.Action.view(.paywallDismissed)
            )) {
-               PaywallView(purchaseManager: PurchaseManager.shared, showsCloseButton: true)
+               PaywallView(purchaseManager: PurchaseManager.shared, showsCloseButton: true, source: PaywallSource.playlistLimit.rawValue)
            }
            .sheet(isPresented: viewStore.binding(
                get: \.isShowingVoiceSelection,

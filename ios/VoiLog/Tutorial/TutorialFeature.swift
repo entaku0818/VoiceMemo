@@ -179,6 +179,11 @@ enum UserDefaultsKeys {
   /// 以前は起動回数と同じ "appUsageCount" を共有しており、録音するたびに
   /// App Open 広告の「5回に1回」ゲートがずれていた（widget/#ad-yield 調査）。
   static let recordingCompletedCount = "recording_completed_count"
+  /// 月1課金案内の猶予期間の起点（初めて VoiceAppView を開いた日時）。issue #228
+  /// "InstallDate" は通知を許可した人にしか記録されないため別キーにしている
+  static let monthlyPaywallFirstSeenAt = "monthly_paywall_first_seen_at"
+  /// 前回、自動で課金案内（月1案内・10回目トライアル訴求）を出した日時
+  static let autoPaywallLastShownAt = "auto_paywall_last_shown_at"
 }
 
 // MARK: - Tutorial Overlay View

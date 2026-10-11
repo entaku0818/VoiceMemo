@@ -21,10 +21,17 @@ struct PaywallView: View {
     var purchaseManager: PurchaseManagerProtocol
     /// 全画面（fullScreenCover）で出すときは閉じるボタンを表示する。NavigationLink で push する場合は戻るボタンがあるので不要。
     var showsCloseButton: Bool
+    /// 開いたきっかけ（`PaywallSource.rawValue`）。購入までのイベントに付けて、きっかけ別の購入率を見る
+    var source: String
 
-    init(purchaseManager: PurchaseManagerProtocol, showsCloseButton: Bool = false) {
+    init(
+        purchaseManager: PurchaseManagerProtocol,
+        showsCloseButton: Bool = false,
+        source: String = PaywallSource.featureGate.rawValue
+    ) {
         self.purchaseManager = purchaseManager
         self.showsCloseButton = showsCloseButton
+        self.source = source
     }
 
     var body: some View {
@@ -259,7 +266,7 @@ struct PaywallView: View {
                 // PaywallViewが表示されたことをAnalyticsに記録
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallViewed, [
                     "timestamp": Date().timeIntervalSince1970,
-                    "source": "paywall_view"
+                    "source": source
                 ])
 
                 Task {
@@ -270,6 +277,7 @@ struct PaywallView: View {
                 // 購入完了によるdismissはdismissedとして記録しない
                 guard !purchaseCompleted else { return }
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallDismissed, [
+                    "source": source,
                     "timestamp": Date().timeIntervalSince1970
                 ])
             }
@@ -336,6 +344,7 @@ struct PaywallView: View {
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseAttempted, [
                 "product_name": name,
                 "product_price": price,
+                "source": source,
                 "timestamp": Date().timeIntervalSince1970
             ])
         }
@@ -351,6 +360,7 @@ struct PaywallView: View {
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCompleted, [
                     "product_name": name,
                     "product_price": price,
+                    "source": source,
                     "timestamp": Date().timeIntervalSince1970
                 ])
                 purchaseCompleted = true
@@ -365,12 +375,14 @@ struct PaywallView: View {
                     analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseCancelled, [
                         "product_name": name,
                         "product_price": price,
+                        "source": source,
                         "timestamp": Date().timeIntervalSince1970
                     ])
                 } else {
                     analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallPurchaseFailed, [
                         "product_name": name,
                         "product_price": price,
+                        "source": source,
                         "error": error.localizedDescription,
                         "timestamp": Date().timeIntervalSince1970
                     ])
