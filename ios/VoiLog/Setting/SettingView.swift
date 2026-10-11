@@ -628,6 +628,8 @@ struct SettingView: View {
 
 private struct PremiumBannerView: View {
     let colorScheme: ColorScheme
+    /// 年額のトライアル。対象外・判定前は nil で、無料表記を出さない。issue #233
+    @State private var annualTrial: IntroTrial?
 
     var body: some View {
         NavigationLink(destination: PaywallView(purchaseManager: PurchaseManager.shared, source: PaywallSource.settings.rawValue)) {
@@ -639,10 +641,12 @@ private struct PremiumBannerView: View {
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.white, .purple)
                 VStack(alignment: .leading) {
-                    Text(String(localized: "7日間無料！", table: "Settings"))
-                        .font(.caption)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
+                    if let badge = PaywallCopy.trialBadge(annualTrial) {
+                        Text(badge)
+                            .font(.caption)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                    }
                     Text(String(localized: "プレミアムサービス", table: "Settings"))
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -664,6 +668,9 @@ private struct PremiumBannerView: View {
                     )
             )
             .padding(.horizontal, 20)
+        }
+        .task {
+            annualTrial = await PurchaseManager.shared.fetchIntroTrial(isAnnual: true)
         }
     }
 }

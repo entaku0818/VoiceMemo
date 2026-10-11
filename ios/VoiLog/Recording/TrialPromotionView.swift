@@ -4,7 +4,11 @@ struct TrialPromotionView: View {
     var onStartTrial: () -> Void
     var onDismiss: () -> Void
 
+    var purchaseManager: PurchaseManagerProtocol = PurchaseManager.shared
+
     @Environment(\.colorScheme) var colorScheme
+    /// 年額のトライアル。対象外・判定前は nil で、無料表記を出さない。issue #233
+    @State private var annualTrial: IntroTrial?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -57,7 +61,7 @@ struct TrialPromotionView: View {
             // 無料トライアルボタン
             Button(action: onStartTrial) {
                 VStack(spacing: 4) {
-                    Text(String(localized: "7日間無料で試す", table: "Premium"))
+                    Text(PaywallCopy.entryButtonTitle(annualTrial: annualTrial))
                         .font(.system(size: 18, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                     Text(String(localized: "いつでもキャンセル可能", table: "Recording"))
@@ -90,6 +94,9 @@ struct TrialPromotionView: View {
             Spacer()
         }
         .padding()
+        .task {
+            annualTrial = await purchaseManager.fetchIntroTrial(isAnnual: true)
+        }
     }
 
     @ViewBuilder

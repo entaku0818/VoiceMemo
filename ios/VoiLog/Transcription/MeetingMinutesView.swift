@@ -7,6 +7,8 @@ struct MeetingMinutesView: View {
     @SwiftUI.Bindable var store: StoreOf<MeetingMinutesFeature>
     let hasPurchasedPremium: Bool
     var onSaved: ((String) -> Void)?
+    /// 年額のトライアル。対象外・判定前は nil で、無料表記を出さない。issue #233
+    @State private var annualTrial: IntroTrial?
 
     var body: some View {
         WithPerceptionTracking {
@@ -44,12 +46,15 @@ struct MeetingMinutesView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
             // 以前はここで行き止まりだった（購入画面へ進む手段が無かった）。issue #231
-            Button(String(localized: "7日間無料で試す", table: "Premium")) {
+            Button(PaywallCopy.entryButtonTitle(annualTrial: annualTrial)) {
                 store.send(.view(.upgradeTapped))
             }
             .buttonStyle(.borderedProminent)
             .tint(.purple)
             Spacer()
+        }
+        .task {
+            annualTrial = await PurchaseManager.shared.fetchIntroTrial(isAnnual: true)
         }
         .fullScreenCover(isPresented: Binding(
             get: { store.showPaywall },
