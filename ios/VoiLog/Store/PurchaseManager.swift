@@ -10,6 +10,8 @@ protocol PurchaseManagerProtocol {
     func purchaseAnnual() async throws
     func restorePurchases() async throws
     func startOneTimePurchase() async throws
+    /// 表示すべき無料トライアル。無い・対象外・取得失敗なら nil（issue #232）
+    func fetchIntroTrial(isAnnual: Bool) async -> IntroTrial?
 }
 
 class PurchaseManager: PurchaseManagerProtocol {
@@ -80,6 +82,24 @@ class PurchaseManager: PurchaseManagerProtocol {
         }
         return (name: package.storeProduct.localizedTitle,
                 price: package.localizedPriceString)
+    }
+
+    func fetchIntroTrial(isAnnual: Bool) async -> IntroTrial? {
+        guard let offerings = try? await Purchases.shared.offerings(),
+              let package = offerings.current?.availablePackages.first(where: {
+                  $0.identifier == (isAnnual ? Package.annual : Package.pro)
+              }) else {
+            return nil
+        }
+        let product = package.storeProduct
+        guard let discount = product.introductoryDiscount else { return nil }
+        let eligibility = await Purchases.shared.checkTrialOrIntroDiscountEligibility(product: product)
+        return IntroTrial.make(
+            isFreeTrial: discount.paymentMode == .freeTrial,
+            unit: IntroTrial.PeriodUnit(discount.subscriptionPeriod.unit),
+            value: discount.subscriptionPeriod.value,
+            eligibility: IntroTrial.Eligibility(eligibility)
+        )
     }
 
     func purchasePro() async throws {
@@ -201,6 +221,32 @@ class PurchaseManager: PurchaseManagerProtocol {
         }
 
         os_log("=== One Time Purchase End ===", log: logger, type: .debug)
+    }
+}
+
+// MARK: - RevenueCat → IntroTrial
+
+private extension IntroTrial.PeriodUnit {
+    init?(_ unit: RevenueCat.SubscriptionPeriod.Unit) {
+        switch unit {
+        case .day: self = .day
+        case .week: self = .week
+        case .month: self = .month
+        case .year: self = .year
+        @unknown default: return nil
+        }
+    }
+}
+
+private extension IntroTrial.Eligibility {
+    init(_ status: IntroEligibilityStatus) {
+        switch status {
+        case .eligible: self = .eligible
+        case .ineligible: self = .ineligible
+        case .noIntroOfferExists: self = .noIntroOfferExists
+        case .unknown: self = .unknown
+        @unknown default: self = .unknown
+        }
     }
 }
 

@@ -12,13 +12,20 @@ class MockPurchaseManager: PurchaseManagerProtocol {
     var productName: String
     var productPrice: String
     var shouldThrowError: Bool
+    var introTrial: IntroTrial?
 
     init(productName: String = "Premium Plan",
          productPrice: String = "¥1200",
-         shouldThrowError: Bool = false) {
+         shouldThrowError: Bool = false,
+         introTrial: IntroTrial? = .days(7)) {
         self.productName = productName
         self.productPrice = productPrice
         self.shouldThrowError = shouldThrowError
+        self.introTrial = introTrial
+    }
+
+    func fetchIntroTrial(isAnnual: Bool) async -> IntroTrial? {
+        shouldThrowError ? nil : introTrial
     }
 
     func fetchProPlan() async throws -> (name: String, price: String) {
