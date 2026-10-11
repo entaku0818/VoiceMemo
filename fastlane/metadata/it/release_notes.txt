@@ -1,10 +1,8 @@
-Versione 1.16.0
+Versione 1.17.0
 
 [Miglioramenti]
-- Le registrazioni lunghe sono ora più affidabili. Se l'app si chiude durante la registrazione, la registrazione torna nell'elenco alla successiva apertura
-- La registrazione ora riprende automaticamente dopo interruzioni come le chiamate. Se non può riprendere, riceverai una notifica
-- Consumo di batteria ridotto durante la registrazione in background
-- I titoli delle notifiche e i tag predefiniti ora vengono mostrati nella tua lingua
+- Ora puoi passare a Premium dalla schermata dei verbali IA
+- La prova gratuita ora viene mostrata anche per il piano annuale, quando è disponibile per te
 
 [Correzioni di bug]
-- Risolto il problema per cui la registrazione a volte restava ferma dopo aver collegato o scollegato auricolari o dispositivi Bluetooth
+- Corretto il messaggio "Acquisto non riuscito" mostrato quando si annulla un acquisto

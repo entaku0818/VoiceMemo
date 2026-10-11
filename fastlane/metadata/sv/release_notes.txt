@@ -1,10 +1,8 @@
-Version 1.16.0
+Version 1.17.0
 
 [Förbättringar]
-- Långa inspelningar är nu stabilare. Om appen stängs under en inspelning finns inspelningen kvar i listan nästa gång du öppnar den
-- Inspelningen återupptas nu automatiskt efter avbrott som telefonsamtal. Om det inte går får du en notis
-- Lägre batteriförbrukning vid inspelning i bakgrunden
-- Notisrubriker och förinställda taggar visas nu på ditt språk
+- Du kan nu gå till Premium från skärmen för AI-mötesprotokoll
+- Den kostnadsfria provperioden visas nu även för årsabonnemanget när den är tillgänglig för dig
 
 [Buggfixar]
-- Åtgärdat: inspelningen förblev ibland stoppad efter att hörlurar eller Bluetooth-enheter anslutits eller kopplats från
+- Åtgärdat att ”Köpet misslyckades” visades när ett köp avbröts

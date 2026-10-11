@@ -1,10 +1,8 @@
-Version 1.16.0
+Version 1.17.0
 
 [Improvements]
-- Long recordings are now more reliable. If the app closes while recording, the recording is back in your list the next time you open it
-- Recording now resumes automatically after interruptions such as phone calls. If it can't resume, you'll get a notification
-- Reduced battery use while recording in the background
-- Notification titles and preset tags now appear in your language
+- You can now go to Premium from the AI meeting minutes screen
+- The free trial is now shown for the annual plan too, when it's available to you
 
 [Bug Fixes]
-- Fixed recording sometimes staying stopped after connecting or disconnecting earphones or Bluetooth devices
+- Fixed "Purchase failed" being shown when you cancel a purchase

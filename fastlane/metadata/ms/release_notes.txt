@@ -1,10 +1,8 @@
-Versi 1.16.0
+Versi 1.17.0
 
 [Penambahbaikan]
-- Rakaman panjang kini lebih stabil. Jika apl tertutup semasa merakam, rakaman akan kembali ke senarai apabila anda membukanya semula
-- Rakaman kini bersambung secara automatik selepas gangguan seperti panggilan telefon. Jika tidak dapat bersambung, anda akan menerima pemberitahuan
-- Penggunaan bateri semasa merakam di latar belakang dikurangkan
-- Tajuk pemberitahuan dan tag pratetap kini dipaparkan dalam bahasa anda
+- Anda kini boleh pergi ke Premium dari skrin minit mesyuarat AI
+- Percubaan percuma kini turut dipaparkan untuk pelan tahunan apabila tersedia untuk anda
 
 [Pembetulan Pepijat]
-- Membetulkan rakaman yang kadangkala kekal terhenti selepas menyambung atau memutuskan fon telinga atau peranti Bluetooth
+- Membetulkan mesej "Pembelian gagal" yang dipaparkan apabila membatalkan pembelian

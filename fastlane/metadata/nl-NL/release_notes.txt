@@ -1,10 +1,8 @@
-Versie 1.16.0
+Versie 1.17.0
 
 [Verbeteringen]
-- Lange opnamen zijn nu betrouwbaarder. Als de app tijdens het opnemen sluit, staat de opname de volgende keer dat je de app opent weer in je lijst
-- De opname wordt nu automatisch hervat na onderbrekingen zoals telefoongesprekken. Lukt dat niet, dan krijg je een melding
-- Minder batterijverbruik bij opnemen op de achtergrond
-- Titels van meldingen en vooraf ingestelde tags worden nu in je eigen taal weergegeven
+- Je kunt nu vanuit het scherm met AI-notulen naar Premium gaan
+- De gratis proefperiode wordt nu ook bij het jaarabonnement getoond als die voor jou beschikbaar is
 
 [Opgeloste problemen]
-- Opgelost: de opname bleef soms gestopt na het aansluiten of loskoppelen van oordopjes of Bluetooth-apparaten
+- Opgelost dat "Aankoop mislukt" werd getoond bij het annuleren van een aankoop

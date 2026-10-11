@@ -1,10 +1,8 @@
-Sürüm 1.16.0
+Sürüm 1.17.0
 
 [İyileştirmeler]
-- Uzun kayıtlar artık daha güvenilir. Uygulama kayıt sırasında kapanırsa, kayıt bir sonraki açılışta listenize geri gelir
-- Kayıt artık telefon araması gibi kesintilerden sonra otomatik olarak devam eder. Devam edemezse bildirim alırsınız
-- Arka planda kayıt yaparken pil kullanımı azaltıldı
-- Bildirim başlıkları ve hazır etiketler artık kendi dilinizde görünür
+- AI toplantı tutanağı ekranından artık Premium'a geçebilirsiniz
+- Ücretsiz deneme, sizin için uygun olduğunda artık yıllık planda da gösteriliyor
 
 [Hata Düzeltmeleri]
-- Kulaklık veya Bluetooth cihazı takıldıktan ya da çıkarıldıktan sonra kaydın bazen durmuş halde kalması düzeltildi
+- Satın alma iptal edildiğinde "Satın alma başarısız" gösterilmesi düzeltildi

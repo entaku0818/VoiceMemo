@@ -1,10 +1,8 @@
-Versió 1.16.0
+Versió 1.17.0
 
 [Millores]
-- Les gravacions llargues són més fiables. Si l'app es tanca mentre graves, la gravació torna a la llista la propera vegada que l'obres
-- La gravació es reprèn automàticament després d'interrupcions com les trucades. Si no es pot reprendre, rebràs una notificació
-- S'ha reduït el consum de bateria en gravar en segon pla
-- Els títols de les notificacions i les etiquetes predefinides ara es mostren en el teu idioma
+- Ara pots accedir al pla prèmium des de la pantalla d'actes amb IA
+- Ara també es mostra la prova gratuïta del pla anual quan la tens disponible
 
 [Correccions d'errors]
-- S'ha corregit que la gravació de vegades quedés aturada després de connectar o desconnectar auriculars o dispositius Bluetooth
+- S'ha corregit que en cancel·lar una compra aparegués "La compra ha fallat"

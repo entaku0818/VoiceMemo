@@ -1,10 +1,8 @@
-Verze 1.16.0
+Verze 1.17.0
 
 [Vylepšení]
-- Dlouhé nahrávky jsou spolehlivější. Pokud se aplikace během nahrávání ukončí, nahrávka se při dalším otevření vrátí do seznamu
-- Nahrávání se po přerušení, například telefonním hovoru, automaticky obnoví. Pokud to nejde, dostanete oznámení
-- Nižší spotřeba baterie při nahrávání na pozadí
-- Názvy oznámení a přednastavené štítky se nyní zobrazují ve vašem jazyce
+- Z obrazovky AI zápisu ze schůzky se nyní dostanete k prémiovému předplatnému
+- Bezplatná zkušební verze se nyní zobrazuje i u ročního předplatného, pokud je pro vás dostupná
 
 [Opravy chyb]
-- Opraveno: nahrávání po připojení nebo odpojení sluchátek či zařízení Bluetooth někdy zůstalo zastavené
+- Opraveno zobrazení „Nákup se nezdařil“ při zrušení nákupu

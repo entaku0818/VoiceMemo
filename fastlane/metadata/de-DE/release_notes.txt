@@ -1,10 +1,8 @@
-Version 1.16.0
+Version 1.17.0
 
 [Verbesserungen]
-- Lange Aufnahmen sind jetzt zuverlässiger. Wird die App während einer Aufnahme beendet, ist die Aufnahme beim nächsten Öffnen wieder in deiner Liste
-- Nach Unterbrechungen wie Anrufen wird die Aufnahme jetzt automatisch fortgesetzt. Klappt das nicht, erhältst du eine Mitteilung
-- Geringerer Akkuverbrauch bei Aufnahmen im Hintergrund
-- Mitteilungstitel und voreingestellte Tags werden jetzt in deiner Sprache angezeigt
+- Vom Bildschirm für KI-Besprechungsprotokolle gelangst du jetzt zum Premium-Abo
+- Die kostenlose Testphase wird jetzt auch beim Jahresabo angezeigt, wenn sie für dich verfügbar ist
 
 [Fehlerbehebungen]
-- Behoben: Die Aufnahme blieb nach dem Verbinden oder Trennen von Kopfhörern oder Bluetooth-Geräten manchmal angehalten
+- Behoben: Beim Abbrechen eines Kaufs wurde „Kauf fehlgeschlagen“ angezeigt

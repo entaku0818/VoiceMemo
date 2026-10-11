@@ -1,10 +1,8 @@
-Versiunea 1.16.0
+Versiunea 1.17.0
 
 [Îmbunătățiri]
-- Înregistrările lungi sunt acum mai fiabile. Dacă aplicația se închide în timpul înregistrării, înregistrarea revine în listă la următoarea deschidere
-- Înregistrarea se reia acum automat după întreruperi precum apelurile. Dacă nu se poate relua, primești o notificare
-- Consum redus de baterie la înregistrarea în fundal
-- Titlurile notificărilor și etichetele predefinite apar acum în limba ta
+- Acum poți accesa Premium din ecranul de procese-verbale AI
+- Perioada de probă gratuită este acum afișată și pentru planul anual, când îți este disponibilă
 
 [Remedieri]
-- Remediat: înregistrarea rămânea uneori oprită după conectarea sau deconectarea căștilor ori a dispozitivelor Bluetooth
+- Am remediat afișarea mesajului „Achiziția a eșuat” la anularea unei achiziții

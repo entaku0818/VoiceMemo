@@ -1,10 +1,8 @@
-Versão 1.16.0
+Versão 1.17.0
 
 [Melhorias]
-- As gravações longas são agora mais fiáveis. Se a app fechar durante a gravação, esta volta à sua lista da próxima vez que abrir a app
-- A gravação é agora retomada automaticamente após interrupções como chamadas. Se não for possível retomar, recebe uma notificação
-- Menor consumo de bateria ao gravar em segundo plano
-- Os títulos das notificações e as etiquetas predefinidas aparecem agora no seu idioma
+- Agora pode aceder ao Premium a partir do ecrã de atas com IA
+- O período experimental gratuito passa também a ser mostrado no plano anual quando estiver disponível
 
 [Correções]
-- Corrigido: a gravação ficava por vezes parada depois de ligar ou desligar auriculares ou dispositivos Bluetooth
+- Corrigida a mensagem "A compra falhou" apresentada ao cancelar uma compra

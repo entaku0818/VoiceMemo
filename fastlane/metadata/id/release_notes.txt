@@ -1,10 +1,8 @@
-Versi 1.16.0
+Versi 1.17.0
 
 [Peningkatan]
-- Rekaman panjang kini lebih andal. Jika aplikasi tertutup saat merekam, rekaman akan kembali ke daftar saat Anda membukanya lagi
-- Perekaman kini otomatis berlanjut setelah gangguan seperti panggilan telepon. Jika tidak bisa berlanjut, Anda akan menerima notifikasi
-- Penggunaan baterai saat merekam di latar belakang dikurangi
-- Judul notifikasi dan tag preset kini ditampilkan dalam bahasa Anda
+- Kini Anda bisa membuka Premium dari layar notulen rapat AI
+- Uji coba gratis kini juga ditampilkan untuk paket tahunan jika tersedia untuk Anda
 
 [Perbaikan Bug]
-- Memperbaiki perekaman yang terkadang tetap berhenti setelah earphone atau perangkat Bluetooth dipasang atau dilepas
+- Memperbaiki pesan "Pembelian gagal" yang muncul saat membatalkan pembelian

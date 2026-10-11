@@ -1,10 +1,8 @@
-Phiên bản 1.16.0
+Phiên bản 1.17.0
 
 [Cải thiện]
-- Ghi âm dài giờ ổn định hơn. Nếu ứng dụng bị đóng trong lúc ghi, bản ghi sẽ trở lại danh sách ở lần mở tiếp theo
-- Ghi âm giờ tự động tiếp tục sau khi bị gián đoạn như cuộc gọi. Nếu không thể tiếp tục, bạn sẽ nhận được thông báo
-- Giảm mức dùng pin khi ghi âm trong nền
-- Tiêu đề thông báo và thẻ có sẵn giờ hiển thị bằng ngôn ngữ của bạn
+- Giờ đây bạn có thể chuyển đến gói Premium từ màn hình biên bản họp AI
+- Bản dùng thử miễn phí giờ cũng hiển thị cho gói năm khi bạn đủ điều kiện
 
 [Sửa lỗi]
-- Sửa lỗi đôi khi ghi âm bị dừng hẳn sau khi cắm hoặc rút tai nghe hay thiết bị Bluetooth
+- Đã sửa lỗi hiện "Mua không thành công" khi bạn hủy giao dịch mua

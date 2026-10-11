@@ -1,10 +1,8 @@
-Verzija 1.16.0
+Verzija 1.17.0
 
 [Poboljšanja]
-- Duge snimke sada su pouzdanije. Ako se aplikacija zatvori tijekom snimanja, snimka se vraća na popis kad je sljedeći put otvorite
-- Snimanje se sada automatski nastavlja nakon prekida poput poziva. Ako se ne može nastaviti, dobit ćete obavijest
-- Manja potrošnja baterije pri snimanju u pozadini
-- Naslovi obavijesti i unaprijed postavljene oznake sada se prikazuju na vašem jeziku
+- Sa zaslona AI zapisnika sa sastanka sada možete prijeći na Premium
+- Besplatno probno razdoblje sada se prikazuje i za godišnju pretplatu kada vam je dostupno
 
 [Ispravci pogrešaka]
-- Ispravljeno: snimanje je ponekad ostalo zaustavljeno nakon spajanja ili odspajanja slušalica ili Bluetooth uređaja
+- Ispravljen prikaz poruke „Kupnja nije uspjela” pri otkazivanju kupnje

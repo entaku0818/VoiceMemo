@@ -1,10 +1,8 @@
-Versio 1.16.0
+Versio 1.17.0
 
 [Parannukset]
-- Pitkät tallenteet ovat nyt luotettavampia. Jos sovellus sulkeutuu tallennuksen aikana, tallenne palaa luetteloon, kun avaat sovelluksen seuraavan kerran
-- Tallennus jatkuu nyt automaattisesti keskeytysten, kuten puheluiden, jälkeen. Jos jatkaminen ei onnistu, saat ilmoituksen
-- Pienempi akunkulutus taustalla tallennettaessa
-- Ilmoitusten otsikot ja valmiit tunnisteet näkyvät nyt omalla kielelläsi
+- AI-muistion näkymästä pääsee nyt Premium-tilaukseen
+- Ilmainen kokeilujakso näytetään nyt myös vuositilauksessa, kun se on saatavilla
 
 [Virhekorjaukset]
-- Korjattu: tallennus jäi joskus pysähdyksiin kuulokkeiden tai Bluetooth-laitteiden liittämisen tai irrottamisen jälkeen
+- Korjattu ”Osto epäonnistui” -ilmoitus, joka näkyi oston peruuttamisen jälkeen

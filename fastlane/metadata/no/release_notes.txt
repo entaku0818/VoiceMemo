@@ -1,10 +1,8 @@
-Versjon 1.16.0
+Versjon 1.17.0
 
 [Forbedringer]
-- Lange opptak er nå mer stabile. Hvis appen lukkes under et opptak, er opptaket tilbake i listen neste gang du åpner den
-- Opptaket fortsetter nå automatisk etter avbrudd som telefonsamtaler. Hvis det ikke går, får du et varsel
-- Lavere batteribruk ved opptak i bakgrunnen
-- Varseltitler og forhåndsinnstilte tagger vises nå på ditt språk
+- Du kan nå gå til Premium fra skjermen for AI-møtereferater
+- Den gratis prøveperioden vises nå også for årsabonnementet når den er tilgjengelig for deg
 
 [Feilrettinger]
-- Rettet: Opptaket ble noen ganger stående stoppet etter tilkobling eller frakobling av øreplugger eller Bluetooth-enheter
+- Rettet at «Kjøpet mislyktes» ble vist når et kjøp ble avbrutt
