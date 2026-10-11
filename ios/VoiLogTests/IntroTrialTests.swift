@@ -77,6 +77,23 @@ final class IntroTrialTests: XCTestCase {
         XCTAssertFalse(text.isEmpty)
     }
 
+    // MARK: - 課金画面の外のボタン（issue #233）
+
+    func testEntryButton_withTrial_isSameAsAnnualTrialCta() {
+        XCTAssertEqual(
+            PaywallCopy.entryButtonTitle(annualTrial: .days(7)),
+            PaywallCopy.ctaTitle(isAnnual: true, trial: .days(7))
+        )
+    }
+
+    func testEntryButton_withoutTrial_doesNotMentionFree() {
+        let title = PaywallCopy.entryButtonTitle(annualTrial: nil)
+        XCTAssertNotEqual(title, PaywallCopy.entryButtonTitle(annualTrial: .days(7)))
+        XCTAssertNotEqual(title, PaywallCopy.entryButtonTitle(annualTrial: .unspecifiedLength))
+        XCTAssertFalse(title.contains("無料"), title)
+        XCTAssertFalse(title.contains("7"), title)
+    }
+
     // MARK: - 英語の文言（ja/en 必須）
 
     func testEnglishTrialStrings() throws {
@@ -93,5 +110,6 @@ final class IntroTrialTests: XCTestCase {
             "$59.99/ year"
         )
         XCTAssertTrue(disclosure.hasPrefix("After the free trial ends, you will be charged $59.99/ year automatically."), disclosure)
+        XCTAssertEqual(english.localizedString(forKey: "プレミアムプランを見る", value: nil, table: "Premium"), "See Premium Plans")
     }
 }

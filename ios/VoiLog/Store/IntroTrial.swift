@@ -56,6 +56,15 @@ enum PaywallCopy {
         }
     }
 
+    /// 課金画面の外（設定バナー・トライアル案内・AI議事録）から課金画面へ進むボタンの文言。
+    /// 課金画面は年額が選ばれた状態で開くので、年額のトライアルで決める。issue #233
+    static func entryButtonTitle(annualTrial: IntroTrial?) -> String {
+        guard annualTrial != nil else {
+            return String(localized: "プレミアムプランを見る", table: "Premium")
+        }
+        return ctaTitle(isAnnual: true, trial: annualTrial)
+    }
+
     /// プランカードやヘッダーに出す「N日間無料」。トライアルが無ければ nil
     static func trialBadge(_ trial: IntroTrial?) -> String? {
         switch trial {
