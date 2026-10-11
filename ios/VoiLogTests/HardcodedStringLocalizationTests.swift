@@ -66,7 +66,16 @@ final class HardcodedStringLocalizationTests: XCTestCase {
             "チュートリアル完了です！\nVoiLogをお楽しみください。"
         ],
         "Settings": ["7日間無料！"],
-        "Premium": ["7日間無料で試す"]
+        "Premium": [
+            "7日間無料で試す",
+            // issue #232: トライアル表記を StoreKit の情報から組み立てる
+            "%lld日間無料で試す",
+            "%lld日間無料",
+            "無料で試す",
+            "月額プランを始める",
+            "%@で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。",
+            "無料トライアル終了後、%@で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。"
+        ]
     ]
 
     private static let missingSentinel = "__MISSING__"

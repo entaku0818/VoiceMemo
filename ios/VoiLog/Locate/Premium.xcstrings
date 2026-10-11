@@ -9990,6 +9990,1662 @@
           }
         }
       }
+    },
+    "%lld日間無料で試す" : {
+      "comment" : "Paywall CTA when a free trial is available. %lld = trial length in days (from StoreKit).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جرّب مجانًا لمدة %lld أيام"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld দিন বিনামূল্যে ব্যবহার করে দেখুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova-ho gratis durant %lld dies"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyzkoušet %lld dní zdarma"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prøv gratis i %lld dage"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Tage kostenlos testen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δοκιμάστε δωρεάν για %lld ημέρες"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try Free for %lld Days"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prueba gratis durante %lld días"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokeile ilmaiseksi %lld päivää"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essai gratuit de %lld jours"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld દિવસ મફતમાં અજમાવો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נסו בחינם למשך %lld ימים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld दिन मुफ़्त आज़माएँ"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isprobajte besplatno %lld dana"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próbáld ki ingyen %lld napig"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coba Gratis %lld Hari"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova gratis per %lld giorni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld日間無料で試す"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ದಿನ ಉಚಿತವಾಗಿ ಪ್ರಯತ್ನಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld일 무료 체험하기"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ദിവസം സൗജന്യമായി പരീക്ഷിക്കൂ"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld दिवस मोफत वापरून पाहा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuba Percuma %lld Hari"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prøv gratis i %lld dager"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probeer %lld dagen gratis"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ଦିନ ମାଗଣାରେ ଚେଷ୍ଟା କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ਦਿਨ ਮੁਫ਼ਤ ਅਜ਼ਮਾਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypróbuj za darmo przez %lld dni"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teste grátis por %lld dias"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimente grátis durante %lld dias"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Încearcă gratuit %lld zile"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробовать бесплатно %lld дн."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyskúšať %lld dní zadarmo"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preizkusite brezplačno %lld dni"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova gratis i %lld dagar"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld நாட்கள் இலவசமாக முயற்சிக்கவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld రోజులు ఉచితంగా ప్రయత్నించండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองใช้ฟรี %lld วัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Gün Ücretsiz Dene"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Спробувати безкоштовно %lld дн."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld دن مفت آزمائیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng thử miễn phí %lld ngày"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免费试用 %lld 天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免費試用 %lld 天"
+          }
+        }
+      }
+    },
+    "%lld日間無料" : {
+      "comment" : "Paywall: short free-trial label on the plan card / header. %lld = days.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld أيام مجانًا"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld দিন বিনামূল্যে"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dies gratis"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dní zdarma"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dage gratis"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Tage kostenlos"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ημέρες δωρεάν"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days free"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld días gratis"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld päivää ilmaiseksi"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld jours gratuits"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld દિવસ મફત"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ימים בחינם"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld दिन मुफ़्त"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dana besplatno"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld nap ingyen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratis %lld hari"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld giorni gratis"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld日間無料"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ದಿನ ಉಚಿತ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld일 무료"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ദിവസം സൗജന്യം"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld दिवस मोफत"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Percuma %lld hari"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dager gratis"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dagen gratis"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ଦିନ ମାଗଣା"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld ਦਿਨ ਮੁਫ਼ਤ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dni za darmo"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dias grátis"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dias grátis"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld zile gratuit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld дн. бесплатно"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dní zadarmo"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dni brezplačno"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld dagar gratis"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld நாட்கள் இலவசம்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld రోజులు ఉచితం"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ฟรี %lld วัน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld gün ücretsiz"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld дн. безкоштовно"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld دن مفت"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miễn phí %lld ngày"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免费 %lld 天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免費 %lld 天"
+          }
+        }
+      }
+    },
+    "無料で試す" : {
+      "comment" : "Paywall CTA/label when the free trial length is in months or years.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جرّب مجانًا"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বিনামূল্যে ব্যবহার করে দেখুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova-ho gratis"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyzkoušet zdarma"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prøv gratis"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kostenlos testen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δοκιμάστε δωρεάν"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try for Free"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prueba gratis"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kokeile ilmaiseksi"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayer gratuitement"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "મફતમાં અજમાવો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נסו בחינם"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मुफ़्त आज़माएँ"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Isprobajte besplatno"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Próbáld ki ingyen"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Coba Gratis"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova gratis"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無料で試す"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಉಚಿತವಾಗಿ ಪ್ರಯತ್ನಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무료로 체험하기"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സൗജന്യമായി പരീക്ഷിക്കൂ"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मोफत वापरून पाहा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cuba Percuma"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prøv gratis"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probeer gratis"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ମାଗଣାରେ ଚେଷ୍ଟା କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਮੁਫ਼ਤ ਅਜ਼ਮਾਓ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypróbuj za darmo"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teste grátis"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Experimente grátis"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Încearcă gratuit"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробовать бесплатно"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyskúšať zadarmo"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preizkusite brezplačno"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova gratis"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "இலவசமாக முயற்சிக்கவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఉచితంగా ప్రయత్నించండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทดลองใช้ฟรี"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ücretsiz Dene"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Спробувати безкоштовно"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مفت آزمائیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dùng thử miễn phí"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免费试用"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免費試用"
+          }
+        }
+      }
+    },
+    "月額プランを始める" : {
+      "comment" : "Paywall CTA for the monthly plan when no free trial is available.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابدأ الخطة الشهرية"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "মাসিক প্ল্যান শুরু করুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comença el pla mensual"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Začít měsíční předplatné"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start månedligt abonnement"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monatsabo starten"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Έναρξη μηνιαίου πλάνου"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Monthly Plan"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empezar plan mensual"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aloita kuukausitilaus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commencer le forfait mensuel"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "માસિક પ્લાન શરૂ કરો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "התחלת המינוי החודשי"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मासिक प्लान शुरू करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Započni mjesečnu pretplatu"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havi csomag indítása"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mulai Paket Bulanan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inizia il piano mensile"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月額プランを始める"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಮಾಸಿಕ ಯೋಜನೆ ಪ್ರಾರಂಭಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "월간 플랜 시작하기"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പ്രതിമാസ പ്ലാൻ ആരംഭിക്കുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मासिक प्लॅन सुरू करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mulakan Pelan Bulanan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start månedsabonnement"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start maandabonnement"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ମାସିକ ପ୍ଲାନ୍ ଆରମ୍ଭ କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਮਹੀਨਾਵਾਰ ਪਲਾਨ ਸ਼ੁਰੂ ਕਰੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rozpocznij plan miesięczny"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Começar plano mensal"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Começar plano mensal"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Începe planul lunar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оформить месячный план"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Začať mesačné predplatné"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Začni mesečni paket"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starta månadsabonnemang"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "மாதாந்திரத் திட்டத்தைத் தொடங்கு"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "నెలవారీ ప్లాన్ ప్రారంభించండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เริ่มแพ็กเกจรายเดือน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aylık Plana Başla"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Почати місячний план"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ماہانہ پلان شروع کریں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu gói hằng tháng"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始月度方案"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始月方案"
+          }
+        }
+      }
+    },
+    "%@で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。" : {
+      "comment" : "Paywall auto-renew disclosure without a trial. %@ = price with period, e.g. '¥1,000/ month'.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سيتم تحصيل %@ تلقائيًا. يمكنك الإلغاء في أي وقت من إعدادات الاشتراكات في Apple قبل 24 ساعة على الأقل من تاريخ التجديد."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ হারে স্বয়ংক্রিয়ভাবে চার্জ করা হবে। রিনিউ হওয়ার তারিখের অন্তত ২৪ ঘণ্টা আগে Apple-এর সাবস্ক্রিপশন সেটিংস থেকে যেকোনো সময় বাতিল করতে পারবেন।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es cobrarà automàticament %@. Pots cancel·lar-ho en qualsevol moment des de la configuració de subscripcions d'Apple fins a 24 hores abans de la data de renovació."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Účtuje se automaticky %@. Předplatné můžete kdykoli zrušit v nastavení předplatných Apple nejpozději 24 hodin před datem obnovení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du trækkes automatisk %@. Du kan til enhver tid annullere i Apples abonnementsindstillinger senest 24 timer før fornyelsesdatoen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Es werden automatisch %@ abgerechnet. Sie können jederzeit über Apples Abonnementeinstellungen kündigen, mindestens 24 Stunden vor dem Verlängerungsdatum."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χρεώνεται αυτόματα %@. Μπορείτε να ακυρώσετε οποτεδήποτε από τις ρυθμίσεις συνδρομών της Apple έως 24 ώρες πριν από την ανανέωση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will be charged %@ automatically. You can cancel anytime from Apple's subscription settings at least 24 hours before the renewal date."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se te cobrará %@ automáticamente. Puedes cancelar en cualquier momento desde la configuración de suscripciones de Apple al menos 24 horas antes de la fecha de renovación."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veloitetaan automaattisesti %@. Voit perua milloin tahansa Applen tilausasetuksista viimeistään 24 tuntia ennen uusimispäivää."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous serez facturé %@ automatiquement. Vous pouvez annuler à tout moment depuis les paramètres d'abonnement d'Apple au moins 24 heures avant la date de renouvellement."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ના દરે આપમેળે ચાર્જ થશે. રિન્યૂઅલની તારીખના ઓછામાં ઓછા 24 કલાક પહેલાં Appleના સબ્સ્ક્રિપ્શન સેટિંગ્સમાંથી ગમે ત્યારે રદ કરી શકો છો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "החיוב של %@ יתבצע אוטומטית. אפשר לבטל בכל עת בהגדרות המינויים של Apple, עד 24 שעות לפני מועד החידוש."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आपसे %@ स्वचालित रूप से शुल्क लिया जाएगा। आप नवीनीकरण तिथि से कम से कम 24 घंटे पहले Apple सदस्यता सेटिंग में कभी भी रद्द कर सकते हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatski se naplaćuje %@. Pretplatu možete otkazati u bilo kojem trenutku u Appleovim postavkama pretplate, najkasnije 24 sata prije datuma obnove."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az előfizetés automatikusan megújul, díja %@. A megújítás előtt legalább 24 órával bármikor lemondhatod az Apple előfizetési beállításaiban."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anda akan dikenakan biaya %@ secara otomatis. Anda dapat membatalkan kapan saja di pengaturan langganan Apple paling lambat 24 jam sebelum tanggal perpanjangan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verranno addebitati %@ automaticamente. Puoi annullare in qualsiasi momento dalle impostazioni di abbonamento di Apple almeno 24 ore prima della data di rinnovo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಶುಲ್ಕ ವಿಧಿಸಲಾಗುತ್ತದೆ. ನವೀಕರಣ ದಿನಾಂಕಕ್ಕೆ ಕನಿಷ್ಠ 24 ಗಂಟೆ ಮುಂಚೆ Apple ಸಬ್‌ಸ್ಕ್ರಿಪ್ಷನ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಂದ ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಮಾಡಬಹುದು."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@이(가) 자동으로 청구됩니다. 갱신일 최소 24시간 전까지 Apple 구독 설정에서 언제든지 취소할 수 있습니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ സ്വയമേവ ഈടാക്കും. പുതുക്കൽ തീയതിക്ക് 24 മണിക്കൂർ മുമ്പ് വരെ Apple സബ്സ്ക്രിപ്ഷൻ ക്രമീകരണങ്ങളിൽ എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കാം."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ या दराने आपोआप शुल्क आकारले जाईल. नूतनीकरणाच्या तारखेच्या किमान २४ तास आधी Apple च्या सबस्क्रिप्शन सेटिंग्जमधून कधीही रद्द करू शकता."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ dicaj secara automatik. Anda boleh membatalkan pada bila-bila masa melalui seting langganan Apple sekurang-kurangnya 24 jam sebelum tarikh pembaharuan."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du belastes automatisk %@. Du kan når som helst si opp i Apples abonnementsinnstillinger senest 24 timer før fornyelsesdatoen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je betaalt automatisch %@. Je kunt op elk moment opzeggen via de abonnementsinstellingen van Apple, uiterlijk 24 uur voor de verlengingsdatum."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ହାରରେ ସ୍ୱୟଂଚାଳିତ ଭାବେ ଚାର୍ଜ ହେବ। ନବୀକରଣ ତାରିଖର ଅତି କମରେ 24 ଘଣ୍ଟା ପୂର୍ବରୁ Appleର ସବସ୍କ୍ରିପସନ୍ ସେଟିଂସରୁ ଯେକୌଣସି ସମୟରେ ବାତିଲ କରିପାରିବେ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ਦੀ ਦਰ ਨਾਲ ਆਪਣੇ-ਆਪ ਚਾਰਜ ਹੋਵੇਗਾ। ਰਿਨਿਊ ਹੋਣ ਦੀ ਮਿਤੀ ਤੋਂ ਘੱਟੋ-ਘੱਟ 24 ਘੰਟੇ ਪਹਿਲਾਂ Apple ਦੀਆਂ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਸੈਟਿੰਗਾਂ ਤੋਂ ਕਦੇ ਵੀ ਰੱਦ ਕਰ ਸਕਦੇ ਹੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Będziesz automatycznie obciążany kwotą %@. Możesz anulować w dowolnym momencie w ustawieniach subskrypcji Apple, co najmniej 24 godziny przed datą odnowienia."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cobrança automática de %@. Cancele quando quiser nos ajustes de assinaturas da Apple, até 24 horas antes da renovação."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serão cobrados %@ automaticamente. Pode cancelar a qualquer momento nas definições de subscrição da Apple, pelo menos 24 horas antes da data de renovação."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se percepe automat %@. Puteți anula oricând din configurările abonamentelor Apple, cu cel puțin 24 de ore înainte de data reînnoirii."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "С вас будет автоматически списываться %@. Вы можете отменить подписку в любое время в настройках подписок Apple не менее чем за 24 часа до даты продления."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suma %@ sa bude účtovať automaticky. Predplatné môžete kedykoľvek zrušiť v nastaveniach predplatného Apple najneskôr 24 hodín pred dátumom obnovenia."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ se zaračuna samodejno. Naročnino lahko kadar koli prekličete v Applovih nastavitvah naročnin najpozneje 24 ur pred datumom podaljšanja."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du debiteras automatiskt %@. Du kan avbryta när som helst via Apples prenumerationsinställningar minst 24 timmar före förnyelsedatumet."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ தானாக வசூலிக்கப்படும். புதுப்பிப்புத் தேதிக்கு 24 மணிநேரம் முன்பு வரை Apple சந்தா அமைப்புகளில் எப்போது வேண்டுமானாலும் ரத்துசெய்யலாம்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ఆటోమేటిక్‌గా ఛార్జ్ చేయబడుతుంది. రెన్యూవల్ తేదీకి కనీసం 24 గంటల ముందు వరకు Apple సబ్‌స్క్రిప్షన్ సెట్టింగ్‌లలో ఎప్పుడైనా రద్దు చేయవచ్చు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ระบบจะเรียกเก็บเงิน %@ โดยอัตโนมัติ คุณสามารถยกเลิกได้ทุกเมื่อในการตั้งค่าการสมัครสมาชิกของ Apple อย่างน้อย 24 ชั่วโมงก่อนวันต่ออายุ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sizden otomatik olarak %@ ücret alınır. Yenileme tarihinden en az 24 saat önce Apple abonelik ayarlarından istediğiniz zaman iptal edebilirsiniz."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматично стягуватиметься %@. Скасувати підписку можна будь-коли в параметрах підписок Apple щонайменше за 24 години до дати поновлення."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ خود بخود چارج ہوگا۔ تجدید کی تاریخ سے کم از کم 24 گھنٹے پہلے تک آپ Apple کی سبسکرپشن سیٹنگز سے کسی بھی وقت منسوخ کر سکتے ہیں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bạn sẽ bị tính phí %@ tự động. Bạn có thể hủy bất cứ lúc nào trong cài đặt đăng ký Apple, chậm nhất 24 giờ trước ngày gia hạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将按%@自动扣费。您可在续订日期至少24小时前随时通过Apple订阅设置取消。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "將自動以%@收費。您可以在續訂日期至少24小時前，隨時透過Apple訂閱設定取消。"
+          }
+        }
+      }
+    },
+    "無料トライアル終了後、%@で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。" : {
+      "comment" : "Paywall auto-renew disclosure with a free trial. %@ = price with period, e.g. '¥9,000/ year'.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعد انتهاء الفترة التجريبية المجانية، سيتم تحصيل %@ تلقائيًا. يمكنك الإلغاء في أي وقت من إعدادات الاشتراكات في Apple قبل 24 ساعة على الأقل من تاريخ التجديد."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বিনামূল্যে ট্রায়াল শেষ হলে %@ হারে স্বয়ংক্রিয়ভাবে চার্জ করা হবে। রিনিউ হওয়ার তারিখের অন্তত ২৪ ঘণ্টা আগে Apple-এর সাবস্ক্রিপশন সেটিংস থেকে যেকোনো সময় বাতিল করতে পারবেন।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quan acabi la prova gratuïta, es cobrarà automàticament %@. Pots cancel·lar-ho en qualsevol moment des de la configuració de subscripcions d'Apple fins a 24 hores abans de la data de renovació."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po skončení bezplatné zkušební doby se automaticky účtuje %@. Předplatné můžete kdykoli zrušit v nastavení předplatných Apple nejpozději 24 hodin před datem obnovení."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Når den gratis prøveperiode slutter, trækkes du automatisk %@. Du kan til enhver tid annullere i Apples abonnementsindstillinger senest 24 timer før fornyelsesdatoen."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nach Ende des kostenlosen Testzeitraums werden automatisch %@ abgerechnet. Sie können jederzeit über Apples Abonnementeinstellungen kündigen, mindestens 24 Stunden vor dem Verlängerungsdatum."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Μετά τη λήξη της δωρεάν δοκιμής, χρεώνεται αυτόματα %@. Μπορείτε να ακυρώσετε οποτεδήποτε από τις ρυθμίσεις συνδρομών της Apple έως 24 ώρες πριν από την ανανέωση."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After the free trial ends, you will be charged %@ automatically. You can cancel anytime from Apple's subscription settings at least 24 hours before the renewal date."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al terminar la prueba gratuita, se te cobrará %@ automáticamente. Puedes cancelar en cualquier momento desde la configuración de suscripciones de Apple al menos 24 horas antes de la fecha de renovación."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ilmaisen kokeilujakson päätyttyä veloitetaan automaattisesti %@. Voit perua milloin tahansa Applen tilausasetuksista viimeistään 24 tuntia ennen uusimispäivää."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À la fin de l'essai gratuit, vous serez facturé %@ automatiquement. Vous pouvez annuler à tout moment depuis les paramètres d'abonnement d'Apple au moins 24 heures avant la date de renouvellement."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "મફત ટ્રાયલ પૂરી થયા પછી %@ના દરે આપમેળે ચાર્જ થશે. રિન્યૂઅલની તારીખના ઓછામાં ઓછા 24 કલાક પહેલાં Appleના સબ્સ્ક્રિપ્શન સેટિંગ્સમાંથી ગમે ત્યારે રદ કરી શકો છો."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בסיום תקופת הניסיון בחינם, החיוב של %@ יתבצע אוטומטית. אפשר לבטל בכל עת בהגדרות המינויים של Apple, עד 24 שעות לפני מועד החידוש."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मुफ़्त ट्रायल समाप्त होने के बाद आपसे %@ स्वचालित रूप से शुल्क लिया जाएगा। आप नवीनीकरण तिथि से कम से कम 24 घंटे पहले Apple सदस्यता सेटिंग में कभी भी रद्द कर सकते हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nakon završetka besplatnog probnog razdoblja automatski se naplaćuje %@. Pretplatu možete otkazati u bilo kojem trenutku u Appleovim postavkama pretplate, najkasnije 24 sata prije datuma obnove."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az ingyenes próbaidőszak után az előfizetés automatikusan megújul, díja %@. A megújítás előtt legalább 24 órával bármikor lemondhatod az Apple előfizetési beállításaiban."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setelah uji coba gratis berakhir, Anda akan dikenakan biaya %@ secara otomatis. Anda dapat membatalkan kapan saja di pengaturan langganan Apple paling lambat 24 jam sebelum tanggal perpanjangan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Al termine della prova gratuita, verranno addebitati %@ automaticamente. Puoi annullare in qualsiasi momento dalle impostazioni di abbonamento di Apple almeno 24 ore prima della data di rinnovo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無料トライアル終了後、%@で自動的に課金されます。更新日の24時間前までにAppleのサブスクリプション設定からいつでもキャンセルできます。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಉಚಿತ ಪ್ರಯೋಗ ಮುಗಿದ ನಂತರ %@ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಶುಲ್ಕ ವಿಧಿಸಲಾಗುತ್ತದೆ. ನವೀಕರಣ ದಿನಾಂಕಕ್ಕೆ ಕನಿಷ್ಠ 24 ಗಂಟೆ ಮುಂಚೆ Apple ಸಬ್‌ಸ್ಕ್ರಿಪ್ಷನ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳಿಂದ ಯಾವಾಗ ಬೇಕಾದರೂ ರದ್ದುಮಾಡಬಹುದು."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "무료 체험이 끝나면 %@이(가) 자동으로 청구됩니다. 갱신일 최소 24시간 전까지 Apple 구독 설정에서 언제든지 취소할 수 있습니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സൗജന്യ ട്രയൽ അവസാനിച്ചശേഷം %@ സ്വയമേവ ഈടാക്കും. പുതുക്കൽ തീയതിക്ക് 24 മണിക്കൂർ മുമ്പ് വരെ Apple സബ്സ്ക്രിപ്ഷൻ ക്രമീകരണങ്ങളിൽ എപ്പോൾ വേണമെങ്കിലും റദ്ദാക്കാം."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "मोफत चाचणी संपल्यानंतर %@ या दराने आपोआप शुल्क आकारले जाईल. नूतनीकरणाच्या तारखेच्या किमान २४ तास आधी Apple च्या सबस्क्रिप्शन सेटिंग्जमधून कधीही रद्द करू शकता."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selepas percubaan percuma tamat, %@ dicaj secara automatik. Anda boleh membatalkan pada bila-bila masa melalui seting langganan Apple sekurang-kurangnya 24 jam sebelum tarikh pembaharuan."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Når den gratis prøveperioden er over, belastes du automatisk %@. Du kan når som helst si opp i Apples abonnementsinnstillinger senest 24 timer før fornyelsesdatoen."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na afloop van de gratis proefperiode betaal je automatisch %@. Je kunt op elk moment opzeggen via de abonnementsinstellingen van Apple, uiterlijk 24 uur voor de verlengingsdatum."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ମାଗଣା ଟ୍ରାଏଲ୍ ଶେଷ ହେବା ପରେ %@ ହାରରେ ସ୍ୱୟଂଚାଳିତ ଭାବେ ଚାର୍ଜ ହେବ। ନବୀକରଣ ତାରିଖର ଅତି କମରେ 24 ଘଣ୍ଟା ପୂର୍ବରୁ Appleର ସବସ୍କ୍ରିପସନ୍ ସେଟିଂସରୁ ଯେକୌଣସି ସମୟରେ ବାତିଲ କରିପାରିବେ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਮੁਫ਼ਤ ਟ੍ਰਾਇਲ ਖ਼ਤਮ ਹੋਣ ਤੋਂ ਬਾਅਦ %@ ਦੀ ਦਰ ਨਾਲ ਆਪਣੇ-ਆਪ ਚਾਰਜ ਹੋਵੇਗਾ। ਰਿਨਿਊ ਹੋਣ ਦੀ ਮਿਤੀ ਤੋਂ ਘੱਟੋ-ਘੱਟ 24 ਘੰਟੇ ਪਹਿਲਾਂ Apple ਦੀਆਂ ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਸੈਟਿੰਗਾਂ ਤੋਂ ਕਦੇ ਵੀ ਰੱਦ ਕਰ ਸਕਦੇ ਹੋ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po zakończeniu bezpłatnego okresu próbnego będziesz automatycznie obciążany kwotą %@. Możesz anulować w dowolnym momencie w ustawieniach subskrypcji Apple, co najmniej 24 godziny przed datą odnowienia."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Após o fim do teste grátis, cobrança automática de %@. Cancele quando quiser nos ajustes de assinaturas da Apple, até 24 horas antes da renovação."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Após o fim da avaliação gratuita, serão cobrados %@ automaticamente. Pode cancelar a qualquer momento nas definições de subscrição da Apple, pelo menos 24 horas antes da data de renovação."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "După încheierea perioadei de probă gratuite, se percepe automat %@. Puteți anula oricând din configurările abonamentelor Apple, cu cel puțin 24 de ore înainte de data reînnoirii."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После окончания бесплатного пробного периода с вас будет автоматически списываться %@. Вы можете отменить подписку в любое время в настройках подписок Apple не менее чем за 24 часа до даты продления."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po skončení bezplatného skúšobného obdobia sa bude automaticky účtovať suma %@. Predplatné môžete kedykoľvek zrušiť v nastaveniach predplatného Apple najneskôr 24 hodín pred dátumom obnovenia."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Po koncu brezplačnega preizkusa se samodejno zaračuna %@. Naročnino lahko kadar koli prekličete v Applovih nastavitvah naročnin najpozneje 24 ur pred datumom podaljšanja."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "När den kostnadsfria provperioden är slut debiteras du automatiskt %@. Du kan avbryta när som helst via Apples prenumerationsinställningar minst 24 timmar före förnyelsedatumet."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "இலவச சோதனைக் காலம் முடிந்ததும் %@ தானாக வசூலிக்கப்படும். புதுப்பிப்புத் தேதிக்கு 24 மணிநேரம் முன்பு வரை Apple சந்தா அமைப்புகளில் எப்போது வேண்டுமானாலும் ரத்துசெய்யலாம்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఉచిత ట్రయల్ ముగిసిన తర్వాత %@ ఆటోమేటిక్‌గా ఛార్జ్ చేయబడుతుంది. రెన్యూవల్ తేదీకి కనీసం 24 గంటల ముందు వరకు Apple సబ్‌స్క్రిప్షన్ సెట్టింగ్‌లలో ఎప్పుడైనా రద్దు చేయవచ్చు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หลังสิ้นสุดช่วงทดลองใช้ฟรี ระบบจะเรียกเก็บเงิน %@ โดยอัตโนมัติ คุณสามารถยกเลิกได้ทุกเมื่อในการตั้งค่าการสมัครสมาชิกของ Apple อย่างน้อย 24 ชั่วโมงก่อนวันต่ออายุ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ücretsiz deneme sona erdikten sonra sizden otomatik olarak %@ ücret alınır. Yenileme tarihinden en az 24 saat önce Apple abonelik ayarlarından istediğiniz zaman iptal edebilirsiniz."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Після завершення безкоштовного пробного періоду автоматично стягуватиметься %@. Скасувати підписку можна будь-коли в параметрах підписок Apple щонайменше за 24 години до дати поновлення."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مفت ٹرائل ختم ہونے کے بعد %@ خود بخود چارج ہوگا۔ تجدید کی تاریخ سے کم از کم 24 گھنٹے پہلے تک آپ Apple کی سبسکرپشن سیٹنگز سے کسی بھی وقت منسوخ کر سکتے ہیں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sau khi hết thời gian dùng thử miễn phí, bạn sẽ bị tính phí %@ tự động. Bạn có thể hủy bất cứ lúc nào trong cài đặt đăng ký Apple, chậm nhất 24 giờ trước ngày gia hạn."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免费试用结束后，将按%@自动扣费。您可在续订日期至少24小时前随时通过Apple订阅设置取消。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "免費試用結束後，將自動以%@收費。您可以在續訂日期至少24小時前，隨時透過Apple訂閱設定取消。"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"
