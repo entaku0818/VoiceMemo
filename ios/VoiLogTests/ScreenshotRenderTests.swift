@@ -105,6 +105,27 @@ final class ScreenshotRenderTests: XCTestCase {
         }
     }
 
+    // MARK: - プロダクトページの最適化（A/B テスト）用の別案（ja・iPhone 6.7 のみ）
+
+    /// 案B: AI議事録 → 長時間録音 → 倍速・リピート / 案C: 1枚目と2枚目を入れ替え。
+    /// 出力: /tmp/voilog_screenshots/_ppo/ja/<B|C>/<n>_APP_IPHONE_67_<n>.png（export_screenshots.sh の対象外）。
+    /// fastlane/screenshots_ppo への反映は ios/ci/export_ppo_screenshots.sh で行う
+    func testRenderPPOVariants() throws {
+        let aiMinutes = PromoScreenshotPageView(screen: .aiTranscription, language: .japanese, copyKey: "ppoAiMinutes")
+        let longRecording = PromoScreenshotPageView(screen: .useCase, language: .japanese, copyKey: "ppoLongRecording")
+        let playback = PromoScreenshotPageView(screen: .playbackList, language: .japanese)
+        let variants: [(name: String, pages: [PromoScreenshotPageView])] = [
+            ("B", [aiMinutes, longRecording, playback]),
+            ("C", [longRecording, aiMinutes, playback])
+        ]
+        for variant in variants {
+            for (index, page) in variant.pages.enumerated() {
+                let url = outputDir.appendingPathComponent("_ppo/ja/\(variant.name)/\(index)_APP_IPHONE_67_\(index).png")
+                try renderAndSave(view: page, to: url)
+            }
+        }
+    }
+
     // MARK: - iPad
 
     func testRenderIPadScreenshots() throws {

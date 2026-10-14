@@ -361,8 +361,12 @@ struct PromoScreenshotPageView: View {
     let screen: ScreenshotScreen
     let language: AppLanguage
     var device: PromoDevice = .iPhone
+    /// 見出し・チップを引くキー（`promo_<copyKey>_line1` など）。nil なら画面と同じ。
+    /// 同じ画面に別の文言を載せる（プロダクトページの最適化の別案など）ときに使う
+    var copyKey: String?
 
     private var metrics: PromoMetrics { device.metrics }
+    private var copy: String { copyKey ?? screen.rawValue }
     private var designSize: CGSize { device.designSize }
     private var screenScale: CGFloat { metrics.screenWidth / designSize.width }
     private var screenSize: CGSize { CGSize(width: metrics.screenWidth, height: designSize.height * screenScale) }
@@ -376,9 +380,9 @@ struct PromoScreenshotPageView: View {
             PromoHeaderView(
                 language: language,
                 pill: language.string("hero_pill"),
-                line1: language.string("promo_\(screen.rawValue)_line1"),
-                line2: language.string("promo_\(screen.rawValue)_line2"),
-                chips: language.strings("promo_\(screen.rawValue)_chips"),
+                line1: language.string("promo_\(copy)_line1"),
+                line2: language.string("promo_\(copy)_line2"),
+                chips: language.strings("promo_\(copy)_chips"),
                 metrics: metrics
             )
 

@@ -71,6 +71,20 @@
     "無制限で録音",
     "iCloud同期"
   ],
+  "promo_ppoAiMinutes_line1": "録音して、そのまま文字に。",
+  "promo_ppoAiMinutes_line2": "会議・講義をAIで議事録に",
+  "promo_ppoAiMinutes_chips": [
+    "AI要約",
+    "話者ラベル",
+    "タイムスタンプ"
+  ],
+  "promo_ppoLongRecording_line1": "長時間でも、閉じても止まらない",
+  "promo_ppoLongRecording_line2": "会議・講義・取材をまるごと",
+  "promo_ppoLongRecording_chips": [
+    "長時間録音",
+    "ロック中も録音",
+    "中断後も自動再開"
+  ],
   "hero_pill": "シンプル録音",
   "hero_line1": "かんたん・きれいに",
   "hero_line2": "録れるボイスレコーダー",
