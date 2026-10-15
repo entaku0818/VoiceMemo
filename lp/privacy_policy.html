@@ -40,6 +40,17 @@
 <h2>■ 利用者動向の測定に関する情報</h2>
 <p>当社は、当社サービスの向上のため、Google社のGoogle Firebase、Google Firebase Crashlyticsを利用しての当社サービスの利用者動向の計測を行っています。データ取得のためにGoogle社が独自のIDを設定し、または既存のデバイスIDを読み取る場合があります。その際、Google社に対して、お客様が操作した内容やIPアドレスなどの情報を自動的に送信します。</p>
 
+<h2>■ AI機能（AI文字起こし・議事録）で送信する情報</h2>
+<p>当社サービスのAI文字起こし・議事録機能では、Google社のAIサービス（Gemini API）を利用しています。</p>
+<ul>
+    <li>送信する情報：AI文字起こしでは、ユーザが選んだ録音の音声データと文字起こしの言語を送信します。議事録の作成では、端末内のAI（Apple Intelligence）が使えない場合に限り、文字起こしのテキストを送信します。Apple Intelligence が使える端末では、議事録は端末内で作成し、外部には送信しません。</li>
+    <li>送信の流れ：上記の情報は、当社のサーバー（Google Cloud）を経由して Google社の Gemini API に送信されます。氏名、メールアドレス、広告識別子などの、ユーザを特定するための情報は送信しません。当社のサーバーでは、不正利用の防止と利用回数の制限のために、ユーザごとに自動で発行される匿名のIDを使いますが、このIDは Gemini API には送信しません。</li>
+    <li>個人に関する情報が含まれる可能性：録音の音声やその文字起こしには、話している人の声や会話の内容など、個人に関する情報が含まれることがあります。</li>
+    <li>同意：当社サービスは、これらの情報を初めて送信する前に、送信先と送信する内容を表示し、ユーザの同意を得ます。同意しない場合、AI文字起こし・議事録（端末内のAIが使えない場合）は利用できませんが、それ以外の機能は引き続き利用できます。</li>
+    <li>利用目的と保管：送信した情報は、文字起こし・議事録の作成のためにだけ使います。処理のために当社のサーバーに一時的に保存した音声データは、処理が終わると削除し、処理できなかった場合も1日以内に自動で削除します（削除後、障害に備えて最大7日間は復元可能な状態で保持されます）。文字起こし・議事録の結果は当社のサーバーには保存せず、ユーザの端末に保存されます。</li>
+</ul>
+<p>English summary: The AI transcription and meeting-minutes features use Google's Gemini API. When you use AI transcription, the audio of the recording you choose (and the selected language) is sent to the Gemini API through our server. For meeting minutes, the transcript text is sent only when on-device Apple Intelligence is not available. Recordings may contain personal information such as voices and conversation content. We do not send your name, email address or advertising identifier. The app asks for your consent before sending this data for the first time. The data is used only to produce the transcript or minutes; temporary audio files on our server are deleted after processing (or automatically within one day if processing fails; deleted files remain recoverable for up to 7 days for disaster recovery), and results are stored only on your device.</p>
+
 <h2>■ 業務委託</h2>
 <p>当社は、当社サービスの提供に必要な一部の業務（例：カスタマーサポートなど）を、第三者に業務委託する場合があります。これにあたり、個人情報の全部または一部を当該業務委託先に預託することがあります。これらの業務委託先は、当社に代わって業務を遂行するために必要最低限の個人情報にのみアクセスし、委託業務の範囲を超えて個人情報を利用することはありません。</p>
 
