@@ -1,6 +1,2214 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "AI文字起こしでは、この録音の音声を当社のサーバー経由で Google の AI（Gemini API）に送信して、文字に起こします。" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يرسل النسخ بالذكاء الاصطناعي صوت هذا التسجيل عبر خادمنا إلى الذكاء الاصطناعي من Google (Gemini API) لتحويله إلى نص."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ট্রান্সক্রিপশন এই রেকর্ডিংয়ের অডিও আমাদের সার্ভারের মাধ্যমে Google-এর AI (Gemini API)-তে পাঠিয়ে লেখায় রূপান্তর করে।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La transcripció amb IA envia l’àudio d’aquesta gravació a la IA de Google (Gemini API) a través del nostre servidor per convertir-lo en text."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přepis pomocí AI odesílá zvuk této nahrávky přes náš server do AI společnosti Google (Gemini API), která ho převede na text."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ved AI-transskription sendes lyden fra denne optagelse via vores server til Googles AI (Gemini API), som omdanner den til tekst."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bei der KI-Transkription wird der Ton dieser Aufnahme über unseren Server an die KI von Google (Gemini API) gesendet und in Text umgewandelt."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Η μεταγραφή με AI στέλνει τον ήχο αυτής της ηχογράφησης μέσω του διακομιστή μας στην AI της Google (Gemini API) για να μετατραπεί σε κείμενο."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI transcription sends the audio of this recording through our server to Google's AI (Gemini API) to transcribe it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La transcripción con IA envía el audio de esta grabación a la IA de Google (Gemini API) a través de nuestro servidor para convertirlo en texto."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tekoälylitteroinnissa tämän tallenteen ääni lähetetään palvelimemme kautta Googlen tekoälylle (Gemini API) tekstiksi muuntamista varten."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La transcription par IA envoie l’audio de cet enregistrement à l’IA de Google (Gemini API) via notre serveur afin de le convertir en texte."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ટ્રાન્સક્રિપ્શન આ રેકોર્ડિંગનો ઑડિયો અમારા સર્વર દ્વારા Google ના AI (Gemini API) ને મોકલીને તેને લખાણમાં ફેરવે છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תמלול AI שולח את השמע של הקלטה זו דרך השרת שלנו אל ה-AI של Google (Gemini API) כדי להמיר אותו לטקסט."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ट्रांसक्रिप्शन इस रिकॉर्डिंग के ऑडियो को हमारे सर्वर के माध्यम से Google के AI (Gemini API) को भेजकर टेक्स्ट में बदलता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI transkripcija šalje zvuk ove snimke putem našeg poslužitelja AI-ju tvrtke Google (Gemini API) kako bi ga pretvorila u tekst."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Az MI-alapú átírás a felvétel hangját a szerverünkön keresztül elküldi a Google MI-jének (Gemini API), amely szöveggé alakítja."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsi AI mengirim audio rekaman ini melalui server kami ke AI Google (Gemini API) untuk diubah menjadi teks."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La trascrizione con IA invia l’audio di questa registrazione all’IA di Google (Gemini API) tramite il nostro server per convertirlo in testo."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI文字起こしでは、この録音の音声を当社のサーバー経由で Google の AI（Gemini API）に送信して、文字に起こします。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ಪ್ರತಿಲೇಖನವು ಈ ರೆಕಾರ್ಡಿಂಗ್‌ನ ಆಡಿಯೊವನ್ನು ನಮ್ಮ ಸರ್ವರ್ ಮೂಲಕ Google ನ AI (Gemini API) ಗೆ ಕಳುಹಿಸಿ ಪಠ್ಯವಾಗಿ ಪರಿವರ್ತಿಸುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 받아쓰기는 이 녹음의 음성을 당사 서버를 거쳐 Google의 AI(Gemini API)로 전송하여 텍스트로 변환합니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ട്രാൻസ്ക്രിപ്ഷൻ ഈ റെക്കോർഡിംഗിന്റെ ഓഡിയോ ഞങ്ങളുടെ സെർവർ വഴി Google-ന്റെ AI-യിലേക്ക് (Gemini API) അയച്ച് വാചകമാക്കി മാറ്റുന്നു."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ट्रान्सक्रिप्शन या रेकॉर्डिंगचा ऑडिओ आमच्या सर्व्हरद्वारे Google च्या AI (Gemini API) कडे पाठवून त्याचे मजकुरात रूपांतर करते."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsi AI menghantar audio rakaman ini melalui pelayan kami kepada AI Google (Gemini API) untuk ditukar kepada teks."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ved AI-transkribering sendes lyden fra dette opptaket via serveren vår til Googles AI (Gemini API), som gjør den om til tekst."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bij AI-transcriptie wordt de audio van deze opname via onze server naar de AI van Google (Gemini API) gestuurd om er tekst van te maken."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ଟ୍ରାନ୍ସକ୍ରିପସନ୍ ଏହି ରେକର୍ଡିଂର ଅଡିଓକୁ ଆମ ସର୍ଭର ମାଧ୍ୟମରେ Google ର AI (Gemini API) କୁ ପଠାଇ ଲେଖାରେ ପରିଣତ କରେ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਇਸ ਰਿਕਾਰਡਿੰਗ ਦੀ ਆਡੀਓ ਨੂੰ ਸਾਡੇ ਸਰਵਰ ਰਾਹੀਂ Google ਦੇ AI (Gemini API) ਨੂੰ ਭੇਜ ਕੇ ਲਿਖਤ ਵਿੱਚ ਬਦਲਦੀ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkrypcja AI wysyła dźwięk tego nagrania przez nasz serwer do AI firmy Google (Gemini API), aby przekształcić go w tekst."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A transcrição por IA envia o áudio desta gravação para a IA do Google (Gemini API) por meio do nosso servidor para convertê-lo em texto."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A transcrição por IA envia o áudio desta gravação para a IA da Google (Gemini API) através do nosso servidor para o converter em texto."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcrierea cu AI trimite sunetul acestei înregistrări prin serverul nostru către AI-ul Google (Gemini API), pentru a-l transforma în text."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "При ИИ-расшифровке звук этой записи отправляется через наш сервер в ИИ Google (Gemini API) для преобразования в текст."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepis pomocou AI odosiela zvuk tejto nahrávky cez náš server do AI spoločnosti Google (Gemini API), ktorá ho prevedie na text."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepis z UI pošlje zvok tega posnetka prek našega strežnika umetni inteligenci podjetja Google (Gemini API), ki ga pretvori v besedilo."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vid AI-transkribering skickas ljudet från den här inspelningen via vår server till Googles AI (Gemini API) för att omvandlas till text."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI படியெடுத்தல் இந்தப் பதிவின் ஆடியோவை எங்கள் சர்வர் வழியாக Google இன் AI-க்கு (Gemini API) அனுப்பி உரையாக மாற்றுகிறது."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ట్రాన్స్‌క్రిప్షన్ ఈ రికార్డింగ్ ఆడియోను మా సర్వర్ ద్వారా Google యొక్క AI (Gemini API)కి పంపి టెక్స్ట్‌గా మారుస్తుంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การถอดเสียงด้วย AI จะส่งเสียงของการบันทึกนี้ผ่านเซิร์ฟเวอร์ของเราไปยัง AI ของ Google (Gemini API) เพื่อแปลงเป็นข้อความ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yapay zekâ ile yazıya dökme, bu kaydın sesini sunucumuz üzerinden Google’ın yapay zekâsına (Gemini API) göndererek metne dönüştürür."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Під час розшифрування за допомогою ШІ звук цього запису надсилається через наш сервер до ШІ Google (Gemini API) для перетворення на текст."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI ٹرانسکرپشن اس ریکارڈنگ کی آڈیو کو ہمارے سرور کے ذریعے Google کے AI (Gemini API) کو بھیج کر تحریر میں بدلتا ہے۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tính năng chép lời bằng AI gửi âm thanh của bản ghi này qua máy chủ của chúng tôi đến AI của Google (Gemini API) để chuyển thành văn bản."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 转写会将此录音的音频经由我们的服务器发送至 Google 的 AI（Gemini API），以转换为文字。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 轉錄會將此錄音的音訊經由我們的伺服器傳送至 Google 的 AI（Gemini API），以轉換為文字。"
+          }
+        }
+      }
+    },
+    "この端末では Apple Intelligence が使えないため、議事録は文字起こしのテキストを当社のサーバー経由で Google の AI（Gemini API）に送信して作成します。" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نظرًا لعدم توفر Apple Intelligence على هذا الجهاز، يتم إنشاء محضر الاجتماع بإرسال نص النسخ عبر خادمنا إلى الذكاء الاصطناعي من Google (Gemini API)."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "এই ডিভাইসে Apple Intelligence ব্যবহার করা যায় না, তাই ট্রান্সক্রিপশনের টেক্সট আমাদের সার্ভারের মাধ্যমে Google-এর AI (Gemini API)-তে পাঠিয়ে মিটিংয়ের কার্যবিবরণী তৈরি করা হয়।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Com que Apple Intelligence no està disponible en aquest dispositiu, l’acta es crea enviant el text de la transcripció a la IA de Google (Gemini API) a través del nostre servidor."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Protože na tomto zařízení není Apple Intelligence k dispozici, zápis z jednání se vytváří odesláním textu přepisu přes náš server do AI společnosti Google (Gemini API)."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da Apple Intelligence ikke er tilgængelig på denne enhed, oprettes referatet ved at sende transskriptionsteksten via vores server til Googles AI (Gemini API)."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da Apple Intelligence auf diesem Gerät nicht verfügbar ist, wird das Protokoll erstellt, indem der Transkriptionstext über unseren Server an die KI von Google (Gemini API) gesendet wird."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Επειδή το Apple Intelligence δεν είναι διαθέσιμο σε αυτή τη συσκευή, τα πρακτικά δημιουργούνται με την αποστολή του κειμένου της μεταγραφής μέσω του διακομιστή μας στην AI της Google (Gemini API)."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Because Apple Intelligence isn't available on this device, meeting minutes are created by sending the transcript text through our server to Google's AI (Gemini API)."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como Apple Intelligence no está disponible en este dispositivo, el acta se crea enviando el texto de la transcripción a la IA de Google (Gemini API) a través de nuestro servidor."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Koska Apple Intelligence ei ole käytettävissä tässä laitteessa, pöytäkirja luodaan lähettämällä litteroitu teksti palvelimemme kautta Googlen tekoälylle (Gemini API)."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apple Intelligence n’étant pas disponible sur cet appareil, le compte rendu est créé en envoyant le texte de la transcription à l’IA de Google (Gemini API) via notre serveur."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "આ ઉપકરણ પર Apple Intelligence ઉપલબ્ધ ન હોવાથી, મીટિંગની નોંધ ટ્રાન્સક્રિપ્શનનું લખાણ અમારા સર્વર દ્વારા Google ના AI (Gemini API) ને મોકલીને બનાવવામાં આવે છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מכיוון ש-Apple Intelligence אינו זמין במכשיר זה, הפרוטוקול נוצר על ידי שליחת טקסט התמלול דרך השרת שלנו אל ה-AI של Google (Gemini API)."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "इस डिवाइस पर Apple Intelligence उपलब्ध नहीं है, इसलिए मीटिंग नोट्स ट्रांसक्रिप्शन के टेक्स्ट को हमारे सर्वर के माध्यम से Google के AI (Gemini API) को भेजकर बनाए जाते हैं।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Budući da Apple Intelligence nije dostupan na ovom uređaju, zapisnik se izrađuje slanjem teksta transkripcije putem našeg poslužitelja AI-ju tvrtke Google (Gemini API)."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mivel ezen az eszközön az Apple Intelligence nem érhető el, a jegyzőkönyv úgy készül, hogy az átírt szöveget a szerverünkön keresztül elküldjük a Google MI-jének (Gemini API)."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karena Apple Intelligence tidak tersedia di perangkat ini, notulen dibuat dengan mengirim teks transkripsi melalui server kami ke AI Google (Gemini API)."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poiché Apple Intelligence non è disponibile su questo dispositivo, il verbale viene creato inviando il testo della trascrizione all’IA di Google (Gemini API) tramite il nostro server."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この端末では Apple Intelligence が使えないため、議事録は文字起こしのテキストを当社のサーバー経由で Google の AI（Gemini API）に送信して作成します。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಈ ಸಾಧನದಲ್ಲಿ Apple Intelligence ಲಭ್ಯವಿಲ್ಲದ ಕಾರಣ, ಪ್ರತಿಲೇಖನದ ಪಠ್ಯವನ್ನು ನಮ್ಮ ಸರ್ವರ್ ಮೂಲಕ Google ನ AI (Gemini API) ಗೆ ಕಳುಹಿಸಿ ಸಭೆಯ ನಡಾವಳಿಯನ್ನು ರಚಿಸಲಾಗುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 기기에서는 Apple Intelligence를 사용할 수 없으므로, 회의록은 받아쓰기 텍스트를 당사 서버를 거쳐 Google의 AI(Gemini API)로 전송하여 작성합니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ഈ ഉപകരണത്തിൽ Apple Intelligence ലഭ്യമല്ലാത്തതിനാൽ, ട്രാൻസ്ക്രിപ്ഷന്റെ വാചകം ഞങ്ങളുടെ സെർവർ വഴി Google-ന്റെ AI-യിലേക്ക് (Gemini API) അയച്ചാണ് മീറ്റിംഗ് കുറിപ്പുകൾ തയ്യാറാക്കുന്നത്."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "या डिव्हाइसवर Apple Intelligence उपलब्ध नसल्यामुळे, ट्रान्सक्रिप्शनचा मजकूर आमच्या सर्व्हरद्वारे Google च्या AI (Gemini API) कडे पाठवून इतिवृत्त तयार केले जाते."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oleh sebab Apple Intelligence tidak tersedia pada peranti ini, minit mesyuarat dibuat dengan menghantar teks transkripsi melalui pelayan kami kepada AI Google (Gemini API)."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fordi Apple Intelligence ikke er tilgjengelig på denne enheten, lages referatet ved at transkripsjonsteksten sendes via serveren vår til Googles AI (Gemini API)."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omdat Apple Intelligence niet beschikbaar is op dit apparaat, worden notulen gemaakt door de transcriptietekst via onze server naar de AI van Google (Gemini API) te sturen."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଏହି ଡିଭାଇସରେ Apple Intelligence ଉପଲବ୍ଧ ନଥିବାରୁ, ଟ୍ରାନ୍ସକ୍ରିପସନର ଲେଖାକୁ ଆମ ସର୍ଭର ମାଧ୍ୟମରେ Google ର AI (Gemini API) କୁ ପଠାଇ ବୈଠକର କାର୍ଯ୍ୟବିବରଣୀ ପ୍ରସ୍ତୁତ କରାଯାଏ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇਸ ਡਿਵਾਈਸ 'ਤੇ Apple Intelligence ਉਪਲਬਧ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਮੀਟਿੰਗ ਦੇ ਨੋਟਸ ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਦੀ ਲਿਖਤ ਨੂੰ ਸਾਡੇ ਸਰਵਰ ਰਾਹੀਂ Google ਦੇ AI (Gemini API) ਨੂੰ ਭੇਜ ਕੇ ਬਣਾਏ ਜਾਂਦੇ ਹਨ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ponieważ Apple Intelligence nie jest dostępne na tym urządzeniu, protokół jest tworzony przez wysłanie tekstu transkrypcji przez nasz serwer do AI firmy Google (Gemini API)."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como o Apple Intelligence não está disponível neste dispositivo, a ata é criada enviando o texto da transcrição para a IA do Google (Gemini API) por meio do nosso servidor."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Como o Apple Intelligence não está disponível neste dispositivo, a ata é criada enviando o texto da transcrição para a IA da Google (Gemini API) através do nosso servidor."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deoarece Apple Intelligence nu este disponibil pe acest dispozitiv, procesul-verbal este creat prin trimiterea textului transcrierii prin serverul nostru către AI-ul Google (Gemini API)."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поскольку Apple Intelligence недоступен на этом устройстве, протокол создаётся путём отправки текста расшифровки через наш сервер в ИИ Google (Gemini API)."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keďže v tomto zariadení nie je Apple Intelligence k dispozícii, zápisnica sa vytvára odoslaním textu prepisu cez náš server do AI spoločnosti Google (Gemini API)."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ker Apple Intelligence v tej napravi ni na voljo, se zapisnik ustvari tako, da se besedilo prepisa prek našega strežnika pošlje umetni inteligenci podjetja Google (Gemini API)."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eftersom Apple Intelligence inte är tillgängligt på den här enheten skapas protokollet genom att transkriberingstexten skickas via vår server till Googles AI (Gemini API)."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "இந்தச் சாதனத்தில் Apple Intelligence கிடைக்காததால், படியெடுத்த உரையை எங்கள் சர்வர் வழியாக Google இன் AI-க்கு (Gemini API) அனுப்பி கூட்டக் குறிப்புகள் உருவாக்கப்படுகின்றன."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ఈ పరికరంలో Apple Intelligence అందుబాటులో లేనందున, ట్రాన్స్‌క్రిప్షన్ టెక్స్ట్‌ను మా సర్వర్ ద్వారా Google యొక్క AI (Gemini API)కి పంపి సమావేశ నివేదిక రూపొందించబడుతుంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เนื่องจากอุปกรณ์นี้ใช้ Apple Intelligence ไม่ได้ บันทึกการประชุมจึงสร้างขึ้นโดยส่งข้อความที่ถอดเสียงแล้วผ่านเซิร์ฟเวอร์ของเราไปยัง AI ของ Google (Gemini API)"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu cihazda Apple Intelligence kullanılamadığından toplantı notları, yazıya döküm metni sunucumuz üzerinden Google’ın yapay zekâsına (Gemini API) gönderilerek oluşturulur."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Оскільки Apple Intelligence недоступний на цьому пристрої, протокол створюється шляхом надсилання тексту розшифровки через наш сервер до ШІ Google (Gemini API)."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چونکہ اس آلے پر Apple Intelligence دستیاب نہیں ہے، اس لیے میٹنگ کے نوٹس ٹرانسکرپشن کی تحریر کو ہمارے سرور کے ذریعے Google کے AI (Gemini API) کو بھیج کر بنائے جاتے ہیں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vì thiết bị này không dùng được Apple Intelligence, biên bản cuộc họp được tạo bằng cách gửi văn bản chép lời qua máy chủ của chúng tôi đến AI của Google (Gemini API)."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由于此设备无法使用 Apple Intelligence，会议纪要将通过我们的服务器把转写文本发送至 Google 的 AI（Gemini API）来生成。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "由於此裝置無法使用 Apple Intelligence，會議記錄將透過我們的伺服器把轉錄文字文字傳送至 Google 的 AI（Gemini API）來產生。"
+          }
+        }
+      }
+    },
+    "プライバシーポリシー" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سياسة الخصوصية"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "গোপনীয়তা নীতি"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privadesa"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zásady ochrany osobních údajů"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privatlivspolitik"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Datenschutzerklärung"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Πολιτική απορρήτου"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privacidad"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tietosuojakäytäntö"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politique de confidentialité"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ગોપનીયતા નીતિ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מדיניות פרטיות"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "गोपनीयता नीति"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pravila o privatnosti"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adatvédelmi irányelvek"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kebijakan Privasi"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informativa sulla privacy"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシー"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಗೌಪ್ಯತಾ ನೀತಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "개인정보 처리방침"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സ്വകാര്യതാ നയം"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "गोपनीयता धोरण"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dasar Privasi"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personvernerklæring"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacybeleid"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଗୋପନୀୟତା ନୀତି"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਪਰਦੇਦਾਰੀ ਨੀਤੀ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polityka prywatności"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de Privacidade"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de Privacidade"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politica de confidențialitate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Политика конфиденциальности"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zásady ochrany osobných údajov"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pravilnik o zasebnosti"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Integritetspolicy"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தனியுரிமைக் கொள்கை"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "గోప్యతా విధానం"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "นโยบายความเป็นส่วนตัว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gizlilik Politikası"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Політика конфіденційності"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رازداری کی پالیسی"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chính sách quyền riêng tư"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐私政策"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隱私權政策"
+          }
+        }
+      }
+    },
+    "同意して送信する" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الموافقة والإرسال"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "সম্মত হয়ে পাঠান"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accepta i envia"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Souhlasit a odeslat"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accepter og send"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zustimmen und senden"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αποδοχή και αποστολή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agree and Send"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aceptar y enviar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hyväksy ja lähetä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accepter et envoyer"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "સંમત થઈને મોકલો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסכמה ושליחה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहमत हों और भेजें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prihvati i pošalji"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elfogadás és küldés"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setuju dan Kirim"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accetta e invia"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同意して送信する"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಒಪ್ಪಿ ಕಳುಹಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "동의하고 전송"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "സമ്മതിച്ച് അയയ്ക്കുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "सहमती देऊन पाठवा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setuju dan Hantar"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Godta og send"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Akkoord en verzenden"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ସହମତ ହୋଇ ପଠାନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਸਹਿਮਤ ਹੋ ਕੇ ਭੇਜੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zaakceptuj i wyślij"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concordar e enviar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concordar e enviar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Acceptă și trimite"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Согласиться и отправить"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Súhlasiť a odoslať"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprejmi in pošlji"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Godkänn och skicka"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ஒப்புக்கொண்டு அனுப்பு"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "అంగీకరించి పంపండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยินยอมและส่ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kabul Et ve Gönder"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Погодитися й надіслати"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متفق ہو کر بھیجیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đồng ý và gửi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同意并发送"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "同意並傳送"
+          }
+        }
+      }
+    },
+    "外部のAIサービスへの送信について" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حول الإرسال إلى خدمة ذكاء اصطناعي خارجية"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বাইরের AI পরিষেবায় পাঠানো সম্পর্কে"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviament a un servei d’IA extern"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odesílání do externí služby AI"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afsendelse til en ekstern AI-tjeneste"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Übermittlung an einen externen KI-Dienst"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Αποστολή σε εξωτερική υπηρεσία AI"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sending Data to an External AI Service"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envío a un servicio de IA externo"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lähettäminen ulkoiseen tekoälypalveluun"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoi à un service d’IA externe"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "બાહ્ય AI સેવાને મોકલવા વિશે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שליחה לשירות AI חיצוני"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बाहरी AI सेवा को भेजने के बारे में"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slanje vanjskoj AI usluzi"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Küldés külső MI-szolgáltatásnak"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentang Pengiriman ke Layanan AI Eksternal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invio a un servizio di IA esterno"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外部のAIサービスへの送信について"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಬಾಹ್ಯ AI ಸೇವೆಗೆ ಕಳುಹಿಸುವ ಬಗ್ಗೆ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "외부 AI 서비스로의 전송 안내"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ബാഹ്യ AI സേവനത്തിലേക്ക് അയയ്ക്കുന്നതിനെക്കുറിച്ച്"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "बाह्य AI सेवेकडे पाठवण्याबद्दल"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentang Penghantaran kepada Perkhidmatan AI Luaran"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sending til en ekstern AI-tjeneste"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verzenden naar een externe AI-dienst"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ବାହ୍ୟ AI ସେବାକୁ ପଠାଇବା ବିଷୟରେ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਬਾਹਰੀ AI ਸੇਵਾ ਨੂੰ ਭੇਜਣ ਬਾਰੇ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wysyłanie do zewnętrznej usługi AI"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envio para um serviço de IA externo"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envio para um serviço de IA externo"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trimiterea către un serviciu AI extern"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отправка во внешний ИИ-сервис"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odosielanie do externej služby AI"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pošiljanje zunanji storitvi UI"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Överföring till en extern AI-tjänst"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "வெளிப்புற AI சேவைக்கு அனுப்புவது பற்றி"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "బాహ్య AI సేవకు పంపడం గురించి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เกี่ยวกับการส่งข้อมูลไปยังบริการ AI ภายนอก"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harici bir yapay zekâ hizmetine gönderim"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Надсилання до зовнішнього сервісу ШІ"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بیرونی AI سروس کو بھیجنے کے بارے میں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Về việc gửi dữ liệu đến dịch vụ AI bên ngoài"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于发送至外部 AI 服务"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關於傳送至外部 AI 服務"
+          }
+        }
+      }
+    },
+    "氏名・メールアドレス・広告IDなどは送信しません。送信したデータは文字起こし・議事録の作成のためだけに使います。" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا نرسل الاسم أو عنوان البريد الإلكتروني أو معرّف الإعلانات أو ما شابه ذلك. تُستخدم البيانات المرسلة فقط لإنشاء النصوص المنسوخة ومحاضر الاجتماعات."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "আমরা নাম, ইমেল ঠিকানা, বিজ্ঞাপন আইডি বা এ ধরনের তথ্য পাঠাই না। পাঠানো ডেটা শুধু ট্রান্সক্রিপশন ও কার্যবিবরণী তৈরির জন্য ব্যবহার করা হয়।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No enviem el teu nom, l’adreça electrònica, l’ID de publicitat ni dades similars. Les dades enviades només s’utilitzen per crear transcripcions i actes."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neodesíláme jméno, e-mailovou adresu, reklamní identifikátor ani podobné údaje. Odeslaná data se používají pouze k vytvoření přepisů a zápisů z jednání."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vi sender ikke navn, e-mailadresse, annonce-id eller lignende. Sendte data bruges kun til at oprette transskriptioner og referater."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name, E-Mail-Adresse, Werbe-ID und Ähnliches werden nicht gesendet. Die gesendeten Daten werden ausschließlich zur Erstellung von Transkriptionen und Protokollen verwendet."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δεν στέλνουμε όνομα, διεύθυνση email, αναγνωριστικό διαφήμισης ή παρόμοια στοιχεία. Τα δεδομένα που αποστέλλονται χρησιμοποιούνται μόνο για τη δημιουργία μεταγραφών και πρακτικών."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We don't send your name, email address, advertising ID, or similar information. The data sent is used only to create transcripts and meeting minutes."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No enviamos tu nombre, dirección de correo electrónico, ID de publicidad ni datos similares. Los datos enviados se usan únicamente para crear transcripciones y actas."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emme lähetä nimeä, sähköpostiosoitetta, mainostunnusta tai vastaavia tietoja. Lähetettyjä tietoja käytetään vain litterointien ja pöytäkirjojen luomiseen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nous n’envoyons ni votre nom, ni votre adresse e-mail, ni votre identifiant publicitaire, ni d’autres informations de ce type. Les données envoyées servent uniquement à créer les transcriptions et les comptes rendus."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "અમે નામ, ઇમેઇલ સરનામું, જાહેરાત ID જેવી માહિતી મોકલતા નથી. મોકલેલો ડેટા ફક્ત ટ્રાન્સક્રિપ્શન અને મીટિંગની નોંધ બનાવવા માટે જ વપરાય છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "איננו שולחים שם, כתובת אימייל, מזהה פרסום או מידע דומה. הנתונים שנשלחים משמשים רק ליצירת תמלולים ופרוטוקולים."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "हम नाम, ईमेल पता, विज्ञापन ID जैसी जानकारी नहीं भेजते। भेजा गया डेटा केवल ट्रांसक्रिप्शन और मीटिंग नोट्स बनाने के लिए उपयोग किया जाता है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne šaljemo ime, adresu e-pošte, ID za oglašavanje ni slične podatke. Poslani podaci koriste se isključivo za izradu transkripcija i zapisnika."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem küldjük el a nevet, az e-mail-címet, a hirdetésazonosítót és más hasonló adatokat. Az elküldött adatokat kizárólag átiratok és jegyzőkönyvek készítésére használjuk."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kami tidak mengirim nama, alamat email, ID iklan, atau data serupa. Data yang dikirim hanya digunakan untuk membuat transkripsi dan notulen."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non inviamo nome, indirizzo email, ID pubblicitario o dati simili. I dati inviati vengono utilizzati solo per creare trascrizioni e verbali."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "氏名・メールアドレス・広告IDなどは送信しません。送信したデータは文字起こし・議事録の作成のためだけに使います。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ನಾವು ಹೆಸರು, ಇಮೇಲ್ ವಿಳಾಸ, ಜಾಹೀರಾತು ID ಮುಂತಾದವುಗಳನ್ನು ಕಳುಹಿಸುವುದಿಲ್ಲ. ಕಳುಹಿಸಿದ ಡೇಟಾವನ್ನು ಪ್ರತಿಲೇಖನ ಮತ್ತು ಸಭೆಯ ನಡಾವಳಿ ರಚಿಸಲು ಮಾತ್ರ ಬಳಸಲಾಗುತ್ತದೆ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이름, 이메일 주소, 광고 ID 등은 전송하지 않습니다. 전송된 데이터는 받아쓰기 및 회의록 작성에만 사용됩니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പേര്, ഇമെയിൽ വിലാസം, പരസ്യ ID തുടങ്ങിയവ ഞങ്ങൾ അയയ്ക്കുന്നില്ല. അയച്ച ഡാറ്റ ട്രാൻസ്ക്രിപ്ഷനും മീറ്റിംഗ് കുറിപ്പുകളും തയ്യാറാക്കാൻ മാത്രമേ ഉപയോഗിക്കൂ."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "आम्ही नाव, ईमेल पत्ता, जाहिरात ID यांसारखी माहिती पाठवत नाही. पाठवलेला डेटा फक्त ट्रान्सक्रिप्शन आणि इतिवृत्त तयार करण्यासाठीच वापरला जातो."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kami tidak menghantar nama, alamat e-mel, ID pengiklanan atau data seumpamanya. Data yang dihantar hanya digunakan untuk membuat transkripsi dan minit mesyuarat."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vi sender ikke navn, e-postadresse, annonse-ID eller lignende. Data som sendes, brukes bare til å lage transkripsjoner og referater."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We sturen geen naam, e-mailadres, advertentie-ID of vergelijkbare gegevens. Verzonden gegevens worden alleen gebruikt om transcripties en notulen te maken."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଆମେ ନାମ, ଇମେଲ ଠିକଣା, ବିଜ୍ଞାପନ ID ଭଳି ସୂଚନା ପଠାଉ ନାହିଁ। ପଠାଯାଇଥିବା ଡାଟା କେବଳ ଟ୍ରାନ୍ସକ୍ରିପସନ ଏବଂ କାର୍ଯ୍ୟବିବରଣୀ ପ୍ରସ୍ତୁତ କରିବା ପାଇଁ ବ୍ୟବହୃତ ହୁଏ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਅਸੀਂ ਨਾਮ, ਈਮੇਲ ਪਤਾ, ਵਿਗਿਆਪਨ ID ਵਰਗੀ ਜਾਣਕਾਰੀ ਨਹੀਂ ਭੇਜਦੇ। ਭੇਜਿਆ ਗਿਆ ਡਾਟਾ ਸਿਰਫ਼ ਟ੍ਰਾਂਸਕ੍ਰਿਪਸ਼ਨ ਅਤੇ ਮੀਟਿੰਗ ਦੇ ਨੋਟਸ ਬਣਾਉਣ ਲਈ ਹੀ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie wysyłamy imienia i nazwiska, adresu e-mail, identyfikatora reklamowego ani podobnych danych. Wysłane dane są wykorzystywane wyłącznie do tworzenia transkrypcji i protokołów."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não enviamos seu nome, endereço de e-mail, ID de publicidade ou dados semelhantes. Os dados enviados são usados apenas para criar transcrições e atas."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não enviamos o seu nome, endereço de e-mail, ID de publicidade nem dados semelhantes. Os dados enviados são utilizados apenas para criar transcrições e atas."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu trimitem numele, adresa de e-mail, ID-ul de publicitate sau alte date similare. Datele trimise sunt folosite doar pentru crearea transcrierilor și a proceselor-verbale."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Мы не отправляем имя, адрес электронной почты, рекламный идентификатор и подобные данные. Отправленные данные используются только для создания расшифровок и протоколов."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neodosielame meno, e-mailovú adresu, reklamný identifikátor ani podobné údaje. Odoslané údaje sa používajú iba na vytvorenie prepisov a zápisníc."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pošiljamo imena, e-poštnega naslova, oglaševalskega ID-ja ali podobnih podatkov. Poslani podatki se uporabljajo samo za ustvarjanje prepisov in zapisnikov."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vi skickar inte namn, e-postadress, annons-ID eller liknande. Skickade data används endast för att skapa transkriberingar och protokoll."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பெயர், மின்னஞ்சல் முகவரி, விளம்பர ID போன்றவற்றை நாங்கள் அனுப்புவதில்லை. அனுப்பப்பட்ட தரவு படியெடுத்தல் மற்றும் கூட்டக் குறிப்புகளை உருவாக்க மட்டுமே பயன்படுத்தப்படும்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "మేము పేరు, ఇమెయిల్ చిరునామా, ప్రకటన ID వంటివి పంపము. పంపిన డేటా ట్రాన్స్‌క్రిప్షన్ మరియు సమావేశ నివేదిక రూపొందించడానికి మాత్రమే ఉపయోగించబడుతుంది."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เราไม่ส่งชื่อ ที่อยู่อีเมล รหัสโฆษณา หรือข้อมูลที่คล้ายกัน ข้อมูลที่ส่งจะใช้เพื่อสร้างข้อความถอดเสียงและบันทึกการประชุมเท่านั้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ad, e-posta adresi, reklam kimliği gibi bilgileri göndermeyiz. Gönderilen veriler yalnızca yazıya döküm ve toplantı notu oluşturmak için kullanılır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ми не надсилаємо ім’я, адресу електронної пошти, рекламний ідентифікатор та подібні дані. Надіслані дані використовуються лише для створення розшифровок і протоколів."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ہم نام، ای میل پتہ، اشتہاری ID جیسی معلومات نہیں بھیجتے۔ بھیجا گیا ڈیٹا صرف ٹرانسکرپشن اور میٹنگ کے نوٹس بنانے کے لیے استعمال ہوتا ہے۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chúng tôi không gửi tên, địa chỉ email, ID quảng cáo hoặc các thông tin tương tự. Dữ liệu đã gửi chỉ được dùng để tạo bản chép lời và biên bản cuộc họp."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我们不会发送姓名、电子邮件地址、广告标识符等信息。发送的数据仅用于生成转写和会议纪要。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我們不會傳送姓名、電子郵件地址、廣告識別碼等資訊。傳送的資料僅用於產生轉錄文字和會議記錄。"
+          }
+        }
+      }
+    },
+    "送信しない" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدم الإرسال"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "পাঠাবেন না"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No enviïs"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neodesílat"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send ikke"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht senden"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Χωρίς αποστολή"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't Send"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No enviar"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Älä lähetä"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pas envoyer"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "મોકલશો નહીં"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לא לשלוח"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "न भेजें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne šalji"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nem küldöm"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jangan Kirim"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non inviare"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "送信しない"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಕಳುಹಿಸಬೇಡಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "전송하지 않음"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "അയയ്ക്കരുത്"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "पाठवू नका"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jangan Hantar"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikke send"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Niet verzenden"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ପଠାନ୍ତୁ ନାହିଁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਨਾ ਭੇਜੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nie wysyłaj"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não enviar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Não enviar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nu trimite"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не отправлять"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neodoslať"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ne pošlji"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skicka inte"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "அனுப்ப வேண்டாம்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "పంపవద్దు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ส่ง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gönderme"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не надсилати"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نہ بھیجیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không gửi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不发送"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不傳送"
+          }
+        }
+      }
+    },
+    "録音には、話している人の声や会話の内容など、個人に関する情報が含まれることがあります。" : {
+      "comment" : "AI data-sharing consent screen (App Review Guideline 5.1.2(i)).",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قد تحتوي التسجيلات على معلومات شخصية، مثل أصوات المتحدثين ومحتوى المحادثات."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "রেকর্ডিংয়ে ব্যক্তিগত তথ্য থাকতে পারে, যেমন বক্তাদের কণ্ঠস্বর ও কথোপকথনের বিষয়বস্তু।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les gravacions poden contenir informació personal, com ara la veu de les persones que parlen o el contingut de les converses."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nahrávky mohou obsahovat osobní údaje, například hlasy mluvčích a obsah rozhovorů."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optagelser kan indeholde personoplysninger, f.eks. stemmerne fra dem, der taler, og indholdet af samtaler."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aufnahmen können personenbezogene Informationen enthalten, etwa die Stimmen der Sprechenden oder Gesprächsinhalte."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Οι ηχογραφήσεις μπορεί να περιέχουν προσωπικές πληροφορίες, όπως τις φωνές των ομιλητών και το περιεχόμενο των συνομιλιών."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recordings may contain personal information, such as the voices of people speaking and what they say."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las grabaciones pueden contener información personal, como la voz de las personas que hablan o el contenido de las conversaciones."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tallenteet voivat sisältää henkilötietoja, kuten puhujien ääniä ja keskustelujen sisältöä."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les enregistrements peuvent contenir des informations personnelles, comme la voix des personnes qui parlent ou le contenu des conversations."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "રેકોર્ડિંગમાં વ્યક્તિગત માહિતી હોઈ શકે છે, જેમ કે બોલનારાઓના અવાજ અને વાતચીતની સામગ્રી."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הקלטות עשויות לכלול מידע אישי, כמו קולות הדוברים ותוכן השיחות."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रिकॉर्डिंग में व्यक्तिगत जानकारी हो सकती है, जैसे बोलने वालों की आवाज़ और बातचीत की सामग्री।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snimke mogu sadržavati osobne podatke, poput glasova govornika i sadržaja razgovora."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A felvételek személyes adatokat tartalmazhatnak, például a beszélők hangját és a beszélgetések tartalmát."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rekaman dapat berisi informasi pribadi, seperti suara orang yang berbicara dan isi percakapan."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le registrazioni possono contenere informazioni personali, come la voce di chi parla o il contenuto delle conversazioni."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "録音には、話している人の声や会話の内容など、個人に関する情報が含まれることがあります。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ರೆಕಾರ್ಡಿಂಗ್‌ಗಳಲ್ಲಿ ಮಾತನಾಡುವವರ ಧ್ವನಿ ಮತ್ತು ಸಂಭಾಷಣೆಯ ವಿಷಯದಂತಹ ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ ಇರಬಹುದು."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "녹음에는 말하는 사람의 목소리나 대화 내용 등 개인에 관한 정보가 포함될 수 있습니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "റെക്കോർഡിംഗുകളിൽ സംസാരിക്കുന്നവരുടെ ശബ്ദം, സംഭാഷണത്തിന്റെ ഉള്ളടക്കം തുടങ്ങിയ വ്യക്തിഗത വിവരങ്ങൾ ഉണ്ടാകാം."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रेकॉर्डिंगमध्ये बोलणाऱ्यांचा आवाज आणि संभाषणातील मजकूर यांसारखी वैयक्तिक माहिती असू शकते."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rakaman mungkin mengandungi maklumat peribadi, seperti suara orang yang bercakap dan kandungan perbualan."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opptak kan inneholde personopplysninger, for eksempel stemmene til dem som snakker, og innholdet i samtaler."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opnamen kunnen persoonlijke informatie bevatten, zoals de stemmen van sprekers en de inhoud van gesprekken."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ରେକର୍ଡିଂରେ କହୁଥିବା ବ୍ୟକ୍ତିଙ୍କ ସ୍ୱର ଏବଂ କଥାବାର୍ତ୍ତାର ବିଷୟବସ୍ତୁ ଭଳି ବ୍ୟକ୍ତିଗତ ସୂଚନା ରହିପାରେ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਰਿਕਾਰਡਿੰਗਾਂ ਵਿੱਚ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਹੋ ਸਕਦੀ ਹੈ, ਜਿਵੇਂ ਕਿ ਬੋਲਣ ਵਾਲਿਆਂ ਦੀ ਆਵਾਜ਼ ਅਤੇ ਗੱਲਬਾਤ ਦੀ ਸਮੱਗਰੀ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nagrania mogą zawierać dane osobowe, takie jak głosy mówiących osób i treść rozmów."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As gravações podem conter informações pessoais, como a voz das pessoas que falam e o conteúdo das conversas."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As gravações podem conter informações pessoais, como a voz das pessoas que falam e o conteúdo das conversas."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Înregistrările pot conține informații personale, cum ar fi vocile persoanelor care vorbesc și conținutul conversațiilor."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записи могут содержать персональные данные, например голоса говорящих и содержание разговоров."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nahrávky môžu obsahovať osobné údaje, napríklad hlasy hovoriacich a obsah rozhovorov."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posnetki lahko vsebujejo osebne podatke, na primer glasove govorcev in vsebino pogovorov."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inspelningar kan innehålla personuppgifter, till exempel rösterna hos dem som talar och innehållet i samtal."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பதிவுகளில் பேசுபவர்களின் குரல், உரையாடலின் உள்ளடக்கம் போன்ற தனிப்பட்ட தகவல்கள் இருக்கலாம்."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "రికార్డింగ్‌లలో మాట్లాడేవారి గొంతు, సంభాషణ విషయం వంటి వ్యక్తిగత సమాచారం ఉండవచ్చు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การบันทึกเสียงอาจมีข้อมูลส่วนบุคคล เช่น เสียงของผู้พูดและเนื้อหาของการสนทนา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kayıtlar, konuşan kişilerin sesleri ve konuşmaların içeriği gibi kişisel bilgiler içerebilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Записи можуть містити персональні дані, як-от голоси мовців і зміст розмов."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ریکارڈنگز میں ذاتی معلومات شامل ہو سکتی ہیں، جیسے بولنے والوں کی آوازیں اور گفتگو کا مواد۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bản ghi âm có thể chứa thông tin cá nhân, chẳng hạn như giọng nói của người nói và nội dung cuộc trò chuyện."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "录音中可能包含个人信息，例如说话者的声音和对话内容。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音中可能包含個人資訊，例如說話者的聲音和對話內容。"
+          }
+        }
+      }
+    },
     "議事録" : {
       "comment" : "Tab label for meeting minutes",
       "localizations" : {
