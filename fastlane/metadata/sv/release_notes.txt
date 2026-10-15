@@ -3,6 +3,7 @@ Version 1.17.0
 [Förbättringar]
 - Du kan nu gå till Premium från skärmen för AI-mötesprotokoll
 - Den kostnadsfria provperioden visas nu även för årsabonnemanget när den är tillgänglig för dig
+- Innan data skickas till en extern AI-tjänst för transkribering och protokoll ser du nu vart och vad som skickas
 
 [Buggfixar]
 - Åtgärdat att ”Köpet misslyckades” visades när ett köp avbröts

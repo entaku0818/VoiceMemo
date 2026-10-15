@@ -3,6 +3,7 @@ Sürüm 1.17.0
 [İyileştirmeler]
 - AI toplantı tutanağı ekranından artık Premium'a geçebilirsiniz
 - Ücretsiz deneme, sizin için uygun olduğunda artık yıllık planda da gösteriliyor
+- Döküm ve tutanak için harici bir yapay zekâ hizmetine veri gönderilmeden önce artık nereye ve neyin gönderildiğini görebilirsiniz
 
 [Hata Düzeltmeleri]
 - Satın alma iptal edildiğinde "Satın alma başarısız" gösterilmesi düzeltildi

@@ -3,6 +3,7 @@ Različica 1.17.0
 [Izboljšave]
 - Z zaslona zapisnika sestanka z AI lahko zdaj preidete na Premium
 - Brezplačni preizkus je zdaj prikazan tudi pri letnem paketu, ko je na voljo za vas
+- Pred pošiljanjem podatkov zunanji storitvi UI za prepis in zapisnik zdaj vidite, kam in kaj se pošlje
 
 [Popravki napak]
 - Odpravljen prikaz sporočila »Nakup ni uspel« ob preklicu nakupa

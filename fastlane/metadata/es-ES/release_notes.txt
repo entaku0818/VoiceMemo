@@ -3,6 +3,7 @@ Versión 1.17.0
 [Mejoras]
 - Ahora puedes acceder al plan Premium desde la pantalla de actas con IA
 - La prueba gratuita ahora también se muestra en el plan anual cuando está disponible para ti
+- Antes de enviar datos a un servicio de IA externo para la transcripción y las actas, ahora puedes ver a dónde y qué se envía
 
 [Correcciones]
 - Se corrigió que apareciera "La compra falló" al cancelar una compra

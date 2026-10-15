@@ -3,6 +3,7 @@ Version 1.17.0
 [Améliorations]
 - Vous pouvez désormais accéder à Premium depuis l'écran des comptes rendus IA
 - L'essai gratuit s'affiche désormais aussi pour le forfait annuel lorsqu'il vous est proposé
+- Avant l'envoi de données à un service d'IA externe pour la transcription et les comptes rendus, vous voyez désormais où et quoi est envoyé
 
 [Corrections de bugs]
 - Correction du message « Échec de l'achat » affiché lors de l'annulation d'un achat

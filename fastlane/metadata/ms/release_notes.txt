@@ -3,6 +3,7 @@ Versi 1.17.0
 [Penambahbaikan]
 - Anda kini boleh pergi ke Premium dari skrin minit mesyuarat AI
 - Percubaan percuma kini turut dipaparkan untuk pelan tahunan apabila tersedia untuk anda
+- Sebelum data dihantar ke perkhidmatan AI luaran untuk transkripsi dan minit, kini anda boleh melihat ke mana dan apa yang dihantar
 
 [Pembetulan Pepijat]
 - Membetulkan mesej "Pembelian gagal" yang dipaparkan apabila membatalkan pembelian

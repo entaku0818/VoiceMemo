@@ -3,6 +3,7 @@ Verzia 1.17.0
 [Vylepšenia]
 - Z obrazovky AI zápisnice zo stretnutia sa teraz dostanete k prémiovému predplatnému
 - Bezplatná skúšobná verzia sa teraz zobrazuje aj pri ročnom predplatnom, ak je pre vás dostupná
+- Pred odoslaním údajov externej AI službe na prepis a zápisnicu teraz uvidíte, kam a čo sa odosiela
 
 [Opravy chýb]
 - Opravené zobrazovanie „Nákup zlyhal“ pri zrušení nákupu

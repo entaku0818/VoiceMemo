@@ -3,6 +3,7 @@ Wersja 1.17.0
 [Ulepszenia]
 - Z ekranu protokołu AI możesz teraz przejść do planu Premium
 - Bezpłatny okres próbny jest teraz widoczny także w planie rocznym, jeśli jest dla Ciebie dostępny
+- Przed wysłaniem danych do zewnętrznej usługi AI w celu transkrypcji i protokołu zobaczysz teraz, dokąd i co jest wysyłane
 
 [Poprawki błędów]
 - Naprawiono wyświetlanie komunikatu „Zakup nie powiódł się” po anulowaniu zakupu

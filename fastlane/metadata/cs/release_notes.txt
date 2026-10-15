@@ -3,6 +3,7 @@ Verze 1.17.0
 [Vylepšení]
 - Z obrazovky AI zápisu ze schůzky se nyní dostanete k prémiovému předplatnému
 - Bezplatná zkušební verze se nyní zobrazuje i u ročního předplatného, pokud je pro vás dostupná
+- Před odesláním dat externí AI službě pro přepis a zápis nyní uvidíte, kam a co se odesílá
 
 [Opravy chyb]
 - Opraveno zobrazení „Nákup se nezdařil“ při zrušení nákupu

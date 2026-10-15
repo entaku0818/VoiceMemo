@@ -3,6 +3,7 @@ Versão 1.17.0
 [Melhorias]
 - Agora pode aceder ao Premium a partir do ecrã de atas com IA
 - O período experimental gratuito passa também a ser mostrado no plano anual quando estiver disponível
+- Antes de enviar dados para um serviço de IA externo para transcrição e atas, pode agora ver para onde e o que é enviado
 
 [Correções]
 - Corrigida a mensagem "A compra falhou" apresentada ao cancelar uma compra

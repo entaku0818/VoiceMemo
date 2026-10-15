@@ -3,6 +3,7 @@ Versie 1.17.0
 [Verbeteringen]
 - Je kunt nu vanuit het scherm met AI-notulen naar Premium gaan
 - De gratis proefperiode wordt nu ook bij het jaarabonnement getoond als die voor jou beschikbaar is
+- Voordat gegevens naar een externe AI-dienst gaan voor transcriptie en notulen, zie je nu waarheen en wat er wordt verstuurd
 
 [Opgeloste problemen]
 - Opgelost dat "Aankoop mislukt" werd getoond bij het annuleren van een aankoop

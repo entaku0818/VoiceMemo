@@ -3,6 +3,7 @@
 [Fejlesztések]
 - Az AI-jegyzőkönyv képernyőjéről most már elérhető a Prémium csomag
 - Az ingyenes próbaidőszak mostantól az éves csomagnál is megjelenik, ha elérhető számodra
+- Mielőtt adatokat küldenénk külső MI-szolgáltatásnak átiratkészítéshez vagy jegyzőkönyvhöz, most már látod, hová és mit küldünk
 
 [Hibajavítások]
 - Javítottuk, hogy vásárlás megszakításakor „A vásárlás sikertelen” üzenet jelent meg

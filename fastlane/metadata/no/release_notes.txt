@@ -3,6 +3,7 @@ Versjon 1.17.0
 [Forbedringer]
 - Du kan nå gå til Premium fra skjermen for AI-møtereferater
 - Den gratis prøveperioden vises nå også for årsabonnementet når den er tilgjengelig for deg
+- Før data sendes til en ekstern AI-tjeneste for transkripsjon og referater, ser du nå hvor og hva som sendes
 
 [Feilrettinger]
 - Rettet at «Kjøpet mislyktes» ble vist når et kjøp ble avbrutt
