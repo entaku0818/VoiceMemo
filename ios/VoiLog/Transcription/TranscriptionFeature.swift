@@ -198,6 +198,8 @@ struct TranscriptionFeature {
         var result: Result?
         var selectedLanguage: String
         var savedText: String?
+        /// 外部の AI へ音声を送る前の同意画面（Guideline 5.1.2(i)）
+        var showAIConsent = false
 
         init(audioURL: URL, status: Status = .idle, result: Result? = nil, savedText: String? = nil) {
             self.audioURL = audioURL
@@ -232,6 +234,8 @@ struct TranscriptionFeature {
 
     enum Action {
         case startTapped
+        case aiConsentAccepted
+        case aiConsentDeclined
         case languageChanged(String)
         case reset
         case _uploadCompleted(blobName: String, uploadURL: String)
@@ -246,42 +250,27 @@ struct TranscriptionFeature {
 
     @Dependency(\.transcriptionClient) var client
     @Dependency(\.firebaseAuthClient) var firebaseAuth
+    @Dependency(\.userDefaults) var userDefaults
 
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
             case .startTapped:
-                state.status = .uploading
-                let audioURL = state.audioURL
-                let ext = audioURL.pathExtension.isEmpty ? "m4a" : audioURL.pathExtension
-                let mimeType = ext == "m4a" ? "audio/mp4" : "audio/\(ext)"
-                let lang = state.selectedLanguage
-                return .run { send in
-                    do {
-                        let idToken = try await firebaseAuth.currentUserIDToken(false)
-                        let (uploadResp, tokenAfterUpload) = try await withAuthRetry(
-                            firebaseAuth: firebaseAuth,
-                            currentToken: idToken
-                        ) { token in
-                            try await client.uploadURL(token, ext)
-                        }
-                        await send(._uploadCompleted(blobName: uploadResp.blobName, uploadURL: uploadResp.uploadUrl))
-                        try await client.uploadAudio(audioURL, uploadResp.uploadUrl, mimeType)
-                        let (resp, _) = try await withAuthRetry(
-                            firebaseAuth: firebaseAuth,
-                            currentToken: tokenAfterUpload
-                        ) { token in
-                            try await client.transcribe(token, uploadResp.blobName, lang)
-                        }
-                        await send(._transcriptionCompleted(.init(
-                            transcription: resp.transcription,
-                            segments: resp.segments ?? [],
-                            summary: resp.summary ?? ""
-                        )))
-                    } catch {
-                        await send(._failed(error.localizedDescription))
-                    }
+                // 音声を外部の AI に送る前に、送信先と内容を示して同意をもらう（一度同意したら次からは聞かない）
+                guard userDefaults.bool(AIDataSharingConsent.userDefaultsKey) else {
+                    state.showAIConsent = true
+                    return .none
                 }
+                return startTranscription(&state)
+
+            case .aiConsentAccepted:
+                state.showAIConsent = false
+                userDefaults.set(true, AIDataSharingConsent.userDefaultsKey)
+                return startTranscription(&state)
+
+            case .aiConsentDeclined:
+                state.showAIConsent = false
+                return .none
 
             case let .languageChanged(lang):
                 state.selectedLanguage = lang
@@ -308,6 +297,40 @@ struct TranscriptionFeature {
 
             case .delegate:
                 return .none
+            }
+        }
+    }
+
+    private func startTranscription(_ state: inout State) -> Effect<Action> {
+        state.status = .uploading
+        let audioURL = state.audioURL
+        let ext = audioURL.pathExtension.isEmpty ? "m4a" : audioURL.pathExtension
+        let mimeType = ext == "m4a" ? "audio/mp4" : "audio/\(ext)"
+        let lang = state.selectedLanguage
+        return .run { send in
+            do {
+                let idToken = try await firebaseAuth.currentUserIDToken(false)
+                let (uploadResp, tokenAfterUpload) = try await withAuthRetry(
+                    firebaseAuth: firebaseAuth,
+                    currentToken: idToken
+                ) { token in
+                    try await client.uploadURL(token, ext)
+                }
+                await send(._uploadCompleted(blobName: uploadResp.blobName, uploadURL: uploadResp.uploadUrl))
+                try await client.uploadAudio(audioURL, uploadResp.uploadUrl, mimeType)
+                let (resp, _) = try await withAuthRetry(
+                    firebaseAuth: firebaseAuth,
+                    currentToken: tokenAfterUpload
+                ) { token in
+                    try await client.transcribe(token, uploadResp.blobName, lang)
+                }
+                await send(._transcriptionCompleted(.init(
+                    transcription: resp.transcription,
+                    segments: resp.segments ?? [],
+                    summary: resp.summary ?? ""
+                )))
+            } catch {
+                await send(._failed(error.localizedDescription))
             }
         }
     }
@@ -367,6 +390,12 @@ struct TranscriptionView: View {
             .sheet(isPresented: $showShareSheet) {
                 ShareSheet(items: [shareText])
             }
+            .aiDataSharingConsentSheet(
+                isPresented: store.showAIConsent,
+                purpose: .transcription,
+                onAccept: { store.send(.aiConsentAccepted) },
+                onDecline: { store.send(.aiConsentDeclined) }
+            )
         }
     }
 

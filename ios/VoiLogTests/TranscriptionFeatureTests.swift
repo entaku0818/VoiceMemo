@@ -19,7 +19,8 @@ final class TranscriptionFeatureTests: XCTestCase {
         generateMinutes: @escaping @Sendable (String, String, String) async throws -> TranscriptionClient.MinutesResponse = { _, _, _ in
             .init(summary: "テスト議事録", todos: [])
         },
-        currentUserIDToken: @escaping @Sendable (Bool) async throws -> String = { _ in "test-token" }
+        currentUserIDToken: @escaping @Sendable (Bool) async throws -> String = { _ in "test-token" },
+        aiConsentGiven: Bool = true
     ) -> TestStore<TranscriptionFeature.State, TranscriptionFeature.Action> {
         TestStore(
             initialState: TranscriptionFeature.State(audioURL: testURL, status: status)
@@ -33,6 +34,7 @@ final class TranscriptionFeatureTests: XCTestCase {
                 generateMinutes: generateMinutes
             )
             $0.firebaseAuthClient = FirebaseAuthClient(currentUserIDToken: currentUserIDToken)
+            $0.userDefaults.bool = { key in key == AIDataSharingConsent.userDefaultsKey && aiConsentGiven }
         }
     }
 
@@ -270,5 +272,50 @@ final class TranscriptionFeatureTests: XCTestCase {
         // delegate action が reducer に副作用を起こさないことを確認
         XCTAssertEqual(store.state.status, .idle)
         XCTAssertNil(store.state.result)
+    }
+
+    // MARK: - 外部の AI への送信の同意（Guideline 5.1.2(i)）
+
+    func testStartTapped_withoutConsent_showsConsentAndSendsNothing() async {
+        let uploadCalled = LockIsolated(false)
+        let store = makeStore(
+            uploadURL: { _, _ in
+                uploadCalled.setValue(true)
+                return .init(uploadUrl: "u", fileId: "f", blobName: "b")
+            },
+            aiConsentGiven: false
+        )
+
+        await store.send(.startTapped) {
+            $0.showAIConsent = true
+        }
+        XCTAssertEqual(store.state.status, .idle)
+        XCTAssertFalse(uploadCalled.value, "同意前に音声を送ってはいけない")
+    }
+
+    func testConsentAccepted_savesConsentAndStartsUpload() async {
+        let saved = LockIsolated<[String: Bool]>([:])
+        let store = makeStore(aiConsentGiven: false)
+        store.dependencies.userDefaults.set = { value, key in saved.withValue { $0[key] = value } }
+        store.exhaustivity = .off
+
+        await store.send(.startTapped) { $0.showAIConsent = true }
+        await store.send(.aiConsentAccepted) {
+            $0.showAIConsent = false
+            $0.status = .uploading
+        }
+        await store.skipReceivedActions()
+        XCTAssertEqual(saved.value[AIDataSharingConsent.userDefaultsKey], true)
+    }
+
+    func testConsentDeclined_staysIdleAndDoesNotSaveConsent() async {
+        let saved = LockIsolated<[String: Bool]>([:])
+        let store = makeStore(aiConsentGiven: false)
+        store.dependencies.userDefaults.set = { value, key in saved.withValue { $0[key] = value } }
+
+        await store.send(.startTapped) { $0.showAIConsent = true }
+        await store.send(.aiConsentDeclined) { $0.showAIConsent = false }
+        XCTAssertEqual(store.state.status, .idle)
+        XCTAssertNil(saved.value[AIDataSharingConsent.userDefaultsKey])
     }
 }

@@ -219,6 +219,12 @@ struct AITranscriptionTab: View {
                 }
             }
         }
+        .aiDataSharingConsentSheet(
+            isPresented: store.showAIConsent,
+            purpose: .transcription,
+            onAccept: { store.send(.aiConsentAccepted) },
+            onDecline: { store.send(.aiConsentDeclined) }
+        )
     }
 
     // MARK: Idle
