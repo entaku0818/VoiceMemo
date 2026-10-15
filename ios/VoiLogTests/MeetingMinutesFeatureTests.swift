@@ -158,4 +158,70 @@ final class MeetingMinutesFeatureTests: XCTestCase {
         await store.send(.view(.upgradeTapped)) { $0.showPaywall = true }
         await store.send(.view(.paywallDismissed)) { $0.showPaywall = false }
     }
+
+    // MARK: - 外部の AI への送信の同意（Guideline 5.1.2(i)）
+
+    func testGenerateTapped_cloudWithoutConsent_showsConsentAndSendsNothing() async {
+        let generateCalled = LockIsolated(false)
+        let store = makeStore(generate: { _ in
+            generateCalled.setValue(true)
+            return MeetingMinutesResult(summary: "s", todos: [])
+        })
+        store.dependencies.meetingMinutesClient.usesCloud = { true }
+        store.dependencies.userDefaults.bool = { _ in false }
+
+        await store.send(.view(.generateTapped)) { $0.showAIConsent = true }
+        XCTAssertEqual(store.state.status, .idle)
+        XCTAssertFalse(generateCalled.value, "同意前に文字起こしテキストを送ってはいけない")
+    }
+
+    func testConsentAccepted_savesConsentAndGenerates() async {
+        let saved = LockIsolated<[String: Bool]>([:])
+        let store = makeStore()
+        store.dependencies.meetingMinutesClient.usesCloud = { true }
+        store.dependencies.userDefaults.bool = { _ in false }
+        store.dependencies.userDefaults.set = { value, key in saved.withValue { $0[key] = value } }
+
+        await store.send(.view(.generateTapped)) { $0.showAIConsent = true }
+        await store.send(.view(.aiConsentAccepted)) {
+            $0.showAIConsent = false
+            $0.status = .generating
+        }
+        await store.receive(\._generationCompleted) {
+            $0.status = .done(MeetingMinutesResult(summary: "テスト要約", todos: ["TODO 1", "TODO 2"]))
+        }
+        XCTAssertEqual(saved.value[AIDataSharingConsent.userDefaultsKey], true)
+    }
+
+    func testConsentDeclined_staysIdle() async {
+        let store = makeStore()
+        store.dependencies.meetingMinutesClient.usesCloud = { true }
+        store.dependencies.userDefaults.bool = { _ in false }
+
+        await store.send(.view(.generateTapped)) { $0.showAIConsent = true }
+        await store.send(.view(.aiConsentDeclined)) { $0.showAIConsent = false }
+        XCTAssertEqual(store.state.status, .idle)
+    }
+
+    func testGenerateTapped_cloudWithConsent_generatesWithoutAsking() async {
+        let store = makeStore()
+        store.dependencies.meetingMinutesClient.usesCloud = { true }
+        store.dependencies.userDefaults.bool = { key in key == AIDataSharingConsent.userDefaultsKey }
+
+        await store.send(.view(.generateTapped)) { $0.status = .generating }
+        await store.receive(\._generationCompleted) {
+            $0.status = .done(MeetingMinutesResult(summary: "テスト要約", todos: ["TODO 1", "TODO 2"]))
+        }
+    }
+
+    func testGenerateTapped_onDevice_doesNotAskForConsent() async {
+        let store = makeStore()
+        store.dependencies.meetingMinutesClient.usesCloud = { false }
+        store.dependencies.userDefaults.bool = { _ in false }
+
+        await store.send(.view(.generateTapped)) { $0.status = .generating }
+        await store.receive(\._generationCompleted) {
+            $0.status = .done(MeetingMinutesResult(summary: "テスト要約", todos: ["TODO 1", "TODO 2"]))
+        }
+    }
 }

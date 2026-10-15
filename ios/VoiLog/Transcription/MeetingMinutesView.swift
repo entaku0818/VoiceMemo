@@ -27,6 +27,12 @@ struct MeetingMinutesView: View {
                 }
             }
         }
+        .aiDataSharingConsentSheet(
+            isPresented: store.showAIConsent,
+            purpose: .minutes,
+            onAccept: { store.send(.view(.aiConsentAccepted)) },
+            onDecline: { store.send(.view(.aiConsentDeclined)) }
+        )
     }
 
     // MARK: - Premium prompt

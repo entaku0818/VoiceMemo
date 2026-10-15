@@ -13,6 +13,9 @@ struct MeetingMinutesResult: Equatable, Sendable {
 
 struct MeetingMinutesClient: Sendable {
     var generate: @Sendable (String) async throws -> MeetingMinutesResult
+    /// クラウド（外部の AI）で作るか。Apple Intelligence が使えない端末では true。
+    /// true のときは送信前に同意を取る（Guideline 5.1.2(i)）
+    var usesCloud: @Sendable () -> Bool = { false }
 }
 
 enum MeetingMinutesError: Error, LocalizedError, Equatable {
@@ -36,7 +39,7 @@ enum MeetingMinutesError: Error, LocalizedError, Equatable {
 }
 
 extension MeetingMinutesClient: DependencyKey {
-    static let liveValue = MeetingMinutesClient { text in
+    static let liveValue = MeetingMinutesClient(generate: { text in
         try await MeetingMinutesGenerator.generate(
             text: text,
             isOnDeviceAvailable: {
@@ -51,7 +54,10 @@ extension MeetingMinutesClient: DependencyKey {
                 try await MeetingMinutesCloudFallback().generate(text: text)
             }
         )
-    }
+    }, usesCloud: {
+        guard #available(iOS 26, *) else { return true }
+        return !SystemLanguageModel.default.isAvailable
+    })
 
     static let testValue = MeetingMinutesClient { _ in
         MeetingMinutesResult(
@@ -156,6 +162,8 @@ struct MeetingMinutesFeature {
         var showPaywall = false
         /// ロック画面のペイウォールで購入した。親から渡る課金状態は開き直すまで古いままなので、こちらで解除する
         var unlockedByPurchase = false
+        /// 外部の AI へ文字起こしテキストを送る前の同意画面（Guideline 5.1.2(i)）
+        var showAIConsent = false
 
         enum Status: Equatable {
             case idle
@@ -178,6 +186,8 @@ struct MeetingMinutesFeature {
             case saveTapped
             case upgradeTapped
             case paywallDismissed
+            case aiConsentAccepted
+            case aiConsentDeclined
         }
 
         @CasePathable
@@ -193,18 +203,21 @@ struct MeetingMinutesFeature {
         Reduce { state, action in
             switch action {
             case .view(.generateTapped):
-                state.status = .generating
-                let text = state.transcriptionText
-                return .run { send in
-                    do {
-                        let result = try await meetingMinutesClient.generate(text)
-                        await send(._generationCompleted(result))
-                    } catch {
-                        let message = (error as? MeetingMinutesError)?.errorDescription
-                            ?? error.localizedDescription
-                        await send(._generationFailed(message))
-                    }
+                // クラウドで作るときは、テキストを外部の AI に送る前に同意をもらう（一度同意したら次からは聞かない）
+                if meetingMinutesClient.usesCloud(), !userDefaults.bool(AIDataSharingConsent.userDefaultsKey) {
+                    state.showAIConsent = true
+                    return .none
                 }
+                return generate(&state)
+
+            case .view(.aiConsentAccepted):
+                state.showAIConsent = false
+                userDefaults.set(true, AIDataSharingConsent.userDefaultsKey)
+                return generate(&state)
+
+            case .view(.aiConsentDeclined):
+                state.showAIConsent = false
+                return .none
 
             case .view(.saveTapped):
                 guard case let .done(result) = state.status else { return .none }
@@ -233,6 +246,21 @@ struct MeetingMinutesFeature {
 
             case .delegate:
                 return .none
+            }
+        }
+    }
+
+    private func generate(_ state: inout State) -> Effect<Action> {
+        state.status = .generating
+        let text = state.transcriptionText
+        return .run { send in
+            do {
+                let result = try await meetingMinutesClient.generate(text)
+                await send(._generationCompleted(result))
+            } catch {
+                let message = (error as? MeetingMinutesError)?.errorDescription
+                    ?? error.localizedDescription
+                await send(._generationFailed(message))
             }
         }
     }
