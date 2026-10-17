@@ -130,3 +130,23 @@ Releaseビルドの初回失敗は、共有SPMキャッシュを指定した際�
 ASC確認: 1.17.0 は `REJECTED`、version ID `1e7f49cf-1fa0-4a0d-ad43-d37fdef296d3`。最新ビルド24のIDは `c4b32e12-ad44-46e7-8eca-a37b4474b095`（2026-10-15アップロード）。25は未使用。既存の `fix/ai-consent` のHEAD `1fb13efd` は `origin/main` と同じであり、今回の追加修正をmainに反映する。
 
 Hosting設定は `lp/firebase.json` と `lp/.firebaserc` に存在し、対象プロジェクトは `voilog`。ルートのfirebase.jsonだけを見た準備段階の記載を補足する。
+
+### 実行記録（2026-10-18 JST）
+
+- 修正コミット `5e7903108745ae8ac7751494a57d3bf4099acfd6` を `main` にfast-forwardし、`origin/main` へpush済み。既存の未追跡メモは保持。
+- 署名付きarchive/export成功。IPA: `build/ai-consent-25/export/VoiLog.ipa`、version 1.17.0/build 25、SHA256 `774c4f223fbb1981fde2811111199eae33ae81557e1bbb2d666b19fa910c56ed`。実バイナリに音声/議事録それぞれのv2同意キーが含まれることを確認。
+- 01:20 JST アップロード成功。Delivery UUID: `a1999c00-d44d-45c6-a50c-6e10b205ed47`。
+- Firebase Hosting `voilog` にポリシーを公開済み。HTTPSで再取得した `privacy_policy.html` が管理ファイルとバイト一致。
+- 各言語メタデータとApp Review Informationの操作手順を更新済み。既存ストアスクリーンショットは変更対象外のため維持。
+- 01:22 JST、前回SubmissionのApp Reviewに英語回答を送信。画面でメッセージ数が2→3へ増加し、送信者と返信本文の表示を確認。内容は修正版25、音声/テキストの別同意、Google Cloud/Gemini、旧同意無効化、公開済みポリシー、iPadでの操作とmock検証の範囲を説明。
+- main pushに伴う追加CI: https://github.com/entaku0818/VoiceMemo/actions/runs/39048651259 （この記録時点で実行中）。
+
+### 再提出完了
+
+2026-10-18 01:29:27 JST、App Store Connectの再提出操作後、APIでversion 1.17.0が `WAITING_FOR_REVIEW` になったことを確認。審査対象はbuild **25**、build ID `a1999c00-d44d-45c6-a50c-6e10b205ed47`（processingState `VALID`）。前回Submission `3fd60d24-b6db-4c19-ad35-5004382c7e64` の修正として再提出した。リリース設定は既存の `MANUAL` を維持し、承認後のストア公開は別操作。
+
+`launchpad` でビルド差し替え・メタデータ更新・状態照会を実施。再提出については、CLIのsubmit実装がREADY_FOR_REVIEWのsubmissionのみを再利用するため、既存UNRESOLVED_ISSUESの提出を扱えるApp Store Connect UIで「審査内容を更新」→「App Reviewに再提出」を実行した。
+
+タグ `v1.17.0-build25` は修正コミット `5e790310` を指してpush済み。GitHub Releaseは審査候補のdraftとして作成し、App Store公開済みとは扱っていない。
+
+最終記録時点の追加CIは、両schemeのbuildが成功し、全体テストが実行中。今回必要な関連61 unit + 2 iPad UIテスト、lint、Release Simulator buildは上述のとおり全て成功済み。記録のみの後続コミットはCI再起動を省略し、修正コミットのCIを継続させる。
