@@ -106,6 +106,7 @@ final class MeetingMinutesCloudFallbackTests: XCTestCase {
                 uploadAudio: { _, _, _ in },
                 generateMinutes: generateMinutes
             )
+            $0.userDefaults.bool = { key in key == AIDataSharingConsent.minutesKey }
             $0.firebaseAuthClient = FirebaseAuthClient(currentUserIDToken: currentUserIDToken)
         } operation: {
             MeetingMinutesCloudFallback()
@@ -154,4 +155,23 @@ final class MeetingMinutesCloudFallbackTests: XCTestCase {
             }
         }
     }
+    func testFallback_withoutTextConsent_blocksAvailabilityRaceBeforeAuthentication() async {
+        await withDependencies {
+            $0.userDefaults.bool = { $0 == AIDataSharingConsent.transcriptionKey }
+            $0.firebaseAuthClient.currentUserIDToken = { _ in
+                XCTFail("Cloud fallback must not authenticate without text consent")
+                return "token"
+            }
+        } operation: {
+            do {
+                _ = try await MeetingMinutesCloudFallback().generate(text: "Private meeting")
+                XCTFail("Expected consentRequired")
+            } catch {
+                guard case .consentRequired = error as? TranscriptionError else {
+                    return XCTFail("Unexpected error: \(error)")
+                }
+            }
+        }
+    }
+
 }

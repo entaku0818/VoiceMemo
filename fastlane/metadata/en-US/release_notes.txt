@@ -3,7 +3,9 @@ Version 1.17.0
 [Improvements]
 - You can now go to Premium from the AI meeting minutes screen
 - The free trial is now shown for the annual plan too, when it's available to you
-- Before data is sent to an external AI service for transcription or minutes, you can now see where it goes and what is sent
+- AI transcription and cloud meeting minutes now explain the data, recipient, and purpose, with separate choices to allow or decline
+- Existing users are asked to review the updated disclosure
+- AI transcription from Shortcuts also requires prior consent in the app
 
 [Bug Fixes]
 - Fixed "Purchase failed" being shown when you cancel a purchase

@@ -41,15 +41,27 @@
 <p>当社は、当社サービスの向上のため、Google社のGoogle Firebase、Google Firebase Crashlyticsを利用しての当社サービスの利用者動向の計測を行っています。データ取得のためにGoogle社が独自のIDを設定し、または既存のデバイスIDを読み取る場合があります。その際、Google社に対して、お客様が操作した内容やIPアドレスなどの情報を自動的に送信します。</p>
 
 <h2>■ AI機能（AI文字起こし・議事録）で送信する情報</h2>
-<p>当社サービスのAI文字起こし・議事録機能では、Google社のAIサービス（Gemini API）を利用しています。</p>
+<p>AI文字起こしとクラウドでの議事録作成には、Google の Gemini API を利用します。以下はこれらの機能に固有の説明です。</p>
 <ul>
-    <li>送信する情報：AI文字起こしでは、ユーザが選んだ録音の音声データと文字起こしの言語を送信します。議事録の作成では、端末内のAI（Apple Intelligence）が使えない場合に限り、文字起こしのテキストを送信します。Apple Intelligence が使える端末では、議事録は端末内で作成し、外部には送信しません。</li>
-    <li>送信の流れ：上記の情報は、当社のサーバー（Google Cloud）を経由して Google社の Gemini API に送信されます。氏名、メールアドレス、広告識別子などの、ユーザを特定するための情報は送信しません。当社のサーバーでは、不正利用の防止と利用回数の制限のために、ユーザごとに自動で発行される匿名のIDを使いますが、このIDは Gemini API には送信しません。</li>
-    <li>個人に関する情報が含まれる可能性：録音の音声やその文字起こしには、話している人の声や会話の内容など、個人に関する情報が含まれることがあります。</li>
-    <li>同意：当社サービスは、これらの情報を初めて送信する前に、送信先と送信する内容を表示し、ユーザの同意を得ます。同意しない場合、AI文字起こし・議事録（端末内のAIが使えない場合）は利用できませんが、それ以外の機能は引き続き利用できます。</li>
-    <li>利用目的と保管：送信した情報は、文字起こし・議事録の作成のためにだけ使います。処理のために当社のサーバーに一時的に保存した音声データは、処理が終わると削除し、処理できなかった場合も1日以内に自動で削除します（削除後、障害に備えて最大7日間は復元可能な状態で保持されます）。文字起こし・議事録の結果は当社のサーバーには保存せず、ユーザの端末に保存されます。</li>
+    <li>収集方法・送信内容・目的：ユーザが選んだ録音の音声と言語設定を送信し、文字起こし、話者の区別、要約を作成します。クラウド議事録では、文字起こしのテキストと言語設定を送信し、要約とTODOを作成します。議事録作成の操作だけでは音声ファイルを送信しません。音声・テキストに含まれる氏名や連絡先、話している人の声、会話の内容も送信対象です。</li>
+    <li>共有先・送信経路：音声は Google Cloud Storage に一時保存し、Google Cloud Run 上の当社サーバーから Google の Gemini API に転送します。テキストは当社サーバーから Gemini API に送ります。Google Firebase Authentication の匿名認証IDと認証トークンを、当社サーバーでの認証、不正利用防止、利用制限に使用します。匿名IDは音声の保存先パスにも含まれます。当社はこのIDや広告IDを Gemini の生成リクエストに追加しません。ただし、音声・テキスト内の個人情報は自動的に除去されません。</li>
+    <li>選択と同意：音声送信とテキスト送信について、それぞれ送信前にアプリ内で内容、共有先、目的を説明し、「同意して送信する」または「送信しない」を選べる画面を表示します。許可は同じ機能の今後の利用（音声文字起こしのショートカットを含む）にも適用され、設定の「AI送信の許可をリセット」から今後の送信への許可を取り消せます。既に送信・処理済みのデータを取り消すものではありません。説明を更新した場合は必要に応じて再同意を求めます。同意前と拒否した場合は、該当するAI処理のための認証・アップロード・生成リクエストを開始しません。録音・再生などは引き続き利用できます。ショートカットも音声送信の同意が必要で、未同意ならアプリでの確認を案内します。</li>
+    <li>端末内の処理：Apple Intelligence が利用可能な場合の議事録生成は端末内で行います。利用できない場合、テキスト送信への同意なしにクラウドへ切り替えて送信することはありません。Appleの音声認識は別の機能であり、OSの音声認識許可に従いAppleのサービスに音声が送信される場合があります。</li>
+    <li>保存と削除：Cloud Storage の音声は Gemini への転送成功後に削除を要求します。失敗などで残った音声は作成から1日経過すると自動削除の対象になります。実際の削除は非同期のため、24時間以内の完了を保証するものではありません。削除された音声は7日間復元可能な状態で保持されます。Gemini Files にアップロードした音声にも処理終了時に削除を要求します。これらの削除要求は、Googleが安全性確保などのために扱うログの即時削除を意味しません。文字起こし・議事録の結果はアプリに返し、端末に保存します。当社の文字起こしサーバーは結果をデータベースに保存しません。ユーザが利用するiCloud同期・端末バックアップ・共有機能は別途適用されます。</li>
+    <li>運用情報：サービスの運用、障害調査、不正利用防止のため、リクエスト時刻、認証情報、IPアドレス等の通信情報、処理状況、エラー、トークン使用量などをGoogle Cloud等のサービスが処理します。当社サーバーは処理状況・エラー・使用量を記録し、障害通知にSlackを利用します。AIの入力内容を広告配信のために利用する処理はありません。</li>
 </ul>
-<p>English summary: The AI transcription and meeting-minutes features use Google's Gemini API. When you use AI transcription, the audio of the recording you choose (and the selected language) is sent to the Gemini API through our server. For meeting minutes, the transcript text is sent only when on-device Apple Intelligence is not available. Recordings may contain personal information such as voices and conversation content. We do not send your name, email address or advertising identifier. The app asks for your consent before sending this data for the first time. The data is used only to produce the transcript or minutes; temporary audio files on our server are deleted after processing (or automatically within one day if processing fails; deleted files remain recoverable for up to 7 days for disaster recovery), and results are stored only on your device.</p>
+<p>本機能は請求先が有効なプロジェクトを通じて Gemini API の有料サービスを利用します。有料サービスの条件では、Google は入力と出力を製品改善に利用せず、<a href="https://business.safety.google/processorterms/">データ処理条項</a>に基づいて処理します。一方、安全性確保、不正利用検出、法令対応のため一定期間ログが保持される場合があります。Googleによるデータの取扱いは、<a href="https://ai.google.dev/gemini-api/terms">Gemini API追加利用規約</a>および適用されるデータ保護条件に従います。共有先には、本ポリシーで説明する個人データの保護と同等以上の保護を求め、利用目的の制限、機密保持、アクセス管理、安全管理、削除に関する条件を確認します。</p>
+
+
+<h2 lang="en">AI transcription and meeting minutes</h2>
+<div lang="en">
+<p>These features use Google's Gemini API. For AI transcription, we collect the selected recording's audio and language setting to transcribe speech, distinguish speakers and create a summary. For cloud meeting minutes, we send the transcript text and language setting to generate a summary and to-do items; this operation does not upload the audio file. Personal information within the content, including names, contact details and voices, is included and is not automatically removed.</p>
+<p>Audio passes through Google Cloud Storage and our server on Google Cloud Run to the Gemini API. Text passes through our server to the Gemini API. Google Firebase Authentication provides an anonymous ID and token for authentication, abuse prevention and usage limits. The ID is also used in the audio storage path. We do not add this ID or advertising IDs to Gemini generation requests.</p>
+<p>The app separately explains and requests permission for audio and transcript sharing before the corresponding cloud operation. You can allow or decline. Permission also applies to future uses of the same feature, including audio-transcription Shortcuts. You can withdraw permission for future requests using Settings > Reset AI sharing permissions; this does not recall data already sent. Earlier consent does not replace consent to the updated disclosure. Without permission, authentication for that operation, uploads and generation do not start. Recording and playback remain available. Shortcuts require prior audio-sharing consent in the app. On-device Apple Intelligence minutes stay on the device; cloud fallback requires text-sharing consent. Apple's speech recognition is separate and may send audio to Apple under the OS speech-recognition permission.</p>
+<p>We request deletion of the Cloud Storage audio after transfer to Gemini. Remaining objects become eligible for lifecycle deletion at an age of one day; deletion is asynchronous, so completion within 24 hours is not guaranteed. Deleted objects are recoverable for seven days. We request deletion of the Gemini Files upload when processing ends. These requests do not imply immediate deletion of Google's safety logs. Results are returned to and saved by the app, not stored in a database by our transcription server. Separately used iCloud sync, device backups and sharing may also apply.</p>
+<p>Operational data such as request times, authentication details, IP addresses, status, errors and token usage may be processed for service operation, troubleshooting and abuse prevention. Our server records status, errors and usage and uses Slack for failure notifications. AI input is not used by our implementation for advertising.</p>
+<p>We use Gemini API Paid Services through a project with active billing. Under those terms, Google does not use inputs or outputs for product improvement and processes them under its <a href="https://business.safety.google/processorterms/">Data Processing Addendum</a>. Google may retain logs for safety, abuse detection and legal obligations. Google's processing is governed by the <a href="https://ai.google.dev/gemini-api/terms">Gemini API terms</a> and applicable data-protection terms. We require recipients to provide protection equal to or greater than that described in this policy, including purpose limitation, confidentiality, access controls, security and deletion obligations.</p>
+</div>
 
 <h2>■ 業務委託</h2>
 <p>当社は、当社サービスの提供に必要な一部の業務（例：カスタマーサポートなど）を、第三者に業務委託する場合があります。これにあたり、個人情報の全部または一部を当該業務委託先に預託することがあります。これらの業務委託先は、当社に代わって業務を遂行するために必要最低限の個人情報にのみアクセスし、委託業務の範囲を超えて個人情報を利用することはありません。</p>
@@ -96,7 +108,7 @@
 <p>本ポリシーは、日本語を正文とします。本ポリシーを他の言語に翻訳したうえで公表している場合においても、当該他の言語の規定と日本語の規定とが矛盾する場合においては、日本語の規定が優先するものとします。</p>
 
 <h2>■ 制定・改定</h2>
-<p>2024年05月01日制定</p>
+<p>2024年05月01日制定。2026年10月18日改定。</p>
 
 </body>
 </html>

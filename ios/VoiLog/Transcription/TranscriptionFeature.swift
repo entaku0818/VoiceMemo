@@ -62,12 +62,15 @@ struct TranscriptionClient {
 }
 
 enum TranscriptionError: LocalizedError {
+    case consentRequired
     case notAuthenticated
     case uploadFailed(Int)
     case serverError(Int, String)
 
     var errorDescription: String? {
         switch self {
+        case .consentRequired:
+            return String(localized: "Your consent is required before sending. Open a recording in the app and review the data-sharing notice for AI transcription or meeting minutes.", table: "Transcription")
         case .notAuthenticated:
             return String(localized: "接続に失敗しました。ネットワークを確認してください。", table: "Transcription")
         case .uploadFailed:
@@ -93,6 +96,7 @@ extension TranscriptionClient: DependencyKey {
 
     static let liveValue = TranscriptionClient(
         uploadURL: { idToken, ext in
+            try AIDataSharingConsent.require(.transcription)
             let url = URL(string: "\(serverBaseURL)/upload-url")!
             var req = URLRequest(url: url)
             req.httpMethod = "POST"
@@ -108,6 +112,7 @@ extension TranscriptionClient: DependencyKey {
             return try JSONDecoder().decode(UploadURLResponse.self, from: data)
         },
         transcribe: { idToken, blobName, language in
+            try AIDataSharingConsent.require(.transcription)
             let url = URL(string: "\(serverBaseURL)/transcribe")!
             var req = URLRequest(url: url)
             req.httpMethod = "POST"
@@ -129,6 +134,7 @@ extension TranscriptionClient: DependencyKey {
             }
         },
         uploadAudio: { fileURL, signedURL, mimeType in
+            try AIDataSharingConsent.require(.transcription)
             let data = try Data(contentsOf: fileURL)
             var req = URLRequest(url: URL(string: signedURL)!)
             req.httpMethod = "PUT"
@@ -141,6 +147,7 @@ extension TranscriptionClient: DependencyKey {
             }
         },
         generateMinutes: { idToken, text, language in
+            try AIDataSharingConsent.require(.minutes)
             let url = URL(string: "\(serverBaseURL)/minutes")!
             var req = URLRequest(url: url)
             req.httpMethod = "POST"
@@ -257,15 +264,16 @@ struct TranscriptionFeature {
             switch action {
             case .startTapped:
                 // 音声を外部の AI に送る前に、送信先と内容を示して同意をもらう（一度同意したら次からは聞かない）
-                guard userDefaults.bool(AIDataSharingConsent.userDefaultsKey) else {
+                guard userDefaults.bool(AIDataSharingConsent.transcriptionKey) else {
                     state.showAIConsent = true
                     return .none
                 }
                 return startTranscription(&state)
 
             case .aiConsentAccepted:
+                guard state.showAIConsent else { return .none }
                 state.showAIConsent = false
-                userDefaults.set(true, AIDataSharingConsent.userDefaultsKey)
+                userDefaults.set(true, AIDataSharingConsent.transcriptionKey)
                 return startTranscription(&state)
 
             case .aiConsentDeclined:

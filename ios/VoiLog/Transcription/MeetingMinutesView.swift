@@ -101,6 +101,7 @@ struct MeetingMinutesView: View {
                 ) {
                     store.send(.view(.generateTapped))
                 }
+                .accessibilityIdentifier("aiMinutes.start")
                 .buttonStyle(.borderedProminent)
                 .tint(.purple)
                 .controlSize(.large)

@@ -18,6 +18,7 @@ struct SettingReducer {
         case quantizationBitDepth(Int)
         case numberOfChannels(Int)
         case microphonesVolume(Double)
+        case revokeAIConsent
         case onAppear
         case startTutorial
         case delegate(DelegateAction)
@@ -105,7 +106,13 @@ struct SettingReducer {
             state.showPurchaseSuccessAlert = true
             userDefaults.setHasSupportedDeveloper(true)
             return .none
+        case .revokeAIConsent:
+            userDefaults.set(false, AIDataSharingConsent.transcriptionKey)
+            userDefaults.set(false, AIDataSharingConsent.minutesKey)
+            state.aiConsentRevoked = true
+            return .none
         case .onAppear:
+            state.aiConsentRevoked = false
             state.developerSupported = userDefaults.hasSupportedDeveloper()
             state.hasPurchasedPremium = userDefaults.hasPurchasedProduct()
             state.dailyReminderEnabled = UserDefaults.standard.bool(forKey: "DailyReminderEnabled")
@@ -223,6 +230,7 @@ struct SettingReducer {
         var microphonesVolume: Double
         var developerSupported: Bool
         var hasPurchasedPremium: Bool
+        var aiConsentRevoked = false
         var showFeedbackSheet = false
         var dailyReminderEnabled = false
         var dailyReminderHour: Int = 9
@@ -604,6 +612,13 @@ struct SettingView: View {
                 get: { store.isTranscriptionEnabled },
                 set: { store.send(.toggleTranscription($0)) }
             ))
+            Button(String(localized: "Reset AI sharing permissions", table: "Transcription")) {
+                store.send(.revokeAIConsent)
+            }
+            if store.aiConsentRevoked {
+                Text(String(localized: "AI sharing permissions have been reset. Future requests require consent again.", table: "Transcription"))
+                    .font(.footnote)
+            }
         }
     }
 

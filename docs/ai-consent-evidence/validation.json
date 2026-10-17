@@ -1,0 +1,37 @@
+{
+  "debugBuild": "passed",
+  "version": "1.17.0",
+  "build": "25",
+  "unitTests": {
+    "count": 61,
+    "failures": 0
+  },
+  "uiTests": {
+    "count": 2,
+    "failures": 0,
+    "device": "iPad Air 11-inch (M3) Simulator",
+    "os": "iOS 27.0",
+    "languages": [
+      "ja",
+      "en"
+    ],
+    "transport": "mock"
+  },
+  "lint": {
+    "exitCode": 0,
+    "warnings": 128,
+    "errors": 0
+  },
+  "releaseBuild": "passed",
+  "xcresult": "/private/tmp/voilog-ai-consent/Logs/Test/Test-VoiLog-2026.10.18_00-29-12-+0900.xcresult",
+  "releaseLog": "/private/tmp/voilog-ai-consent-release.log",
+  "releaseArtifact": {
+    "version": "1.17.0",
+    "build": "25",
+    "sha256": "2c207dafb163f267005f4356a39642ef2c0529011081b051ff50df86daabaf25",
+    "bothV2ConsentKeysPresent": true,
+    "debugFixtureResponseAbsent": true,
+    "platform": "iOS Simulator",
+    "signedForDistribution": false
+  }
+}

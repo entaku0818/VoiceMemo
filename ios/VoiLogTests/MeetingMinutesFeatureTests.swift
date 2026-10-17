@@ -190,7 +190,7 @@ final class MeetingMinutesFeatureTests: XCTestCase {
         await store.receive(\._generationCompleted) {
             $0.status = .done(MeetingMinutesResult(summary: "テスト要約", todos: ["TODO 1", "TODO 2"]))
         }
-        XCTAssertEqual(saved.value[AIDataSharingConsent.userDefaultsKey], true)
+        XCTAssertEqual(saved.value[AIDataSharingConsent.minutesKey], true)
     }
 
     func testConsentDeclined_staysIdle() async {
@@ -206,7 +206,7 @@ final class MeetingMinutesFeatureTests: XCTestCase {
     func testGenerateTapped_cloudWithConsent_generatesWithoutAsking() async {
         let store = makeStore()
         store.dependencies.meetingMinutesClient.usesCloud = { true }
-        store.dependencies.userDefaults.bool = { key in key == AIDataSharingConsent.userDefaultsKey }
+        store.dependencies.userDefaults.bool = { key in key == AIDataSharingConsent.minutesKey }
 
         await store.send(.view(.generateTapped)) { $0.status = .generating }
         await store.receive(\._generationCompleted) {
@@ -224,4 +224,16 @@ final class MeetingMinutesFeatureTests: XCTestCase {
             $0.status = .done(MeetingMinutesResult(summary: "テスト要約", todos: ["TODO 1", "TODO 2"]))
         }
     }
+    func testOldOrAudioConsent_doesNotAuthorizeText() async {
+        let store = makeStore()
+        store.dependencies.meetingMinutesClient.usesCloud = { true }
+        store.dependencies.userDefaults.bool = { key in
+            key == "ai_data_sharing_consent_v1" || key == AIDataSharingConsent.transcriptionKey
+        }
+        await store.send(.view(.generateTapped)) { $0.showAIConsent = true }
+        await store.send(.view(.aiConsentDeclined)) { $0.showAIConsent = false }
+        await store.send(.view(.aiConsentAccepted))
+        await store.send(.view(.generateTapped)) { $0.showAIConsent = true }
+    }
+
 }

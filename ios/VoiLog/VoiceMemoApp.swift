@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        #if DEBUG
+        if AIConsentUITestFixture.isEnabled { return true }
+        #endif
         // アプリ起動回数をインクリメント
         let appUsageCount = UserDefaults.standard.integer(forKey: "appUsageCount") + 1
         UserDefaults.standard.set(appUsageCount, forKey: "appUsageCount")
@@ -105,6 +108,9 @@ struct VoiceMemoApp: App {
         self.recordAdmobUnitId = environmentConfig.recordAdmobKey
         self.playListAdmobUnitId = environmentConfig.playListAdmobKey
 
+        #if DEBUG
+        if AIConsentUITestFixture.isEnabled { return }
+        #endif
         // RevenueCatを遅延初期化（StoreKit 2が重いため）
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
@@ -114,9 +120,26 @@ struct VoiceMemoApp: App {
         // 注: VoiceAppFeature内でreloadDataが呼ばれるので、ここでの読み込みは不要
     }
 
+    private var isConsentUITest: Bool {
+        #if DEBUG
+        AIConsentUITestFixture.isEnabled
+        #else
+        false
+        #endif
+    }
+
+    @ViewBuilder
+    private var consentUITestView: some View {
+        #if DEBUG
+        AIConsentUITestFixture.makeView()
+        #endif
+    }
+
     var body: some Scene {
         WindowGroup {
-            if isRunningUnitTests {
+            if isConsentUITest {
+                consentUITestView
+            } else if isRunningUnitTests {
                 // ユニットテスト時はアプリ UI を描画しない（#147 のフレーク対策）
                 EmptyView()
             } else if showSplash {

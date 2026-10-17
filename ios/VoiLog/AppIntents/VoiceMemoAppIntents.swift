@@ -126,6 +126,7 @@ struct TranscribeLatestRecordingIntent: AppIntent, ProgressReportingIntent {
 /// 保存プロパティとして宣言するとApp Intentsのメタデータ抽出（コンパイル時の
 /// 定数評価）がクラッシュするため、AppIntentに準拠しない別型に切り出している。
 struct LatestRecordingTranscriptionRunner {
+    @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.voiceMemoRepository) var repository
     @Dependency(\.transcriptionClient) var transcriptionClient
     @Dependency(\.firebaseAuthClient) var firebaseAuth
@@ -139,6 +140,9 @@ struct LatestRecordingTranscriptionRunner {
         _ recording: VoiceMemoRepositoryClient.VoiceMemoVoice,
         onProgress: (Int64) -> Void
     ) async throws -> String {
+        guard userDefaults.bool(AIDataSharingConsent.transcriptionKey) else {
+            throw TranscriptionError.consentRequired
+        }
         let audioURL = recording.url
         let ext = audioURL.pathExtension.isEmpty ? "m4a" : audioURL.pathExtension
         let mimeType = ext == "m4a" ? "audio/mp4" : "audio/\(ext)"

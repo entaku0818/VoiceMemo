@@ -1,0 +1,19 @@
+DRAFT — NOT SENT. Use after the policy update is published and replacement build 25 is uploaded/selected. Do not describe those steps as complete before they are done.
+
+Hello App Review Team,
+
+Thank you for your feedback on submission 3fd60d24-b6db-4c19-ad35-5004382c7e64, reviewed on October 16, 2026, for version 1.17.0 (24).
+
+We have prepared a replacement build addressing Guidelines 5.1.1(i) and 5.1.2(i):
+
+• Before AI transcription, an in-app sheet explains that the selected recording's audio and language setting are sent through Google Cloud / Cloud Storage to Google's Gemini API to transcribe speech, distinguish speakers and create a summary.
+• Cloud meeting minutes require separate permission to send transcript text and language through our Google Cloud server to the Gemini API for a summary and to-do items. This action does not send the audio file.
+• Both disclosures explain that personal information contained in the recording or transcript is included. Users explicitly choose “Agree and send” or “Don't send.” Declining does not start the corresponding cloud operation, and recording/playback remain available.
+• Earlier consent is invalidated. Shortcuts cannot upload audio without current audio-sharing consent. Network entry points enforce the corresponding permission, and cloud fallback cannot bypass transcript consent. Users can reset permissions in Settings.
+• The revised privacy-policy text describes collection methods, data, purposes, recipients, retention/deletion, and the protection required of recipients. The production Gemini API key belongs to an actively billed project; the policy references Google's applicable Paid Services and Data Processing Addendum, including safety/abuse-prevention processing.
+
+To review: record a short sample, open its transcription screen from Playback, select AI, and tap Start transcription. For the separate cloud disclosure, select Minutes for a recording with transcript text and tap Generate minutes when on-device Apple Intelligence is unavailable (Premium sandbox access may be needed). On an Apple Intelligence-enabled iPad, disable Apple Intelligence in device Settings and relaunch to inspect the cloud path. In-app Settings > Transcription > Reset AI sharing permissions makes both disclosures appear again.
+
+We verified the Japanese and English consent screens on an iPad Air 11-inch (M3) simulator, including the allow/decline controls and separate audio/text permissions. The UI verification used synthetic content and mocked cloud responses; regression tests verify no AI requests are made before consent or after decline.
+
+The App Review Information includes the detailed steps. Thank you for reviewing these changes.

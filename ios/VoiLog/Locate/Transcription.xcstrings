@@ -9354,6 +9354,545 @@
           }
         }
       }
+    },
+    "The audio of this recording and the language setting will be sent through Google Cloud (our server and Cloud Storage) to Google’s Gemini API to create a transcript, distinguish speakers, and produce a summary." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The audio of this recording and the language setting will be sent through Google Cloud (our server and Cloud Storage) to Google’s Gemini API to create a transcript, distinguish speakers, and produce a summary."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この録音の音声と言語設定を、Google Cloud（当社サーバーと Cloud Storage）経由で Google の Gemini API に送信し、文字起こし・話者の区別・要約を作成します。"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Audiodaten dieser Aufnahme und die Spracheinstellung werden über Google Cloud (unseren Server und Cloud Storage) an Googles Gemini API gesendet, um ein Transkript zu erstellen, Sprecher zu unterscheiden und eine Zusammenfassung zu erzeugen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El audio de esta grabación y el idioma seleccionado se enviarán a la API Gemini de Google a través de Google Cloud (nuestro servidor y Cloud Storage) para transcribir, distinguir hablantes y crear un resumen."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’audio de cet enregistrement et la langue sélectionnée seront envoyés à l’API Gemini de Google via Google Cloud (notre serveur et Cloud Storage) pour transcrire, distinguer les intervenants et produire un résumé."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’audio di questa registrazione e la lingua selezionata saranno inviati all’API Gemini di Google tramite Google Cloud (il nostro server e Cloud Storage) per trascrivere, distinguere le voci e creare un riepilogo."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O áudio desta gravação e o idioma selecionado serão enviados para a API Gemini da Google através do Google Cloud (o nosso servidor e Cloud Storage) para transcrever, distinguir intervenientes e criar um resumo."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Аудио этой записи и выбранный язык будут отправлены в Gemini API Google через Google Cloud (наш сервер и Cloud Storage) для расшифровки, различения говорящих и создания краткого содержания."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu kaydın sesi ve dil ayarı; yazıya dökme, konuşmacıları ayırt etme ve özet oluşturma amacıyla Google Cloud (sunucumuz ve Cloud Storage) üzerinden Google Gemini API’ye gönderilecektir."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Âm thanh của bản ghi này và cài đặt ngôn ngữ sẽ được gửi qua Google Cloud (máy chủ của chúng tôi và Cloud Storage) đến Gemini API của Google để phiên âm, phân biệt người nói và tạo bản tóm tắt."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此录音的音频和语言设置将通过 Google Cloud（我们的服务器和 Cloud Storage）发送至 Google 的 Gemini API，用于转写、区分说话人和生成摘要。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此錄音的音訊和語言設定將透過 Google Cloud（我們的伺服器和 Cloud Storage）傳送至 Google 的 Gemini API，用於轉寫、區分說話者和產生摘要。"
+          }
+        }
+      }
+    },
+    "To create cloud meeting minutes, the transcript text and language setting will be sent through our server on Google Cloud to Google’s Gemini API to produce a summary and to-do items. This action does not send the audio file." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To create cloud meeting minutes, the transcript text and language setting will be sent through our server on Google Cloud to Google’s Gemini API to produce a summary and to-do items. This action does not send the audio file."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "議事録をクラウドで作成するため、文字起こしのテキストと言語設定を、Google Cloud 上の当社サーバー経由で Google の Gemini API に送信し、要約とTODOを作成します。音声ファイルはこの操作では送信しません。"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Für ein cloudbasiertes Protokoll werden der Transkripttext und die Spracheinstellung über unseren Server in Google Cloud an Googles Gemini API gesendet, um eine Zusammenfassung und Aufgaben zu erstellen. Die Audiodatei wird dabei nicht gesendet."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para crear actas en la nube, el texto transcrito y el idioma se enviarán a la API Gemini de Google a través de nuestro servidor en Google Cloud para generar un resumen y tareas. Esta acción no envía el archivo de audio."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour créer un compte rendu dans le cloud, le texte transcrit et la langue seront envoyés à l’API Gemini de Google via notre serveur sur Google Cloud afin de produire un résumé et des tâches. Cette action n’envoie pas le fichier audio."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per creare verbali nel cloud, il testo trascritto e la lingua saranno inviati all’API Gemini di Google tramite il nostro server su Google Cloud per generare un riepilogo e attività. Questa operazione non invia il file audio."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para criar atas na nuvem, o texto transcrito e o idioma serão enviados para a API Gemini da Google através do nosso servidor no Google Cloud para gerar um resumo e tarefas. Esta ação não envia o ficheiro de áudio."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для создания протокола в облаке текст расшифровки и выбранный язык будут отправлены в Gemini API Google через наш сервер в Google Cloud для составления краткого содержания и списка задач. Аудиофайл при этом не отправляется."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bulutta toplantı tutanağı oluşturmak için döküm metni ve dil ayarı, özet ve yapılacak işler üretmek üzere Google Cloud’daki sunucumuz üzerinden Google Gemini API’ye gönderilecektir. Bu işlem ses dosyasını göndermez."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Để tạo biên bản trên đám mây, văn bản phiên âm và cài đặt ngôn ngữ sẽ được gửi qua máy chủ của chúng tôi trên Google Cloud đến Gemini API của Google để tạo bản tóm tắt và việc cần làm. Thao tác này không gửi tệp âm thanh."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "为在云端生成会议纪要，转写文本和语言设置将通过我们在 Google Cloud 上的服务器发送至 Google 的 Gemini API，用于生成摘要和待办事项。此操作不会发送音频文件。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "為在雲端產生會議紀錄，轉寫文字和語言設定將透過我們在 Google Cloud 上的伺服器傳送至 Google 的 Gemini API，用於產生摘要和待辦事項。此操作不會傳送音訊檔案。"
+          }
+        }
+      }
+    },
+    "Personal information contained in the audio or text, including names, will also be sent. Google Firebase Authentication and our server use an anonymous ID for authentication and abuse prevention. We do not add advertising IDs to AI requests." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personal information contained in the audio or text, including names, will also be sent. Google Firebase Authentication and our server use an anonymous ID for authentication and abuse prevention. We do not add advertising IDs to AI requests."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音声やテキストに含まれる氏名などの個人情報も送信されます。認証・不正利用防止のため、Google Firebase Authentication と当社サーバーで匿名IDを使用します。広告IDはAIへのリクエストに追加しません。"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In Audio oder Text enthaltene personenbezogene Daten, einschließlich Namen, werden ebenfalls gesendet. Google Firebase Authentication und unser Server verwenden eine anonyme ID zur Authentifizierung und Missbrauchsprävention. Werbe-IDs werden KI-Anfragen nicht hinzugefügt."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "También se enviarán los datos personales contenidos en el audio o texto, incluidos los nombres. Google Firebase Authentication y nuestro servidor utilizan un ID anónimo para autenticación y prevención de abusos. No añadimos identificadores publicitarios a las solicitudes de IA."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les données personnelles contenues dans l’audio ou le texte, notamment les noms, seront également envoyées. Google Firebase Authentication et notre serveur utilisent un identifiant anonyme pour l’authentification et la prévention des abus. Nous n’ajoutons pas d’identifiants publicitaires aux requêtes IA."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saranno inviati anche i dati personali contenuti nell’audio o nel testo, inclusi i nomi. Google Firebase Authentication e il nostro server usano un ID anonimo per autenticazione e prevenzione degli abusi. Non aggiungiamo ID pubblicitari alle richieste IA."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Também serão enviados os dados pessoais contidos no áudio ou texto, incluindo nomes. O Google Firebase Authentication e o nosso servidor utilizam um ID anónimo para autenticação e prevenção de abusos. Não adicionamos identificadores de publicidade aos pedidos de IA."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Персональные данные в аудио или тексте, включая имена, также будут отправлены. Google Firebase Authentication и наш сервер используют анонимный ID для аутентификации и предотвращения злоупотреблений. Рекламные идентификаторы не добавляются в запросы к ИИ."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ses veya metindeki adlar dahil kişisel bilgiler de gönderilecektir. Google Firebase Authentication ve sunucumuz, kimlik doğrulama ve kötüye kullanımı önlemek için anonim bir kimlik kullanır. Yapay zekâ isteklerine reklam kimliği eklemeyiz."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thông tin cá nhân có trong âm thanh hoặc văn bản, bao gồm tên, cũng sẽ được gửi. Google Firebase Authentication và máy chủ của chúng tôi dùng ID ẩn danh để xác thực và ngăn chặn lạm dụng. Chúng tôi không thêm ID quảng cáo vào yêu cầu AI."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音频或文本中包含的姓名等个人信息也会被发送。Google Firebase Authentication 和我们的服务器使用匿名 ID 进行身份验证和防止滥用。我们不会在 AI 请求中添加广告 ID。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "音訊或文字中包含的姓名等個人資訊也會被傳送。Google Firebase Authentication 和我們的伺服器使用匿名 ID 進行驗證及防止濫用。我們不會在 AI 請求中加入廣告 ID。"
+          }
+        }
+      }
+    },
+    "Your consent is required before sending. Open a recording in the app and review the data-sharing notice for AI transcription or meeting minutes." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your consent is required before sending. Open a recording in the app and review the data-sharing notice for AI transcription or meeting minutes."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "送信には同意が必要です。アプリで録音を開き、AI文字起こしまたは議事録の送信内容を確認してください。"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vor dem Senden ist Ihre Zustimmung erforderlich. Öffnen Sie eine Aufnahme in der App und lesen Sie den Hinweis zur Datenweitergabe für KI-Transkription oder Protokolle."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se necesita su consentimiento antes de enviar. Abra una grabación en la app y consulte el aviso de envío de datos de la transcripción con IA o las actas."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre consentement est nécessaire avant l’envoi. Ouvrez un enregistrement dans l’app et consultez l’avis de partage des données pour la transcription IA ou le compte rendu."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "È necessario il consenso prima dell’invio. Apri una registrazione nell’app e consulta l’informativa sulla condivisione dei dati per la trascrizione IA o i verbali."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "É necessário o seu consentimento antes do envio. Abra uma gravação na aplicação e consulte o aviso de partilha de dados da transcrição por IA ou das atas."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перед отправкой необходимо ваше согласие. Откройте запись в приложении и прочитайте уведомление о передаче данных для ИИ-расшифровки или протокола."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Göndermeden önce onayınız gereklidir. Uygulamada bir kayıt açın ve yapay zekâ dökümü veya toplantı tutanağı için veri paylaşımı açıklamasını inceleyin."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cần có sự đồng ý của bạn trước khi gửi. Mở bản ghi trong ứng dụng và xem thông báo chia sẻ dữ liệu cho phiên âm AI hoặc biên bản cuộc họp."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "发送前需要您的同意。请在应用中打开录音，查看 AI 转写或会议纪要的数据共享说明。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "傳送前需要您的同意。請在應用程式中開啟錄音，查看 AI 轉寫或會議紀錄的資料分享說明。"
+          }
+        }
+      }
+    },
+    "Permission applies to future uses of this feature, including Shortcuts for audio transcription. You can reset AI sharing permissions in Settings." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permission applies to future uses of this feature, including Shortcuts for audio transcription. You can reset AI sharing permissions in Settings."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この許可は、この機能の今後の利用にも適用されます。音声の文字起こしにはショートカットからの実行も含まれます。設定でAI送信の許可をリセットできます。"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Erlaubnis gilt auch für die künftige Nutzung dieser Funktion, einschließlich Kurzbefehlen zur Audiotranskription. Sie können die KI-Freigaben in den Einstellungen zurücksetzen."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "El permiso se aplica a usos futuros de esta función, incluidos los Atajos de transcripción de audio. Puede restablecer los permisos de envío a IA en Ajustes."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’autorisation s’applique aux utilisations futures de cette fonction, y compris les Raccourcis de transcription audio. Vous pouvez réinitialiser les autorisations de partage IA dans les réglages."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il consenso vale anche per gli usi futuri di questa funzione, inclusi i Comandi Rapidi per la trascrizione audio. Puoi reimpostare i permessi di condivisione IA nelle impostazioni."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A autorização aplica-se a utilizações futuras desta função, incluindo Atalhos de transcrição de áudio. Pode repor as permissões de partilha com IA nas definições."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разрешение распространяется на дальнейшее использование этой функции, включая Команды для расшифровки аудио. Разрешения на передачу данных ИИ можно сбросить в настройках."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İzin, ses dökümü Kestirmeleri dahil bu özelliğin gelecekteki kullanımları için de geçerlidir. Ayarlar’dan yapay zekâ paylaşım izinlerini sıfırlayabilirsiniz."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quyền này áp dụng cho các lần dùng tính năng sau, bao gồm Phím tắt phiên âm. Bạn có thể đặt lại quyền chia sẻ AI trong Cài đặt."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此许可也适用于今后使用此功能，包括通过快捷指令转写音频。您可以在设置中重置 AI 共享权限。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此許可也適用於日後使用此功能，包括透過捷徑轉寫音訊。您可以在設定中重設 AI 分享權限。"
+          }
+        }
+      }
+    },
+    "Reset AI sharing permissions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset AI sharing permissions"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI送信の許可をリセット"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KI-Freigaben zurücksetzen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restablecer permisos de envío a IA"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réinitialiser les autorisations de partage IA"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reimposta i permessi di condivisione IA"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repor permissões de partilha com IA"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сбросить разрешения на передачу данных ИИ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yapay zekâ paylaşım izinlerini sıfırla"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đặt lại quyền chia sẻ AI"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重置 AI 共享权限"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重設 AI 分享權限"
+          }
+        }
+      }
+    },
+    "AI sharing permissions have been reset. Future requests require consent again." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI sharing permissions have been reset. Future requests require consent again."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI送信の許可をリセットしました。次回の送信には再度同意が必要です。"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die KI-Freigaben wurden zurückgesetzt. Künftige Anfragen erfordern erneut Ihre Zustimmung."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se han restablecido los permisos. Las próximas solicitudes requieren consentimiento de nuevo."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les autorisations ont été réinitialisées. Les prochaines demandes nécessiteront à nouveau votre consentement."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I permessi sono stati reimpostati. Le prossime richieste richiederanno di nuovo il consenso."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As permissões foram repostas. Os próximos pedidos exigem novamente consentimento."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разрешения сброшены. Для последующих запросов снова потребуется согласие."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paylaşım izinleri sıfırlandı. Sonraki istekler için yeniden onay gerekir."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã đặt lại quyền chia sẻ AI. Các yêu cầu sau cần có sự đồng ý lại."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 共享权限已重置。下次请求需要重新同意。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI 分享權限已重設。下次請求需要重新同意。"
+          }
+        }
+      }
     }
   },
   "version" : "1.1"

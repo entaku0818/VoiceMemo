@@ -1,0 +1,29 @@
+{
+  "review": {
+    "submission": "3fd60d24-b6db-4c19-ad35-5004382c7e64",
+    "date": "2026-10-16",
+    "device": "iPad Air 11-inch (M3)",
+    "version": "1.17.0 (24)"
+  },
+  "git_base": "1fb13efd47f121261f1ff1161c99150d065a6fb2",
+  "archive": {
+    "path": "build/VoiLog.xcarchive/Products/Applications/VoiLog.app",
+    "version": "1.17.0",
+    "build": "24",
+    "sha256": "3e75bcbe6b4934ac65d4e8fdf4a3fce8fcc9af1d4b77fbffeb89a6e0ca1050c8",
+    "contains_v1_consent": true,
+    "contains_consent_view": true,
+    "contains_accept_action": true
+  },
+  "production": {
+    "endpoint": "https://voilog-transcription-950571144078.asia-northeast1.run.app",
+    "geminiBackend": "BackendGeminiAPI (source)",
+    "deployedModel": "gemini-3.1-flash-lite",
+    "keyProjectNumber": "950571144078",
+    "billingProjectId": "voilog",
+    "billingEnabled": true,
+    "storageLifecycleDeleteAgeDays": 1,
+    "softDeleteSeconds": 604800
+  },
+  "limitation": "Local archive and export evidence do not prove the byte identity of the binary Apple reviewed."
+}

@@ -1,1 +1,21 @@
+AI data-sharing consent — version 1.17.0, replacement build 25
+Related submission: 3fd60d24-b6db-4c19-ad35-5004382c7e64 (October 16, 2026; Guidelines 5.1.1(i) / 5.1.2(i)).
 
+No account registration is required. The cloud API uses Firebase anonymous authentication after consent.
+
+How to inspect audio-sharing consent:
+1. Record a short sample and stop recording. In the Playback list, open the recording's transcription screen (the transcription/speech-bubble action). Alternatively, open recording details, then Transcription.
+2. Select AI, then Start transcription.
+3. Before any AI upload, a sheet explains the recording audio and language setting, Google Cloud / Cloud Storage and Google's Gemini API, and the transcription, speaker distinction and summary purposes. It explains that names and other personal information in the content are included.
+4. Choose Don't send to return without starting the cloud operation. Choose Agree and send to permit it.
+
+How to inspect transcript-sharing consent:
+1. Use a recording with transcript text. From the Playback list's transcription screen, select Minutes. This is a Premium feature; use the review sandbox purchase flow from the Premium prompt if necessary.
+2. On iOS 26 or later with on-device Apple Intelligence unavailable, tap Generate minutes. If Apple Intelligence is available on the iPad, turn it off in the device's Apple Intelligence settings and relaunch to inspect the cloud path.
+3. A separate sheet explains that transcript text and language are sent via our Google Cloud server to Google's Gemini API for a summary and to-do items. The audio file is not sent by this operation. Audio consent does not authorize transcript sharing.
+4. Choose Don't send or Agree and send. If on-device Apple Intelligence is used instead, minutes are generated locally without sending the transcript to Gemini.
+
+Previously stored consent is not carried over to the updated disclosure. Permissions apply to future uses of the same feature and can be reset in the app's Settings > Transcription > Reset AI sharing permissions. After reset, both purposes require consent again. A transcription Shortcut without current audio consent stops and asks the user to review consent in the app.
+
+Privacy policy: https://voilog.web.app/privacy_policy.html
+The disclosure and controls are available in Japanese and English. No separate account or hidden review-only gesture is needed to reach the consent screens.

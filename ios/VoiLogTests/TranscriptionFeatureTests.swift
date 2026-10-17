@@ -34,7 +34,7 @@ final class TranscriptionFeatureTests: XCTestCase {
                 generateMinutes: generateMinutes
             )
             $0.firebaseAuthClient = FirebaseAuthClient(currentUserIDToken: currentUserIDToken)
-            $0.userDefaults.bool = { key in key == AIDataSharingConsent.userDefaultsKey && aiConsentGiven }
+            $0.userDefaults.bool = { key in key == AIDataSharingConsent.transcriptionKey && aiConsentGiven }
         }
     }
 
@@ -305,7 +305,7 @@ final class TranscriptionFeatureTests: XCTestCase {
             $0.status = .uploading
         }
         await store.skipReceivedActions()
-        XCTAssertEqual(saved.value[AIDataSharingConsent.userDefaultsKey], true)
+        XCTAssertEqual(saved.value[AIDataSharingConsent.transcriptionKey], true)
     }
 
     func testConsentDeclined_staysIdleAndDoesNotSaveConsent() async {
@@ -316,6 +316,17 @@ final class TranscriptionFeatureTests: XCTestCase {
         await store.send(.startTapped) { $0.showAIConsent = true }
         await store.send(.aiConsentDeclined) { $0.showAIConsent = false }
         XCTAssertEqual(store.state.status, .idle)
-        XCTAssertNil(saved.value[AIDataSharingConsent.userDefaultsKey])
+        XCTAssertNil(saved.value[AIDataSharingConsent.transcriptionKey])
     }
+    func testOldOrMinutesConsent_doesNotAuthorizeAudio() async {
+        let store = makeStore()
+        store.dependencies.userDefaults.bool = { key in
+            key == "ai_data_sharing_consent_v1" || key == AIDataSharingConsent.minutesKey
+        }
+        await store.send(.startTapped) { $0.showAIConsent = true }
+        await store.send(.aiConsentDeclined) { $0.showAIConsent = false }
+        await store.send(.aiConsentAccepted) // A stale acceptance must not send anything.
+        await store.send(.startTapped) { $0.showAIConsent = true }
+    }
+
 }

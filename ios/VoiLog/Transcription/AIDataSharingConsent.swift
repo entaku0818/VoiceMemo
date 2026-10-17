@@ -1,12 +1,22 @@
 import SwiftUI
+import ComposableArchitecture
 
 /// 外部の AI（Google Gemini API）へ音声・文字起こしテキストを送る前の同意（App Review Guideline 5.1.2(i)）。
 ///
 /// AI文字起こし（音声を送る）と、Apple Intelligence が使えない端末での議事録作成（テキストを送る）の
-/// どちらも同じ送信先なので、同意は1つにまとめ、一度同意したら次からは聞かない。
+/// データと目的ごとに同意を分ける。説明不足の v1 同意は引き継がない。
 enum AIDataSharingConsent {
-    static let userDefaultsKey = "ai_data_sharing_consent_v1"
+    static let transcriptionKey = "ai_data_sharing_transcription_consent_v2"
+    static let minutesKey = "ai_data_sharing_minutes_consent_v2"
     static let privacyPolicyURL = URL(string: "https://voilog.web.app/privacy_policy.html")!
+
+    /// Defense in depth for callers outside a reducer (including Shortcuts).
+    static func require(_ purpose: Purpose) throws {
+        @Dependency(\.userDefaults)
+        var userDefaults
+        let key = purpose == .transcription ? transcriptionKey : minutesKey
+        guard userDefaults.bool(key) else { throw TranscriptionError.consentRequired }
+    }
 
     /// 何を送るか（画面の説明文が変わる）
     enum Purpose: Equatable {
@@ -44,9 +54,15 @@ struct AIDataSharingConsentView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
-                    Text(String(localized: "氏名・メールアドレス・広告IDなどは送信しません。送信したデータは文字起こし・議事録の作成のためだけに使います。", table: "Transcription"))
+                    Text(String(
+                        localized: "Personal information contained in the audio or text, including names, will also be sent. Google Firebase Authentication and our server use an anonymous ID for authentication and abuse prevention. We do not add advertising IDs to AI requests.",
+                        table: "Transcription"
+                    ))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+
+                    Text(String(localized: "Permission applies to future uses of this feature, including Shortcuts for audio transcription. You can reset AI sharing permissions in Settings.", table: "Transcription"))
+                        .font(.subheadline)
 
                     Link(String(localized: "プライバシーポリシー", table: "Transcription"), destination: AIDataSharingConsent.privacyPolicyURL)
                         .font(.subheadline)
@@ -62,12 +78,14 @@ struct AIDataSharingConsentView: View {
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
                 }
+                .accessibilityIdentifier("aiConsent.accept")
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
 
                 Button(String(localized: "送信しない", table: "Transcription")) {
                     onDecline()
                 }
+                .accessibilityIdentifier("aiConsent.decline")
                 .controlSize(.large)
             }
             .padding(24)
@@ -79,9 +97,9 @@ struct AIDataSharingConsentView: View {
     private var purposeText: String {
         switch purpose {
         case .transcription:
-            String(localized: "AI文字起こしでは、この録音の音声を当社のサーバー経由で Google の AI（Gemini API）に送信して、文字に起こします。", table: "Transcription")
+            String(localized: "The audio of this recording and the language setting will be sent through Google Cloud (our server and Cloud Storage) to Google’s Gemini API to create a transcript, distinguish speakers, and produce a summary.", table: "Transcription")
         case .minutes:
-            String(localized: "この端末では Apple Intelligence が使えないため、議事録は文字起こしのテキストを当社のサーバー経由で Google の AI（Gemini API）に送信して作成します。", table: "Transcription")
+            String(localized: "To create cloud meeting minutes, the transcript text and language setting will be sent through our server on Google Cloud to Google’s Gemini API to produce a summary and to-do items. This action does not send the audio file.", table: "Transcription")
         }
     }
 }

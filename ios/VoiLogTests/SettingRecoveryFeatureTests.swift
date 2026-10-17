@@ -173,4 +173,14 @@ final class SettingRecoveryFeatureTests: XCTestCase {
             SettingView.restoreMessage(for: .init(localCount: 0, cloudCount: 0, isCloudAvailable: false))
         )
     }
+    func testRevokeAIConsent_resetsBothPurposes() async {
+        let saved = LockIsolated<[String: Bool]>([:])
+        let store = TestStore(initialState: makeState()) { SettingReducer() } withDependencies: {
+            $0.userDefaults.set = { value, key in saved.withValue { $0[key] = value } }
+        }
+        await store.send(.revokeAIConsent) { $0.aiConsentRevoked = true }
+        XCTAssertEqual(saved.value[AIDataSharingConsent.transcriptionKey], false)
+        XCTAssertEqual(saved.value[AIDataSharingConsent.minutesKey], false)
+    }
+
 }

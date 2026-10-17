@@ -91,10 +91,15 @@ enum MeetingMinutesGenerator {
 /// オンデバイス（Foundation Models）が非対応の環境向けに、既存のクラウドAPI（Gemini `/minutes`）で
 /// 議事録要約を生成するフォールバック。
 struct MeetingMinutesCloudFallback {
+    @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.transcriptionClient) var transcriptionClient
     @Dependency(\.firebaseAuthClient) var firebaseAuth
 
     func generate(text: String) async throws -> MeetingMinutesResult {
+        // Availability may change after the UI check. Never silently send to the cloud.
+        guard userDefaults.bool(AIDataSharingConsent.minutesKey) else {
+            throw TranscriptionError.consentRequired
+        }
         let language = TranscriptionFeature.State.detectLanguage()
         do {
             let idToken = try await firebaseAuth.currentUserIDToken(false)
@@ -204,15 +209,16 @@ struct MeetingMinutesFeature {
             switch action {
             case .view(.generateTapped):
                 // クラウドで作るときは、テキストを外部の AI に送る前に同意をもらう（一度同意したら次からは聞かない）
-                if meetingMinutesClient.usesCloud(), !userDefaults.bool(AIDataSharingConsent.userDefaultsKey) {
+                if meetingMinutesClient.usesCloud(), !userDefaults.bool(AIDataSharingConsent.minutesKey) {
                     state.showAIConsent = true
                     return .none
                 }
                 return generate(&state)
 
             case .view(.aiConsentAccepted):
+                guard state.showAIConsent else { return .none }
                 state.showAIConsent = false
-                userDefaults.set(true, AIDataSharingConsent.userDefaultsKey)
+                userDefaults.set(true, AIDataSharingConsent.minutesKey)
                 return generate(&state)
 
             case .view(.aiConsentDeclined):

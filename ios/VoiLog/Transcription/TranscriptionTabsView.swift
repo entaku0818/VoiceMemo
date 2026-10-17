@@ -275,6 +275,7 @@ struct AITranscriptionTab: View {
                 Button(String(localized: "文字起こしを開始", table: "Transcription")) {
                     store.send(.startTapped)
                 }
+                .accessibilityIdentifier("aiTranscription.start")
                 .buttonStyle(.borderedProminent)
                 .tint(.purple)
                 .controlSize(.large)

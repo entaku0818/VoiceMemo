@@ -190,6 +190,7 @@ final class LatestRecordingTranscriptionRunnerTests: XCTestCase {
                 uploadAudio: uploadAudio,
                 generateMinutes: generateMinutes
             )
+            $0.userDefaults.bool = { key in key == AIDataSharingConsent.transcriptionKey }
             $0.firebaseAuthClient = FirebaseAuthClient(currentUserIDToken: currentUserIDToken)
         } operation: {
             try await operation(LatestRecordingTranscriptionRunner())
@@ -287,4 +288,28 @@ final class LatestRecordingTranscriptionRunnerTests: XCTestCase {
             // 期待どおり失敗
         }
     }
+    func testTranscribe_withoutCurrentAudioConsent_neverAuthenticatesOrUploads() async {
+        let recording = makeRecording()
+        for consentKey in ["none", "ai_data_sharing_consent_v1", AIDataSharingConsent.minutesKey] {
+            await withDependencies {
+                $0.userDefaults.bool = { $0 == consentKey }
+                $0.firebaseAuthClient.currentUserIDToken = { _ in
+                    XCTFail("No authentication before consent")
+                    return "token"
+                }
+            } operation: {
+                do {
+                    _ = try await LatestRecordingTranscriptionRunner().transcribe(recording) { _ in
+                        XCTFail("No upload progress before consent")
+                    }
+                    XCTFail("Expected consentRequired")
+                } catch {
+                    guard case .consentRequired = error as? TranscriptionError else {
+                        return XCTFail("Unexpected error: \(error)")
+                    }
+                }
+            }
+        }
+    }
+
 }
