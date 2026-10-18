@@ -1,0 +1,5 @@
+Version 2.10.0
+• Clear, separate consent for AI transcription and meeting minutes, explaining the data and destination. Consent can be reset in Settings.
+• Split AAC recordings into two files while keeping the original.
+• Added shortcuts to stop recording and transcribe the latest recording.
+• Live transcription now uses on-device speech recognition on supported devices.
