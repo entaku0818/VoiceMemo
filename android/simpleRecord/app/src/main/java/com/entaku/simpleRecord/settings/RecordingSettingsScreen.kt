@@ -91,6 +91,12 @@ fun RecordingSettingsScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            var permissionsReset by remember { mutableStateOf(false) }
+            Button(onClick = {
+                com.entaku.simpleRecord.transcription.AISharingConsent.reset()
+                permissionsReset = true
+            }) { Text(stringResource(R.string.ai_consent_reset)) }
+            if (permissionsReset) Text(stringResource(R.string.ai_consent_reset_done))
             // プリセット選択
             Text(stringResource(R.string.preset_label), style = MaterialTheme.typography.titleMedium)
             Row(

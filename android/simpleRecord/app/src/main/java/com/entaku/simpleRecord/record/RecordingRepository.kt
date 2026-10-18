@@ -1,6 +1,7 @@
 package com.entaku.simpleRecord.record
 
 import android.util.Log
+import androidx.room.withTransaction
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.db.AppDatabase
 import com.entaku.simpleRecord.db.RecordingEntity
@@ -16,6 +17,9 @@ import java.time.ZoneOffset
 import java.util.UUID
 
 interface RecordingRepository {
+    suspend fun saveRecordingsAtomically(recordings: List<RecordingData>) {
+        error("Atomic recording save is not implemented")
+    }
     suspend fun saveRecordingData(recordingData: RecordingData)
     fun getAllRecordings(): Flow<List<RecordingData>>
     suspend fun deleteRecording(uuid: UUID)
@@ -29,6 +33,10 @@ interface RecordingRepository {
 class RecordingRepositoryImpl(private val database: AppDatabase) : RecordingRepository {
     companion object {
         private const val TAG = "RecordingRepositoryImpl"
+    }
+
+    override suspend fun saveRecordingsAtomically(recordings: List<RecordingData>) {
+        database.withTransaction { recordings.forEach { saveRecordingData(it) } }
     }
 
     override suspend fun saveRecordingData(recordingData: RecordingData) {

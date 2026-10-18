@@ -20,8 +20,21 @@ sealed class TranscriptionUiState {
 class TranscriptionViewModel(
     private val audioFilePath: String,
     private val client: TranscriptionApiClient = TranscriptionApiClient(),
+    private val consent: AIConsentStore = AISharingConsent,
     private val tokenProvider: suspend (forceRefresh: Boolean) -> String = ::firebaseIdToken
 ) : ViewModel() {
+
+    private val _needsConsent = MutableStateFlow(false)
+    val needsConsent: StateFlow<Boolean> = _needsConsent.asStateFlow()
+
+    fun acceptConsent() {
+        if (!_needsConsent.value) return
+        consent.allow(AIPurpose.AUDIO)
+        _needsConsent.value = false
+        startTranscription()
+    }
+
+    fun declineConsent() { _needsConsent.value = false }
 
     private val _uiState = MutableStateFlow<TranscriptionUiState>(TranscriptionUiState.Idle)
     val uiState: StateFlow<TranscriptionUiState> = _uiState.asStateFlow()
@@ -38,6 +51,11 @@ class TranscriptionViewModel(
     }
 
     fun startTranscription() {
+        if (_uiState.value is TranscriptionUiState.Uploading || _uiState.value is TranscriptionUiState.Transcribing) return
+        if (!consent.allowed(AIPurpose.AUDIO)) {
+            _needsConsent.value = true
+            return
+        }
         viewModelScope.launch {
             _uiState.value = TranscriptionUiState.Uploading
             try {
@@ -45,18 +63,23 @@ class TranscriptionViewModel(
                 val ext = file.extension.ifEmpty { "mp4" }
                 val mimeType = if (ext == "m4a") "audio/mp4" else "audio/$ext"
 
-                val (signedUrl, blobName) = withAuthRetry(tokenProvider) { idToken ->
+                val (signedUrl, blobName) = withAuthRetry({ refresh -> consent.require(AIPurpose.AUDIO); tokenProvider(refresh) }) { idToken ->
+                    consent.require(AIPurpose.AUDIO)
                     client.getUploadUrl(idToken, ext)
                 }
                 _uiState.value = TranscriptionUiState.Uploading
 
+                consent.require(AIPurpose.AUDIO)
                 client.uploadAudio(signedUrl, file, mimeType)
                 _uiState.value = TranscriptionUiState.Transcribing
 
-                val result = withAuthRetry(tokenProvider) { idToken ->
+                val result = withAuthRetry({ refresh -> consent.require(AIPurpose.AUDIO); tokenProvider(refresh) }) { idToken ->
+                    consent.require(AIPurpose.AUDIO)
                     client.transcribe(idToken, blobName, _selectedLanguage.value)
                 }
                 _uiState.value = TranscriptionUiState.Done(result)
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
             } catch (e: Exception) {
                 _uiState.value = TranscriptionUiState.Failed(e.message ?: "Unknown error")
             }

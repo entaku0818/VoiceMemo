@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Запись</string>
     <string name="shortcut_start_recording_long_label">Начать новую запись</string>
+    <string name="ai_consent_title">Отправка во внешний ИИ-сервис</string>
+    <string name="ai_consent_audio">Аудио этой записи и выбранный язык будут отправлены в Gemini API Google через Google Cloud (наш сервер и Cloud Storage) для расшифровки, различения говорящих и создания краткого содержания.</string>
+    <string name="ai_consent_minutes">Для создания протокола в облаке текст расшифровки и выбранный язык будут отправлены в Gemini API Google через наш сервер в Google Cloud для составления краткого содержания и списка задач. Аудиофайл при этом не отправляется.</string>
+    <string name="ai_consent_policy">Политика конфиденциальности</string>
+    <string name="ai_consent_allow">Согласиться и отправить</string>
+    <string name="ai_consent_decline">Не отправлять</string>
+    <string name="ai_consent_reset">Сбросить разрешения на передачу данных ИИ</string>
+    <string name="ai_consent_reset_done">Разрешения сброшены. Для последующих запросов снова потребуется согласие.</string>
+    <string name="ai_consent_common">Персональные данные в аудио или тексте, включая имена, также будут отправлены. Google Firebase Authentication и наш сервер используют анонимный ID для аутентификации и предотвращения злоупотреблений. Рекламные идентификаторы не добавляются в запросы к ИИ.\n\nРазрешение распространяется на дальнейшее использование этой функции, включая Команды для расшифровки аудио. Разрешения на передачу данных ИИ можно сбросить в настройках.</string>
+    <string name="split_position">Место разделения: %1$s</string>
+    <string name="split_description">Сохранить две новые записи до и после этой позиции. Оригинал сохраняется. Поддерживается формат AAC.</string>
+    <string name="split_apply">Разделить на две записи</string>
+    <string name="shortcut_stop_recording">Остановить запись</string>
+    <string name="shortcut_transcribe_latest">Расшифровать последнюю</string>
+    <string name="shortcut_no_recordings">Сохранённые записи не найдены.</string>
+    <string name="local_summary_description">Отладочный тест: локальная сводка без задач. Нужны совместимое устройство и готовая модель. Без перехода в облако и автоматической загрузки модели.</string>
+    <string name="local_summary_try">Проверить локальную сводку</string>
+    <string name="local_summary_unavailable">Локальная сводка недоступна для этого устройства, модели или языка.</string>
+    <string name="local_summary_failed">Ошибка локальной сводки. Проверьте модель и длину текста (от 400 символов, менее 4000 токенов). Данные не отправлялись в облако.</string>
 </resources>

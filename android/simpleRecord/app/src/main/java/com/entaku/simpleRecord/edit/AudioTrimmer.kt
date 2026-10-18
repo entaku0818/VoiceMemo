@@ -57,6 +57,9 @@ class AudioTrimmerImpl : AudioTrimmer {
             } ?: throw IllegalStateException("No audio track found in $sourceFilePath")
 
             val format = extractor.getTrackFormat(trackIndex)
+            if (format.getString(MediaFormat.KEY_MIME) != "audio/mp4a-latm") {
+                throw UnsupportedTrimFormatException("Only AAC recordings can be edited without conversion")
+            }
             extractor.selectTrack(trackIndex)
 
             muxer = MediaMuxer(outputFilePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4)

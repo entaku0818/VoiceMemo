@@ -1,6 +1,7 @@
 package com.entaku.simpleRecord.shortcut
 
 import android.content.Intent
+import io.mockk.Called
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -15,6 +16,15 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [34], application = android.app.Application::class)
 class ShortcutIntentHandlerTest {
+
+    @Test fun `stop shortcut only stops the active recording listener`() {
+        val listener = io.mockk.mockk<com.entaku.simpleRecord.record.RecordingActionListener>(relaxed = true)
+        assertFalse(ShortcutIntentHandler.dispatchStop(ShortcutIntentHandler.ACTION_TRANSCRIBE_LATEST, listener))
+        io.mockk.verify { listener wasNot Called }
+        assertTrue(ShortcutIntentHandler.dispatchStop(ShortcutIntentHandler.ACTION_STOP_RECORDING, listener))
+        io.mockk.verify(exactly = 1) { listener.onStopRequested() }
+        assertTrue(ShortcutIntentHandler.dispatchStop(ShortcutIntentHandler.ACTION_STOP_RECORDING, null))
+    }
 
     @Test
     fun `isStartRecordingRequested is true when shortcut extra matches start_recording`() {

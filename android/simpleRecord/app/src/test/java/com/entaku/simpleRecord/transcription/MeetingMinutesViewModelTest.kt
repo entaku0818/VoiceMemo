@@ -62,6 +62,7 @@ class MeetingMinutesViewModelTest {
         recordingUuid = uuid,
         repository = repository,
         client = client,
+        consent = MemoryConsent().apply { allow(AIPurpose.MINUTES) },
         tokenProvider = { "fake-token" }
     )
 
@@ -69,6 +70,7 @@ class MeetingMinutesViewModelTest {
         recordingUuid = uuid,
         repository = repository,
         client = client,
+        consent = MemoryConsent().apply { allow(AIPurpose.MINUTES) },
         tokenProvider = tokenProvider
     )
 

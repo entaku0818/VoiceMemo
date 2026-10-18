@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Grabar</string>
     <string name="shortcut_start_recording_long_label">Iniciar una nueva grabación</string>
+    <string name="ai_consent_title">Envío a un servicio de IA externo</string>
+    <string name="ai_consent_audio">El audio de esta grabación y el idioma seleccionado se enviarán a la API Gemini de Google a través de Google Cloud (nuestro servidor y Cloud Storage) para transcribir, distinguir hablantes y crear un resumen.</string>
+    <string name="ai_consent_minutes">Para crear actas en la nube, el texto transcrito y el idioma se enviarán a la API Gemini de Google a través de nuestro servidor en Google Cloud para generar un resumen y tareas. Esta acción no envía el archivo de audio.</string>
+    <string name="ai_consent_policy">Política de privacidad</string>
+    <string name="ai_consent_allow">Aceptar y enviar</string>
+    <string name="ai_consent_decline">No enviar</string>
+    <string name="ai_consent_reset">Restablecer permisos de envío a IA</string>
+    <string name="ai_consent_reset_done">Se han restablecido los permisos. Las próximas solicitudes requieren consentimiento de nuevo.</string>
+    <string name="ai_consent_common">También se enviarán los datos personales contenidos en el audio o texto, incluidos los nombres. Google Firebase Authentication y nuestro servidor utilizan un ID anónimo para autenticación y prevención de abusos. No añadimos identificadores publicitarios a las solicitudes de IA.\n\nEl permiso se aplica a usos futuros de esta función, incluidos los Atajos de transcripción de audio. Puede restablecer los permisos de envío a IA en Ajustes.</string>
+    <string name="split_position">Punto de división: %1$s</string>
+    <string name="split_description">Guarda dos grabaciones nuevas antes y después de esta posición. Se conserva el original. Compatible con grabaciones AAC.</string>
+    <string name="split_apply">Dividir en dos grabaciones</string>
+    <string name="shortcut_stop_recording">Detener grabación</string>
+    <string name="shortcut_transcribe_latest">Transcribir la última</string>
+    <string name="shortcut_no_recordings">No hay grabaciones guardadas.</string>
+    <string name="local_summary_description">Prueba de depuración: solo resumen local, sin tareas. Requiere dispositivo compatible y modelo preparado. Sin alternativa en la nube ni descarga automática del modelo.</string>
+    <string name="local_summary_try">Probar resumen local</string>
+    <string name="local_summary_unavailable">Resumen local no disponible para este dispositivo, modelo o idioma.</string>
+    <string name="local_summary_failed">Error al resumir localmente. Comprueba el modelo y la longitud (400 caracteres como mínimo, menos de 4000 tokens). No se envió nada a la nube.</string>
 </resources>

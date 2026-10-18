@@ -241,4 +241,23 @@
     <!-- ホーム画面ショートカット (issue #204) -->
     <string name="shortcut_start_recording_short_label">録音</string>
     <string name="shortcut_start_recording_long_label">新しい録音を開始</string>
+    <string name="ai_consent_title">AIへのデータ送信を許可しますか？</string>
+    <string name="ai_consent_audio">選択した録音の音声と認識言語を、Google Cloud上の当社サーバーとCloud Storageを経由してGoogleのGemini APIへ送り、文字起こし・話者の区別・要約を行います。</string>
+    <string name="ai_consent_minutes">文字起こしの文章と言語を、Google Cloud上の当社サーバー経由でGoogleのGemini APIへ送り、要約とTODOを作成します。この操作では音声ファイルは送りません。</string>
+    <string name="ai_consent_common">内容に含まれる氏名などの個人情報も送られます。当社サーバーへのリクエスト識別にはFirebase匿名認証を使用します。許可はショートカットを含む今後の同じ機能の利用にも適用され、設定でリセットできます。「送信しない」を選んでも録音・再生は利用できます。</string>
+    <string name="ai_consent_allow">同意して送信</string>
+    <string name="ai_consent_decline">送信しない</string>
+    <string name="ai_consent_policy">プライバシーポリシー</string>
+    <string name="ai_consent_reset">AI送信の許可をリセット</string>
+    <string name="ai_consent_reset_done">AI送信の許可をリセットしました。次の送信時に再確認します。</string>
+    <string name="split_position">分割位置：%1$s</string>
+    <string name="split_description">この位置の前後を2件の新しい録音として保存します。元の録音は残ります。AAC形式の録音に対応しています。</string>
+    <string name="split_apply">2つの録音に分割</string>
+    <string name="shortcut_stop_recording">録音停止</string>
+    <string name="shortcut_transcribe_latest">最新の録音を文字起こし</string>
+    <string name="shortcut_no_recordings">保存済みの録音がありません。</string>
+    <string name="local_summary_description">デバッグ試作：端末内要約のみ（TODO抽出なし）。対応端末と準備済みモデルが必要です。クラウドへの切り替えやモデルの自動ダウンロードは行いません。</string>
+    <string name="local_summary_try">端末内要約を試す</string>
+    <string name="local_summary_unavailable">この端末・モデル・言語では端末内要約を利用できません。</string>
+    <string name="local_summary_failed">端末内要約に失敗しました。モデルの準備状態と入力長（400文字以上、4000トークン未満）を確認してください。クラウドには送信していません。</string>
 </resources>

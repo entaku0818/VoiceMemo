@@ -1,5 +1,7 @@
 package com.entaku.simpleRecord.edit
 
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,6 +51,8 @@ fun TrimScreen(
     onEndChange: (Long) -> Unit,
     onTrimClick: () -> Unit,
     onNavigateBack: () -> Unit,
+    onSplitChange: (Long) -> Unit = {},
+    onSplitClick: () -> Unit = {},
 ) {
     val durationRange = 0f..uiState.durationMs.toFloat().coerceAtLeast(0f)
 
@@ -68,7 +72,8 @@ fun TrimScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(24.dp))
@@ -132,6 +137,15 @@ fun TrimScreen(
                 }
             }
 
+            Spacer(Modifier.height(24.dp))
+            Text(stringResource(R.string.split_position, formatMs(uiState.splitMs)))
+            Slider(value = uiState.splitMs.toFloat(), onValueChange = { onSplitChange(it.toLong()) },
+                valueRange = durationRange, enabled = !uiState.isProcessing)
+            Text(stringResource(R.string.split_description))
+            Button(onClick = onSplitClick,
+                enabled = !uiState.isProcessing && uiState.splitMs > 0 && uiState.splitMs < uiState.durationMs) {
+                Text(stringResource(R.string.split_apply))
+            }
             if (uiState.isSaved) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(

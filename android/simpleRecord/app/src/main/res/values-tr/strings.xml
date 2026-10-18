@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Kayıt</string>
     <string name="shortcut_start_recording_long_label">Yeni bir kayıt başlat</string>
+    <string name="ai_consent_title">Harici bir yapay zekâ hizmetine gönderim</string>
+    <string name="ai_consent_audio">Bu kaydın sesi ve dil ayarı; yazıya dökme, konuşmacıları ayırt etme ve özet oluşturma amacıyla Google Cloud (sunucumuz ve Cloud Storage) üzerinden Google Gemini API’ye gönderilecektir.</string>
+    <string name="ai_consent_minutes">Bulutta toplantı tutanağı oluşturmak için döküm metni ve dil ayarı, özet ve yapılacak işler üretmek üzere Google Cloud’daki sunucumuz üzerinden Google Gemini API’ye gönderilecektir. Bu işlem ses dosyasını göndermez.</string>
+    <string name="ai_consent_policy">Gizlilik Politikası</string>
+    <string name="ai_consent_allow">Kabul Et ve Gönder</string>
+    <string name="ai_consent_decline">Gönderme</string>
+    <string name="ai_consent_reset">Yapay zekâ paylaşım izinlerini sıfırla</string>
+    <string name="ai_consent_reset_done">Paylaşım izinleri sıfırlandı. Sonraki istekler için yeniden onay gerekir.</string>
+    <string name="ai_consent_common">Ses veya metindeki adlar dahil kişisel bilgiler de gönderilecektir. Google Firebase Authentication ve sunucumuz, kimlik doğrulama ve kötüye kullanımı önlemek için anonim bir kimlik kullanır. Yapay zekâ isteklerine reklam kimliği eklemeyiz.\n\nİzin, ses dökümü Kestirmeleri dahil bu özelliğin gelecekteki kullanımları için de geçerlidir. Ayarlar’dan yapay zekâ paylaşım izinlerini sıfırlayabilirsiniz.</string>
+    <string name="split_position">Bölme konumu: %1$s</string>
+    <string name="split_description">Bu konumdan önce ve sonra iki yeni kayıt oluşturur. Asıl kayıt korunur. AAC kayıtları desteklenir.</string>
+    <string name="split_apply">İki kayda böl</string>
+    <string name="shortcut_stop_recording">Kaydı durdur</string>
+    <string name="shortcut_transcribe_latest">Son kaydı yazıya dök</string>
+    <string name="shortcut_no_recordings">Kaydedilmiş kayıt bulunamadı.</string>
+    <string name="local_summary_description">Hata ayıklama denemesi: yalnızca cihazda özet, görev çıkarımı yok. Uyumlu cihaz ve hazır model gerekir. Buluta geçiş veya otomatik model indirme yok.</string>
+    <string name="local_summary_try">Cihazda özeti dene</string>
+    <string name="local_summary_unavailable">Bu cihaz, model veya dil için cihazda özet kullanılamıyor.</string>
+    <string name="local_summary_failed">Cihazda özet başarısız. Modeli ve metin uzunluğunu kontrol edin (en az 400 karakter, 4000 tokendan az). Buluta veri gönderilmedi.</string>
 </resources>

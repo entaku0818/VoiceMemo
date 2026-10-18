@@ -34,6 +34,7 @@ class TranscriptionViewModelTest {
     private fun viewModel(tokenProvider: suspend (Boolean) -> String) = TranscriptionViewModel(
         audioFilePath = "/tmp/test.m4a",
         client = client,
+        consent = MemoryConsent().apply { allow(AIPurpose.AUDIO) },
         tokenProvider = tokenProvider
     )
 

@@ -263,4 +263,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Record</string>
     <string name="shortcut_start_recording_long_label">Start a new recording</string>
+    <string name="ai_consent_title">Allow AI data sharing?</string>
+    <string name="ai_consent_audio">The selected recording audio and language setting are sent through our Google Cloud server and Cloud Storage to Google’s Gemini API for transcription, speaker distinction and a summary.</string>
+    <string name="ai_consent_minutes">Transcript text and language are sent through our Google Cloud server to Google’s Gemini API to generate a summary and to-do items. This operation does not send the audio file.</string>
+    <string name="ai_consent_common">Personal information included in the content, such as names, is also sent. Firebase anonymous authentication identifies requests to our server. Permission applies to future uses of this feature, including shortcuts. Reset permissions in Settings. Choosing Don’t send leaves recording and playback available.</string>
+    <string name="ai_consent_allow">Agree and send</string>
+    <string name="ai_consent_decline">Don’t send</string>
+    <string name="ai_consent_policy">Privacy policy</string>
+    <string name="ai_consent_reset">Reset AI sharing permissions</string>
+    <string name="ai_consent_reset_done">AI sharing permissions reset. New requests require consent again.</string>
+    <string name="split_position">Split position: %1$s</string>
+    <string name="split_description">Save two new recordings before and after this position. The original is kept. AAC recordings are supported.</string>
+    <string name="split_apply">Split into two recordings</string>
+    <string name="shortcut_stop_recording">Stop recording</string>
+    <string name="shortcut_transcribe_latest">Transcribe latest</string>
+    <string name="shortcut_no_recordings">No saved recordings found.</string>
+    <string name="local_summary_description">Debug experiment: on-device summary only (no TODO extraction). Requires a supported device with the model already available. No cloud fallback or automatic model download.</string>
+    <string name="local_summary_try">Try on-device summary</string>
+    <string name="local_summary_unavailable">On-device summary is unavailable for this device, model or language.</string>
+    <string name="local_summary_failed">Could not summarize locally. Check model readiness and input length (400+ characters, under 4000 tokens). Nothing was sent to the cloud.</string>
 </resources>

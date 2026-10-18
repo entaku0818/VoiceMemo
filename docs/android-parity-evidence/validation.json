@@ -1,0 +1,30 @@
+{
+  "unit": {
+    "tests": 285,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "gradle_command": "JAVA_HOME=<JBR 17> ./gradlew :app:assembleDebug :app:assembleRelease :app:testDebugUnitTest :app:lintDebug :app:connectedDebugAndroidTest",
+  "gradle_log": "/private/tmp/voilog-android-final-validation.log",
+  "emulator": "Pixel_7_API_35_Play (Android 15)",
+  "instrumented_tests": 7,
+  "instrumented_failures": 0,
+  "artifacts": {
+    "debug": {
+      "path": "android/simpleRecord/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "ea2eab0810dd0a5f2d48be1d02b29e0329e222ef0a9b03f11de8672496bfa853"
+    },
+    "release": {
+      "path": "android/simpleRecord/app/build/outputs/apk/release/app-release.apk",
+      "sha256": "054bd9905268ad1158ee52e4c0e70ac10a93a8129b4102085b65f28f9eb4f040"
+    }
+  },
+  "lint_errors": 0,
+  "lint_warnings": 111,
+  "evidence_instrumentation_tests": 6,
+  "evidence_instrumentation_failures": 0,
+  "evidence_log": "/private/tmp/android-final-evidence-tests.log",
+  "release_contains_genai_summarization": false,
+  "large_text_test": "Android system font_scale 1.5; restored after test"
+}

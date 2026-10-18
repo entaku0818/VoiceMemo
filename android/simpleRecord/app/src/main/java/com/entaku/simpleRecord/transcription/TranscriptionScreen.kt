@@ -65,6 +65,7 @@ private fun speakerColor(speaker: String): androidx.compose.ui.graphics.Color =
 fun TranscriptionScreen(
     audioFilePath: String,
     recordingUuid: UUID?,
+    autoStart: Boolean = false,
     onNavigateBack: () -> Unit,
     onTranscriptionSaved: ((UUID, String) -> Unit)? = null,
     onNavigateToMeetingMinutes: ((UUID, String) -> Unit)? = null
@@ -72,6 +73,17 @@ fun TranscriptionScreen(
     val factory = remember(audioFilePath) { TranscriptionViewModelFactory(audioFilePath) }
     val viewModel: TranscriptionViewModel = viewModel(factory = factory)
     val uiState by viewModel.uiState.collectAsState()
+    val needsConsent by viewModel.needsConsent.collectAsState()
+    if (needsConsent) {
+        AIConsentDialog(AIPurpose.AUDIO, viewModel::acceptConsent, viewModel::declineConsent)
+    }
+    var shortcutConsumed by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    androidx.compose.runtime.LaunchedEffect(autoStart) {
+        if (autoStart && !shortcutConsumed) {
+            shortcutConsumed = true
+            viewModel.startTranscription()
+        }
+    }
     val selectedLanguage by viewModel.selectedLanguage.collectAsState()
     val context = LocalContext.current
 

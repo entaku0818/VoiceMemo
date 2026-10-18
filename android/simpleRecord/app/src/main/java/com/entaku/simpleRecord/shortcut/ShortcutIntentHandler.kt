@@ -9,11 +9,20 @@ import android.content.Intent
  * に相当する機能をAndroidでも提供するために追加 (issue #204)。
  */
 object ShortcutIntentHandler {
+    fun dispatchStop(action: String?, listener: com.entaku.simpleRecord.record.RecordingActionListener?): Boolean {
+        if (action != ACTION_STOP_RECORDING) return false
+        listener?.onStopRequested()
+        return true
+    }
+
 
     /** ショートカットの種別を識別するためのIntent extraキー。 */
     const val EXTRA_SHORTCUT_ACTION = "shortcut_action"
 
     /** 「録音開始」ショートカットを表すaction値。shortcuts.xml内のintent extraと対応する。 */
+    const val ACTION_STOP_RECORDING = "stop_recording"
+    const val ACTION_TRANSCRIBE_LATEST = "transcribe_latest"
+
     const val ACTION_START_RECORDING = "start_recording"
 
     /** ShortcutManagerCompat.reportShortcutUsed に渡すショートカットID。shortcuts.xml内のshortcutIdと対応する。 */

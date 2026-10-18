@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Ghi âm</string>
     <string name="shortcut_start_recording_long_label">Bắt đầu ghi âm mới</string>
+    <string name="ai_consent_title">Về việc gửi dữ liệu đến dịch vụ AI bên ngoài</string>
+    <string name="ai_consent_audio">Âm thanh của bản ghi này và cài đặt ngôn ngữ sẽ được gửi qua Google Cloud (máy chủ của chúng tôi và Cloud Storage) đến Gemini API của Google để phiên âm, phân biệt người nói và tạo bản tóm tắt.</string>
+    <string name="ai_consent_minutes">Để tạo biên bản trên đám mây, văn bản phiên âm và cài đặt ngôn ngữ sẽ được gửi qua máy chủ của chúng tôi trên Google Cloud đến Gemini API của Google để tạo bản tóm tắt và việc cần làm. Thao tác này không gửi tệp âm thanh.</string>
+    <string name="ai_consent_policy">Chính sách quyền riêng tư</string>
+    <string name="ai_consent_allow">Đồng ý và gửi</string>
+    <string name="ai_consent_decline">Không gửi</string>
+    <string name="ai_consent_reset">Đặt lại quyền chia sẻ AI</string>
+    <string name="ai_consent_reset_done">Đã đặt lại quyền chia sẻ AI. Các yêu cầu sau cần có sự đồng ý lại.</string>
+    <string name="ai_consent_common">Thông tin cá nhân có trong âm thanh hoặc văn bản, bao gồm tên, cũng sẽ được gửi. Google Firebase Authentication và máy chủ của chúng tôi dùng ID ẩn danh để xác thực và ngăn chặn lạm dụng. Chúng tôi không thêm ID quảng cáo vào yêu cầu AI.\n\nQuyền này áp dụng cho các lần dùng tính năng sau, bao gồm Phím tắt phiên âm. Bạn có thể đặt lại quyền chia sẻ AI trong Cài đặt.</string>
+    <string name="split_position">Vị trí chia: %1$s</string>
+    <string name="split_description">Lưu hai bản ghi mới trước và sau vị trí này. Giữ nguyên bản gốc. Hỗ trợ bản ghi AAC.</string>
+    <string name="split_apply">Chia thành hai bản ghi</string>
+    <string name="shortcut_stop_recording">Dừng ghi âm</string>
+    <string name="shortcut_transcribe_latest">Chép lời bản mới nhất</string>
+    <string name="shortcut_no_recordings">Không tìm thấy bản ghi đã lưu.</string>
+    <string name="local_summary_description">Thử nghiệm gỡ lỗi: chỉ tóm tắt trên thiết bị, không trích xuất việc cần làm. Cần thiết bị hỗ trợ và mô hình sẵn sàng. Không chuyển sang đám mây hoặc tự tải mô hình.</string>
+    <string name="local_summary_try">Thử tóm tắt trên thiết bị</string>
+    <string name="local_summary_unavailable">Thiết bị, mô hình hoặc ngôn ngữ này không hỗ trợ tóm tắt trên thiết bị.</string>
+    <string name="local_summary_failed">Tóm tắt thất bại. Kiểm tra mô hình và độ dài (ít nhất 400 ký tự, dưới 4000 token). Không gửi dữ liệu lên đám mây.</string>
 </resources>

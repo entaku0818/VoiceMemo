@@ -61,12 +61,13 @@ internal suspend fun firebaseIdToken(forceRefresh: Boolean = false): String {
         ?: error("Failed to get Firebase ID token")
 }
 
-class TranscriptionApiClient {
+class TranscriptionApiClient(private val consent: AIConsentStore = AISharingConsent) {
 
     private val baseUrl = BuildConfig.TRANSCRIPTION_SERVER_URL
 
     suspend fun getUploadUrl(idToken: String, extension: String): Pair<String, String> =
         withContext(Dispatchers.IO) {
+            consent.require(AIPurpose.AUDIO)
             val url = URL("$baseUrl/upload-url")
             val conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
@@ -91,6 +92,7 @@ class TranscriptionApiClient {
 
     suspend fun uploadAudio(signedUrl: String, file: File, mimeType: String) =
         withContext(Dispatchers.IO) {
+            consent.require(AIPurpose.AUDIO)
             val url = URL(signedUrl)
             val conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "PUT"
@@ -104,6 +106,7 @@ class TranscriptionApiClient {
 
     suspend fun transcribe(idToken: String, blobName: String, language: String): TranscriptionResult =
         withContext(Dispatchers.IO) {
+            consent.require(AIPurpose.AUDIO)
             val url = URL("$baseUrl/transcribe")
             val conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"
@@ -147,6 +150,7 @@ class TranscriptionApiClient {
 
     suspend fun generateMinutes(idToken: String, text: String, language: String): MinutesResult =
         withContext(Dispatchers.IO) {
+            consent.require(AIPurpose.MINUTES)
             val url = URL("$baseUrl/minutes")
             val conn = (url.openConnection() as HttpURLConnection).apply {
                 requestMethod = "POST"

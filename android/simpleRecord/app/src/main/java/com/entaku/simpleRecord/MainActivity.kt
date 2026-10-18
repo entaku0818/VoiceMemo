@@ -1,5 +1,6 @@
 package com.entaku.simpleRecord
 
+import kotlinx.coroutines.flow.first
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -106,6 +107,7 @@ val topLevelRoutes = listOf(
 
 class MainActivity : ComponentActivity() {
     private var showingAd = false
+    private val pendingShortcut = mutableStateOf<String?>(null)
 
     // ホーム画面ショートカット「録音開始」から起動された場合にtrueになる (issue #204)。
     // AppNavHostに渡し、録音タブへの遷移とrecording開始を自動で行うために使う。
@@ -125,6 +127,12 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun handleShortcutIntent(intent: Intent?) {
+        val action = ShortcutIntentHandler.extractShortcutAction(intent)
+        if (ShortcutIntentHandler.dispatchStop(action,
+                com.entaku.simpleRecord.record.RecordingNotificationService.actionListener)) return
+        if (action == ShortcutIntentHandler.ACTION_TRANSCRIBE_LATEST) {
+            pendingShortcut.value = action
+        }
         if (ShortcutIntentHandler.isStartRecordingRequested(intent)) {
             ShortcutManagerCompat.reportShortcutUsed(
                 this,
@@ -139,7 +147,7 @@ class MainActivity : ComponentActivity() {
         setContent { SplashScreen() }
         AppOpenAdController.getInstance(this).showAdIfNeeded(this) {
             showingAd = false
-            setContent { AppNavHost(autoStartRecording = autoStartRecording) }
+            setContent { AppNavHost(autoStartRecording = autoStartRecording, pendingShortcut = pendingShortcut) }
         }
     }
 }
@@ -167,7 +175,10 @@ fun SplashScreen() {
 }
 
 @Composable
-fun AppNavHost(autoStartRecording: MutableState<Boolean> = remember { mutableStateOf(false) }) {
+fun AppNavHost(
+    autoStartRecording: MutableState<Boolean> = remember { mutableStateOf(false) },
+    pendingShortcut: MutableState<String?> = remember { mutableStateOf(null) }
+) {
     val navController = rememberNavController()
     val context = LocalContext.current
     val sharedViewModel: SharedRecordingsViewModel = viewModel()
@@ -193,6 +204,20 @@ fun AppNavHost(autoStartRecording: MutableState<Boolean> = remember { mutableSta
         }
     }
 
+    LaunchedEffect(pendingShortcut.value) {
+        when (pendingShortcut.value) {
+            ShortcutIntentHandler.ACTION_TRANSCRIBE_LATEST -> {
+                val repository = RecordingRepositoryImpl(AppDatabase.getInstance(context))
+                val latest = repository.getAllRecordings().first().maxByOrNull { it.creationDate }
+                if (latest?.uuid != null) {
+                    navController.navigate(Screen.Transcription.createRoute(latest.filePath, latest.uuid.toString()) + "?start=true")
+                } else {
+                    android.widget.Toast.makeText(context, R.string.shortcut_no_recordings, android.widget.Toast.LENGTH_LONG).show()
+                }
+                pendingShortcut.value = null
+            }
+        }
+    }
     MaterialTheme(colorScheme = LightColorScheme, typography = Typography) {
         Scaffold(
             containerColor = MaterialTheme.colorScheme.background,
@@ -334,7 +359,7 @@ fun AppNavHost(autoStartRecording: MutableState<Boolean> = remember { mutableSta
 
                     selectedRecording?.let { recordingData ->
                         val notificationTitle = recordingData.title.ifEmpty {
-                            context.getString(R.string.untitled_recording)
+                            stringResource(R.string.untitled_recording)
                         }
 
                         // ロック画面/通知・Bluetooth・Android Autoからの操作をPlaybackViewModelに転送する (issue #200)
@@ -426,6 +451,8 @@ fun AppNavHost(autoStartRecording: MutableState<Boolean> = remember { mutableSta
                             onStartChange = trimViewModel::setStart,
                             onEndChange = trimViewModel::setEnd,
                             onTrimClick = { trimViewModel.trim(recordingData) },
+                            onSplitChange = trimViewModel::setSplit,
+                            onSplitClick = { trimViewModel.split(recordingData) },
                             onNavigateBack = { navController.popBackStack() }
                         )
                     }
@@ -542,8 +569,9 @@ fun AppNavHost(autoStartRecording: MutableState<Boolean> = remember { mutableSta
                 }
 
                 composable(
-                    route = Screen.Transcription.route,
+                    route = Screen.Transcription.route + "?start={start}",
                     arguments = listOf(
+                        navArgument("start") { type = NavType.BoolType; defaultValue = false },
                         navArgument("filePath") { type = NavType.StringType },
                         navArgument("uuid") { type = NavType.StringType }
                     )
@@ -558,6 +586,7 @@ fun AppNavHost(autoStartRecording: MutableState<Boolean> = remember { mutableSta
 
                     TranscriptionScreen(
                         audioFilePath = filePath,
+                        autoStart = backStackEntry.arguments?.getBoolean("start") == true,
                         recordingUuid = uuid,
                         onNavigateBack = { navController.popBackStack() },
                         onTranscriptionSaved = { id, text ->

@@ -17,4 +17,18 @@
                 android:value="start_recording" />
         </intent>
     </shortcut>
+    <shortcut android:shortcutId="stop_recording" android:enabled="true"
+        android:icon="@mipmap/ic_launcher" android:shortcutShortLabel="@string/shortcut_stop_recording">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.entaku.simpleRecord"
+            android:targetClass="com.entaku.simpleRecord.MainActivity">
+            <extra android:name="shortcut_action" android:value="stop_recording" />
+        </intent>
+    </shortcut>
+    <shortcut android:shortcutId="transcribe_latest" android:enabled="true"
+        android:icon="@mipmap/ic_launcher" android:shortcutShortLabel="@string/shortcut_transcribe_latest">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.entaku.simpleRecord"
+            android:targetClass="com.entaku.simpleRecord.MainActivity">
+            <extra android:name="shortcut_action" android:value="transcribe_latest" />
+        </intent>
+    </shortcut>
 </shortcuts>

@@ -117,6 +117,7 @@ kotlin {
 }
 
 dependencies {
+    debugImplementation("com.google.mlkit:genai-summarization:1.0.0-beta1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

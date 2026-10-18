@@ -12,6 +12,7 @@ class SimpleRecordApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        com.entaku.simpleRecord.transcription.AISharingConsent.initialize(this)
         FirebaseHelper.initialize()
 
         ReminderScheduler.createNotificationChannel(this)

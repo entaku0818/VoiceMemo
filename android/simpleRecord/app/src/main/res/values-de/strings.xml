@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Aufnahme</string>
     <string name="shortcut_start_recording_long_label">Neue Aufnahme starten</string>
+    <string name="ai_consent_title">Übermittlung an einen externen KI-Dienst</string>
+    <string name="ai_consent_audio">Die Audiodaten dieser Aufnahme und die Spracheinstellung werden über Google Cloud (unseren Server und Cloud Storage) an Googles Gemini API gesendet, um ein Transkript zu erstellen, Sprecher zu unterscheiden und eine Zusammenfassung zu erzeugen.</string>
+    <string name="ai_consent_minutes">Für ein cloudbasiertes Protokoll werden der Transkripttext und die Spracheinstellung über unseren Server in Google Cloud an Googles Gemini API gesendet, um eine Zusammenfassung und Aufgaben zu erstellen. Die Audiodatei wird dabei nicht gesendet.</string>
+    <string name="ai_consent_policy">Datenschutzerklärung</string>
+    <string name="ai_consent_allow">Zustimmen und senden</string>
+    <string name="ai_consent_decline">Nicht senden</string>
+    <string name="ai_consent_reset">KI-Freigaben zurücksetzen</string>
+    <string name="ai_consent_reset_done">Die KI-Freigaben wurden zurückgesetzt. Künftige Anfragen erfordern erneut Ihre Zustimmung.</string>
+    <string name="ai_consent_common">In Audio oder Text enthaltene personenbezogene Daten, einschließlich Namen, werden ebenfalls gesendet. Google Firebase Authentication und unser Server verwenden eine anonyme ID zur Authentifizierung und Missbrauchsprävention. Werbe-IDs werden KI-Anfragen nicht hinzugefügt.\n\nDie Erlaubnis gilt auch für die künftige Nutzung dieser Funktion, einschließlich Kurzbefehlen zur Audiotranskription. Sie können die KI-Freigaben in den Einstellungen zurücksetzen.</string>
+    <string name="split_position">Teilungspunkt: %1$s</string>
+    <string name="split_description">Speichert zwei neue Aufnahmen vor und nach dieser Position. Das Original bleibt erhalten. AAC-Aufnahmen werden unterstützt.</string>
+    <string name="split_apply">In zwei Aufnahmen teilen</string>
+    <string name="shortcut_stop_recording">Aufnahme stoppen</string>
+    <string name="shortcut_transcribe_latest">Neueste transkribieren</string>
+    <string name="shortcut_no_recordings">Keine gespeicherten Aufnahmen gefunden.</string>
+    <string name="local_summary_description">Debug-Test: lokale Zusammenfassung ohne Aufgaben. Unterstütztes Gerät mit bereitstehendem Modell erforderlich. Kein Cloud-Fallback oder automatischer Modelldownload.</string>
+    <string name="local_summary_try">Lokale Zusammenfassung testen</string>
+    <string name="local_summary_unavailable">Lokale Zusammenfassung für dieses Gerät, Modell oder diese Sprache nicht verfügbar.</string>
+    <string name="local_summary_failed">Lokale Zusammenfassung fehlgeschlagen. Modell und Textlänge prüfen (mindestens 400 Zeichen, unter 4000 Token). Keine Cloud-Übertragung.</string>
 </resources>

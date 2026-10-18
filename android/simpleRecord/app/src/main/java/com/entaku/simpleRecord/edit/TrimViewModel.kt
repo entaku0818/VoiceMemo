@@ -17,6 +17,7 @@ import java.util.UUID
 data class TrimUiState(
     val durationMs: Long = 0L,
     val startMs: Long = 0L,
+    val splitMs: Long = 0L,
     val endMs: Long = 0L,
     val isProcessing: Boolean = false,
     val isSaved: Boolean = false,
@@ -43,7 +44,8 @@ class TrimViewModel(
         _uiState.value = TrimUiState(
             durationMs = durationMs,
             startMs = 0L,
-            endMs = durationMs
+            endMs = durationMs,
+            splitMs = durationMs / 2
         )
     }
 
@@ -57,6 +59,45 @@ class TrimViewModel(
         val current = _uiState.value
         val clamped = endMs.coerceIn(current.startMs, current.durationMs)
         _uiState.value = current.copy(endMs = clamped, errorMessage = null, isSaved = false)
+    }
+
+    fun setSplit(positionMs: Long) {
+        if (_uiState.value.isProcessing) return
+        _uiState.value = _uiState.value.copy(
+            splitMs = positionMs.coerceIn(0, _uiState.value.durationMs), isSaved = false, errorMessage = null
+        )
+    }
+
+    fun split(recording: RecordingData) {
+        val state = _uiState.value
+        if (state.isProcessing) return
+        if (state.splitMs <= 0 || state.splitMs >= state.durationMs) {
+            _uiState.value = state.copy(errorMessage = ERROR_INVALID_RANGE)
+            return
+        }
+        _uiState.value = state.copy(isProcessing = true, isSaved = false, errorMessage = null)
+        viewModelScope.launch {
+            val outputs = mutableListOf<File>()
+            try {
+                val parent = File(recording.filePath).parentFile ?: error("Missing recording directory")
+                val ranges = listOf(0L to state.splitMs, state.splitMs to state.durationMs)
+                val recordings = ranges.mapIndexed { index, (start, end) ->
+                    val output = File(parent, "${UUID.randomUUID()}.m4a")
+                    outputs.add(output)
+                    trimmer.trim(recording.filePath, start, end, output.absolutePath)
+                    recording.copy(uuid = null, title = "${recording.title} (${index + 1}/2)",
+                        creationDate = LocalDateTime.now(), fileExtension = "m4a",
+                        duration = (end - start) / 1000, filePath = output.absolutePath,
+                        transcriptionText = null, meetingMinutesText = null)
+                }
+                repository.saveRecordingsAtomically(recordings)
+                _uiState.value = _uiState.value.copy(isProcessing = false, isSaved = true)
+            } catch (e: Exception) {
+                outputs.forEach { it.delete() }
+                _uiState.value = _uiState.value.copy(isProcessing = false,
+                    errorMessage = if (e is UnsupportedTrimFormatException) ERROR_UNSUPPORTED_FORMAT else ERROR_GENERIC)
+            }
+        }
     }
 
     fun trim(recording: RecordingData) {

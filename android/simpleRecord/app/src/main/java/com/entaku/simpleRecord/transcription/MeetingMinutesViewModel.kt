@@ -77,8 +77,21 @@ class MeetingMinutesViewModel(
     private val recordingUuid: UUID,
     private val repository: RecordingRepository,
     private val client: TranscriptionApiClient = TranscriptionApiClient(),
+    private val consent: AIConsentStore = AISharingConsent,
     private val tokenProvider: suspend (forceRefresh: Boolean) -> String = ::firebaseIdToken
 ) : ViewModel() {
+
+    private val _needsConsent = MutableStateFlow(false)
+    val needsConsent: StateFlow<Boolean> = _needsConsent.asStateFlow()
+
+    fun acceptConsent() {
+        if (!_needsConsent.value) return
+        consent.allow(AIPurpose.MINUTES)
+        _needsConsent.value = false
+        generate()
+    }
+
+    fun declineConsent() { _needsConsent.value = false }
 
     private val _uiState = MutableStateFlow<MeetingMinutesUiState>(MeetingMinutesUiState.Loading)
     val uiState: StateFlow<MeetingMinutesUiState> = _uiState.asStateFlow()
@@ -99,13 +112,21 @@ class MeetingMinutesViewModel(
 
     fun generate() {
         val text = transcriptionText ?: return
+        if (_uiState.value is MeetingMinutesUiState.Generating) return
+        if (!consent.allowed(AIPurpose.MINUTES)) {
+            _needsConsent.value = true
+            return
+        }
         viewModelScope.launch {
             _uiState.value = MeetingMinutesUiState.Generating
             try {
-                val result = withAuthRetry(tokenProvider) { idToken ->
+                val result = withAuthRetry({ refresh -> consent.require(AIPurpose.MINUTES); tokenProvider(refresh) }) { idToken ->
+                    consent.require(AIPurpose.MINUTES)
                     client.generateMinutes(idToken, text, detectSystemLanguage())
                 }
                 _uiState.value = MeetingMinutesUiState.Done(result)
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
             } catch (e: Exception) {
                 _uiState.value = MeetingMinutesUiState.Failed(e.message ?: "Unknown error")
             }

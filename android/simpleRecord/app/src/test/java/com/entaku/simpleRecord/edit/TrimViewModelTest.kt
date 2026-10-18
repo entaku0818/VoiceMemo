@@ -12,6 +12,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
+import io.mockk.Called
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -62,6 +63,43 @@ class TrimViewModelTest {
     )
 
     private fun viewModel() = TrimViewModel(repository = repository, trimmer = trimmer)
+
+    @Test fun `split saves two recordings together without changing original`() = runTest {
+        val original = recording()
+        val repo = mockk<RecordingRepository>()
+        val saved = io.mockk.slot<List<RecordingData>>()
+        coEvery { repo.saveRecordingsAtomically(capture(saved)) } returns Unit
+        val vm = TrimViewModel(repo, trimmer)
+        vm.initialize(original)
+        vm.setSplit(20_000)
+        vm.split(original)
+        assertTrue(vm.uiState.value.isSaved)
+        assertEquals(listOf(20L, 40L), saved.captured.map { it.duration })
+        assertTrue(saved.captured.all { it.filePath != original.filePath && it.transcriptionText == null })
+        io.mockk.coVerify(exactly = 1) { trimmer.trim(original.filePath, 0, 20_000, any()) }
+        io.mockk.coVerify(exactly = 1) { trimmer.trim(original.filePath, 20_000, 60_000, any()) }
+    }
+
+    @Test fun `split failure does not save a partial pair`() = runTest {
+        val original = recording()
+        val repo = mockk<RecordingRepository>()
+        coEvery { trimmer.trim(any(), 30_000, any(), any()) } throws IllegalStateException("disk full")
+        val vm = TrimViewModel(repo, trimmer)
+        vm.initialize(original)
+        vm.split(original)
+        assertFalse(vm.uiState.value.isSaved)
+        io.mockk.coVerify { repo wasNot Called }
+    }
+
+    @Test fun `split at endpoint is rejected`() = runTest {
+        val original = recording()
+        val vm = viewModel()
+        vm.initialize(original)
+        vm.setSplit(0)
+        vm.split(original)
+        assertEquals(TrimViewModel.ERROR_INVALID_RANGE, vm.uiState.value.errorMessage)
+        io.mockk.coVerify { trimmer wasNot Called }
+    }
 
     // --- initialize ---
 

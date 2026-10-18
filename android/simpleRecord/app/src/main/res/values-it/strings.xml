@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Registra</string>
     <string name="shortcut_start_recording_long_label">Avvia una nuova registrazione</string>
+    <string name="ai_consent_title">Invio a un servizio di IA esterno</string>
+    <string name="ai_consent_audio">L’audio di questa registrazione e la lingua selezionata saranno inviati all’API Gemini di Google tramite Google Cloud (il nostro server e Cloud Storage) per trascrivere, distinguere le voci e creare un riepilogo.</string>
+    <string name="ai_consent_minutes">Per creare verbali nel cloud, il testo trascritto e la lingua saranno inviati all’API Gemini di Google tramite il nostro server su Google Cloud per generare un riepilogo e attività. Questa operazione non invia il file audio.</string>
+    <string name="ai_consent_policy">Informativa sulla privacy</string>
+    <string name="ai_consent_allow">Accetta e invia</string>
+    <string name="ai_consent_decline">Non inviare</string>
+    <string name="ai_consent_reset">Reimposta i permessi di condivisione IA</string>
+    <string name="ai_consent_reset_done">I permessi sono stati reimpostati. Le prossime richieste richiederanno di nuovo il consenso.</string>
+    <string name="ai_consent_common">Saranno inviati anche i dati personali contenuti nell’audio o nel testo, inclusi i nomi. Google Firebase Authentication e il nostro server usano un ID anonimo per autenticazione e prevenzione degli abusi. Non aggiungiamo ID pubblicitari alle richieste IA.\n\nIl consenso vale anche per gli usi futuri di questa funzione, inclusi i Comandi Rapidi per la trascrizione audio. Puoi reimpostare i permessi di condivisione IA nelle impostazioni.</string>
+    <string name="split_position">Punto di divisione: %1$s</string>
+    <string name="split_description">Salva due nuove registrazioni prima e dopo questa posizione. L’originale viene conservato. Sono supportate le registrazioni AAC.</string>
+    <string name="split_apply">Dividi in due registrazioni</string>
+    <string name="shortcut_stop_recording">Interrompi registrazione</string>
+    <string name="shortcut_transcribe_latest">Trascrivi l’ultima</string>
+    <string name="shortcut_no_recordings">Nessuna registrazione salvata.</string>
+    <string name="local_summary_description">Prova di debug: solo riepilogo locale, senza attività. Richiede dispositivo compatibile e modello pronto. Nessun fallback al cloud o download automatico del modello.</string>
+    <string name="local_summary_try">Prova riepilogo locale</string>
+    <string name="local_summary_unavailable">Riepilogo locale non disponibile per questo dispositivo, modello o lingua.</string>
+    <string name="local_summary_failed">Riepilogo locale non riuscito. Controlla modello e lunghezza (almeno 400 caratteri, meno di 4000 token). Nessun invio al cloud.</string>
 </resources>

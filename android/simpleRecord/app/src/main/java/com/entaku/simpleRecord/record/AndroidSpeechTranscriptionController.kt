@@ -3,6 +3,7 @@ package com.entaku.simpleRecord.record
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Build
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -23,14 +24,22 @@ class AndroidSpeechTranscriptionController : SpeechTranscriptionController {
     private var onResultCallback: ((String) -> Unit)? = null
 
     override fun start(context: Context, initialText: String, onResult: (String) -> Unit): Boolean {
-        if (!SpeechRecognizer.isRecognitionAvailable(context)) return false
+        // Automatic recognition must never select an unknown network-backed provider.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S ||
+            !SpeechRecognizer.isOnDeviceRecognitionAvailable(context)) return false
         if (isActive) return true
 
         isActive = true
         accumulatedText = initialText
         onResultCallback = onResult
 
-        val recognizer = SpeechRecognizer.createSpeechRecognizer(context)
+        val recognizer = try {
+            SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
+        } catch (e: UnsupportedOperationException) {
+            isActive = false
+            onResultCallback = null
+            return false
+        }
         recognizer.setRecognitionListener(createListener())
         speechRecognizer = recognizer
 

@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">錄音</string>
     <string name="shortcut_start_recording_long_label">開始新的錄音</string>
+    <string name="ai_consent_title">關於傳送至外部 AI 服務</string>
+    <string name="ai_consent_audio">此錄音的音訊和語言設定將透過 Google Cloud（我們的伺服器和 Cloud Storage）傳送至 Google 的 Gemini API，用於轉寫、區分說話者和產生摘要。</string>
+    <string name="ai_consent_minutes">為在雲端產生會議紀錄，轉寫文字和語言設定將透過我們在 Google Cloud 上的伺服器傳送至 Google 的 Gemini API，用於產生摘要和待辦事項。此操作不會傳送音訊檔案。</string>
+    <string name="ai_consent_policy">隱私權政策</string>
+    <string name="ai_consent_allow">同意並傳送</string>
+    <string name="ai_consent_decline">不傳送</string>
+    <string name="ai_consent_reset">重設 AI 分享權限</string>
+    <string name="ai_consent_reset_done">AI 分享權限已重設。下次請求需要重新同意。</string>
+    <string name="ai_consent_common">音訊或文字中包含的姓名等個人資訊也會被傳送。Google Firebase Authentication 和我們的伺服器使用匿名 ID 進行驗證及防止濫用。我們不會在 AI 請求中加入廣告 ID。\n\n此許可也適用於日後使用此功能，包括透過捷徑轉寫音訊。您可以在設定中重設 AI 分享權限。</string>
+    <string name="split_position">分割位置：%1$s</string>
+    <string name="split_description">將此位置前後分別儲存為兩筆新錄音，保留原始錄音。支援AAC格式。</string>
+    <string name="split_apply">分割為兩筆錄音</string>
+    <string name="shortcut_stop_recording">停止錄音</string>
+    <string name="shortcut_transcribe_latest">轉寫最新錄音</string>
+    <string name="shortcut_no_recordings">找不到已儲存的錄音。</string>
+    <string name="local_summary_description">除錯試驗：僅在裝置上產生摘要，不擷取待辦事項。需要支援的裝置和已就緒的模型。不會改用雲端或自動下載模型。</string>
+    <string name="local_summary_try">試用裝置端摘要</string>
+    <string name="local_summary_unavailable">此裝置、模型或語言不支援裝置端摘要。</string>
+    <string name="local_summary_failed">裝置端摘要失敗。請檢查模型與文字長度（至少400字元，少於4000個token）。未向雲端傳送資料。</string>
 </resources>

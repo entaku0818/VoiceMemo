@@ -58,6 +58,10 @@ fun MeetingMinutesScreen(
     val factory = remember(recordingUuid) { MeetingMinutesViewModelFactory(recordingUuid, repository) }
     val viewModel: MeetingMinutesViewModel = viewModel(factory = factory)
     val uiState by viewModel.uiState.collectAsState()
+    val needsConsent by viewModel.needsConsent.collectAsState()
+    if (needsConsent) {
+        AIConsentDialog(AIPurpose.MINUTES, viewModel::acceptConsent, viewModel::declineConsent)
+    }
 
     Column(
         modifier = Modifier
@@ -80,6 +84,9 @@ fun MeetingMinutesScreen(
             )
         }
 
+        if (com.entaku.simpleRecord.BuildConfig.DEBUG) {
+            LocalSummaryPrototype(recordingUuid, repository)
+        }
         if (!isPremium) {
             PremiumGateContent(onNavigateToPaywall = onNavigateToPaywall)
         } else {

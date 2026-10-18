@@ -247,4 +247,23 @@
     <!-- Home screen shortcut (issue #204) -->
     <string name="shortcut_start_recording_short_label">Enregistrer</string>
     <string name="shortcut_start_recording_long_label">Démarrer un nouvel enregistrement</string>
+    <string name="ai_consent_title">Envoi à un service d’IA externe</string>
+    <string name="ai_consent_audio">L’audio de cet enregistrement et la langue sélectionnée seront envoyés à l’API Gemini de Google via Google Cloud (notre serveur et Cloud Storage) pour transcrire, distinguer les intervenants et produire un résumé.</string>
+    <string name="ai_consent_minutes">Pour créer un compte rendu dans le cloud, le texte transcrit et la langue seront envoyés à l’API Gemini de Google via notre serveur sur Google Cloud afin de produire un résumé et des tâches. Cette action n’envoie pas le fichier audio.</string>
+    <string name="ai_consent_policy">Politique de confidentialité</string>
+    <string name="ai_consent_allow">Accepter et envoyer</string>
+    <string name="ai_consent_decline">Ne pas envoyer</string>
+    <string name="ai_consent_reset">Réinitialiser les autorisations de partage IA</string>
+    <string name="ai_consent_reset_done">Les autorisations ont été réinitialisées. Les prochaines demandes nécessiteront à nouveau votre consentement.</string>
+    <string name="ai_consent_common">Les données personnelles contenues dans l’audio ou le texte, notamment les noms, seront également envoyées. Google Firebase Authentication et notre serveur utilisent un identifiant anonyme pour l’authentification et la prévention des abus. Nous n’ajoutons pas d’identifiants publicitaires aux requêtes IA.\n\nL’autorisation s’applique aux utilisations futures de cette fonction, y compris les Raccourcis de transcription audio. Vous pouvez réinitialiser les autorisations de partage IA dans les réglages.</string>
+    <string name="split_position">Position de division : %1$s</string>
+    <string name="split_description">Enregistre deux nouveaux fichiers avant et après cette position. L’original est conservé. Les enregistrements AAC sont pris en charge.</string>
+    <string name="split_apply">Diviser en deux enregistrements</string>
+    <string name="shortcut_stop_recording">Arrêter l’enregistrement</string>
+    <string name="shortcut_transcribe_latest">Transcrire le dernier</string>
+    <string name="shortcut_no_recordings">Aucun enregistrement sauvegardé.</string>
+    <string name="local_summary_description">Essai de débogage : résumé local uniquement, sans tâches. Appareil compatible et modèle prêt requis. Aucun recours au cloud ni téléchargement automatique du modèle.</string>
+    <string name="local_summary_try">Essayer le résumé local</string>
+    <string name="local_summary_unavailable">Résumé local indisponible pour cet appareil, ce modèle ou cette langue.</string>
+    <string name="local_summary_failed">Échec du résumé local. Vérifiez le modèle et la longueur (400 caractères minimum, moins de 4000 tokens). Rien n’a été envoyé au cloud.</string>
 </resources>
