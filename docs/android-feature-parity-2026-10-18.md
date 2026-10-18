@@ -52,11 +52,12 @@ JBR 17、Pixel 7 API 35 Playエミュレーター（Android 15）で実施。
 - 音声分割はAACのみ。旧3GP/AMR録音は変換処理を追加するまで対象外。サンプル単位での無損失切り分けであり、圧縮フレームより細かい境界精度は保証しない。
 - 端末内議事録の製品化には対応実機の品質検証、長文分割、TODO抽出が必要。
 - 通常録音のリアルタイム認識は端末内認識対応環境に限定される。
-- バージョン番号は既存2.9.0 (18)のまま。Google Playへアップロード／提出していない。配布する場合はversionCode更新、リリースノート、実機確認が必要。
-- 公開済みプライバシーポリシーのクラウドAI説明（Google Cloud→Gemini、音声／文章別同意）と今回の処理は整合。Android端末内認識の説明を追加する場合の文案：
-  - 日本語:「Androidの録音中の文字起こしは、対応端末の端末内音声認識を使用します。非対応端末では自動で外部の音声認識サービスへ送信しません。」
-  - 英語: “On supported Android devices, live transcription uses on-device speech recognition. Unsupported devices do not automatically send audio to an external speech recognition service.”
-  - 対象ページ: `lp/privacy_policy.html` / https://voilog.web.app/privacy_policy.html。今回外部公開は行っていない。旧Android版の動作と混同しないよう、対応バージョンを明記してリリース時に反映する。
+- リリース作業で2.10.0 (19)へ更新。日英リリースノート、署名付きAAB、mainのコミット `013500da` とタグ `android-v2.10.0` をpush済み。
+- `lp/privacy_policy.html` にAndroid 2.10.0以降の端末内音声認識の説明を日英で追記。Firebase Hostingへ公開し、公開URLの内容を照合済み。
+- 署名付きAABは `launchpad android build --release` 成功。更新後の単体テスト285件とlintDebugも成功。
+- launchpadのアップロードは通信タイムアウト。既存editで未受信を確認し、同じGoogle Play APIへタイムアウト600秒で再送。versionCode 19とローカルSHA256の一致を確認。
+- 製品版トラックへ2.10.0 (19)、日英更新説明を設定し、validate / commitがHTTP 200。再取得でもproductionに19を確認。APIの `completed` はトラックの公開割合設定で、審査完了を意味しない。
+- Play Consoleの管理対象の公開はオフ（従来設定）。承認後は自動公開対象。
 - 既存の未追跡 `docs/monetization_proposal_2026-10-11.md` は保持。
 
 画像採取用に新規Instrumentation 6件を再実行し全件成功。大きな文字サイズはエミュレーターのシステムfont_scaleを1.5へ変更して検証し、終了時に元の設定へ復元。最終テストコードの再コンパイルとlintも成功（`/private/tmp/voilog-android-font-test-build.log`）。

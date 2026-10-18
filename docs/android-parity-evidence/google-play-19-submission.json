@@ -1,0 +1,11 @@
+{
+  "bundle": {
+    "versionCode": 19,
+    "sha1": "7e7fd87eda3b674143ee7552a4c787f8092da330",
+    "sha256": "99cfa1e3b822349eb5cb48a8b50f53928f2e2adf1fe64bfec9d90591c6ba5cbc"
+  },
+  "commit": {
+    "id": "02026484656825585712",
+    "expiryTimeSeconds": "1792298477"
+  }
+}
