@@ -13,6 +13,8 @@ struct PaywallView: View {
     @State private var alertMessage: String = ""
     @State private var offering: Offering?
     @State private var purchaseCompleted = false
+    @State private var isLoadingProducts = true
+    @State private var isProcessingPurchase = false
     /// StoreKit の introductory offer と適格判定から決めた無料トライアル（issue #232）
     @State private var monthlyTrial: IntroTrial?
     @State private var annualTrial: IntroTrial?
@@ -108,6 +110,7 @@ struct PaywallView: View {
                         ) {
                             isAnnualSelected = true
                         }
+                        .disabled(isLoadingProducts || isProcessingPurchase || annualPrice.isEmpty)
                     }
                     planButton(
                         title: String(localized: "月額", table: "Premium"),
@@ -118,6 +121,7 @@ struct PaywallView: View {
                     ) {
                         isAnnualSelected = false
                     }
+                    .disabled(isLoadingProducts || isProcessingPurchase || productPrice.isEmpty)
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
@@ -205,6 +209,12 @@ struct PaywallView: View {
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
+                .disabled(isLoadingProducts || isProcessingPurchase || selectedPrice.isEmpty)
+                .overlay {
+                    if isLoadingProducts || isProcessingPurchase {
+                        ProgressView()
+                    }
+                }
 
                 // サブスクリプション条件の説明（Guideline 3.1.2 対応）
                 Text(PaywallCopy.disclosure(price: selectedPrice, isAnnual: isAnnualSelected, trial: selectedTrial))
@@ -232,6 +242,7 @@ struct PaywallView: View {
                 )
                 .padding(.horizontal)
                 .padding(.top, 12)
+                .disabled(isProcessingPurchase)
 
                 // フッター
                 VStack(alignment: .center) {
@@ -314,7 +325,17 @@ struct PaywallView: View {
     }
 
     // RevenueCat用の商品情報取得処理
+    @MainActor
     func fetchProductInfo() async {
+        isLoadingProducts = true
+        defer {
+            isLoadingProducts = false
+            analytics.logEvent("paywall_products_loaded", [
+                "source": source,
+                "monthly_available": !productPrice.isEmpty,
+                "annual_available": !annualPrice.isEmpty
+            ])
+        }
         async let monthlyTrialResult = purchaseManager.fetchIntroTrial(isAnnual: false)
         async let annualTrialResult = purchaseManager.fetchIntroTrial(isAnnual: true)
         async let monthly = purchaseManager.fetchProPlan()
@@ -354,7 +375,11 @@ struct PaywallView: View {
     }
 
     // RevenueCat用の購入処理
+    @MainActor
     func purchaseProduct() async {
+        guard !isLoadingProducts, !isProcessingPurchase, !selectedPrice.isEmpty else { return }
+        isProcessingPurchase = true
+        defer { isProcessingPurchase = false }
         // 以前は常に月額の商品名（多くは空）を送っていて、年額/月額の比率が見えなかった（issue #232）
         let name = isAnnualSelected ? "annual" : "pro"
         let hasTrial = selectedTrial != nil
@@ -418,7 +443,11 @@ struct PaywallView: View {
     }
 
     // RevenueCat用のリストア処理
+    @MainActor
     func restorePurchases() async {
+        guard !isProcessingPurchase else { return }
+        isProcessingPurchase = true
+        defer { isProcessingPurchase = false }
         await MainActor.run {
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreAttempted, [
                 "timestamp": Date().timeIntervalSince1970

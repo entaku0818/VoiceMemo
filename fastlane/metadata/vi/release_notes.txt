@@ -1,9 +1,2 @@
-Phiên bản 1.17.0
-
-[Cải thiện]
-- Giờ đây bạn có thể chuyển đến gói Premium từ màn hình biên bản họp AI
-- Bản dùng thử miễn phí giờ cũng hiển thị cho gói năm khi bạn đủ điều kiện
-- Trước khi gửi dữ liệu đến dịch vụ AI bên ngoài để chép lời và lập biên bản, giờ đây bạn có thể xem gửi đến đâu và gửi gì
-
-[Sửa lỗi]
-- Đã sửa lỗi hiện "Mua không thành công" khi bạn hủy giao dịch mua
+1.17.1
+Cải thiện quá trình tải và xử lý giao dịch mua trên màn hình premium.

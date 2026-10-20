@@ -1,9 +1,2 @@
-Versi 1.17.0
-
-[Peningkatan]
-- Kini Anda bisa membuka Premium dari layar notulen rapat AI
-- Uji coba gratis kini juga ditampilkan untuk paket tahunan jika tersedia untuk Anda
-- Sebelum data dikirim ke layanan AI eksternal untuk transkripsi dan notulen, kini Anda dapat melihat ke mana dan apa yang dikirim
-
-[Perbaikan Bug]
-- Memperbaiki pesan "Pembelian gagal" yang muncul saat membatalkan pembelian
+1.17.1
+Pemuatan dan proses pembelian di layar premium telah ditingkatkan.

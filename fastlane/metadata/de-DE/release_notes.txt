@@ -1,9 +1,2 @@
-Version 1.17.0
-
-[Verbesserungen]
-- Vom Bildschirm für KI-Besprechungsprotokolle gelangst du jetzt zum Premium-Abo
-- Die kostenlose Testphase wird jetzt auch beim Jahresabo angezeigt, wenn sie für dich verfügbar ist
-- Vor dem Senden von Daten an einen externen KI-Dienst für Transkription und Protokolle siehst du jetzt, wohin und was gesendet wird
-
-[Fehlerbehebungen]
-- Behoben: Beim Abbrechen eines Kaufs wurde „Kauf fehlgeschlagen“ angezeigt
+1.17.1
+Das Laden und die Kaufabwicklung auf dem Premium-Bildschirm wurden verbessert.

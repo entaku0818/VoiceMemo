@@ -1,9 +1,2 @@
-Versiunea 1.17.0
-
-[Îmbunătățiri]
-- Acum poți accesa Premium din ecranul de procese-verbale AI
-- Perioada de probă gratuită este acum afișată și pentru planul anual, când îți este disponibilă
-- Înainte de a trimite date unui serviciu AI extern pentru transcriere și procese-verbale, vezi acum unde și ce se trimite
-
-[Remedieri]
-- Am remediat afișarea mesajului „Achiziția a eșuat” la anularea unei achiziții
+1.17.1
+Am îmbunătățit încărcarea și procesarea achizițiilor pe ecranul premium.

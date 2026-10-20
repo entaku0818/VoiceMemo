@@ -1,9 +1,2 @@
-Verzija 1.17.0
-
-[Poboljšanja]
-- Sa zaslona AI zapisnika sa sastanka sada možete prijeći na Premium
-- Besplatno probno razdoblje sada se prikazuje i za godišnju pretplatu kada vam je dostupno
-- Prije slanja podataka vanjskoj AI usluzi za transkripciju i zapisnike sada vidite kamo i što se šalje
-
-[Ispravci pogrešaka]
-- Ispravljen prikaz poruke „Kupnja nije uspjela” pri otkazivanju kupnje
+1.17.1
+Poboljšano učitavanje i obrada kupnji na premium zaslonu.

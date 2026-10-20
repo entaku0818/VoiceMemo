@@ -1,9 +1,2 @@
-Versio 1.17.0
-
-[Parannukset]
-- AI-muistion näkymästä pääsee nyt Premium-tilaukseen
-- Ilmainen kokeilujakso näytetään nyt myös vuositilauksessa, kun se on saatavilla
-- Ennen kuin tietoja lähetetään ulkoiseen tekoälypalveluun litterointia ja muistioita varten, näet nyt minne ja mitä lähetetään
-
-[Virhekorjaukset]
-- Korjattu ”Osto epäonnistui” -ilmoitus, joka näkyi oston peruuttamisen jälkeen
+1.17.1
+Premium-näkymän lataamista ja ostojen käsittelyä on parannettu.

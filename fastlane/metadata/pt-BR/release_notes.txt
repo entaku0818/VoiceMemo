@@ -1,9 +1,2 @@
-Versão 1.17.0
-
-[Melhorias]
-- Agora você pode acessar o Premium pela tela de atas com IA
-- O teste gratuito agora também aparece no plano anual quando estiver disponível para você
-- Antes de enviar dados a um serviço de IA externo para transcrição e atas, agora você vê para onde e o que é enviado
-
-[Correções]
-- Corrigida a mensagem "Falha na compra" exibida ao cancelar uma compra
+1.17.1
+Melhoramos o carregamento e o processamento de compras na tela premium.

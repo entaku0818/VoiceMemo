@@ -1,9 +1,2 @@
-Version 1.17.0
-
-[Improvements]
-- You can now go to Premium from the AI meeting minutes screen
-- The free trial is now shown for the annual plan too, when it's available to you
-- Before data is sent to an external AI service for transcription or minutes, you can now see where it goes and what is sent
-
-[Bug Fixes]
-- Fixed "Purchase failed" being shown when you cancel a purchase
+1.17.1
+Improved loading and purchase handling on the premium screen.

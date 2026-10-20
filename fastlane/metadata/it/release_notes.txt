@@ -1,9 +1,2 @@
-Versione 1.17.0
-
-[Miglioramenti]
-- Ora puoi passare a Premium dalla schermata dei verbali IA
-- La prova gratuita ora viene mostrata anche per il piano annuale, quando è disponibile per te
-- Prima di inviare dati a un servizio IA esterno per trascrizioni e verbali, ora puoi vedere dove e cosa viene inviato
-
-[Correzioni di bug]
-- Corretto il messaggio "Acquisto non riuscito" mostrato quando si annulla un acquisto
+1.17.1
+Migliorati il caricamento e la gestione degli acquisti nella schermata premium.

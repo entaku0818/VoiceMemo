@@ -1,9 +1,2 @@
-Versió 1.17.0
-
-[Millores]
-- Ara pots accedir al pla prèmium des de la pantalla d'actes amb IA
-- Ara també es mostra la prova gratuïta del pla anual quan la tens disponible
-- Ara pots veure on i què s'envia abans d'enviar dades a un servei d'IA extern per a la transcripció i les actes
-
-[Correccions d'errors]
-- S'ha corregit que en cancel·lar una compra aparegués "La compra ha fallat"
+1.17.1
+S’han millorat la càrrega i la gestió de compres a la pantalla premium.
