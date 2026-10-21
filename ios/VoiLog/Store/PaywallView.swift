@@ -39,7 +39,7 @@ struct PaywallView: View {
     ) {
         self.purchaseManager = purchaseManager
         self.showsCloseButton = showsCloseButton
-        self.source = source
+        self.source = source.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "unknown" : source
     }
 
     var body: some View {
@@ -216,6 +216,13 @@ struct PaywallView: View {
                     }
                 }
 
+                if !isLoadingProducts && !isProcessingPurchase && selectedPrice.isEmpty {
+                    Button(String(localized: "再試行", table: "MeetingMinutes")) {
+                        Task { await fetchProductInfo() }
+                    }
+                    .padding(.top, 8)
+                }
+
                 // サブスクリプション条件の説明（Guideline 3.1.2 対応）
                 Text(PaywallCopy.disclosure(price: selectedPrice, isAnnual: isAnnualSelected, trial: selectedTrial))
                     .font(.system(size: 12, weight: .regular))
@@ -327,6 +334,7 @@ struct PaywallView: View {
     // RevenueCat用の商品情報取得処理
     @MainActor
     func fetchProductInfo() async {
+        guard !isProcessingPurchase else { return }
         isLoadingProducts = true
         defer {
             isLoadingProducts = false
@@ -352,6 +360,7 @@ struct PaywallView: View {
                 productPrice = price
             }
         } catch {
+            logProductLoadFailure(error, plan: "pro")
             await MainActor.run {
                 productPrice = ""
             }
@@ -360,8 +369,10 @@ struct PaywallView: View {
             let (_, price) = try await annual
             await MainActor.run {
                 annualPrice = price
+                isAnnualAvailable = true
             }
         } catch {
+            logProductLoadFailure(error, plan: "annual")
             await MainActor.run {
                 annualPrice = ""
                 isAnnualAvailable = false
@@ -372,6 +383,14 @@ struct PaywallView: View {
                 }
             }
         }
+    }
+
+    private func logProductLoadFailure(_ error: Error, plan: String) {
+        analytics.logEvent("paywall_products_failed", [
+            "source": source,
+            "product_name": plan,
+            "error_code": PurchaseManager.analyticsErrorCode(error)
+        ])
     }
 
     // RevenueCat用の購入処理
@@ -432,7 +451,7 @@ struct PaywallView: View {
                         "product_price": price,
                         "has_trial": hasTrial,
                         "source": source,
-                        "error": error.localizedDescription,
+                        "error_code": PurchaseManager.analyticsErrorCode(error),
                         "timestamp": Date().timeIntervalSince1970
                     ])
                     alertMessage = String(localized: "購入に失敗しました", table: "Premium")
@@ -450,6 +469,8 @@ struct PaywallView: View {
         defer { isProcessingPurchase = false }
         await MainActor.run {
             analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreAttempted, [
+                "source": source,
+                "product_name": "unknown",
                 "timestamp": Date().timeIntervalSince1970
             ])
         }
@@ -459,6 +480,8 @@ struct PaywallView: View {
 
             await MainActor.run {
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreCompleted, [
+                    "source": source,
+                    "product_name": "unknown",
                     "timestamp": Date().timeIntervalSince1970
                 ])
                 purchaseCompleted = true
@@ -469,7 +492,9 @@ struct PaywallView: View {
         } catch {
             await MainActor.run {
                 analytics.logEvent(FirebaseAnalyticsClient.PaywallEvent.paywallRestoreFailed, [
-                    "error": error.localizedDescription,
+                    "source": source,
+                    "product_name": "unknown",
+                    "error_code": PurchaseManager.analyticsErrorCode(error),
                     "timestamp": Date().timeIntervalSince1970
                 ])
                 alertMessage = String(localized: "リストアに失敗しました", table: "Premium")

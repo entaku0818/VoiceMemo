@@ -134,4 +134,30 @@ final class PurchaseManagerTests: XCTestCase {
             NSError(domain: "OtherDomain", code: ErrorCode.purchaseCancelledError.rawValue)
         ))
     }
+    func testAnalyticsErrorCodeSeparatesNoEntitlementsAndFailures() {
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(PurchaseManager.PurchaseError.noEntitlements), "no_entitlements")
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(PurchaseManager.PurchaseError.productNotFound), "product_not_found")
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(PurchaseManager.PurchaseError.purchaseFailed), "purchase_failed")
+    }
+
+    func testAnalyticsErrorCodeRecognizesSDKAndURLNetworkErrors() {
+        let sdkError = NSError(domain: ErrorCode.errorDomain, code: ErrorCode.networkError.rawValue)
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(sdkError), "network_error")
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(URLError(.notConnectedToInternet)), "network_error")
+    }
+
+    func testAnalyticsErrorCodeDoesNotLeakDescriptionsOrConfuseDomains() {
+        let error = NSError(domain: "OtherDomain", code: ErrorCode.networkError.rawValue,
+                            userInfo: [NSLocalizedDescriptionKey: "sensitive details"])
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(error), "unknown")
+        let sdkError = NSError(domain: ErrorCode.errorDomain, code: 999)
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(sdkError), "revenuecat_999")
+    }
+
+    func testAnalyticsErrorCodeRecognizesCancellation() {
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(PurchaseManager.PurchaseError.cancelled), "cancelled")
+        let error = NSError(domain: ErrorCode.errorDomain, code: ErrorCode.purchaseCancelledError.rawValue)
+        XCTAssertEqual(PurchaseManager.analyticsErrorCode(error), "cancelled")
+    }
+
 }

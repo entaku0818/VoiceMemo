@@ -47,6 +47,26 @@ class PurchaseManager: PurchaseManagerProtocol {
             && nsError.code == ErrorCode.purchaseCancelledError.rawValue
     }
 
+    /// Stable, non-localized analytics values; never send SDK error descriptions.
+    static func analyticsErrorCode(_ error: Error) -> String {
+        if isCancellation(error) { return "cancelled" }
+        if let purchaseError = error as? PurchaseError {
+            switch purchaseError {
+            case .productNotFound: return "product_not_found"
+            case .purchaseFailed: return "purchase_failed"
+            case .noEntitlements: return "no_entitlements"
+            case .cancelled: return "cancelled"
+            }
+        }
+        let nsError = error as NSError
+        if nsError.domain == NSURLErrorDomain { return "network_error" }
+        if nsError.domain == ErrorCode.errorDomain {
+            if nsError.code == ErrorCode.networkError.rawValue { return "network_error" }
+            return "revenuecat_\(nsError.code)"
+        }
+        return "unknown"
+    }
+
     func fetchProPlan() async throws -> (name: String, price: String) {
         os_log("=== Fetch Pro Plan Start ===", log: logger, type: .debug)
         let offerings = try await Purchases.shared.offerings()
@@ -129,7 +149,7 @@ class PurchaseManager: PurchaseManagerProtocol {
         } catch {
             if Self.isCancellation(error) { throw PurchaseError.cancelled }
             os_log("Pro purchase failed: %{public}@", log: logger, type: .error, error.localizedDescription)
-            throw PurchaseError.purchaseFailed
+            throw error
         }
         os_log("=== Purchase Pro End ===", log: logger, type: .debug)
     }
@@ -153,7 +173,7 @@ class PurchaseManager: PurchaseManagerProtocol {
             }
         } catch {
             if Self.isCancellation(error) { throw PurchaseError.cancelled }
-            throw PurchaseError.purchaseFailed
+            throw error
         }
         os_log("=== Purchase Annual End ===", log: logger, type: .debug)
     }
