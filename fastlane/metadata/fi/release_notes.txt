@@ -1,2 +1,1 @@
-1.17.1
-Premium-näkymän lataamista ja ostojen käsittelyä on parannettu.
+Sovellus on päivitetty iOS 27.1:lle.

@@ -1,4 +1,5 @@
 import Foundation
+import ComposableArchitecture
 import UserNotifications
 
 final class NotificationScheduler {
@@ -69,5 +70,20 @@ final class NotificationScheduler {
         UNUserNotificationCenter.current().removePendingNotificationRequests(
             withIdentifiers: ["voilog_daily"]
         )
+    }
+}
+
+// Isolate the OS notification service from reducer unit tests.
+struct NotificationSchedulerClient: DependencyKey {
+    var cancelRetentionNotifications: @Sendable () -> Void
+
+    static let liveValue = Self { NotificationScheduler.shared.cancelRetentionNotifications() }
+    static let testValue = Self {}
+}
+
+extension DependencyValues {
+    var notificationScheduler: NotificationSchedulerClient {
+        get { self[NotificationSchedulerClient.self] }
+        set { self[NotificationSchedulerClient.self] = newValue }
     }
 }

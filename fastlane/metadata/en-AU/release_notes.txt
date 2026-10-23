@@ -1,2 +1,1 @@
-1.17.1
-Improved loading and purchase handling on the premium screen.
+Updated the app for iOS 27.1.

@@ -1,2 +1,1 @@
-1.17.1
-Het laden en de aankoopverwerking op het premiumscherm zijn verbeterd.
+De app is bijgewerkt voor iOS 27.1.

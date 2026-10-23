@@ -1,2 +1,1 @@
-1.17.1
-Am îmbunătățit încărcarea și procesarea achizițiilor pe ecranul premium.
+Aplicația a fost actualizată pentru iOS 27.1.

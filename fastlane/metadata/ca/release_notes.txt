@@ -1,2 +1,1 @@
-1.17.1
-S’han millorat la càrrega i la gestió de compres a la pantalla premium.
+Hem actualitzat l’app per a iOS 27.1.

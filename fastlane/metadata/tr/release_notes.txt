@@ -1,2 +1,1 @@
-1.17.1
-Premium ekranındaki yükleme ve satın alma işlemleri iyileştirildi.
+Uygulama iOS 27.1 için güncellendi.

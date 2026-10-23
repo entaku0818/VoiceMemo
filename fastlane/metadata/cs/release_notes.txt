@@ -1,2 +1,1 @@
-1.17.1
-Vylepšeno načítání a zpracování nákupů na prémiové obrazovce.
+Aplikace byla aktualizována pro iOS 27.1.

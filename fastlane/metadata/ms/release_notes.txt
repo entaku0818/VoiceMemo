@@ -1,2 +1,1 @@
-1.17.1
-Pemuatan dan pemprosesan pembelian pada skrin premium telah ditambah baik.
+Aplikasi telah dikemas kini untuk iOS 27.1.

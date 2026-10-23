@@ -1,2 +1,1 @@
-1.17.1
-Javítottuk a betöltést és a vásárlások kezelését a prémium képernyőn.
+Az alkalmazást frissítettük az iOS 27.1 rendszerhez.

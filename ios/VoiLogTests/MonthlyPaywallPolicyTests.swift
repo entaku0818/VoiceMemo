@@ -157,6 +157,7 @@ final class MonthlyPaywallPolicyTests: XCTestCase {
     }
 
     func testRecordingCompleted_DoesNotShowOnFirstRecording() async {
+        let notificationCancellations = LockIsolated(0)
         let dates = LockIsolated<[String: Date]>([
             UserDefaultsKeys.monthlyPaywallFirstSeenAt: now.addingTimeInterval(-10 * day)
         ])
@@ -166,6 +167,7 @@ final class MonthlyPaywallPolicyTests: XCTestCase {
                     VoiceAppFeature()
                 } withDependencies: {
                     $0.date.now = now
+                    $0.notificationScheduler.cancelRetentionNotifications = { notificationCancellations.withValue { $0 += 1 } }
                     // firstRecordingCompleted が false = 初回録音（お祝いモーダルが出る）
                     $0.userDefaults = userDefaults(dates: dates)
                 }
@@ -176,6 +178,8 @@ final class MonthlyPaywallPolicyTests: XCTestCase {
                     $0.showFirstRecordingCelebration = true
                 }
                 XCTAssertFalse(store.state.showPaywall)
+                await store.finish()
+                XCTAssertEqual(notificationCancellations.value, 1)
             }
         }
         XCTAssertNil(dates.value[UserDefaultsKeys.autoPaywallLastShownAt])

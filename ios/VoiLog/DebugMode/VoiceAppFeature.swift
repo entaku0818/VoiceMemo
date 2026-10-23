@@ -88,6 +88,7 @@ struct VoiceAppFeature {
   @Dependency(\.interruptedRecordingRecovery) var interruptedRecordingRecovery
   @Dependency(\.date.now) var now
   @Dependency(\.firebaseAnalytics) var analytics
+  @Dependency(\.notificationScheduler) var notificationScheduler
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -285,7 +286,7 @@ struct VoiceAppFeature {
           return .merge(
             .send(.tutorialFeature(.view(.complete))),
             .send(.playbackFeature(.view(.reloadData))),
-            .run { _ in NotificationScheduler.shared.cancelRetentionNotifications() }
+            .run { _ in notificationScheduler.cancelRetentionNotifications() }
           )
         }
 
@@ -337,7 +338,7 @@ struct VoiceAppFeature {
           reviewEffect,
           .run { [isFirstRecording] _ in
             if isFirstRecording {
-              NotificationScheduler.shared.cancelRetentionNotifications()
+              notificationScheduler.cancelRetentionNotifications()
             }
           }
         )

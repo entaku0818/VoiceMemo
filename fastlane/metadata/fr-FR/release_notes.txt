@@ -1,2 +1,1 @@
-1.17.1
-Amélioration du chargement et du traitement des achats sur l’écran premium.
+Application mise à jour pour iOS 27.1.

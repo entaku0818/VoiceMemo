@@ -1,2 +1,1 @@
-1.17.1
-Forbedret indlæsning og købshåndtering på premiumskærmen.
+Appen er opdateret til iOS 27.1.

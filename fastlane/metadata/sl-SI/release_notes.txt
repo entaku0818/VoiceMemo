@@ -1,2 +1,1 @@
-1.17.1
-Izboljšano nalaganje in obravnava nakupov na zaslonu premium.
+Aplikacija je posodobljena za iOS 27.1.

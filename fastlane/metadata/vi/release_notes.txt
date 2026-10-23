@@ -1,2 +1,1 @@
-1.17.1
-Cải thiện quá trình tải và xử lý giao dịch mua trên màn hình premium.
+Đã cập nhật ứng dụng cho iOS 27.1.

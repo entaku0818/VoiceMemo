@@ -1,2 +1,1 @@
-1.17.1
-Das Laden und die Kaufabwicklung auf dem Premium-Bildschirm wurden verbessert.
+Die App wurde für iOS 27.1 aktualisiert.

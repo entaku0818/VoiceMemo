@@ -1,2 +1,1 @@
-1.17.1
-Poboljšano učitavanje i obrada kupnji na premium zaslonu.
+Aplikacija je ažurirana za iOS 27.1.
