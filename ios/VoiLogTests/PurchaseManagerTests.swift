@@ -4,6 +4,16 @@ import RevenueCat
 @testable import VoiLog
 
 final class PurchaseManagerTests: XCTestCase {
+    @MainActor
+    func testPurchasesConfigurationCompletesSynchronously() {
+        var configuredKeys: [String] = []
+
+        VoiceMemoApp.configurePurchasesBeforeUI(apiKey: "test_api_key") { configuredKeys.append($0) }
+
+        // No sleep or queue draining: the SDK must be ready before UI tasks can run.
+        XCTAssertEqual(configuredKeys, ["test_api_key"])
+    }
+
     // MARK: - fetchProPlan
 
     func testFetchProPlanReturnsProductInfo() async throws {

@@ -1,1 +1,3 @@
+1.17.2
 Application mise à jour pour iOS 27.1.
+Correction d’un plantage pouvant survenir peu après le lancement.

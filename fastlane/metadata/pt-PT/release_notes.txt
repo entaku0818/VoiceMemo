@@ -1,1 +1,3 @@
+1.17.2
 Aplicativo atualizado para o iOS 27.1.
+Corrigido um problema que podia causar o encerramento da aplicação logo após o início.

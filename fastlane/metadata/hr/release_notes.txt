@@ -1,1 +1,3 @@
+1.17.2
 Aplikacija je ažurirana za iOS 27.1.
+Ispravljen je pad aplikacije koji se mogao dogoditi ubrzo nakon pokretanja.

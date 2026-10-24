@@ -1,1 +1,3 @@
+1.17.2
 Aplikácia bola aktualizovaná pre iOS 27.1.
+Opravený pád, ktorý sa mohol vyskytnúť krátko po spustení.
