@@ -1,3 +1,4 @@
 1.17.2
 Appen er oppdatert for iOS 27.1.
 Rettet en krasj som kunne oppstå kort tid etter oppstart.
+Forbedret innlasting av annonser ved appstart.

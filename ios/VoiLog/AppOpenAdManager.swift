@@ -15,10 +15,9 @@ final class AppOpenAdManager: NSObject {
     @Dependency(\.userDefaults) var userDefaults
 
     private var appOpenAd: AppOpenAd?
-    private var isLoading = false
+    private let pendingLoad = AppOpenAdLoadWaiters()
     private var loadTime: Date?
     private var onDismiss: (() -> Void)?
-    private var onAdLoaded: ((Bool) -> Void)?
 
     /// 広告を表示する間隔（何回に1回表示するか）
     /// SplashView側も必ずこの値を参照すること（別々の値を持つと二重ゲートで表示が握りつぶされる）
@@ -60,14 +59,14 @@ final class AppOpenAdManager: NSObject {
             return
         }
 
-        guard !isLoading && appOpenAd == nil else {
-            if appOpenAd != nil {
-                completion?(true)
-            }
+        if isAdReady {
+            completion?(true)
             return
         }
-        isLoading = true
-        onAdLoaded = completion
+        // A caller arriving during preload must join that load, not lose its callback.
+        guard pendingLoad.begin(completion) else { return }
+        appOpenAd = nil
+        loadTime = nil
 
         #if DEBUG
         let adUnitID = "ca-app-pub-3940256099942544/5575463023" // テスト用App Open広告ID
@@ -76,19 +75,16 @@ final class AppOpenAdManager: NSObject {
         #endif
 
         AppOpenAd.load(with: adUnitID, request: Request()) { [weak self] ad, error in
-            self?.isLoading = false
-
-            if error != nil {
-                self?.onAdLoaded?(false)
-                self?.onAdLoaded = nil
+            guard let self else { return }
+            guard error == nil, let ad else {
+                self.pendingLoad.finish(false)
                 return
             }
 
-            self?.appOpenAd = ad
-            self?.appOpenAd?.fullScreenContentDelegate = self
-            self?.loadTime = Date()
-            self?.onAdLoaded?(true)
-            self?.onAdLoaded = nil
+            self.appOpenAd = ad
+            self.appOpenAd?.fullScreenContentDelegate = self
+            self.loadTime = Date()
+            self.pendingLoad.finish(true)
         }
     }
 
@@ -160,5 +156,27 @@ extension AppOpenAdManager: FullScreenContentDelegate {
         // 失敗時もクロージャを呼び出し
         onDismiss?()
         onDismiss = nil
+    }
+}
+
+/// Main-thread load coordination shared by preloading and splash-screen waiters.
+final class AppOpenAdLoadWaiters {
+    private var isLoading = false
+    private var callbacks: [(Bool) -> Void] = []
+
+    /// Returns true only for the caller responsible for starting the SDK request.
+    func begin(_ completion: ((Bool) -> Void)? = nil) -> Bool {
+        if let completion { callbacks.append(completion) }
+        guard !isLoading else { return false }
+        isLoading = true
+        return true
+    }
+
+    func finish(_ success: Bool) {
+        let waiting = callbacks
+        callbacks.removeAll()
+        isLoading = false
+        // Clear state first: a callback may synchronously start a retry.
+        waiting.forEach { $0(success) }
     }
 }

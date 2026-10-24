@@ -1,3 +1,4 @@
 1.17.2
 Zaktualizowano aplikację dla iOS 27.1.
 Naprawiono awarię, która mogła wystąpić krótko po uruchomieniu.
+Ulepszono ładowanie reklam podczas uruchamiania aplikacji.

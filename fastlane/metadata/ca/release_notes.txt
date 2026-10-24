@@ -1,3 +1,4 @@
 1.17.2
 Hem actualitzat l’app per a iOS 27.1.
 S’ha corregit un tancament inesperat que podia passar poc després de l’inici.
+S’ha millorat la càrrega d’anuncis en iniciar l’app.

@@ -54,7 +54,7 @@ class AppOpenAdController internal constructor(
 ) {
 
     private var appOpenAd: AppOpenAd? = null
-    private var isLoadingAd = false
+    private val pendingLoad = AppOpenAdLoadWaiters()
     private var loadTime: Long = 0
 
     companion object {
@@ -147,11 +147,13 @@ class AppOpenAdController internal constructor(
             return
         }
 
-        if (isLoadingAd || isAdAvailable) {
-            onAdLoaded?.invoke(isAdAvailable)
+        if (isAdAvailable) {
+            onAdLoaded?.invoke(true)
             return
         }
-        isLoadingAd = true
+        // Join an in-flight preload instead of reporting a premature failure.
+        if (!pendingLoad.begin(onAdLoaded)) return
+        appOpenAd = null
         val request = AdRequest.Builder().build()
         AppOpenAd.load(
             context,
@@ -160,14 +162,12 @@ class AppOpenAdController internal constructor(
             object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
                     appOpenAd = ad
-                    isLoadingAd = false
                     loadTime = Date().time
-                    onAdLoaded?.invoke(true)
+                    pendingLoad.finish(true)
                 }
 
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    isLoadingAd = false
-                    onAdLoaded?.invoke(false)
+                    pendingLoad.finish(false)
                 }
             }
         )
@@ -235,5 +235,26 @@ class AppOpenAdController internal constructor(
 
     fun getLaunchCount(): Int {
         return launchCountStore.getLaunchCount()
+    }
+}
+
+/** Main-thread coordination for SDK preloads and splash-screen waiters. */
+internal class AppOpenAdLoadWaiters {
+    private var isLoading = false
+    private val callbacks = mutableListOf<(Boolean) -> Unit>()
+
+    fun begin(completion: ((Boolean) -> Unit)? = null): Boolean {
+        completion?.let { callbacks.add(it) }
+        if (isLoading) return false
+        isLoading = true
+        return true
+    }
+
+    fun finish(success: Boolean) {
+        val waiting = callbacks.toList()
+        callbacks.clear()
+        isLoading = false
+        // Reset before callbacks so a synchronous retry keeps its own waiters.
+        waiting.forEach { it(success) }
     }
 }

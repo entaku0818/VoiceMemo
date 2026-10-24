@@ -1,3 +1,4 @@
 1.17.2
 Die App wurde für iOS 27.1 aktualisiert.
 Ein möglicher Absturz kurz nach dem Start wurde behoben.
+Das Laden von Anzeigen beim App-Start wurde verbessert.

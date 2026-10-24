@@ -1,3 +1,4 @@
 1.17.2
 Sovellus on päivitetty iOS 27.1:lle.
 Korjattu kaatuminen, joka saattoi tapahtua pian käynnistyksen jälkeen.
+Mainosten lataamista sovelluksen käynnistyessä on parannettu.

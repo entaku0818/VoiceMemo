@@ -1,3 +1,4 @@
 1.17.2
 Aplikasi telah dikemas kini untuk iOS 27.1.
 Membaiki ranap yang boleh berlaku sejurus selepas pelancaran.
+Pemuatan iklan semasa aplikasi dimulakan telah ditambah baik.

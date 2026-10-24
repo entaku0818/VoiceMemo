@@ -1,3 +1,4 @@
 1.17.2
 Az alkalmazást frissítettük az iOS 27.1 rendszerhez.
 Javítottuk az indítás után röviddel előforduló összeomlást.
+Javítottuk a hirdetések betöltését az alkalmazás indításakor.

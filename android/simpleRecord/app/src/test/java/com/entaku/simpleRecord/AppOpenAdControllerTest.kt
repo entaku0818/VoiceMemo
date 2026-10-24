@@ -234,4 +234,57 @@ class AppOpenAdControllerTest {
 
         assertEquals(2, store.getLaunchCount())
     }
+
+    @Test
+    fun `splash joins preload and receives success exactly once`() {
+        val load = AppOpenAdLoadWaiters()
+        val results = mutableListOf<Boolean>()
+        assertTrue(load.begin())
+        assertFalse(load.begin { results.add(it) })
+        assertFalse(load.begin { results.add(it) })
+        assertTrue(results.isEmpty())
+        load.finish(true)
+        load.finish(true)
+        assertEquals(listOf(true, true), results)
+    }
+
+    @Test
+    fun `failed preload notifies all waiters and permits reentrant retry`() {
+        val load = AppOpenAdLoadWaiters()
+        val results = mutableListOf<Boolean>()
+        assertTrue(load.begin {
+            results.add(it)
+            assertTrue(load.begin { result -> results.add(result) })
+        })
+        assertFalse(load.begin { results.add(it) })
+        load.finish(false)
+        assertEquals(listOf(false, false), results)
+        load.finish(true)
+        assertEquals(listOf(false, false, true), results)
+    }
+
+    @Test
+    fun `inflight preload respects splash timeout and never presents late`() {
+        for (timeoutFirst in listOf(false, true)) {
+            val load = AppOpenAdLoadWaiters()
+            val scheduler = FakeScheduler()
+            var present = 0
+            var dismiss = 0
+            assertTrue(load.begin())
+            AppOpenAdController.awaitAdThenSettle(
+                scheduler = scheduler,
+                timeoutMs = 3000L,
+                startLoad = { assertFalse(load.begin(it)) },
+                isAdReady = { true },
+                onPresent = { present++ },
+                onDismiss = { dismiss++ }
+            )
+            assertEquals(0, present + dismiss)
+            if (timeoutFirst) scheduler.fireTimeout()
+            load.finish(true)
+            scheduler.fireTimeout()
+            assertEquals(if (timeoutFirst) 0 else 1, present)
+            assertEquals(if (timeoutFirst) 1 else 0, dismiss)
+        }
+    }
 }

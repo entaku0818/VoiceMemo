@@ -1,3 +1,4 @@
 1.17.2
 Aplikasi diperbarui untuk iOS 27.1.
 Memperbaiki masalah aplikasi yang dapat tertutup sesaat setelah dibuka.
+Pemuatan iklan saat aplikasi dimulai telah ditingkatkan.

@@ -1,3 +1,4 @@
 1.17.2
 Đã cập nhật ứng dụng cho iOS 27.1.
 Đã sửa lỗi ứng dụng có thể bị thoát ngay sau khi khởi động.
+Cải thiện việc tải quảng cáo khi khởi động ứng dụng.

@@ -1,3 +1,4 @@
 1.17.2
 App aggiornata per iOS 27.1.
 Risolto un arresto anomalo che poteva verificarsi subito dopo l’avvio.
+Migliorato il caricamento degli annunci all’avvio dell’app.

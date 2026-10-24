@@ -1,3 +1,4 @@
 1.17.2
 Uygulama iOS 27.1 için güncellendi.
 Açılıştan kısa süre sonra oluşabilen bir çökme düzeltildi.
+Uygulama başlangıcında reklam yükleme iyileştirildi.

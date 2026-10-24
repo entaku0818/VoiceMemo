@@ -1,3 +1,4 @@
 1.17.2
 Aplicația a fost actualizată pentru iOS 27.1.
 Am remediat o eroare care putea închide aplicația la scurt timp după pornire.
+Am îmbunătățit încărcarea reclamelor la pornirea aplicației.
