@@ -1,4 +1,2 @@
-1.17.2
-Aplikace byla aktualizována pro iOS 27.1.
-Opravena chyba, která mohla způsobit pád krátce po spuštění.
-Vylepšeno načítání reklam při spuštění aplikace.
+1.17.3
+Do detailu nahrávky jsme přidali ovládání přehrávání, posun o 10 sekund a výběr rychlosti. Přehrávání pokračuje od místa pozastavení.

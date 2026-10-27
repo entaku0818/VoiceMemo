@@ -1,4 +1,2 @@
-1.17.2
-Aplicativo atualizado para o iOS 27.1.
-Corrigido um problema que podia causar o encerramento da aplicação logo após o início.
-Melhorado o carregamento de anúncios ao iniciar a aplicação.
+1.17.3
+Adicionados controlos de reprodução aos detalhes da gravação, com navegação, saltos de 10 segundos e seleção de velocidade. A reprodução continua a partir da posição de pausa.

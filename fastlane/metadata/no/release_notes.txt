@@ -1,4 +1,2 @@
-1.17.2
-Appen er oppdatert for iOS 27.1.
-Rettet en krasj som kunne oppstå kort tid etter oppstart.
-Forbedret innlasting av annonser ved appstart.
+1.17.3
+Lagt til avspillingskontroller i opptaksdetaljer, med spoling, hopp på 10 sekunder og hastighetsvalg. Avspilling fortsetter fra pausepunktet.

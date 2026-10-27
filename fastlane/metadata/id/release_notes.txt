@@ -1,4 +1,2 @@
-1.17.2
-Aplikasi diperbarui untuk iOS 27.1.
-Memperbaiki masalah aplikasi yang dapat tertutup sesaat setelah dibuka.
-Pemuatan iklan saat aplikasi dimulai telah ditingkatkan.
+1.17.3
+Menambahkan kontrol pemutaran pada detail rekaman, termasuk pencarian posisi, lompatan 10 detik, dan pilihan kecepatan. Pemutaran dilanjutkan dari posisi jeda.

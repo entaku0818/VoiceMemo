@@ -1,4 +1,2 @@
-1.17.2
-Application mise à jour pour iOS 27.1.
-Correction d’un plantage pouvant survenir peu après le lancement.
-Amélioration du chargement des annonces au démarrage de l’application.
+1.17.3
+Les détails des enregistrements disposent désormais de commandes de lecture, de sauts de 10 secondes et du choix de la vitesse. La lecture reprend à la position de pause.

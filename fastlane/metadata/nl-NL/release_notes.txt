@@ -1,4 +1,2 @@
-1.17.2
-De app is bijgewerkt voor iOS 27.1.
-Een crash die kort na het opstarten kon optreden is verholpen.
-Het laden van advertenties bij het starten van de app is verbeterd.
+1.17.3
+Afspeelbediening toegevoegd aan opnamedetails, met positiekeuze, sprongen van 10 seconden en snelheidskeuze. Afspelen wordt hervat vanaf de pauzepositie.

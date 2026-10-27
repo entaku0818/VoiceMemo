@@ -1,4 +1,2 @@
-1.17.2
-Sovellus on päivitetty iOS 27.1:lle.
-Korjattu kaatuminen, joka saattoi tapahtua pian käynnistyksen jälkeen.
-Mainosten lataamista sovelluksen käynnistyessä on parannettu.
+1.17.3
+Tallenteen tietoihin lisättiin toistosäätimet, 10 sekunnin siirtymät ja nopeuden valinta. Toisto jatkuu taukokohdasta.

@@ -1,4 +1,2 @@
-1.17.2
-Hem actualitzat l’app per a iOS 27.1.
-S’ha corregit un tancament inesperat que podia passar poc després de l’inici.
-S’ha millorat la càrrega d’anuncis en iniciar l’app.
+1.17.3
+Hem afegit controls de reproducció als detalls de la gravació, amb salts de 10 segons i selecció de velocitat. La reproducció es reprèn des del punt de pausa.

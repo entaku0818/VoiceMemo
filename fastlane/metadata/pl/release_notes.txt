@@ -1,4 +1,2 @@
-1.17.2
-Zaktualizowano aplikację dla iOS 27.1.
-Naprawiono awarię, która mogła wystąpić krótko po uruchomieniu.
-Ulepszono ładowanie reklam podczas uruchamiania aplikacji.
+1.17.3
+Dodano sterowanie odtwarzaniem w szczegółach nagrania, przewijanie o 10 sekund i wybór prędkości. Odtwarzanie jest wznawiane od miejsca pauzy.

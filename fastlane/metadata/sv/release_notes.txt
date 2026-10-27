@@ -1,4 +1,2 @@
-1.17.2
-Appen har uppdaterats för iOS 27.1.
-Åtgärdade en krasch som kunde inträffa strax efter start.
-Förbättrad inläsning av annonser vid appstart.
+1.17.3
+Lagt till uppspelningskontroller i inspelningsdetaljer, med spolning, hopp på 10 sekunder och hastighetsval. Uppspelningen återupptas från pausläget.

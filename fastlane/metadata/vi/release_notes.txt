@@ -1,4 +1,2 @@
-1.17.2
-Đã cập nhật ứng dụng cho iOS 27.1.
-Đã sửa lỗi ứng dụng có thể bị thoát ngay sau khi khởi động.
-Cải thiện việc tải quảng cáo khi khởi động ứng dụng.
+1.17.3
+Thêm điều khiển phát vào chi tiết bản ghi, gồm tua đến vị trí, tua 10 giây và chọn tốc độ. Phát tiếp từ vị trí đã tạm dừng.

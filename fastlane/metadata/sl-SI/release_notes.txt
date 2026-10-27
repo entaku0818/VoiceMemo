@@ -1,4 +1,2 @@
-1.17.2
-Aplikacija je posodobljena za iOS 27.1.
-Odpravljena je zrušitev, do katere je lahko prišlo kmalu po zagonu.
-Izboljšano nalaganje oglasov ob zagonu aplikacije.
+1.17.3
+V podrobnosti posnetka smo dodali kontrolnike predvajanja, preskoke po 10 sekund in izbiro hitrosti. Predvajanje se nadaljuje od mesta premora.

@@ -1,4 +1,2 @@
-1.17.2
-Appen er opdateret til iOS 27.1.
-Rettede et nedbrud, der kunne opstå kort efter start.
-Forbedret indlæsning af annoncer ved appstart.
+1.17.3
+Tilføjet afspilningskontroller i optagelsesdetaljer med søgning, spring på 10 sekunder og hastighedsvalg. Afspilningen fortsætter fra pausepunktet.

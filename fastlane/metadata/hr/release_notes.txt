@@ -1,4 +1,2 @@
-1.17.2
-Aplikacija je ažurirana za iOS 27.1.
-Ispravljen je pad aplikacije koji se mogao dogoditi ubrzo nakon pokretanja.
-Poboljšano učitavanje oglasa pri pokretanju aplikacije.
+1.17.3
+Dodane su kontrole reprodukcije u detalje snimke, pomicanje za 10 sekundi i odabir brzine. Reprodukcija se nastavlja od mjesta pauze.

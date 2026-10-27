@@ -1,4 +1,2 @@
-1.17.2
-Uygulama iOS 27.1 için güncellendi.
-Açılıştan kısa süre sonra oluşabilen bir çökme düzeltildi.
-Uygulama başlangıcında reklam yükleme iyileştirildi.
+1.17.3
+Kayıt ayrıntılarına oynatma kontrolleri, 10 saniyelik atlama ve hız seçimi eklendi. Oynatma, duraklatılan konumdan devam eder.

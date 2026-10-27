@@ -1,4 +1,2 @@
-1.17.2
-Updated the app for iOS 27.1.
-Fixed a crash that could occur shortly after launch.
-Improved ad loading at app startup.
+1.17.3
+Added playback controls to recording details, including seeking, 10-second skip buttons and speed selection. Playback now resumes from the paused position.
