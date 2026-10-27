@@ -64,6 +64,50 @@ final class PlaybackFeatureTests: XCTestCase {
         )
     }
 
+    func testDetailDismissPreservesPlayback() async {
+        var initial = PlaybackFeature.State()
+        initial.voiceMemos = [makeMemo()]
+        initial.currentPlayingMemo = testID
+        initial.playbackState = .playing
+        initial.currentTime = 2
+        let store = TestStore(initialState: initial) { PlaybackFeature() }
+        await store.send(.view(.showMemoDetails(testID))) {
+            $0.selectedMemoForDetails = self.testID
+            $0.showDetailSheet = true
+        }
+        await store.send(.view(.hideDetailSheet)) {
+            $0.selectedMemoForDetails = nil
+            $0.showDetailSheet = false
+        }
+    }
+
+    func testPauseSeekAndSpeedPreserveSession() async {
+        var initial = PlaybackFeature.State()
+        initial.voiceMemos = [makeMemo()]
+        initial.currentPlayingMemo = testID
+        initial.playbackState = .playing
+        initial.currentTime = 2
+        let pauses = LockIsolated(0)
+        let seeks = LockIsolated<[Double]>([])
+        let speeds = LockIsolated<[AudioPlayerClient.PlaybackSpeed]>([])
+        let store = TestStore(initialState: initial) { PlaybackFeature() } withDependencies: {
+            $0.nowPlayingClient = NowPlayingClient(update: { _ in })
+            $0.audioPlayer.pause = { pauses.withValue { $0 += 1 } }
+            $0.audioPlayer.seek = { value in seeks.withValue { $0.append(value) } }
+            $0.audioPlayer.setSpeed = { value in speeds.withValue { $0.append(value) } }
+        }
+        await store.send(.view(.playPauseButtonTapped(testID))) { $0.playbackState = .paused }
+        await store.send(.view(.seekTo(100))) { $0.currentTime = 5 }
+        await store.send(.view(.seekTo(-10))) { $0.currentTime = 0 }
+        await store.send(.view(.setPlaySpeed(.fast))) { $0.playSpeed = .fast }
+        await store.finish()
+        XCTAssertEqual(pauses.value, 1)
+        XCTAssertEqual(seeks.value, [5, 0])
+        XCTAssertEqual(speeds.value, [.fast])
+        XCTAssertEqual(store.state.currentPlayingMemo, testID)
+        XCTAssertEqual(store.state.playbackState, .paused)
+    }
+
     // MARK: - toggleRepeatOne: false → true
 
     func testToggleRepeatOne_falseBecomesTrue() async {

@@ -20,6 +20,8 @@ struct AudioPlayerClient {
     var pause: @Sendable () async -> Void = {}
     /// `pause()` で止めた位置から再生を再開する（新しく読み込み直さない）。
     var resume: @Sendable () async -> Void = {}
+    var seek: @Sendable (TimeInterval) async -> Void = { _ in }
+    var setSpeed: @Sendable (PlaybackSpeed) async -> Void = { _ in }
 }
 
 extension AudioPlayerClient {
@@ -80,7 +82,9 @@ extension AudioPlayerClient: DependencyKey {
             },
             resume: {
                 await audioPlayer.resume()
-            }
+            },
+            seek: { await audioPlayer.seek(to: $0) },
+            setSpeed: { await audioPlayer.setSpeed($0) }
         )
     }
 }
@@ -155,6 +159,15 @@ private actor AudioPlayer {
 
     func resume() {
         player?.play()
+    }
+
+    func seek(to time: TimeInterval) {
+        guard let player else { return }
+        player.currentTime = min(max(time, 0), player.duration)
+    }
+
+    func setSpeed(_ speed: AudioPlayerClient.PlaybackSpeed) {
+        player?.rate = speed.rawValue
     }
 
     func getCurrentTime() async -> TimeInterval {

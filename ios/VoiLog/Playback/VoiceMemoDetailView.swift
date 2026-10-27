@@ -6,11 +6,21 @@ struct VoiceMemoDetailView: View {
   let onDismiss: () -> Void
   var onAISaved: ((String) -> Void)?
 
+  var isActive = false
+  var isPlaying = false
+  var currentTime: TimeInterval = 0
+  var playSpeed: AudioPlayerClient.PlaybackSpeed = .normal
+  var onPlayPause: () -> Void = {}
+  var onSeek: (TimeInterval) -> Void = { _ in }
+  var onSpeedChange: (AudioPlayerClient.PlaybackSpeed) -> Void = { _ in }
+  @State private var scrubPosition: TimeInterval?
   @State private var selectedTab = 0
 
   var body: some View {
     NavigationStack {
       VStack(spacing: 0) {
+        playbackControls
+
         Picker("", selection: $selectedTab) {
           Label(String(localized: "詳細"), systemImage: "info.circle")
             .tag(0)
@@ -48,6 +58,52 @@ struct VoiceMemoDetailView: View {
   }
 
   // MARK: - 詳細タブ
+
+  private var playbackControls: some View {
+    VStack(spacing: 12) {
+      Slider(
+        value: Binding(get: { scrubPosition ?? min(currentTime, max(memo.duration, 0)) },
+                       set: { scrubPosition = $0 }),
+        in: 0...max(memo.duration, 0.001)
+      )        { editing in
+          if !editing, let position = scrubPosition {
+            onSeek(position)
+            scrubPosition = nil
+          }
+        }
+      .disabled(!isActive)
+      .accessibilityLabel(String(localized: "再生時間", table: "Playback"))
+      HStack {
+        Text(formatDuration(scrubPosition ?? currentTime))
+        Spacer()
+        Text(formatDuration(memo.duration))
+      }
+      .font(.caption.monospacedDigit())
+      .foregroundStyle(.secondary)
+      HStack(spacing: 32) {
+        Button { onSeek(currentTime - 10) } label: {
+          Image(systemName: "gobackward.10").font(.title)
+        }.disabled(!isActive)
+        Button(action: onPlayPause) {
+          Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+            .font(.system(size: 60))
+        }
+        .accessibilityLabel(isPlaying ? String(localized: "一時停止") : String(localized: "再生"))
+        Button { onSeek(currentTime + 10) } label: {
+          Image(systemName: "goforward.10").font(.title)
+        }.disabled(!isActive)
+      }
+      Picker(selection: Binding(get: { playSpeed }, set: onSpeedChange)) {
+        ForEach(AudioPlayerClient.PlaybackSpeed.allCases, id: \.self) { speed in
+          Text(speed.description).tag(speed)
+        }
+      } label: {
+        Label(playSpeed.description, systemImage: "speedometer")
+      }
+      .pickerStyle(.menu)
+    }
+    .padding()
+  }
 
   private var detailTab: some View {
     ScrollView {
