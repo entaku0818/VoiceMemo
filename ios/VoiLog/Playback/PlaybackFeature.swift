@@ -221,6 +221,7 @@ struct PlaybackFeature {
       case hideTagPicker
       case toggleTag(VoiceMemo.ID, String)
 
+      case setPlaySpeed(AudioPlayerClient.PlaybackSpeed)
       case onTapPlaySpeed
 
       // AB Loop actions
@@ -301,15 +302,11 @@ struct PlaybackFeature {
         case let .playPauseButtonTapped(id):
           if state.currentPlayingMemo == id {
             if state.playbackState == .playing {
-              // 再生中の場合は停止
-              state.playbackState = .idle
-              state.currentPlayingMemo = nil
-              state.currentTime = 0
-              nowPlayingClient.update(nil)
-              return .merge(
-                .cancel(id: CancelID.playback),
-                .run { _ in try await audioPlayer.stop() }
-              )
+              state.playbackState = .paused
+              if let memo = state.voiceMemos.first(where: { $0.id == id }) {
+                publishNowPlayingInfo(memo: memo, elapsedTime: state.currentTime, isPlaying: false)
+              }
+              return .run { _ in await audioPlayer.pause() }
             } else if state.playbackState == .paused {
               // ロック画面等で一時停止していた場合は、同じ位置から再開する
               state.playbackState = .playing
@@ -353,13 +350,13 @@ struct PlaybackFeature {
           )
 
         case let .seekTo(time):
-          state.currentTime = time
-          // 既存のAudioPlayerClientにはseekメソッドがないため、
-          // 現在の再生を停止して新しい位置から再生を開始
-          if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
-            return startPlayback(url: memo.url, startTime: time, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
-          }
-          return .none
+          guard time.isFinite,
+                let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo })
+          else { return .none }
+          let position = min(max(time, 0), memo.duration)
+          state.currentTime = position
+          publishNowPlayingInfo(memo: memo, elapsedTime: position, isPlaying: state.playbackState == .playing)
+          return .run { _ in await audioPlayer.seek(position) }
 
         case let .deleteMemo(id):
           state.selectedMemoForDeletion = id
@@ -622,11 +619,12 @@ struct PlaybackFeature {
           }
 
         case .onTapPlaySpeed:
-          state.playSpeed = state.playSpeed.next()
-          guard state.playbackState == .playing,
-                let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo })
-          else { return .none }
-          return startPlayback(url: memo.url, startTime: state.currentTime, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
+          return .send(.view(.setPlaySpeed(state.playSpeed.next())))
+
+        case let .setPlaySpeed(speed):
+          state.playSpeed = speed
+          guard state.currentPlayingMemo != nil else { return .none }
+          return .run { _ in await audioPlayer.setSpeed(speed) }
 
         case .setABPointA:
           state.abLoopStart = state.currentTime
@@ -691,7 +689,8 @@ struct PlaybackFeature {
           publishNowPlayingInfo(memo: memo, elapsedTime: time, isPlaying: state.playbackState == .playing)
         }
         // AB loop: seek back to A when current time reaches B
-        if let loopStart = state.abLoopStart,
+        if state.playbackState == .playing,
+           let loopStart = state.abLoopStart,
            let loopEnd = state.abLoopEnd,
            time >= loopEnd,
            let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
@@ -743,12 +742,7 @@ struct PlaybackFeature {
 
         case let .seek(time):
           guard state.currentPlayingMemo != nil else { return .none }
-          state.currentTime = time
-          if let memo = state.voiceMemos.first(where: { $0.id == state.currentPlayingMemo }) {
-            publishNowPlayingInfo(memo: memo, elapsedTime: time, isPlaying: state.playbackState == .playing)
-            return startPlayback(url: memo.url, startTime: time, playSpeed: state.playSpeed, volumeBoost: state.volumeBoost)
-          }
-          return .none
+          return .send(.view(.seekTo(time)))
         }
 
       case .audioEditor(.save):
@@ -847,6 +841,8 @@ struct PlaybackFeature {
         do {
           _ = try await audioPlayer.play(url, startTime, playSpeed, false, volumeBoost)
           await send(.audioPlayerDidFinish)
+        } catch is CancellationError {
+          // A replaced playback session must not reset the new session.
         } catch {
           await send(.playbackFinished)
         }
@@ -940,7 +936,15 @@ struct PlaybackView: View {
           VoiceMemoDetailView(
             memo: memo,
             onDismiss: { send(.hideDetailSheet) },
-            onAISaved: { text in send(.geminiTranscriptionSaved(selectedId, text)) }
+            onAISaved: { text in send(.geminiTranscriptionSaved(selectedId, text)) },
+            isActive: store.currentPlayingMemo == selectedId,
+            isPlaying: store.currentPlayingMemo == selectedId && store.playbackState == .playing,
+            currentTime: store.currentPlayingMemo == selectedId ? store.currentTime : 0,
+            playSpeed: store.playSpeed,
+            onPlayPause: { send(.playPauseButtonTapped(selectedId)) },
+            onSeek: { if store.currentPlayingMemo == selectedId { send(.seekTo($0)) } },
+            onSpeedChange: { send(.setPlaySpeed($0)) }
+
           )
         }
       }
@@ -1197,6 +1201,9 @@ struct PlaybackView: View {
       Divider()
 
       if let currentMemo = store.voiceMemos.first(where: { $0.id == store.currentPlayingMemo }) {
+        Button { send(.showMemoDetails(currentMemo.id)) } label: {
+          Label(String(localized: "詳細情報", table: "Playback"), systemImage: "chevron.up")
+        }
         if isCompactHeight {
           // 横画面用コンパクトレイアウト
           HStack(spacing: 12) {
