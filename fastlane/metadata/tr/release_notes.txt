@@ -1,2 +1,2 @@
-1.17.1
-Premium ekranındaki yükleme ve satın alma işlemleri iyileştirildi.
+1.17.4
+Uygulama kitaplıkları ve App Store açıklaması güncellendi.

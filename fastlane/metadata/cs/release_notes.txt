@@ -1,2 +1,2 @@
-1.17.1
-Vylepšeno načítání a zpracování nákupů na prémiové obrazovce.
+1.17.4
+Aktualizovali jsme knihovny aplikace a popis v App Storu.

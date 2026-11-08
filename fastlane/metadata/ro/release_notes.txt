@@ -1,2 +1,2 @@
-1.17.1
-Am îmbunătățit încărcarea și procesarea achizițiilor pe ecranul premium.
+1.17.4
+Am actualizat bibliotecile aplicației și descrierea din App Store.

@@ -1,2 +1,2 @@
-1.17.1
-Pemuatan dan proses pembelian di layar premium telah ditingkatkan.
+1.17.4
+Memperbarui pustaka aplikasi dan deskripsi di App Store.

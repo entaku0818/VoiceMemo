@@ -1,2 +1,2 @@
-1.17.1
-S’han millorat la càrrega i la gestió de compres a la pantalla premium.
+1.17.4
+Hem actualitzat les biblioteques de l’app i la descripció a l’App Store.

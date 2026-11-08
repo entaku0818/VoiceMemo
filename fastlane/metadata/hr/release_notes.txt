@@ -1,2 +1,2 @@
-1.17.1
-Poboljšano učitavanje i obrada kupnji na premium zaslonu.
+1.17.4
+Ažurirali smo biblioteke aplikacije i opis u trgovini App Store.

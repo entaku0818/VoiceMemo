@@ -1,2 +1,2 @@
-1.17.1
-Melhorámos o carregamento e o processamento de compras no ecrã premium.
+1.17.4
+Atualizámos as bibliotecas da aplicação e a descrição na App Store.

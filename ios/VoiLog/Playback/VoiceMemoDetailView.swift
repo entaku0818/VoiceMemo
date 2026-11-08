@@ -65,12 +65,12 @@ struct VoiceMemoDetailView: View {
         value: Binding(get: { scrubPosition ?? min(currentTime, max(memo.duration, 0)) },
                        set: { scrubPosition = $0 }),
         in: 0...max(memo.duration, 0.001)
-      )        { editing in
+      ) { editing in
           if !editing, let position = scrubPosition {
             onSeek(position)
             scrubPosition = nil
           }
-        }
+      }
       .disabled(!isActive)
       .accessibilityLabel(String(localized: "再生時間", table: "Playback"))
       HStack {

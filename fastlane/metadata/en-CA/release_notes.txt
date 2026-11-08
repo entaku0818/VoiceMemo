@@ -1,2 +1,2 @@
-1.17.1
-Improved loading and purchase handling on the premium screen.
+1.17.4
+Updated app libraries and refreshed the App Store description.
