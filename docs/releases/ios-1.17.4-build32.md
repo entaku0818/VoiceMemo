@@ -12,6 +12,7 @@
 
 - 作業場所: `/private/tmp/voilog-release-1.17.4`
 - ブランチ: `codex/release-1.17.4`
+- 提出ソース: `1c631331`、タグ: `v1.17.4`（GitHub push済み）
 - ベース: `7b62b7bd`（録音詳細の再生操作）
 - 元ワークスペースのAndroid・スクリーンショット制作の作業中変更は含めない。
 - 旧リリースの専用一時ディレクトリ・コミットは残っていないため、現在の追跡済みコードとリリース記録、既存修正の差分を確認して構成。
@@ -34,7 +35,14 @@
 - IPA: `/private/tmp/voilog-1.17.4-build/export/VoiLog.ipa`
 - IPA SHA-256: `a167c7cf419ea7fbeb3f00b325c88bc2ca0a9a83f4a993154a4e03db427b3d3b`
 - Upload Delivery UUID: `3ac90fc1-d8c2-4da4-ac47-028221c14d87`
-- アップロード成功。Appleの処理完了後にビルドを選択し、提出ID・最終状態を追記する。
+- 審査提出成功: 2026-11-08 17:15 JST。
+- 確認状態: `WAITING_FOR_REVIEW`（バージョン・申請の両方で照合）。
+- 選択ビルド: 1.17.4 (32)、Build ID `3ac90fc1-d8c2-4da4-ac47-028221c14d87`。
+- Review submission ID: `2fb08ec6-1834-4999-8e03-00491a1f4d0f`。
+- 承認後に自動公開（AFTER_APPROVAL）。現時点では未公開。
+- [App Store Connect](https://appstoreconnect.apple.com/apps/6443528409/distribution/ios/version/inflight)
+- [GitHub Release](https://github.com/entaku0818/VoiceMemo/releases/tag/v1.17.4)
+
 
 ログ: `/tmp/voilog-1.17.4-{build,tests,tests-screenshots,lint,metadata,upload-release}.log`
 

@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-08",
+  "app_id": "6443528409",
+  "version": "1.17.4",
+  "version_id": "330f9186-4902-4fec-9b66-602ce95e7f86",
+  "build": "32",
+  "build_id": "3ac90fc1-d8c2-4da4-ac47-028221c14d87",
+  "app_store_state": "WAITING_FOR_REVIEW",
+  "release_type": "AFTER_APPROVAL",
+  "submission_id": "2fb08ec6-1834-4999-8e03-00491a1f4d0f",
+  "submission_state": "WAITING_FOR_REVIEW",
+  "source_commit": "1c631331",
+  "source_tag": "v1.17.4",
+  "ipa_sha256": "a167c7cf419ea7fbeb3f00b325c88bc2ca0a9a83f4a993154a4e03db427b3d3b",
+  "tests": {
+    "passed_after_retry": 334,
+    "skipped": 2,
+    "unresolved_failures": 0
+  }
+}
