@@ -5,7 +5,7 @@ import SwiftUI
 //
 // fastlane/hero_screenshot/compose.py の v5（白版）を SwiftUI で再現したもの。
 // compose.py は 1320x2868px の実機キャプチャを合成しているので、ここでは 440x956pt（@3x）に換算して同じ位置に置く。
-// 背景・ピル・見出し・チップ・端末フレーム・拡大カードは PromoScreenshotPageView.swift の共通部品を使う
+// 背景・見出し・端末フレーム・拡大カードは PromoScreenshotPageView.swift の共通部品を使う
 // （2枚目以降の PromoScreenshotPageView も同じ部品で描くので、全ページのデザインが揃う）。
 // ja / en-US の出荷用ヒーローは実機キャプチャ版（承認済み）を使い、それ以外の言語でこのビューを使う。
 struct HeroRecorderPageView: View {
@@ -17,7 +17,8 @@ struct HeroRecorderPageView: View {
     /// 拡大カードに切り出す録音画面の範囲（WAVE_BOX = (0, 480, 1320, 1590) px）
     private let cropTop: CGFloat = 480 / 3
     private let cropHeight: CGFloat = 1110 / 3
-    private let cardY: CGFloat = 1110 / 3
+    private let cardY: CGFloat = 1070 / 3
+    private let cardInset: CGFloat = 24
 
     var body: some View {
         ZStack(alignment: .topLeading) {
@@ -25,11 +26,11 @@ struct HeroRecorderPageView: View {
 
             PromoHeaderView(
                 language: language,
-                pill: language.string("hero_pill"),
                 line1: language.string("hero_line1"),
                 line2: language.string("hero_line2"),
-                chips: language.strings("hero_chips"),
-                metrics: metrics
+                chips: [],
+                metrics: metrics,
+                isHero: true
             )
             phone
             zoomCard
@@ -57,12 +58,13 @@ struct HeroRecorderPageView: View {
                 .frame(width: Self.canvasSize.width, height: Self.canvasSize.height)
                 .scaleEffect(screenScale, anchor: .topLeading)
         }
-        .offset(x: metrics.deviceOrigin.x, y: metrics.deviceOrigin.y)
+        .offset(x: metrics.deviceOrigin.x, y: 230)
     }
 
     // MARK: Zoomed card
 
-    private var cardScale: CGFloat { metrics.cardWidth / Self.canvasSize.width }
+    private var cardWidth: CGFloat { Self.canvasSize.width - 2 * cardInset }
+    private var cardScale: CGFloat { cardWidth / Self.canvasSize.width }
 
     private var zoomCard: some View {
         let cardHeight = cropHeight * cardScale
@@ -73,9 +75,9 @@ struct HeroRecorderPageView: View {
             .frame(width: Self.canvasSize.width, height: cropHeight, alignment: .topLeading)
             .clipped()
             .scaleEffect(cardScale, anchor: .topLeading)
-            .frame(width: metrics.cardWidth, height: cardHeight, alignment: .topLeading)
-            .promoFocusCard(radius: metrics.cardRadius, border: metrics.cardBorder)
-            .offset(x: metrics.cardInset, y: cardY)
+            .frame(width: cardWidth, height: cardHeight, alignment: .topLeading)
+            .promoFocusCard(radius: metrics.cardRadius, border: 2)
+            .offset(x: cardInset, y: cardY)
     }
 }
 

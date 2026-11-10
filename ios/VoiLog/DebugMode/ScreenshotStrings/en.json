@@ -71,9 +71,9 @@
     "Unlimited recording",
     "iCloud sync"
   ],
-  "hero_pill": "Simple Voice Recorder",
-  "hero_line1": "Record clearly,",
-  "hero_line2": "simply.",
+  "hero_pill": "",
+  "hero_line1": "Start recording",
+  "hero_line2": "in one tap",
   "hero_chips": [
     "One-tap recording",
     "Quality presets",

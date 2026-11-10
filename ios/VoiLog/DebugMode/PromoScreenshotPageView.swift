@@ -5,7 +5,7 @@ import SwiftUI
 //
 // 承認済みの1枚目（HeroRecorderPageView / fastlane/hero_screenshot/compose.py）のデザインを全ページで共通化したもの。
 // - 白 → 下だけ薄いラベンダーのグラデーション背景
-// - 紫のピル（アプリ名）、2行の見出し（1行目は墨・2行目は紫）、白い角丸の機能チップ3つ
+// - 2行の見出し（1行目は墨・2行目は紫）、必要なページに白い角丸の機能チップ
 // - 黒い端末フレームに実画面のモック
 // - 画面の主役部分を拡大し、端末からはみ出す紫枠のカードで強調する
 // iPhone（440x956pt @3x = 1320x2868px）と iPad（1024x1366pt @2x = 2048x2732px）で同じ構成にする。
@@ -24,9 +24,8 @@ enum PromoStyle {
 /// 端末ごとの寸法。iPhone の値は承認済みヒーロー（compose.py の px を 1/3 した pt）そのもの
 struct PromoMetrics {
     let canvasSize: CGSize
-    /// ヘッダー（ピル・見出し・チップ）の拡大率。iPhone = 1
+    /// ヘッダー（見出し・チップ）の拡大率。iPhone = 1
     let headerScale: CGFloat
-    let pillY: CGFloat
     let line1Y: CGFloat
     let line2Y: CGFloat
     let chipsY: CGFloat
@@ -52,7 +51,6 @@ struct PromoMetrics {
     static let iPhone = PromoMetrics(
         canvasSize: CGSize(width: 440, height: 956),
         headerScale: 1,
-        pillY: 55.7,
         line1Y: 110.6,
         line2Y: 157,
         chipsY: 211.7,
@@ -74,7 +72,6 @@ struct PromoMetrics {
     static let iPad = PromoMetrics(
         canvasSize: CGSize(width: 1024, height: 1366),
         headerScale: 1.8,
-        pillY: 100,
         line1Y: 199,
         line2Y: 283,
         chipsY: 381,
@@ -102,49 +99,42 @@ struct PromoBackground: View {
     }
 }
 
-// MARK: - Header (pill / 2-line headline / chips)
+// MARK: - Header
 
 struct PromoHeaderView: View {
     let language: AppLanguage
-    let pill: String
     let line1: String
     let line2: String
     let chips: [String]
     var metrics: PromoMetrics = .iPhone
+    var isHero = false
 
     private var scale: CGFloat { metrics.headerScale }
     private var centerX: CGFloat { metrics.canvasSize.width / 2 }
 
     var body: some View {
         ZStack {
-            Text(pill)
-                .font(.system(size: 50 / 3 * scale, weight: .semibold))
-                .foregroundColor(.white)
-                .lineLimit(1)
-                .minimumScaleFactor(0.6)
-                .padding(.horizontal, 45 / 3 * scale)
-                .frame(height: 94 / 3 * scale)
-                .background(Capsule().fill(PromoStyle.purple))
-                .frame(maxWidth: metrics.canvasSize.width - 60 * scale)
-                .position(x: centerX, y: metrics.pillY)
+            headline(line1, size: (isHero ? 112 / 3 : 40) * scale, maxWidth: metrics.line1MaxWidth,
+                     color: PromoStyle.ink, weight: isHero ? .bold : language.heroHeadlineWeight)
+                .position(x: centerX, y: isHero ? 95 : metrics.line1Y)
 
-            headline(line1, size: 40 * scale, maxWidth: metrics.line1MaxWidth, color: PromoStyle.ink)
-                .position(x: centerX, y: metrics.line1Y)
+            headline(line2, size: (isHero ? 52 : 124 / 3) * scale, maxWidth: metrics.line2MaxWidth,
+                     color: PromoStyle.purple, weight: language.heroHeadlineWeight)
+                .position(x: centerX, y: isHero ? 151 : metrics.line2Y)
 
-            headline(line2, size: 124 / 3 * scale, maxWidth: metrics.line2MaxWidth, color: PromoStyle.purple)
-                .position(x: centerX, y: metrics.line2Y)
-
-            HeroChipsView(labels: chips, scale: scale)
-                .frame(maxWidth: metrics.chipsMaxWidth)
-                .position(x: centerX, y: metrics.chipsY)
+            if !chips.isEmpty {
+                HeroChipsView(labels: chips, scale: scale)
+                    .frame(maxWidth: metrics.chipsMaxWidth)
+                    .position(x: centerX, y: metrics.chipsY)
+            }
         }
         .frame(width: metrics.canvasSize.width, height: metrics.canvasSize.height)
         .screenshotLanguage(language)
     }
 
-    private func headline(_ text: String, size: CGFloat, maxWidth: CGFloat, color: Color) -> some View {
+    private func headline(_ text: String, size: CGFloat, maxWidth: CGFloat, color: Color, weight: Font.Weight) -> some View {
         Text(text)
-            .font(.system(size: size, weight: language.heroHeadlineWeight))
+            .font(.system(size: size, weight: weight))
             .foregroundColor(color)
             .lineLimit(1)
             // 長い言語（フィンランド語・マラヤーラム語など）は1行に収まるまで縮小する
@@ -379,7 +369,6 @@ struct PromoScreenshotPageView: View {
 
             PromoHeaderView(
                 language: language,
-                pill: language.string("hero_pill"),
                 line1: language.string("promo_\(copy)_line1"),
                 line2: language.string("promo_\(copy)_line2"),
                 chips: language.strings("promo_\(copy)_chips"),

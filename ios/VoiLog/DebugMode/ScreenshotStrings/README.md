@@ -63,9 +63,9 @@ but their strings are still translatable.
 
 ### Page headline / chips (every page except the hero)
 
-Every page uses the approved hero design (`PromoScreenshotPageView.swift`): purple pill (`hero_pill`),
-a two-line headline and three white chips above a black device frame, with the key part of
-the screen zoomed into a purple-bordered card.
+Each feature page uses a two-line headline and three white chips above a black device frame,
+with the key part of the screen enlarged in a purple-bordered card (`PromoScreenshotPageView.swift`).
+The first iPhone screenshot uses only the headline and recording screen.
 
 | Key | Shown as |
 |---|---|
@@ -82,10 +82,8 @@ The test `testEveryLanguageHasPromoTextsForShippedPages` fails if a shipped page
 
 | Key | Shown as |
 |---|---|
-| `hero_pill` | Purple pill at the top (app name). ja: シンプル録音 / en: Simple Voice Recorder |
 | `hero_line1` | Headline line 1, dark ink. Keep it short; it shrinks to one line. |
 | `hero_line2` | Headline line 2, purple accent. |
-| `hero_chips` | 3 white chips under the headline: one-tap recording / quality presets / AI transcription. |
 | `hero_screen_title` | Large navigation title of the recording screen inside the phone (app's `録音` in Recording table). |
 | `hero_recording_status` | Red status above the timer while recording (app's `録音中`). |
 | `tab_recording`, `tab_playback`, `tab_playlist`, `tab_settings` | Tab bar labels of the app (app's `録音` / `再生` / `プレイリスト` / `設定`). |
@@ -134,4 +132,4 @@ existing screenshots render exactly as before. Translators should replace them.
 |---|---|
 | all except `ja` (incl. `en`) | `split`, `share_message`, `share_mail`, `share_link`, `share_more`, `delete` — still the Japanese literals (分割 / メッセージ / メール / リンク / その他 / 削除) that were hardcoded in the mock views. App translations of 分割 exist in `AudioEditor.xcstrings` (en Split, de Teilen, es Dividir, fr Diviser, it Dividere, pt-PT Dividir, ru Разделить, tr Böl, vi Tách, zh 分割). |
 | `es`, `fr`, `it`, `pt-PT`, `ru`, `tr`, `vi`, `zh-Hans`, `zh-Hant` | `transcription_sample_texts`, `ai_segments` — generic English fallback text. |
-| `de`, `es`, `fr`, `it`, `pt-PT`, `ru`, `tr`, `vi`, `zh-Hans`, `zh-Hant` | `hero_pill`, `hero_line1`, `hero_line2`, `hero_chips` — drafted (not from compose.py); need native review. `hero_pill` is the store app name for now. |
+| `de`, `es`, `fr`, `it`, `pt-PT`, `ru`, `tr`, `vi`, `zh-Hans`, `zh-Hant` | `hero_line1`, `hero_line2` — drafted (not from compose.py); need native review. |

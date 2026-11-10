@@ -31,14 +31,10 @@ COPY = {
         "badge": "要約つき",
         "before": "録音",
         "after": "文字起こし＋要約",
-        "recorder": ("かんたん・きれいに", "録れるボイスレコーダー"),
-        "recorder_pill": "シンプル録音",
-        "chips": ["ワンタップ録音", "用途別の音質プリセット", "AI文字起こし"],
+        "recorder": ("ワンタップで", "すぐ録音"),
     },
     "en": {
-        "recorder": ("Record clearly,", "simply."),
-        "recorder_pill": "Simple Voice Recorder",
-        "chips": ["One-tap recording", "Quality presets", "AI transcription"],
+        "recorder": ("Start recording", "in one tap"),
     },
 }
 
@@ -200,39 +196,23 @@ def v3(lang):
     return img
 
 
-def chips(d, y, labels, bg, fg, size=40, gap=20):
-    while True:
-        f = ImageFont.truetype(FONT_BOLD, size)
-        widths = [d.textlength(t, font=f) + 56 for t in labels]
-        total = sum(widths) + gap * (len(labels) - 1)
-        if total <= W - 140 or size <= 30:
-            break
-        size -= 2
-    x = (W - total) / 2
-    for t, w in zip(labels, widths):
-        d.rounded_rectangle((x, y, x + w, y + size + 36), (size + 36) / 2, fill=bg)
-        d.text((x + 28, y + 16), t, font=f, fill=fg)
-        x += w + gap
-
-
 def recorder(lang, dark_bg):
     """ボイスレコーダー訴求: 録音中の波形画面を主役にし、波形部分を拡大カードで見せる"""
     c = COPY[lang]
     if dark_bg:
         img = gradient((108, 76, 240), (40, 22, 110))
-        text, accent, pill_bg, pill_fg, chip_bg, chip_fg, outline = WHITE, ACCENT, WHITE, (74, 50, 180), (255, 255, 255), (74, 50, 180), ACCENT
+        text, accent, outline = WHITE, ACCENT, ACCENT
     else:
         img = gradient((250, 248, 255), (232, 226, 255), glow=False)
-        text, accent, pill_bg, pill_fg, chip_bg, chip_fg, outline = INK, PURPLE, PURPLE, WHITE, (255, 255, 255), PURPLE, PURPLE
+        text, accent, outline = INK, PURPLE, (154, 132, 242)
     d = ImageDraw.Draw(img)
-    pill(d, 120, c["recorder_pill"], pill_bg, pill_fg)
     l1, l2 = c["recorder"]
-    centered(d, 270, l1, fit(d, l1, FONT_HEAVY, 120, W - 140), text)
-    centered(d, 420, l2, fit(d, l2, FONT_HEAVY, 124, W - 100), accent)
-    chips(d, 600, c["chips"], chip_bg, chip_fg)
+    centered(d, 210, l1, fit(d, l1, FONT_BOLD, 112, W - 140), text)
+    centered(d, 355, l2, fit(d, l2, FONT_HEAVY, 156, W - 140), accent)
+
     rec = load(lang, "recording_wave")
-    phone(img, rec, (W - 900) // 2 - 26, 760, 900)
-    card(img, rec, WAVE_BOX, 50, 1110, W - 100, outline=outline)
+    phone(img, rec, (W - 900 - 52) // 2, 690, 900)
+    card(img, rec, WAVE_BOX, 72, 1070, W - 144, outline=outline)
     return img
 
 
