@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import Dependencies
 import Foundation
-import XCTestDynamicOverlay
+import IssueReporting
 import os.log
 
 struct AudioPlayerClient {

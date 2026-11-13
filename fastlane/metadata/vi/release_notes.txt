@@ -1,2 +1,2 @@
-1.17.1
-Cải thiện quá trình tải và xử lý giao dịch mua trên màn hình premium.
+1.17.4
+Đã cập nhật thư viện ứng dụng và phần mô tả trên App Store.

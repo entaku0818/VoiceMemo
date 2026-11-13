@@ -1,0 +1,284 @@
+{
+  "version": "1.17.2",
+  "versionId": "e953ab92-afcd-4a32-b087-a18f8ca92351",
+  "state": "PREPARE_FOR_SUBMISSION",
+  "locales": {
+    "ar-SA": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "bn-BD": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ca": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "de-DE": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "cs": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "da": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "en-CA": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "en-AU": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "en-US": {
+      "status": "uploaded",
+      "previousRun": true
+    },
+    "el": {
+      "status": "uploaded",
+      "attempts": 2
+    },
+    "en-GB": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "es-ES": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "es-MX": {
+      "status": "uploaded",
+      "attempts": 2
+    },
+    "fi": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "fr-CA": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "he": {
+      "status": "uploaded",
+      "previousRun": true
+    },
+    "gu-IN": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "hi": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "fr-FR": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "hr": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "id": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "it": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ja": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "hu": {
+      "status": "uploaded",
+      "attempts": 2
+    },
+    "kn-IN": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ml-IN": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ko": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "nl-NL": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "mr-IN": {
+      "status": "uploaded",
+      "attempts": 2
+    },
+    "ms": {
+      "status": "uploaded",
+      "attempts": 2
+    },
+    "no": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "or-IN": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "pa-IN": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "pl": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "pt-PT": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "pt-BR": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ro": {
+      "status": "uploaded",
+      "attempts": 2
+    },
+    "sk": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ru": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "sl-SI": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "sv": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ta-IN": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "te-IN": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "tr": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "th": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "uk": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "vi": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "ur-PK": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "zh-Hans": {
+      "status": "uploaded",
+      "attempts": 1
+    },
+    "zh-Hant": {
+      "status": "uploaded",
+      "attempts": 1
+    }
+  },
+  "verifiedImageCounts": {
+    "en-US": 15,
+    "te-IN": 15,
+    "he": 15,
+    "ca": 15,
+    "ta-IN": 15,
+    "es-ES": 15,
+    "ur-PK": 15,
+    "es-MX": 15,
+    "sk": 15,
+    "cs": 15,
+    "fr-CA": 15,
+    "sl-SI": 15,
+    "en-AU": 15,
+    "id": 15,
+    "no": 15,
+    "pl": 15,
+    "hu": 15,
+    "ko": 15,
+    "zh-Hans": 15,
+    "tr": 15,
+    "bn-BD": 15,
+    "it": 15,
+    "ml-IN": 15,
+    "ru": 15,
+    "ro": 15,
+    "th": 15,
+    "kn-IN": 15,
+    "sv": 15,
+    "pa-IN": 15,
+    "or-IN": 15,
+    "gu-IN": 15,
+    "nl-NL": 15,
+    "ar-SA": 15,
+    "da": 15,
+    "fr-FR": 15,
+    "fi": 15,
+    "mr-IN": 15,
+    "vi": 15,
+    "en-GB": 15,
+    "en-CA": 15,
+    "hi": 15,
+    "de-DE": 15,
+    "pt-PT": 15,
+    "uk": 15,
+    "ms": 15,
+    "ja": 15,
+    "hr": 15,
+    "el": 15,
+    "pt-BR": "('pt-BR', '3_APP_IPAD_PRO_3GEN_129_3.png', 'checksum')",
+    "zh-Hant": "('zh-Hant', '4_APP_IPAD_PRO_3GEN_129_4.png', 'checksum')"
+  },
+  "verifiedTotal": 720,
+  "allChecksumsMatch": false,
+  "pendingAssets": [
+    {
+      "locale": "pt-BR",
+      "fileName": "3_APP_IPAD_PRO_3GEN_129_3.png",
+      "id": "66000018-0107-80d9-8019-5b9deba8c181",
+      "state": {
+        "errors": [],
+        "warnings": null,
+        "state": "UPLOAD_COMPLETE"
+      }
+    },
+    {
+      "locale": "zh-Hant",
+      "fileName": "4_APP_IPAD_PRO_3GEN_129_4.png",
+      "id": "bd800018-0107-80d9-802e-2dba6490d6e2",
+      "state": {
+        "errors": [],
+        "warnings": null,
+        "state": "UPLOAD_COMPLETE"
+      }
+    }
+  ],
+  "ppoState": "IN_REVIEW"
+}

@@ -1,0 +1,36 @@
+{
+  "observedDateJST": "2026-11-08",
+  "package": "com.entaku.simpleRecord",
+  "account": "entaku",
+  "submissionStatus": "in_review_quick_checks_pending",
+  "changedLocales": [
+    "ja-JP",
+    "en-US"
+  ],
+  "changedFields": [
+    "title",
+    "short_description",
+    "full_description"
+  ],
+  "listingBaseline": {
+    "start": "2026-10-07",
+    "end": "2026-11-03",
+    "visitors": 154,
+    "conversionRatePercent": 14.3,
+    "scope": "all countries and languages"
+  },
+  "growthBaseline": {
+    "start": "2026-10-10",
+    "end": "2026-11-06",
+    "deviceImpressionsDisplayed": 1280,
+    "deviceAcquisitions": 28,
+    "acquisitionsBySource": {
+      "googlePlayExplore": 20,
+      "paidAndDirect": 5,
+      "unattributed": 3
+    }
+  },
+  "searchOnlyCount": null,
+  "keywordSearchVolume": null,
+  "publishedVerified": false
+}

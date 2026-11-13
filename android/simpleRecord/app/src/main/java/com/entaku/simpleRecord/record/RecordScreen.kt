@@ -261,13 +261,7 @@ fun RecordScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(120.dp)
-                                .clip(RoundedCornerShape(12.dp)),
-                            waveformColor = when {
-                                uiState.currentVolume > 80 -> MaterialTheme.colorScheme.error
-                                uiState.currentVolume > 60 -> MaterialTheme.colorScheme.tertiary
-                                else -> MaterialTheme.colorScheme.primary
-                            },
-                            backgroundColor = MaterialTheme.colorScheme.surfaceVariant
+                                .clip(RoundedCornerShape(12.dp))
                         )
                     }
 

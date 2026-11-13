@@ -1,2 +1,2 @@
-1.17.1
-Pemuatan dan pemprosesan pembelian pada skrin premium telah ditambah baik.
+1.17.4
+Pustaka aplikasi dan penerangan di App Store telah dikemas kini.

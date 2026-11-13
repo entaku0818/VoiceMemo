@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Google Play のスクリーンショット規格チェック（ja-JP / en-US）。
+"""Google Play のスクリーンショット規格チェック（17ロケール）。
 
 共通規格: JPEG または 24bit PNG（アルファなし）/ 長辺は短辺の2倍以下 / 8MB以下 / 2〜8枚
 - phoneScreenshots / sevenInchScreenshots: 各辺 320〜3840px
@@ -12,7 +12,7 @@ from pathlib import Path
 from PIL import Image
 
 METADATA = Path(__file__).resolve().parent.parent / "metadata" / "android"
-LOCALES = ("ja-JP", "en-US")
+from compose import LOCALES
 # 種別ごとの (短辺の下限, 長辺の上限, 必須か)
 KINDS = {
     "phoneScreenshots": (320, 3840, True),

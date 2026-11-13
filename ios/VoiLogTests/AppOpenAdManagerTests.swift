@@ -24,4 +24,30 @@ final class AppOpenAdManagerTests: XCTestCase {
     func testIsNotPresentingAdInitially() {
         XCTAssertFalse(AppOpenAdManager.shared.isPresentingAd)
     }
+
+    func testSplashJoinsPreloadAndReceivesSuccessExactlyOnce() {
+        let load = AppOpenAdLoadWaiters()
+        var results: [Bool] = []
+        XCTAssertTrue(load.begin())
+        XCTAssertFalse(load.begin { results.append($0) })
+        XCTAssertFalse(load.begin { results.append($0) })
+        XCTAssertTrue(results.isEmpty)
+        load.finish(true)
+        load.finish(true)
+        XCTAssertEqual(results, [true, true])
+    }
+
+    func testFailureNotifiesAllWaitersAndAllowsReentrantRetry() {
+        let load = AppOpenAdLoadWaiters()
+        var results: [Bool] = []
+        XCTAssertTrue(load.begin { success in
+            results.append(success)
+            XCTAssertTrue(load.begin { results.append($0) })
+        })
+        XCTAssertFalse(load.begin { results.append($0) })
+        load.finish(false)
+        XCTAssertEqual(results, [false, false])
+        load.finish(true)
+        XCTAssertEqual(results, [false, false, true])
+    }
 }

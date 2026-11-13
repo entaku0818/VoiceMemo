@@ -1,2 +1,2 @@
-1.17.1
-Forbedret indlæsning og købshåndtering på premiumskærmen.
+1.17.4
+Appens biblioteker og beskrivelsen i App Store er opdateret.

@@ -1,0 +1,486 @@
+{
+  "package": "com.entaku.simpleRecord",
+  "sourceVersion": "2.10.0",
+  "captureTestsPassed": 8,
+  "captureDensityDpi": 360,
+  "images": [
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/phoneScreenshots/00_recording.png",
+      "sha1": "d88f63547e6348da533c91216c5df83698d2ddae",
+      "response": {
+        "image": {
+          "id": "4681985827339765764",
+          "url": "https://lh3.googleusercontent.com/MT--F2aLsYkvtFCMk4VqfKrWszJ7P_VwTPjqU4gmj5lwOlMNjYo_4RZ_eCum1keKmys",
+          "sha1": "d88f63547e6348da533c91216c5df83698d2ddae",
+          "sha256": "05e0b7cbad1e8b2a994a544b451f762287d5ddb14909ac2bdb66dd1e545c3259",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/phoneScreenshots/01_ai_transcription.png",
+      "sha1": "285d658dee4c765e23933a175bd15984dee8d883",
+      "response": {
+        "image": {
+          "id": "17567360730536224196",
+          "url": "https://lh3.googleusercontent.com/f4vfwxIpO3ycRJcZMXoUwczA1zi0cNNxk_uGJjOs2U_pUmxqtw-iMPj5bbRwC4IPBS8",
+          "sha1": "285d658dee4c765e23933a175bd15984dee8d883",
+          "sha256": "baf79376a65fc72c7a7b06a7a2edcf508401617d036db9189d7249a68ff6571a",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/phoneScreenshots/02_ai_minutes.png",
+      "sha1": "383f68b2bc908465d6ad5b6a2cae7e60e385bb7d",
+      "response": {
+        "image": {
+          "id": "17431648795187181130",
+          "url": "https://lh3.googleusercontent.com/huuiua8KYdiy7uCPn28_hoxW4021MzCJFqmNmLTxmpbV9u2W9qjduJxJuok6UrJIww-i",
+          "sha1": "383f68b2bc908465d6ad5b6a2cae7e60e385bb7d",
+          "sha256": "bb7e51255e6aad6f53be6fcb124a5b88c73e15adb3efc73df397507bf172a656",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/phoneScreenshots/03_recordings.png",
+      "sha1": "b32b5e862de4c74ac0b99cb3943983f81e3fe8eb",
+      "response": {
+        "image": {
+          "id": "7217400658269604676",
+          "url": "https://lh3.googleusercontent.com/IQP7Q2Kg19zSHaQevFG6abseflIjTrSryhzaAB_V36K-Uyd0rb9dPLbFks40BNqWqkaa",
+          "sha1": "b32b5e862de4c74ac0b99cb3943983f81e3fe8eb",
+          "sha256": "c29b6ca12f861e46bd022ac3e11f1513c520513f62357254cfe1f1795dbbc21d",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/phoneScreenshots/04_playback.png",
+      "sha1": "a85c8df9c49c19d6c887b92ee8877271bbd5b72f",
+      "response": {
+        "image": {
+          "id": "16133339967595383028",
+          "url": "https://lh3.googleusercontent.com/QnVHgCMPhSLUexha56C0jtPvQbICKX8eQ2FG0d2gauMfSKSq3Eye_VbupjFfaAgEOj4",
+          "sha1": "a85c8df9c49c19d6c887b92ee8877271bbd5b72f",
+          "sha256": "6aca9b9f65338c2c80e1efde70e969a7d6d11f573a82d077595b27d26cb5ddcd",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/phoneScreenshots/05_cloud_backup.png",
+      "sha1": "1185ac296d857e62e4f75dd9445fa4a967e6fca7",
+      "response": {
+        "image": {
+          "id": "12902461240046609538",
+          "url": "https://lh3.googleusercontent.com/8mew1yQAq3o9jOoTx6fEFHbBo60gbHe-6eEZUNhl5JjgQoRHLJHpUWwW0RuIDGsWF1M",
+          "sha1": "1185ac296d857e62e4f75dd9445fa4a967e6fca7",
+          "sha256": "1dc6b1375c3694dce2cdc0937717e022c5cd28e1b5a298bd7b4524c83492d734",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/sevenInchScreenshots/00_recording.png",
+      "sha1": "1854d39bffbff0c1a1654bbdf254820f0e6fbe79",
+      "response": {
+        "image": {
+          "id": "13372184990218058938",
+          "url": "https://lh3.googleusercontent.com/wgBZOxWJj7TOwmG8PLZvz4ukYb5ghD9PzXxwVRNy9PLdmNi0bhlDKQ-GjV_89wKTVhw",
+          "sha1": "1854d39bffbff0c1a1654bbdf254820f0e6fbe79",
+          "sha256": "d8e9f4eab9d7a580c7cb8ac0d914a082a4edfeb10e2d17172e0a10373b840397",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/sevenInchScreenshots/01_ai_transcription.png",
+      "sha1": "5de5e85292eed06dd49ba4cecd7bdc681aa3c27c",
+      "response": {
+        "image": {
+          "id": "13932799097268291321",
+          "url": "https://lh3.googleusercontent.com/1czHAygKoZOxI6orfHH-bAXkrmwC7pDeoEgtq0aAwuCAfOwYUrDaj2k-obFa9Ov3pS8y",
+          "sha1": "5de5e85292eed06dd49ba4cecd7bdc681aa3c27c",
+          "sha256": "5ec5f00457dc349ee8800f40b5872cd0da294392200bdbc51bd3a62c1d2e0b79",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/sevenInchScreenshots/02_ai_minutes.png",
+      "sha1": "73685edf000a6eb0e20d289b1650f7268900fcb5",
+      "response": {
+        "image": {
+          "id": "13994136280777429993",
+          "url": "https://lh3.googleusercontent.com/Si1YpaCzkgzNe_n0lXABy8ZXHp7Mo3VUJVCC9iWf77BMqzqG37y0wHkNXgPp_Ee2b8E",
+          "sha1": "73685edf000a6eb0e20d289b1650f7268900fcb5",
+          "sha256": "23c6012874f44343ba84f2a56a95d0634a27b93473085f77b6dd86a18683a2e4",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/sevenInchScreenshots/03_recordings.png",
+      "sha1": "88c9c79f2c2f5849a55184cd1aae4d3b38ed726f",
+      "response": {
+        "image": {
+          "id": "4401927947832780394",
+          "url": "https://lh3.googleusercontent.com/g_MX9SprxBzGHSzdaCV8m8Ch9eosO3Qt9gXdi9Kz4PjNRS1XLGNEemCjKIUD5EJB_Q",
+          "sha1": "88c9c79f2c2f5849a55184cd1aae4d3b38ed726f",
+          "sha256": "a3a87db164ecf57d6c2903261c592d4b27c621c088cdb99541e5d46ccccd3b64",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/sevenInchScreenshots/04_playback.png",
+      "sha1": "e541098b70767ab5569efec540774329e4313c24",
+      "response": {
+        "image": {
+          "id": "9607515692979923194",
+          "url": "https://lh3.googleusercontent.com/nq3lL5wYBwGuvFgClcPqYfOLhqhyOCR-P6aB89vn5EnOfiqyd4q8hLs3IcwsQqgQ7jUp",
+          "sha1": "e541098b70767ab5569efec540774329e4313c24",
+          "sha256": "94e1a5160fa7bf7d084d311f897dad11d4781a3016a1537b913c372be5ad2da2",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/sevenInchScreenshots/05_cloud_backup.png",
+      "sha1": "b61fd369bac2833f0037d5adc2ce2a89bb7f211f",
+      "response": {
+        "image": {
+          "id": "1778593106999096614",
+          "url": "https://lh3.googleusercontent.com/6QXXXzdOMWjl_jR68HE6NWVxUuxC1BYvQqiaj5UVNHKwNqkSknW21aWw_VrA6lqrj1A",
+          "sha1": "b61fd369bac2833f0037d5adc2ce2a89bb7f211f",
+          "sha256": "169de3144a7e026b714a02e6f861e6c2e2b436feb4fc15681d55d8d10cb66d08",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/tenInchScreenshots/00_recording.png",
+      "sha1": "dab46dc4ed0e5cf027e146bf5e196bbeaa05ff2e",
+      "response": {
+        "image": {
+          "id": "11663158000346683071",
+          "url": "https://lh3.googleusercontent.com/Pcp9uzSpqvWMvcgzWVTsiE1ec65-opCxVVlbNAV47qtz04ZHVWSMxkq9eZZeNL0UtGwd",
+          "sha1": "dab46dc4ed0e5cf027e146bf5e196bbeaa05ff2e",
+          "sha256": "e30fa8fc1f8000508812d15fb7982ceff987b941691b23816e6f682017feb52c",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/tenInchScreenshots/01_ai_transcription.png",
+      "sha1": "86d4ccdbec8b1f1fdf83fdbc4ee48debfc2440e0",
+      "response": {
+        "image": {
+          "id": "8971659328073170034",
+          "url": "https://lh3.googleusercontent.com/RomrzPFX0VZKDbZJfB1UKfCOdMdkrar72XTpFux7JIy9ksf_szTmuFjC4giavu1_OE0",
+          "sha1": "86d4ccdbec8b1f1fdf83fdbc4ee48debfc2440e0",
+          "sha256": "3106372fd3af637b56eac64aa3a266a423361232e2195e72e9bc6a7f1884eba0",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/tenInchScreenshots/02_ai_minutes.png",
+      "sha1": "91a7ac7c60dc85238e592d7e797a3bfa0bd83981",
+      "response": {
+        "image": {
+          "id": "5130788318283081599",
+          "url": "https://lh3.googleusercontent.com/7xql8TFuZADzImRLu5NvO6UDPKAZ_e6QDGipr7uZqYbkEbe20SyNcBOuF0Bc_J50Pw",
+          "sha1": "91a7ac7c60dc85238e592d7e797a3bfa0bd83981",
+          "sha256": "903787df8b49a1269b263ef748c7f999625337555e488632c37f9b3ececb503c",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/tenInchScreenshots/03_recordings.png",
+      "sha1": "8091f6da7226d84d0cfc243cd1dd5a805f64a2a9",
+      "response": {
+        "image": {
+          "id": "5329498648523266479",
+          "url": "https://lh3.googleusercontent.com/Sr2TAz0-HiocnE4JXisAYfvRZKqU3r2qVKkrmFXzIjh2RR2pjwwRgGTAOvzz-J2tF6g",
+          "sha1": "8091f6da7226d84d0cfc243cd1dd5a805f64a2a9",
+          "sha256": "a48883db90e8cfb74fc2cc0c3ba1bc2a5798abf42993fda5f30c16db8bf83aac",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/tenInchScreenshots/04_playback.png",
+      "sha1": "2a08a4711df0b72950b6ef5c8ba52d1eab6d7422",
+      "response": {
+        "image": {
+          "id": "7916515784163363994",
+          "url": "https://lh3.googleusercontent.com/nReH_kQI_ivJTkkpCV56CU4egPD2vHoYPVjTwrzb0wBOqLar_qny4p4rdm5N1I3LBVw",
+          "sha1": "2a08a4711df0b72950b6ef5c8ba52d1eab6d7422",
+          "sha256": "10b47b9f134938971e2fa74835e60521c310063a022776faecdd9012382f96b6",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/ja-JP/images/tenInchScreenshots/05_cloud_backup.png",
+      "sha1": "432c322b45608869b4d418ca88f6a9b41d479936",
+      "response": {
+        "image": {
+          "id": "1313236258586997117",
+          "url": "https://lh3.googleusercontent.com/vQdf3_NRO24RNujnKBEnwShLgQWGxH_Ji5wBwPfDZe8jgXeCL7HMBshU_wlyJbvEyg",
+          "sha1": "432c322b45608869b4d418ca88f6a9b41d479936",
+          "sha256": "32d2f9e88513f448ec430481ab420b2f0b245a959edc99cc64a19dd2b959ac33",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/phoneScreenshots/00_recording.png",
+      "sha1": "d8c3714cbe40bf88f6fb14cca1f229188506f425",
+      "response": {
+        "image": {
+          "id": "10111538205440208860",
+          "url": "https://lh3.googleusercontent.com/dnDSWMrdert0x11G-gekjyV4Z5gI7Pjc88r2DH_i9TRlJmE98IV8mbKBNbAhYY07oZk",
+          "sha1": "d8c3714cbe40bf88f6fb14cca1f229188506f425",
+          "sha256": "05c8c14e74fdeb9b99fda9ac76844ea54ee5ff8a3ffb5537f3a1553563c6bd0b",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/phoneScreenshots/01_ai_transcription.png",
+      "sha1": "8d75cc1aab2ea0f0b035ad735904de7970a83843",
+      "response": {
+        "image": {
+          "id": "4982972514032982618",
+          "url": "https://lh3.googleusercontent.com/mSrPPpk1lCLaSYDYVvBJAjoKzSzF4CVucc-1pWOJ04QZaDBsYtTw9_czFZXbBSqyvzIK",
+          "sha1": "8d75cc1aab2ea0f0b035ad735904de7970a83843",
+          "sha256": "5d7212131ed042fddcad9202786d81cae315aee153594b7b1f51dbdb53d038b4",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/phoneScreenshots/02_ai_minutes.png",
+      "sha1": "371ea7fd4f2ab03ee5781e8b207d1d54b68b6069",
+      "response": {
+        "image": {
+          "id": "12834941456787608695",
+          "url": "https://lh3.googleusercontent.com/0ttrXkBJPtvV_rWZrzDFfG5IgVg_tg5K1U7u-4_wgx5ym2dyxumGfkVKlbSRdFc1Xho",
+          "sha1": "371ea7fd4f2ab03ee5781e8b207d1d54b68b6069",
+          "sha256": "43d1c9dc038fee4a6e949d289d26568baf472bdef39ebeef1edc8e5a9abbb552",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/phoneScreenshots/03_recordings.png",
+      "sha1": "0ba8ebf49c02e9e74e59a56510ae95c9183af040",
+      "response": {
+        "image": {
+          "id": "1184018969849135727",
+          "url": "https://lh3.googleusercontent.com/50KDlYAu9iJ1IDzF46IAhjpyob92uFHhG7a7Mx8_C8gIkiyBjzaxHpoe3vVT8-TCZQ",
+          "sha1": "0ba8ebf49c02e9e74e59a56510ae95c9183af040",
+          "sha256": "a711f1b2b8b6e984d411f384cc6c6bd1fe430d8a41dc8c5c3efb58a6ad40006b",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/phoneScreenshots/04_playback.png",
+      "sha1": "124314af0acc7a77ef4f72210bda253d46d78303",
+      "response": {
+        "image": {
+          "id": "9291134342825030534",
+          "url": "https://lh3.googleusercontent.com/-KcaAY2g3L5vhUBK5ZETs83p-bZO_PAzbnUbTaOiKpS7Bqe8rjqk49wqwUIP2b1vcg",
+          "sha1": "124314af0acc7a77ef4f72210bda253d46d78303",
+          "sha256": "7f8d821dcda7f30c6e12716b07b067cacf023fb386d8ef0b2a24bcb2586e7e73",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/phoneScreenshots/05_cloud_backup.png",
+      "sha1": "98f81fb31d43d20a8b045183798e9e400bd9a0c4",
+      "response": {
+        "image": {
+          "id": "5641730945235333597",
+          "url": "https://lh3.googleusercontent.com/jXftkgeMAsl09HQp3vo9-2p9BnWPNO2oCeAgbJ04zAx3pcuUgKmT3p5DCfxXTeH9Dg",
+          "sha1": "98f81fb31d43d20a8b045183798e9e400bd9a0c4",
+          "sha256": "47da33973e3c7881f2435150503ba07056e6a01a56734fc6fb35e8d94977c9d3",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/sevenInchScreenshots/00_recording.png",
+      "sha1": "1127505474839e9c5340c91bf68be3b41f41bd13",
+      "response": {
+        "image": {
+          "id": "4900775751340036600",
+          "url": "https://lh3.googleusercontent.com/6WqPPkSswNaoYMSKGBVejf0u8V_oWWgXLV7Vx4Yp1YiSSPm66Tq9aRwojgFHHkS9xu0b",
+          "sha1": "1127505474839e9c5340c91bf68be3b41f41bd13",
+          "sha256": "d7c18f377dd5c54f31b71e2c5d46d46d6504cfe50336e4b79dd534625b11b9e3",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/sevenInchScreenshots/01_ai_transcription.png",
+      "sha1": "2edd7ebd6be4a286fd2a4e7d260244fa61a674c4",
+      "response": {
+        "image": {
+          "id": "3540947040212856928",
+          "url": "https://lh3.googleusercontent.com/2wN7jIYnubdPKHz8ZG0lr00Fa5RHbU1kautaJdpLaX0CF0OnGgNIh3lDrrKMpV5upiA",
+          "sha1": "2edd7ebd6be4a286fd2a4e7d260244fa61a674c4",
+          "sha256": "c9480d491ea7f60fb09a8dc9e26114f672ca9fbfeb01692303918374450485c4",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/sevenInchScreenshots/02_ai_minutes.png",
+      "sha1": "52956d7ed9e5378e9da054cc070b3691e467c85c",
+      "response": {
+        "image": {
+          "id": "7940368251389892377",
+          "url": "https://lh3.googleusercontent.com/BNjH4eTfHIgVPxnvudyoWFy5wbiXQHNXFxiIgrgpCnP4UHavToPrhwlsyHO3TMndXVDM",
+          "sha1": "52956d7ed9e5378e9da054cc070b3691e467c85c",
+          "sha256": "ca29337dd67ceebca6c76b0bf6db64e7966768fdccdcac87fb944d59dab772d9",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/sevenInchScreenshots/03_recordings.png",
+      "sha1": "2687021e8ed47cc85a33775dc0344be25440b1e6",
+      "response": {
+        "image": {
+          "id": "4685344386308408450",
+          "url": "https://lh3.googleusercontent.com/0AcFj7RLz5IdwWbDgGM4glLNgTExjQ4XRnyQVL_ARJBdCDkFZulpOHBIWRgLk6eH5l7P",
+          "sha1": "2687021e8ed47cc85a33775dc0344be25440b1e6",
+          "sha256": "5cc5f3f24e513857a4409a6aacfc2e2c421079f18cec50410827c8a36cd4bf12",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/sevenInchScreenshots/04_playback.png",
+      "sha1": "d20a40f3c741add168c4dcbe2ffde2b9a567a4ba",
+      "response": {
+        "image": {
+          "id": "5855024880116839091",
+          "url": "https://lh3.googleusercontent.com/UBgLMvmURn2Y35bfo7St8RMvOAs3b4zSFT8QXl2MKAOV2NlZ97yBU8a4EwoozvL5Ng",
+          "sha1": "d20a40f3c741add168c4dcbe2ffde2b9a567a4ba",
+          "sha256": "3b74e68a97447aabb8c3f63333ddfa81103f78d8d4f29384903b524e09b7198f",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/sevenInchScreenshots/05_cloud_backup.png",
+      "sha1": "041b60299ea985aca951a67f8d54c9537b5753cf",
+      "response": {
+        "image": {
+          "id": "9068974431976191493",
+          "url": "https://lh3.googleusercontent.com/O12QBN_3f21N0hyctTkDzozJ7zH0q_YL1_rL-m-uApoEPcABCVSgn9DddbGPCq7kawE",
+          "sha1": "041b60299ea985aca951a67f8d54c9537b5753cf",
+          "sha256": "5376485b1adab198b3dd6473e169970362cce336554c0e05e40b02208883b107",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/tenInchScreenshots/00_recording.png",
+      "sha1": "51b896675be64b0ff84f0e510c575a65fdb83bf0",
+      "response": {
+        "image": {
+          "id": "11955251983507905001",
+          "url": "https://lh3.googleusercontent.com/0e-Hr22qnd7JQqqhyWhKVA5xgZAKyS7eVS7QzhYk2_szj_PeqORNlxqsFFrdWJCmu0c",
+          "sha1": "51b896675be64b0ff84f0e510c575a65fdb83bf0",
+          "sha256": "1a02a004cc2cd95b7f7c7dec70a5c80460d5e1aa65b44475156b2a9f1463b90b",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/tenInchScreenshots/01_ai_transcription.png",
+      "sha1": "67a9fa6a4d8ac23ff108824e4e9b378608116101",
+      "response": {
+        "image": {
+          "id": "6813376719712045343",
+          "url": "https://lh3.googleusercontent.com/5Z8pPM7KT7HWswJ-e8R8fmgWcXRE4P2WlxbFn7nl7soqZ2kLizXZ0Ej31afk5R7TyI8",
+          "sha1": "67a9fa6a4d8ac23ff108824e4e9b378608116101",
+          "sha256": "6ff03d6be9566c8e7d296461ef16e9c13d2a96c8ffabe0f43ac29f5fba99077f",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/tenInchScreenshots/02_ai_minutes.png",
+      "sha1": "3ac826bf5d5f6b08dbe54ef91862d511c7c01a28",
+      "response": {
+        "image": {
+          "id": "17648690473004830924",
+          "url": "https://lh3.googleusercontent.com/lVTkU23e52DafOPluYuEIqz9O6bliqG7DhDqLk_nbOq_PpfvIPAp1E3RravHjTeJkg",
+          "sha1": "3ac826bf5d5f6b08dbe54ef91862d511c7c01a28",
+          "sha256": "4270dc6e07117ba4273e60509aaf90b2d0872bb036d210f5e1cd53def6210b96",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/tenInchScreenshots/03_recordings.png",
+      "sha1": "bf1bd71ff30954ae7fb41d998cea3243688193a7",
+      "response": {
+        "image": {
+          "id": "11480931105294195049",
+          "url": "https://lh3.googleusercontent.com/wpqZvhUupTjTuKMDEvKXf0U48T6cMlK8eZvklGmSZ3LQ1ZQvo-cnbgC9-kyWTL2cDcAY",
+          "sha1": "bf1bd71ff30954ae7fb41d998cea3243688193a7",
+          "sha256": "f7f80d64398398b4ff8fccc4778ed7f73c7ddd516a09fe89ef7b8058f77d1340",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/tenInchScreenshots/04_playback.png",
+      "sha1": "bc09b3281ce6958952b1d61332326aca3b7b1a2c",
+      "response": {
+        "image": {
+          "id": "10066265891680444988",
+          "url": "https://lh3.googleusercontent.com/A4DvyeqiMhGm5kTw093nIRzXHCs4EZeLBQBCgI-cAI-ugukFh4-whyDJbt_cRgA0mHE",
+          "sha1": "bc09b3281ce6958952b1d61332326aca3b7b1a2c",
+          "sha256": "e958871fb54e872879e4d4f1f15e9106d9383ccf7c6fd76031387d1ad7eb63a3",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    },
+    {
+      "file": "android/simpleRecord/fastlane/metadata/android/en-US/images/tenInchScreenshots/05_cloud_backup.png",
+      "sha1": "94530048bd6ecc44e3e82477507650477b62e3b7",
+      "response": {
+        "image": {
+          "id": "16759177277090201263",
+          "url": "https://lh3.googleusercontent.com/vg2eEdEg8LOuBaqEQDvtNXXJYfiI84KCB-m0vGCZp-4K9dUdQin3VDbdyvLdF00NWxI",
+          "sha1": "94530048bd6ecc44e3e82477507650477b62e3b7",
+          "sha256": "547c94c30e87e09bd050cfe09a91d34773a887846c1afd3a67dd01a6f50fee18",
+          "aiGeneratedState": "aiGeneratedStateUnspecified"
+        }
+      }
+    }
+  ],
+  "editId": "16013348096442108088",
+  "validate": {
+    "id": "16013348096442108088",
+    "expiryTimeSeconds": "1792769137"
+  },
+  "commit": {
+    "id": "16013348096442108088",
+    "expiryTimeSeconds": "1792769137"
+  },
+  "persistedHashesVerified": true
+}

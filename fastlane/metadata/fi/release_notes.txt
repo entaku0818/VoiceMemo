@@ -1,2 +1,2 @@
-1.17.1
-Premium-näkymän lataamista ja ostojen käsittelyä on parannettu.
+1.17.4
+Sovelluksen kirjastot ja App Store -kuvaus on päivitetty.

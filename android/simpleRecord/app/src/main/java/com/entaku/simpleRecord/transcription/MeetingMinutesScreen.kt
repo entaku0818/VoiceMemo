@@ -63,6 +63,25 @@ fun MeetingMinutesScreen(
         AIConsentDialog(AIPurpose.MINUTES, viewModel::acceptConsent, viewModel::declineConsent)
     }
 
+    MeetingMinutesContent(uiState, isPremium, onNavigateBack, onNavigateToPaywall,
+        viewModel::generate, { viewModel.save(onSaved = onNavigateBack) }) {
+        if (com.entaku.simpleRecord.BuildConfig.DEBUG) {
+            LocalSummaryPrototype(recordingUuid, repository)
+        }
+    }
+}
+
+/** Shared by the app and deterministic store screenshot captures. */
+@Composable
+internal fun MeetingMinutesContent(
+    uiState: MeetingMinutesUiState,
+    isPremium: Boolean,
+    onNavigateBack: () -> Unit,
+    onNavigateToPaywall: () -> Unit,
+    onGenerate: () -> Unit,
+    onSave: () -> Unit,
+    debugContent: @Composable () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -84,9 +103,7 @@ fun MeetingMinutesScreen(
             )
         }
 
-        if (com.entaku.simpleRecord.BuildConfig.DEBUG) {
-            LocalSummaryPrototype(recordingUuid, repository)
-        }
+        debugContent()
         if (!isPremium) {
             PremiumGateContent(onNavigateToPaywall = onNavigateToPaywall)
         } else {
@@ -94,17 +111,17 @@ fun MeetingMinutesScreen(
                 is MeetingMinutesUiState.Loading -> CenteredProgress()
                 is MeetingMinutesUiState.Idle -> IdleContent(
                     state = state,
-                    onGenerate = viewModel::generate
+                    onGenerate = onGenerate
                 )
                 is MeetingMinutesUiState.Generating -> GeneratingContent()
                 is MeetingMinutesUiState.Done -> DoneContent(
                     result = state.result,
-                    onSave = { viewModel.save(onSaved = onNavigateBack) },
-                    onRegenerate = viewModel::generate
+                    onSave = onSave,
+                    onRegenerate = onGenerate
                 )
                 is MeetingMinutesUiState.Failed -> FailedContent(
                     message = state.message,
-                    onRetry = viewModel::generate
+                    onRetry = onGenerate
                 )
             }
         }

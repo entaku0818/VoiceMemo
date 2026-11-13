@@ -1,0 +1,104 @@
+{
+  "date": "2026-11-08",
+  "app_id": "6443528409",
+  "version": "1.17.4",
+  "version_id": "330f9186-4902-4fec-9b66-602ce95e7f86",
+  "app_info_id": "13812778-01f8-441b-9ccc-5b9a3de67703",
+  "status": "PREPARE_FOR_SUBMISSION",
+  "before": {
+    "ja": {
+      "version": {
+        "description": "スマホを閉じても止まらないバックグラウンド録音。会議・授業・語学学習まで、1タップで即スタートできるシンプルなボイスレコーダーです。\n\n語学学習のシャドーイング、アイデアのメモ、取材録音まで幅広く活躍。高音質WAV/AACで記録し、プレイリスト管理ですっきり整理できます。\n\n【録音機能】\n・高音質WAV / AAC(M4A)形式での録音\n・波形エディタで録音を可視化\n・バックグラウンド録音\n・1タップでかんたん録音開始\n\n【再生機能】\n・バックグラウンド再生\n・AB区間リピート（任意の区間を繰り返し再生）\n・再生スピード変更（0.5x〜2.0x）\n・10秒/60秒の早送り・巻き戻し\n・リピート再生（1曲・全体）\n・プレイリスト作成・管理\n・ファイル名の変更・並べ替え\n\n【その他】\n・iCloud同期対応\n・録音データの共有\n・シンプルで使いやすいデザイン\n\n【文字起こし — 新機能】\n・Gemini AIによる自動文字起こし\n・広告を見るだけで無料利用\n・プレミアムで回数制限なし\n\n会議の録音から語学学習、アイデアのメモまで、あらゆる場面で活躍します。ぜひお試しください。",
+        "locale": "ja",
+        "keywords": "音声録音,録音アプリ,インタビュー,取材,商談,セミナー,文字起こし,バックグラウンド,ステレオ",
+        "marketingUrl": "https://voilog.web.app",
+        "promotionalText": null,
+        "supportUrl": "https://voilog.web.app/support.html",
+        "whatsNew": null
+      },
+      "info": {
+        "locale": "ja",
+        "name": "シンプル録音 - ボイスレコーダー&長時間録音",
+        "subtitle": "AI文字起こしで議事録も。会議・講義録音",
+        "privacyPolicyUrl": "https://voilog.web.app/privacy_policy.html",
+        "privacyChoicesUrl": null,
+        "privacyPolicyText": null
+      }
+    },
+    "en-US": {
+      "version": {
+        "description": "Capture meetings, lectures, and ideas instantly — just one tap to start. Background recording keeps going even when you switch apps.\n\nFrom language learning to interviews, VoiLog records in high-quality WAV or AAC and keeps everything organized with playlists.\n\n[Recording]\n・High-quality WAV / AAC (M4A) recording\n・Waveform editor — visualize, trim and split your recordings\n・Background recording\n・Start recording with a single tap\n\n[Playback]\n・Background playback\n・A-B loop repeat (loop any section)\n・Playback speed control (0.5x–2.0x)\n・10s / 60s skip forward & back\n・Repeat (one track / all)\n・Playlist creation & management\n・Rename & reorder files\n\n[Other]\n・iCloud sync\n・Easy file sharing\n・Simple and clean design\n\n[Transcription — New]\n・AI-powered speech-to-text (Gemini)\n・Free to try — just watch a short ad\n・Unlimited with Premium\n\nFrom business meetings to language learning and everyday voice memos — download now and experience hassle-free recording.",
+        "locale": "en-US",
+        "keywords": "transcribe,dictation,background,long,podcast,minutes,seminar,stereo,audio,notes,journal,speech",
+        "marketingUrl": "https://voilog.web.app",
+        "promotionalText": null,
+        "supportUrl": "https://voilog.web.app/support.html",
+        "whatsNew": null
+      },
+      "info": {
+        "locale": "en-US",
+        "name": "Simple Voice Recorder & Memo",
+        "subtitle": "Meeting, lecture & interview",
+        "privacyPolicyUrl": "https://voilog.web.app/privacy_policy.html",
+        "privacyChoicesUrl": null,
+        "privacyPolicyText": null
+      }
+    }
+  },
+  "after": {
+    "ja": {
+      "version": {
+        "description": "会議・講義・インタビューを録音して、AIで文字起こし。シンプル録音（VoiLog）は、音声を残す、聞き返す、内容を整理するためのボイスレコーダーです。\n\n【会議の記録を、振り返りやすく】\n1タップで録音を開始。録音後はAI文字起こしで会話をテキストに変換できます。プレミアムでは、文字起こし結果から要約とTODOを含む議事録を作成できます。\n\n【講義の復習や語学学習に】\n聞きたい区間を繰り返すABリピートと、0.5〜2.0倍の再生速度変更に対応。難しい発音をゆっくり確認したり、録音した講義を聞き返したりできます。\n\n【録音と再生】\n・WAV / AAC（M4A）形式で録音\n・バックグラウンド録音・再生\n・波形で録音を確認\n・再生位置の移動、早送り・巻き戻し\n・1曲・全体のリピート再生\n\n【整理と共有】\n・プレイリストで会議や授業ごとに整理\n・ファイル名の変更・並べ替え\n・録音データの共有\n・iCloud同期に対応\n\n【AI機能について】\nAI文字起こしは、広告を視聴して利用する方法とプレミアムで利用する方法があります。議事録の作成はプレミアム機能です。利用条件はアプリ内でご確認ください。\nクラウドAIの利用にはインターネット接続とデータ送信への同意が必要です。文字起こしや要約の結果は、録音した音声とあわせてご確認ください。\n\n日々の音声メモから仕事の打ち合わせ、学習の記録まで。まずは必要な音声を録音して、聞き返してみてください。",
+        "locale": "ja",
+        "keywords": "ボイスメモ,取材,語学,授業,再生,倍速,バックグラウンド,インタビュー",
+        "marketingUrl": "https://voilog.web.app",
+        "promotionalText": "会議や講義を録音して、AIで文字起こし。プレミアムなら要約・TODOを含む議事録も作成できます。語学学習にはABリピートと再生速度変更。録音はプレイリストで整理して、必要な音声をすぐに聞き返せます。",
+        "supportUrl": "https://voilog.web.app/support.html",
+        "whatsNew": null
+      },
+      "info": {
+        "locale": "ja",
+        "name": "シンプル録音 - ボイスレコーダー・文字起こし",
+        "subtitle": "会議・講義の音声メモ、AI議事録と要約",
+        "privacyPolicyUrl": "https://voilog.web.app/privacy_policy.html",
+        "privacyChoicesUrl": null,
+        "privacyPolicyText": null
+      }
+    },
+    "en-US": {
+      "version": {
+        "description": "Record meetings, lectures and interviews, then turn speech into text with AI. Simple Voice Recorder (VoiLog) helps you capture audio, listen back and organize what matters.\n\nMEETING RECORDINGS YOU CAN REVISIT\nStart recording with one tap. After recording, use AI transcription to turn your conversation into text. With Premium, create meeting summaries and to-do items from your transcript.\n\nREVIEW LECTURES AND PRACTICE LANGUAGES\nRepeat a specific section with A-B looping. Adjust playback speed from 0.5x to 2.0x to study pronunciation, review class notes or listen at your own pace.\n\nRECORD AND PLAY BACK\n• Record in WAV or AAC (M4A)\n• Background recording and playback\n• View recordings as waveforms\n• Seek, skip forward and rewind\n• Repeat one recording or an entire playlist\n\nORGANIZE AND SHARE\n• Group recordings into playlists\n• Rename and reorder your audio files\n• Share recordings\n• Sync with iCloud\n\nABOUT AI FEATURES\nAI transcription is available through rewarded ads or Premium. Meeting summary and to-do generation requires Premium. See the app for current access conditions.\nCloud AI requires an internet connection and your consent to send data. Review generated transcripts and summaries alongside the original audio.\n\nFrom everyday voice memos to work discussions and study sessions, keep the audio you want to revisit.",
+        "locale": "en-US",
+        "keywords": "audio,memo,dictation,speech,text,minutes,interview,background,playback,repeat,study,journal",
+        "marketingUrl": "https://voilog.web.app",
+        "promotionalText": "Record meetings and lectures, turn speech into text, and review with A-B repeat. Create summaries and to-dos with Premium. Keep your audio organized with playlists.",
+        "supportUrl": "https://voilog.web.app/support.html",
+        "whatsNew": null
+      },
+      "info": {
+        "locale": "en-US",
+        "name": "Simple Voice Recorder AI Notes",
+        "subtitle": "Transcribe meetings & lectures",
+        "privacyPolicyUrl": "https://voilog.web.app/privacy_policy.html",
+        "privacyChoicesUrl": null,
+        "privacyPolicyText": null
+      }
+    }
+  },
+  "live_promotional_text": {
+    "ja": "会議や講義を録音して、AIで文字起こし。プレミアムなら要約・TODOを含む議事録も作成できます。語学学習にはABリピートと再生速度変更。録音はプレイリストで整理して、必要な音声をすぐに聞き返せます。",
+    "en-US": "Record meetings and lectures, turn speech into text, and review with A-B repeat. Create summaries and to-dos with Premium. Keep your audio organized with playlists."
+  },
+  "baseline": {
+    "source": "App Store Connect Analytics > Acquisition > Sources",
+    "date_start": "2026-08-09",
+    "date_end": "2026-11-06",
+    "scope": "All",
+    "metric": "Product Page Views (Unique Devices), daily average, displayed rounded",
+    "app_store_search": 9,
+    "app_referrer": 3,
+    "app_store_browse": 1,
+    "web_referrer": 1,
+    "note": "Not keyword search volume or search impressions. Dates use UTC. No exact total inferred from rounded averages."
+  }
+}

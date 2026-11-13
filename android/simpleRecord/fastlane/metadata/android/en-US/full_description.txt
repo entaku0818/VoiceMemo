@@ -1,0 +1,30 @@
+Capture a meeting, revisit a lecture or save an idea before you forget it. Simple Voice Recorder helps you keep audio recordings organized and turn recorded speech into text with AI transcription.
+
+RECORD WITH A TAP
+Start recording from the recording screen. Background recording lets you capture audio while using other apps.
+
+TURN AUDIO INTO TEXT
+Upload a saved recording for AI transcription. Review interview answers, read through voice memos and share the resulting text.
+
+CREATE MEETING NOTES
+The premium AI meeting notes feature generates a summary and to-do items from your transcript, helping you review decisions and next steps after a meeting.
+
+LISTEN AND ORGANIZE
+• Adjust playback speed to review recordings at your own pace.
+• Repeat recordings for language practice or a closer listen.
+• Group related recordings into playlists.
+• Share audio files with other apps.
+
+BACK UP TO GOOGLE DRIVE
+Sign in with your Google account to back up and restore your recordings with Google Drive.
+
+USE IT FOR
+• Meetings and work discussions
+• Lectures and study notes
+• Interviews and research
+• Language listening and pronunciation practice
+• Ideas and everyday voice memos
+
+ABOUT AI FEATURES
+AI transcription and meeting notes require an internet connection. The app asks for your consent before sending audio or transcript content for processing. Results can contain errors depending on audio quality and speech; check important details against the original recording.
+AI meeting notes require a premium subscription. See the app for pricing and terms.

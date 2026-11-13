@@ -1,0 +1,872 @@
+{
+  "ar": {
+    "raw": "ar",
+    "language": "ar",
+    "ui_language": "en",
+    "copy": [
+      [
+        "التسجيل",
+        "بلمسة واحدة",
+        "يبدأ التسجيل فورًا"
+      ],
+      [
+        "النسخ",
+        "حوّل تسجيلاتك",
+        "إلى نص"
+      ],
+      [
+        "محضر الاجتماع",
+        "ملخص ومهام",
+        "في مكان واحد"
+      ],
+      [
+        "التسجيلات",
+        "للاجتماعات",
+        "والمحاضرات والمقابلات"
+      ],
+      [
+        "التشغيل",
+        "استمع مجددًا",
+        "بالسرعة التي تناسبك"
+      ],
+      [
+        "نسخ احتياطي",
+        "احفظ في Google Drive",
+        "تسجيلاتك بأمان"
+      ]
+    ],
+    "title": "ملاحظات الاجتماع",
+    "titles": [
+      "ملاحظات الاجتماع",
+      "محاضرة الاقتصاد 3",
+      "مقابلة مع السيد حسن",
+      "مذكرة أفكار",
+      "تدريب على التحدث بالإنجليزية"
+    ],
+    "summary": "اجتماع أسبوعي. تأكّد أن المشروع يسير وفق الجدول، والإطلاق مقرر الشهر المقبل.",
+    "segments": [
+      "لنبدأ اجتماع اليوم. أولًا، لنراجع مهام الأسبوع الماضي.",
+      "يسير المشروع وفق الجدول المخطط.",
+      "ممتاز. لننتقل إلى الخطوات التالية."
+    ],
+    "todos": [
+      "تأكيد موعد الإصدار",
+      "مشاركة الخطة مع الفريق",
+      "مراجعة التقدم الأسبوع المقبل"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "de-DE": {
+    "raw": "de-DE",
+    "language": "de-DE",
+    "ui_language": "de",
+    "copy": [
+      [
+        "Aufnahme",
+        "Ein Tipp –",
+        "und die Aufnahme läuft"
+      ],
+      [
+        "Transkription",
+        "Aufnahmen",
+        "als Text lesen"
+      ],
+      [
+        "Besprechungsnotizen",
+        "Zusammenfassung & Aufgaben",
+        "Alles im Überblick"
+      ],
+      [
+        "Aufnahmen",
+        "Für Meetings,",
+        "Vorträge & Interviews"
+      ],
+      [
+        "Wiedergabe",
+        "Anhören,",
+        "in deinem Tempo"
+      ],
+      [
+        "Cloud-Backup",
+        "In Google Drive sichern",
+        "Aufnahmen sicher aufbewahren"
+      ]
+    ],
+    "title": "Besprechungsnotizen",
+    "titles": [
+      "Besprechungsnotizen",
+      "Wirtschaft – Vorlesung 3",
+      "Interview mit Herrn Müller",
+      "Ideen-Notiz",
+      "Englisch-Sprechübung"
+    ],
+    "summary": "Wöchentliches Meeting: Das Projekt liegt im Zeitplan, der Release ist für nächsten Monat geplant.",
+    "segments": [
+      "Beginnen wir das heutige Meeting. Zuerst die offenen Punkte von letzter Woche.",
+      "Das Projekt liegt voll im Zeitplan.",
+      "Sehr gut. Dann sprechen wir über die nächsten Schritte."
+    ],
+    "todos": [
+      "Veröffentlichungstermin bestätigen",
+      "Plan mit dem Team teilen",
+      "Fortschritt nächste Woche prüfen"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "es-ES": {
+    "raw": "es-ES",
+    "language": "es-ES",
+    "ui_language": "es-ES",
+    "copy": [
+      [
+        "Grabación",
+        "Un toque",
+        "y ya estás grabando"
+      ],
+      [
+        "Transcripción",
+        "Convierte tu audio",
+        "en texto"
+      ],
+      [
+        "Actas de reunión",
+        "Resumen y tareas",
+        "Todo organizado"
+      ],
+      [
+        "Grabaciones",
+        "Para reuniones,",
+        "clases y entrevistas"
+      ],
+      [
+        "Reproducción",
+        "Escucha de nuevo",
+        "a tu ritmo"
+      ],
+      [
+        "Copia de seguridad",
+        "Guarda en Google Drive",
+        "Protege tus grabaciones"
+      ]
+    ],
+    "title": "Notas de la reunión",
+    "titles": [
+      "Notas de la reunión",
+      "Economía – Clase 3",
+      "Entrevista con el Sr. García",
+      "Ideas sueltas",
+      "Práctica oral de inglés"
+    ],
+    "summary": "Reunión semanal. El proyecto va según lo planificado y el lanzamiento será el próximo mes.",
+    "segments": [
+      "Empecemos la reunión de hoy. Primero, repasemos las tareas de la semana pasada.",
+      "El proyecto avanza según lo previsto.",
+      "Perfecto. Hablemos de los próximos pasos."
+    ],
+    "todos": [
+      "Confirmar la fecha de lanzamiento",
+      "Compartir el plan con el equipo",
+      "Revisar el progreso la próxima semana"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "es-419": {
+    "raw": "es-419",
+    "language": "es-419",
+    "ui_language": "es-MX",
+    "copy": [
+      [
+        "Grabación",
+        "Un toque",
+        "y ya estás grabando"
+      ],
+      [
+        "Transcripción",
+        "Convierte tu audio",
+        "en texto"
+      ],
+      [
+        "Actas de reunión",
+        "Resumen y tareas",
+        "Todo organizado"
+      ],
+      [
+        "Grabaciones",
+        "Para reuniones,",
+        "clases y entrevistas"
+      ],
+      [
+        "Reproducción",
+        "Escucha de nuevo",
+        "a tu ritmo"
+      ],
+      [
+        "Copia de seguridad",
+        "Guarda en Google Drive",
+        "Protege tus grabaciones"
+      ]
+    ],
+    "title": "Notas de la reunión",
+    "titles": [
+      "Notas de la reunión",
+      "Economía – Clase 3",
+      "Entrevista con el Sr. García",
+      "Ideas sueltas",
+      "Práctica oral de inglés"
+    ],
+    "summary": "Reunión semanal. El proyecto va según lo planificado y el lanzamiento será el próximo mes.",
+    "segments": [
+      "Empecemos la reunión de hoy. Primero, repasemos las tareas de la semana pasada.",
+      "El proyecto avanza según lo previsto.",
+      "Perfecto. Hablemos de los próximos pasos."
+    ],
+    "todos": [
+      "Confirmar la fecha de lanzamiento",
+      "Compartir el plan con el equipo",
+      "Revisar el progreso la próxima semana"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "fr-FR": {
+    "raw": "fr-FR",
+    "language": "fr-FR",
+    "ui_language": "fr",
+    "copy": [
+      [
+        "Enregistrement",
+        "Un toucher",
+        "et c'est parti"
+      ],
+      [
+        "Transcription",
+        "Transformez l'audio",
+        "en texte"
+      ],
+      [
+        "Compte rendu",
+        "Résumé et tâches",
+        "Tout est organisé"
+      ],
+      [
+        "Enregistrements",
+        "Pour réunions,",
+        "cours et interviews"
+      ],
+      [
+        "Lecture",
+        "Réécoutez",
+        "à votre rythme"
+      ],
+      [
+        "Sauvegarde cloud",
+        "Enregistrez sur Google Drive",
+        "Gardez vos enregistrements"
+      ]
+    ],
+    "title": "Notes de réunion",
+    "titles": [
+      "Notes de réunion",
+      "Économie – Cours n° 3",
+      "Interview de M. Dupont",
+      "Idées en vrac",
+      "Anglais oral : entraînement"
+    ],
+    "summary": "Réunion hebdomadaire. Le projet est dans les temps ; lancement le mois prochain.",
+    "segments": [
+      "Commençons la réunion. D'abord, les actions de la semaine dernière.",
+      "Le projet avance comme prévu.",
+      "Parfait. Parlons des prochaines étapes."
+    ],
+    "todos": [
+      "Confirmer la date de lancement",
+      "Partager le plan avec l’équipe",
+      "Faire le point la semaine prochaine"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "hi-IN": {
+    "raw": "hi-IN",
+    "language": "hi-IN",
+    "ui_language": "en",
+    "copy": [
+      [
+        "रिकॉर्डिंग",
+        "एक टैप में",
+        "रिकॉर्डिंग शुरू"
+      ],
+      [
+        "ट्रांसक्रिप्शन",
+        "रिकॉर्डिंग को",
+        "टेक्स्ट में बदलें"
+      ],
+      [
+        "बैठक के नोट्स",
+        "सारांश और कार्य",
+        "एक जगह पर"
+      ],
+      [
+        "रिकॉर्डिंग",
+        "मीटिंग, लेक्चर,",
+        "इंटरव्यू के लिए"
+      ],
+      [
+        "प्लेबैक",
+        "अपनी रफ़्तार से",
+        "दोबारा सुनें"
+      ],
+      [
+        "क्लाउड बैकअप",
+        "Google Drive में सहेजें",
+        "रिकॉर्डिंग सुरक्षित रखें"
+      ]
+    ],
+    "title": "मीटिंग नोट्स",
+    "titles": [
+      "मीटिंग नोट्स",
+      "अर्थशास्त्र लेक्चर 3",
+      "शर्मा जी का इंटरव्यू",
+      "आइडिया मेमो",
+      "इंग्लिश स्पीकिंग प्रैक्टिस"
+    ],
+    "summary": "साप्ताहिक मीटिंग। प्रोजेक्ट तय समय पर है और अगले महीने रिलीज़ की योजना है।",
+    "segments": [
+      "आज की मीटिंग शुरू करते हैं। पहले पिछले हफ़्ते के एक्शन आइटम देख लें।",
+      "प्रोजेक्ट योजना के मुताबिक समय पर चल रहा है।",
+      "बहुत बढ़िया। अब अगले कदमों पर बात करते हैं।"
+    ],
+    "todos": [
+      "रिलीज़ की तारीख तय करें",
+      "टीम के साथ योजना साझा करें",
+      "अगले सप्ताह प्रगति की समीक्षा करें"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "it-IT": {
+    "raw": "it-IT",
+    "language": "it-IT",
+    "ui_language": "it",
+    "copy": [
+      [
+        "Registrazione",
+        "Un tocco",
+        "e stai già registrando"
+      ],
+      [
+        "Trascrizione",
+        "Trasforma l'audio",
+        "in testo"
+      ],
+      [
+        "Verbale della riunione",
+        "Riepilogo e attività",
+        "Tutto in ordine"
+      ],
+      [
+        "Registrazioni",
+        "Per riunioni,",
+        "lezioni e interviste"
+      ],
+      [
+        "Riproduzione",
+        "Riascolta",
+        "al tuo ritmo"
+      ],
+      [
+        "Backup cloud",
+        "Salva su Google Drive",
+        "Proteggi le registrazioni"
+      ]
+    ],
+    "title": "Appunti della riunione",
+    "titles": [
+      "Appunti della riunione",
+      "Economia – Lezione 3",
+      "Intervista al sig. Rossi",
+      "Idee al volo",
+      "Conversazione in inglese"
+    ],
+    "summary": "Riunione settimanale. Il progetto è nei tempi, con il rilascio previsto per il mese prossimo.",
+    "segments": [
+      "Iniziamo la riunione di oggi. Per prima cosa, rivediamo le attività della settimana scorsa.",
+      "Il progetto procede secondo i piani.",
+      "Ottimo. Parliamo dei prossimi passi."
+    ],
+    "todos": [
+      "Confermare la data di lancio",
+      "Condividere il piano con il team",
+      "Verificare i progressi la prossima settimana"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "id": {
+    "raw": "id",
+    "language": "id",
+    "ui_language": "en",
+    "copy": [
+      [
+        "Rekam",
+        "Sekali ketuk,",
+        "langsung merekam"
+      ],
+      [
+        "Transkripsi",
+        "Ubah rekaman",
+        "menjadi teks"
+      ],
+      [
+        "Catatan rapat",
+        "Ringkasan dan tugas",
+        "Semua tertata"
+      ],
+      [
+        "Rekaman",
+        "Untuk rapat,",
+        "kuliah & wawancara"
+      ],
+      [
+        "Pemutaran",
+        "Dengarkan ulang",
+        "sesuai tempo Anda"
+      ],
+      [
+        "Cadangan cloud",
+        "Simpan ke Google Drive",
+        "Rekaman tetap aman"
+      ]
+    ],
+    "title": "Catatan Rapat",
+    "titles": [
+      "Catatan Rapat",
+      "Kuliah Ekonomi ke-3",
+      "Wawancara dengan Pak Santoso",
+      "Memo Ide",
+      "Latihan Bahasa Inggris"
+    ],
+    "summary": "Rapat mingguan. Progres proyek sesuai jadwal dan rilis direncanakan bulan depan.",
+    "segments": [
+      "Mari kita mulai rapat hari ini. Pertama, kita tinjau tindak lanjut minggu lalu.",
+      "Progres proyek berjalan sesuai jadwal.",
+      "Bagus sekali. Mari bahas langkah selanjutnya."
+    ],
+    "todos": [
+      "Konfirmasi tanggal peluncuran",
+      "Bagikan rencana kepada tim",
+      "Tinjau kemajuan minggu depan"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "ko-KR": {
+    "raw": "ko-KR",
+    "language": "ko-KR",
+    "ui_language": "en",
+    "copy": [
+      [
+        "녹음",
+        "탭 한 번으로",
+        "바로 녹음 시작"
+      ],
+      [
+        "문자 변환",
+        "말한 내용을",
+        "텍스트로 확인"
+      ],
+      [
+        "회의록",
+        "요약과 할 일을",
+        "한눈에 정리"
+      ],
+      [
+        "녹음 파일",
+        "회의·강의·인터뷰",
+        "빠짐없이 기록"
+      ],
+      [
+        "재생",
+        "배속·반복으로",
+        "편하게 다시 듣기"
+      ],
+      [
+        "클라우드 백업",
+        "Google Drive에 저장",
+        "녹음을 안전하게"
+      ]
+    ],
+    "title": "회의 메모",
+    "titles": [
+      "회의 메모",
+      "경제학 제3강",
+      "김민수 님 인터뷰",
+      "아이디어 메모",
+      "영어 말하기 연습"
+    ],
+    "summary": "주간 회의. 프로젝트가 일정대로 진행 중이며 다음 달 출시 예정임을 확인함.",
+    "segments": [
+      "오늘 회의를 시작하겠습니다. 지난주 액션 아이템부터 확인하죠.",
+      "네, 프로젝트는 예정대로 진행되고 있습니다.",
+      "좋네요. 다음 단계에 대해 이야기해 봅시다."
+    ],
+    "todos": [
+      "출시 일정 확정하기",
+      "팀에 계획 공유하기",
+      "다음 주 진행 상황 확인하기"
+    ],
+    "zoom_box": null,
+    "font": "AppleSDGothicNeo.ttc"
+  },
+  "zh-CN": {
+    "raw": "zh-CN",
+    "language": "zh-CN",
+    "ui_language": "zh-CN",
+    "copy": [
+      [
+        "录音",
+        "轻点一下",
+        "立即开始录音"
+      ],
+      [
+        "转录",
+        "说过的内容",
+        "转成文字查看"
+      ],
+      [
+        "会议纪要",
+        "摘要和待办事项",
+        "清晰整理"
+      ],
+      [
+        "录音文件",
+        "会议·讲座·采访",
+        "完整记录"
+      ],
+      [
+        "播放",
+        "倍速与重复",
+        "回听更轻松"
+      ],
+      [
+        "云端备份",
+        "保存到 Google Drive",
+        "录音安全保存"
+      ]
+    ],
+    "title": "会议记录",
+    "titles": [
+      "会议记录",
+      "经济学 第3讲",
+      "采访张先生",
+      "灵感笔记",
+      "英语口语练习"
+    ],
+    "summary": "周例会。项目进展符合计划，预计下月发布。",
+    "segments": [
+      "我们开始今天的会议。先确认一下上周的待办事项。",
+      "项目进展符合计划。",
+      "很好。那我们来讨论下一步。"
+    ],
+    "todos": [
+      "确认发布日期",
+      "与团队分享计划",
+      "下周检查进度"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "vi": {
+    "raw": "vi",
+    "language": "vi",
+    "ui_language": "vi",
+    "copy": [
+      [
+        "Ghi âm",
+        "Chạm một lần",
+        "là ghi âm ngay"
+      ],
+      [
+        "Phiên âm",
+        "Chuyển ghi âm",
+        "thành văn bản"
+      ],
+      [
+        "Biên bản họp",
+        "Tóm tắt và việc cần làm",
+        "Sắp xếp rõ ràng"
+      ],
+      [
+        "Bản ghi",
+        "Cho cuộc họp,",
+        "bài giảng, phỏng vấn"
+      ],
+      [
+        "Phát lại",
+        "Nghe lại",
+        "theo nhịp của bạn"
+      ],
+      [
+        "Sao lưu đám mây",
+        "Lưu vào Google Drive",
+        "Giữ bản ghi an toàn"
+      ]
+    ],
+    "title": "Ghi chú cuộc họp",
+    "titles": [
+      "Ghi chú cuộc họp",
+      "Kinh tế học – Buổi 3",
+      "Phỏng vấn anh Nguyễn",
+      "Ghi chú ý tưởng",
+      "Luyện nói tiếng Anh"
+    ],
+    "summary": "Họp hằng tuần. Dự án đúng tiến độ, dự kiến phát hành vào tháng tới.",
+    "segments": [
+      "Bắt đầu cuộc họp hôm nay nhé. Trước tiên, rà soát các đầu việc tuần trước.",
+      "Dự án đang đúng tiến độ.",
+      "Tốt lắm. Hãy bàn về các bước tiếp theo."
+    ],
+    "todos": [
+      "Xác nhận ngày ra mắt",
+      "Chia sẻ kế hoạch với nhóm",
+      "Kiểm tra tiến độ vào tuần tới"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "tr-TR": {
+    "raw": "tr-TR",
+    "language": "tr-TR",
+    "ui_language": "tr",
+    "copy": [
+      [
+        "Kayıt",
+        "Tek dokunuşla",
+        "kayıt başlasın"
+      ],
+      [
+        "Transkripsiyon",
+        "Kayıtları",
+        "metne dönüştürün"
+      ],
+      [
+        "Toplantı notları",
+        "Özet ve görevler",
+        "Hepsi düzenli"
+      ],
+      [
+        "Kayıtlar",
+        "Toplantı, ders",
+        "ve röportajlar için"
+      ],
+      [
+        "Oynatma",
+        "Kendi hızınızda",
+        "tekrar dinleyin"
+      ],
+      [
+        "Bulut yedekleme",
+        "Google Drive'a kaydet",
+        "Kayıtların güvende"
+      ]
+    ],
+    "title": "Toplantı Notları",
+    "titles": [
+      "Toplantı Notları",
+      "Ekonomi Dersi – 3. Hafta",
+      "Yılmaz Bey ile Röportaj",
+      "Fikir Notu",
+      "İngilizce Konuşma Pratiği"
+    ],
+    "summary": "Haftalık toplantı. Proje planlandığı gibi ilerliyor; yayın gelecek ay.",
+    "segments": [
+      "Bugünkü toplantıya başlayalım. Önce geçen haftanın görevlerini gözden geçirelim.",
+      "Proje planlandığı gibi ilerliyor.",
+      "Harika. Sonraki adımları konuşalım."
+    ],
+    "todos": [
+      "Yayın tarihini onayla",
+      "Planı ekiple paylaş",
+      "Gelecek hafta ilerlemeyi incele"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "th": {
+    "raw": "th",
+    "language": "th",
+    "ui_language": "en",
+    "copy": [
+      [
+        "การบันทึก",
+        "แตะครั้งเดียว",
+        "เริ่มบันทึกทันที"
+      ],
+      [
+        "การถอดเสียง",
+        "สิ่งที่พูดไว้",
+        "ดูเป็นข้อความได้"
+      ],
+      [
+        "บันทึกการประชุม",
+        "สรุปและสิ่งที่ต้องทำ",
+        "จัดระเบียบให้พร้อม"
+      ],
+      [
+        "การบันทึก",
+        "ประชุม เลกเชอร์",
+        "สัมภาษณ์ บันทึกครบ"
+      ],
+      [
+        "การเล่นเสียง",
+        "ปรับความเร็ว-วนซ้ำ",
+        "ฟังย้อนได้สบาย"
+      ],
+      [
+        "สำรองข้อมูลบนคลาวด์",
+        "บันทึกใน Google Drive",
+        "เก็บเสียงบันทึกอย่างปลอดภัย"
+      ]
+    ],
+    "title": "บันทึกการประชุม",
+    "titles": [
+      "บันทึกการประชุม",
+      "เศรษฐศาสตร์ ครั้งที่ 3",
+      "สัมภาษณ์คุณสมชาย",
+      "จดไอเดีย",
+      "ฝึกพูดภาษาอังกฤษ"
+    ],
+    "summary": "ประชุมประจำสัปดาห์ ยืนยันว่าโปรเจกต์คืบหน้าตามแผน และมีกำหนดเปิดตัวเดือนหน้า",
+    "segments": [
+      "เริ่มประชุมวันนี้กันเลย ก่อนอื่นมาดูงานที่ค้างจากสัปดาห์ที่แล้ว",
+      "โปรเจกต์คืบหน้าตามกำหนดการ",
+      "ดีมากเลย งั้นมาคุยเรื่องขั้นตอนถัดไปกัน"
+    ],
+    "todos": [
+      "ยืนยันวันเปิดตัว",
+      "แชร์แผนกับทีม",
+      "ตรวจสอบความคืบหน้าสัปดาห์หน้า"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Thonburi.ttc"
+  },
+  "pt-BR": {
+    "raw": "pt-BR",
+    "language": "pt-BR",
+    "ui_language": "pt-BR",
+    "copy": [
+      [
+        "Gravação",
+        "Um toque",
+        "e já está gravando"
+      ],
+      [
+        "Transcrição",
+        "Transforme áudio",
+        "em texto"
+      ],
+      [
+        "Ata da reunião",
+        "Resumo e tarefas",
+        "Tudo organizado"
+      ],
+      [
+        "Gravações",
+        "Para reuniões,",
+        "aulas e entrevistas"
+      ],
+      [
+        "Reprodução",
+        "Ouça de novo",
+        "no seu ritmo"
+      ],
+      [
+        "Backup na nuvem",
+        "Salve no Google Drive",
+        "Proteja suas gravações"
+      ]
+    ],
+    "title": "Notas da reunião",
+    "titles": [
+      "Notas da reunião",
+      "Aula de Economia nº 3",
+      "Entrevista com o Sr. Silva",
+      "Ideias soltas",
+      "Prática de inglês"
+    ],
+    "summary": "Reunião semanal. O projeto está dentro do prazo, com lançamento previsto para o mês que vem.",
+    "segments": [
+      "Vamos começar a reunião. Primeiro, as ações da semana passada.",
+      "O projeto está andando conforme o planejado.",
+      "Ótimo. Então vamos falar dos próximos passos."
+    ],
+    "todos": [
+      "Confirmar a data de lançamento",
+      "Compartilhar o plano com a equipe",
+      "Revisar o progresso na próxima semana"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  },
+  "pl-PL": {
+    "raw": "pl-PL",
+    "language": "pl-PL",
+    "ui_language": "en",
+    "copy": [
+      [
+        "Nagraj",
+        "Jedno dotknięcie",
+        "i już nagrywasz"
+      ],
+      [
+        "Transkrypcja",
+        "Zamień nagrania",
+        "w tekst"
+      ],
+      [
+        "Notatki ze spotkania",
+        "Podsumowanie i zadania",
+        "Wszystko w jednym miejscu"
+      ],
+      [
+        "Nagrania",
+        "Na spotkania,",
+        "wykłady i wywiady"
+      ],
+      [
+        "Odtwarzanie",
+        "Odsłuchuj",
+        "we własnym tempie"
+      ],
+      [
+        "Kopia w chmurze",
+        "Zapisz na Dysku Google",
+        "Chroń swoje nagrania"
+      ]
+    ],
+    "title": "Notatki ze spotkania",
+    "titles": [
+      "Notatki ze spotkania",
+      "Ekonomia – wykład 3",
+      "Wywiad z p. Kowalskim",
+      "Notatka z pomysłem",
+      "Angielski – mówienie"
+    ],
+    "summary": "Cotygodniowe spotkanie. Projekt idzie zgodnie z planem, premiera w przyszłym miesiącu.",
+    "segments": [
+      "Zaczynajmy. Najpierw zadania z zeszłego tygodnia.",
+      "Projekt idzie zgodnie z harmonogramem.",
+      "Świetnie. Omówmy kolejne kroki."
+    ],
+    "todos": [
+      "Potwierdź datę premiery",
+      "Udostępnij plan zespołowi",
+      "Sprawdź postępy w przyszłym tygodniu"
+    ],
+    "zoom_box": null,
+    "font": "Supplemental/Arial Unicode.ttf"
+  }
+}

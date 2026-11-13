@@ -1,0 +1,30 @@
+{
+  "appId": "6443528409",
+  "experimentId": "8f5a4aa5-4078-480a-9efc-41f59b363cb7",
+  "experiment": {
+    "name": "JA Recording Use Case 2026-10-23",
+    "platform": "IOS",
+    "trafficProportion": 50,
+    "state": "WAITING_FOR_REVIEW",
+    "reviewRequired": true,
+    "startDate": null,
+    "endDate": null
+  },
+  "treatmentId": "eb3bad79-46fa-4789-b2ac-9cb152697fbc",
+  "locale": "ja",
+  "changedDisplayType": "APP_IPHONE_67",
+  "treatmentTrafficPercent": 50,
+  "control": "Live App Store product page",
+  "treatment": "Meeting/lecture headline and no app-name pill on first iPhone screenshot",
+  "unchanged": "Other 7 iPhone screenshots and all iPad screenshots inherited from live page",
+  "interpretation": "Combined headline and pill-removal effect; not keyword ranking or recording-quality test",
+  "reviewSubmissionId": "a97e74e1-c2f9-4743-8046-5862da9c9951",
+  "reviewSubmission": {
+    "platform": "IOS",
+    "submittedDate": "2026-10-23T12:39:02.049Z",
+    "state": "WAITING_FOR_REVIEW"
+  },
+  "heroId": "60c00018-0107-80d9-8021-a22881eba68c",
+  "heroFile": "fastlane/screenshots_ppo/ja/recording-usecase/0_APP_IPHONE_67_0.png",
+  "liveScreenshotIDsVerifiedUnchanged": true
+}

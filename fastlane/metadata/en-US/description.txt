@@ -1,30 +1,26 @@
-Capture meetings, lectures, and ideas instantly — just one tap to start. Background recording keeps going even when you switch apps.
+Record meetings, lectures and interviews, then turn speech into text with AI. Simple Voice Recorder (VoiLog) helps you capture audio, listen back and organize what matters.
 
-From language learning to interviews, VoiLog records in high-quality WAV or AAC and keeps everything organized with playlists.
+MEETING RECORDINGS YOU CAN REVISIT
+Start recording with one tap. After recording, use AI transcription to turn your conversation into text. With Premium, create meeting summaries and to-do items from your transcript.
 
-[Recording]
-・High-quality WAV / AAC (M4A) recording
-・Waveform editor — visualize, trim and split your recordings
-・Background recording
-・Start recording with a single tap
+REVIEW LECTURES AND PRACTICE LANGUAGES
+Repeat a specific section with A-B looping. Adjust playback speed from 0.5x to 2.0x to study pronunciation, review class notes or listen at your own pace.
 
-[Playback]
-・Background playback
-・A-B loop repeat (loop any section)
-・Playback speed control (0.5x–2.0x)
-・10s / 60s skip forward & back
-・Repeat (one track / all)
-・Playlist creation & management
-・Rename & reorder files
+RECORD AND PLAY BACK
+• Record in WAV or AAC (M4A)
+• Background recording and playback
+• View recordings as waveforms
+• Seek, skip forward and rewind
+• Repeat one recording or an entire playlist
 
-[Other]
-・iCloud sync
-・Easy file sharing
-・Simple and clean design
+ORGANIZE AND SHARE
+• Group recordings into playlists
+• Rename and reorder your audio files
+• Share recordings
+• Sync with iCloud
 
-[Transcription — New]
-・AI-powered speech-to-text (Gemini)
-・Free to try — just watch a short ad
-・Unlimited with Premium
+ABOUT AI FEATURES
+AI transcription is available through rewarded ads or Premium. Meeting summary and to-do generation requires Premium. See the app for current access conditions.
+Cloud AI requires an internet connection and your consent to send data. Review generated transcripts and summaries alongside the original audio.
 
-From business meetings to language learning and everyday voice memos — download now and experience hassle-free recording.
+From everyday voice memos to work discussions and study sessions, keep the audio you want to revisit.

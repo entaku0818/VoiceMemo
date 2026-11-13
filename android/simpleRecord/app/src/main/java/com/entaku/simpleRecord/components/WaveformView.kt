@@ -9,9 +9,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+
+/** A single, muted hue keeps the waveform readable without rainbow level bands. */
+@Composable
+private fun waveformAccent(): Color =
+    if (MaterialTheme.colorScheme.background.luminance() < 0.5f) Color(0xFFB7A0E2)
+    else Color(0xFF8064BE)
 
 /**
  * Audio waveform visualization component
@@ -21,8 +28,8 @@ import androidx.compose.ui.unit.dp
 fun WaveformView(
     amplitudes: List<Float>,
     modifier: Modifier = Modifier,
-    waveformColor: Color = MaterialTheme.colorScheme.primary,
-    backgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+    waveformColor: Color = waveformAccent(),
+    backgroundColor: Color = waveformAccent().copy(alpha = 0.08f),
     strokeWidth: Float = 3f,
     showMirror: Boolean = true
 ) {
@@ -58,7 +65,7 @@ fun WaveformView(
 
             // Upper bar
             drawLine(
-                color = getAmplitudeColor(amplitude, waveformColor),
+                color = waveformColor,
                 start = Offset(x, centerY),
                 end = Offset(x, centerY - barHeight),
                 strokeWidth = barWidth * 0.6f
@@ -67,7 +74,7 @@ fun WaveformView(
             // Mirror bar (lower)
             if (showMirror) {
                 drawLine(
-                    color = getAmplitudeColor(amplitude, waveformColor).copy(alpha = 0.5f),
+                    color = waveformColor.copy(alpha = 0.45f),
                     start = Offset(x, centerY),
                     end = Offset(x, centerY + barHeight),
                     strokeWidth = barWidth * 0.6f
@@ -250,8 +257,8 @@ fun PlaybackWaveformView(
     progress: Float,
     modifier: Modifier = Modifier,
     waveformData: List<Float> = emptyList(),
-    playedColor: Color = MaterialTheme.colorScheme.primary,
-    unplayedColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+    playedColor: Color = waveformAccent(),
+    unplayedColor: Color = waveformAccent().copy(alpha = 0.24f),
     backgroundColor: Color = MaterialTheme.colorScheme.surface
 ) {
     Canvas(modifier = modifier) {

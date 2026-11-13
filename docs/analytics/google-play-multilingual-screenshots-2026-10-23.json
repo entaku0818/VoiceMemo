@@ -1,0 +1,1204 @@
+{
+  "package": "com.entaku.simpleRecord",
+  "newLocales": [
+    "ar",
+    "de-DE",
+    "es-ES",
+    "es-419",
+    "fr-FR",
+    "hi-IN",
+    "it-IT",
+    "id",
+    "ko-KR",
+    "zh-CN",
+    "vi",
+    "tr-TR",
+    "th",
+    "pt-BR",
+    "pl-PL"
+  ],
+  "captureTestsPassed": 90,
+  "captureDensityDpi": 320,
+  "groups": {
+    "ar/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "88f13e8cf067704665c83c523bc79b48a90381d5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "3dabb7298546c3e53598cbf440a5133c3f7e5ff5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "0394c838de44fcf06c5bd970ede1a5b2cdccddad"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "7cce2ce8a0d81ebcf9fc1c2699afe18911bdce20"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "e5d202f8cb00a6872c36e942307115a3e89cae7a"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "8548b8e4d52c53b3bd646eb93596b46706306f89"
+      }
+    ],
+    "ar/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/phoneScreenshots/00_recording.png",
+        "sha1": "062e8d3afbdd83b122eb1cb2993abe04654890c2"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "93b0609fc0804c8fc31fdc9b60e3df7c1d4f2fcf"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "dba43662ed390da0b1484b37ac832dc5f7babcaf"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/phoneScreenshots/03_recordings.png",
+        "sha1": "c5e6676fb3ac726c6ec9e33dd45bd83a04de2cbd"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/phoneScreenshots/04_playback.png",
+        "sha1": "9ee694aa313c323cfac21df8beb3f0564324b9d3"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "6dfa9ffd56e02177357235fbf4d5a1e4e3a0079b"
+      }
+    ],
+    "ar/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/tenInchScreenshots/00_recording.png",
+        "sha1": "c818b307d789f47089f1a55dbffa0e128c686738"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "469e8fbd51d9bed5d73f8edbb60b6b9dd0322850"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "4490315f69c96a299244ce784fb9c288fbc3db22"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "1b0c4068131d3dadabf3c14f327d3b8ad0460607"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/tenInchScreenshots/04_playback.png",
+        "sha1": "99339d1eebaa3d168369db822034cabb52f743d7"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ar/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "4d87e8b6672cc146a217940a6c822e6b9e2a8201"
+      }
+    ],
+    "de-DE/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/phoneScreenshots/00_recording.png",
+        "sha1": "8470b0191abc9ab337254e368f695d658afd6118"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "2b4b93298d2b131352597250c241b5159260e8da"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "4d4890f6e033b697b4b0e6ffae05f2cb509c8646"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/phoneScreenshots/03_recordings.png",
+        "sha1": "296eb9bc243e9729aeadad8ac86228cbc0865b82"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/phoneScreenshots/04_playback.png",
+        "sha1": "0cf3635d4d66b2ddbdec372effe91c55fd156e97"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "622c3aba1e8be249643a97075711e1fad103c33c"
+      }
+    ],
+    "de-DE/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "2a60dd78a6c39b1343585b799ddc81a848a21af9"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "5ccdae95619e837c9961e5a64f460f626675badd"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "4652c6b9dd548fce113b4f33eaa04b0c1d68abda"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "d8a5ebc9bc496ea76bf46132e2ea68fe01a344d4"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "78a7efaded4af4de26eb99aa87dfccab0090b6b9"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "14577562c39b0232746fe6d015963cc374ed91ad"
+      }
+    ],
+    "de-DE/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/tenInchScreenshots/00_recording.png",
+        "sha1": "1a48e025c18d1179c96bfa35d6bc4a73daa690a8"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "06352b1267aea84e73aa5dd7430e93a281f404b5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "9a354a341b742fba81ce8e6726d1ba8614b0450b"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "cb8db6db8059fabe94ea0f98a8a28f84379c5bc3"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/tenInchScreenshots/04_playback.png",
+        "sha1": "b93c779edecac5f8ee7548ab66dce33207b15332"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/de-DE/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "a7d505ef3e77644327170cef1fb05374fe797324"
+      }
+    ],
+    "es-ES/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/phoneScreenshots/00_recording.png",
+        "sha1": "02d34144762b6619bcb84a738f6b93d068ec9967"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "1e2bf2ddcba67615ea0b16d725d7f2d7c15d3453"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "1d5bef83ac632f6c5c704487ccf89adbd284f163"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/phoneScreenshots/03_recordings.png",
+        "sha1": "910f409c55e2b30920d6a9f4c119336b3fcfb87a"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/phoneScreenshots/04_playback.png",
+        "sha1": "8fe7ff695c3809c0c8c7dc8fd7be38fba665f4dd"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "7f66d9cab79918a66a94dfa63b7bf1717e093f21"
+      }
+    ],
+    "es-ES/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "89968256b242b1ca17f5e899fbe1b0df2d7d8063"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "6a2965d0fcdd146c2fd0b2da5bfae1ff31be2ae9"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "7138510151f75d7d02c19c3eb64b470cdc16016c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "75f7faf04ca9c3c1316ce8b07e3256bc60f72f46"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "55f9c2d0e2b5bb1ec2c9db5d0752569473d679ac"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "d2e22465742d9f91d845b4136946f8d7e3b301c8"
+      }
+    ],
+    "es-ES/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/tenInchScreenshots/00_recording.png",
+        "sha1": "100a949b451b04190ace198be5fbb654d054b23d"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "084c6b4b2f67ecfdcab7f350bd5edd136cf2f998"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "3cae614b540e9f87652c21a6bb878a2ebc2bb363"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "3877c16e6d024e94745e1d146dbbdac2b9844fb8"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/tenInchScreenshots/04_playback.png",
+        "sha1": "95a76ccd52bc84243def32d19a487232b3678da1"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-ES/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "4fd7678778a0dfca54282ece5aa9a46c63369c9f"
+      }
+    ],
+    "es-419/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/phoneScreenshots/00_recording.png",
+        "sha1": "02d34144762b6619bcb84a738f6b93d068ec9967"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "1e2bf2ddcba67615ea0b16d725d7f2d7c15d3453"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "1d5bef83ac632f6c5c704487ccf89adbd284f163"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/phoneScreenshots/03_recordings.png",
+        "sha1": "910f409c55e2b30920d6a9f4c119336b3fcfb87a"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/phoneScreenshots/04_playback.png",
+        "sha1": "8fe7ff695c3809c0c8c7dc8fd7be38fba665f4dd"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "7f66d9cab79918a66a94dfa63b7bf1717e093f21"
+      }
+    ],
+    "es-419/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "89968256b242b1ca17f5e899fbe1b0df2d7d8063"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "6a2965d0fcdd146c2fd0b2da5bfae1ff31be2ae9"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "7138510151f75d7d02c19c3eb64b470cdc16016c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "75f7faf04ca9c3c1316ce8b07e3256bc60f72f46"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "55f9c2d0e2b5bb1ec2c9db5d0752569473d679ac"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "d2e22465742d9f91d845b4136946f8d7e3b301c8"
+      }
+    ],
+    "es-419/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/tenInchScreenshots/00_recording.png",
+        "sha1": "100a949b451b04190ace198be5fbb654d054b23d"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "084c6b4b2f67ecfdcab7f350bd5edd136cf2f998"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "3cae614b540e9f87652c21a6bb878a2ebc2bb363"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "3877c16e6d024e94745e1d146dbbdac2b9844fb8"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/tenInchScreenshots/04_playback.png",
+        "sha1": "95a76ccd52bc84243def32d19a487232b3678da1"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/es-419/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "4fd7678778a0dfca54282ece5aa9a46c63369c9f"
+      }
+    ],
+    "fr-FR/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/phoneScreenshots/00_recording.png",
+        "sha1": "a479f4b741270d573c7fe80b714d57cb61c3e9a0"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "fef249fde92be8f1c213cebcb24dc44e924ad4b6"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "d9b9b92f6168acac994412b51ebb5d334de665ba"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/phoneScreenshots/03_recordings.png",
+        "sha1": "6288c8443c1eaa232dd32a9a03d8df177bd42398"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/phoneScreenshots/04_playback.png",
+        "sha1": "a50dbd795534b1cddc7c1f174823f3e2f6227077"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "dc1382e2cdf9f50d8791f87460d1748b7fd0cb30"
+      }
+    ],
+    "fr-FR/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "5d5a808f609c4e080db418717d39566e76925e3e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "e98dd40aad7e6cbacd7025de3a468489b489e9ed"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "be648b36d967a029b263802e62c1b4f4a8027f37"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "1fcdd755e0705fa92a859eb90e5202d0795e0c33"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "8546d9051db31d1c9ea77190c2e569be5af1ddb5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "367fa47a7abf1aada5fd4332727d784c2287b6fc"
+      }
+    ],
+    "fr-FR/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/tenInchScreenshots/00_recording.png",
+        "sha1": "a423b677aef89890d3d90fc0bfd59e06b7a1fe36"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "c87e2cfe15ecce72915c953f860df42207686269"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "727f06a89365273505d4b8952255ad44cb3de2fd"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "db7ca9acd354f40176541083bdb7c87f3931c7f8"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/tenInchScreenshots/04_playback.png",
+        "sha1": "d8ee333f1bb8cd576a9a12bf776d35d5361b9135"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/fr-FR/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "45ddc0d43e1f3b8a2ce5efa662996d1dd1cc7251"
+      }
+    ],
+    "hi-IN/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/phoneScreenshots/00_recording.png",
+        "sha1": "6957e208b00ea70bf74f630c8f99b6d4d916039c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "dda0cab866acb9f6846b6538cecc704bdbede438"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "7df2f462b11881653a185a30caab75fc6b8a8cba"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/phoneScreenshots/03_recordings.png",
+        "sha1": "2171e4f8b1a3ffd6eb252b5be184ce0b028694cb"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/phoneScreenshots/04_playback.png",
+        "sha1": "4fc512f6890533cf2664f064fbeec1c4d0368b35"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "8583180a8fd616e32fd488457e98b23e3a5e966d"
+      }
+    ],
+    "hi-IN/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "87a61e888e40fd512ec97a07d2da6dbfff172123"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "d2489b3f7de8c28218a88986594759c71e69538a"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "70ad76668ab4f23083a2240b9fe615e3a414d4f3"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "844e87d1bc7aade6ec5627be1f756d06c0f3f554"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "80527a7e9398e9e5c23f08f5052845d18b0ae9ba"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "cd5cb0d1811ac779dfcbfc39ec0b040eb7aa9493"
+      }
+    ],
+    "hi-IN/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/tenInchScreenshots/00_recording.png",
+        "sha1": "0438e85ccdd5d7e034a0422b9042232a6f0d4e02"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "08c68db262a5aeb1bd5311cd97150bbfa2782602"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "891592ebbee68e9874d65079abd13c359c522b98"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "9654c1d9aeb16abf21e8c78895a3bc1277d7fb88"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/tenInchScreenshots/04_playback.png",
+        "sha1": "34af775b223327840d17439edf92eb651a655fd3"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/hi-IN/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "181be76ac0e7a60aa78fe386d0cbceb01a8e26c0"
+      }
+    ],
+    "it-IT/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "42027a2e81f9e69200b97617601838bd78878611"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "335efb9ecc7b462e194e9f94df03205992d908e2"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "aacf32b99f595aac4ea9fe50c32f9f3f7b615e99"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "f994c4345ca77da7df4d48591188e771cb01bbdc"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "5f56ac08b30484cbbc1d80bd6167ecd181cb46d2"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "ba37a33d1e1ab68b1f2c9a83256492be536e7268"
+      }
+    ],
+    "it-IT/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/tenInchScreenshots/00_recording.png",
+        "sha1": "1a0547c05a5b798aa8e07a17b5cb0b3b9d0b2090"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "7d11cd86f8ce58a277111ca99b12cc4220ff9892"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "aadebf37860a3930dd7bba24f6165f1ba7773e14"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "51aedde7e328189a8665dc690a432074ef05ea26"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/tenInchScreenshots/04_playback.png",
+        "sha1": "1b727e49c201da232487638c399f5bd02c765c15"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "5dd99c3cb4567608340ca55524c024da694f61b3"
+      }
+    ],
+    "it-IT/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/phoneScreenshots/00_recording.png",
+        "sha1": "7f4cc0b65daf6b3a1d598a4658510a4041ccfc29"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "d2b91ebd17a5af91d310d68c76fc925d054e17aa"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "014c49db0e2b590b295306028dadbefc2770ac7e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/phoneScreenshots/03_recordings.png",
+        "sha1": "3f8ca5327eb114bc4ea64e069844f8e4b863034a"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/phoneScreenshots/04_playback.png",
+        "sha1": "5f017e6a0aedb819d1bac5a2d36e233892be2cea"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/it-IT/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "7c220897c6b1c0c98516b60c9098f23d5ff3b1ab"
+      }
+    ],
+    "id/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "4d8392c19ddf280ef098840cfc953a961cbc8ee5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "07ed0fd067a391e02e4a1bc005d97be97edcec5a"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "81293c82f870e57cad50e576240df9b588d4316f"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "ae01981ec46af313bfa666938c634c23f7c296e3"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "386e199a61ea162a8324e351685e7b87e66d762c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "4872a61ec7609a58e2b317ef6e5e3c969daf5661"
+      }
+    ],
+    "id/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/phoneScreenshots/00_recording.png",
+        "sha1": "755b090372ce541bc19f4ba0b34bee5de5b0d87b"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "942abfb04e784543a07323cda145ebfe395010ad"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "e8d06621c71a8c974d49775c8ea7cd210ebc38bb"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/phoneScreenshots/03_recordings.png",
+        "sha1": "cf4707646996ee14fda94c7e1a028474be7e2876"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/phoneScreenshots/04_playback.png",
+        "sha1": "e3ac43161f0a223ffde8cfa3e8a6a915e437cfdb"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "c14a3a7eccfc259db6637336d3b5a25c94361bd6"
+      }
+    ],
+    "id/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/tenInchScreenshots/00_recording.png",
+        "sha1": "fcb9f38cf5eba2f4eb75873c7bd02b3017015dd4"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "4d4ef5bb20274c192673d603c3e912a1cc469163"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "afe05256f8b8feb2182c9bde2ad2d57db37daa98"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "1b0ac3db51fd729eaf5414bfe57c49dfbe2a2998"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/tenInchScreenshots/04_playback.png",
+        "sha1": "544f8ba17f15403b427a0df4041bd20bf98bcf2f"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/id/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "e7c5c205ff040dd37c479079e1c2802dd852855a"
+      }
+    ],
+    "ko-KR/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/phoneScreenshots/00_recording.png",
+        "sha1": "051644227c937b83069f2584203da07c2d05db40"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "a6567b3ad14e7137b9c758585a86481cd5213e7c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "dc19f5c7b5388ff076349cef0c3504649a01e3a9"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/phoneScreenshots/03_recordings.png",
+        "sha1": "886f2e70b3c9e4b4b33cbac96d313e83166e5abf"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/phoneScreenshots/04_playback.png",
+        "sha1": "d70bda01962492eddf1cbbc98dc77225339c6df9"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "5ae43e736f2134b87dec0ac81984f04062ecbd16"
+      }
+    ],
+    "ko-KR/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "1a7d292c630562b5b7c52a498f4667063981efff"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "a194d31d65bf9463be63bd922169548119a83d6f"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "88b3844bc0ab864416788d86b83d2970165271d5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "c7a20ce2f9566df4e42d8e2e9cead6903a2ac980"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "f93fa94f96802318234b5270b555d142c6a493e9"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "9ccd1913aa7743ab48396d4b37d2d75a19a82e31"
+      }
+    ],
+    "ko-KR/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/tenInchScreenshots/00_recording.png",
+        "sha1": "702acf5fd35c6535fa091fd7a97f0e4e8b2b3607"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "3ff71059ed7494bc5e96b38d6de740f10d91556d"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "250ecc3142cfedcae46378e3e4b238e4978d0233"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "d574b03f1c5a864489589b927b8e155978aa9a6b"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/tenInchScreenshots/04_playback.png",
+        "sha1": "235b7f96d44d2d5f7206523b4fd33f5d9d3f9706"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/ko-KR/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "45beab372682837ee523b7d01fd50eb88d083724"
+      }
+    ],
+    "zh-CN/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/phoneScreenshots/00_recording.png",
+        "sha1": "f033cd7a1ff1048e3984f3046da691a3b157cd83"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "8ac026267c5fd794cba65709aee697db8cf3222f"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "5ba5edb2898f935ed496e9c6ed7090c11d6b8668"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/phoneScreenshots/03_recordings.png",
+        "sha1": "b78de153bfe673a6b52a35e5f5cda8ca24ef7b24"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/phoneScreenshots/04_playback.png",
+        "sha1": "1c7ee78b60ae79386fb95c05259b48923e62d9b8"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "03053857d80c34122797c50bde4a3f6d4ad9a48e"
+      }
+    ],
+    "zh-CN/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "9a76a0c0242d16813a9e6ca84f255c86cbf5873b"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "4fbe32685a0200bfe06f5afcd128edee9527227e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "1c2623927487a0abf3509712f5c4ff76249c0622"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "d2abe9ed0d9dadf5bd351e538a64005b33250309"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "33a42bb309c6c55121eeec086b68189d480f42e3"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "c2c752ecd378ddf1affd356ed4668dc894ec5720"
+      }
+    ],
+    "zh-CN/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/tenInchScreenshots/00_recording.png",
+        "sha1": "fea27f3ab39af5619422012b83046b85e7c61f8d"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "b8c6bc2fec0d58d9e4aa766b2a6fd1c66d8f3b2a"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "fbfa9620a0e50babc61e1770013787117826394c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "514ea55c1cea4e66d06ccefb0e685a907da0b523"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/tenInchScreenshots/04_playback.png",
+        "sha1": "8026f02136e7d8c0b7e5ed168c0e98021e2aee10"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/zh-CN/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "c7ac236666b9ac1e762d32e7def5722c689d09d0"
+      }
+    ],
+    "vi/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/phoneScreenshots/00_recording.png",
+        "sha1": "e15e547ce3e341d4dc98e94f89bcff6a46ab629c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "0f573679123494453cf2d96053a2bf7093e75054"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "29475defd794c8b8f7b0fe0b44f03d681595e17e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/phoneScreenshots/03_recordings.png",
+        "sha1": "1dfc4459d5afeef2e93354813442517f03ba2df5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/phoneScreenshots/04_playback.png",
+        "sha1": "e0a9bdfdb0c2cc17c488a160e91ebe8837280b63"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "4ac8f6050cbcb4ac129c961703b11f655fe6ac09"
+      }
+    ],
+    "vi/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "3ad99c0f2ea74f5a051623823a72a0b84703a2b1"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "319ea0ac946d94faad48f19b40811a6b9f2a0e49"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "b5c8c28e32c6234d22e6110e045eb8799ce522d6"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "0f8a4678a3adb359a6eb7d1a05dbcf8a615d1d5b"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "eba2b6669aefe59b8cbaf17f9698414ecad196d5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "9c1fa9342f88abcf9d24f377a6115feae5b66ebe"
+      }
+    ],
+    "vi/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/tenInchScreenshots/00_recording.png",
+        "sha1": "b89137e429589b1bdd027c35fc11a6859cffd829"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "4f3e55abd91ba2197ddc2cc44ca16fae9f0a99e4"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "c51d63b1d3b8f6aa6de687e659ba545c36fa6089"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "fa4ca0d64578acfdcd8a19faed123b93c991e57f"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/tenInchScreenshots/04_playback.png",
+        "sha1": "261fd26d9fc925492664fb7de51514ab8f93a2ea"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/vi/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "6704155bf3c03896e72d1d9cb0fc92ec5a15b20f"
+      }
+    ],
+    "tr-TR/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/phoneScreenshots/00_recording.png",
+        "sha1": "2cfe0f37e987742465c6c8ca20f300213f151b44"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "a65cf1cc549333f3a1f67e4243f46d9baca02366"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "c95457e82f3224fbd6329045ab341ddb99b71727"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/phoneScreenshots/03_recordings.png",
+        "sha1": "d825569134d9e1f5834e963a929ebb6413c5b39f"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/phoneScreenshots/04_playback.png",
+        "sha1": "06176a052a66b3ef1003b064992416e15d8c2181"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "b12adeaba4342fea32c1d8bae25b58b4c50258c0"
+      }
+    ],
+    "tr-TR/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "55953e5323a46456fd0128982b463624ee9d65dc"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "83f76ad38fc3c5df56cd2fed355c2757a6bc756e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "0fd2c5557f6dc2d03722c2580d61b2ba6b403b77"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "d358d71cb73bc9cf04b3955a91e88f95448f3b61"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "bda2bb7afbc8d8632fa3be4105072434d4d95e40"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "190ccfb1bf52940c4c537bf0cc4b4c60fdc20d15"
+      }
+    ],
+    "tr-TR/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/tenInchScreenshots/00_recording.png",
+        "sha1": "46b7f5829500b28d5dc41eb08325543cb50350a1"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "b5890c54a533259e8bc072b61878bb00910c456e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "7a6fe24d3b30382e783ba693b3352cee91da1e5d"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "187ad99ec8722a43acee74f7283c7d4030e0ff77"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/tenInchScreenshots/04_playback.png",
+        "sha1": "b60a5a1f3f6882f6fb6776c2518223026b3a8e7c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/tr-TR/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "21db77251c268bee8b975aa36e9229ea4d9aa174"
+      }
+    ],
+    "th/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/phoneScreenshots/00_recording.png",
+        "sha1": "6fab3fa64958900135dcdd2dfcdff1e8f556b034"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "00a236bc8bc209769d857ec5ebc9f5a12e6c0800"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "e213804c8464a44a2c9ea255ba10ae7d2b26a7ce"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/phoneScreenshots/03_recordings.png",
+        "sha1": "9d24cef2114f4c02baae771aa96a6805a1af4186"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/phoneScreenshots/04_playback.png",
+        "sha1": "c1eb13c3a0e49f80cea094c5ea83647506b701a2"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "7f949a965b23969018379b3f0eebaf3965b21ed2"
+      }
+    ],
+    "th/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "4799743163f8dc44bde6eeedcaf22bd894b322bd"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "2b7c6cab4be6fbba3b291c8c4d2485c0bdaa9909"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "d72916827c87a01b3569a2fb823354d0ed08f46e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "79fd2ba6124873b0231768c31136db49497ac042"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "a80edcd807ed349e2509fbe4bb3ac8815f204370"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "ed69ce234ae330025b4201f0c85a8fb76668f820"
+      }
+    ],
+    "th/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/tenInchScreenshots/00_recording.png",
+        "sha1": "586d5c224fb5a6ea3bf8b06f4fc448e3dd2dfa62"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "279d31c0ec58be8716c936c722b0847816dd978e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "f2ac3247984fd4a22e8989f5774b23f8736d32b6"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "4d76851acdbcc31ae14ac54686a8b22548774bf2"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/tenInchScreenshots/04_playback.png",
+        "sha1": "6dc9d2b7b75391982c8715a1d7762028e4057732"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/th/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "0ad41015efb64ea2d6ba4d8e40e4847c3222d88c"
+      }
+    ],
+    "pt-BR/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/phoneScreenshots/00_recording.png",
+        "sha1": "6233f9782bb30e328a95f957cfac5726a935464e"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "fb40af2d26d4f7595c6bcdedb40248643537e222"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "c37901afdd7d58b9b07a8ea5348249ddddf57b54"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/phoneScreenshots/03_recordings.png",
+        "sha1": "a9b5f315952d74c9fcecfe111403e344f076a819"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/phoneScreenshots/04_playback.png",
+        "sha1": "c22eadda620f2dbb5c33c7c775effe7733cf95f5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "402cf25cbfcc40f22f214d4a19bb4e98511a0cf5"
+      }
+    ],
+    "pt-BR/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "3098696781a87b9bb705e5a973c2120dab8dda24"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "3617f945a4577312b0341b7cf72b1e1b552013ef"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "78d35c44b2b40b7a68a58227a4a7503efbacd64c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "60063e8cac285784d0f88f0ef53c030fb86f310f"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "528bdc4fca8f4f5d51844213b90ea7cdfbd5483c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "f1323e92a2297987f69a3eda4271fadccdfb162a"
+      }
+    ],
+    "pt-BR/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/tenInchScreenshots/00_recording.png",
+        "sha1": "b815b0d5eae4b8ee7b372c7408fae3532137523c"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "219e327dff5e19d7a57c2778b8d3dd7cd87d5553"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "6355d734527fc3684c0afdab1ce19a160c463117"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "82f975bb865eb19f9b6b503415a453c3900ffda3"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/tenInchScreenshots/04_playback.png",
+        "sha1": "95826a7dcda9b982ec50c1d6f23f02d7c88215c0"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pt-BR/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "40997c7dc0ef81e20326d25d65ef7c62207c91bb"
+      }
+    ],
+    "pl-PL/phoneScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/phoneScreenshots/00_recording.png",
+        "sha1": "b4830eabfcc7b2ca7ac4ae0aa27c9226d67d5646"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/phoneScreenshots/01_ai_transcription.png",
+        "sha1": "6c8c3960b3fc546764e1e7ce0c8302c2f5d46923"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/phoneScreenshots/02_ai_minutes.png",
+        "sha1": "ca7caefb7d55366e2ced17d0d71d5aa6e9f4f870"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/phoneScreenshots/03_recordings.png",
+        "sha1": "77517414eab99228f004f5bce82087626f375d05"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/phoneScreenshots/04_playback.png",
+        "sha1": "ea3c7229789d3f76f6f85502e9ea5d3491d8810b"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/phoneScreenshots/05_cloud_backup.png",
+        "sha1": "c6548ab07a0d19f021ff78014da8c4d632085615"
+      }
+    ],
+    "pl-PL/sevenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/sevenInchScreenshots/00_recording.png",
+        "sha1": "ba0443f8261863d07cf2fcce6384ff4f5a5b2844"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/sevenInchScreenshots/01_ai_transcription.png",
+        "sha1": "db29f4dbc79c821eed75404b9c6ee68bf1ad1902"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/sevenInchScreenshots/02_ai_minutes.png",
+        "sha1": "f724ba8ea0e911ce0ef63e2f2228383077c8bb7b"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/sevenInchScreenshots/03_recordings.png",
+        "sha1": "7d37c87394697930081f50d78d793896cf3dbf48"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/sevenInchScreenshots/04_playback.png",
+        "sha1": "340c12501dbfb5ed2dc8deb877e29543e9c77e22"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/sevenInchScreenshots/05_cloud_backup.png",
+        "sha1": "5e76b608591b420a3515fa5a515fcd5cee7e8c25"
+      }
+    ],
+    "pl-PL/tenInchScreenshots": [
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/tenInchScreenshots/00_recording.png",
+        "sha1": "3802d5cab81e2e9db231fbf1d1177a0468dcc0b6"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/tenInchScreenshots/01_ai_transcription.png",
+        "sha1": "c4b4e6ebd6d09167450512693decf1c2c6ee6afa"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/tenInchScreenshots/02_ai_minutes.png",
+        "sha1": "8138c81c44523c2896070f4aee56bc32cc0d35d5"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/tenInchScreenshots/03_recordings.png",
+        "sha1": "7f896adc1c905745d5796fd041781f964ee609b4"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/tenInchScreenshots/04_playback.png",
+        "sha1": "5191a8b1e2aa77ffbdf7bf9655732f8edba2b23d"
+      },
+      {
+        "file": "android/simpleRecord/fastlane/metadata/android/pl-PL/images/tenInchScreenshots/05_cloud_backup.png",
+        "sha1": "c6cc2f424b973585d9e739c4b96a79f8fc67d300"
+      }
+    ]
+  },
+  "editId": "03072970674039283304",
+  "validate": {
+    "id": "03072970674039283304",
+    "expiryTimeSeconds": "1792769988"
+  },
+  "commit": {
+    "id": "03072970674039283304",
+    "expiryTimeSeconds": "1792769988"
+  },
+  "persistedHashesVerified": true
+}

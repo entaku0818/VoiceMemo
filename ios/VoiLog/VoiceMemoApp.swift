@@ -111,13 +111,19 @@ struct VoiceMemoApp: App {
         #if DEBUG
         if AIConsentUITestFixture.isEnabled { return }
         #endif
-        // RevenueCatを遅延初期化（StoreKit 2が重いため）
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            Purchases.configure(withAPIKey: environmentConfig.revenueCatKey)
-        }
+        // 画面から Purchases.shared が参照される前に初期化を完了させる。
+        // 遅延すると起動直後のプラン・トライアル取得が SDK のアサーションで落ちる。
+        Self.configurePurchasesBeforeUI(apiKey: environmentConfig.revenueCatKey)
 
         // データ読み込みも遅延（UIが先に表示されるようにする）
         // 注: VoiceAppFeature内でreloadDataが呼ばれるので、ここでの読み込みは不要
+    }
+
+    static func configurePurchasesBeforeUI(
+        apiKey: String,
+        configure: (String) -> Void = { Purchases.configure(withAPIKey: $0) }
+    ) {
+        configure(apiKey)
     }
 
     private var isConsentUITest: Bool {

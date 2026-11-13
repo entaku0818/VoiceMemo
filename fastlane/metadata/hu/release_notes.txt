@@ -1,2 +1,2 @@
-1.17.1
-Javítottuk a betöltést és a vásárlások kezelését a prémium képernyőn.
+1.17.4
+Frissítettük az alkalmazás könyvtárait és az App Store leírását.

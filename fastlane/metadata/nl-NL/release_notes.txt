@@ -1,2 +1,2 @@
-1.17.1
-Het laden en de aankoopverwerking op het premiumscherm zijn verbeterd.
+1.17.4
+App-bibliotheken bijgewerkt en de App Store-beschrijving vernieuwd.
