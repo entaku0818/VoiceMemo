@@ -69,7 +69,7 @@ func initClients() {
 	geminiClient, err = genai.NewClient(ctx, &genai.ClientConfig{
 		APIKey:     geminiAPIKey,
 		Backend:    genai.BackendGeminiAPI,
-		HTTPClient: newGeminiHTTPClient(),
+		HTTPClient: newGeminiHTTPClient(generateContentAttemptTimeout),
 	})
 	if err != nil {
 		log.Fatalf("gemini client: %v", err)
@@ -77,11 +77,11 @@ func initClients() {
 }
 
 // newGeminiHTTPClient は Gemini API 呼び出し用の http.Client を構築する。
-// 本番で観測された /transcribe 失敗は、成功リクエストが10〜20sで完了する一方
-// 失敗は例外なく親コンテキストの480sタイムアウトぴったりで発生しており、処理が
-// 遅いのではなく接続がハングして応答が返らないパターンだった。ResponseHeaderTimeout
-// を設定することで、ハングした試行を親コンテキストの残り時間いっぱい待たせず早期に
-// 失敗させ、generateContentWithRetry が新しいコネクションで実際にリトライできるようにする。
+// 非ストリーミングの GenerateContent は、生成が終わるまで応答ヘッダが返らないことが
+// ある。生成の試行上限より短いヘッダ待ち上限を設けると、その時間内に完了しうる
+// 処理まで打ち切ってしまうため、同じ上限を使う。各試行と全体のコンテキストで
+// 無応答の接続も打ち切り、親コンテキストに時間が残っていれば再試行できる。
+// アップロード等の通信にも、ヘッダ待ち自体の上限を残す。
 // IdleConnTimeout は、NAT/LB 経由で無応答のまま片方だけ生き残ったアイドル接続の再利用を防ぐ。
 //
 // 旧 SDK（github.com/google/generative-ai-go）では option.WithHTTPClient を渡すと
@@ -90,7 +90,7 @@ func initClients() {
 // google.golang.org/genai は HTTPClient を差し替えても自分で x-goog-api-key ヘッダを
 // 付けるので、その回避策は不要になった。回帰はテストで担保する
 // （TestGeminiClient_AttachesAPIKeyEndToEnd）。
-func newGeminiHTTPClient() *http.Client {
+func newGeminiHTTPClient(responseHeaderTimeout time.Duration) *http.Client {
 	return &http.Client{
 		Transport: &http.Transport{
 			DialContext: (&net.Dialer{
@@ -98,7 +98,7 @@ func newGeminiHTTPClient() *http.Client {
 				KeepAlive: 30 * time.Second,
 			}).DialContext,
 			TLSHandshakeTimeout:   10 * time.Second,
-			ResponseHeaderTimeout: 120 * time.Second,
+			ResponseHeaderTimeout: responseHeaderTimeout,
 			IdleConnTimeout:       90 * time.Second,
 			ExpectContinueTimeout: 1 * time.Second,
 		},
@@ -337,7 +337,12 @@ func handleTranscribe(w http.ResponseWriter, r *http.Request) {
 	}
 	// GCS の元ファイルとGeminiファイルを後始末
 	go obj.Delete(context.Background())
-	defer geminiClient.Files.Delete(context.Background(), geminiFile.Name, nil)
+	defer func() {
+		// 生成の待ち時間を延ばしても、後始末は従来の120秒以内に収める。
+		cleanupCtx, cancel := context.WithTimeout(context.Background(), 120*time.Second)
+		defer cancel()
+		geminiClient.Files.Delete(cleanupCtx, geminiFile.Name, nil)
+	}()
 
 	// Gemini で文字起こし
 	modelName := getEnv("GEMINI_MODEL", "gemini-2.5-flash")
@@ -402,8 +407,11 @@ func generateContentWithRetry(ctx context.Context, timeout time.Duration, callGe
 	var lastErr error
 	for attempt := 1; attempt <= 2; attempt++ {
 		attemptCtx, cancel := context.WithTimeout(ctx, timeout)
+		started := time.Now()
 		resp, err := callGenerate(attemptCtx)
 		cancel()
+		log.Printf("generateContent attempt %d/2 finished elapsed=%s timeout=%s success=%t",
+			attempt, time.Since(started).Round(time.Millisecond), timeout, err == nil)
 		if err == nil {
 			return resp, nil
 		}

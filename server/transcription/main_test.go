@@ -5,10 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"strings"
+	"sync/atomic"
 	"testing"
 	"time"
 
@@ -437,16 +439,88 @@ func TestGenerateContentWithRetry_AttemptContextBoundedByParent(t *testing.T) {
 }
 
 func TestNewGeminiHTTPClient_BoundsHungConnections(t *testing.T) {
-	client := newGeminiHTTPClient()
+	client := newGeminiHTTPClient(generateContentAttemptTimeout)
 	transport, ok := client.Transport.(*http.Transport)
 	if !ok {
 		t.Fatalf("Transport = %T, want *http.Transport", client.Transport)
 	}
-	if transport.ResponseHeaderTimeout <= 0 {
-		t.Error("ResponseHeaderTimeout must be set so a hung connection fails before the caller's context deadline")
+	if transport.ResponseHeaderTimeout < generateContentAttemptTimeout {
+		t.Error("ResponseHeaderTimeout must allow the full generation attempt; a shorter limit aborts slow responses prematurely")
 	}
 	if transport.IdleConnTimeout <= 0 {
 		t.Error("IdleConnTimeout must be set to avoid reusing stale idle connections")
+	}
+}
+
+// Use the real SDK and HTTP transport with shorter budgets so that delayed headers,
+// cancellation, and retry behavior are exercised without waiting several minutes.
+func TestGeminiClient_ResponseHeaderBudgetAndRetry(t *testing.T) {
+	tests := []struct {
+		name           string
+		attemptTimeout time.Duration
+		responseDelay  time.Duration
+		hungAttempts   int32
+		wantCalls      int32
+		wantErr        bool
+	}{
+		{"slow response within attempt budget", 400 * time.Millisecond, 250 * time.Millisecond, 0, 1, false},
+		{"hung first attempt recovers", 100 * time.Millisecond, 0, 1, 2, false},
+		{"two hung attempts stop", 100 * time.Millisecond, 0, 2, 2, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var calls atomic.Int32
+			srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				io.Copy(io.Discard, r.Body)
+				if calls.Add(1) <= tt.hungAttempts {
+					<-r.Context().Done()
+					return
+				}
+				select {
+				case <-time.After(tt.responseDelay):
+				case <-r.Context().Done():
+					return
+				}
+				w.Header().Set("Content-Type", "application/json")
+				w.Write([]byte(`{"candidates":[{"content":{"parts":[{"text":"ok"}],"role":"model"}}]}`))
+			}))
+			defer srv.Close()
+
+			httpClient := newGeminiHTTPClient(tt.attemptTimeout)
+			defer httpClient.CloseIdleConnections()
+			client, err := genai.NewClient(context.Background(), &genai.ClientConfig{
+				APIKey:      "test-api-key",
+				Backend:     genai.BackendGeminiAPI,
+				HTTPClient:  httpClient,
+				HTTPOptions: genai.HTTPOptions{BaseURL: srv.URL},
+			})
+			if err != nil {
+				t.Fatal(err)
+			}
+			ctx, cancel := context.WithTimeout(context.Background(), 4*tt.attemptTimeout)
+			defer cancel()
+			resp, err := generateContentWithRetry(ctx, tt.attemptTimeout, func(attemptCtx context.Context) (*genai.GenerateContentResponse, error) {
+				return client.Models.GenerateContent(attemptCtx, "gemini-2.5-flash", genai.Text("hi"), nil)
+			})
+			if tt.wantErr {
+				if err == nil || !isTransientGeminiError(err) {
+					t.Fatalf("err = %v, want a transient timeout error", err)
+				}
+			} else {
+				if err != nil {
+					t.Fatalf("GenerateContent failed: %v", err)
+				}
+				if resp.Text() != "ok" {
+					t.Errorf("text = %q, want ok", resp.Text())
+				}
+			}
+			if got := calls.Load(); got != tt.wantCalls {
+				t.Errorf("requests = %d, want %d", got, tt.wantCalls)
+			}
+			if ctx.Err() != nil {
+				t.Errorf("exhausted parent deadline instead of respecting per-attempt budget: %v", ctx.Err())
+			}
+		})
 	}
 }
 
@@ -458,7 +532,7 @@ func newTestGeminiClient(t *testing.T, baseURL, apiKey string) *genai.Client {
 	client, err := genai.NewClient(context.Background(), &genai.ClientConfig{
 		APIKey:      apiKey,
 		Backend:     genai.BackendGeminiAPI,
-		HTTPClient:  newGeminiHTTPClient(),
+		HTTPClient:  newGeminiHTTPClient(generateContentAttemptTimeout),
 		HTTPOptions: genai.HTTPOptions{BaseURL: baseURL},
 	})
 	if err != nil {
