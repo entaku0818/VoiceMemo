@@ -13,15 +13,24 @@ class MockPurchaseManager: PurchaseManagerProtocol {
     var productPrice: String
     var shouldThrowError: Bool
     var introTrial: IntroTrial?
+    var premiumStatus: Bool?
 
     init(productName: String = "Premium Plan",
          productPrice: String = "¥1200",
          shouldThrowError: Bool = false,
-         introTrial: IntroTrial? = .days(7)) {
+         introTrial: IntroTrial? = .days(7),
+         premiumStatus: Bool? = nil) {
         self.productName = productName
         self.productPrice = productPrice
         self.shouldThrowError = shouldThrowError
         self.introTrial = introTrial
+        self.premiumStatus = premiumStatus
+    }
+
+    func refreshPremiumStatus() async -> Bool? {
+        guard !shouldThrowError, let premiumStatus else { return nil }
+        userDefaults.setHasPurchasedProduct(premiumStatus)
+        return premiumStatus
     }
 
     func fetchIntroTrial(isAnnual: Bool) async -> IntroTrial? {

@@ -10,6 +10,8 @@ protocol PurchaseManagerProtocol {
     func purchaseAnnual() async throws
     func restorePurchases() async throws
     func startOneTimePurchase() async throws
+    /// 最新の権利を保存する。取得失敗時は保存済みの権利を変更せず nil を返す。
+    func refreshPremiumStatus() async -> Bool?
     /// 表示すべき無料トライアル。無い・対象外・取得失敗なら nil（issue #232）
     func fetchIntroTrial(isAnnual: Bool) async -> IntroTrial?
 }
@@ -18,6 +20,8 @@ class PurchaseManager: PurchaseManagerProtocol {
     private let logger = OSLog(subsystem: "com.entaku.VoiLog", category: "Purchase")
     static let shared = PurchaseManager()
     @Dependency(\.userDefaults) var userDefaults
+    private let fetchPremiumStatus: () async throws -> Bool
+    @MainActor private var premiumStatusGeneration: UInt64 = 0
 
     private enum Package {
         static let pro = "$rc_monthly"
@@ -25,7 +29,38 @@ class PurchaseManager: PurchaseManagerProtocol {
         static let developerSupport = "developerSupport"
     }
 
-    private init() {}
+    init(fetchPremiumStatus: @escaping () async throws -> Bool = {
+        let customerInfo = try await Purchases.shared.customerInfo(fetchPolicy: .fetchCurrent)
+        return customerInfo.entitlements["premium"]?.isActive == true
+    }) {
+        self.fetchPremiumStatus = fetchPremiumStatus
+    }
+
+    func refreshPremiumStatus() async -> Bool? {
+        let generation = await MainActor.run {
+            premiumStatusGeneration &+= 1
+            return premiumStatusGeneration
+        }
+        do {
+            let isPremium = try await fetchPremiumStatus()
+            return await MainActor.run { () -> Bool? in
+                guard generation == premiumStatusGeneration else { return nil }
+                userDefaults.setHasPurchasedProduct(isPremium)
+                return isPremium
+            }
+        } catch {
+            os_log("Premium refresh failed: %{public}@", log: logger, type: .error,
+                   Self.analyticsErrorCode(error))
+            return nil
+        }
+    }
+
+    /// Purchases and restores invalidate refreshes that started before the entitlement changed.
+    @MainActor
+    func recordActivePremiumEntitlement() {
+        premiumStatusGeneration &+= 1
+        userDefaults.setHasPurchasedProduct(true)
+    }
 
     enum PurchaseError: Error {
         case productNotFound
@@ -138,9 +173,7 @@ class PurchaseManager: PurchaseManagerProtocol {
             if userCancelled { throw PurchaseError.cancelled }
 
             if customerInfo.entitlements["premium"]?.isActive == true {
-                await MainActor.run {
-                    userDefaults.setHasPurchasedProduct(true)
-                }
+                await recordActivePremiumEntitlement()
                 os_log("Pro purchase successful", log: logger, type: .debug)
             } else {
                 os_log("Pro purchase failed: premium not active", log: logger, type: .error)
@@ -165,9 +198,7 @@ class PurchaseManager: PurchaseManagerProtocol {
             let (_, customerInfo, userCancelled) = try await Purchases.shared.purchase(package: package)
             if userCancelled { throw PurchaseError.cancelled }
             if customerInfo.entitlements["premium"]?.isActive == true {
-                await MainActor.run {
-                    userDefaults.setHasPurchasedProduct(true)
-                }
+                await recordActivePremiumEntitlement()
             } else {
                 throw PurchaseError.purchaseFailed
             }
@@ -183,7 +214,7 @@ class PurchaseManager: PurchaseManagerProtocol {
         do {
             let customerInfo = try await Purchases.shared.restorePurchases()
             if customerInfo.entitlements["premium"]?.isActive == true {
-                userDefaults.setHasPurchasedProduct(true)
+                await recordActivePremiumEntitlement()
                 os_log("Restore successful", log: logger, type: .debug)
             } else {
                 os_log("Restore failed: no entitlements found", log: logger, type: .error)

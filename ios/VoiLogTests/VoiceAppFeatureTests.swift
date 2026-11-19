@@ -5,6 +5,122 @@ import ComposableArchitecture
 @MainActor
 final class VoiceAppFeatureTests: XCTestCase {
 
+    // MARK: - Premium Status
+
+    func testPremiumRefreshUpdatesAllFeaturesForActiveEntitlement() async {
+        let store = TestStore(initialState: VoiceAppFeature.State()) {
+            VoiceAppFeature()
+        } withDependencies: {
+            $0.purchaseManager = MockPurchaseManager(premiumStatus: true)
+        }
+
+        await store.send(.view(.refreshPremiumStatus))
+        await store.receive(\.premiumStatusRefreshed) {
+            $0.settingFeature.hasPurchasedPremium = true
+            $0.playbackFeature.hasPurchasedPremium = true
+            $0.playlistFeature.hasPurchasedPremium = true
+        }
+    }
+
+    func testPremiumRefreshClearsExpiredEntitlementInAllFeatures() async {
+        var initialState = VoiceAppFeature.State()
+        initialState.settingFeature.hasPurchasedPremium = true
+        initialState.playbackFeature.hasPurchasedPremium = true
+        initialState.playlistFeature.hasPurchasedPremium = true
+        let store = TestStore(initialState: initialState) {
+            VoiceAppFeature()
+        } withDependencies: {
+            $0.purchaseManager = MockPurchaseManager(premiumStatus: false)
+        }
+
+        await store.send(.view(.refreshPremiumStatus))
+        await store.receive(\.premiumStatusRefreshed) {
+            $0.settingFeature.hasPurchasedPremium = false
+            $0.playbackFeature.hasPurchasedPremium = false
+            $0.playlistFeature.hasPurchasedPremium = false
+        }
+    }
+
+    func testLatePremiumRefreshDismissesUpgradeOffersAndRewardedAdConfirmation() async {
+        var initialState = VoiceAppFeature.State()
+        initialState.showPaywall = true
+        initialState.paywallSource = .monthlyLaunch
+        initialState.showTrialPromotion = true
+        initialState.playbackFeature.showPaywall = true
+        initialState.playbackFeature.showTranscriptionPremiumPrompt = true
+        initialState.playbackFeature.showRewardedAdConfirmation = true
+        initialState.playlistFeature.isShowingPaywall = true
+        let store = TestStore(initialState: initialState) { VoiceAppFeature() }
+
+        await store.send(.premiumStatusRefreshed(true)) {
+            $0.settingFeature.hasPurchasedPremium = true
+            $0.playbackFeature.hasPurchasedPremium = true
+            $0.playlistFeature.hasPurchasedPremium = true
+            $0.showPaywall = false
+            $0.showTrialPromotion = false
+            $0.playbackFeature.showPaywall = false
+            $0.playbackFeature.showTranscriptionPremiumPrompt = false
+            $0.playbackFeature.showRewardedAdConfirmation = false
+            $0.playlistFeature.isShowingPaywall = false
+        }
+        // The dismissal action owns resetting analytics source after the cover disappears.
+        XCTAssertEqual(store.state.paywallSource, .monthlyLaunch)
+    }
+
+    func testFailedOrInactivePremiumRefreshKeepsExistingUpgradeOffer() async {
+        var initialState = VoiceAppFeature.State()
+        initialState.showPaywall = true
+        initialState.showTrialPromotion = true
+        let store = TestStore(initialState: initialState) { VoiceAppFeature() }
+
+        await store.send(.premiumStatusRefreshed(nil))
+        await store.send(.premiumStatusRefreshed(false))
+    }
+
+    func testPremiumRefreshKeepsAllFeaturesUnlockedOnNetworkFailure() async {
+        var initialState = VoiceAppFeature.State()
+        initialState.settingFeature.hasPurchasedPremium = true
+        initialState.playbackFeature.hasPurchasedPremium = true
+        initialState.playlistFeature.hasPurchasedPremium = true
+        let store = TestStore(initialState: initialState) {
+            VoiceAppFeature()
+        } withDependencies: {
+            $0.purchaseManager = MockPurchaseManager.failing
+        }
+
+        await store.send(.view(.refreshPremiumStatus))
+        await store.receive(\.premiumStatusRefreshed)
+    }
+
+    func testDismissPaywallUpdatesPlaylistEntitlementAlongsideOtherFeatures() async {
+        let store = TestStore(initialState: VoiceAppFeature.State()) {
+            VoiceAppFeature()
+        } withDependencies: {
+            $0.userDefaults.hasPurchasedProduct = { true }
+        }
+
+        await store.send(.view(.dismissPaywall)) {
+            $0.settingFeature.hasPurchasedPremium = true
+            $0.playbackFeature.hasPurchasedPremium = true
+            $0.playlistFeature.hasPurchasedPremium = true
+        }
+    }
+
+    func testRestoringPurchasesUpdatesAllFeatures() async {
+        let store = TestStore(initialState: VoiceAppFeature.State()) {
+            VoiceAppFeature()
+        } withDependencies: {
+            $0.userDefaults.hasPurchasedProduct = { true }
+        }
+
+        await store.send(.settingFeature(.restoreResponse(true))) {
+            $0.settingFeature.hasPurchasedPremium = true
+            $0.settingFeature.showRestoreSuccessAlert = true
+            $0.playbackFeature.hasPurchasedPremium = true
+            $0.playlistFeature.hasPurchasedPremium = true
+        }
+    }
+
     // MARK: - Recording Will Start Tests
 
     func testRecordingWillStart_StopsPlaybackWhenPlaying() async {

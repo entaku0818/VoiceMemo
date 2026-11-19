@@ -1,5 +1,6 @@
 import XCTest
 import Dependencies
+import ComposableArchitecture
 import RevenueCat
 @testable import VoiLog
 
@@ -12,6 +13,109 @@ final class PurchaseManagerTests: XCTestCase {
 
         // No sleep or queue draining: the SDK must be ready before UI tasks can run.
         XCTAssertEqual(configuredKeys, ["test_api_key"])
+    }
+
+    // MARK: - refreshPremiumStatus
+
+    func testRefreshPremiumStatusPersistsActiveEntitlement() async {
+        var persisted = false
+        let result = await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { persisted = $0 }
+        } operation: {
+            await PurchaseManager(fetchPremiumStatus: { true }).refreshPremiumStatus()
+        }
+
+        XCTAssertEqual(result, true)
+        XCTAssertTrue(persisted)
+    }
+
+    func testRefreshPremiumStatusClearsExpiredEntitlement() async {
+        var persisted = true
+        let result = await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { persisted = $0 }
+        } operation: {
+            await PurchaseManager(fetchPremiumStatus: { false }).refreshPremiumStatus()
+        }
+
+        XCTAssertEqual(result, false)
+        XCTAssertFalse(persisted)
+    }
+
+    func testRefreshPremiumStatusKeepsSavedEntitlementOnNetworkFailure() async {
+        var persisted = true
+        let result = await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { persisted = $0 }
+        } operation: {
+            await PurchaseManager(fetchPremiumStatus: {
+                throw URLError(.notConnectedToInternet)
+            }).refreshPremiumStatus()
+        }
+
+        XCTAssertNil(result)
+        XCTAssertTrue(persisted)
+    }
+
+    @MainActor
+    func testOlderRefreshCannotOverwriteNewerEntitlementResponse() async {
+        let firstStarted = expectation(description: "First refresh starts")
+        let secondStarted = expectation(description: "Second refresh starts")
+        let responses = LockIsolated<[CheckedContinuation<Bool, Never>]>([])
+        let persisted = LockIsolated<[Bool]>([])
+
+        await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { value in persisted.withValue { $0.append(value) } }
+        } operation: {
+            let manager = PurchaseManager(fetchPremiumStatus: {
+                await withCheckedContinuation { continuation in
+                    let count = responses.withValue {
+                        $0.append(continuation)
+                        return $0.count
+                    }
+                    if count == 1 { firstStarted.fulfill() } else { secondStarted.fulfill() }
+                }
+            })
+            let firstRefresh = Task { await manager.refreshPremiumStatus() }
+            await fulfillment(of: [firstStarted], timeout: 1)
+            let secondRefresh = Task { await manager.refreshPremiumStatus() }
+            await fulfillment(of: [secondStarted], timeout: 1)
+
+            responses.value[1].resume(returning: true)
+            let secondResult = await secondRefresh.value
+            responses.value[0].resume(returning: false)
+            let firstResult = await firstRefresh.value
+
+            XCTAssertEqual(secondResult, true)
+            XCTAssertNil(firstResult, "An outdated response must not be sent to the UI")
+            XCTAssertEqual(persisted.value, [true])
+        }
+    }
+
+    @MainActor
+    func testPurchaseOrRestoreInvalidatesEarlierFalseRefreshResponse() async {
+        let refreshStarted = expectation(description: "Refresh starts before purchase succeeds")
+        let response = LockIsolated<CheckedContinuation<Bool, Never>?>(nil)
+        let persisted = LockIsolated<[Bool]>([])
+
+        await withDependencies {
+            $0.userDefaults.setHasPurchasedProduct = { value in persisted.withValue { $0.append(value) } }
+        } operation: {
+            let manager = PurchaseManager(fetchPremiumStatus: {
+                await withCheckedContinuation { continuation in
+                    response.setValue(continuation)
+                    refreshStarted.fulfill()
+                }
+            })
+            let refresh = Task { await manager.refreshPremiumStatus() }
+            await fulfillment(of: [refreshStarted], timeout: 1)
+
+            // This is the shared success path used by monthly/annual purchases and restore.
+            await manager.recordActivePremiumEntitlement()
+            response.value?.resume(returning: false)
+            let result = await refresh.value
+
+            XCTAssertNil(result, "A pre-purchase response must not revoke the new entitlement")
+            XCTAssertEqual(persisted.value, [true])
+        }
     }
 
     // MARK: - fetchProPlan

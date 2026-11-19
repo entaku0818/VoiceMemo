@@ -65,6 +65,7 @@ struct VoiceAppFeature {
 
     enum View {
       case onAppear
+      case refreshPremiumStatus
       case syncToCloud
       case checkSyncStatus
       case dismissSyncError
@@ -79,6 +80,7 @@ struct VoiceAppFeature {
     case syncCompleted(Result<Bool, Error>)
     case syncStatusChecked(hasDifferences: Bool)
     case resetSyncStatus
+    case premiumStatusRefreshed(Bool?)
   }
 
   @Dependency(\.voiceMemoRepository) var voiceMemoRepository
@@ -88,6 +90,7 @@ struct VoiceAppFeature {
   @Dependency(\.interruptedRecordingRecovery) var interruptedRecordingRecovery
   @Dependency(\.date.now) var now
   @Dependency(\.firebaseAnalytics) var analytics
+  @Dependency(\.purchaseManager) var purchaseManager
 
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -133,8 +136,7 @@ struct VoiceAppFeature {
         case .onAppear:
           // 課金状態を更新
           let hasPurchased = userDefaultsClient.hasPurchasedProduct()
-          state.settingFeature.hasPurchasedPremium = hasPurchased
-          state.playbackFeature.hasPurchasedPremium = hasPurchased
+          updatePremiumStatus(state: &state, isPremium: hasPurchased)
 
           // 初回起動時のチュートリアル表示判定
           let isFirstLaunch = !userDefaultsClient.bool(UserDefaultsKeys.firstLaunch)
@@ -194,6 +196,11 @@ struct VoiceAppFeature {
             requestAppTrackingAuthorizationEffect()
           )
 
+        case .refreshPremiumStatus:
+          return .run { send in
+            await send(.premiumStatusRefreshed(await purchaseManager.refreshPremiumStatus()))
+          }
+
         case .startTutorial:
           state.shouldShowTutorial = true
           return .send(.tutorialFeature(.view(.start)))
@@ -245,8 +252,7 @@ struct VoiceAppFeature {
           state.showPaywall = false
           state.paywallSource = .featureGate
           // 購入状態を更新
-          state.settingFeature.hasPurchasedPremium = userDefaultsClient.hasPurchasedProduct()
-          state.playbackFeature.hasPurchasedPremium = userDefaultsClient.hasPurchasedProduct()
+          updatePremiumStatus(state: &state, isPremium: userDefaultsClient.hasPurchasedProduct())
           return .none
 
         case .dismissFirstRecordingCelebration:
@@ -371,6 +377,10 @@ struct VoiceAppFeature {
         // 復元した録音を一覧へ反映する
         return .send(.playbackFeature(.view(.reloadData)))
 
+      case .settingFeature(.restoreResponse(true)):
+        updatePremiumStatus(state: &state, isPremium: userDefaultsClient.hasPurchasedProduct())
+        return .none
+
       case .settingFeature:
         return .none
 
@@ -422,8 +432,29 @@ struct VoiceAppFeature {
       case .resetSyncStatus:
         state.syncStatus = .idle
         return .none
+
+      case let .premiumStatusRefreshed(isPremium):
+        if let isPremium {
+          updatePremiumStatus(state: &state, isPremium: isPremium)
+        }
+        return .none
       }
     }
+  }
+
+  private func updatePremiumStatus(state: inout State, isPremium: Bool) {
+    state.settingFeature.hasPurchasedPremium = isPremium
+    state.playbackFeature.hasPurchasedPremium = isPremium
+    state.playlistFeature.hasPurchasedPremium = isPremium
+    guard isPremium else { return }
+
+    // A refresh can finish after startup has already presented an upgrade offer.
+    state.showPaywall = false
+    state.showTrialPromotion = false
+    state.playbackFeature.showPaywall = false
+    state.playbackFeature.showTranscriptionPremiumPrompt = false
+    state.playbackFeature.showRewardedAdConfirmation = false
+    state.playlistFeature.isShowingPaywall = false
   }
 
   /// 月1課金案内（issue #228）を出す条件を満たしていれば、ペイウォールを出す。出したら true。
@@ -561,6 +592,9 @@ struct VoiceAppView: View {
     }
     .onAppear {
       store.send(.view(.onAppear))
+    }
+    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+      store.send(.view(.refreshPremiumStatus))
     }
     .alert(String(localized: "同期エラー"), isPresented: $store.showSyncError) {
       Button("OK") {
