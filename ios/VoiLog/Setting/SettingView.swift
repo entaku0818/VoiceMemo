@@ -265,6 +265,7 @@ struct SettingView: View {
     @SwiftUI.Bindable var store: StoreOf<SettingReducer>
     @Environment(\.colorScheme) var colorScheme
     let admobUnitId: String
+    @State private var showAdPrivacyError = false
 
     var body: some View {
         VStack {
@@ -278,6 +279,7 @@ struct SettingView: View {
                 purchaseSection
                 notificationSection
                 transcriptionSection
+                adPrivacySection
                 recoverySection
                 DeveloperAppsSectionView()
 
@@ -350,9 +352,29 @@ struct SettingView: View {
                 store.send(.dismissDiagnostics)
             }
         }
+        .alert(String(localized: "Ad privacy", table: "Settings"), isPresented: $showAdPrivacyError) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(String(localized: "Ad privacy settings could not be loaded. Please try again.", table: "Settings"))
+        }
 
         if !store.hasPurchasedPremium {
             AdmobBannerView(unitId: admobUnitId).frame(height: AdmobBannerView.adaptiveHeight)
+        }
+    }
+
+    @ViewBuilder
+    private var adPrivacySection: some View {
+        if AdConsentManager.shared.shouldShowPrivacyOptions {
+            Section(header: Text(String(localized: "Ad privacy", table: "Settings"))) {
+                Button(String(localized: "Manage ad privacy", table: "Settings")) {
+                    AdConsentManager.shared.presentPrivacyOptions { success in
+                        showAdPrivacyError = !success
+                    }
+                }
+                .disabled(AdConsentManager.shared.isGatheringConsent
+                          || AdConsentManager.shared.isPresentingConsentForm)
+            }
         }
     }
 

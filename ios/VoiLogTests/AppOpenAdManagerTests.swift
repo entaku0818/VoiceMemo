@@ -6,6 +6,7 @@
 import XCTest
 @testable import VoiLog
 
+@MainActor
 final class AppOpenAdManagerTests: XCTestCase {
     /// SplashViewとAppOpenAdManagerが別々の間隔値を持っていた過去のバグの再発防止。
     /// 両方のゲートを通過する必要があるため、実際の表示は間隔の二乗まで落ちていた。
@@ -49,5 +50,32 @@ final class AppOpenAdManagerTests: XCTestCase {
         XCTAssertEqual(results, [false, false])
         load.finish(true)
         XCTAssertEqual(results, [false, false, true])
+    }
+
+    func testRepeatedAppearanceDoesNotStartAnotherStartup() {
+        let startup = SplashCompletionGuard()
+        XCTAssertTrue(startup.begin())
+        XCTAssertFalse(startup.begin())
+    }
+
+    func testPurchaseRefreshAndTimeoutStartConsentOnlyOnce() {
+        let startup = SplashCompletionGuard()
+        XCTAssertTrue(startup.resolvePremium())
+        XCTAssertFalse(startup.resolvePremium(isVerified: true))
+        XCTAssertFalse(startup.isPremiumStatusVerified)
+    }
+
+    func testSuccessfulPurchaseRefreshAllowsAppOpenEligibilityCheck() {
+        let startup = SplashCompletionGuard()
+        XCTAssertTrue(startup.resolvePremium(isVerified: true))
+        XCTAssertTrue(startup.isPremiumStatusVerified)
+    }
+
+    func testCompletedSplashRejectsLateStartupAndDuplicateCompletion() {
+        let startup = SplashCompletionGuard()
+        XCTAssertTrue(startup.claim())
+        XCTAssertFalse(startup.resolvePremium())
+        XCTAssertFalse(startup.claim())
+        XCTAssertTrue(startup.isCompleted)
     }
 }

@@ -10,11 +10,24 @@ import UIKit
 import SwiftUI
 import os.log
 
-struct AdmobBannerView: UIViewRepresentable {
+@MainActor
+struct AdmobBannerView: View {
 
     private let unitId: String
     init(unitId: String) {
         self.unitId = unitId
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            if AdConsentManager.shared.canLoadAds, geometry.size.width > 0 {
+                ConsentGatedBannerView(unitId: unitId, width: geometry.size.width)
+                    .frame(width: geometry.size.width,
+                           height: currentOrientationAnchoredAdaptiveBanner(width: geometry.size.width).size.height)
+                    .id(geometry.size.width)
+                    .id(AdConsentManager.shared.adsRevision)
+            }
+        }
     }
 
     private static func adaptiveAdSize() -> AdSize {
@@ -27,9 +40,15 @@ struct AdmobBannerView: UIViewRepresentable {
     static var adaptiveHeight: CGFloat {
         CGFloat(adaptiveAdSize().size.height)
     }
+}
+
+@MainActor
+private struct ConsentGatedBannerView: UIViewRepresentable {
+    let unitId: String
+    let width: CGFloat
 
     func makeUIView(context: Context) -> BannerView {
-        let view = BannerView(adSize: Self.adaptiveAdSize())
+        let view = BannerView(adSize: currentOrientationAnchoredAdaptiveBanner(width: width))
 
         #if DEBUG
         view.adUnitID = "ca-app-pub-3940256099942544/2934735716"
@@ -40,11 +59,18 @@ struct AdmobBannerView: UIViewRepresentable {
             view.rootViewController = windowScene.windows.first?.rootViewController
         }
         view.delegate = context.coordinator
-        view.load(Request())
+        if AdConsentManager.shared.canLoadAds {
+            view.load(Request())
+        }
         return view
     }
 
     func updateUIView(_ uiView: BannerView, context: Context) {
+    }
+
+    static func dismantleUIView(_ uiView: BannerView, coordinator: Coordinator) {
+        uiView.delegate = nil
+        uiView.rootViewController = nil
     }
 
     // Adding the Coordinator for delegate handling

@@ -10,16 +10,18 @@ final class RewardedAdManager: NSObject {
     private var rewardEarned = false
     private var onRewarded: (() -> Void)?
     private var onSkipped: (() -> Void)?
+    private var loadGeneration = 0
 
-    var isAdReady: Bool { rewardedAd != nil }
+    var isAdReady: Bool { AdConsentManager.shared.canLoadAds && rewardedAd != nil }
 
     override private init() {
         super.init()
     }
 
     func preloadAd() {
-        guard !isLoading, rewardedAd == nil else { return }
+        guard AdConsentManager.shared.canLoadAds, !isLoading, rewardedAd == nil else { return }
         isLoading = true
+        let generation = loadGeneration
 
         #if DEBUG
         let adUnitID = "ca-app-pub-3940256099942544/1712485313"
@@ -28,10 +30,11 @@ final class RewardedAdManager: NSObject {
         #endif
 
         RewardedAd.load(with: adUnitID, request: Request()) { [weak self] ad, _ in
-            self?.isLoading = false
-            if let ad {
-                self?.rewardedAd = ad
-                self?.rewardedAd?.fullScreenContentDelegate = self
+            guard let self, self.loadGeneration == generation else { return }
+            self.isLoading = false
+            if AdConsentManager.shared.canLoadAds, let ad {
+                self.rewardedAd = ad
+                self.rewardedAd?.fullScreenContentDelegate = self
             }
         }
     }
@@ -41,7 +44,7 @@ final class RewardedAdManager: NSObject {
         self.onSkipped = onSkipped
         self.rewardEarned = false
 
-        guard let ad = rewardedAd,
+        guard AdConsentManager.shared.canLoadAds, let ad = rewardedAd,
               let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let rootVC = windowScene.windows.first?.rootViewController else {
             onSkipped()
@@ -56,6 +59,12 @@ final class RewardedAdManager: NSObject {
             self?.onRewarded?()
             self?.onRewarded = nil
         }
+    }
+
+    func discardCachedAd() {
+        loadGeneration += 1
+        rewardedAd = nil
+        isLoading = false
     }
 }
 

@@ -9,6 +9,7 @@ import GoogleMobileAds
 import UIKit
 import Dependencies
 
+@MainActor
 final class AppOpenAdManager: NSObject {
     static let shared = AppOpenAdManager()
 
@@ -18,13 +19,14 @@ final class AppOpenAdManager: NSObject {
     private let pendingLoad = AppOpenAdLoadWaiters()
     private var loadTime: Date?
     private var onDismiss: (() -> Void)?
+    private var loadGeneration = 0
 
     /// 広告を表示する間隔（何回に1回表示するか）
     /// SplashView側も必ずこの値を参照すること（別々の値を持つと二重ゲートで表示が握りつぶされる）
     /// 2026-09: eCPMの高いapp_open枠の収益増を狙い 5→3 に短縮（issue #216）。
     /// 毎起動・2回に1回はレビュー/リテンションへのリスクが大きいため採らない。まず3で2週間KPIを観測する。
     /// 起動何回に1回広告を出すか。月1課金案内（MonthlyPaywallPolicy）もこの値で広告の出る起動回を避ける
-    static let defaultDisplayInterval = 3
+    nonisolated static let defaultDisplayInterval = 3
     let displayInterval = AppOpenAdManager.defaultDisplayInterval
 
     /// 広告の有効期限（4時間）
@@ -32,7 +34,8 @@ final class AppOpenAdManager: NSObject {
 
     /// 広告がロード済みかどうか
     var isAdReady: Bool {
-        appOpenAd != nil && !isAdExpired
+        AdConsentManager.shared.canLoadAds && !userDefaults.hasPurchasedProduct()
+            && appOpenAd != nil && !isAdExpired
     }
 
     /// 広告を全画面表示中かどうか（スプラッシュ側のタイムアウト判定に使う）
@@ -54,7 +57,7 @@ final class AppOpenAdManager: NSObject {
     /// - Parameter completion: ロード完了時に呼ばれるクロージャ（成功時true、失敗時false）
     func preloadAd(completion: ((Bool) -> Void)? = nil) {
         // プレミアムユーザーには広告を表示しないので、リクエスト自体を投げない
-        guard !userDefaults.hasPurchasedProduct() else {
+        guard AdConsentManager.shared.canLoadAds, !userDefaults.hasPurchasedProduct() else {
             completion?(false)
             return
         }
@@ -67,6 +70,7 @@ final class AppOpenAdManager: NSObject {
         guard pendingLoad.begin(completion) else { return }
         appOpenAd = nil
         loadTime = nil
+        let generation = loadGeneration
 
         #if DEBUG
         let adUnitID = "ca-app-pub-3940256099942544/5575463023" // テスト用App Open広告ID
@@ -75,8 +79,9 @@ final class AppOpenAdManager: NSObject {
         #endif
 
         AppOpenAd.load(with: adUnitID, request: Request()) { [weak self] ad, error in
-            guard let self else { return }
-            guard error == nil, let ad else {
+            guard let self, self.loadGeneration == generation else { return }
+            guard AdConsentManager.shared.canLoadAds, !self.userDefaults.hasPurchasedProduct(),
+                  error == nil, let ad else {
                 self.pendingLoad.finish(false)
                 return
             }
@@ -98,7 +103,7 @@ final class AppOpenAdManager: NSObject {
         let isPremium = userDefaults.hasPurchasedProduct()
 
         // プレミアムユーザーは広告を表示しない
-        guard !isPremium else {
+        guard AdConsentManager.shared.canLoadAds, !isPremium, !isPresentingAd else {
             return false
         }
 
@@ -132,6 +137,14 @@ final class AppOpenAdManager: NSObject {
         isPresentingAd = true
         ad.present(from: rootViewController)
         return true
+    }
+
+    /// In-flight loads from the old consent state must not repopulate the cache.
+    func discardCachedAd() {
+        loadGeneration += 1
+        appOpenAd = nil
+        loadTime = nil
+        pendingLoad.finish(false)
     }
 }
 

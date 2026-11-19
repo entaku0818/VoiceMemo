@@ -40,16 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // ロック画面/コントロールセンターからの再生操作を受け取る
         NowPlayingCommandCenter.shared.configure()
 
-        // AdMob初期化を遅延実行（UIが表示された後）
-        #if !DEBUG
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            MobileAds.shared.start { _ in
-                // 広告初期化完了後にインタースティシャル広告をプリロード
-                AppOpenAdManager.shared.preloadAd()
-            }
-        }
-        #endif
-
         // 通知許可リクエストを遅延
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             UNUserNotificationCenter.current().requestAuthorization(
