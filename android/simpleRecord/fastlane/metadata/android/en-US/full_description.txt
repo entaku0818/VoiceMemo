@@ -6,14 +6,18 @@ Start recording from the recording screen. Background recording lets you capture
 TURN AUDIO INTO TEXT
 Upload a saved recording for AI transcription. Review interview answers, read through voice memos and share the resulting text.
 
-CREATE MEETING NOTES
+CREATE MEETING NOTES WITH PREMIUM
 The premium AI meeting notes feature generates a summary and to-do items from your transcript, helping you review decisions and next steps after a meeting.
 
 LISTEN AND ORGANIZE
 • Adjust playback speed to review recordings at your own pace.
+• Set an A-B loop to repeat the section you want to hear again.
 • Repeat recordings for language practice or a closer listen.
 • Group related recordings into playlists.
 • Share audio files with other apps.
+
+TRIM AND SPLIT AAC RECORDINGS
+Keep a selected section or split a saved AAC recording at a chosen point. Organize the useful parts of a long meeting or interview for later review. Audio editing is available for recordings saved in AAC format.
 
 BACK UP TO GOOGLE DRIVE
 Sign in with your Google account to back up and restore your recordings with Google Drive.
@@ -27,4 +31,4 @@ USE IT FOR
 
 ABOUT AI FEATURES
 AI transcription and meeting notes require an internet connection. The app asks for your consent before sending audio or transcript content for processing. Results can contain errors depending on audio quality and speech; check important details against the original recording.
-AI meeting notes require a premium subscription. See the app for pricing and terms.
+AI meeting notes require Premium access. See the app for available plans, pricing and terms.

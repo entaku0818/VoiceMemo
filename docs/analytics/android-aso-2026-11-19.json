@@ -1,0 +1,418 @@
+{
+  "package": "com.entaku.simpleRecord",
+  "observedAtUTC": "2026-11-19T14:48:30.440032+00:00",
+  "changedLocales": [
+    "ar",
+    "de-DE",
+    "en-US",
+    "es-419",
+    "es-ES",
+    "fr-FR",
+    "hi-IN",
+    "id",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "pl-PL",
+    "pt-BR",
+    "th",
+    "tr-TR",
+    "vi",
+    "zh-CN"
+  ],
+  "changedFieldCount": 49,
+  "changes": [
+    {
+      "language": "ar",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "سجل بسيط",
+      "titleAfter": "مسجل صوت بسيط",
+      "characterCounts": {
+        "title": 13,
+        "shortDescription": 72,
+        "fullDescription": 1563
+      },
+      "sha256": {
+        "title": "6b6327b217fec653ade135e64332e76ed1d39394256969e6d7ec78c505943ca7",
+        "shortDescription": "27fe9241ca68cc486a4fba1ba64ff4f7f52159b6279747029dc5244f3aea3a34",
+        "fullDescription": "a2e3c5e8f8470c944c0928f5ecd0793f0480058e3c58aa76bd59f7ad112c09eb"
+      }
+    },
+    {
+      "language": "de-DE",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "einfache Aufzeichnung",
+      "titleAfter": "Einfacher Sprachrekorder",
+      "characterCounts": {
+        "title": 24,
+        "shortDescription": 76,
+        "fullDescription": 2235
+      },
+      "sha256": {
+        "title": "3c2078ad4221f38ea59e6b5efcfa3298dfbf24acbce390ba95866bca7bcb2d57",
+        "shortDescription": "26b09ec584047adda3e49f8fc25a013b9bb773453ed401b59b3e7a5928e31faf",
+        "fullDescription": "88e90eec48d51c8e04c37ade46c3e0e01f938b5d79bfa34a6b5414ae3f14f17d"
+      }
+    },
+    {
+      "language": "en-US",
+      "fields": [
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "Simple Voice Recorder AI Notes",
+      "titleAfter": "Simple Voice Recorder AI Notes",
+      "characterCounts": {
+        "title": 30,
+        "shortDescription": 79,
+        "fullDescription": 1884
+      },
+      "sha256": {
+        "title": "15cb3d00ee7f9c27d86227cbd53634b7bc98ba6351fc470f5bfd1941fb5b871e",
+        "shortDescription": "896b38bf1667928b236a24f7926cac73de74115a0213fef85966d19e4827a7af",
+        "fullDescription": "8a710b08933b80a4583b49a7dd5185d355ca7eb077352e8b068dac02c9458cfa"
+      }
+    },
+    {
+      "language": "es-419",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "registro simple",
+      "titleAfter": "Grabadora de voz sencilla",
+      "characterCounts": {
+        "title": 25,
+        "shortDescription": 78,
+        "fullDescription": 2198
+      },
+      "sha256": {
+        "title": "a3a33428a04ed6b424bff2af823c62fad0b125e796ddc120b9f6853ab41f8a8b",
+        "shortDescription": "99d3c8b25b58445494a3bc336602a58324b9c860e3d761d30fc1c8dc08cb3339",
+        "fullDescription": "0e75df368115ccff9b4e3d3478845b7876033c0b1c4b64265f50a7ea9d0f46d2"
+      }
+    },
+    {
+      "language": "es-ES",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "registro simple",
+      "titleAfter": "Grabadora de voz sencilla",
+      "characterCounts": {
+        "title": 25,
+        "shortDescription": 78,
+        "fullDescription": 2227
+      },
+      "sha256": {
+        "title": "a3a33428a04ed6b424bff2af823c62fad0b125e796ddc120b9f6853ab41f8a8b",
+        "shortDescription": "99d3c8b25b58445494a3bc336602a58324b9c860e3d761d30fc1c8dc08cb3339",
+        "fullDescription": "7f5375262ee80283217a414d51ae449c89fae938ded1eacb4e74c9525f2c98f0"
+      }
+    },
+    {
+      "language": "fr-FR",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "enregistrement simple",
+      "titleAfter": "Enregistreur vocal simple",
+      "characterCounts": {
+        "title": 25,
+        "shortDescription": 77,
+        "fullDescription": 2400
+      },
+      "sha256": {
+        "title": "57358e083a0ff938a03daddb9715041544f3cef432b637293baee67d630fca0f",
+        "shortDescription": "e07fbe2bd1702dcdad0d56faf3137f2252208bb76f8a0db3e0c064784dfc2c2e",
+        "fullDescription": "d7aaa710d17f6802725e6ba99e1e4e5a82fe013211b407a940b1f5dc5a657bb4"
+      }
+    },
+    {
+      "language": "hi-IN",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "सरल अभिलेख",
+      "titleAfter": "सरल वॉइस रिकॉर्डर",
+      "characterCounts": {
+        "title": 17,
+        "shortDescription": 77,
+        "fullDescription": 1821
+      },
+      "sha256": {
+        "title": "fb0be601926e7c401a67b8ef4cba5a60090ef05e858de4024707a7b9effb099e",
+        "shortDescription": "f0ff4ad0a9e2f29aabdd9cbbc8f9d691dbe76a5acfa2e77eba030c11726ebf0f",
+        "fullDescription": "483d450aa554f97713ed4630a4b9961c4d0a5c844302ac9caf00117c16e12193"
+      }
+    },
+    {
+      "language": "id",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "catatan sederhana",
+      "titleAfter": "Perekam Suara Sederhana",
+      "characterCounts": {
+        "title": 23,
+        "shortDescription": 71,
+        "fullDescription": 1906
+      },
+      "sha256": {
+        "title": "69baa21b1318da7d6a893c305451fdf0f875545b9aab52cdc51d86e6f4a52748",
+        "shortDescription": "f5985384922b58a62f37da65cdbc43233fd10c94f64eeb1d97d2f30f1ba47f23",
+        "fullDescription": "4d8f4fc6424663d8a191b22700bbb11241470496f564195a1cf2113b0fa935df"
+      }
+    },
+    {
+      "language": "it-IT",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "registrazione semplice",
+      "titleAfter": "Registratore vocale semplice",
+      "characterCounts": {
+        "title": 28,
+        "shortDescription": 73,
+        "fullDescription": 2225
+      },
+      "sha256": {
+        "title": "318e676155143532b225bae3fe53f9b555eb8439595c2b4d92592e0b8b1bbbaa",
+        "shortDescription": "32ab3740bb948f3ad0c94875bbd9ad7094ff02487c364bdd64198c7ac3c24c28",
+        "fullDescription": "45114d069f296837ab190cb4ddfebf961b63d3e119c1633c080b3a03131cbc4a"
+      }
+    },
+    {
+      "language": "ja-JP",
+      "fields": [
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "シンプル録音 - ボイスレコーダー・文字起こし",
+      "titleAfter": "シンプル録音 - ボイスレコーダー・文字起こし",
+      "characterCounts": {
+        "title": 23,
+        "shortDescription": 62,
+        "fullDescription": 898
+      },
+      "sha256": {
+        "title": "8a707286bf637b5c31c01a297584b43842404c1df2c31dea7636004bc2a87656",
+        "shortDescription": "7c306d834bf10c00d7a1852c739a08d4fb9d9fe8c916be315137909af8c2d949",
+        "fullDescription": "75f74940eebf362de7e00623ee27139e1ded33c1b1771e5eadb66ef3ce9e02c5"
+      }
+    },
+    {
+      "language": "ko-KR",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "간단한 기록",
+      "titleAfter": "심플 녹음기 - 음성 메모와 텍스트 변환",
+      "characterCounts": {
+        "title": 22,
+        "shortDescription": 57,
+        "fullDescription": 934
+      },
+      "sha256": {
+        "title": "a253404c49597bef5ac1549e7ae0555ce120194f9303367f4688d30939f15233",
+        "shortDescription": "999a32ca4d819b1889f3d6be8b4483108581afc3cbfd10cb2ad60e6b50764afe",
+        "fullDescription": "3d3e70c0133bbad01408f9335a846661b06f3b40e333617727d21cbfbcf07b6e"
+      }
+    },
+    {
+      "language": "pl-PL",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "prosty rekord",
+      "titleAfter": "Prosty dyktafon",
+      "characterCounts": {
+        "title": 15,
+        "shortDescription": 77,
+        "fullDescription": 1984
+      },
+      "sha256": {
+        "title": "979dcf4923f8d7d24cc7259592299e922bd2efcde409de7136eb6a578c82cfdc",
+        "shortDescription": "d1844d4aacf67885cd7d95fa135165a0310330154350c6f7165f84733ce99e4d",
+        "fullDescription": "fea9badd7c0c350018a326572941fd181fe8c9eb30a58fabe75e195c6593ebb1"
+      }
+    },
+    {
+      "language": "pt-BR",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "registro simples",
+      "titleAfter": "Gravador de voz simples",
+      "characterCounts": {
+        "title": 23,
+        "shortDescription": 72,
+        "fullDescription": 2066
+      },
+      "sha256": {
+        "title": "184828a05d6ee1c1e699af0173739b7cfd2bce59cf658a1be7ffbe3a122dc26c",
+        "shortDescription": "4a0665ba42ae12e5f9c6d51bcd8f84a729545f18c2e05cc9587391dcec12ad31",
+        "fullDescription": "d139030bb3e78592d5baf39d1e2ab9238eafce22bfa5ed3c6d8914371825e601"
+      }
+    },
+    {
+      "language": "th",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "บันทึกง่ายๆ",
+      "titleAfter": "บันทึกเสียงแบบง่าย",
+      "characterCounts": {
+        "title": 18,
+        "shortDescription": 67,
+        "fullDescription": 1523
+      },
+      "sha256": {
+        "title": "d8ec31f84031a728e41e36285de8251ab62e6eac145e3ef2e816c0b45141408b",
+        "shortDescription": "29c0df974f8a88fc74f3b3f2cd20e23f61737150417da35e004dcdd48a3f8784",
+        "fullDescription": "a0d380449f420a6e7bd26042240d1fb2f9d9651d09b85dde7dcc7e3c4f34e3c6"
+      }
+    },
+    {
+      "language": "tr-TR",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "basit kayıt",
+      "titleAfter": "Basit Ses Kaydedici",
+      "characterCounts": {
+        "title": 19,
+        "shortDescription": 80,
+        "fullDescription": 2034
+      },
+      "sha256": {
+        "title": "43cca1f8706fa2e5c79df8f679765f1a7f09fe1c080c3950cde637cba245c696",
+        "shortDescription": "42fb2dc9c559e02ac39a2bfe98489ddf7326c4b694f55bacbfd6b3d493258695",
+        "fullDescription": "d54386015055c3c2577be1a2c7e7c1231426cd6a9abd50bd4b13a40f57e2c8e0"
+      }
+    },
+    {
+      "language": "vi",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "hồ sơ đơn giản",
+      "titleAfter": "Máy ghi âm đơn giản",
+      "characterCounts": {
+        "title": 19,
+        "shortDescription": 72,
+        "fullDescription": 1845
+      },
+      "sha256": {
+        "title": "ae02941cfc2b26c9a4e678de4f3e633649abfad750f1fe4be917fed0ae8df2b8",
+        "shortDescription": "ec84d9f49228d0542e4be85f011f08686a8555c240b653aac5f650df9b0560b9",
+        "fullDescription": "e1d902918e62a0043ac6093cab15639eb2409b57a186bdc88ddad1f15ddaf1ba"
+      }
+    },
+    {
+      "language": "zh-CN",
+      "fields": [
+        "title",
+        "shortDescription",
+        "fullDescription"
+      ],
+      "titleBefore": "简单记录",
+      "titleAfter": "简单录音 - 录音机与语音转文字",
+      "characterCounts": {
+        "title": 16,
+        "shortDescription": 36,
+        "fullDescription": 601
+      },
+      "sha256": {
+        "title": "222a212636553af8c373a3700f7b088fe5111660c8e215d44816a52ab79c3743",
+        "shortDescription": "0befac4a5e5a313d5831ed8da225a507f38a781d8a9603bfd3673f7a315f657e",
+        "fullDescription": "a57698614a65bda7d44a3cdea54667d071fd7b90ed9d70a509eb7184e28625ef"
+      }
+    }
+  ],
+  "validation": {
+    "id": "04179482438062221497",
+    "expiryTimeSeconds": "1795106894"
+  },
+  "commit": {
+    "id": "04179482438062221497",
+    "expiryTimeSeconds": "1795106894"
+  },
+  "reviewStatus": "confirmed_in_play_console",
+  "persistedListingsVerified": true,
+  "releaseTracksUnchanged": true,
+  "productionVersionCodes": [
+    "20"
+  ],
+  "binaryUploaded": false,
+  "imagesChanged": false,
+  "changedLocaleCount": 17,
+  "observedDateJST": "2026-11-19",
+  "submissionStatus": "in_review_quick_checks_pending",
+  "consoleEvidence": {
+    "url": "https://play.google.com/console/u/0/developers/7726313475289665934/app/4972421843222814719/publishing",
+    "section": "審査中の変更",
+    "quickChecks": "一般的な問題のクイック チェックを実行する",
+    "changeType": "ストアの掲載情報",
+    "changedFieldsVerified": 49,
+    "managedPublishing": "off",
+    "lastPublishedDateDisplayed": "2026-11-08"
+  },
+  "publishedVerified": false,
+  "japaneseAndEnglishTitlesUnchanged": true,
+  "metadataValidation": {
+    "command": "launchpad android aso metadata-check --metadata-dir android/simpleRecord/fastlane/metadata/android",
+    "localeCount": 17,
+    "result": "passed",
+    "limits": {
+      "title": 30,
+      "shortDescription": 80,
+      "fullDescription": 4000
+    }
+  },
+  "measurement": {
+    "keywordSearchVolume": null,
+    "postPublicationConversionChange": null,
+    "compareAfterPublicationDays": [
+      7,
+      28
+    ]
+  },
+  "sources": [
+    "https://support.google.com/googleplay/android-developer/answer/13393723",
+    "https://support.google.com/googleplay/android-developer/answer/9866151",
+    "https://developers.google.com/android-publisher/api-ref/rest/v3/edits.listings/update",
+    "https://developers.google.com/android-publisher/api-ref/rest/v3/edits/commit"
+  ]
+}

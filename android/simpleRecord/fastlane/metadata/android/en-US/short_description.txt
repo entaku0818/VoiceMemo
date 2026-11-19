@@ -1,1 +1,1 @@
-Record meetings and lectures. Transcribe audio, replay voice memos and back up.
+Record meetings & lectures. AI transcription, A-B loop and Google Drive backup.
