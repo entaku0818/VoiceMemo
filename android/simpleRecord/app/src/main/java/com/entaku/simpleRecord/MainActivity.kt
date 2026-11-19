@@ -3,6 +3,8 @@ package com.entaku.simpleRecord
 import kotlinx.coroutines.flow.first
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -33,6 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.Lifecycle
 import com.entaku.simpleRecord.shortcut.ShortcutIntentHandler
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -107,6 +110,7 @@ val topLevelRoutes = listOf(
 
 class MainActivity : ComponentActivity() {
     private var showingAd = false
+    private var startupGeneration = 0
     private val pendingShortcut = mutableStateOf<String?>(null)
 
     // ホーム画面ショートカット「録音開始」から起動された場合にtrueになる (issue #204)。
@@ -115,15 +119,29 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AppOpenAdController.getInstance(this).incrementLaunchCount()
+        if (savedInstanceState == null) AppOpenAdController.getInstance(this).incrementLaunchCount()
         handleShortcutIntent(intent)
-        showSplashAndAd()
+        if (savedInstanceState != null || autoStartRecording.value) {
+            showApp()
+            // Start-recording shortcuts must not wait behind any full-screen form or ad.
+            AdConsentManager.getInstance(this).gatherConsent(this, showFormIfRequired = false)
+        } else {
+            showSplashAndAd()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        BillingRepository.getInstance(this).refreshPremiumStatus()
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
         handleShortcutIntent(intent)
+        if (autoStartRecording.value && showingAd &&
+            !AdConsentManager.getInstance(this).isPresentingConsentForm &&
+            !AppOpenAdController.getInstance(this).isShowingAd) showApp()
     }
 
     private fun handleShortcutIntent(intent: Intent?) {
@@ -143,12 +161,51 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun showSplashAndAd() {
+        val generation = ++startupGeneration
         showingAd = true
         setContent { SplashScreen() }
-        AppOpenAdController.getInstance(this).showAdIfNeeded(this) {
-            showingAd = false
-            setContent { AppNavHost(autoStartRecording = autoStartRecording, pendingShortcut = pendingShortcut) }
+        var premiumReady = false
+        var premiumRefreshSucceeded = false
+        var premiumDeadlineExpired = false
+        var consentReady = false
+        var didContinue = false
+        fun canPresentFullscreen(): Boolean = generation == startupGeneration &&
+            !autoStartRecording.value && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+        fun continueWhenReady() {
+            if (didContinue || generation != startupGeneration ||
+                !premiumReady || !consentReady || isFinishing || isDestroyed) return
+            didContinue = true
+            if (!premiumRefreshSucceeded || !canPresentFullscreen()) {
+                showApp()
+                return
+            }
+            AppOpenAdController.getInstance(this).showAdIfNeeded(
+                this,
+                skipForRecording = autoStartRecording.value,
+                canPresent = ::canPresentFullscreen
+            ) { if (generation == startupGeneration && !isFinishing && !isDestroyed) showApp() }
         }
+        BillingRepository.getInstance(this).refreshPremiumStatus { success ->
+            premiumRefreshSucceeded = success && !premiumDeadlineExpired
+            premiumReady = true
+            continueWhenReady()
+        }
+        // A failed or slow entitlement request must not hold startup indefinitely.
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (!premiumReady) premiumDeadlineExpired = true
+            premiumReady = true
+            continueWhenReady()
+        }, 2000L)
+        AdConsentManager.getInstance(this).gatherConsent(this, canPresentForm = ::canPresentFullscreen) {
+            consentReady = true
+            continueWhenReady()
+        }
+    }
+
+    private fun showApp() {
+        startupGeneration++
+        showingAd = false
+        setContent { AppNavHost(autoStartRecording = autoStartRecording, pendingShortcut = pendingShortcut) }
     }
 }
 

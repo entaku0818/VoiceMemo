@@ -56,6 +56,9 @@ class AppOpenAdController internal constructor(
     private var appOpenAd: AppOpenAd? = null
     private val pendingLoad = AppOpenAdLoadWaiters()
     private var loadTime: Long = 0
+    private var requestGeneration = 0
+    var isShowingAd = false
+        private set
 
     companion object {
         private val AD_UNIT_ID = BuildConfig.APP_OPEN_AD_UNIT_ID
@@ -86,9 +89,11 @@ class AppOpenAdController internal constructor(
         internal fun shouldAttemptShow(
             launchCount: Int,
             isPremium: Boolean,
-            displayInterval: Int = DISPLAY_INTERVAL
+            displayInterval: Int = DISPLAY_INTERVAL,
+            skipForRecording: Boolean = false,
+            canRequestAds: Boolean = true
         ): Boolean {
-            if (isPremium) return false
+            if (isPremium || skipForRecording || !canRequestAds) return false
             if (launchCount <= 0) return false
             return launchCount % displayInterval == 0
         }
@@ -106,7 +111,8 @@ class AppOpenAdController internal constructor(
             startLoad: (onLoaded: (Boolean) -> Unit) -> Unit,
             isAdReady: () -> Boolean,
             onPresent: () -> Unit,
-            onDismiss: () -> Unit
+            onDismiss: () -> Unit,
+            canPresent: () -> Boolean = { true }
         ) {
             var isSettled = false
 
@@ -121,7 +127,7 @@ class AppOpenAdController internal constructor(
                 if (isSettled) return@startLoad
                 isSettled = true
                 scheduler.removeCallbacks(giveUp)
-                if (loaded && isAdReady()) {
+                if (loaded && isAdReady() && canPresent()) {
                     onPresent()
                 } else {
                     onDismiss()
@@ -142,7 +148,8 @@ class AppOpenAdController internal constructor(
 
     fun loadAd(onAdLoaded: ((Boolean) -> Unit)? = null) {
         // プレミアムユーザーには広告を表示しないので、リクエスト自体を投げない
-        if (PremiumRepository.getInstance(context).isPremium.value) {
+        if (PremiumRepository.getInstance(context).isPremium.value ||
+            !AdConsentManager.getInstance(context).areAdsAllowed) {
             onAdLoaded?.invoke(false)
             return
         }
@@ -154,6 +161,7 @@ class AppOpenAdController internal constructor(
         // Join an in-flight preload instead of reporting a premature failure.
         if (!pendingLoad.begin(onAdLoaded)) return
         appOpenAd = null
+        val generation = requestGeneration
         val request = AdRequest.Builder().build()
         AppOpenAd.load(
             context,
@@ -161,24 +169,38 @@ class AppOpenAdController internal constructor(
             request,
             object : AppOpenAd.AppOpenAdLoadCallback() {
                 override fun onAdLoaded(ad: AppOpenAd) {
+                    if (generation != requestGeneration) return
+                    if (!AdConsentManager.getInstance(context).areAdsAllowed ||
+                        PremiumRepository.getInstance(context).isPremium.value) {
+                        pendingLoad.finish(false)
+                        return
+                    }
                     appOpenAd = ad
                     loadTime = Date().time
                     pendingLoad.finish(true)
                 }
 
                 override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                    if (generation != requestGeneration) return
                     pendingLoad.finish(false)
                 }
             }
         )
     }
 
-    fun showAdIfNeeded(activity: Activity, onAdDismissed: () -> Unit) {
+    fun showAdIfNeeded(
+        activity: Activity,
+        skipForRecording: Boolean = false,
+        canPresent: () -> Boolean = { true },
+        onAdDismissed: () -> Unit
+    ) {
         val isPremium = PremiumRepository.getInstance(context).isPremium.value
+        val canRequestAds = AdConsentManager.getInstance(context).areAdsAllowed
 
-        if (!shouldAttemptShow(getLaunchCount(), isPremium)) {
+        if (!canPresent() || !shouldAttemptShow(getLaunchCount(), isPremium,
+                skipForRecording = skipForRecording, canRequestAds = canRequestAds)) {
             // 表示しない起動回でも、次回に備えてロードは仕込んでおく（プレミアムを除く）。
-            if (!isPremium) loadAd()
+            if (!isPremium && canRequestAds && !skipForRecording) loadAd()
             onAdDismissed()
             return
         }
@@ -189,44 +211,59 @@ class AppOpenAdController internal constructor(
             // App Open 広告の取得には通常1〜2秒かかるため、コールドスタートでは
             // ほぼ確実に間に合っていなかった（表示率0.2%の主因）。
             // iOS の SplashView と同じく、上限付きでロードを待つ。
-            waitForAdThenShow(activity, onAdDismissed)
+            waitForAdThenShow(activity, canPresent, onAdDismissed)
             return
         }
 
-        presentAd(activity, onAdDismissed)
+        presentAd(activity, canPresent, onAdDismissed)
     }
 
     // ロード完了を待ってから表示する。AD_LOAD_TIMEOUT_MS を過ぎたら諦めて本編へ進む。
     // スプラッシュ表示中に呼ばれるので、待っている間もユーザーには通常の起動画面が出ている。
-    private fun waitForAdThenShow(activity: Activity, onAdDismissed: () -> Unit) {
+    private fun waitForAdThenShow(activity: Activity, canPresent: () -> Boolean, onAdDismissed: () -> Unit) {
         awaitAdThenSettle(
             scheduler = HandlerScheduler(Looper.getMainLooper()),
             timeoutMs = AD_LOAD_TIMEOUT_MS,
             startLoad = { onLoaded -> loadAd(onLoaded) },
             isAdReady = { isAdAvailable },
-            onPresent = { presentAd(activity, onAdDismissed) },
-            onDismiss = onAdDismissed
+            onPresent = { presentAd(activity, canPresent, onAdDismissed) },
+            onDismiss = onAdDismissed,
+            canPresent = canPresent
         )
     }
 
-    private fun presentAd(activity: Activity, onAdDismissed: () -> Unit) {
+    private fun presentAd(activity: Activity, canPresent: () -> Boolean, onAdDismissed: () -> Unit) {
+        if (!canPresent() || !AdConsentManager.getInstance(context).areAdsAllowed ||
+            PremiumRepository.getInstance(context).isPremium.value || activity.isFinishing || activity.isDestroyed) {
+            clearAd()
+            onAdDismissed()
+            return
+        }
         appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
+                isShowingAd = false
                 appOpenAd = null
                 loadAd()
                 onAdDismissed()
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                isShowingAd = false
                 appOpenAd = null
                 loadAd()
                 onAdDismissed()
             }
 
-            override fun onAdShowedFullScreenContent() {}
+            override fun onAdShowedFullScreenContent() { isShowingAd = true }
         }
 
         appOpenAd?.show(activity)
+    }
+
+    fun clearAd() {
+        requestGeneration++
+        appOpenAd = null
+        pendingLoad.finish(false)
     }
 
     fun incrementLaunchCount() {

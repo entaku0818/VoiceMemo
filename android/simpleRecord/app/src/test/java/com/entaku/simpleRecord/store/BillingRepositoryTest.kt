@@ -44,6 +44,41 @@ class BillingRepositoryTest {
         context = ApplicationProvider.getApplicationContext()
         fakePurchasesClient = FakePurchasesClient()
         repository = BillingRepository(context, fakePurchasesClient)
+        PremiumRepository.getInstance(context).setPremium(false)
+    }
+
+    @Test
+    fun `premium refresh works without opening the paywall and updates expiration`() {
+        fakePurchasesClient.customerInfoResult = CustomerInfoResult.Premium
+        repository.refreshPremiumStatus()
+        assertTrue(PremiumRepository.getInstance(context).isPremium.value)
+        fakePurchasesClient.customerInfoResult = CustomerInfoResult.NotPremium
+        repository.refreshPremiumStatus()
+        assertFalse(PremiumRepository.getInstance(context).isPremium.value)
+    }
+
+    @Test
+    fun `failed premium refresh preserves saved entitlement and completes startup`() {
+        PremiumRepository.getInstance(context).setPremium(true)
+        fakePurchasesClient.customerInfoResult = CustomerInfoResult.Failure("offline")
+        var completed = false
+        repository.refreshPremiumStatus { success ->
+            assertFalse(success)
+            completed = true
+        }
+        assertTrue(PremiumRepository.getInstance(context).isPremium.value)
+        assertTrue(completed)
+    }
+
+    @Test
+    fun `overlapping startup and foreground refresh share one request`() {
+        fakePurchasesClient.deferCustomerInfo = true
+        var completed = 0
+        repository.refreshPremiumStatus { completed++ }
+        repository.refreshPremiumStatus { completed++ }
+        assertEquals(1, fakePurchasesClient.customerInfoRequests)
+        fakePurchasesClient.pendingCustomerInfo?.onError(PurchasesError(PurchasesErrorCode.UnknownError))
+        assertEquals(2, completed)
     }
 
     @Test
@@ -276,6 +311,9 @@ fun fakeRcPackage(type: PackageType, productId: String, formattedPrice: String):
 // --- Fake PurchasesClient ---
 
 class FakePurchasesClient : PurchasesClient {
+    var customerInfoRequests = 0
+    var deferCustomerInfo = false
+    var pendingCustomerInfo: ReceiveCustomerInfoCallback? = null
     var offeringsResult: OfferingsResult = OfferingsResult.Success(emptyList())
     var customerInfoResult: CustomerInfoResult = CustomerInfoResult.NotPremium
     var restoreResult: CustomerInfoResult = CustomerInfoResult.NotPremium
@@ -300,6 +338,11 @@ class FakePurchasesClient : PurchasesClient {
     }
 
     override fun getCustomerInfo(callback: ReceiveCustomerInfoCallback) {
+        customerInfoRequests++
+        if (deferCustomerInfo) {
+            pendingCustomerInfo = callback
+            return
+        }
         when (val result = customerInfoResult) {
             is CustomerInfoResult.Premium -> callback.onReceived(fakePremiumCustomerInfo())
             is CustomerInfoResult.NotPremium -> callback.onReceived(fakeNonPremiumCustomerInfo())

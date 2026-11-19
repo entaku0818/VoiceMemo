@@ -12,6 +12,13 @@ import org.junit.Test
  */
 class AppOpenAdControllerTest {
 
+    @Test
+    fun `recording shortcut and missing consent skip even a fifth launch`() {
+        assertFalse(AppOpenAdController.shouldAttemptShow(5, false, skipForRecording = true))
+        assertFalse(AppOpenAdController.shouldAttemptShow(5, false, canRequestAds = false))
+        assertTrue(AppOpenAdController.shouldAttemptShow(5, false, canRequestAds = true))
+    }
+
     // ---- 1. 表示可否の純粋関数 shouldAttemptShow ----
 
     @Test
@@ -67,6 +74,27 @@ class AppOpenAdControllerTest {
         fun fireTimeout() {
             scheduled?.run()
         }
+    }
+
+    @Test
+    fun `recording request or background transition during ad load prevents presentation`() {
+        var loaded: ((Boolean) -> Unit)? = null
+        var mayPresent = true
+        var presented = 0
+        var dismissed = 0
+        AppOpenAdController.awaitAdThenSettle(
+            scheduler = FakeScheduler(),
+            timeoutMs = 3000L,
+            startLoad = { loaded = it },
+            isAdReady = { true },
+            onPresent = { presented++ },
+            onDismiss = { dismissed++ },
+            canPresent = { mayPresent }
+        )
+        mayPresent = false
+        loaded?.invoke(true)
+        assertEquals(0, presented)
+        assertEquals(1, dismissed)
     }
 
     @Test

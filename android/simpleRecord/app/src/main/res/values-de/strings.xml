@@ -266,4 +266,6 @@
     <string name="local_summary_try">Lokale Zusammenfassung testen</string>
     <string name="local_summary_unavailable">Lokale Zusammenfassung für dieses Gerät, Modell oder diese Sprache nicht verfügbar.</string>
     <string name="local_summary_failed">Lokale Zusammenfassung fehlgeschlagen. Modell und Textlänge prüfen (mindestens 400 Zeichen, unter 4000 Token). Keine Cloud-Übertragung.</string>
+    <string name="ad_privacy_options">Datenschutzeinstellungen für Werbung</string>
+    <string name="ad_privacy_options_error">Die Datenschutzeinstellungen konnten nicht geöffnet werden. Bitte versuche es erneut.</string>
 </resources>

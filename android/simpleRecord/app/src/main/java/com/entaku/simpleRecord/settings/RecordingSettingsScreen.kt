@@ -1,6 +1,10 @@
 package com.entaku.simpleRecord.settings
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.media.MediaRecorder
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,9 +48,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.collectAsState
 import com.entaku.simpleRecord.BannerAdView
+import com.entaku.simpleRecord.AdConsentManager
 import com.entaku.simpleRecord.BuildConfig
 import com.entaku.simpleRecord.R
 import com.entaku.simpleRecord.store.PremiumRepository
+
+private tailrec fun Context.findActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,6 +73,10 @@ fun RecordingSettingsScreen(
     var settings by remember { mutableStateOf(currentSettings) }
     val context = androidx.compose.ui.platform.LocalContext.current
     val isPremium by PremiumRepository.getInstance(context).isPremium.collectAsState()
+    val consentManager = remember(context) { AdConsentManager.getInstance(context) }
+    val privacyOptionsRequired by consentManager.privacyOptionsRequired.collectAsState()
+    val activity = remember(context) { context.findActivity() }
+    var showingPrivacyOptions by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -91,6 +106,20 @@ fun RecordingSettingsScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            if (privacyOptionsRequired && activity != null) {
+                Button(
+                    enabled = !showingPrivacyOptions,
+                    onClick = {
+                        showingPrivacyOptions = true
+                        consentManager.showPrivacyOptions(activity) { error ->
+                            showingPrivacyOptions = false
+                            if (error != null) {
+                                Toast.makeText(context, R.string.ad_privacy_options_error, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                ) { Text(stringResource(R.string.ad_privacy_options)) }
+            }
             var permissionsReset by remember { mutableStateOf(false) }
             Button(onClick = {
                 com.entaku.simpleRecord.transcription.AISharingConsent.reset()

@@ -282,4 +282,6 @@
     <string name="local_summary_try">Try on-device summary</string>
     <string name="local_summary_unavailable">On-device summary is unavailable for this device, model or language.</string>
     <string name="local_summary_failed">Could not summarize locally. Check model readiness and input length (400+ characters, under 4000 tokens). Nothing was sent to the cloud.</string>
+    <string name="ad_privacy_options">Ad privacy options</string>
+    <string name="ad_privacy_options_error">Unable to open privacy options. Please try again.</string>
 </resources>

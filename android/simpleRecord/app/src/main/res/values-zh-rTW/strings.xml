@@ -266,4 +266,6 @@
     <string name="local_summary_try">試用裝置端摘要</string>
     <string name="local_summary_unavailable">此裝置、模型或語言不支援裝置端摘要。</string>
     <string name="local_summary_failed">裝置端摘要失敗。請檢查模型與文字長度（至少400字元，少於4000個token）。未向雲端傳送資料。</string>
+    <string name="ad_privacy_options">廣告隱私設定</string>
+    <string name="ad_privacy_options_error">無法開啟隱私設定。請再試一次。</string>
 </resources>

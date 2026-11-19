@@ -266,4 +266,6 @@
     <string name="local_summary_try">Проверить локальную сводку</string>
     <string name="local_summary_unavailable">Локальная сводка недоступна для этого устройства, модели или языка.</string>
     <string name="local_summary_failed">Ошибка локальной сводки. Проверьте модель и длину текста (от 400 символов, менее 4000 токенов). Данные не отправлялись в облако.</string>
+    <string name="ad_privacy_options">Конфиденциальность рекламы</string>
+    <string name="ad_privacy_options_error">Не удалось открыть настройки конфиденциальности. Повторите попытку.</string>
 </resources>

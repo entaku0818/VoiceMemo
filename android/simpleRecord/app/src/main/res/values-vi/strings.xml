@@ -266,4 +266,6 @@
     <string name="local_summary_try">Thử tóm tắt trên thiết bị</string>
     <string name="local_summary_unavailable">Thiết bị, mô hình hoặc ngôn ngữ này không hỗ trợ tóm tắt trên thiết bị.</string>
     <string name="local_summary_failed">Tóm tắt thất bại. Kiểm tra mô hình và độ dài (ít nhất 400 ký tự, dưới 4000 token). Không gửi dữ liệu lên đám mây.</string>
+    <string name="ad_privacy_options">Tùy chọn quyền riêng tư quảng cáo</string>
+    <string name="ad_privacy_options_error">Không thể mở tùy chọn quyền riêng tư. Vui lòng thử lại.</string>
 </resources>

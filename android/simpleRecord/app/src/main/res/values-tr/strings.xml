@@ -266,4 +266,6 @@
     <string name="local_summary_try">Cihazda özeti dene</string>
     <string name="local_summary_unavailable">Bu cihaz, model veya dil için cihazda özet kullanılamıyor.</string>
     <string name="local_summary_failed">Cihazda özet başarısız. Modeli ve metin uzunluğunu kontrol edin (en az 400 karakter, 4000 tokendan az). Buluta veri gönderilmedi.</string>
+    <string name="ad_privacy_options">Reklam gizliliği seçenekleri</string>
+    <string name="ad_privacy_options_error">Gizlilik seçenekleri açılamadı. Lütfen tekrar deneyin.</string>
 </resources>

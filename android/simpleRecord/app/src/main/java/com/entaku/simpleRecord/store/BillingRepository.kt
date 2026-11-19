@@ -49,11 +49,13 @@ class BillingRepository internal constructor(
     val billingState: StateFlow<BillingState> = _billingState.asStateFlow()
 
     @Volatile private var connected = false
+    private var refreshingPremium = false
+    private val premiumRefreshWaiters = mutableListOf<(Boolean) -> Unit>()
 
     fun connect() {
         connected = true
         fetchOfferings()
-        restoreCustomerInfo()
+        refreshPremiumStatus()
     }
 
     fun disconnect() {
@@ -90,18 +92,29 @@ class BillingRepository internal constructor(
         })
     }
 
-    private fun restoreCustomerInfo() {
+    /** Refresh independently of the paywall; retain the saved entitlement if the request fails. */
+    fun refreshPremiumStatus(completion: (Boolean) -> Unit = {}) {
+        premiumRefreshWaiters.add(completion)
+        if (refreshingPremium) return
+        refreshingPremium = true
         purchasesClient.getCustomerInfo(object : ReceiveCustomerInfoCallback {
             override fun onReceived(customerInfo: CustomerInfo) {
-                if (!connected) return
                 updatePremiumStatus(customerInfo)
+                finishPremiumRefresh(success = true)
             }
 
             override fun onError(error: PurchasesError) {
-                if (!connected) return
                 Log.w(TAG, "Could not fetch customer info: ${error.message}")
+                finishPremiumRefresh(success = false)
             }
         })
+    }
+
+    private fun finishPremiumRefresh(success: Boolean) {
+        refreshingPremium = false
+        val waiters = premiumRefreshWaiters.toList()
+        premiumRefreshWaiters.clear()
+        waiters.forEach { it(success) }
     }
 
     fun launchPurchaseFlow(activity: Activity, product: PremiumProduct) {
@@ -141,7 +154,7 @@ class BillingRepository internal constructor(
         })
     }
 
-    private fun updatePremiumStatus(customerInfo: CustomerInfo) {
+    internal fun updatePremiumStatus(customerInfo: CustomerInfo) {
         val isPremium = customerInfo.entitlements[PREMIUM_ENTITLEMENT_KEY]?.isActive == true
         premiumRepository.setPremium(isPremium)
     }

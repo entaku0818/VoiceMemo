@@ -31,7 +31,7 @@ if (admobPropertiesFile.exists()) {
 val googleTestAdPublisherId = "ca-app-pub-3940256099942544"
 val admobAppId = admobProperties.getProperty("ADMOB_APP_ID", "$googleTestAdPublisherId~3347511713")
 val appOpenAdUnitId = admobProperties.getProperty("APP_OPEN_AD_UNIT_ID", "$googleTestAdPublisherId/9257395921")
-val bannerAdUnitId = admobProperties.getProperty("BANNER_AD_UNIT_ID", "$googleTestAdPublisherId/6300978111")
+val bannerAdUnitId = admobProperties.getProperty("BANNER_AD_UNIT_ID", "$googleTestAdPublisherId/9214589741")
 val rewardedAdUnitId = admobProperties.getProperty("REWARDED_AD_UNIT_ID", "$googleTestAdPublisherId/5224354917")
 
 val revenuecatPropertiesFile = rootProject.file("app-keys/revenuecat.properties")
@@ -78,6 +78,13 @@ android {
     }
 
     buildTypes {
+        debug {
+            // ローカルに本番IDがあっても、開発中は必ずGoogle公式のテスト広告を使う。
+            manifestPlaceholders["ADMOB_APP_ID"] = "$googleTestAdPublisherId~3347511713"
+            buildConfigField("String", "APP_OPEN_AD_UNIT_ID", "\"$googleTestAdPublisherId/9257395921\"")
+            buildConfigField("String", "BANNER_AD_UNIT_ID", "\"$googleTestAdPublisherId/9214589741\"")
+            buildConfigField("String", "REWARDED_AD_UNIT_ID", "\"$googleTestAdPublisherId/5224354917\"")
+        }
         release {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
@@ -182,6 +189,7 @@ dependencies {
 
     // Google Mobile Ads
     implementation("com.google.android.gms:play-services-ads:25.4.0")
+    implementation("com.google.android.ump:user-messaging-platform:4.0.0")
 
     // RevenueCat (bundles/manages the Google Play Billing Library dependency transitively)
     implementation("com.revenuecat.purchases:purchases:10.14.1")

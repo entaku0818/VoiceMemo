@@ -266,4 +266,6 @@
     <string name="local_summary_try">Prova riepilogo locale</string>
     <string name="local_summary_unavailable">Riepilogo locale non disponibile per questo dispositivo, modello o lingua.</string>
     <string name="local_summary_failed">Riepilogo locale non riuscito. Controlla modello e lunghezza (almeno 400 caratteri, meno di 4000 token). Nessun invio al cloud.</string>
+    <string name="ad_privacy_options">Privacy degli annunci</string>
+    <string name="ad_privacy_options_error">Impossibile aprire le opzioni sulla privacy. Riprova.</string>
 </resources>

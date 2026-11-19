@@ -266,4 +266,6 @@
     <string name="local_summary_try">Probar resumen local</string>
     <string name="local_summary_unavailable">Resumen local no disponible para este dispositivo, modelo o idioma.</string>
     <string name="local_summary_failed">Error al resumir localmente. Comprueba el modelo y la longitud (400 caracteres como mínimo, menos de 4000 tokens). No se envió nada a la nube.</string>
+    <string name="ad_privacy_options">Opciones de privacidad de anuncios</string>
+    <string name="ad_privacy_options_error">No se pudieron abrir las opciones de privacidad. Inténtalo de nuevo.</string>
 </resources>

@@ -266,4 +266,6 @@
     <string name="local_summary_try">Essayer le résumé local</string>
     <string name="local_summary_unavailable">Résumé local indisponible pour cet appareil, ce modèle ou cette langue.</string>
     <string name="local_summary_failed">Échec du résumé local. Vérifiez le modèle et la longueur (400 caractères minimum, moins de 4000 tokens). Rien n’a été envoyé au cloud.</string>
+    <string name="ad_privacy_options">Confidentialité des annonces</string>
+    <string name="ad_privacy_options_error">Impossible d’ouvrir les options de confidentialité. Réessayez.</string>
 </resources>

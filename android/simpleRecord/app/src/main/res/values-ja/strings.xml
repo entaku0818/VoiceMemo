@@ -260,4 +260,6 @@
     <string name="local_summary_try">端末内要約を試す</string>
     <string name="local_summary_unavailable">この端末・モデル・言語では端末内要約を利用できません。</string>
     <string name="local_summary_failed">端末内要約に失敗しました。モデルの準備状態と入力長（400文字以上、4000トークン未満）を確認してください。クラウドには送信していません。</string>
+    <string name="ad_privacy_options">広告のプライバシー設定</string>
+    <string name="ad_privacy_options_error">プライバシー設定を開けませんでした。もう一度お試しください。</string>
 </resources>

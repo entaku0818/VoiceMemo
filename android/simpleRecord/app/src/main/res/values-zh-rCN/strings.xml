@@ -266,4 +266,6 @@
     <string name="local_summary_try">试用设备端摘要</string>
     <string name="local_summary_unavailable">此设备、模型或语言不支持设备端摘要。</string>
     <string name="local_summary_failed">设备端摘要失败。请检查模型和文本长度（至少400字符，少于4000个token）。未向云端发送数据。</string>
+    <string name="ad_privacy_options">广告隐私设置</string>
+    <string name="ad_privacy_options_error">无法打开隐私设置。请重试。</string>
 </resources>
