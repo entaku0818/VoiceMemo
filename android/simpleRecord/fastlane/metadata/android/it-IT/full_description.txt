@@ -1,0 +1,33 @@
+Registra una riunione, riascolta una lezione o salva un’idea prima di dimenticarla. Registratore vocale semplice ti aiuta a organizzare le registrazioni audio e a trasformare la voce registrata in testo con la trascrizione tramite IA.
+
+REGISTRA CON UN TOCCO
+Avvia la registrazione dalla schermata di registrazione. Puoi registrare in background mentre usi altre app.
+
+TRASFORMA L’AUDIO IN TESTO
+Carica una registrazione salvata per trascriverla con l’IA. Rivedi le risposte di un’intervista, rileggi le note vocali e condividi il testo ottenuto.
+
+CREA NOTE DELLE RIUNIONI
+La funzione premium per le note delle riunioni con IA genera un riepilogo e attività da svolgere a partire dalla trascrizione, per aiutarti a rivedere le decisioni e i passi successivi.
+
+ASCOLTA E ORGANIZZA
+• Regola la velocità di riproduzione per riascoltare al tuo ritmo.
+• Ripeti una registrazione o un passaggio con il loop A-B, per esercitarti con le lingue o ascoltare più attentamente.
+• Raggruppa le registrazioni correlate in playlist.
+• Condividi i file audio con altre app.
+
+RITAGLIA E DIVIDI LE REGISTRAZIONI AAC
+Seleziona una parte di una registrazione AAC oppure dividila in due file nel punto desiderato. La registrazione originale viene conservata. Queste funzioni di modifica supportano le registrazioni AAC.
+
+ESEGUI IL BACKUP SU GOOGLE DRIVE
+Accedi con il tuo account Google per eseguire il backup e ripristinare le registrazioni con Google Drive. Il backup e il ripristino vengono avviati manualmente dall’app.
+
+PER LE TUE ATTIVITÀ
+• Riunioni e conversazioni di lavoro
+• Lezioni e appunti di studio
+• Interviste e ricerche
+• Esercizi di ascolto e pronuncia
+• Idee e note vocali quotidiane
+
+INFORMAZIONI SULLE FUNZIONI IA
+La trascrizione e le note delle riunioni con IA richiedono una connessione Internet. L’app chiede il tuo consenso prima di inviare l’audio o il contenuto della trascrizione per l’elaborazione. I risultati possono contenere errori in base alla qualità dell’audio e al modo di parlare. Verifica i dettagli importanti confrontandoli con la registrazione originale.
+Le note delle riunioni con IA richiedono l’accesso premium a pagamento. Consulta le opzioni di acquisto disponibili, i prezzi e le condizioni nell’app.

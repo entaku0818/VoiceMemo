@@ -1,0 +1,33 @@
+Graba una reunión, vuelve a escuchar una clase o guarda una idea antes de olvidarla. Grabadora de voz sencilla te ayuda a organizar tus grabaciones y convertir la voz grabada en texto con la transcripción por IA.
+
+GRABA CON UN TOQUE
+Inicia la grabación desde la pantalla de grabación. Puedes grabar en segundo plano mientras utilizas otras aplicaciones.
+
+CONVIERTE EL AUDIO EN TEXTO
+Sube una grabación guardada para transcribirla con IA. Revisa las respuestas de una entrevista, lee tus notas de voz y comparte el texto resultante.
+
+CREA NOTAS DE REUNIONES
+La función prémium de notas de reuniones con IA genera un resumen y tareas pendientes a partir de la transcripción, para ayudarte a repasar las decisiones y los siguientes pasos.
+
+ESCUCHA Y ORGANIZA
+• Ajusta la velocidad de reproducción para escuchar a tu ritmo.
+• Repite una grabación o un fragmento con el bucle A-B para practicar idiomas o revisar un pasaje.
+• Agrupa grabaciones relacionadas en listas de reproducción.
+• Comparte archivos de audio con otras aplicaciones.
+
+RECORTA Y DIVIDE GRABACIONES AAC
+Selecciona un fragmento de una grabación AAC o divídela en dos archivos en el punto que elijas. La grabación original se conserva. Estas funciones de edición son compatibles con grabaciones AAC.
+
+COPIAS DE SEGURIDAD EN GOOGLE DRIVE
+Inicia sesión con tu cuenta de Google para hacer copias de seguridad y restaurar tus grabaciones con Google Drive. Las copias de seguridad y la restauración se inician manualmente desde la aplicación.
+
+ÚSALA PARA
+• Reuniones y conversaciones de trabajo
+• Clases y apuntes de estudio
+• Entrevistas e investigación
+• Práctica de comprensión oral y pronunciación
+• Ideas y notas de voz del día a día
+
+SOBRE LAS FUNCIONES DE IA
+La transcripción y las notas de reuniones con IA requieren conexión a Internet. La aplicación solicita tu consentimiento antes de enviar audio o contenido de la transcripción para su procesamiento. Los resultados pueden contener errores según la calidad del audio y la forma de hablar. Comprueba los detalles importantes con la grabación original.
+Las notas de reuniones con IA requieren acceso prémium de pago. Consulta las opciones de compra disponibles, los precios y las condiciones en la aplicación.

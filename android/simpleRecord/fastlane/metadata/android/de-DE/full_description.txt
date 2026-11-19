@@ -1,0 +1,33 @@
+Ein Meeting festhalten, eine Vorlesung nachhören oder eine Idee sichern, bevor sie verloren geht: Mit dieser Sprachrekorder-App können Sie Sprachaufnahmen organisieren und aufgezeichnete Sprache per KI in Text umwandeln.
+
+MIT EINEM TIPP AUFNEHMEN
+Starten Sie die Aufnahme auf dem Aufnahmebildschirm. Dank Hintergrundaufnahme können Sie Ton aufzeichnen, während Sie andere Apps verwenden.
+
+AUDIO IN TEXT UMWANDELN
+Laden Sie eine gespeicherte Aufnahme zur KI-Transkription hoch. Lesen Sie Interviewantworten und Sprachnotizen nach und teilen Sie den erstellten Text.
+
+BESPRECHUNGSNOTIZEN ERSTELLEN
+Die Premium-Funktion für KI-Besprechungsnotizen erstellt aus Ihrem Transkript eine Zusammenfassung und Aufgaben. So können Sie Entscheidungen und nächste Schritte nach einem Meeting leichter nachvollziehen.
+
+ANHÖREN UND ORGANISIEREN
+• Passen Sie die Wiedergabegeschwindigkeit an Ihr Tempo an.
+• Wiederholen Sie eine Aufnahme oder einen ausgewählten Abschnitt mit der A-B-Schleife, etwa zum Sprachenlernen.
+• Fassen Sie zusammengehörige Aufnahmen in Wiedergabelisten zusammen.
+• Teilen Sie Audiodateien mit anderen Apps.
+
+AAC-AUFNAHMEN SCHNEIDEN UND TEILEN
+Wählen Sie einen Ausschnitt einer AAC-Aufnahme aus oder teilen Sie die Aufnahme an einer gewünschten Stelle in zwei Dateien. Die Originalaufnahme bleibt erhalten. Diese Bearbeitungsfunktionen unterstützen AAC-Aufnahmen.
+
+IN GOOGLE DRIVE SICHERN
+Melden Sie sich mit Ihrem Google-Konto an, um Aufnahmen in Google Drive zu sichern und wiederherzustellen. Sie starten Sicherungen und Wiederherstellungen manuell in der App.
+
+GEEIGNET FÜR
+• Meetings und Arbeitsbesprechungen
+• Vorlesungen und Lernnotizen
+• Interviews und Recherchen
+• Hörverständnis und Ausspracheübungen
+• Ideen und alltägliche Sprachnotizen
+
+ZU DEN KI-FUNKTIONEN
+KI-Transkription und KI-Besprechungsnotizen benötigen eine Internetverbindung. Die App fragt nach Ihrer Zustimmung, bevor Audio oder Transkriptinhalte zur Verarbeitung gesendet werden. Je nach Tonqualität und Sprechweise können die Ergebnisse Fehler enthalten. Prüfen Sie wichtige Angaben anhand der Originalaufnahme.
+KI-Besprechungsnotizen sind eine kostenpflichtige Premium-Funktion. Verfügbare Kaufoptionen, Preise und Bedingungen finden Sie in der App.

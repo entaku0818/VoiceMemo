@@ -1,0 +1,33 @@
+Nagraj spotkanie, wróć do wykładu lub zapisz pomysł, zanim go zapomnisz. Prosty dyktafon pomaga porządkować nagrania audio i zamieniać nagraną mowę na tekst dzięki transkrypcji z AI.
+
+NAGRYWAJ JEDNYM DOTKNIĘCIEM
+Rozpocznij nagrywanie na ekranie nagrywania. Nagrywanie w tle pozwala rejestrować dźwięk podczas korzystania z innych aplikacji.
+
+ZAMIENIAJ DŹWIĘK NA TEKST
+Prześlij zapisane nagranie, aby uzyskać transkrypcję z AI. Sprawdzaj odpowiedzi z wywiadów, czytaj notatki głosowe i udostępniaj otrzymany tekst.
+
+TWÓRZ NOTATKI ZE SPOTKAŃ
+Funkcja notatek ze spotkań z AI w wersji premium tworzy podsumowanie i zadania na podstawie transkrypcji, pomagając wrócić do ustaleń i kolejnych kroków.
+
+SŁUCHAJ I PORZĄDKUJ
+• Dostosuj szybkość odtwarzania do własnego tempa.
+• Powtarzaj całe nagranie lub wybrany fragment w pętli A-B, aby ćwiczyć języki lub uważniej odsłuchać wypowiedź.
+• Grupuj powiązane nagrania w listy odtwarzania.
+• Udostępniaj pliki audio innym aplikacjom.
+
+PRZYCINAJ I DZIEL NAGRANIA AAC
+Wybierz fragment nagrania AAC lub podziel je na dwa pliki w wybranym miejscu. Oryginalne nagranie zostaje zachowane. Te funkcje edycji obsługują nagrania AAC.
+
+KOPIE ZAPASOWE W GOOGLE DRIVE
+Zaloguj się na konto Google, aby tworzyć kopie zapasowe i przywracać nagrania za pomocą Google Drive. Tworzenie kopii zapasowej i przywracanie uruchamiasz ręcznie w aplikacji.
+
+PRZYDATNY DO
+• Spotkań i rozmów służbowych
+• Wykładów i notatek z nauki
+• Wywiadów i badań
+• Ćwiczeń rozumienia ze słuchu i wymowy
+• Pomysłów i codziennych notatek głosowych
+
+O FUNKCJACH AI
+Transkrypcja i notatki ze spotkań z AI wymagają połączenia z Internetem. Aplikacja prosi o zgodę przed wysłaniem nagrania lub treści transkrypcji do przetworzenia. Wyniki mogą zawierać błędy zależnie od jakości dźwięku i sposobu mówienia. Sprawdź ważne szczegóły, porównując je z oryginalnym nagraniem.
+Notatki ze spotkań z AI wymagają płatnego dostępu premium. Dostępne opcje zakupu, ceny i warunki znajdziesz w aplikacji.
