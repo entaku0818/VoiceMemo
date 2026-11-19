@@ -1,6 +1,828 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "広告を視聴して文字起こし" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخ الصوت بمشاهدة إعلان"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বিজ্ঞাপন দেখে প্রতিলিপি করুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcriu mirant un anunci"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přepis za zhlédnutí reklamy"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transskriber ved at se en annonce"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Werbung ansehen und transkribieren"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Απομαγνητοφώνηση με προβολή διαφήμισης"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcribe by watching an ad"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcribir viendo un anuncio"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Litteroi katsomalla mainos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcrire en regardant une publicité"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "જાહેરાત જોઈને ટ્રાન્સક્રિપ્શન કરો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תמלול באמצעות צפייה בפרסומת"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "विज्ञापन देखकर ट्रांसक्रिप्शन करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripcija gledanjem oglasa"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Átírás hirdetés megtekintésével"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsi dengan menonton iklan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trascrivi guardando un annuncio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "広告を視聴して文字起こし"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಜಾಹೀರಾತು ನೋಡಿ ಲಿಪ್ಯಂತರಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "광고를 보고 텍스트로 변환"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പരസ്യം കണ്ട് ലിപ്യന്തരണം ചെയ്യുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाहिरात पाहून प्रतिलेखन करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkripsi dengan menonton iklan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkriber ved å se en annonse"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcriberen door een advertentie te bekijken"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ବିଜ୍ଞାପନ ଦେଖି ଲିପ୍ୟନ୍ତର କରନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇਸ਼ਤਿਹਾਰ ਦੇਖ ਕੇ ਲਿਪੀਅੰਤਰਨ ਕਰੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkrypcja za obejrzenie reklamy"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcreva assistindo a um anúncio"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcrever ao ver um anúncio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcriere prin vizionarea unei reclame"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Транскрипция за просмотр рекламы"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepis za pozretie reklamy"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepis z ogledom oglasa"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transkribera genom att se en annons"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விளம்பரம் பார்த்து உரையாக்கவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ప్రకటన చూసి లిప్యంతరీకరించండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ถอดเสียงด้วยการดูโฆษณา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reklam izleyerek yazıya dökün"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Транскрипція за перегляд реклами"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتہار دیکھ کر نقل نویسی کریں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chép lời bằng cách xem quảng cáo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "观看广告以转写"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "觀看廣告以轉錄"
+          }
+        }
+      }
+    },
+    "広告を視聴する" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مشاهدة الإعلان"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "বিজ্ঞাপন দেখুন"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mira l’anunci"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zhlédnout reklamu"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se annonce"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Werbung ansehen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Προβολή διαφήμισης"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch ad"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver anuncio"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Katso mainos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regarder la publicité"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "જાહેરાત જુઓ"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "צפייה בפרסומת"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "विज्ञापन देखें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pogledaj oglas"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hirdetés megtekintése"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonton iklan"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guarda annuncio"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "広告を視聴する"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಜಾಹೀರಾತು ವೀಕ್ಷಿಸಿ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "광고 보기"
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "പരസ്യം കാണുക"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "जाहिरात पहा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonton iklan"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se annonse"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advertentie bekijken"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ବିଜ୍ଞାପନ ଦେଖନ୍ତୁ"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਇਸ਼ਤਿਹਾਰ ਦੇਖੋ"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obejrzyj reklamę"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assistir ao anúncio"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver anúncio"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vizionează reclama"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Смотреть рекламу"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pozrieť reklamu"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oglej si oglas"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se annons"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "விளம்பரத்தைப் பார்க்கவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ప్రకటన చూడండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดูโฆษณา"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reklam izle"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переглянути рекламу"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتہار دیکھیں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem quảng cáo"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "观看广告"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "觀看廣告"
+          }
+        }
+      }
+    },
+    "広告を最後まで視聴すると、文字起こしを1回利用できます。視聴しない場合、無料利用回数は減りません。" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شاهد الإعلان بالكامل لاستخدام النسخ مرة واحدة. إذا لم تشاهده، فلن ينقص عدد استخداماتك المجانية."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "প্রতিলিপি একবার ব্যবহার করতে পুরো বিজ্ঞাপনটি দেখুন। না দেখলে আপনার বিনামূল্যের ব্যবহারের সংখ্যা কমবে না।"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mira l’anunci sencer per utilitzar la transcripció una vegada. Si no el mires, no es descomptaran els teus usos gratuïts."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zhlédněte celou reklamu a získejte jedno použití přepisu. Pokud ji nezhlédnete, počet bezplatných použití se nesníží."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se hele annoncen for at bruge transskription én gang. Hvis du ikke ser den, mister du ingen gratis anvendelser."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sieh dir die gesamte Werbung an, um die Transkription einmal zu nutzen. Wenn du sie nicht ansiehst, bleiben deine kostenlosen Nutzungen erhalten."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Δείτε ολόκληρη τη διαφήμιση για να χρησιμοποιήσετε την απομαγνητοφώνηση μία φορά. Αν δεν τη δείτε, οι δωρεάν χρήσεις σας δεν θα μειωθούν."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Watch the entire ad to use transcription once. If you do not watch it, your free uses will not decrease."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mira el anuncio completo para usar la transcripción una vez. Si no lo ves, no se descontarán tus usos gratuitos."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Katso mainos kokonaan, niin voit käyttää litterointia kerran. Jos et katso sitä, maksuttomat käyttökertasi eivät vähene."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regardez la publicité en entier pour utiliser la transcription une fois. Si vous ne la regardez pas, vos utilisations gratuites ne seront pas décomptées."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ટ્રાન્સક્રિપ્શનનો એક વાર ઉપયોગ કરવા માટે આખી જાહેરાત જુઓ. જો તમે તે નહીં જુઓ, તો તમારા મફત ઉપયોગોની સંખ્યા ઘટશે નહીં."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "צפו בפרסומת עד סופה כדי להשתמש בתמלול פעם אחת. אם לא תצפו בה, מספר השימושים החינמיים שלכם לא יפחת."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ट्रांसक्रिप्शन का एक बार उपयोग करने के लिए पूरा विज्ञापन देखें। यदि आप इसे नहीं देखते, तो आपके मुफ़्त उपयोगों की संख्या कम नहीं होगी।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pogledajte cijeli oglas kako biste jednom koristili transkripciju. Ako ga ne pogledate, broj besplatnih korištenja neće se smanjiti."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nézze végig a hirdetést az átírás egyszeri használatához. Ha nem nézi meg, az ingyenes használati lehetőségeinek száma nem csökken."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonton seluruh iklan untuk menggunakan transkripsi satu kali. Jika Anda tidak menontonnya, jatah penggunaan gratis tidak akan berkurang."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guarda tutto l’annuncio per usare la trascrizione una volta. Se non lo guardi, i tuoi utilizzi gratuiti non diminuiranno."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "広告を最後まで視聴すると、文字起こしを1回利用できます。視聴しない場合、無料利用回数は減りません。"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ಲಿಪ್ಯಂತರವನ್ನು ಒಮ್ಮೆ ಬಳಸಲು ಸಂಪೂರ್ಣ ಜಾಹೀರಾತನ್ನು ವೀಕ್ಷಿಸಿ. ನೀವು ಅದನ್ನು ವೀಕ್ಷಿಸದಿದ್ದರೆ, ನಿಮ್ಮ ಉಚಿತ ಬಳಕೆಗಳ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವುದಿಲ್ಲ."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "광고를 끝까지 시청하면 텍스트 변환을 1회 이용할 수 있습니다. 시청하지 않으면 무료 이용 횟수는 차감되지 않습니다."
+          }
+        },
+        "ml" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ലിപ്യന്തരണം ഒരു തവണ ഉപയോഗിക്കാൻ പരസ്യം മുഴുവനായി കാണുക. നിങ്ങൾ അത് കാണുന്നില്ലെങ്കിൽ, സൗജന്യ ഉപയോഗങ്ങളുടെ എണ്ണം കുറയില്ല."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "प्रतिलेखन एकदा वापरण्यासाठी संपूर्ण जाहिरात पहा. तुम्ही ती पाहिली नाही तर तुमच्या मोफत वापरांची संख्या कमी होणार नाही."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tonton keseluruhan iklan untuk menggunakan transkripsi sekali. Jika anda tidak menontonnya, bilangan penggunaan percuma anda tidak akan berkurang."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se hele annonsen for å bruke transkripsjon én gang. Hvis du ikke ser den, mister du ingen gratis bruk."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bekijk de volledige advertentie om transcriptie één keer te gebruiken. Als je niet kijkt, worden je gratis beurten niet verminderd."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ଲିପ୍ୟନ୍ତର ଥରେ ବ୍ୟବହାର କରିବାକୁ ସମ୍ପୂର୍ଣ୍ଣ ବିଜ୍ଞାପନ ଦେଖନ୍ତୁ। ଆପଣ ଏହା ନ ଦେଖିଲେ ଆପଣଙ୍କର ମାଗଣା ବ୍ୟବହାର ସଂଖ୍ୟା କମିବ ନାହିଁ।"
+          }
+        },
+        "pa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ਲਿਪੀਅੰਤਰਨ ਇੱਕ ਵਾਰ ਵਰਤਣ ਲਈ ਪੂਰਾ ਇਸ਼ਤਿਹਾਰ ਦੇਖੋ। ਜੇ ਤੁਸੀਂ ਇਸ ਨੂੰ ਨਹੀਂ ਦੇਖਦੇ, ਤਾਂ ਤੁਹਾਡੀਆਂ ਮੁਫ਼ਤ ਵਰਤੋਂ ਦੀ ਗਿਣਤੀ ਨਹੀਂ ਘਟੇਗੀ।"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obejrzyj całą reklamę, aby skorzystać z transkrypcji jeden raz. Jeśli jej nie obejrzysz, liczba bezpłatnych użyć nie zmniejszy się."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assista ao anúncio inteiro para usar a transcrição uma vez. Se não assistir, seus usos gratuitos não serão descontados."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veja o anúncio completo para utilizar a transcrição uma vez. Se não o vir, as suas utilizações gratuitas não serão descontadas."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vizionează întreaga reclamă pentru a folosi transcrierea o dată. Dacă nu o vizionezi, numărul utilizărilor gratuite nu va scădea."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Посмотрите рекламу полностью, чтобы воспользоваться транскрипцией один раз. Если вы не посмотрите её, бесплатные использования не будут потрачены."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pozrite si celú reklamu a získajte jedno použitie prepisu. Ak si ju nepozriete, počet bezplatných použití sa nezníži."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oglejte si celoten oglas, da enkrat uporabite prepis. Če si ga ne ogledate, se število brezplačnih uporab ne zmanjša."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se hela annonsen för att använda transkribering en gång. Om du inte ser den minskar inte dina kostnadsfria användningar."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "உரையாக்கத்தை ஒருமுறை பயன்படுத்த முழு விளம்பரத்தையும் பார்க்கவும். நீங்கள் அதைப் பார்க்காவிட்டால், உங்கள் இலவசப் பயன்பாடுகளின் எண்ணிக்கை குறையாது."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "లిప్యంతరీకరణను ఒకసారి ఉపయోగించడానికి పూర్తి ప్రకటనను చూడండి. మీరు చూడకపోతే, మీ ఉచిత వినియోగాల సంఖ్య తగ్గదు."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดูโฆษณาจนจบเพื่อใช้การถอดเสียง 1 ครั้ง หากไม่ดู จำนวนครั้งที่ใช้งานฟรีของคุณจะไม่ลดลง"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yazıya dökme özelliğini bir kez kullanmak için reklamın tamamını izleyin. İzlemezseniz ücretsiz kullanım hakkınız azalmaz."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перегляньте рекламу повністю, щоб скористатися транскрипцією один раз. Якщо ви не переглянете її, безкоштовні використання не буде витрачено."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نقل نویسی ایک بار استعمال کرنے کے لیے پورا اشتہار دیکھیں۔ اگر آپ اسے نہیں دیکھتے تو آپ کے مفت استعمال کی تعداد کم نہیں ہوگی۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem hết quảng cáo để sử dụng tính năng chép lời một lần. Nếu không xem, số lượt miễn phí của bạn sẽ không bị trừ."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完整观看广告后，即可使用一次转写功能。如果不观看，不会扣除免费使用次数。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完整觀看廣告後，即可使用一次轉錄功能。如果不觀看，不會扣除免費使用次數。"
+          }
+        }
+      }
+    },
     "%lld / %lld 件" : {
       "localizations" : {
         "ar" : {

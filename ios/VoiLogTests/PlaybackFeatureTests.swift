@@ -435,14 +435,19 @@ final class PlaybackFeatureTests: XCTestCase {
         await withMainSerialExecutor {
             let memoID = UUID()
             var rewardedCalled = false
+            let persistedUnlockCounts = LockIsolated<[Int]>([])
             var initialState = PlaybackFeature.State()
             initialState.hasPurchasedPremium = false
+            initialState.adBasedTranscriptionUnlockCount = 0
             initialState.selectedMemoForTranscription = memoID
 
             let store = TestStore(initialState: initialState) {
                 PlaybackFeature()
             } withDependencies: {
                 $0.voiceMemoRepository = mockRepository()
+                $0.userDefaults.setAdBasedTranscriptionUnlockCount = { count in
+                    persistedUnlockCounts.withValue { $0.append(count) }
+                }
                 $0.audioPlayer = AudioPlayerClient(
                     play: { _, _, _, _, _ in true }, stop: { true }, getCurrentTime: { 0 }
                 )
@@ -456,11 +461,21 @@ final class PlaybackFeatureTests: XCTestCase {
             }
             store.exhaustivity = .off
 
-            await store.send(.view(.showTranscription(memoID)))
+            await store.send(.view(.showTranscription(memoID))) {
+                $0.showRewardedAdConfirmation = true
+            }
+            XCTAssertFalse(rewardedCalled, "広告は視聴に同意するまで表示しない")
+            await store.send(.view(.confirmRewardedAd)) {
+                $0.showRewardedAdConfirmation = false
+                $0.isRewardedAdInFlight = true
+            }
             await store.receive(\.view.rewardedAdCompleted) {
+                $0.isRewardedAdInFlight = false
+                $0.adBasedTranscriptionUnlockCount = 1
                 $0.showTranscriptionSheet = true
             }
             XCTAssertTrue(rewardedCalled)
+            XCTAssertEqual(persistedUnlockCounts.value, [1])
         }
     }
 
@@ -484,8 +499,16 @@ final class PlaybackFeatureTests: XCTestCase {
             }
             store.exhaustivity = .off
 
-            await store.send(.view(.showTranscription(memoID)))
+            await store.send(.view(.showTranscription(memoID))) {
+                $0.selectedMemoForTranscription = memoID
+                $0.showRewardedAdConfirmation = true
+            }
+            await store.send(.view(.confirmRewardedAd)) {
+                $0.showRewardedAdConfirmation = false
+                $0.isRewardedAdInFlight = true
+            }
             await store.receive(\.view.rewardedAdSkipped) {
+                $0.isRewardedAdInFlight = false
                 $0.selectedMemoForTranscription = nil
                 $0.transcriptionPromptReason = .adSkipped
                 $0.showTranscriptionPremiumPrompt = true
@@ -525,8 +548,17 @@ final class PlaybackFeatureTests: XCTestCase {
             XCTAssertEqual(store.state.adBasedTranscriptionUnlockCount, 1)
             XCTAssertTrue(store.state.hasFreeTranscriptionUnlockRemaining)
 
-            await store.send(.view(.showTranscription(memoID)))
+            await store.send(.view(.showTranscription(memoID))) {
+                $0.selectedMemoForTranscription = memoID
+                $0.showRewardedAdConfirmation = true
+            }
+            XCTAssertFalse(rewardedCalled)
+            await store.send(.view(.confirmRewardedAd)) {
+                $0.showRewardedAdConfirmation = false
+                $0.isRewardedAdInFlight = true
+            }
             await store.receive(\.view.rewardedAdCompleted) {
+                $0.isRewardedAdInFlight = false
                 $0.adBasedTranscriptionUnlockCount = 2
                 $0.showTranscriptionSheet = true
             }
@@ -563,6 +595,115 @@ final class PlaybackFeatureTests: XCTestCase {
                 $0.transcriptionPromptReason = .freeLimitReached
                 $0.showTranscriptionPremiumPrompt = true
             }
+        }
+    }
+
+    func testRewardedAdConfirmation_cancelDoesNotShowAdOrConsumeUnlock() async {
+        var initial = PlaybackFeature.State()
+        initial.adBasedTranscriptionUnlockCount = 1
+        let store = TestStore(initialState: initial) { PlaybackFeature() } withDependencies: {
+            $0.rewardedAdClient.show = { _, _ in XCTFail("Cancel must not show an ad") }
+            $0.userDefaults.setAdBasedTranscriptionUnlockCount = { _ in
+                XCTFail("Cancel must not consume a free use")
+            }
+        }
+
+        await store.send(.view(.showTranscription(testID))) {
+            $0.selectedMemoForTranscription = self.testID
+            $0.showRewardedAdConfirmation = true
+        }
+        await store.send(.view(.cancelRewardedAd)) {
+            $0.selectedMemoForTranscription = nil
+            $0.showRewardedAdConfirmation = false
+        }
+        await store.send(.view(.confirmRewardedAd))
+        await store.send(.view(.rewardedAdCompleted))
+        XCTAssertEqual(store.state.adBasedTranscriptionUnlockCount, 1)
+        await store.finish()
+    }
+
+    func testRewardedAd_duplicateConfirmationAndCallbacksOnlyUnlockOnce() async {
+        var initial = PlaybackFeature.State()
+        initial.adBasedTranscriptionUnlockCount = 0
+        let adShows = LockIsolated(0)
+        let persistedCounts = LockIsolated<[Int]>([])
+        let store = TestStore(initialState: initial) { PlaybackFeature() } withDependencies: {
+            // Leave completion under test control so duplicate taps occur during the ad.
+            $0.rewardedAdClient.show = { _, _ in adShows.withValue { $0 += 1 } }
+            $0.userDefaults.setAdBasedTranscriptionUnlockCount = { count in
+                persistedCounts.withValue { $0.append(count) }
+            }
+        }
+
+        await store.send(.view(.showTranscription(testID))) {
+            $0.selectedMemoForTranscription = self.testID
+            $0.showRewardedAdConfirmation = true
+        }
+        await store.send(.view(.confirmRewardedAd)) {
+            $0.showRewardedAdConfirmation = false
+            $0.isRewardedAdInFlight = true
+        }
+        await store.finish()
+        await store.send(.view(.confirmRewardedAd))
+        await store.send(.view(.showTranscription(UUID())))
+        await store.send(.view(.rewardedAdCompleted)) {
+            $0.isRewardedAdInFlight = false
+            $0.adBasedTranscriptionUnlockCount = 1
+            $0.showTranscriptionSheet = true
+        }
+        await store.send(.view(.rewardedAdCompleted))
+        await store.send(.view(.rewardedAdSkipped))
+        XCTAssertEqual(adShows.value, 1)
+        XCTAssertEqual(persistedCounts.value, [1])
+        XCTAssertEqual(store.state.selectedMemoForTranscription, testID)
+    }
+
+    func testRewardedAdConfirmation_rechecksPremiumBeforeShowingAd() async {
+        var initial = PlaybackFeature.State()
+        initial.hasPurchasedPremium = true
+        initial.selectedMemoForTranscription = testID
+        initial.showRewardedAdConfirmation = true
+        let store = TestStore(initialState: initial) { PlaybackFeature() } withDependencies: {
+            $0.rewardedAdClient.show = { _, _ in XCTFail("Premium users must not see an ad") }
+        }
+
+        await store.send(.view(.confirmRewardedAd)) {
+            $0.showRewardedAdConfirmation = false
+            $0.showTranscriptionSheet = true
+        }
+    }
+
+    func testRewardedAdConfirmation_rechecksFreeLimitBeforeShowingAd() async {
+        var initial = PlaybackFeature.State()
+        initial.adBasedTranscriptionUnlockCount = UserDefaultsClient.freeAdBasedTranscriptionLimit
+        initial.selectedMemoForTranscription = testID
+        initial.showRewardedAdConfirmation = true
+        let store = TestStore(initialState: initial) { PlaybackFeature() } withDependencies: {
+            $0.rewardedAdClient.show = { _, _ in XCTFail("Exhausted free uses must not show an ad") }
+        }
+
+        await store.send(.view(.confirmRewardedAd)) {
+            $0.showRewardedAdConfirmation = false
+            $0.selectedMemoForTranscription = nil
+            $0.transcriptionPromptReason = .freeLimitReached
+            $0.showTranscriptionPremiumPrompt = true
+        }
+    }
+
+    func testShowGeminiTranscriptionFromDetail_freeUserRequiresAdConsent() async {
+        var initial = PlaybackFeature.State()
+        initial.adBasedTranscriptionUnlockCount = 0
+        initial.selectedMemoForDetails = testID
+        initial.showDetailSheet = true
+        let store = TestStore(initialState: initial) { PlaybackFeature() } withDependencies: {
+            $0.rewardedAdClient.show = { _, _ in XCTFail("Opening the confirmation must not show an ad") }
+        }
+
+        await store.send(.view(.showGeminiTranscriptionFromDetail(testID))) {
+            $0.selectedMemoForDetails = nil
+            $0.showDetailSheet = false
+            $0.selectedMemoForTranscription = self.testID
+            $0.showRewardedAdConfirmation = true
         }
     }
 

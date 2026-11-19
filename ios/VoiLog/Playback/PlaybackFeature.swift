@@ -39,6 +39,8 @@ struct PlaybackFeature {
     // Transcription (Gemini)
     var selectedMemoForTranscription: VoiceMemo.ID?
     var showTranscriptionSheet = false
+    var showRewardedAdConfirmation = false
+    var isRewardedAdInFlight = false
     var showTranscriptionPremiumPrompt = false
     var transcriptionPromptReason: TranscriptionPromptReason = .adSkipped
     // 広告視聴での無料アンロック回数（lifetime）。issue #207: 上限がなく無料で使い放題だった不具合の修正
@@ -201,6 +203,8 @@ struct PlaybackFeature {
       case showTranscription(VoiceMemo.ID)
       case hideTranscription
       case geminiTranscriptionSaved(VoiceMemo.ID, String)
+      case confirmRewardedAd
+      case cancelRewardedAd
       case rewardedAdCompleted
       case rewardedAdSkipped
       case dismissTranscriptionPremiumPrompt
@@ -460,6 +464,7 @@ struct PlaybackFeature {
           return .none
 
         case let .showGeminiTranscriptionFromDetail(memoID):
+          guard !state.isRewardedAdInFlight else { return .none }
           state.showDetailSheet = false
           state.selectedMemoForDetails = nil
           state.selectedMemoForTranscription = memoID
@@ -512,16 +517,47 @@ struct PlaybackFeature {
           return .none
 
         case let .showTranscription(memoID):
+          guard !state.isRewardedAdInFlight else { return .none }
           state.selectedMemoForTranscription = memoID
           return startTranscriptionUnlockFlow(state: &state)
 
+        case .confirmRewardedAd:
+          // The alert binding may already be false when SwiftUI sends its button action.
+          guard !state.isRewardedAdInFlight, !state.showTranscriptionSheet,
+                state.selectedMemoForTranscription != nil else { return .none }
+          state.showRewardedAdConfirmation = false
+          guard !state.hasPurchasedPremium else {
+            state.showTranscriptionSheet = true
+            return .none
+          }
+          guard state.hasFreeTranscriptionUnlockRemaining else {
+            return startTranscriptionUnlockFlow(state: &state)
+          }
+          state.isRewardedAdInFlight = true
+          return .run { send in
+            await rewardedAdClient.show(
+              { Task { @MainActor in send(.view(.rewardedAdCompleted)) } },
+              { Task { @MainActor in send(.view(.rewardedAdSkipped)) } }
+            )
+          }
+
+        case .cancelRewardedAd:
+          guard !state.isRewardedAdInFlight else { return .none }
+          state.showRewardedAdConfirmation = false
+          state.selectedMemoForTranscription = nil
+          return .none
+
         case .rewardedAdCompleted:
+          guard state.isRewardedAdInFlight, state.selectedMemoForTranscription != nil else { return .none }
+          state.isRewardedAdInFlight = false
           state.adBasedTranscriptionUnlockCount += 1
           userDefaults.setAdBasedTranscriptionUnlockCount(state.adBasedTranscriptionUnlockCount)
           state.showTranscriptionSheet = true
           return .none
 
         case .rewardedAdSkipped:
+          guard state.isRewardedAdInFlight else { return .none }
+          state.isRewardedAdInFlight = false
           state.selectedMemoForTranscription = nil
           state.transcriptionPromptReason = .adSkipped
           state.showTranscriptionPremiumPrompt = true
@@ -818,6 +854,7 @@ struct PlaybackFeature {
   // 文字起こしの利用可否を判定する。プレミアム会員は即座に、無料会員は広告視聴での
   // アンロック回数が上限（lifetime）に達していなければ広告フローへ、達していればアップグレード導線へ誘導する。
   private func startTranscriptionUnlockFlow(state: inout State) -> Effect<Action> {
+    state.showRewardedAdConfirmation = false
     guard !state.hasPurchasedPremium else {
       state.showTranscriptionSheet = true
       return .none
@@ -828,10 +865,8 @@ struct PlaybackFeature {
       state.showTranscriptionPremiumPrompt = true
       return .none
     }
-    return .run { send in
-      await rewardedAdClient.show({ Task { @MainActor in send(.view(.rewardedAdCompleted)) } }, { Task { @MainActor in send(.view(.rewardedAdSkipped)) } }
-      )
-    }
+    state.showRewardedAdConfirmation = true
+    return .none
   }
 
   private func startPlayback(url: URL, startTime: TimeInterval = 0, playSpeed: AudioPlayerClient.PlaybackSpeed = .normal, volumeBoost: Float = 1.0) -> Effect<Action> {
@@ -914,6 +949,16 @@ struct PlaybackView: View {
         } else {
           Text(String(localized: "この録音ファイルを削除しますか？", table: "Playback"))
         }
+      }
+      .alert(String(localized: "広告を視聴して文字起こし", table: "Playback"), isPresented: $store.showRewardedAdConfirmation) {
+        Button(String(localized: "広告を視聴する", table: "Playback")) {
+          send(.confirmRewardedAd)
+        }
+        Button(String(localized: "キャンセル"), role: .cancel) {
+          send(.cancelRewardedAd)
+        }
+      } message: {
+        Text(String(localized: "広告を最後まで視聴すると、文字起こしを1回利用できます。視聴しない場合、無料利用回数は減りません。", table: "Playback"))
       }
       .alert(String(localized: "プレミアム機能", table: "Playback"), isPresented: $store.showTranscriptionPremiumPrompt) {
         Button(String(localized: "プレミアムにアップグレード", table: "Playback")) {
