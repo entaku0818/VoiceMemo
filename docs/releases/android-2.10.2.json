@@ -1,0 +1,127 @@
+{
+  "package": "com.entaku.simpleRecord",
+  "versionName": "2.10.2",
+  "versionCode": 21,
+  "track": "production",
+  "submittedAtUTC": "2026-11-20T01:05:52.770862+00:00",
+  "sourceCommit": "b0f22a1e0858bace5d139427ed9add2dd42df170",
+  "tag": "android-v2.10.2",
+  "aabSHA256": "a52864ac8844ee137efc9a74ab201e21e56b0b5d55ddb65279bb65c2b626ac33",
+  "apiCommit": {
+    "id": "16834642806639999501",
+    "expiryTimeSeconds": "1795143788"
+  },
+  "apiTrack": {
+    "track": "production",
+    "releases": [
+      {
+        "name": "2.10.2",
+        "versionCodes": [
+          "21"
+        ],
+        "releaseNotes": [
+          {
+            "language": "ar",
+            "text": "2.10.2\nتحسين الموافقة على الإعلانات وإعدادات الخصوصية.\nتحسين سلوك الإعلانات عند بدء التطبيق وفتح اختصارات التسجيل.\nتحسين موثوقية تحديث حالة Premium بعد الشراء واستعادة المشتريات."
+          },
+          {
+            "language": "de-DE",
+            "text": "2.10.2\nEinwilligung für Werbung und Datenschutzeinstellungen verbessert.\nAnzeigen beim Start und bei Aufnahmeverknüpfungen verbessert.\nZuverlässigere Aktualisierung des Premium-Status nach Käufen und Wiederherstellungen."
+          },
+          {
+            "language": "en-US",
+            "text": "2.10.2\nImproved ad consent and privacy settings.\nImproved ad behavior at startup and when opening recording shortcuts.\nMade Premium status updates more reliable after purchases and restores."
+          },
+          {
+            "language": "es-419",
+            "text": "2.10.2\nMejoramos el consentimiento para anuncios y la configuración de privacidad.\nMejoramos los anuncios al iniciar y al abrir accesos directos de grabación.\nEl estado Premium se actualiza con mayor fiabilidad después de comprar o restaurar compras."
+          },
+          {
+            "language": "es-ES",
+            "text": "2.10.2\nMejoramos el consentimiento para anuncios y los ajustes de privacidad.\nMejoramos los anuncios al iniciar y al abrir accesos directos de grabación.\nEl estado Premium se actualiza con mayor fiabilidad después de comprar o restaurar compras."
+          },
+          {
+            "language": "fr-FR",
+            "text": "2.10.2\nAmélioration du consentement publicitaire et des paramètres de confidentialité.\nAmélioration des annonces au démarrage et via les raccourcis d’enregistrement.\nMise à jour plus fiable du statut Premium après un achat ou une restauration."
+          },
+          {
+            "language": "hi-IN",
+            "text": "2.10.2\nविज्ञापन सहमति और गोपनीयता सेटिंग बेहतर की गईं।\nऐप शुरू होने और रिकॉर्डिंग शॉर्टकट खोलने पर विज्ञापनों का व्यवहार बेहतर किया गया।\nखरीदारी और खरीदारी बहाल करने के बाद Premium स्थिति के अपडेट अधिक भरोसेमंद बनाए गए।"
+          },
+          {
+            "language": "id",
+            "text": "2.10.2\nPeningkatan persetujuan iklan dan setelan privasi.\nPeningkatan perilaku iklan saat memulai aplikasi dan membuka pintasan rekaman.\nPembaruan status Premium lebih andal setelah pembelian dan pemulihan pembelian."
+          },
+          {
+            "language": "it-IT",
+            "text": "2.10.2\nMigliorati il consenso pubblicitario e le impostazioni sulla privacy.\nMigliorati gli annunci all’avvio e con le scorciatoie di registrazione.\nAggiornamento dello stato Premium più affidabile dopo acquisti e ripristini."
+          },
+          {
+            "language": "ja-JP",
+            "text": "2.10.2\n・広告の同意確認とプライバシー設定を改善しました。\n・起動時や録音ショートカット使用時の広告表示を改善しました。\n・購入・復元後のPremium状態の反映を安定させました。"
+          },
+          {
+            "language": "ko-KR",
+            "text": "2.10.2\n광고 동의 및 개인정보 설정을 개선했습니다.\n앱 시작 및 녹음 바로가기 사용 시 광고 동작을 개선했습니다.\n구매 및 구매 복원 후 Premium 상태가 더 안정적으로 반영됩니다."
+          },
+          {
+            "language": "pl-PL",
+            "text": "2.10.2\nUlepszono zgodę na reklamy i ustawienia prywatności.\nUlepszono działanie reklam przy uruchamianiu aplikacji i skrótów nagrywania.\nStatus Premium jest aktualizowany niezawodniej po zakupach i ich przywróceniu."
+          },
+          {
+            "language": "pt-BR",
+            "text": "2.10.2\nMelhorias no consentimento de anúncios e nas configurações de privacidade.\nMelhorias nos anúncios ao iniciar e abrir atalhos de gravação.\nAtualização mais confiável do status Premium após compras e restaurações."
+          },
+          {
+            "language": "th",
+            "text": "2.10.2\nปรับปรุงการยินยอมโฆษณาและการตั้งค่าความเป็นส่วนตัว\nปรับปรุงการแสดงโฆษณาเมื่อเริ่มแอปและเปิดทางลัดการบันทึก\nอัปเดตสถานะ Premium ได้เสถียรยิ่งขึ้นหลังซื้อและกู้คืนการซื้อ"
+          },
+          {
+            "language": "tr-TR",
+            "text": "2.10.2\nReklam izni ve gizlilik ayarları iyileştirildi.\nUygulama açılışında ve kayıt kısayollarında reklam davranışı iyileştirildi.\nSatın alma ve geri yükleme sonrası Premium durumu daha güvenilir güncellenir."
+          },
+          {
+            "language": "vi",
+            "text": "2.10.2\nCải thiện việc đồng ý quảng cáo và cài đặt quyền riêng tư.\nCải thiện hành vi quảng cáo khi khởi động và mở lối tắt ghi âm.\nCập nhật trạng thái Premium đáng tin cậy hơn sau khi mua và khôi phục giao dịch."
+          },
+          {
+            "language": "zh-CN",
+            "text": "2.10.2\n改进了广告同意流程和隐私设置。\n改进了应用启动及使用录音快捷方式时的广告显示。\n提高了购买和恢复购买后Premium状态更新的稳定性。"
+          }
+        ],
+        "status": "completed"
+      }
+    ]
+  },
+  "all17ListingsVerified": true,
+  "localizedReleaseNotes": 17,
+  "reviewStatus": "in_review_quick_checks_pending",
+  "checks": {
+    "debugUnitTests": 310,
+    "debugUnitTestFailures": 0,
+    "lintErrors": 0,
+    "lintWarnings": 112,
+    "signedReleaseBuild": true,
+    "androidCI": {
+      "runId": 44650234884,
+      "conclusion": "success",
+      "sourceCommit": "b0f22a1e0858bace5d139427ed9add2dd42df170",
+      "url": "https://github.com/entaku0818/VoiceMemo/actions/runs/44650234884"
+    },
+    "serverTests": "go test ./... and go vet ./... passed",
+    "releaseNoteLocalesVerified": 17
+  },
+  "consoleVerification": {
+    "observedAtUTC": "2026-11-20T01:06:29.569700+00:00",
+    "url": "https://play.google.com/console/u/0/developers/7726313475289665934/app/4972421843222814719/publishing",
+    "observed": [
+      "審査中の変更",
+      "一般的な問題のクイック チェックを実行する",
+      "製品版 2.10.2 完全公開を開始"
+    ],
+    "managedPublishing": false,
+    "publishedVerified": false
+  },
+  "uploadMethod": "launchpad android build --release; launchpad android upload timed out after the bundle was received; resumed its edit through the official Google Play API after verifying the SHA256",
+  "persistedAfterCommitVerified": true
+}
