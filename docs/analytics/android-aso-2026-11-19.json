@@ -389,7 +389,7 @@
     "managedPublishing": "off",
     "lastPublishedDateDisplayed": "2026-11-08"
   },
-  "publishedVerified": false,
+  "publishedVerified": true,
   "japaneseAndEnglishTitlesUnchanged": true,
   "metadataValidation": {
     "command": "launchpad android aso metadata-check --metadata-dir android/simpleRecord/fastlane/metadata/android",
@@ -414,5 +414,15 @@
     "https://support.google.com/googleplay/android-developer/answer/9866151",
     "https://developers.google.com/android-publisher/api-ref/rest/v3/edits.listings/update",
     "https://developers.google.com/android-publisher/api-ref/rest/v3/edits/commit"
-  ]
+  ],
+  "publicationVerification": {
+    "observedAtUTC": "2026-11-20T00:59:13.629526+00:00",
+    "status": "published",
+    "consoleEvidence": [
+      "Play Console: アプリのアップデートが公開されました (11月20日)",
+      "公開の概要: 最終公開日 2026年11月20日",
+      "管理対象の公開: オフ"
+    ],
+    "url": "https://play.google.com/console/u/0/developers/7726313475289665934/app/4972421843222814719/publishing"
+  }
 }
