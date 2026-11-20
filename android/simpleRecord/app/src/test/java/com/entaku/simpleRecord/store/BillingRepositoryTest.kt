@@ -82,6 +82,90 @@ class BillingRepositoryTest {
     }
 
     @Test
+    fun `delayed refresh cannot remove a completed purchase and waiters see the new entitlement`() {
+        fakePurchasesClient.deferCustomerInfo = true
+        val completions = mutableListOf<Pair<Boolean, Boolean>>()
+        repeat(2) {
+            repository.refreshPremiumStatus { success ->
+                completions.add(success to PremiumRepository.getInstance(context).isPremium.value)
+            }
+        }
+        fakePurchasesClient.purchaseResult = PurchaseResult.Success
+        val product = PremiumProduct("id", "title", "$9.99", PlanType.MONTHLY, mockk())
+        repository.launchPurchaseFlow(mockk<Activity>(), product)
+
+        fakePurchasesClient.pendingCustomerInfo!!.onReceived(customerInfo(isPremium = false))
+
+        assertTrue(PremiumRepository.getInstance(context).isPremium.value)
+        assertEquals(listOf(true to true, true to true), completions)
+        assertEquals(1, fakePurchasesClient.customerInfoRequests)
+    }
+
+    @Test
+    fun `delayed refresh cannot remove a restored entitlement`() {
+        fakePurchasesClient.deferCustomerInfo = true
+        repository.refreshPremiumStatus()
+        fakePurchasesClient.restoreResult = CustomerInfoResult.Premium
+        var restored = false
+        repository.restorePurchases { restored = it }
+
+        fakePurchasesClient.pendingCustomerInfo!!.onReceived(customerInfo(isPremium = false))
+
+        assertTrue(restored)
+        assertTrue(PremiumRepository.getInstance(context).isPremium.value)
+    }
+
+    @Test
+    fun `delayed refresh cannot undo expiration reported by the customer info listener`() {
+        PremiumRepository.getInstance(context).setPremium(true)
+        fakePurchasesClient.deferCustomerInfo = true
+        repository.refreshPremiumStatus()
+        // SimpleRecordApplication forwards RevenueCat's listener to this method.
+        repository.updatePremiumStatus(customerInfo(isPremium = false))
+
+        fakePurchasesClient.pendingCustomerInfo!!.onReceived(customerInfo(isPremium = true))
+
+        assertFalse(PremiumRepository.getInstance(context).isPremium.value)
+    }
+
+    @Test
+    fun `refresh after an ignored stale response can still apply expiration`() {
+        fakePurchasesClient.deferCustomerInfo = true
+        repository.refreshPremiumStatus()
+        repository.updatePremiumStatus(customerInfo(isPremium = true))
+        fakePurchasesClient.pendingCustomerInfo!!.onReceived(customerInfo(isPremium = false))
+        assertTrue(PremiumRepository.getInstance(context).isPremium.value)
+        fakePurchasesClient.deferCustomerInfo = false
+        fakePurchasesClient.customerInfoResult = CustomerInfoResult.NotPremium
+
+        repository.refreshPremiumStatus()
+
+        assertFalse(PremiumRepository.getInstance(context).isPremium.value)
+        assertEquals(2, fakePurchasesClient.customerInfoRequests)
+    }
+
+    @Test
+    fun `failed delayed refresh preserves a newer entitlement and reports failure`() {
+        fakePurchasesClient.deferCustomerInfo = true
+        val completions = mutableListOf<Boolean>()
+        repository.refreshPremiumStatus { completions.add(it) }
+        repository.updatePremiumStatus(customerInfo(isPremium = true))
+
+        fakePurchasesClient.pendingCustomerInfo!!.onError(PurchasesError(PurchasesErrorCode.UnknownError))
+
+        assertTrue(PremiumRepository.getInstance(context).isPremium.value)
+        assertEquals(listOf(false), completions)
+    }
+
+    private fun customerInfo(isPremium: Boolean): CustomerInfo {
+        val entitlement = mockk<EntitlementInfo>()
+        every { entitlement.isActive } returns isPremium
+        val entitlements = mockk<EntitlementInfos>()
+        every { entitlements[BillingRepository.PREMIUM_ENTITLEMENT_KEY] } returns entitlement
+        return mockk<CustomerInfo>().also { info -> every { info.entitlements } returns entitlements }
+    }
+
+    @Test
     fun `initial state is Loading`() = runTest {
         assertEquals(BillingState.Loading, repository.billingState.first())
     }

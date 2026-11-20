@@ -50,6 +50,7 @@ class BillingRepository internal constructor(
 
     @Volatile private var connected = false
     private var refreshingPremium = false
+    private var premiumRevision = 0L
     private val premiumRefreshWaiters = mutableListOf<(Boolean) -> Unit>()
 
     fun connect() {
@@ -97,9 +98,11 @@ class BillingRepository internal constructor(
         premiumRefreshWaiters.add(completion)
         if (refreshingPremium) return
         refreshingPremium = true
+        val revisionAtStart = premiumRevision
         purchasesClient.getCustomerInfo(object : ReceiveCustomerInfoCallback {
             override fun onReceived(customerInfo: CustomerInfo) {
-                updatePremiumStatus(customerInfo)
+                // A purchase, restore, or SDK listener may already have supplied newer information.
+                if (revisionAtStart == premiumRevision) updatePremiumStatus(customerInfo)
                 finishPremiumRefresh(success = true)
             }
 
@@ -155,6 +158,7 @@ class BillingRepository internal constructor(
     }
 
     internal fun updatePremiumStatus(customerInfo: CustomerInfo) {
+        premiumRevision++
         val isPremium = customerInfo.entitlements[PREMIUM_ENTITLEMENT_KEY]?.isActive == true
         premiumRepository.setPremium(isPremium)
     }
