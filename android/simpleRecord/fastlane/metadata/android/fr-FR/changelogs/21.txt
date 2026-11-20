@@ -1,0 +1,4 @@
+2.10.2
+Amélioration du consentement publicitaire et des paramètres de confidentialité.
+Amélioration des annonces au démarrage et via les raccourcis d’enregistrement.
+Mise à jour plus fiable du statut Premium après un achat ou une restauration.

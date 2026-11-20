@@ -1,0 +1,4 @@
+2.10.2
+Mejoramos el consentimiento para anuncios y los ajustes de privacidad.
+Mejoramos los anuncios al iniciar y al abrir accesos directos de grabación.
+El estado Premium se actualiza con mayor fiabilidad después de comprar o restaurar compras.

@@ -1,0 +1,4 @@
+2.10.2
+Einwilligung für Werbung und Datenschutzeinstellungen verbessert.
+Anzeigen beim Start und bei Aufnahmeverknüpfungen verbessert.
+Zuverlässigere Aktualisierung des Premium-Status nach Käufen und Wiederherstellungen.

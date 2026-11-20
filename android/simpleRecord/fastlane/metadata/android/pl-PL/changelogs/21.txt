@@ -1,0 +1,4 @@
+2.10.2
+Ulepszono zgodę na reklamy i ustawienia prywatności.
+Ulepszono działanie reklam przy uruchamianiu aplikacji i skrótów nagrywania.
+Status Premium jest aktualizowany niezawodniej po zakupach i ich przywróceniu.

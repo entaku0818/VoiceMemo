@@ -1,0 +1,4 @@
+2.10.2
+Reklam izni ve gizlilik ayarları iyileştirildi.
+Uygulama açılışında ve kayıt kısayollarında reklam davranışı iyileştirildi.
+Satın alma ve geri yükleme sonrası Premium durumu daha güvenilir güncellenir.

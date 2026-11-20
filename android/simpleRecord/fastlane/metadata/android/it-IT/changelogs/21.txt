@@ -1,0 +1,4 @@
+2.10.2
+Migliorati il consenso pubblicitario e le impostazioni sulla privacy.
+Migliorati gli annunci all’avvio e con le scorciatoie di registrazione.
+Aggiornamento dello stato Premium più affidabile dopo acquisti e ripristini.

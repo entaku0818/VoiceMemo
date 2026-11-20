@@ -1,0 +1,4 @@
+2.10.2
+Improved ad consent and privacy settings.
+Improved ad behavior at startup and when opening recording shortcuts.
+Made Premium status updates more reliable after purchases and restores.

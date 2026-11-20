@@ -1,0 +1,4 @@
+2.10.2
+Melhorias no consentimento de anúncios e nas configurações de privacidade.
+Melhorias nos anúncios ao iniciar e abrir atalhos de gravação.
+Atualização mais confiável do status Premium após compras e restaurações.

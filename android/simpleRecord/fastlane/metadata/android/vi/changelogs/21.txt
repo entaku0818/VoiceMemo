@@ -1,0 +1,4 @@
+2.10.2
+Cải thiện việc đồng ý quảng cáo và cài đặt quyền riêng tư.
+Cải thiện hành vi quảng cáo khi khởi động và mở lối tắt ghi âm.
+Cập nhật trạng thái Premium đáng tin cậy hơn sau khi mua và khôi phục giao dịch.

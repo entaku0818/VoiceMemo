@@ -1,0 +1,4 @@
+2.10.2
+Peningkatan persetujuan iklan dan setelan privasi.
+Peningkatan perilaku iklan saat memulai aplikasi dan membuka pintasan rekaman.
+Pembaruan status Premium lebih andal setelah pembelian dan pemulihan pembelian.
