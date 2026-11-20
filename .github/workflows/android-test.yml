@@ -1,10 +1,19 @@
 name: Android Test
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'android/**'
+      - '.github/workflows/android-test.yml'
   pull_request:
     paths:
       - 'android/**'
       - '.github/workflows/android-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -29,7 +38,7 @@ jobs:
 
       - name: Run unit tests
         working-directory: android/simpleRecord
-        run: ./gradlew test
+        run: ./gradlew testDebugUnitTest
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
