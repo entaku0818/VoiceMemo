@@ -1,2 +1,2 @@
-1.17.4
-Pustaka aplikasi dan penerangan di App Store telah dikemas kini.
+1.17.5
+Menambahkan iklan sepanduk pada skrin butiran rakaman untuk pengguna versi percuma. Menambah baik tetapan privasi iklan dan cara status Premium dikemas kini.

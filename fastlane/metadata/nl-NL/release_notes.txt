@@ -1,2 +1,2 @@
-1.17.4
-App-bibliotheken bijgewerkt en de App Store-beschrijving vernieuwd.
+1.17.5
+Gebruikers van de gratis versie zien nu een advertentiebanner bij de details van opnamen. De privacyinstellingen voor advertenties en het bijwerken van de Premium-status zijn verbeterd.

@@ -1,2 +1,2 @@
-1.17.4
-Aktualizovali sme knižnice aplikácie a popis v App Store.
+1.17.5
+Používateľom bezplatnej verzie sme na obrazovku s podrobnosťami o nahrávke pridali reklamný banner. Vylepšili sme nastavenia ochrany súkromia pri reklamách a aktualizáciu stavu Premium.

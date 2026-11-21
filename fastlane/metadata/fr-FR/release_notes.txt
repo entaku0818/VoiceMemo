@@ -1,2 +1,2 @@
-1.17.4
-Mise à jour des bibliothèques de l’app et de la description sur l’App Store.
+1.17.5
+Une bannière publicitaire s’affiche désormais dans les détails des enregistrements pour les utilisateurs de la version gratuite. Nous avons amélioré les paramètres de confidentialité des annonces et la mise à jour du statut Premium.

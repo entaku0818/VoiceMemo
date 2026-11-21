@@ -1,2 +1,2 @@
-1.17.4
-Ažurirali smo biblioteke aplikacije i opis u trgovini App Store.
+1.17.5
+Korisnicima besplatne verzije dodali smo oglasni banner na zaslon s detaljima snimke. Poboljšali smo postavke privatnosti za oglase i ažuriranje statusa Premium.

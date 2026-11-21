@@ -1,2 +1,2 @@
-1.17.4
-Hem actualitzat les biblioteques de l’app i la descripció a l’App Store.
+1.17.5
+Hem afegit un bàner publicitari a la pantalla de detalls de les gravacions per als usuaris de la versió gratuïta. Hem millorat els controls de privadesa dels anuncis i l’actualització de l’estat Premium.

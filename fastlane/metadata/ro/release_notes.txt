@@ -1,2 +1,2 @@
-1.17.4
-Am actualizat bibliotecile aplicației și descrierea din App Store.
+1.17.5
+Am adăugat un banner publicitar în detaliile înregistrărilor pentru utilizatorii versiunii gratuite. Am îmbunătățit setările de confidențialitate pentru reclame și actualizarea stării Premium.

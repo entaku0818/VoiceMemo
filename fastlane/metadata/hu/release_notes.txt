@@ -1,2 +1,2 @@
-1.17.4
-Frissítettük az alkalmazás könyvtárait és az App Store leírását.
+1.17.5
+A felvételek részleteinél mostantól hirdetési banner jelenik meg az ingyenes verzió felhasználóinak. Javítottuk a hirdetések adatvédelmi beállításait és a Premium-állapot frissítését.

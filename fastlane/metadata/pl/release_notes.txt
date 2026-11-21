@@ -1,2 +1,2 @@
-1.17.4
-Zaktualizowano biblioteki aplikacji i opis w App Store.
+1.17.5
+Dodaliśmy baner reklamowy w szczegółach nagrań dla użytkowników wersji bezpłatnej. Ulepszyliśmy ustawienia prywatności reklam i aktualizowanie statusu Premium.

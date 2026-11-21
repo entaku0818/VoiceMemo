@@ -1,2 +1,2 @@
-1.17.4
-Updated app libraries and refreshed the App Store description.
+1.17.5
+Added a banner to recording details for free users. Improved ad privacy controls and Premium status updates.

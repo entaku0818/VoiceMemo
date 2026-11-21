@@ -1,2 +1,2 @@
-1.17.4
-Appens bibliotek och beskrivningen i App Store har uppdaterats.
+1.17.5
+Vi har lagt till en annonsbanner i inspelningsdetaljerna för användare av gratisversionen. Vi har förbättrat sekretessinställningarna för annonser och uppdateringen av Premium-status.

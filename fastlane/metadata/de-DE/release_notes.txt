@@ -1,2 +1,2 @@
-1.17.4
-App-Bibliotheken aktualisiert und die App Store-Beschreibung überarbeitet.
+1.17.5
+Für Nutzer der kostenlosen Version gibt es jetzt ein Werbebanner in der Detailansicht von Aufnahmen. Die Datenschutzeinstellungen für Werbung und die Aktualisierung des Premium-Status wurden verbessert.

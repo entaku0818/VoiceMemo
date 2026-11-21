@@ -1,2 +1,2 @@
-1.17.4
-Uygulama kitaplıkları ve App Store açıklaması güncellendi.
+1.17.5
+Ücretsiz sürümü kullananlar için kayıt ayrıntıları ekranına bir banner reklam eklendi. Reklam gizliliği ayarları ve Premium durumunun güncellenme biçimi iyileştirildi.

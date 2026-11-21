@@ -1,2 +1,2 @@
-1.17.4
-Posodobili smo knjižnice aplikacije in opis v trgovini App Store.
+1.17.5
+Za uporabnike brezplačne različice smo v podrobnosti posnetka dodali oglasno pasico. Izboljšali smo nastavitve zasebnosti za oglase in posodabljanje stanja Premium.

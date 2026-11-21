@@ -1,2 +1,2 @@
-1.17.4
-Appens biblioteker og beskrivelsen i App Store er opdateret.
+1.17.5
+Vi har tilføjet et annoncebanner i optagelsesdetaljerne for brugere af den gratis version. Vi har forbedret privatlivsindstillingerne for annoncer og opdateringen af Premium-status.

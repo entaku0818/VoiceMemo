@@ -1,2 +1,2 @@
-1.17.4
-Memperbarui pustaka aplikasi dan deskripsi di App Store.
+1.17.5
+Menambahkan iklan banner di layar detail rekaman untuk pengguna versi gratis. Menyempurnakan pengaturan privasi iklan dan pembaruan status Premium.

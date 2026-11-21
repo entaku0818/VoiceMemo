@@ -1,2 +1,2 @@
-1.17.4
-Appens biblioteker og beskrivelsen i App Store er oppdatert.
+1.17.5
+Vi har lagt til et annonsebanner i opptaksdetaljene for brukere av gratisversjonen. Vi har forbedret personverninnstillingene for annonser og oppdateringen av Premium-status.

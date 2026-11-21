@@ -1,2 +1,2 @@
-1.17.4
-Aggiornate le librerie dell’app e la descrizione sull’App Store.
+1.17.5
+Abbiamo aggiunto un banner pubblicitario nei dettagli delle registrazioni per chi usa la versione gratuita. Abbiamo migliorato i controlli sulla privacy degli annunci e l’aggiornamento dello stato Premium.

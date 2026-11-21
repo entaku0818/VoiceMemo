@@ -1,2 +1,2 @@
-1.17.4
-Đã cập nhật thư viện ứng dụng và phần mô tả trên App Store.
+1.17.5
+Thêm quảng cáo dạng biểu ngữ vào màn hình chi tiết bản ghi cho người dùng phiên bản miễn phí. Cải thiện cài đặt quyền riêng tư của quảng cáo và cách cập nhật trạng thái Premium.

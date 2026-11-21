@@ -1,2 +1,2 @@
-1.17.4
-Actualizamos las bibliotecas de la app y la descripción en el App Store.
+1.17.5
+Agregamos un banner publicitario en los detalles de las grabaciones para quienes usan la versión gratuita. Mejoramos los controles de privacidad de los anuncios y la actualización del estado de Premium.

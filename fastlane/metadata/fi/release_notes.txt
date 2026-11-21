@@ -1,2 +1,2 @@
-1.17.4
-Sovelluksen kirjastot ja App Store -kuvaus on päivitetty.
+1.17.5
+Tallenteen tietonäkymään on lisätty mainosbanneri maksuttoman version käyttäjille. Mainosten tietosuoja-asetuksia ja Premium-tilan päivittymistä on parannettu.
