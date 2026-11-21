@@ -5,6 +5,7 @@ struct VoiceMemoDetailView: View {
   let memo: PlaybackFeature.VoiceMemo
   let onDismiss: () -> Void
   var onAISaved: ((String) -> Void)?
+  var bannerUnitId: String?
 
   var isActive = false
   var isPlaying = false
@@ -133,9 +134,23 @@ struct VoiceMemoDetailView: View {
       }
       .padding()
     }
+    .safeAreaInset(edge: .bottom, spacing: 0) {
+      if let bannerUnitId, AdConsentManager.shared.canLoadAds {
+        AdmobBannerView(unitId: bannerUnitId, useContainingViewController: true)
+          .frame(height: AdmobBannerView.adaptiveHeight)
+      }
+    }
   }
 
   // MARK: - Helpers
+
+  static func bannerUnitId(configured: String?, fallback: String?, isPremium: Bool) -> String? {
+    guard !isPremium else { return nil }
+
+    return [configured, fallback]
+      .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
+      .first { $0.hasPrefix("ca-app-pub-") && $0.contains("/") }
+  }
 
   @ViewBuilder
   private func detailSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {

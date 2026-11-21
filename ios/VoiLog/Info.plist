@@ -22,6 +22,8 @@
 	<string>$(PLAYLIST_ADMOB_KEY)</string>
 	<key>RECORD_ADMOB_KEY</key>
 	<string>$(RECORD_ADMOB_KEY)</string>
+	<key>RECORD_DETAIL_ADMOB_KEY</key>
+	<string>$(RECORD_DETAIL_ADMOB_KEY)</string>
 	<key>REVENUECAT_KEY</key>
 	<string>$(REVENUECAT_KEY)</string>
 	<key>ROLLBAR_KEY</key>

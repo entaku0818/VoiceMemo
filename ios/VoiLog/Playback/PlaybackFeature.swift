@@ -904,6 +904,7 @@ struct PlaybackFeature {
 
 struct PlaybackView: View {
   @SwiftUI.Bindable var store: StoreOf<PlaybackFeature>
+  var detailBannerFallbackUnitId: String?
   @Environment(\.verticalSizeClass) var verticalSizeClass
 
   private func send(_ action: PlaybackFeature.Action.View) {
@@ -982,6 +983,11 @@ struct PlaybackView: View {
             memo: memo,
             onDismiss: { send(.hideDetailSheet) },
             onAISaved: { text in send(.geminiTranscriptionSaved(selectedId, text)) },
+            bannerUnitId: VoiceMemoDetailView.bannerUnitId(
+              configured: Bundle.main.object(forInfoDictionaryKey: "RECORD_DETAIL_ADMOB_KEY") as? String,
+              fallback: detailBannerFallbackUnitId,
+              isPremium: store.hasPurchasedPremium
+            ),
             isActive: store.currentPlayingMemo == selectedId,
             isPlaying: store.currentPlayingMemo == selectedId && store.playbackState == .playing,
             currentTime: store.currentPlayingMemo == selectedId ? store.currentTime : 0,

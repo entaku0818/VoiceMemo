@@ -14,14 +14,21 @@ import os.log
 struct AdmobBannerView: View {
 
     private let unitId: String
-    init(unitId: String) {
+    private let useContainingViewController: Bool
+
+    init(unitId: String, useContainingViewController: Bool = false) {
         self.unitId = unitId
+        self.useContainingViewController = useContainingViewController
     }
 
     var body: some View {
         GeometryReader { geometry in
             if AdConsentManager.shared.canLoadAds, geometry.size.width > 0 {
-                ConsentGatedBannerView(unitId: unitId, width: geometry.size.width)
+                ConsentGatedBannerView(
+                    unitId: unitId,
+                    width: geometry.size.width,
+                    useContainingViewController: useContainingViewController
+                )
                     .frame(width: geometry.size.width,
                            height: currentOrientationAnchoredAdaptiveBanner(width: geometry.size.width).size.height)
                     .id(geometry.size.width)
@@ -46,6 +53,7 @@ struct AdmobBannerView: View {
 private struct ConsentGatedBannerView: UIViewRepresentable {
     let unitId: String
     let width: CGFloat
+    let useContainingViewController: Bool
 
     func makeUIView(context: Context) -> BannerView {
         let view = BannerView(adSize: currentOrientationAnchoredAdaptiveBanner(width: width))
@@ -55,7 +63,8 @@ private struct ConsentGatedBannerView: UIViewRepresentable {
         #else
         view.adUnitID = unitId
         #endif
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+        if !useContainingViewController,
+           let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             view.rootViewController = windowScene.windows.first?.rootViewController
         }
         view.delegate = context.coordinator

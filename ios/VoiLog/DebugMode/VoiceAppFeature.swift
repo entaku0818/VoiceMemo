@@ -535,7 +535,8 @@ struct VoiceAppView: View {
       NavigationStack {
         VStack(spacing: 0) {
           PlaybackView(
-            store: store.scope(state: \.playbackFeature, action: \.playbackFeature)
+            store: store.scope(state: \.playbackFeature, action: \.playbackFeature),
+            detailBannerFallbackUnitId: recordAdmobUnitId
           )
 
           if !store.settingFeature.hasPurchasedPremium {
