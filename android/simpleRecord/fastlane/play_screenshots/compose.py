@@ -156,6 +156,9 @@ def main():
         raw_dir = HERE / "raw" / conf["raw"]
         out_dir = METADATA / locale / "images" / "phoneScreenshots"
         for i, ((out_name, raw_name, top, bottom), (label, line1, line2)) in enumerate(zip(SCREENS, conf["copy"])):
+            if locale == "ja-JP" and i == 0:
+                raw_name = "02_minutes.png"
+                label, line1, line2 = "AI議事録・プレミアム機能", "会議の録音から", "議事録とToDoへ"
             print(compose(raw_dir, out_dir, out_name, raw_name, label, line1, line2))
 
 
