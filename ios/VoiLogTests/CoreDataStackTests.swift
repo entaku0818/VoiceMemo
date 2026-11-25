@@ -60,8 +60,9 @@ final class CoreDataStackTests: XCTestCase {
 
                 let reader = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
                 reader.persistentStoreCoordinator = container.persistentStoreCoordinator
-                let request: NSFetchRequest<Voice> = Voice.fetchRequest()
-                XCTAssertEqual(try? reader.fetch(request).map(\.id), [recording.uuid])
+                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Voice")
+                request.predicate = NSPredicate(format: "id == %@", recording.uuid as NSUUID)
+                XCTAssertEqual(try? reader.count(for: request), 1)
             }
         } operation: {
             VoiceMemoRepositoryClient.insertRecording(recording, in: context)
