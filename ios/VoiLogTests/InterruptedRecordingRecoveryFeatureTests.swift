@@ -22,7 +22,7 @@ final class InterruptedRecordingRecoveryFeatureTests: XCTestCase {
         restoreResult: Int
     ) -> TestStoreOf<VoiceAppFeature> {
         var repository = VoiceMemoRepositoryClient(
-            insert: { _ in },
+            insert: { _ in true },
             selectAllData: { [] },
             fetch: { _ in nil },
             delete: { _ in },

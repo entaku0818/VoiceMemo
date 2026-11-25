@@ -52,7 +52,7 @@ final class CoreDataStackTests: XCTestCase {
         let recording = makeRecording()
         var events: [String] = []
 
-        withDependencies {
+        let didSave = withDependencies {
             $0.firebaseAnalytics.logEvent = { name, parameters in
                 events.append(name)
                 XCTAssertNil(parameters)
@@ -67,6 +67,7 @@ final class CoreDataStackTests: XCTestCase {
             VoiceMemoRepositoryClient.insertRecording(recording, in: context)
         }
 
+        XCTAssertTrue(didSave)
         XCTAssertEqual(events, ["recording_saved"])
     }
 
@@ -74,7 +75,7 @@ final class CoreDataStackTests: XCTestCase {
     func testRecordingSavedEventIsSkippedWhenStoreIsNotLoaded() {
         let context = NSPersistentContainer(name: "Voice").viewContext
 
-        withDependencies {
+        let didSave = withDependencies {
             $0.firebaseAnalytics.logEvent = { _, _ in
                 XCTFail("An unsaved recording must not emit an event")
             }
@@ -82,6 +83,7 @@ final class CoreDataStackTests: XCTestCase {
             VoiceMemoRepositoryClient.insertRecording(makeRecording(), in: context)
         }
 
+        XCTAssertFalse(didSave)
         context.processPendingChanges()
         XCTAssertTrue(context.insertedObjects.isEmpty)
     }

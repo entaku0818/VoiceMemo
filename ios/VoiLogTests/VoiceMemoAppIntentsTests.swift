@@ -12,7 +12,7 @@ final class VoiceMemoAppIntentsTests: XCTestCase {
         requestRecordPermission: @escaping @Sendable () async -> Bool = { true },
         startRecording: @escaping @Sendable (URL, RecordingConfiguration) async throws -> Bool = { _, _ in true },
         stopRecording: @escaping @Sendable () async -> Void = {},
-        insert: @escaping @MainActor (VoiceMemoRepositoryClient.RecordingVoice) -> Void = { _ in }
+        insert: @escaping @MainActor (VoiceMemoRepositoryClient.RecordingVoice) -> Bool = { _ in true }
     ) -> StoreOf<VoiceAppFeature> {
         Store(
             initialState: VoiceAppFeature.State(
@@ -103,6 +103,7 @@ final class VoiceMemoAppIntentsTests: XCTestCase {
             recordingState: .recording,
             insert: { recordingVoice in
                 insertedTitles.withValue { $0.append(recordingVoice.title) }
+                return true
             }
         )
 
@@ -116,7 +117,10 @@ final class VoiceMemoAppIntentsTests: XCTestCase {
         let insertCalled = LockIsolated(false)
         let store = makeAppStore(
             recordingState: .idle,
-            insert: { _ in insertCalled.setValue(true) }
+            insert: { _ in
+                insertCalled.setValue(true)
+                return true
+            }
         )
 
         _ = try await StopRecordingIntent.run(store: store)
@@ -172,7 +176,7 @@ final class LatestRecordingTranscriptionRunnerTests: XCTestCase {
     ) async rethrows -> T {
         try await withDependencies {
             $0.voiceMemoRepository = .init(
-                insert: { _ in },
+                insert: { _ in true },
                 selectAllData: selectAllData,
                 fetch: { _ in nil },
                 delete: { _ in },

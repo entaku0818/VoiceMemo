@@ -157,7 +157,7 @@ struct RecordingFeature {
             numberOfChannels: state.recordingChannels,
             url: recordingUrl
           )
-          MainActor.assumeIsolated { voiceMemoRepository.insert(recordingVoice) }
+          let didSaveRecording = MainActor.assumeIsolated { voiceMemoRepository.insert(recordingVoice) }
 
           let result = RecordingResult(
             url: recordingUrl,
@@ -168,7 +168,10 @@ struct RecordingFeature {
           state = State() // Reset state
           return .merge(
             .send(.delegate(.recordingCompleted(result))),
-            .run { _ in await longRecordingAudioClient.markRecordingSaved(recordingUrl) },
+            .run { _ in
+              guard didSaveRecording else { return }
+              await longRecordingAudioClient.markRecordingSaved(recordingUrl)
+            },
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
               guard userDefaults.isTranscriptionEnabled() else { return }
@@ -214,7 +217,7 @@ struct RecordingFeature {
             numberOfChannels: state.recordingChannels,
             url: recordingUrl
           )
-          MainActor.assumeIsolated { voiceMemoRepository.insert(recordingVoice) }
+          let didSaveRecording = MainActor.assumeIsolated { voiceMemoRepository.insert(recordingVoice) }
 
           let result = RecordingResult(
             url: recordingUrl,
@@ -225,7 +228,10 @@ struct RecordingFeature {
           state = State() // Reset state
           return .merge(
             .send(.delegate(.recordingCompleted(result))),
-            .run { _ in await longRecordingAudioClient.markRecordingSaved(recordingUrl) },
+            .run { _ in
+              guard didSaveRecording else { return }
+              await longRecordingAudioClient.markRecordingSaved(recordingUrl)
+            },
             .run { [timestampedText] send in
               guard timestampedText == nil else { return }
               guard userDefaults.isTranscriptionEnabled() else { return }

@@ -50,7 +50,7 @@ final class PlaybackFeatureTests: XCTestCase {
 
     private func mockRepository() -> VoiceMemoRepositoryClient {
         .init(
-            insert: { _ in },
+            insert: { _ in true },
             selectAllData: { [] },
             fetch: { _ in nil },
             delete: { _ in },
@@ -277,7 +277,7 @@ final class PlaybackFeatureTests: XCTestCase {
                 PlaybackFeature()
             } withDependencies: {
                 $0.voiceMemoRepository = VoiceMemoRepositoryClient(
-                    insert: { _ in },
+                    insert: { _ in true },
                     selectAllData: { [] },
                     fetch: { _ in nil },
                     delete: { _ in },

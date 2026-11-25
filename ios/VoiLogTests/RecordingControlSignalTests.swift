@@ -8,7 +8,7 @@ final class RecordingControlSignalTests: XCTestCase {
     private func makeAppStore(
         recordingState: RecordingFeature.State.RecordingState = .idle,
         stopRecording: @escaping @Sendable () async -> Void = {},
-        insert: @escaping @MainActor (VoiceMemoRepositoryClient.RecordingVoice) -> Void = { _ in }
+        insert: @escaping @MainActor (VoiceMemoRepositoryClient.RecordingVoice) -> Bool = { _ in true }
     ) -> StoreOf<VoiceAppFeature> {
         Store(
             initialState: VoiceAppFeature.State(
@@ -96,6 +96,7 @@ final class RecordingControlSignalTests: XCTestCase {
             recordingState: .recording,
             insert: { recordingVoice in
                 insertedTitles.withValue { $0.append(recordingVoice.title) }
+                return true
             }
         )
 
@@ -112,7 +113,10 @@ final class RecordingControlSignalTests: XCTestCase {
         let insertCalled = LockIsolated(false)
         let store = makeAppStore(
             recordingState: .idle,
-            insert: { _ in insertCalled.setValue(true) }
+            insert: { _ in
+                insertCalled.setValue(true)
+                return true
+            }
         )
 
         await RecordingControlSignalObserver.shared.handle(

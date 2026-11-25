@@ -13,6 +13,7 @@ final class RecordingStabilityFeatureTests: XCTestCase {
         liveActivityUpdates: LockIsolated<Int> = LockIsolated(0),
         savedURLs: LockIsolated<[URL]> = LockIsolated([]),
         insertedRecordings: LockIsolated<[VoiceMemoRepositoryClient.RecordingVoice]> = LockIsolated([]),
+        insertSucceeds: Bool = true,
         initialState: RecordingFeature.State = RecordingFeature.State(recordingState: .idle, audioPermission: .granted)
     ) -> TestStoreOf<RecordingFeature> {
         TestStore(initialState: initialState) {
@@ -37,7 +38,10 @@ final class RecordingStabilityFeatureTests: XCTestCase {
                 markRecordingSaved: { url in savedURLs.withValue { $0.append(url) } }
             )
             $0.voiceMemoRepository = .init(
-                insert: { recording in insertedRecordings.withValue { $0.append(recording) } },
+                insert: { recording in
+                    insertedRecordings.withValue { $0.append(recording) }
+                    return insertSucceeds
+                },
                 selectAllData: { [] },
                 fetch: { _ in nil },
                 delete: { _ in },
@@ -168,6 +172,34 @@ final class RecordingStabilityFeatureTests: XCTestCase {
             XCTAssertEqual(inserted.value.map(\.uuid), [UUID(2)])
             XCTAssertEqual(inserted.value.map(\.url), saved.value)
             XCTAssertEqual(saved.value.map(\.lastPathComponent), ["\(UUID(2).uuidString).m4a"])
+        }
+    }
+
+    func testSaveFailure_KeepsRecordingRecoveryJournal() async {
+        await withMainSerialExecutor {
+            let saveActions: [RecordingFeature.Action.View] = [.saveWithTitle, .skipTitle]
+            for action in saveActions {
+                let saved = LockIsolated<[URL]>([])
+                let inserted = LockIsolated<[VoiceMemoRepositoryClient.RecordingVoice]>([])
+                var state = RecordingFeature.State(recordingState: .encoding, audioPermission: .granted)
+                state.recordingId = UUID(4)
+                state.recordingFileFormat = "M4A"
+                state.showTitleDialog = true
+                let store = makeStore(
+                    clock: TestClock(),
+                    savedURLs: saved,
+                    insertedRecordings: inserted,
+                    insertSucceeds: false,
+                    initialState: state
+                )
+                store.exhaustivity = .off
+
+                await store.send(.view(action))
+                await store.finish()
+
+                XCTAssertEqual(inserted.value.map(\.uuid), [UUID(4)])
+                XCTAssertTrue(saved.value.isEmpty)
+            }
         }
     }
 

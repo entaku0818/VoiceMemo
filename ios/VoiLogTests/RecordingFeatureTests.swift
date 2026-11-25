@@ -79,7 +79,7 @@ final class RecordingFeatureTests: XCTestCase {
                     recognizeAudio: { _ in nil }
                 )
                 $0.voiceMemoRepository = .init(
-                    insert: { _ in },
+                    insert: { _ in true },
                     selectAllData: { [] },
                     fetch: { _ in nil },
                     delete: { _ in },
@@ -221,7 +221,7 @@ final class RecordingFeatureTests: XCTestCase {
                 recognizeAudio: { _ in nil }
             )
             $0.voiceMemoRepository = .init(
-                insert: { _ in },
+                insert: { _ in true },
                 selectAllData: { [] },
                 fetch: { _ in nil },
                 delete: { _ in },
@@ -268,7 +268,7 @@ final class RecordingFeatureTests: XCTestCase {
                     recognizeAudio: { _ in nil }
                 )
                 $0.voiceMemoRepository = .init(
-                    insert: { _ in },
+                    insert: { _ in true },
                     selectAllData: { [] },
                     fetch: { _ in nil },
                     delete: { _ in },

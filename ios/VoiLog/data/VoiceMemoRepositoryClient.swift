@@ -46,7 +46,8 @@ struct VoiceMemoRepositoryClient {
         var tags: [String] = []
     }
 
-    var insert: @MainActor (RecordingVoice) -> Void
+    /// Returns whether the recording was saved to the local store.
+    var insert: @MainActor (RecordingVoice) -> Bool
     var selectAllData: @MainActor () -> [VoiceMemoVoice]
     var fetch: @MainActor (UUID) -> RecordingVoice?
     var delete: @MainActor (UUID) -> Void
@@ -72,11 +73,11 @@ struct VoiceMemoRepositoryClient {
     var collectRecoveryDiagnostics: @MainActor () async -> RecoveryDiagnostics = { .empty }
 
     @MainActor
-    static func insertRecording(_ recording: RecordingVoice, in context: NSManagedObjectContext) {
+    static func insertRecording(_ recording: RecordingVoice, in context: NSManagedObjectContext) -> Bool {
         guard let entity = NSEntityDescription.entity(forEntityName: "Voice", in: context),
               let voiceEntity = NSManagedObject(entity: entity, insertInto: context) as? VoiLog.Voice else {
             AppLogger.data.error("Repository insert failed: Voice entity unavailable")
-            return
+            return false
         }
 
         voiceEntity.title = recording.title
@@ -98,12 +99,13 @@ struct VoiceMemoRepositoryClient {
         } catch {
             context.delete(voiceEntity)
             AppLogger.data.error("Repository insert failed: \(error.localizedDescription)")
-            return
+            return false
         }
 
         @Dependency(\.firebaseAnalytics)
         var analytics
         analytics.logEvent(FirebaseAnalyticsClient.RecordingEvent.recordingSaved, nil)
+        return true
     }
 
     // MARK: - Cloud Restore Result
@@ -697,7 +699,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
 
     @MainActor
     static let previewValue = VoiceMemoRepositoryClient(
-        insert: { _ in },
+        insert: { _ in true },
         selectAllData: { [] },
         fetch: { _ in nil },
         delete: { _ in },
