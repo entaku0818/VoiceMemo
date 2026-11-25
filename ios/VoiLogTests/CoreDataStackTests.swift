@@ -1,5 +1,6 @@
 import XCTest
 import CoreData
+import Dependencies
 @testable import VoiLog
 
 final class CoreDataStackTests: XCTestCase {
@@ -35,6 +36,69 @@ final class CoreDataStackTests: XCTestCase {
 
         XCTAssertNoThrow(try container.viewContext.saveIfStoreLoaded(),
                          "stores ロード済みの場合は throw しないこと")
+    }
+
+    @MainActor
+    func testRecordingSavedEventFollowsPersistentStoreSave() throws {
+        let directory = try makeTempDirectory()
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let container = NSPersistentContainer(name: "Voice")
+        try container.persistentStoreCoordinator.addPersistentStore(
+            ofType: NSSQLiteStoreType,
+            configurationName: nil,
+            at: directory.appendingPathComponent("Voice.sqlite")
+        )
+        let context = container.viewContext
+        let recording = makeRecording()
+        var events: [String] = []
+
+        withDependencies {
+            $0.firebaseAnalytics.logEvent = { name, parameters in
+                events.append(name)
+                XCTAssertNil(parameters)
+                XCTAssertFalse(context.hasChanges)
+
+                let reader = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+                reader.persistentStoreCoordinator = container.persistentStoreCoordinator
+                let request: NSFetchRequest<Voice> = Voice.fetchRequest()
+                XCTAssertEqual(try? reader.fetch(request).map(\.id), [recording.uuid])
+            }
+        } operation: {
+            VoiceMemoRepositoryClient.insertRecording(recording, in: context)
+        }
+
+        XCTAssertEqual(events, ["recording_saved"])
+    }
+
+    @MainActor
+    func testRecordingSavedEventIsSkippedWhenStoreIsNotLoaded() {
+        let context = NSPersistentContainer(name: "Voice").viewContext
+
+        withDependencies {
+            $0.firebaseAnalytics.logEvent = { _, _ in
+                XCTFail("An unsaved recording must not emit an event")
+            }
+        } operation: {
+            VoiceMemoRepositoryClient.insertRecording(makeRecording(), in: context)
+        }
+
+        context.processPendingChanges()
+        XCTAssertTrue(context.insertedObjects.isEmpty)
+    }
+
+    private func makeRecording() -> VoiceMemoRepositoryClient.RecordingVoice {
+        .init(
+            uuid: UUID(),
+            date: Date(),
+            duration: 1,
+            resultText: "",
+            title: "Test recording",
+            fileFormat: "M4A",
+            samplingFrequency: 44_100,
+            quantizationBitDepth: 16,
+            numberOfChannels: 1,
+            url: URL(fileURLWithPath: "/recording.m4a")
+        )
     }
 
     // MARK: - CoreDataError: Equatable の確認

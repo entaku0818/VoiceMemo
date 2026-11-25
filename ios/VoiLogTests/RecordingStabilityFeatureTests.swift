@@ -12,6 +12,7 @@ final class RecordingStabilityFeatureTests: XCTestCase {
         currentTimeCalls: LockIsolated<Int> = LockIsolated(0),
         liveActivityUpdates: LockIsolated<Int> = LockIsolated(0),
         savedURLs: LockIsolated<[URL]> = LockIsolated([]),
+        insertedRecordings: LockIsolated<[VoiceMemoRepositoryClient.RecordingVoice]> = LockIsolated([]),
         initialState: RecordingFeature.State = RecordingFeature.State(recordingState: .idle, audioPermission: .granted)
     ) -> TestStoreOf<RecordingFeature> {
         TestStore(initialState: initialState) {
@@ -36,7 +37,7 @@ final class RecordingStabilityFeatureTests: XCTestCase {
                 markRecordingSaved: { url in savedURLs.withValue { $0.append(url) } }
             )
             $0.voiceMemoRepository = .init(
-                insert: { _ in },
+                insert: { recording in insertedRecordings.withValue { $0.append(recording) } },
                 selectAllData: { [] },
                 fetch: { _ in nil },
                 delete: { _ in },
@@ -80,7 +81,7 @@ final class RecordingStabilityFeatureTests: XCTestCase {
     func testStopInBackground_RefreshesDurationBeforeSaving() async {
         await withMainSerialExecutor {
             let clock = TestClock()
-            let store = makeStore(clock: clock, isForeground: { false })
+            let store = makeStore(clock: clock) { false }
             store.exhaustivity = .off
 
             await store.send(.permissionResponse(true))
@@ -128,39 +129,66 @@ final class RecordingStabilityFeatureTests: XCTestCase {
     }
 
     /// 一覧へ保存したら、強制終了に備えた「録音中」の記録を消す
-    func testSaveWithTitle_MarksRecordingSaved() async {
+    func testSaveWithTitle_InsertsAndMarksRecordingSaved() async {
         await withMainSerialExecutor {
-            let clock = TestClock()
             let saved = LockIsolated<[URL]>([])
+            let inserted = LockIsolated<[VoiceMemoRepositoryClient.RecordingVoice]>([])
             var state = RecordingFeature.State(recordingState: .encoding, audioPermission: .granted)
             state.recordingId = UUID(1)
             state.recordingFileFormat = "WAV"
+            state.tempTitle = "Recording title"
             state.showTitleDialog = true
-            let store = makeStore(clock: clock, savedURLs: saved, initialState: state)
+            let store = makeStore(clock: TestClock(), savedURLs: saved, insertedRecordings: inserted, initialState: state)
             store.exhaustivity = .off
 
             await store.send(.view(.saveWithTitle))
             await store.finish()
 
+            XCTAssertEqual(inserted.value.map(\.uuid), [UUID(1)])
+            XCTAssertEqual(inserted.value.map(\.title), ["Recording title"])
+            XCTAssertEqual(inserted.value.map(\.url), saved.value)
             XCTAssertEqual(saved.value.map(\.lastPathComponent), ["\(UUID(1).uuidString).wav"])
         }
     }
 
-    func testSkipTitle_MarksRecordingSaved() async {
+    func testSkipTitle_InsertsAndMarksRecordingSaved() async {
         await withMainSerialExecutor {
-            let clock = TestClock()
             let saved = LockIsolated<[URL]>([])
+            let inserted = LockIsolated<[VoiceMemoRepositoryClient.RecordingVoice]>([])
             var state = RecordingFeature.State(recordingState: .encoding, audioPermission: .granted)
             state.recordingId = UUID(2)
             state.recordingFileFormat = "M4A"
             state.showTitleDialog = true
-            let store = makeStore(clock: clock, savedURLs: saved, initialState: state)
+            let store = makeStore(clock: TestClock(), savedURLs: saved, insertedRecordings: inserted, initialState: state)
             store.exhaustivity = .off
 
             await store.send(.view(.skipTitle))
             await store.finish()
 
+            XCTAssertEqual(inserted.value.map(\.uuid), [UUID(2)])
+            XCTAssertEqual(inserted.value.map(\.url), saved.value)
             XCTAssertEqual(saved.value.map(\.lastPathComponent), ["\(UUID(2).uuidString).m4a"])
+        }
+    }
+
+    func testDelayedSkipTitle_AfterSavingWithTitle_DoesNotInsertAgain() async {
+        await withMainSerialExecutor {
+            let inserted = LockIsolated<[VoiceMemoRepositoryClient.RecordingVoice]>([])
+            var state = RecordingFeature.State(recordingState: .encoding, audioPermission: .granted)
+            state.recordingId = UUID(3)
+            state.recordingFileFormat = "M4A"
+            state.showTitleDialog = true
+            let store = makeStore(clock: TestClock(), insertedRecordings: inserted, initialState: state)
+            store.exhaustivity = .off
+
+            await store.send(.view(.saveWithTitle))
+            await store.finish()
+            XCTAssertEqual(store.state.recordingState, .idle)
+
+            await store.send(.view(.skipTitle))
+            await store.finish()
+
+            XCTAssertEqual(inserted.value.map(\.uuid), [UUID(3)])
         }
     }
 }

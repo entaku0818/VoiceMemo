@@ -123,6 +123,7 @@ struct RecordingFeature {
           .merge(with: .cancel(id: CancelID.recording))
 
         case .saveWithTitle:
+          guard state.recordingState == .encoding else { return .none }
           state.showTitleDialog = false
           // 録音開始時に保存した設定を使用
           let fileFormat = state.recordingFileFormat
@@ -179,6 +180,7 @@ struct RecordingFeature {
           )
 
         case .skipTitle:
+          guard state.recordingState == .encoding else { return .none }
           state.showTitleDialog = false
           // 録音開始時に保存した設定を使用
           let fileFormat = state.recordingFileFormat

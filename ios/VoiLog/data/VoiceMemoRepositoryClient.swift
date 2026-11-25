@@ -71,6 +71,41 @@ struct VoiceMemoRepositoryClient {
     /// 消失時の状況スナップショットを集める（Crashlytics 送信・問い合わせ添付用）
     var collectRecoveryDiagnostics: @MainActor () async -> RecoveryDiagnostics = { .empty }
 
+    @MainActor
+    static func insertRecording(_ recording: RecordingVoice, in context: NSManagedObjectContext) {
+        guard let entity = NSEntityDescription.entity(forEntityName: "Voice", in: context),
+              let voiceEntity = NSManagedObject(entity: entity, insertInto: context) as? VoiLog.Voice else {
+            AppLogger.data.error("Repository insert failed: Voice entity unavailable")
+            return
+        }
+
+        voiceEntity.title = recording.title
+        voiceEntity.url = recording.url
+        voiceEntity.id = recording.uuid
+        voiceEntity.text = recording.resultText
+        voiceEntity.timestampedText = recording.timestampedText
+        voiceEntity.createdAt = recording.date
+        voiceEntity.updatedAt = Date()
+        voiceEntity.duration = recording.duration
+        voiceEntity.fileFormat = recording.fileFormat
+        voiceEntity.samplingFrequency = recording.samplingFrequency
+        voiceEntity.quantizationBitDepth = Int16(recording.quantizationBitDepth)
+        voiceEntity.numberOfChannels = Int16(recording.numberOfChannels)
+        voiceEntity.isCloud = false
+
+        do {
+            try context.saveIfStoreLoaded()
+        } catch {
+            context.delete(voiceEntity)
+            AppLogger.data.error("Repository insert failed: \(error.localizedDescription)")
+            return
+        }
+
+        @Dependency(\.firebaseAnalytics)
+        var analytics
+        analytics.logEvent(FirebaseAnalyticsClient.RecordingEvent.recordingSaved, nil)
+    }
+
     // MARK: - Cloud Restore Result
     struct CloudRestoreResult: Equatable {
         var restoredCount: Int = 0
@@ -150,26 +185,7 @@ private enum VoiceMemoRepositoryClientKey: DependencyKey {
 
         return VoiceMemoRepositoryClient(
             insert: { recordingVoice in
-                if let voiceEntity = NSManagedObject(entity: entity!, insertInto: managedContext) as? VoiLog.Voice {
-                    voiceEntity.title = recordingVoice.title
-                    voiceEntity.url = recordingVoice.url
-                    voiceEntity.id = recordingVoice.uuid
-                    voiceEntity.text = recordingVoice.resultText
-                    voiceEntity.timestampedText = recordingVoice.timestampedText
-                    voiceEntity.createdAt = recordingVoice.date
-                    voiceEntity.updatedAt = Date()
-                    voiceEntity.duration = recordingVoice.duration
-                    voiceEntity.fileFormat = recordingVoice.fileFormat
-                    voiceEntity.samplingFrequency = recordingVoice.samplingFrequency
-                    voiceEntity.quantizationBitDepth = Int16(recordingVoice.quantizationBitDepth)
-                    voiceEntity.numberOfChannels = Int16(recordingVoice.numberOfChannels)
-                    voiceEntity.isCloud = false
-                    do {
-                        try managedContext.saveIfStoreLoaded()
-                    } catch {
-                        AppLogger.data.error("Repository insert failed: \(error.localizedDescription)")
-                    }
-                }
+                VoiceMemoRepositoryClient.insertRecording(recordingVoice, in: managedContext)
             },
             selectAllData: {
                 var memoGroups: [VoiLog.Voice] = []
