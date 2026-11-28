@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import android.media.MediaRecorder
 import android.os.Build
 import android.os.Environment
+import android.util.Log
 import com.entaku.simpleRecord.RecordingData
 import com.entaku.simpleRecord.SharedRecordingsViewModel
 import com.entaku.simpleRecord.settings.RecordingSettings
@@ -16,6 +17,7 @@ import com.entaku.simpleRecord.settings.SettingsRepository
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import java.io.File
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.Duration
@@ -109,6 +111,9 @@ class RecordViewModel(
     }
 
     fun startRecording(applicationContext: Context) {
+        val state = _uiState.value.recordingState
+        if (state != RecordingState.IDLE && state != RecordingState.ERROR) return
+
         val settings = getRecordingSettings()
         val externalFilesDir = applicationContext.getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         val fileName = "recording_${System.currentTimeMillis()}"
@@ -122,37 +127,50 @@ class RecordViewModel(
             MediaRecorder.AudioSource.MIC
         }
 
-        mediaRecorder = createMediaRecorder(applicationContext).apply {
-            setAudioSource(audioSource)
-            setOutputFormat(settings.outputFormat)
-            setAudioEncoder(settings.audioEncoder)
-            setAudioSamplingRate(settings.sampleRate)
-            setAudioEncodingBitRate(settings.bitRate)
-            setAudioChannels(settings.channels)
-            setOutputFile(outputFile)
-            try {
+        try {
+            val recorder = createMediaRecorder(applicationContext)
+            mediaRecorder = recorder
+            recorder.apply {
+                setAudioSource(audioSource)
+                setOutputFormat(settings.outputFormat)
+                setAudioEncoder(settings.audioEncoder)
+                setAudioSamplingRate(settings.sampleRate)
+                setAudioEncodingBitRate(settings.bitRate)
+                setAudioChannels(settings.channels)
+                setOutputFile(outputFile)
                 prepare()
                 start()
-                startTime = System.currentTimeMillis()
-                pausedDuration = 0
-                _uiState.update { it.copy(
-                    recordingState = RecordingState.RECORDING,
-                    currentFilePath = outputFile,
-                    elapsedTime = Duration.ZERO,
-                    currentVolume = 0,
-                    amplitudeHistory = emptyList()
-                ) }
-                sharedViewModel.updateRecordingState(RecordingState.RECORDING)
-                notificationContext = applicationContext
-                RecordingNotificationService.actionListener = recordingActionListener
-                RecordingNotificationService.start(applicationContext, startTime)
-                startVolumeMonitoring()
-                startTimeUpdates()
-                startRealtimeTranscription(applicationContext, initialText = "")
-            } catch (e: IOException) {
-                e.printStackTrace()
             }
+        } catch (error: IOException) {
+            handleRecorderFailure(outputFile, error)
+            return
+        } catch (error: RuntimeException) {
+            handleRecorderFailure(outputFile, error)
+            return
         }
+
+        startTime = System.currentTimeMillis()
+        pausedDuration = 0
+        _uiState.value = RecordingUiState(
+            recordingState = RecordingState.RECORDING,
+            currentFilePath = outputFile
+        )
+        sharedViewModel.updateRecordingState(RecordingState.RECORDING)
+        notificationContext = applicationContext
+        RecordingNotificationService.actionListener = recordingActionListener
+        RecordingNotificationService.start(applicationContext, startTime)
+        startVolumeMonitoring()
+        startTimeUpdates()
+        startRealtimeTranscription(applicationContext, initialText = "")
+    }
+
+    private fun handleRecorderFailure(outputFile: String?, error: Exception) {
+        Log.e("RecordViewModel", "MediaRecorder failed", error)
+        runCatching { mediaRecorder?.release() }
+        mediaRecorder = null
+        outputFile?.let { File(it).delete() }
+        _uiState.value = RecordingUiState(recordingState = RecordingState.ERROR)
+        sharedViewModel.updateRecordingState(RecordingState.ERROR)
     }
 
     private fun startVolumeMonitoring() {
@@ -214,17 +232,14 @@ class RecordViewModel(
         volumeMonitorJob = null
         stopRealtimeTranscription()
 
-        mediaRecorder?.apply {
-            try {
-                stop()
-            } catch (e: IllegalStateException) {
-                e.printStackTrace()
-                stopNotificationService()
-                return
-            } finally {
-                release()
-            }
+        try {
+            mediaRecorder?.stop()
+        } catch (error: RuntimeException) {
+            stopNotificationService()
+            handleRecorderFailure(_uiState.value.currentFilePath, error)
+            return
         }
+        mediaRecorder?.release()
         mediaRecorder = null
         stopNotificationService()
 

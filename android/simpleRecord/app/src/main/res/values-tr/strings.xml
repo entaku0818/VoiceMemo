@@ -47,6 +47,10 @@
     <string name="resume">Devam et</string>
     <string name="stop">Durdur</string>
     <string name="volume_label">Ses: %d%%</string>
+    <string name="recording_ready">Kayda hazır</string>
+    <string name="recording_error">Kayıt başarısız oldu. Lütfen tekrar deneyin.</string>
+    <string name="recording_microphone_permission_required">Kayıt yapmak için mikrofon izni gerekiyor.</string>
+    <string name="recording_open_app_settings">Uygulama ayarlarını aç</string>
     <string name="realtime_transcription_label">Canlı yazıya dökme</string>
     <string name="realtime_transcription_placeholder">Dinleniyor…</string>
     <string name="play">Oynat</string>

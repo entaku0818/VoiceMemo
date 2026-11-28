@@ -47,6 +47,10 @@
     <string name="resume">Riprendi</string>
     <string name="stop">Stop</string>
     <string name="volume_label">Volume: %d%%</string>
+    <string name="recording_ready">Pronto per registrare</string>
+    <string name="recording_error">Impossibile registrare. Riprova.</string>
+    <string name="recording_microphone_permission_required">Per registrare è necessario accedere al microfono.</string>
+    <string name="recording_open_app_settings">Apri le impostazioni dell\'app</string>
     <string name="realtime_transcription_label">Trascrizione in tempo reale</string>
     <string name="realtime_transcription_placeholder">In ascolto…</string>
     <string name="play">Riproduci</string>

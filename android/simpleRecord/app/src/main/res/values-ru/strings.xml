@@ -47,6 +47,10 @@
     <string name="resume">Продолжить</string>
     <string name="stop">Стоп</string>
     <string name="volume_label">Громкость: %d%%</string>
+    <string name="recording_ready">Готово к записи</string>
+    <string name="recording_error">Не удалось записать звук. Попробуйте ещё раз.</string>
+    <string name="recording_microphone_permission_required">Для записи нужен доступ к микрофону.</string>
+    <string name="recording_open_app_settings">Открыть настройки приложения</string>
     <string name="realtime_transcription_label">Расшифровка в реальном времени</string>
     <string name="realtime_transcription_placeholder">Слушаю…</string>
     <string name="play">Воспроизвести</string>

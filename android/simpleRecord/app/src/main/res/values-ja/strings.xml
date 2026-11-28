@@ -58,6 +58,10 @@
     <string name="resume">再開</string>
     <string name="stop">停止</string>
     <string name="volume_label">音量: %d%%</string>
+    <string name="recording_ready">録音準備完了</string>
+    <string name="recording_error">録音に失敗しました。もう一度お試しください。</string>
+    <string name="recording_microphone_permission_required">録音にはマイクの使用許可が必要です。</string>
+    <string name="recording_open_app_settings">アプリの設定を開く</string>
     <string name="realtime_transcription_label">リアルタイム文字起こし</string>
     <string name="realtime_transcription_placeholder">音声を認識中…</string>
     <string name="play">再生</string>

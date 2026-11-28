@@ -64,6 +64,10 @@
     <string name="resume">Resume</string>
     <string name="stop">Stop</string>
     <string name="volume_label">Volume: %d%%</string>
+    <string name="recording_ready">Ready to record</string>
+    <string name="recording_error">Recording failed. Please try again.</string>
+    <string name="recording_microphone_permission_required">Microphone access is required to record.</string>
+    <string name="recording_open_app_settings">Open app settings</string>
     <string name="realtime_transcription_label">Live Transcription</string>
     <string name="realtime_transcription_placeholder">Listening…</string>
 

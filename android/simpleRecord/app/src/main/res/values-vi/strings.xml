@@ -47,6 +47,10 @@
     <string name="resume">Tiếp tục</string>
     <string name="stop">Dừng</string>
     <string name="volume_label">Âm lượng: %d%%</string>
+    <string name="recording_ready">Sẵn sàng ghi âm</string>
+    <string name="recording_error">Không thể ghi âm. Vui lòng thử lại.</string>
+    <string name="recording_microphone_permission_required">Cần quyền truy cập micrô để ghi âm.</string>
+    <string name="recording_open_app_settings">Mở cài đặt ứng dụng</string>
     <string name="realtime_transcription_label">Chuyển văn bản trực tiếp</string>
     <string name="realtime_transcription_placeholder">Đang nghe…</string>
     <string name="play">Phát</string>

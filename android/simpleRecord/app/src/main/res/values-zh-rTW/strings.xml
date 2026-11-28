@@ -47,6 +47,10 @@
     <string name="resume">繼續</string>
     <string name="stop">停止</string>
     <string name="volume_label">音量: %d%%</string>
+    <string name="recording_ready">已準備好錄音</string>
+    <string name="recording_error">錄音失敗，請再試一次。</string>
+    <string name="recording_microphone_permission_required">錄音需要麥克風權限。</string>
+    <string name="recording_open_app_settings">開啟應用程式設定</string>
     <string name="realtime_transcription_label">即時轉錄</string>
     <string name="realtime_transcription_placeholder">正在聆聽…</string>
     <string name="play">播放</string>

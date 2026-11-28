@@ -2,6 +2,7 @@ package com.entaku.simpleRecord
 
 import kotlinx.coroutines.flow.first
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -34,6 +35,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.Lifecycle
 import com.entaku.simpleRecord.shortcut.ShortcutIntentHandler
@@ -119,6 +121,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val nightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars =
+            nightMode != Configuration.UI_MODE_NIGHT_YES
         if (savedInstanceState == null) AppOpenAdController.getInstance(this).incrementLaunchCount()
         handleShortcutIntent(intent)
         if (savedInstanceState != null || autoStartRecording.value) {
@@ -211,7 +216,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SplashScreen() {
-    MaterialTheme(colorScheme = LightColorScheme, typography = Typography) {
+    AudioRecorderTheme {
         androidx.compose.foundation.layout.Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -247,17 +252,19 @@ fun AppNavHost(
     val topLevelRouteStrings = topLevelRoutes.map { it.route }.toSet()
     val showBottomBar = currentRoute in topLevelRouteStrings
 
+    fun navigateTopLevel(route: String) {
+        navController.navigate(route) {
+            popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+
     // ショートカット「録音開始」で起動された場合、録音タブが表示中でなければ切り替える (issue #204)。
     // 実際の録音開始はRecordScreen側のLaunchedEffectが権限チェックを経て行う。
     LaunchedEffect(autoStartRecording.value, currentRoute) {
         if (autoStartRecording.value && currentRoute != Screen.Record.route) {
-            navController.navigate(Screen.Record.route) {
-                popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
-                }
-                launchSingleTop = true
-                restoreState = true
-            }
+            navigateTopLevel(Screen.Record.route)
         }
     }
 
@@ -275,7 +282,7 @@ fun AppNavHost(
             }
         }
     }
-    MaterialTheme(colorScheme = LightColorScheme, typography = Typography) {
+    AudioRecorderTheme {
         Scaffold(
             containerColor = MaterialTheme.colorScheme.background,
             bottomBar = {
@@ -284,15 +291,7 @@ fun AppNavHost(
                         topLevelRoutes.forEach { dest ->
                             NavigationBarItem(
                                 selected = currentRoute == dest.route,
-                                onClick = {
-                                    navController.navigate(dest.route) {
-                                        popUpTo(navController.graph.findStartDestination().id) {
-                                            saveState = true
-                                        }
-                                        launchSingleTop = true
-                                        restoreState = true
-                                    }
-                                },
+                                onClick = { navigateTopLevel(dest.route) },
                                 icon = { Icon(dest.icon, contentDescription = null) },
                                 label = { Text(stringResource(dest.labelRes)) }
                             )
@@ -320,17 +319,10 @@ fun AppNavHost(
                         onStopRecording = { viewModel.stopRecording() },
                         onPauseRecording = { viewModel.pauseRecording() },
                         onResumeRecording = { viewModel.resumeRecording() },
-                        onNavigateBack = {
-                            navController.navigate(Screen.Recordings.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
+                        onNavigateBack = { navigateTopLevel(Screen.Recordings.route) },
                         autoStartRecording = autoStartRecording.value,
-                        onAutoStartRecordingConsumed = { autoStartRecording.value = false }
+                        onAutoStartRecordingConsumed = { autoStartRecording.value = false },
+                        onOpenRecordingSettings = { navigateTopLevel(Screen.RecordingSettings.route) }
                     )
                 }
 

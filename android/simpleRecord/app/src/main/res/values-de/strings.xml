@@ -47,6 +47,10 @@
     <string name="resume">Fortsetzen</string>
     <string name="stop">Stopp</string>
     <string name="volume_label">Lautstärke: %d%%</string>
+    <string name="recording_ready">Aufnahmebereit</string>
+    <string name="recording_error">Die Aufnahme ist fehlgeschlagen. Bitte versuche es erneut.</string>
+    <string name="recording_microphone_permission_required">Für die Aufnahme ist der Zugriff auf das Mikrofon erforderlich.</string>
+    <string name="recording_open_app_settings">App-Einstellungen öffnen</string>
     <string name="realtime_transcription_label">Live-Transkription</string>
     <string name="realtime_transcription_placeholder">Höre zu…</string>
     <string name="play">Abspielen</string>
