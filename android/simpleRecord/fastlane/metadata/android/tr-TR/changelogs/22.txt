@@ -1,0 +1,4 @@
+2.10.3
+Kayıt ekranı, zamanlayıcı ve ses dalga biçimiyle yeniden tasarlandı.
+Kaydı duraklatmak, sürdürmek ve kayıt ayarlarını açmak artık daha kolay.
+Mikrofon erişimi reddedildiğinde daha anlaşılır yönlendirmeler gösteriliyor.

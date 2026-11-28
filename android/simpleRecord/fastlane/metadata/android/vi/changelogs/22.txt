@@ -1,0 +1,4 @@
+2.10.3
+Thiết kế lại màn hình ghi âm với bộ đếm thời gian và dạng sóng âm.
+Dễ dàng tạm dừng, tiếp tục ghi âm và mở cài đặt ghi âm.
+Hướng dẫn rõ ràng hơn khi quyền truy cập micrô bị từ chối.

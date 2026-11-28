@@ -1,0 +1,4 @@
+2.10.3
+Neuer Aufnahmebildschirm mit Timer und Wellenform.
+Aufnahmen lassen sich leichter pausieren und fortsetzen. Die Aufnahmeeinstellungen sind direkt erreichbar.
+Klarere Hinweise, wenn der Mikrofonzugriff verweigert wurde.

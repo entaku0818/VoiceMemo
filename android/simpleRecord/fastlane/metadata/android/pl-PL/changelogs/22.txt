@@ -1,0 +1,4 @@
+2.10.3
+Nowy wygląd ekranu nagrywania z licznikiem czasu i wykresem fali dźwiękowej.
+Nagrywanie można łatwiej wstrzymywać i wznawiać, a ustawienia nagrywania są pod ręką.
+Dodano bardziej przejrzyste wskazówki w razie odmowy dostępu do mikrofonu.

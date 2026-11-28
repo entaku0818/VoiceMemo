@@ -1,0 +1,4 @@
+2.10.3
+Rediseñamos la pantalla de grabación con un temporizador y una forma de onda.
+Ahora es más fácil pausar y reanudar la grabación y abrir la configuración de grabación.
+Agregamos indicaciones más claras cuando se deniega el acceso al micrófono.

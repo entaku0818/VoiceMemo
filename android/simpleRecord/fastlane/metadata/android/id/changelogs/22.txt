@@ -1,0 +1,4 @@
+2.10.3
+Tampilan perekaman diperbarui dengan pewaktu dan gelombang audio.
+Menjeda dan melanjutkan rekaman serta membuka setelan perekaman kini lebih mudah.
+Petunjuk kini lebih jelas saat akses mikrofon ditolak.

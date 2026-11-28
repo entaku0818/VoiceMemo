@@ -1,0 +1,4 @@
+2.10.3
+Nouvel écran d’enregistrement avec chronomètre et forme d’onde.
+Il est plus facile de mettre en pause et de reprendre un enregistrement, ainsi que d’accéder à ses réglages.
+Des instructions plus claires s’affichent lorsque l’accès au micro est refusé.

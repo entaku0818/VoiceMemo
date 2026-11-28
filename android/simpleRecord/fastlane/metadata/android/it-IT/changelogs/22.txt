@@ -1,0 +1,4 @@
+2.10.3
+Nuova schermata di registrazione con timer e forma d’onda.
+È più facile mettere in pausa e riprendere una registrazione e aprire le impostazioni di registrazione.
+Indicazioni più chiare quando l’accesso al microfono viene negato.

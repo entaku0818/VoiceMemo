@@ -1,0 +1,4 @@
+2.10.3
+Redesigned the recording screen with a timer and waveform.
+Made it easier to pause and resume recordings and open recording settings.
+Added clearer guidance when microphone access is denied.

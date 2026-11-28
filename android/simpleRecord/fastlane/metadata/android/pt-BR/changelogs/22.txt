@@ -1,0 +1,4 @@
+2.10.3
+Redesenhamos a tela de gravação com cronômetro e forma de onda.
+Ficou mais fácil pausar e retomar uma gravação e abrir as configurações de gravação.
+Adicionamos orientações mais claras quando o acesso ao microfone é negado.
